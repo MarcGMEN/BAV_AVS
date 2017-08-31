@@ -6,7 +6,6 @@ require_once "Commun/connect.php";
 require_once "Commun/Sajax.php";
 error_reporting(E_ERROR);
 
-
 if (!isset($GET_option) ) {
 	$GET_option="";
 }
@@ -14,8 +13,6 @@ if (!isset($GET_option) ) {
 if (!isset($GET_page) ) {
 	$GET_page="accueil.php";
 }
-
-
 
 // init ajax
 $sajax_request_type = "POST";
@@ -93,6 +90,7 @@ if (is_numeric($test) || (!is_array($CFG_MODULE_MAP) && $GET_mod == $CFG_MODULE_
 	if (isset($GET_message) && $GET_message != "") {?>
 	<script>window.alert("<?=$GET_message?>");</script>
   <? }?>
+	<!-- insertion d'un commentaire -->
 </body>
 </html>
 
