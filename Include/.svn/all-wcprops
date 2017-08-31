@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/romaelwebsite/!svn/ver/268/SITE_WEB/trunk/Include
+END
+emprunteur_search.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/romaelwebsite/!svn/ver/280/SITE_WEB/trunk/Include/emprunteur_search.php
+END
+emprunt_retour.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/romaelwebsite/!svn/ver/280/SITE_WEB/trunk/Include/emprunt_retour.php
+END
+ouvrageType_gestionCso.php
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/romaelwebsite/!svn/ver/275/SITE_WEB/trunk/Include/ouvrageType_gestionCso.php
+END
+ouvrage_crudA.php
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/romaelwebsite/!svn/ver/280/SITE_WEB/trunk/Include/ouvrage_crudA.php
+END
+membre_form.php
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/romaelwebsite/!svn/ver/223/SITE_WEB/trunk/Include/membre_form.php
+END
+emprunt_emprunt.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/romaelwebsite/!svn/ver/280/SITE_WEB/trunk/Include/emprunt_emprunt.php
+END
+ouvrageType_gestionCho.php
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/romaelwebsite/!svn/ver/280/SITE_WEB/trunk/Include/ouvrageType_gestionCho.php
+END
+ouvrage_search.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/romaelwebsite/!svn/ver/280/SITE_WEB/trunk/Include/ouvrage_search.php
+END
+emprunt_achat.php
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/romaelwebsite/!svn/ver/280/SITE_WEB/trunk/Include/emprunt_achat.php
+END
+ouvrageType_gestionSto.php
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/romaelwebsite/!svn/ver/275/SITE_WEB/trunk/Include/ouvrageType_gestionSto.php
+END
+motDePasse.old
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/romaelwebsite/!svn/ver/275/SITE_WEB/trunk/Include/motDePasse.old
+END

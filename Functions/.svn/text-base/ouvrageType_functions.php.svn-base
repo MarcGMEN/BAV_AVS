@@ -1,0 +1,216 @@
+<?php
+function return_AllTypeOuvrage() {
+	$tabOuvrage=array();
+	$requete = "select * ";
+	$requete .= " from ".CFG_PREFIXE_TABLE."ouvrage_type ";
+	if (!$resultat = mysql_query($requete)) {
+		echo "erreur sur $requete ";
+	}
+	else {
+		$index=0;
+		while ($row = mysql_fetch_array($resultat, MYSQL_ASSOC)) {
+			$tabOuvrage[$index++]=$row;
+		}
+	}
+	return  $tabOuvrage;
+}
+
+function return_TypeOuvrage($tyo) {
+	$tabOuvrage=array();
+	$requete = "select * ";
+	$requete .= " from ".CFG_PREFIXE_TABLE."ouvrage_type ";
+	$requete .= " where tyo_id = $tyo ";
+	if (!$resultat = mysql_query($requete)) {
+		echo "erreur sur $requete ";
+	}
+	else {
+		$index=0;
+		$row = mysql_fetch_array($resultat, MYSQL_ASSOC);
+	}
+	return  $row;
+}
+
+// CHAMPS OUVRAGE
+function return_AllChampsOuvrage($tyo) {
+	$tabOuvrage=array();
+	$requete = "select * ";
+	$requete .= " from ".CFG_PREFIXE_TABLE."ouvrage_champs ";
+	$requete .= " where cso_id_tyo = $tyo ";
+	if (!$resultat = mysql_query($requete)) {
+		echo "erreur sur $requete ";
+	}
+	else {
+		$index=0;
+		while ($row = mysql_fetch_array($resultat, MYSQL_ASSOC)) {
+			$tabOuvrage[$index++]=$row;
+		}
+	}
+	return  $tabOuvrage;
+}
+
+function return_champsOuvrage($id) {
+	$tabOuvrage=array();
+	$requete = "select * ";
+	$requete .= " from ".CFG_PREFIXE_TABLE."ouvrage_champs ";
+	$requete .= " where cso_id = $id ";
+	if (!$resultat = mysql_query($requete)) {
+		echo "erreur sur $requete ";
+	}
+	else {
+		$index=0;
+		$row = mysql_fetch_array($resultat, MYSQL_ASSOC);
+		$row['modes_saisie']=recupEnumToArray(" ".CFG_PREFIXE_TABLE."ouvrage_champs","cso_mode_saisie");
+	}
+	return  $row;
+}
+
+
+
+// Le CHAMPS pour l'OUVRAGE
+function return_AllChampOuvrageForCso($cso) {
+	$tabOuvrage=array();
+	$requete = "select * ";
+	$requete .= " from ".CFG_PREFIXE_TABLE."ouvrage_champ cho ";
+	$requete .= " where cho_id_cso = $cso ";
+	$requete .= " order by cho_valeur_char, cho_valeur_decimal ";
+	if (!$resultat = mysql_query($requete)) {
+		echo "erreur sur $requete ";
+	}
+	else {
+		$index=0;
+		while ($row = mysql_fetch_array($resultat, MYSQL_ASSOC)) {
+			$tabOuvrage[$index++]=$row;
+		}
+	}
+	return  $tabOuvrage;
+}
+
+function return_AllChampOuvrageForTyo($tyo) {
+	$tabOuvrage=array();
+	$requete = "select cho.*, cso_type_data ";
+	$requete .= " from ".CFG_PREFIXE_TABLE."ouvrage_champ cho, ".CFG_PREFIXE_TABLE."ouvrage_champs cso ";
+	$requete .= " where cso_id_tyo = $tyo ";
+	$requete .= " and cho_id_cso = cso_id ";
+	$requete .= " order by cho_valeur_char, cho_valeur_decimal ";
+	if (!$resultat = mysql_query($requete)) {
+		echo "erreur sur $requete ";
+	}
+	else {
+		$index=0;
+		while ($row = mysql_fetch_array($resultat, MYSQL_ASSOC)) {
+			$row['cho_valeur']=$row['cho_valeur_'.$row['cso_type_data']];
+			$tabOuvrage[$row["cho_id_cso"]][$row["cho_id"]]=$row;
+		}
+	}
+	return  $tabOuvrage;
+}
+
+
+function return_champOuvrage($id) {
+	$requete = "select * ";
+	$requete .= " from ".CFG_PREFIXE_TABLE."ouvrage_champ ";
+	$requete .= " where cho_id = $id ";
+	if (!$resultat = mysql_query($requete)) {
+		echo "erreur sur $requete ";
+	}
+	else {
+		$row = mysql_fetch_array($resultat, MYSQL_ASSOC);
+	}
+	return  $row;
+}
+
+function add_cho($cso, $valeur) {
+	$theCso = return_champsOuvrage($cso);
+	$requete = "insert into ".CFG_PREFIXE_TABLE."ouvrage_champ ";
+	if ($theCso['cso_type_data'] == "char") {
+		$requete .= "values (0,$cso,'$valeur',0)";
+	}
+	else {
+		$requete .= "values (0,$cso,'',$valeur)";
+	}
+	if (!$resultat = mysql_query($requete)) {
+		$cho_id=0;
+	}
+	else {
+		$cho_id=mysql_insert_id (); 
+	}
+	return 	$cho_id;
+}
+
+function return_nbChampUse($cho) {
+	$requete = "select count(*) ";
+	$requete .= " from ".CFG_PREFIXE_TABLE."ouvrage_a_un_champ ";
+	$requete .= " where cao_id_cho = $cho ";
+	if (!$resultat = mysql_query($requete)) {
+		echo "erreur sur $requete ";
+	}
+	else {
+		$row = mysql_fetch_array($resultat, MYSQL_ASSOC);
+		return $row['count(*)']; 
+	}
+}
+
+
+// CHAMPS CLASSEMENT
+function return_AllClassementsOuvrage($tyo, $id_class=null) {
+	
+	$tabOuvrage=return_classementsOuvrage($tyo,$id_class);
+	
+	foreach($tabOuvrage as $key => $val) {
+		$tabOuvrage[$key]["sto_sous"]=return_allClassementsOuvrage($tyo,$val['sto_id']);
+	}
+	return $tabOuvrage;
+}
+
+function return_classementsOuvrage($tyo, $id_classement) {
+	$tabOuvrage=array();
+	$requete = "select * from ".CFG_PREFIXE_TABLE."ouvrage_classement ";
+	$requete .= " where sto_id_tyo = $tyo ";
+	if ($id_classement) {
+		$requete .= " and sto_id_sto = $id_classement ";
+	}
+	else {
+		$requete .= " and sto_id_sto = 0 ";
+	}
+	
+	if (!$resultat = mysql_query($requete)) {
+		echo "erreur sur $requete ";
+	}
+	else {
+		$index=0;
+		while ($row = mysql_fetch_array($resultat, MYSQL_ASSOC)) {
+			$tabOuvrage[$index++]=$row;
+		}
+	}
+	return  $tabOuvrage;
+}
+
+function return_classementOuvrage($tyo) {
+	$tabOuvrage=array();
+	$requete = "select * from ".CFG_PREFIXE_TABLE."ouvrage_classement ";
+	$requete .= " where sto_id = $tyo ";
+	
+	if (!$resultat = mysql_query($requete)) {
+		echo "erreur sur $requete ";
+	}
+	else {
+		$row = mysql_fetch_array($resultat, MYSQL_ASSOC);
+	}
+	return  $row;
+}
+
+
+
+function calculNbPossible($adherent, $tyo) {
+	$multiple=1;
+	if ($tyo['tyo_multiple']) {
+		$multiple=$adherent['oep_multiplicateur'];
+	}
+	else {
+		$multiple=1;
+	}
+	$nb = $multiple*$tyo['tyo_nb_max_par_agent'];
+	
+	return $nb;
+}
+?>

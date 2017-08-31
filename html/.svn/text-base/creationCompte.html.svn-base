@@ -1,0 +1,17 @@
+<table width="100%" cellpadding="0"  cellspacing="1" border="0">
+	<tr>
+     	<td class="TITRE_ACTU" width="95%">--NOM--</td>
+	</tr>
+    <tr>
+    	<td colspan="2" class="TEXTE_ACTU" valign="top">
+        	Vous recevez ce mail car vous avez fait une demande de création de compte sur --SITE--<br/>
+        	Avec les données suivantes :
+        	<ul> 
+            	<li>Login : <b>--LOGIN--</b></li>
+				<li>Mot de passe : <b>--PASS--</b></li>
+			</ul>
+			Cliquez sur le lien suivant pour valider cette inscription : [<A HREF="--URL_ACCEPT--">Confirmation</A>];<br/> 
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sinon cliquez ici pour supprimer cette demande : [<A HREF="--URL_REFUS--" >Suppression</A>].
+		</td>
+    </tr>
+</table>

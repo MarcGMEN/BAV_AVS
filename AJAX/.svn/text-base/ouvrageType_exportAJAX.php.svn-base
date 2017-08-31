@@ -1,0 +1,5 @@
+<?
+sajax_export("return_cso_ajax","return_sto_ajax","return_classements_ajax",
+"return_chosFromTyo_ajax",
+"return_cho_ajax","add_cho_ajax");
+?>

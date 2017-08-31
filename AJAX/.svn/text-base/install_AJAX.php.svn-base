@@ -1,0 +1,71 @@
+<?
+
+$module="install";
+require "../Functions/".$module."_functions.php";
+
+/**
+ * recuperation de la version en cours dans le fichier .version
+ */
+function returnVersionAjax() {
+  return returnVersion();
+}
+
+/**
+ * recuperation du patch via ftp sur romael.website.free.fr
+ * @param unknown_type $version
+ * @param unknown_type $versionNext
+ */
+function recupLivraisonAjax($version, $versionNext) {
+  return recuplivraison($version,$versionNext);
+}
+
+/**
+ * verification de la presence du repertoire install et retour de nom du patch
+ */
+function verifInstallAttAjax() {
+  if (is_dir('../install')) {
+    // il faut chercher si un fichier zip est present.
+    $tabFile=searchFiles("install",".zip");
+    return $tabFile[0];
+  }
+}
+
+/**
+ * retour du numero de version dispose sur le site romael.sitewbe.free.fr
+ * en suite de la version installé
+ * @param $version
+ */
+function voirPatchAjax($version) {
+  return voirPatch($version);
+}
+
+
+function returnNiveauPhase() {
+  $etapes= lecturePhasesInstall();
+  ecriturePhases($etapes);
+  return $etapes;
+}
+/**
+ * installation de la version presente dans le repertoire intall
+ */
+function installAjax($version) {
+  return installPatch($version);
+}
+
+function returnLogPhaseAjax($phase) {
+  return returnLogPhase($phase);
+}
+
+function appelPhaseAJAX() {
+  return appelPhase();
+}
+
+function saveToFileAjax($texte, $file) {
+  return saveToFile($texte, $file);
+}
+// install
+// --------------------------------------------
+function verifInstallAjax() {
+  return verifInstall();  
+}
+?>

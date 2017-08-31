@@ -1,0 +1,88 @@
+<?php 
+require_once  "Functions/ouvrage_functions.php";
+
+$tabCso=return_AllChampsOuvrage($theTyo['tyo_id']);
+if (!is_numeric($GET_ouv_id)) {
+	$GET_ouv_id=0;
+}?>
+
+<h2>Retour d'un <?=$theTyo["tyo_libelle"]?></h2>
+
+<?php if (!isset($GET_ouv_id) || !$GET_ouv_id) {?>
+<form action="actions/emprunt_actions.php" method="POST" name="retourOuv" method="POST" >
+	<input type="hidden" name="lAction" value="beforeRetour" />
+	<input type="hidden" name="ouv_id_tyo" value="<?=$GET_tyo_id?>" />
+	<input type="hidden" name="vue" value="<?=$GET_vue?>" />
+	<?makeURL_FORM(sizeof($_POST) > 0 ? $_POST : $_GET);?>
+
+	Code <input type="text" name="ouv_id" size=20 maxlength="20" tabindex="1" />
+	<input type="submit" value="Chercher" class="button"  tabindex="2">
+</form>	
+<script>
+	document.retourOuv.ouv_id.focus();
+</script>
+<?php }
+else {
+	
+		$ouv = return_ouvrage($GET_ouv_id, $GET_tyo_id);
+		$lastEmp = return_lastEmprunts($GET_ouv_id, $GET_tyo_id);
+	?>
+		<table width='100%'>
+        	<tr>
+				<td width="10%" class="titrow">Code</td>
+                <td width="40%" class="tabl0"  >
+                	<?=$ouv['ouv_id']?>	
+                </td>
+			</tr>
+        	<tr>
+				<td width="10%" class="titrow">Classement</td>
+                <td width="40%" class="tabl0"  >
+                	<?=$ouv['sto_libelle']?>	
+                </td>
+			</tr>
+			<tr>
+				<td width="10%" class="titrow">Cote</td>
+            	<td width="40%" class="tabl0"  >
+            		<?=$ouv['ouv_cote']?>
+                </td>
+			</tr>
+			<tr>
+				<td width="10%" class="titrow">Titre</td>
+                <td width="40%" class="tabl0"  >
+            		<?=$ouv['ouv_libelle']?>
+				</td>
+			</tr>
+			<?php foreach($tabCso as $val) {?>
+			<tr>
+				<td width="10%" class="titrow"><?=$val['cso_libelle']?></td>
+            	<td width="40%" class="tabl0"  >
+				<?=$ouv['cho_valeur_libelle['.$val['cso_id'].']']?>          			
+                </td>
+			</tr>
+			<?php }?>
+		</table> 
+	<form action="actions/emprunt_actions.php" method="POST" name="retourOuv1" method="POST" >
+	<input type="hidden" name="ouv_id_tyo" value="<?=$GET_tyo_id?>" />
+	<input type="hidden" name="ouv_id" value="<?=$GET_ouv_id?>" />
+	<input type="hidden" name="vue" value="<?=$GET_vue?>" />
+	<?makeURL_FORM(sizeof($_POST) > 0 ? $_POST : $_GET);?>
+
+	<div class="maj" align="center">
+	<?php if (!$lastEmp || $lastEmp['oem_date_fin']) {?>
+		<span class="error">Présent.</span>
+		<input type="submit" value="Autre choix" class="button" name="lAction" >
+		
+	<?php }
+	else {?>
+		<input type="hidden" name="oem_id" value="<?=$lastEmp['oem_id']?>" >
+		<input type="submit" value="Retour" class="submit"  tabindex="1" name="lAction" >
+		<input type="submit" value="Annuler" class="submit"  tabindex="2" name="lAction" >
+	<?php }?>
+	
+	</div>
+</form>	
+<script>
+	document.body.onload=document.retourOuv1.lAction.focus();
+</script>
+	 
+<?}?>

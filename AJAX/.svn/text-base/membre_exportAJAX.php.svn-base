@@ -1,0 +1,7 @@
+<?
+sajax_export("return_types_membre","return_type_membre","return_tybFromRub",
+  "return_rubriqueMediaForUser_ajax","return_rubriqueMediaForUserLinear_ajax",
+	 "return_listeEtat_ajax","is_loginFree_ajax","is_emailFree_ajax","is_goodPass","action_majPass");
+
+sajax_export("return_user_ajax");
+?>

@@ -1,0 +1,96 @@
+<?php
+if (isset($GET_tri)) {
+  $GLOBALS['tri']=$GET_tri;
+}
+else {
+  $GLOBALS['tri']="";
+}
+
+function cmpUp($a, $b) {
+  global $tri;
+  if (is_numeric($a[$tri])) {
+    if ($a[$tri] == $b[$tri]) {
+      return 0;
+    }
+    return ($a[$tri] < $b[$tri]) ? -1 : 1;
+  }
+  else {
+    return strcasecmp($a[$tri],$b[$tri]);
+  }
+}
+function cmpDown($a, $b) {
+  global $tri;
+  if (is_numeric($a[$tri])) {
+    if ($a[$tri] == $b[$tri]) {
+      return 0;
+    }
+    return ($a[$tri] > $b[$tri]) ? -1 : 1;
+  }
+  else {
+    $comp=strcasecmp($a[$tri],$b[$tri]);
+    if ($comp == 0) {
+      return 0;
+    }
+    else {
+      return $comp>0 ? -1 : 1;
+    }
+  }
+}
+
+if (isset($GET_tri)) {
+  if (!isset($GET_order) || $GET_order=="Up") {
+    uasort($tabSort, "cmpUp");
+    $GET_order="Up";
+  }
+  else {
+    uasort($tabSort, "cmpDown");
+  }
+}
+
+
+$classSort="sortable";
+
+
+function makeEntete($tabData, $url,$GET_tri,$GET_order="Up",$tail=array()) {
+
+  $nextOrder['Up']="Down";
+  $nextOrder['Down']="Up";
+
+  echo "<tr>";
+  
+  foreach($tabData as $key => $val) {
+    if (isset($GET_tri) && $GET_tri ==$key) {
+      $classSort="sort".$GET_order;
+      $next=$nextOrder[$GET_order];
+    }
+    else {
+      $classSort="sortable";
+      $next="Up";
+
+    }?>
+		<td class="tittab <?=$classSort?>" width="<?=$tail[$key]? $tail[$key]."%" : ""?>"
+		onclick="location.href='<?=$url."&tri=".$key."&order=".$next?>'"><?=$val?></td>
+    <?php
+  }
+  echo "</tr>";
+  
+}
+
+function makeLigne($tabSort , $tabData, $urlModif="", $idUrl="") {
+  foreach($tabSort as $val) {
+	echo "<tr";
+	if (isset($urlModif)) {
+		echo " class='tabl0 link' "; 
+		echo " onclick=\"location.href='".$urlModif."&".$idUrl."=".$val[$idUrl]."'\"";
+	}
+	else {
+		echo " class='tabl0' "; 
+	}
+	echo ">";
+	foreach($tabData as $key1 => $val1) {?>
+		<td ><?=$val[$key1]?></td>
+	<?php }?>
+	</tr>
+<?php } 
+}
+?>

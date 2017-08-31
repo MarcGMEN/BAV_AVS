@@ -1,0 +1,69 @@
+<?php
+
+$module="contact";
+require "../Functions/".$module."_functions.php";
+
+function return_contacts_ajax() {
+  $tab = return_contacts();
+  foreach ($tab as $key => $val) {
+    $tab[$key]['ctc_adresse_l1']= utf8Encode(stripcslashes($tab[$key]['ctc_adresse_l1']));
+    $tab[$key]['ctc_adresse_l2']= utf8Encode(stripcslashes($tab[$key]['ctc_adresse_l2']));
+    $tab[$key]['ctc_adresse_l3']= utf8Encode(stripcslashes($tab[$key]['ctc_adresse_l3']));
+    $tab[$key]['ctc_ville']= utf8Encode(stripcslashes($tab[$key]['ctc_ville']));
+  }
+
+  return $tab;
+}
+
+function return_contacts_telephone_ajax() {
+  $tab = return_contacts_simple('TELEPHONE');
+  foreach ($tab as $key => $val) {
+    $tab[$key]['mel_libelle']= utf8Encode(stripcslashes($tab[$key]['mel_libelle']));
+  }
+
+  return $tab;
+}
+
+
+function return_contacts_mail_ajax() {
+  $tab = return_contacts_simple('MAIL');
+  foreach ($tab as $key => $val) {
+    $tab[$key]['mel_libelle']= utf8Encode(stripcslashes($tab[$key]['mel_libelle']));
+  }
+
+  return $tab;
+}
+
+function return_contact_simple_ajax($id) {
+  $row= return_contact_simple($id);
+  $row['mel_libelle']= utf8Encode(stripcslashes($row['mel_libelle']));
+  return $row;
+}
+
+function return_contact_ajax($id) {
+  $row= return_contact($id);
+  $row['ctc_adresse_l1']= utf8Encode(stripcslashes($row['ctc_adresse_l1']));
+  $row['ctc_adresse_l2']= utf8Encode(stripcslashes($row['ctc_adresse_l2']));
+  $row['ctc_adresse_l3']= utf8Encode(stripcslashes($row['ctc_adresse_l3']));
+
+  $row['ctc_ville']= utf8Encode(stripcslashes($row['ctc_ville']));
+
+  return $row;
+}
+
+
+function update_geolocalisation($lat, $lng, $id) {
+
+  $tab= array();
+   
+  $requete = "update  ".CFG_PREFIXE_TABLE."contact ";
+  $requete .= " set ctc_latitude = ".$lat."," ;
+  $requete .= "  ctc_longitude  = ".$lng."" ;
+  $requete .= " where ctc_id = ".$id."" ;
+   
+  if (!mysql_query($requete)) {
+    echo "erreur sur $requete";
+  }
+}
+
+?>

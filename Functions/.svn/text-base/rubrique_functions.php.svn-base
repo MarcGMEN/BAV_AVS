@@ -1,0 +1,528 @@
+<?php
+
+/************** RUBRIQUES ************************/
+/************** RUBRIQUES ************************/
+/************** RUBRIQUES ************************/
+/************** RUBRIQUES ************************/
+/************** RUBRIQUES ************************/
+/************** RUBRIQUES ************************/
+/************** RUBRIQUES ************************/
+
+/**
+ * retour de la liste des rubrique pour :
+ * @param $rubriqueSup la rubrique de reference
+ * @return la liste des rubriques
+ */
+function return_rubriques($rubriqueSup) {
+	$tabReturn=array();
+	$requete = "select  ".CFG_PREFIXE_TABLE."rubrique.*, tymL.tym_niveau tym_niveau_lecture, ";
+	$requete .= " tymM.tym_niveau tym_niveau_modif, ";
+	$requete .= " tymM.tym_libelle_court tym_libelle_modif, tymL.tym_libelle_court tym_libelle_lecture";
+	$requete .= " from  ".CFG_PREFIXE_TABLE."rubrique,   ".CFG_PREFIXE_TABLE."type_membre tymL,   ".CFG_PREFIXE_TABLE."type_membre tymM ";
+	$requete .= " where 1=1 ";
+	if (isset($rubriqueSup)) {
+		$requete .= "and rub_id_rub = ".$rubriqueSup;
+	}
+	$requete .= " and rub_lecture_id_tym = tymL.tym_id";
+	$requete .= " and rub_modif_id_tym = tymM.tym_id";
+	$requete .= " order by  rub_libelle";
+	//echo $requete;
+	$resultat = mysql_query($requete);
+
+	$i=0;
+	while ($row = mysql_fetch_array($resultat, MYSQL_ASSOC)) {
+		$tabReturn[$row['rub_id']] = $row;
+	}
+	return $tabReturn ;
+}
+
+function return_rubrique($rubrique) {
+	$row=null;
+	if ($rubrique && is_numeric($rubrique)) {
+		$requete = "select  ".CFG_PREFIXE_TABLE."rubrique.* , tymL.tym_niveau tym_niveau_lecture,  ";
+		$requete .= " tymM.tym_niveau tym_niveau_modif ";
+		$requete .= " from  ".CFG_PREFIXE_TABLE."rubrique,   ".CFG_PREFIXE_TABLE."type_membre tymL,   ".CFG_PREFIXE_TABLE."type_membre tymM  ";
+		$requete .= " where rub_id = ".$rubrique;
+		$requete .= " and rub_lecture_id_tym = tymL.tym_id";
+		$requete .= " and rub_modif_id_tym = tymM.tym_id";
+		//echo $requete;
+		$resultat = mysql_query($requete);
+		$i=0;
+		if ($row = mysql_fetch_array($resultat, MYSQL_ASSOC)) {
+			$row['types_rub']=recupEnumToArray(" ".CFG_PREFIXE_TABLE."rubrique","rub_config_def");
+
+		}
+		//print_r($row);
+	}
+	return $row;
+}
+
+/*
+ * retour de la liste des rubriques du site
+ * format du tableau de retour tab['rub_id'] = tous les champs de la table
+ */
+function return_rubriqueFromLibelle($rubrique) {
+	$row=array();
+	if ($rubrique) {
+		$requete = "select  ".CFG_PREFIXE_TABLE."rubrique.*";
+		$requete .= " from  ".CFG_PREFIXE_TABLE."rubrique ";
+		$requete .= " where rub_libelle = '".$rubrique."'";
+		$resultat = mysql_query($requete);
+		$row = mysql_fetch_array($resultat, MYSQL_ASSOC);
+	}
+	return $row;
+}
+
+/*
+ * retour de la liste des rubriques du site
+ * format du tableau de retour tab['rub_id'] = tous les champs de la table
+ */
+function return_rubriqueFromModule($module) {
+	$row=array();
+	if ($module) {
+		$requete = "select  ".CFG_PREFIXE_TABLE."rubrique.* ";
+		$requete .= " from  ".CFG_PREFIXE_TABLE."rubrique ";
+		$requete .= " where rub_module = '".$module."'";
+		$resultat = mysql_query($requete);
+		$row = mysql_fetch_array($resultat, MYSQL_ASSOC);
+	}
+	return $row;
+}
+
+function cmpRubrique($a, $b)
+{
+	$a1=$a['data']['tyb_rang'];
+	$b1=$b['data']['tyb_rang'];
+	if ($a1 == $b1) {
+		return 0;
+	}
+	return ($a1 < $b1) ? -1 : 1;
+}
+
+
+function return_rubriquesByBloc($niveau,$bloc,&$index=0) {
+	$tabReturn=array();
+	foreach (return_rubriques($niveau) as $val) {
+		$tabBloc=return_tybFromRub($val['rub_id']);
+		$isOK=false;
+		foreach ($tabBloc as $valBloc) {
+			if ($valBloc['tyb_libelle'] == $bloc) {
+				//echo "ajout ".$val['rub_libelle']." en $bloc<br/>";
+				$isOK=true;
+				$val=array_merge($val,$valBloc);
+				$index++;
+				$indexRow=$index;
+				$tabReturn[$indexRow]['libelle'] = $val['rub_libelle'];
+				$tabReturn[$indexRow]['data'] = $val;
+				$tabReturn[$indexRow]['next'] = return_rubriquesByBloc($val['rub_id'],$bloc,$index);
+				break;
+			}
+		}
+		if (!$isOK) {
+			// si la rubrique n'est pas de type bloc, on cherche s'il en existe en dessous
+			$tabReturn=array_merge($tabReturn, return_rubriquesByBloc($val['rub_id'],$bloc,$index));
+		}
+	}
+	usort($tabReturn, "cmpRubrique");
+	return $tabReturn ;
+}
+
+function cmpRubrique2($a, $b)
+{
+	$a1=$a['libelle'];
+	$b1=$b['libelle'];
+	if ($a1 == $b1) {
+		return 0;
+	}
+	return ($a1 < $b1) ? -1 : 1;
+}
+
+
+function return_rubriquesMap($niveau) {
+	$tabReturn=array();
+	foreach (return_rubriques($niveau) as $val) {
+		$tabReturn[$val['rub_id']]['libelle'] = $val['rub_libelle'];
+		$tabReturn[$val['rub_id']]['data'] = $val;
+		$tabReturn[$val['rub_id']]['next'] = return_rubriquesMap($val['rub_id']);
+	}
+	return $tabReturn ;
+}
+
+/**
+ * retourne les rubriques du coteG
+ * @return unknown_type
+ */
+function return_rubriqueCote($cote) {
+	return return_rubriquesByBloc(0,$cote);
+}
+
+
+/**
+ * retourne les rubriques du type entete
+ * @return unknown_type
+ */
+function return_rubriqueEntete() {
+	return return_rubriquesByBloc(0,"entete");
+}
+
+/**
+ * retourne les rubriques du type entete
+ * @return unknown_type
+ */
+function return_rubriqueActivite() {
+	return return_rubriquesByBloc(0,"activite");
+}
+
+/**
+ * retourne les rubriques du type ouvrage
+ * @return unknown_type
+ */
+function return_rubriqueOuvrage() {
+	$tab = return_rubriquesByBloc(0,"ouvrage");
+	foreach($tab as $key => $val) {
+		$fileConfig="config/ouvrage_".$val['data']['rub_id']."_config.xml";
+		
+		if (file_exists($fileConfig))  {
+	  		$tabXML=XMLToArray($fileConfig);
+	  		$tab[$key]['data']['rub_id_tyo']=$tabXML['TYPE_OUVRAGE']['value'];
+		}
+		else {
+			echo "Pas de fichier $fileConfig";
+		}
+	}
+	return $tab;
+}
+
+
+/**
+ * retourne les rubriques du type entete
+ * @return unknown_type
+ */
+/*function return_rubriqueMedia($idBase) {
+ $tabReturn=array();
+ foreach (return_rubriques($idBase) as $val) {
+ if ($val['rub_media'] == "oui" ) {
+ $tabReturn[$val['rub_id']]['libelle'] = $val['rub_libelle'];
+ $tabReturn[$val['rub_id']]['data'] = $val;
+ $tabReturn[$val['rub_id']]['next'] = return_rubriqueMedia($val['rub_id']);
+ }
+ }
+
+ return $tabReturn ;
+ }
+ */
+function return_rubriqueMedia($idBase=0) {
+	$tab=return_rubriquesByBloc($idBase,"media");
+	return $tab;
+}
+
+function return_rubriqueMediaForUser($user,$niveau=0) {
+	return return_rubriquesForUser($user,return_rubriqueMedia(0));
+}
+
+function return_rubriqueMediaForUserModif($user,$niveau=0) {
+	return return_rubriquesForUserModif($user,return_rubriqueMedia($niveau));
+}
+
+/**
+ * fonction interne pour return_rubriqueMediaForUserLinear_ajax
+ * @param unknown_type $tab
+ * @return unknown_type
+ */
+function recurRub($tab,$niveau=0,&$index=0) {
+	$tabRetour=array();
+	$niveauSuiv=$niveau+1;
+
+	foreach($tab as $key => $val) {
+		$decal="";
+		for ($i=0;$i<$niveau;$i++) {
+			$decal.="___";
+		}
+		$val['data']['rub_libelle']=$decal.$val['data']['rub_libelle'];
+		$tabRetour[$index++]=$val['data'];
+		//print_r($tabRetour);
+		if (sizeof($val['next']) > 0) {
+			$ret=recurRub($val['next'],$niveauSuiv,$index);
+			if (is_array($ret)) {
+				$tabRetour=array_merge($tabRetour,$ret);
+			}
+		}
+	}
+	return $tabRetour;
+}
+
+/**
+ * retour les rubrique media de facon linéaire
+ * @param unknown_type $niveau
+ * @return unknown_type
+ */
+function return_rubriqueMediaForUserModifLinear($user) {
+	$tab=return_rubriqueMediaForUserModif($user);
+	$tabRetour=array();
+	$tabRetour=recurRub($tab);
+	return $tabRetour;
+}
+
+/**
+ * retour les rubrique media de facon linéaire
+ * @param unknown_type $niveau
+ * @return unknown_type
+ */
+function return_rubriqueMediaLinear() {
+	$tab=return_rubriqueMedia(0);
+	$tabRetour=array();
+	$tabRetour=recurRub($tab);
+	return $tabRetour;
+}
+
+function return_rubriquesLinear() {
+	$tab=return_rubriquesMap(0);
+	$tab[0]['libelle']="Racine";
+	$tab[0]['data']=array('rub_libelle'=>'Racine','rub_id'=>'0');
+	$tab[0]['next']=array();
+	ksort($tab);
+	$tabRetour=array();
+
+	$tabRetour=recurRub($tab);
+
+	return $tabRetour;
+}
+
+
+/**
+ * retourne les rubriques en fonction des droits de lectures
+ * @param unknown_type $user
+ * @param unknown_type $base
+ * @return unknown_type
+ */
+function return_rubriquesForUser($user, $base) {
+	$tabRetour=array();
+	foreach ($base as $key => $val) {
+		if (droitRubriqueLecture($val['data'], $user)) {
+			$tabRetour[$key]['data']=$val['data'];
+			$tabRetour[$key]['libelle']=$val['libelle'];
+			$tabRetour[$key]['next']=array();
+			if (sizeof($val['next']) > 0) {
+				$tabRetour[$key]['next']=return_rubriquesForUser($user, $val['next']);
+			}
+		}
+		else {
+			// recherche si les modules du dessous est visible
+			if (sizeof($val['next']) > 0) {
+				$ret=return_rubriquesForUser($user, $val['next']);
+				if (is_array($ret) && sizeof($ret) > 0) {
+					$tabRetour[key($ret)]=$ret[key($ret)];
+				}
+			}
+		}
+	}
+	return $tabRetour;
+}
+
+/**
+ * retourne les rubriques en fonction des droits de modif
+ * @param unknown_type $user
+ * @param unknown_type $base
+ * @return unknown_type
+ */
+function return_rubriquesForUserModif($user, $base) {
+	$tabRetour=array();
+	foreach ($base as $key => $val) {
+		//echo $val['libelle']."<br/>";
+		if (droitRubriqueModif($val['data'], $user)) {
+			//      echo "OK pour ".$val['libelle']."sur $key <br/>";
+
+			$tabRetour[$key]['data']=$val['data'];
+			$tabRetour[$key]['libelle']=$val['libelle'];
+			$tabRetour[$key]['next']=array();
+			if (sizeof($val['next']) > 0) {
+				$tabRetour[$key]['next']=return_rubriquesForUserModif($user, $val['next']);
+			}
+		}
+		else {
+			// recherche si les modules du dessous est visible
+			if (sizeof($val['next']) > 0) {
+				//echo "droit suite ".$val['libelle']."<br/>";
+				$ret=return_rubriquesForUserModif($user, $val['next']);
+				if (is_array($ret)) {
+					foreach ($ret as $keyRet => $valRet) {
+						$tabRetour[$keyRet]=$valRet;
+					}
+				}
+			}
+		}
+	}
+	return $tabRetour;
+}
+
+function return_rubriqueCoteGForUser($user) {
+	return return_rubriquesForUser($user,return_rubriqueCote("coteG"));
+}
+
+function return_rubriqueCoteGForUserModif($user) {
+	return return_rubriquesForUserModif($user,return_rubriqueCote("coteG"));
+}
+
+function return_rubriqueCoteDForUser($user) {
+	return return_rubriquesForUser($user,return_rubriqueCote("coteD"));
+}
+
+function return_rubriqueCoteDForUserModif($user) {
+	return return_rubriquesForUserModif($user,return_rubriqueCote("coteD"));
+}
+
+function return_rubriqueEnteteForUser($user) {
+	return return_rubriquesForUser($user,return_rubriqueEntete());
+}
+
+function return_rubriqueEnteteForUserModif($user) {
+	return return_rubriquesForUserModif($user,return_rubriqueEntete());
+}
+
+function return_rubriqueActiviteForUser($user) {
+	return return_rubriquesForUser($user,return_rubriqueActivite());
+}
+
+function return_rubriqueActiviteForUserModif($user) {
+	return return_rubriquesForUserModif($user,return_rubriqueActivite());
+}
+
+function return_rubriqueOuvrageForUser($user) {
+	return return_rubriquesForUser($user,return_rubriqueOuvrage());
+}
+
+function return_rubriqueOuvrageForUserModif($user) {
+	return return_rubriquesForUserModif($user,return_rubriqueOuvrage());
+}
+
+function return_rubriqueForUser($idRub, $user) {
+	$tabRetour=array();
+	$rub=return_rubrique($idRub);
+	if (droitRubriqueLecture($rub, $user)) {
+		return $rub;
+	}
+	return $tabRetour;
+}
+
+function return_rubriqueForUserModif($idRub, $user) {
+	$tabRetour=array();
+	$rub=return_rubrique($idRub);
+	if (droitRubriqueModif($rub, $user)) {
+		return $rub;
+	}
+	return $tabRetour;
+}
+
+function return_modules() {
+	// TODO en fonction des fichiers XML des modules.
+}
+
+/*******************TYPE_VUE *************************/
+/*******************TYPE_VUE *************************/
+/*******************TYPE_VUE *************************/
+/*******************TYPE_VUE *************************/
+function return_tybFromRub($idRub) {
+	$tabReturn=array();
+	$requete = "select * from  ".CFG_PREFIXE_TABLE."type_bloc where tyb_id_rub = $idRub ";
+	$resultat = mysql_query($requete);
+	while ($row = mysql_fetch_array($resultat, MYSQL_ASSOC)) {
+		$tabReturn[$row['tyb_libelle']] = $row;
+	}
+	return $tabReturn;
+}
+
+function supprimeRubrique($idRub) {
+
+	$requete = "select rub_id from ".CFG_PREFIXE_TABLE."rubrique ";
+	$requete .= "where rub_id_rub = ".$idRub;
+	$resultat = mysql_query($requete);
+
+	// suppression des rubriques
+	while ($row = mysql_fetch_array($resultat, MYSQL_ASSOC)) {
+		supprimeRubrique($row['rub_id']);
+	}
+
+	// suppression des pages de presentation associe
+	// sous le repertoire userfile/presentation
+	if (file_exists("../userfiles/presentation/*FOR"+$idRub+"*") ){
+		if (!unlink("../userfiles/presentation/*FOR"+$idRub+"*") ){
+			echo "pb de suppresion des presentation";
+		}
+	}
+
+	$requete = "delete from ".CFG_PREFIXE_TABLE."type_bloc ";
+	$requete .= "where tyb_id_rub = ".$idRub;
+	//		echo $requete;
+	if (!$resultat = mysql_query($requete)) {
+		echo "erreur sur $requete ".mysql_error()."<br/>";
+	}
+	else {
+		$requete = "delete from ".CFG_PREFIXE_TABLE."user_rubrique ";
+		$requete .= "where urb_id_rub = ".$idRub;
+		//		echo $requete;
+		if (!$resultat = mysql_query($requete)) {
+			echo "erreur sur $requete ".mysql_error()."<br/>";
+		}
+		else {
+			$requete = "delete from ".CFG_PREFIXE_TABLE."news_rubrique ";
+			$requete .= "where ner_id_rub = ".$idRub;
+			//		echo $requete;
+			if (!$resultat = mysql_query($requete)) {
+				echo "erreur sur $requete ".mysql_error()."<br/>";
+			}
+			else {
+				$requete = "delete from ".CFG_PREFIXE_TABLE."actus ";
+				$requete .= "where act_rub_id = ".$idRub;
+				//		echo $requete;
+				if (!$resultat = mysql_query($requete)) {
+					echo "erreur sur $requete ".mysql_error()."<br/>";
+				}
+				else {
+					$requete = "delete from ".CFG_PREFIXE_TABLE."calendrier ";
+					$requete .= "where cal_id_rub = ".$idRub;
+					//		echo $requete;
+					if (!$resultat = mysql_query($requete)) {
+						echo "erreur sur $requete ".mysql_error()."<br/>";
+					}
+					else {
+						$requete = "delete from ".CFG_PREFIXE_TABLE."rubrique ";
+						$requete .= "where rub_id = ".$idRub;
+						//		echo $requete;
+						if (!$resultat = mysql_query($requete)) {
+							echo "erreur sur $requete ".mysql_error()."<br/>";
+						}
+						else {
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+
+function makeImageClaire($img) {
+	if (!file_exists($img.".claire")) {
+		// Calcul des nouvelles dimensions
+		list($width, $height, $type, $attr) = getimagesize($img);
+
+		// Chargement
+		$thumb = imagecreatetruecolor($width, $height);
+		if ($type == 1) {
+			$source = imagecreatefromgif($img);
+		}
+		if ($type == 2) {
+			$source = imagecreatefromjpeg($img);
+		}
+		if ($type == 3) {
+			$source = imagecreatefrompng($img);
+		}
+		// Redimensionnement
+		imagegammacorrect($source,1,3);
+		imagesavealpha($source, true); // save alphablending setting (important)
+		imagecopy($thumb, $source, 0, 0, 0, 0, $width, $height);
+
+		imagepng($thumb,$img.".claire", 9);
+	}
+}
+?>

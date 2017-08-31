@@ -1,0 +1,175 @@
+<script type="text/javascript">
+<!--
+
+function valideSaisieCho(laForm, action) {
+	// test obligation sur titre, entete, debut, fin, question 0
+	var message="Les données suivantes sont incorrectes : ";
+	var suite=true;
+
+	if (laForm.cho_valeur_decimal) {
+		// test format numerique
+		Expression2 = new RegExp("^[0-9]{1,}(.[0-9]{1,3}){0,1}$", "g");
+    	if (!Expression2.test(laForm.cho_valeur_decimal.value) ) {
+        	message+="\n\tFormat non numerique XXXXX.XXX";
+        	suite=false;
+    	}
+    	else {
+    		laForm.cho_valeur=laForm.cho_valeur_decimal;
+    	}
+	}
+	else {
+		laForm.cho_valeur=laForm.cho_valeur_char;
+	}
+	
+	if (suite) {
+		laForm.lAction.value=action;
+		laForm.submit();
+	}
+	else {
+		alert(message);
+	}
+}	
+
+function supCho(id) {
+	laForm=document.formCho;
+	if (confirm('Etes vous sur de vouloir supprimer ce champ')) {
+		laForm.lAction.value="SupCho";
+        laForm.cho_id.value=id;
+        laForm.submit();
+	}
+}
+
+function display_cho_maj(val) {
+
+	display_formulaire(val, document.formCho);
+	enableDisplay('maj_cho');
+	var repr="<input  type='button' value='Modifier' class='button'  ";
+	repr+=" onclick=\"valideSaisieCho(this.form,'ModifCho')\"/>";
+	repr+="&nbsp;&nbsp;&nbsp;&nbsp;";
+	repr+="<input type='button' value='Reset' ";
+	repr+=" onclick='x_return_cho_ajax("+val['cho_id']+", display_cho_maj)' class='button' />";
+	repr+="&nbsp;&nbsp;&nbsp;&nbsp;";
+	repr+="<input type='submit' value='Nouveau' name='newCho' class='button' />";
+
+	//alert(repr);
+	getElement("barreActionCho").innerHTML=repr; 
+	document.location.href="#top";
+}
+
+//-->
+</script>
+	<?php if (!isset($GET_cso_id) || !$GET_cso_id) {
+		echo "<h1 class='erreur'>Paramètre incorrect !!!</h1>";
+	}
+	else {
+		$cso = return_champsOuvrage($GET_cso_id) ;
+		$tabCho = return_AllChampOuvrageForCso($GET_cso_id);
+	?>
+	<fieldset>
+	<legend> Gestion de : <i><?=$cso['cso_libelle']?></i></legend>
+	
+	    <center class="maj">
+    	<h3>Modification ou ajout des <?=$cso['cso_libelle']?>	
+    		<img src="Images/iconePlus.png" id="iconemaj_lien" border="0" 
+    			onclick="inverseDisplay('maj_cho')"style="cursor:pointer" />
+    	</h3>
+    	<div style="position:relative; width:100%;" >
+    	<div id="maj_cho" style="display:none;position:abslolute;left:0" >
+    	<form action="actions/ouvrageType_actions.php" name="formCho" method='POST' >
+		    <?makeURL_FORM(sizeof($_POST) > 0 ? $_POST : $_GET);?>
+			<input type=hidden name="lAction" value="" />
+            <input type=hidden name="cho_valeur" value="" />
+            <input type=hidden name="cho_id" value="" />
+            <input type=hidden name="cso_id" value="<?=$GET_cso_id?>" />
+            	<table width='100%'>
+                	<tr>
+						<td width="10%" class="titrow"><?=$cso['cso_libelle_court']?></td>
+                        <td width="40%" class="tabl0"  >
+                       		<input type=text  name="cho_valeur" size="20" maxlength="50" />
+                        </td>
+					</tr>
+				</table>
+				<br/>
+				<div id="barreActionCho" class="maj">
+					<input type="button" value="Déposer" class="button" onclick="valideSaisieCho(this.form,'AjoutCho')"/>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="reset" value="Annuler" class="button" />
+				</div>
+				<br/>
+		</form>
+		</div>
+		</div>
+	</center>
+            
+	<center>
+		<table width='80%'> 
+			<tr class="tabl0">
+               	<td class="tittab" width="20%" >
+                   	 Valeurs de <?=$cso['cso_libelle']?>
+                </td>
+                <td class="tittab" width="20%" >
+                   	 Nombre de fois utilisé.
+                </td>
+                <td colspan=2>
+                	<center>
+                	<form action="actions/ouvrageType_actions.php" name="formChoAdd" method='POST' >
+		    		<?makeURL_FORM(sizeof($_POST) > 0 ? $_POST : $_GET);?>
+		    			<input type='hidden' value='Nouveau' name='newCho' />
+		    			<input type=hidden name="cso_id" value="<?=$GET_cso_id?>" />
+                		<img src="Images/iconePlus.png" id="iconemaj_lien" border="0" 
+    						onclick="document.formChoAdd.submit()"style="cursor:pointer" />
+    				</form>
+    				</center>
+    			</td>
+			</tr>     	
+	<?php foreach ($tabCho as $val) {?>
+			<tr class="tabl0">
+               	<td >
+               		<?
+               		if ($cso['cso_type_data'] == 'char') {
+                   	 	echo $val['cho_valeur_char'];
+                   	 }
+                   	 else { 
+                   	 	echo $val['cho_valeur_decimal'];
+                   	 }?> 
+                </td>
+                <td>
+                	<center>
+                		<?$nbUse=return_nbChampUse($val['cho_id']);?>
+                		<?=$nbUse?>
+	                </center>
+                </td>
+                <td width="5%">
+					<table width=100% class="maj">
+                    	<tr>
+                        	<?php if ($nbUse == 0) {?>
+	                        <td valign="top"  align="center" width="5%">
+                            <img src="Images/b_drop.png" border="0" title="Effacer le champ d'ouvrage" 
+                            	alt="Effacer le cho"  
+                            	onclick="supCho('<?=$val['cho_id']?>')"
+                            	class="link" />
+	                        </td>
+	                        <?php }?>
+	                        <td valign="top" align="center" width="5%" >
+                            	<img src="Images/b_edit.png" border="0"
+                            		alt="Modifier"  title="Modifier"
+                            		onclick="x_return_cho_ajax('<?=$val['cho_id']?>', display_cho_maj)"
+                            		class="link" />
+        	                </td>
+                        </tr>
+            		</table>
+            	</td>
+                <td width="1%">
+					<img src="Images/data.gif" border="0" title="Détail des datas" 
+          				alt="Zoom data"  
+              			onclick="location.href='<?=makeURL_GET(array("mod" => "ouvrage","rub" => $GET_rub,"option" => "search"),"cho_id=".$val['cho_id']."&niv_page=".($GET_niv_page+1)."&titre=Détail des données");?>'"
+              			class="link" />
+				</td>
+			</tr>
+   	<?php }?>
+   		</table>
+   	</center>
+	</fieldset>
+	
+	<?php }?>
+	

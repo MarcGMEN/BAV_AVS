@@ -1,0 +1,201 @@
+<?php
+
+/*
+ * retourne un user pour un id
+ */
+function return_sondages($dateValidite="") {
+  $row=null;
+  $tabReturn=array();
+  $requete = "select * ";
+  $requete .= " from ".CFG_PREFIXE_TABLE."sondage ";
+  $requete .= " where 1 = 1  ";
+  if (isset($dateValidite) && strlen(trim($dateValidite)) > 0 ){
+    $requete .= " and (son_date_debut >= '".formateDateFRtoMYSQL($dateValidite)."' ";
+    $requete .= " and son_date_fin <= '".formateDateFRtoMYSQL($dateValidite)."'  )";
+  }
+  $requete .= "order by son_date_debut ";
+  //echo $requete;
+  if (!$resultat = mysql_query($requete)) {
+    echo "erreur sur $requete ";
+  }
+  else {
+    $i=0;
+    while ($row = mysql_fetch_array($resultat, MYSQL_ASSOC)) {
+      $row['son_date_debutFR']=formateDateMYSQLtoFR($row['son_date_debut']);
+      $row['son_date_finFR']=formateDateMYSQLtoFR($row['son_date_fin']);
+      $row['son_date_fin_adminFR']=formateDateMYSQLtoFR($row['son_date_fin_admin']);
+      $tabReturn[$row['son_id']] = $row;
+
+
+      $requete = "select count(*) ";
+      $requete .= " from ".CFG_PREFIXE_TABLE."sondage_reponses ";
+      $requete .= " where rso_son_id = ".$row['son_id'];
+      if (!$resultat1 = mysql_query($requete)) {
+        echo "erreur sur $requete ";
+      }
+      else {
+        $row1 = mysql_fetch_array($resultat1, MYSQL_ASSOC);
+        $tabReturn[$row['son_id']]['nb']=$row1['count(*)'];
+      }
+    }
+  }
+
+  return  $tabReturn;
+}
+
+function return_sondage($id) {
+  $row=null;
+  $requete = "select * ";
+  $requete .= " from ".CFG_PREFIXE_TABLE."sondage ";
+  $requete .= " where son_id =  $id  ";
+  //echo $requete;
+  if (!$resultat = mysql_query($requete)) {
+    echo "erreur sur $requete ";
+  }
+  else {
+    $i=0;
+    $row = mysql_fetch_array($resultat, MYSQL_ASSOC);
+    $row['son_date_debutFR']=formateDateMYSQLtoFR($row['son_date_debut']);
+    $row['son_date_finFR']=formateDateMYSQLtoFR($row['son_date_fin']);
+    $row['son_date_fin_adminFR']=formateDateMYSQLtoFR($row['son_date_fin_admin']);
+    
+    $requete = "select * ";
+    $requete .= " from ".CFG_PREFIXE_TABLE."sondage_questions ";
+    $requete .= " where qso_son_id = ".$row['son_id'];
+    $requete .= " order by qso_ordre ";
+    if (!$resultat1 = mysql_query($requete)) {
+      echo "erreur sur $requete ";
+    }
+    else {
+      while ($row1 = mysql_fetch_array($resultat1, MYSQL_ASSOC)) {
+        $row['questions'][$i++]=$row1;
+      }
+    }
+  }
+
+  return  $row;
+}
+
+function return_results($id, $visibleForce=false,$etat="Valide", $type="preinscription") {
+  $row=null;
+
+  $tab= recupEnumToArray(" ".CFG_PREFIXE_TABLE."sondage_reponses","rso_etat");
+   
+  $tabRetour=array();
+  $requete = "select * ";
+  $requete .= " from ".CFG_PREFIXE_TABLE."sondage_reponses ";
+  $requete .= " where rso_son_id =  $id  ";
+  if ($etat) {
+    $requete .= " and rso_etat = '$etat'  ";
+  }
+  //echo $requete;
+  if (!$resultat = mysql_query($requete)) {
+    echo "erreur sur $requete ";
+  }
+  else {
+    $i=0;
+    $row['reponses']=array();
+    while ($row = mysql_fetch_array($resultat, MYSQL_ASSOC)) {
+
+      if ($type== "preinscription") {
+        $tabRetour[$i]['date']="<center>".formateDateMYSQLtoFR($row['rso_date'])."</center>";
+        $tabRetour[$i]['rso_commentaire']=$row['rso_commentaire'];
+        //print_r($tab);
+        if ($row['rso_etat'] == "Valide") {
+          $tabRetour[$i]['etat'].="Valide";
+        }
+        else if ($row['rso_etat'] == "Confirme") {
+          $tabRetour[$i]['etat']="En attente de <br/>votre validation";
+          $tabRetour[$i]['etat'].="<input type='checkbox' value='Valide' onchange='changeEtat(this,\"".$row['rso_id']."\")' ";
+          $tabRetour[$i]['etat'].="/>";
+
+        }
+        else {
+          $tabRetour[$i]['etat']="A Confirmer<br/>par l'utilisateur";
+          $tabRetour[$i]['etat'].="<input type='checkbox' value='Confirme' onchange='changeEtat(this,\"".$row['rso_id']."\")' ";
+          $tabRetour[$i]['etat'].="/>";
+        }
+        $tabRetour[$i]['etat'].="&nbsp;&nbsp;&nbsp;<img src='Images/b_drop.png' onclick='supRep(\"".$row['rso_id']."\")' class='link'/>";
+
+        if ($row['rso_etat'] == "Valide") {
+          $tabRetour[$i]['etat_simple'].="Valide";
+        }
+        else if ($row['rso_etat'] == "Confirme") {
+          $tabRetour[$i]['etat_simple']="En attente de validation";
+        }
+        else {
+          $tabRetour[$i]['etat_simple']="A Confirmer par l'utilisateur";
+        }
+        
+
+        $requete = "select * ";
+        $requete .= " from ".CFG_PREFIXE_TABLE."sondage_valeurs, ".CFG_PREFIXE_TABLE."sondage_questions ";
+        $requete .= " where sov_rso_id = ".$row['rso_id'];
+        $requete .= " and qso_son_id = ".$row['rso_son_id'];
+        $requete .= " and sov_qso_id = qso_id ";
+        $requete .= " order by qso_ordre ";
+        if (!$resultat1 = mysql_query($requete)) {
+          echo "erreur sur $requete ";
+        }
+        else {
+          while ($row1 = mysql_fetch_array($resultat1, MYSQL_ASSOC)) {
+            if ($visibleForce || $row1['qso_visible']) {
+              if ($row1['qso_type']=='areatext') {
+                $tabRetour[$i][$row1['qso_id']]="<span class='tabl1'>".preg_replace("[\n]","<br/>",$row1['sov_valeur'])."</span>";
+              }
+              else if ($row1['qso_type']=='mail') {
+                $tabRetour[$i][$row1['qso_id']]="<A HREF='mailto:".$row1['sov_valeur']."' class='tabl0 link'>".$row1['sov_valeur']."</A>";
+              }
+              else {
+                $tabRetour[$i][$row1['qso_id']]=$row1['sov_valeur'];
+              }
+            }
+          }
+        }
+      }
+      else {
+        $requete = "select qso_id, qso_libelle, sov_valeur, qso_visible, count(*) ";
+        $requete .= " from ".CFG_PREFIXE_TABLE."sondage_valeurs, ".CFG_PREFIXE_TABLE."sondage_questions ";
+        $requete .= " where 1 = 1 "; 
+        $requete .= " and qso_son_id = ".$row['rso_son_id'];
+        $requete .= " and sov_qso_id = qso_id ";
+        $requete .= " group  by 1,2,3,4 ";
+        $requete .= " order by qso_ordre ";
+        if (!$resultat1 = mysql_query($requete)) {
+          echo "erreur sur $requete ";
+        }
+        else {
+          while ($row1 = mysql_fetch_array($resultat1, MYSQL_ASSOC)) {
+            //echo $row1['qso_visible'];
+            if ($visibleForce || $row1['qso_visible']) {
+              $tabRetour[$row1['qso_id']][$row1['sov_valeur']]=$row1['count(*)'];
+            }
+          }
+        }
+      }
+      $i++;
+    }
+     
+  }
+
+  return  $tabRetour;
+}
+
+function return_result($id_rso) {
+  $retour = "";
+  $requete = "select * ";
+  $requete .= " from ".CFG_PREFIXE_TABLE."sondage_reponses ";
+  $requete .= " where rso_id =  $id_rso  ";
+  if (!$resultat = mysql_query($requete)) {
+    echo "erreur sur $requete ";
+  }
+  else {
+    $i=0;
+    if ($row = mysql_fetch_array($resultat, MYSQL_ASSOC)) {
+      $retour=$row;
+    }
+  }
+  return $retour;
+}
+
+?>

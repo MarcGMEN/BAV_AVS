@@ -1,0 +1,42 @@
+<?
+require_once "../Functions/commun_functions.php";
+require_once "../Commun/connect.php";
+require_once "../Commun/Sajax.php";
+
+
+//$id_db = mysql_connect("localhost","AMSA","AMSA" );
+//mysql_select_db("AMSA");
+
+//extractXMLToArray('../config/membre_config.xml','membre');
+
+//Creation de l'aJAX avec tout les AJAX possible _AJAX.php
+$tabFile=searchFiles("AJAX","_AJAX.php");
+foreach ($tabFile as $val) {
+	include_once $val;
+	
+}
+
+/*
+ * retour du dernier message post� sur le forum
+ */
+function return_last_post() {
+	$requete2 = " SELECT sm.id_topic, sm.subject, sm.body, sm.posterTime ";
+	$requete2 .= " FROM smf_messages sm, smf_topics st ";
+	$requete2 .= " WHERE st.ID_FIRST_MSG = sm.id_msg ";
+	$requete2 .= " ORDER BY sm.posterTime DESC ";
+	$requete2 .= " LIMIT 1 ";
+
+	$resultat2 = mysql_query($requete2);
+	if ($resultat2) {
+		$row2 = mysql_fetch_array($resultat2, MYSQL_ASSOC);
+		$row2['DATE_POST']=date('Y-m-d',$row2['posterTime']);
+	}
+	return $row2;
+}
+
+
+//sajax_init("");
+// definition des fonction ajax possible
+include "exportAJAX.php";
+sajax_handle_client_request();
+?>

@@ -1,0 +1,22 @@
+<?php
+require "../Functions/emprunteur_functions.php";
+
+
+function return_emprunteurs_ajax($nom) {
+	$tab = return_emprunteursLight($nom);
+	foreach ($tab as $key => $value) {
+		$tab[$key]['oep_nom']=utf8Encode($value['oep_nom']);
+		$tab[$key]['oep_etat']=utf8Encode($value['oep_etat']);
+	}
+	
+	return $tab;
+}
+
+function return_emprunteur_ajax($id) {
+	$row = return_emprunteur($id);
+	$row['oep_nom']=utf8Encode($row['oep_nom']);
+	$row['oep_etat']=utf8Encode($row['oep_etat']);
+	
+	return $row;
+}
+?>

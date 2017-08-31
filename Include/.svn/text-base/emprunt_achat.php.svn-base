@@ -1,0 +1,131 @@
+<?php 
+require_once  "Functions/ouvrage_functions.php";
+$tabCso=return_AllChampsOuvrage($theTyo['tyo_id']);
+$tabOuv = return_achatsPossible($theTyo['tyo_id']);
+if (!is_numeric($GET_ouv_id)) {
+	$GET_ouv_id=0;
+}
+
+if ($GET_ouv_id && $GET_nb_ouv) {
+	$deter="d'un";
+	$accord="";
+	if ($GET_nb_ouv > 1) {
+		$deter="de $GET_nb_ouv";
+		$accord="s";
+	}
+	
+}
+ 
+?>
+
+<h2>Achat <?=$deter?> <?=$theTyo["tyo_libelle"]?><?=$accord?></h2>
+<?php if (isset($_SESSION['adherent']) && $_SESSION['adherent']['oep_id']) {?>
+<?php if (!isset($GET_ouv_id) || !$GET_ouv_id) {?>
+<form action="actions/emprunt_actions.php" method="POST" name="retourOuv" method="POST" >
+	<input type="hidden" name="lAction" value="beforeAchat" />
+	<input type="hidden" name="ouv_id_tyo" value="<?=$GET_tyo_id?>" />
+	<input type="hidden" name="ouv_id" value="" />
+	<input type="hidden" name="vue" value="<?=$GET_vue?>" />
+	<?makeURL_FORM(sizeof($_POST) > 0 ? $_POST : $_GET);?>
+	<center>
+	<table width='80%' >
+		<tr>
+			<th class="tittab">Code</th>
+			<th class="tittab">Classement</th>
+			<th class="tittab">Titre</th>
+			<?php foreach ($tabCso as $value) {?>
+				<th class="tittab"><?=$value['cso_libelle']?></th>
+			<?php }?>
+			<th class="tittab">Nb </th>
+			<th class="tittab">Nb restants</th>
+			<th class="tittab">Achats</th>
+		</tr>
+	<?php foreach($tabOuv as $val) {?>
+		<tr class="tabl0">
+			<td align="center"><?=$val['ouv_id']?></td>
+			<td><?=$val['sto_libelle']?></td>
+			<td><?=$val['ouv_libelle']?></td>
+			<?php foreach ($tabCso as $value) {?>
+				<td align="center"><?=$val['cho_valeur_libelle['.$value['cso_id'].']']?></td>
+			<?php }?>
+			<td align="center"><?=$val['ouv_nb_exemplaire']?></td>
+			<td align="center"><?=$val['ouv_nb_exemplaire']-$val['ouv_nb_exemplaire_achete']?></td>
+			<td align="center">
+				<select name="nb_ouv" >
+					<?php for ($nb=0;$nb<=$nbrestant;$nb++) {?>
+						<option value="<?=$nb?>" ><?=$nb?></option>
+					<?}?>
+				</select>
+				<input type="button" value="Acheter" class="button" 	
+					onclick="this.form.ouv_id.value=<?=$val['ouv_id']?>;this.form.submit(); " 
+					<?=$nbrestant == 0 ? "disabled" :""?> />
+ 			</td>
+		</tr>
+		
+	<?php }?>		
+	</table>
+	
+	
+</form>	
+<script>
+	document.body.onload=document.retourOuv.ouv_id.focus();
+</script>
+<?php }
+else {
+	$ouv = return_ouvrage($GET_ouv_id, $GET_tyo_id);
+	$lastEmp = return_lastEmprunts($GET_ouv_id, $GET_tyo_id);
+	?>
+	<table width='100%'>
+        	<tr>
+				<td width="10%" class="titrow">Code</td>
+                <td width="40%" class="tabl0"  >
+                	<?=$ouv['ouv_id']?>	
+                </td>
+			</tr>
+        	<tr>
+				<td width="10%" class="titrow">Classement</td>
+                <td width="40%" class="tabl0"  >
+                	<?=$ouv['sto_libelle']?>	
+                </td>
+			</tr>
+			<tr>
+				<td width="10%" class="titrow">Titre</td>
+                <td width="40%" class="tabl0"  >
+            		<?=$ouv['ouv_libelle']?>
+				</td>
+			</tr>
+			<?php foreach($tabCso as $val) {?>
+			<tr>
+				<td width="10%" class="titrow"><?=$val['cso_libelle']?></td>
+            	<td width="40%" class="tabl0"  >
+				<?=$ouv['cho_valeur_libelle['.$val['cso_id'].']']?>     
+				<?php
+				if (is_numeric($ouv['cho_valeur_libelle['.$val['cso_id'].']'])) {?>
+					=&gt;<b><?=$ouv['cho_valeur_libelle['.$val['cso_id'].']']*$GET_nb_ouv?></b> 
+				<?php }?>     			
+                </td>
+			</tr>
+			<?php }?>
+		</table> 
+	<form action="actions/emprunt_actions.php" method="POST" name="retourOuv1" method="POST" >
+	<input type="hidden" name="ouv_id_tyo" value="<?=$GET_tyo_id?>" />
+	<input type="hidden" name="ouv_id" value="<?=$GET_ouv_id?>" />
+	<input type="hidden" name="nb_ouv" value="<?=$GET_nb_ouv?>" />
+	<input type="hidden" name="vue" value="<?=$GET_vue?>" />
+	<?makeURL_FORM(sizeof($_POST) > 0 ? $_POST : $_GET);?>
+
+	<div class="maj" align="center">
+	<input type="submit" value="Acheter" class="submit"  tabindex="1" name="lAction"
+	 	<?=$nbrestant == 0 ? "disabled" :""?> >
+	<input type="submit" value="Annuler" class="submit"  tabindex="2" name="lAction" >
+	</div>
+</form>	
+<script>
+	document.body.onload=document.retourOuv1.lAction.focus();
+</script>
+	 
+<?}?>
+<?} // fin si pas d'adhérent
+else {?>
+	<h3>Veuillez d'abord sélectionner un adhérent.</h3>
+<?}?>

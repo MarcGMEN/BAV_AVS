@@ -1,0 +1,85 @@
+<?php
+
+function return_emprunteur($id) {
+	$requete = "select ".CFG_PREFIXE_TABLE."ouvrage_emprunteur.*, new_email  ";
+	$requete .= " from ".CFG_PREFIXE_TABLE."ouvrage_emprunteur, ".CFG_PREFIXE_TABLE."newsletter ";
+	$requete .= " where oep_id = $id ";
+	$requete .= " and oep_id_new = new_id ";
+	if (!$resultat = mysql_query($requete)) {
+		echo "erreur sur $requete ";
+	}
+	else {
+		$row = mysql_fetch_array($resultat, MYSQL_ASSOC);
+	}
+
+	return $row;
+}
+
+function return_droit_emprunteur($id) {
+	$tab =array();
+	$requete = "select * ";
+	$requete .= " from ".CFG_PREFIXE_TABLE."ouvrage_droit_emprunteur ";
+	$requete .= " where oed_id_oep = $id ";
+	if (!$resultat = mysql_query($requete)) {
+		echo "erreur sur $requete ";
+	}
+	else {
+		$index=0;
+		while ($row = mysql_fetch_array($resultat, MYSQL_ASSOC)) {
+			$tab[$index++]=$row;
+		}
+	}
+
+	return $tab;
+}
+
+
+function return_emprunteurs($nom) {
+	$tab=array();
+	$requete = "select ".CFG_PREFIXE_TABLE."ouvrage_emprunteur.*, new_email  ";
+	$requete .= " from ".CFG_PREFIXE_TABLE."ouvrage_emprunteur, ".CFG_PREFIXE_TABLE."newsletter ";
+	$requete .= " where oep_nom like '%$nom%' ";
+	$requete .= " and oep_id_new = new_id ";
+
+	if (!$resultat = mysql_query($requete)) {
+		echo "erreur sur $requete ";
+	}
+	else {
+		while ($row = mysql_fetch_array($resultat, MYSQL_ASSOC) ) {
+			$row["oep_droit"]="Non";
+			$dateToday =dateMysqlInt(date("Y-m-d"));
+			if ($dateToday >= dateMysqlInt($row['oep_date_debut']) &&
+				$dateToday <= dateMysqlInt($row['oep_date_fin']) ) {
+				$row["oep_droit"]="Oui";
+			}
+			$tab[$row['oep_id']]=$row;
+				
+		}
+	}
+
+	return $tab;
+}
+
+
+function return_emprunteursLight($nom) {
+	$tab=array();
+	$requete = "select oep_id, oep_nom, new_email, oep_etat  ";
+	$requete .= " from ".CFG_PREFIXE_TABLE."ouvrage_emprunteur, ".CFG_PREFIXE_TABLE."newsletter ";
+	$requete .= " where oep_nom like '%$nom%' ";
+	$requete .= " and oep_id_new = new_id ";
+
+	if (!$resultat = mysql_query($requete)) {
+		echo "erreur sur $requete ";
+	}
+	else {
+		while ($row = mysql_fetch_array($resultat, MYSQL_ASSOC) ) {
+			$tab[$row['oep_id']]=$row;
+				
+		}
+	}
+
+	return $tab;
+}
+
+
+?>

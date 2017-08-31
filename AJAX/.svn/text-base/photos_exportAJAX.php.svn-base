@@ -1,0 +1,7 @@
+<?
+sajax_export("return_presence_photo","return_photo_aleatoire","return_photos",
+	"action_supCommentaire","action_insert_commentaire",
+	"return_commentairePhotoForUser_ajax",
+	"return_diaporama","modifCheckCouverture","getImageCouverture",
+"return_partenaires","return_renameImageTitleUrl");
+?>

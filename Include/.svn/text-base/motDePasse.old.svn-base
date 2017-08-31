@@ -1,0 +1,18 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+        <th class="TITRE_FENETRE_PRINCIPALE" valign="middle">On a perdu son mot de passe :)<br/>&nbsp;</th>
+    </tr>
+</table > 
+
+<table width="90%" align="center"   border="0" cellspacing="3" cellpadding="5">
+        <form action="actions/Aadherent.php" method="POST">
+        <tr>    
+            <td colspan="2" >Donne ton email, et je te renvoi le mot de passe...</td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" name="email" value="ton email" size=30 maxlength="70" title="Ton email" onfocus="this.value=''" tabindex=1/>
+				<input type=submit name="action" value="Envoyer" class="button">
+			</td>
+        </tr>
+</table>

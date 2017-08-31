@@ -1,0 +1,120 @@
+<?php
+/**
+ * methode pour coteMembre
+ * @param unknown_type $id
+ * @return unknown_type
+ */
+function return_user_ajax($id) {
+  $user=return_user($id);
+  
+  $user['usr_nom']=utf8Encode($user['usr_nom']);
+  return $user;
+}
+
+/**
+ * recherche des rubriques accessible pour ce niveau
+ * si le id_usr est renseigne, on cherche si le droit est definit pour cette utilisateur
+ * @param unknown_type $niveau
+ * @param unknown_type $id_usr
+ * @return unknown_type
+ */
+
+function return_rubriqueMediaForUser_ajax($niveau, $id_usr="") {
+  $user=array();
+  $user['tym_niveau']=$niveau;
+  $tabRub= return_rubriqueMediaForUserModif($user);
+  if ($id_usr != "") {
+    $tabUserRub = return_user_rubrique($id_usr);
+    tabRubRecur($tabRub,$tabUserRub );
+  }
+  return  $tabRub;
+}
+
+function tabRubRecur(&$tab, $tabUser) {
+  foreach ($tab as $key => $val) {
+    $keyIdRub=$val['data']['rub_id'];
+    if (isset($tabUser[$keyIdRub])) {
+      $tab[$key]['droit']=$tabUser[$keyIdRub]['urb_droit'];
+    }
+    $tab[$key]['libelle']=utf8Encode($tab[$key]['libelle']);
+    $tab[$key]['data']['rub_libelle']=utf8Encode($tab[$key]['data']['rub_libelle']);
+    
+    if (isset($tab[$key]['next']) && sizeof($tab[$key]['next']) > 0) {
+      tabRubRecur($tab[$key]['next'], $tabUser);
+    }
+  }
+}
+
+/**
+ * retour les rubrique media de facon linéaire
+ * @param unknown_type $niveau
+ * @return unknown_type
+ */
+function return_rubriqueMediaForUserLinear_ajax($niveau) {
+  $user=array();
+  $user['tym_niveau']=$niveau;
+  return return_rubriqueMediaForUserLinear($user);
+}
+
+/**
+ * retourne la liste des etat de la table user
+ * @return unknown_type
+ */
+function return_listeEtat_ajax() {
+  return recupEnumToArray("al_user","usr_etat");
+}
+
+
+/**
+ * Indique si le login est libre
+ */
+function is_loginFree_ajax($login) {
+  $user =return_userByLogin($login);
+
+  if ($user && $user['usr_login'] == $login) {
+    return false;
+  }
+  else {
+    return true;
+  }
+}
+
+/**
+ * Indique si l'email est libre
+ */
+function is_emailFree_ajax($mail) {
+  $user =return_userByMail($mail);
+
+  if ($user && $user['usr_email'] == $mail) {
+    return false;
+  }
+  else {
+    return true;
+  }
+}
+
+function is_goodPass($login, $pass) {
+  $user=return_userByLoginPass($login, $pass);
+  if ($user && $user['usr_pass'] == $pass && $user['usr_login'] == $login) {
+    return false;
+  }
+  else {
+    return true;
+  }
+}
+
+function action_majPass($id, $pass) {
+  $message="Mot de passe mis a jour!!"; 
+  if ($id && $pass) {
+    $req = "UPDATE ".CFG_PREFIXE_TABLE."user set usr_pass = '".$pass."' where usr_id = ".$id;
+    if (!$resultat = mysql_query($req)) {
+      $message="erreur sur $req ".mysql_error();
+    }
+  }
+  else {
+    $message="id = $id et pass=$pass!!"; 
+  }
+  return $message;
+}
+
+?>

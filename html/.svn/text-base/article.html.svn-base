@@ -1,0 +1,17 @@
+<h4>Bonjour.</h4>
+<table width="100%" cellpadding="0"  cellspacing="1" border="0">
+	<tr>
+    	<td class="TITRE_ACTU" width="95%" colspan="2">--SUJET_ACTU--</td>
+    </tr>
+    <tr>
+    	<td class="DATE_ACTU" width="80%">
+        	Posté le --DATE_ACTU--</td>
+        <td class="AUTEUR_ACTU" width="20%">--AUTEUR_ACTU--</td>
+     </tr>
+     <tr>
+     	<td colspan="2" class="TEXTE_ACTU" valign="top">
+     	--TEXTE_ACTU--
+		</td>
+	</tr>
+</table>
+<br/>

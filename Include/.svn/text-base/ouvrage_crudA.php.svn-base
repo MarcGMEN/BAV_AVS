@@ -1,0 +1,345 @@
+<script>
+function valideCrudA(laForm,action) {
+	var suite=true;
+	var message="";
+	if (laForm.oua_nom.value=="") {
+		metError(laForm,'oua_nom',"obligatoire");
+		suite=false;
+	}
+	if (getElement('oua_nom_error').innerHTML != "") {
+		metError(laForm,'oua_nom',"Attention : "+getElement('oua_nom_error').innerHTML);
+		suite=false;
+	}
+
+	if (suite) {
+		laForm.actionCRUD.value=action;
+		laForm.submit();
+		return true;
+	}
+	else {
+		return false;
+	}
+	
+}
+
+function valideCrudO(laForm,action) {
+	var suite=true;
+	var message="";
+	if (laForm.ouo_titre.value=="") {
+		metError(laForm,'ouo_titre',"obligatoire");
+		suite=false;
+	}
+	if (laForm.ouo_cote.value=="") {
+		metError(laForm,'ouo_cote',"obligatoire");
+		suite=false;
+	}
+	if (laForm.ouo_date_achat.value=="") {
+		metError(laForm,'ouo_date_achat',"obligatoire");
+		suite=false;
+	}
+	if (suite) {
+		laForm.actionCRUD.value=action;
+		laForm.submit();
+		return true;
+	}
+	else {
+		return false;
+	}
+	
+}
+
+/* renseigne le champ en erreur */ 
+/* renseigne le champ en erreur */ 
+/* renseigne le champ en erreur */ 
+function metError(laForm,champ,message) {
+	element=laForm.elements[champ];
+	if (element) {
+    	//alert("focus sur "+champ);
+		element.focus();
+		element.className='error';
+	}
+	getElement(champ+'_error').innerHTML=message;
+}		    
+
+/* desactive le champ du mode erreur */
+function unError(laForm,champ) {
+	element=laForm.elements[champ];
+	if (element) {
+		element.className='';
+	}
+	if (getElement(champ+'_error')) {
+		getElement(champ+'_error').innerHTML="";
+	}
+	
+}
+function annuleCreation(laForm) {
+
+	laForm.actionCRUD.value="annuleCreation";
+	laForm.submit();
+	
+}
+
+/* verification de la libre utilisattion  des champs noms de l'auteur*/
+function verifFree(element) {
+    x_is_auteurFree_ajax(element.value, '<?=$GET_rub?>',display_freeAuteur);
+}
+
+/* affiche le message resultat de la rescherhe de libre utilisation du champ (type) */
+function display_free(val,element, type) {
+    if (val) {
+    	element.className='change';
+    	getElement(type+'_error').innerHTML="";
+    }
+    else {
+    	metError(document.formCRUDA,type," dèjà utilisé.");
+	}
+}
+    
+function display_freeAuteur(val) {
+	element=document.formCRUDA.oua_nom;
+	display_free(val,element, "oua_nom")
+}
+
+
+
+function  ajoutO(laForm) {
+	laForm.actionCRUD.value="create";
+	laForm.submit();
+	
+}
+</script>
+
+<?php
+if (isset($GET_id))  {
+	$GET_oua_id = $GET_id; 
+}
+
+if (isset($GET_oua_id)) {
+	$oua= return_auteur($GET_oua_id);
+}
+$nc="oua_date_achat".rand(0,1000).rand(0,1000);
+$lieus=recupEnumToArray(CFG_PREFIXE_TABLE."ouvrage_ouvrage","ouo_lieu");
+
+if ($GET_vue=="form") {?>
+<form action="actions/ouvrage_actions.php" method="post" name="formCRUDA" onsubmit="return valideCrudA(this,'Creation')">
+	<input type="hidden" name="data" value="<?=$GET_data?>" /> 
+	<input type="hidden" name="actionCRUD" value="" /> 
+	<input type="hidden" name="oua_id" value="<?=$GET_oua_id?>" /> 
+	<?makeURL_FORM(sizeof($_POST) > 0 ? $_POST : $_GET);?>
+
+	<table width="90%" align="center" class="formulaire" border="0" cellspacing="3" cellpadding="5">
+		<tr>
+			<td class="titrow" width='30%'>Nom</td>
+			<td class=tabl0 width='70%'>
+				<input type="text" name="oua_nom" size=30 maxlength="100"  onkeypress="unError(this.form,'oua_nom')"
+						onchange="this.className='change'" 
+						value="<?=$oua['oua_nom']?>" 
+						onblur="verifFree(this)" /> 
+				<span class="error" title="champ obligatoire">*</span> 
+				<span class="error" id="oua_nom_error"></span>
+			</td>
+		</tr>
+		<tr>
+			<td class="titrow" width='30%'>Biographie</td>
+			<td class=tabl0 width='70%'>
+				<textarea rows="5" cols="100" name="oua_biographie" onkeypress="unError(this.form,'oua_biographie')"
+						onchange="this.className='change'" ><?=$oua['oua_biographie']?></textarea>
+				<span class="error" id="oua_biographie_error"></span>
+			</td>
+		</tr>
+	</table>
+	<div class="maj" align="center">
+	<? if ($GET_mode=="create") {?> 
+		<input	type="button" class="button" value="Creation" onclick="valideCrudA(this.form,'modif')" /> 
+		<input	type="button" class="button" value="Annuler" onclick="annuleCreation(this.form)" />
+	<?php } else {?> 
+		<input	type="button" class="button" value="Modifier" onclick="valideCrudA(this.form,'modif')" /> 
+		<input	type="button" class="button" value="Annuler" onclick="annule(this.form)" />
+		<?php if ($oua['nb_ouvrage'] == 0) {?>
+		<input	type="button" class="button" value="Supprimer" onclick="supprimer(this.form)" />
+		<?php }?>
+	<?php }?>
+	</div>
+</form>
+
+<? if ($GET_mode=="modif") {?> 
+<p class="TITRE_FENETRE_PRINCIPALE"><small>Les ouvrages</small></p>
+	<script>
+		function display_ouvrage_maj(val) {
+
+				display_formulaire(val, document.formOuvrage);
+				var repr="<input  type='button' value='Modifier' class='button'  ";
+				repr+=" onclick=\"valideCrudO(this.form,'Modif')\"/>";
+				repr+="&nbsp;&nbsp;&nbsp;&nbsp;";
+				repr+="<input type='button' value='Reset' ";
+				repr+=" onclick='x_return_ouvrage_ajax("+val['ouo_id']+", display_lien_maj)' class='button' />";
+				repr+="&nbsp;&nbsp;&nbsp;&nbsp;";
+				repr+="<input type='submit' value='Nouveau' name='new' class='button' />";
+
+				//alert(repr);
+				getElement("barreAction").innerHTML=repr; 
+				document.location.href="#top";
+		}
+
+		function supOUvrage(id) {
+			laForm=document.formouvrage;
+			if (confirm('Etes vous sur de vouloir supprimer cet ouvrage ?')) {
+					laForm.actionCRUD.value="SupO";
+	            	laForm.ouo_id.value=id;
+	            	laForm.submit();
+			}
+		}
+
+		function resetOuvrage() {
+			laForm=document.formOuvrage;
+			laForm.ouo_titre.value="";
+			laForm.ouo_cote.value="";
+			laForm.ouo_resume.value="";
+			laForm.ouo_mots_clefs.value="";
+			unError(laForm,'ouo_titre');
+			unError(laForm,'ouo_cote');
+			unError(laForm,'ouo_resume');
+			unError(laForm,'ouo_mots_clefs');
+		}
+	</script>
+	<h2 align="center">Sites à voir.</h2>
+	
+	<?if ($DROIT_MODIF_RUB_USER) {?>
+    <center class="maj">
+    	<h3>Modification ou ajout d'un ouvrage.
+    	<img src="Images/iconePlus.png" id="iconemaj_ouvrage" border="0"
+					style="cursor:pointer" />
+		</h3>
+    	<form action="actions/ouvrage_actions.php" name="formOuvrage" method='POST' >
+		    <?makeURL_FORM(sizeof($_POST) > 0 ? $_POST : $_GET);?>
+			<input type=hidden name="data" value="O" />
+            <input type=hidden name="actionCRUD" value="" />
+            <input type=hidden name="ouo_id" value="" />
+            	<table width='100%'>
+                	<tr>
+						<td width="10%" class="titrow">Titre</td>
+                        <td width="40%" class="tabl0" >
+                        	<input type="text" name="ouo_titre" size=30 maxlength="100"  onkeypress="unError(this.form,'ouo_titre')"
+								onchange="this.className='change'" 
+								value="<?=$oua['ouo_titre']?>" /> 
+							<span class="error" title="champ obligatoire">*</span> 
+							<span class="error" id="oua_titre"></span>
+                        </td>
+						<td width="10%" class="titrow">Date Achat</td>
+                        <td width="40%" class="tabl0" >
+                        	<table cellpadding="0" cellspacing="0">
+								<tr>
+									<td>
+                            			<input type="text"  id="<?=$nc?>"
+											name="name_<?=$nc?>" size=10 maxlength="10"
+											onfocus="view_microcal(true,<?=$nc?>,microcal,-1,0);" 
+											onblur="view_microcal(false,<?=$nc?>,microcal,-1,0);
+												!testTypeDate(this.value)?metError(this.form,'name_<?=$nc?>','Mauvais format'):unError(this.form,'name_<?=$nc?>');" 
+											onchange="view_microcal(false,<?=$nc?>,microcal,-1,0);">
+										<span class="error" title="champ obligatoire">*</span>
+										<span class="error" id="name_<?=$nc?>_error"></span> 
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div id="microcal"
+											class="maj" 
+											style="visibility:hidden;position:absolute;">
+										</div>
+									</td>
+								</tr>
+							</table>
+                        	
+                        </td>
+					</tr>
+                	<tr>
+						<td width="10%" class="titrow">Résumé</td>
+                        <td width="40%" class="tabl0"  colspan="3">
+                        	<textarea name="ouo_resume" cols=90 rows="5" onkeypress="unError(this.form,'ouo_resume')"
+								onchange="this.className='change'" ><?=$oua['ouo_resume']?></textarea> 
+							<span class="error" id="oua_resume"></span>
+                        </td>
+					</tr>
+                	<tr>
+						<td width="10%" class="titrow">Cote</td>
+                        <td width="40%" class="tabl0">
+                        	<input type="text" name="ouo_cote" size=10 maxlength="10"  onkeypress="unError(this.form,'ouo_cote')"
+								onchange="this.className='change'" 
+								value="<?=$oua['ouo_cote']?>" /> 
+							<span class="error" title="champ obligatoire">*</span>
+							<span class="error" id="oua_cote"></span>
+                        </td>
+                		<td width="10%" class="titrow">Mots clefs</td>
+                        <td width="40%" class="tabl0">
+                        	<input type="text" name="ouo_mots_clefs" size=30 maxlength="100"  onkeypress="unError(this.form,'ouo_mots_clefs')"
+								onchange="this.className='change'" 
+								value="<?=$oua['ouo_mots_clefs']?>" /> 
+							<span class="error" id="oua_mots_clefs"></span>
+                        </td>
+                   	</tr>
+                   	<tr>
+                   		<td width="10%" class="titrow">Lieu</td>
+                        <td width="40%" class="tabl0">
+                        	 <select name="ouo_lieu">
+							</select>
+                        </td>
+                       
+					</tr>
+				</table>
+				<br/>
+				<div id="barreAction" class="maj">
+					<input type="button" value="Ajouter" class="button" onclick="valideCrudO(this.form,'create')"/>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="button" value="Annuler" class="button" onclick="resetOuvrage(true)"/>
+				</div>
+				<br/>
+		</form>
+	</center>
+	
+	<form action="actions/ouvrage_actions.php" name="formouvrage" method='POST' >
+		    <?makeURL_FORM(sizeof($_POST) > 0 ? $_POST : $_GET);?>
+		    <input type=hidden name="action" value="" />
+            <input type=hidden name="lie_id" value="" />
+    
+    <?php }?>    
+<?php
+    $tabouvrage = $oua['ouvrages'];
+    
+    foreach ($tabouvrage as $val) {?>
+        	<table width="100%" cellpadding="3" cellspacing="1" border="0">
+      		<tr class="tabl0">
+                	<td class="TITRE_LIENS" width="15%" >
+                		<?=$val['ouo_cote']?>
+                     </td>
+                     <td class="TEXTE_LIENS" width="75%">
+                       	<?=$val['ouo_titre']?>
+                      </td>
+                      <td>
+                      <?if (droitUDMedia($rubSelect, $leUser,$val['lie_usr_id'])) {?>
+                      <table width=100% class="maj">
+                    		<tr>
+                        <td valign="top"  align="center" width="5%">
+                            <img src="Images/b_drop.png" border="0" title="Effacer le lien" 
+                            	alt="Effacer le ouvrage"  
+                            	onclick="supOuvrage('<?=$val['ouo_id']?>')"
+                            	class="link" />
+                            
+                        </td>
+                        <td valign="top" align="center" width="5%" >
+                            	<img src="Images/b_edit.png" border="0"
+                            		alt="Modifier l'ouvrage"  title="Modifier l'ouvrage"
+                            		onclick="x_return_ouvrage_ajax('<?=$val['ouo_id']?>', display_ouvrage_maj)"
+                            		class="link" />
+                        </td>
+                        </tr>
+                        </table>
+                        <?php }?>
+                        </td>
+				</tr>
+     	</table>
+      	</form>
+      <?php }?>
+	<?php }?>
+<?php }?>
+
+	

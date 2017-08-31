@@ -1,0 +1,12 @@
+<?php
+
+$module="articles";
+require_once "../Functions/".$module."_functions.php";
+function return_article_ajax($id) {
+  $tabRet = return_article($id);
+  
+  $tabRet['act_sujet']=utf8Encode($tabRet['act_sujet']);
+  
+  return $tabRet;
+}
+?>

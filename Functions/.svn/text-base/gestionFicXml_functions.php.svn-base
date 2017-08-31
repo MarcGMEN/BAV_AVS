@@ -1,0 +1,346 @@
+<?php
+
+$GLOBAL['THE_MOD']="";
+/**
+ * affichage d'un input pour un élement d'un fichier de config
+ * par defaut un texte de 20  - 70
+ * - select(X-XX) un select de X à XX
+ * - select(un,deux,trois) un select avec ces trois valeurs
+ * - image : un bouton de recuperation d'une image sur le poste client et copie sur le serveur
+ * @param unknown_type $element
+ * @param unknown_type $value
+ * @param unknown_type $tabAtt
+ * @return unknown_type
+ */
+function affich_input($element,$elementLabel,  $value,$tabAtt) {
+   global $THE_MOD;
+  $format="text";
+  if (isset($tabAtt[$elementLabel])) {
+    $format=$tabAtt[$elementLabel];
+  }
+  if (isset($tabAtt["saisie"])) {
+    $format=$tabAtt["saisie"];
+  }
+  $value=utf8_decode($value);
+  $valuePrint=$value;
+  ?>
+<tr>
+		<td class="titrow" width='30%'><?=$elementLabel?></td>
+		<td class="tabl0" width='70%'><?
+		if (preg_match("[select]",$format) >0 ) {
+		  // recuperation du type de donnée
+		  $tabTmp=explode("(",$format);
+		  $tabTmp[1]=str_replace(")","",$tabTmp[1]);
+		  
+		  echo "<select name='$element' onchange=\"this.className='change'\">";
+		   // liste des modules an reference avec le module cours
+		  // liste des modules an reference avec le module cours
+		  if (preg_match("[modules]",$tabTmp[1]) >0 ) {
+		    // recheche des fichier dans pagesInclude/modules_<leModule>.php
+		    $tabValues=explode(",",$tabTmp[1]);
+		    if ($tabValues[1]) {
+		      $mask="_".$tabValues[1].".php";
+		    }
+		    else {
+		      $mask="_".$THE_MOD.".php";
+		    }
+		    $tabOptions[""]="";
+		    if ($tabValues[1] == "accueil" || $tabValues[1] == "ouvrage") {
+		      $tabOptions["RIEN"]="rien";
+		    }
+		    
+		    $tabFic=searchFiles('pagesInclude',$mask);
+		    if   (is_array($tabFic)) {
+		      foreach($tabFic as $val) {
+		        $tabOptions[$val]=trim(preg_replace("[".$mask."]","",basename($val)));
+		      }
+		    }
+		  }
+		  // liste des des type membre
+		  else if (preg_match("[type_membre]",$tabTmp[1]) >0 ) {
+		    // recheche des fichier dans pagesInclude/modules_<leModule>.php
+		    $tabTym=return_types_membre();
+		    //print_r($tabTym);
+		    foreach($tabTym as $val) {
+		      $tabOptions[$val['tym_libelle']]=$val['tym_niveau'];
+            }
+		  }
+		  // ecart entre XXX-YYYY
+		  else if (preg_match("[-]",$tabTmp[1]) >0 ) {
+		    $tabValues=explode("-",$tabTmp[1]);
+		    if (is_array($tabValues)) {
+		      for ($i=$tabValues[0];$i<=$tabValues[1];$i++) {
+		        $tabOptions[$i]=$i;
+		      }
+		    }
+		  }
+		  // liste de valeur AAA,BBB,CCC
+		  else if (preg_match("[,]",$tabTmp[1]) >0 ) {
+		    $tabValues="";
+		    $tabValues=explode(",",$tabTmp[1]);
+		    if (is_array($tabValues)) {
+		      foreach($tabValues as $val) {
+		        $tabOptions[$val]=$val;
+		      }
+		    }
+		  }
+
+		  foreach($tabOptions as $key =>  $val) {
+		    $check=$val==$value ? "selected" : "";
+		    echo "<option value='$val' $check >$key</option>";
+		    //echo "$val $check => $key";
+		    $check=$val==$value ? $val==$key ? $valuePrint=$val : $valuePrint="$key => $val" : "";
+		    
+		  }
+		  echo "</select >";
+		} // FIN SELECT
+		else if ($elementLabel == "VERSION") {?> 
+				<input type='hidden' name='<?=$element?>' value='<?=$value?>' /> 
+		<?} 
+		// liste de couleur
+		 else if (preg_match("[color]",$format) >0 ) {?>
+		 	<input class="color" value="<?=$value?>" name="<?=$element?>"/>
+        <?
+    	  }
+		// liste de couleur
+		 else if (preg_match("[image]",$format) >0 ) {
+		   
+		   $tabTmp=explode("(",$format);
+		   $tabTmp[1]=str_replace(")","",$tabTmp[1]);
+		   $repImg=CFG_REP_IMAGE_SITE;
+		   if ($tabTmp[1]) {
+		     $repImg=$tabTmp[1];
+		     if (!is_dir($repImg)) {
+		       $repImg=CFG_REP_IMAGE_SITE;
+		     }
+		   }
+		   
+		   
+		   $tabImages=array();
+           $tabImages[0]="";
+  	       $tabImages=array_merge($tabImages,searchFiles($repImg,".jpg"));
+		   $tabImages=array_merge($tabImages,searchFiles($repImg,".JPG"));
+		   $tabImages=array_merge($tabImages,searchFiles($repImg,".png"));
+           $tabImages=array_merge($tabImages,searchFiles($repImg,".gif"));
+           
+  ?>
+  				<table >
+					<tr>
+						<td>
+							<?=$repImg?><br/>
+		  
+							<select name="<?=$element?>" id="list_Images<?=$element?>" 
+								onchange="changeImage('Images<?=$element?>',this,'<?=$repImg?>')"
+								onkeyup="vueImage('Images<?=$element?>',this,'<?=$repImg?>')"
+								onmouseout="getElement('vue_Images<?=$element?>').innerHTML=''" 
+								>
+								<?=makeOption($tabImages, "", "", $value);?>							
+							</select>
+						</td>
+						<td>
+							<img id="img_rub_Images<?=$element?>" height="100px"
+								src="<?=$repImg?>/<?=$value?>" />
+							<span id="vue_Images<?=$element?>" ></span>
+						</td>
+					</tr>
+				</table>
+			
+	 <? }
+	 else if (preg_match("[icone]",$format) >0 ) {
+		   $tabImages=array();
+           $tabImages[0]="";
+           
+            $repImg=CFG_REP_IMAGE_SITE."/Icones";
+  	       $tabImages=array_merge($tabImages,searchFiles($repImg,".jpg"));
+		   $tabImages=array_merge($tabImages,searchFiles($repImg,".JPG"));
+		   $tabImages=array_merge($tabImages,searchFiles($repImg,".png"));
+           $tabImages=array_merge($tabImages,searchFiles($repImg,".gif"));
+  ?>
+				<table >
+					<tr>
+						<td>	<?=$repImg?><br/>
+							<select name="<?=$element?>" id="list_Images<?=$element?>" 
+								onchange="changeImage('Images<?=$element?>',this,'<?=$repImg?>')"
+								onkeyup="vueImage('Images<?=$element?>',this,'<?=$repImg?>')"
+								onmouseout="getElement('vue_Images<?=$element?>').innerHTML=''" 
+								>
+								<?=makeOption($tabImages, "", "", $value);?>							
+							</select>
+						</td>
+						<td>
+							<img id="img_rub_Images<?=$element?>" height="50px" 
+								src="<?=$repImg?>/<?=$value?>" />
+							<span id="vue_Images<?=$element?>" ></span>
+						</td>
+					</tr>
+				</table>
+	 <? }
+    
+        else {?> 
+				<input type='text' name='<?=$element?>' value='<?=$value?>'
+						size=30 maxlength=120 onchange="this.className='change'" /> 
+		<?}?> 
+		<i><?=$valuePrint?></i>
+		</td>
+</tr>
+				<?
+}
+
+/**
+ * fonction recurcise d'ananlyse des données xml
+ * @param $xml
+ * @param $tabAtt
+ * @return unknown_type
+ */
+function analyseXML($xml, $parent=null, $tabAtt=array(),$noValue=false) {
+  if ($xml instanceof SimpleXMLElement) {
+    $children = $xml->children();
+    $return = null;
+  }
+  $index=0;
+  $first=false;
+  $liste=false;
+  $listeComplex=false;
+  
+  if (!isset($parent)) {
+    $parent=$xml->getName();
+    echo "<fieldset ><legend>".$parent."</legend>";
+    echo "<table width='100%' cellpadding=0 cellspacing=1 >";
+    $first=true;
+  }
+
+  $elementOld="";
+  if (isset($tabAtt['type']) && $tabAtt['type']=="liste" ) {
+    $liste=true;
+  }
+
+  foreach ($children as $element => $value) {
+    if ($value instanceof SimpleXMLElement) {
+      $values = (array)$value->children();
+      /*echo "<pre>";
+      print_r($values);
+      echo "</pre>";*/
+      $isTab=true;
+      if ((isset($values['@attributes']) && count($values) == 1)) {
+        $isTab=false;
+      }
+      if (count($values) > 0 && $isTab)  {
+        if (is_array($return) && array_key_exists($element, $return ) &&  is_array($return[$element])) {
+          //hook
+          foreach ($return[$element] as $k=>$v) {
+            if (!is_int($k)) {
+              $return[$element][0][$k] = $v;
+              unset($return[$element][$k]);
+            }
+          }
+          analyseXML($value);
+          //print_r($value);
+          //echo "affect0 $element = $value <br/>";
+          affich_input($element, $value,$tabAtt);
+        }
+        else {
+          $tabAtt1=array();
+          foreach ($value->attributes() as $key=>$val) {
+            $tabAtt1[$key]=$val;?>
+			<input type="hidden" name=<?=$parent."[".$element."][@attributes][".$key."]"?>
+					value="<?=$val?>" />
+            <?}?>
+		<tr>
+			<td colspan='12'>
+			<fieldset>
+				<legend><?=$element?> 
+				<img src="Images/iconePlus.png" 	id="iconetable_<?=$element?>" border="0"
+				onclick="inverseDisplay('table_<?=$element?>')"	style="cursor: pointer" /> 
+				</legend>
+				<table width='100%' cellpadding=0 cellspacing=1	id='table_<?=$element?>' style="display: ''">
+				<?php 
+				if ($liste) {
+//          		    $elementString=$parent."[".$element."][".$index++."][value]";
+      
+                    if ($noValue) {
+          			  $theParent=$parent."[".$element."][".$noValue."]";
+          			  $listeComplex=true;
+                    }
+                    else {
+                      $theParent=$parent."[".$element."][".$index++."]";
+          			  $listeComplex=true;
+                    }
+          		}
+          		else {
+          		  $theParent=$parent."[".$element."]";
+          		}
+                ?>
+				<?php analyseXML($value, $theParent, $tabAtt1,$noValue);?>
+				</table>
+			</fieldset>
+			</td>
+		</tr>
+		<?php if ($noValue) { break; }?>
+		<?}
+		
+      } // valeur dans le champ
+      else {
+      	//print_r($value);
+      	foreach ($value->attributes() as $key=>$val) {
+            $tabAtt[$element]=$val;?>
+			<input type="hidden" name=<?=$parent."[".$element."][@attributes][".$key."]"?>
+					value="<?=$val?>" /><?
+          }
+        //int_r($tabAtt);
+        if ($element != $elementOld) {
+          $index=0;
+          //echo "affect2 $element = $value <br/>";
+          if ($liste) {
+            $elementString=$parent."[".$element."][".$index++."][value]";
+            //echo "first pour liste;";
+          }
+          else {
+            $elementString=$parent."[".$element."][value]";
+          }
+          if (!$noValue) { 
+            affich_input($elementString, $element, $value,$tabAtt);
+          }
+          else{
+            affich_input($elementString, $element, "",$tabAtt);
+          }
+        } // c'est un tableau
+        else {
+          //echo "affect3 $element = ".$value."<br/>";
+          $elementString=$parent."[".$element."][".$index++."][value]";
+          affich_input($elementString, $element, trim((string)$value),$tabAtt);
+        }
+      } // fin count nb values
+      $elementOld=$element;
+    } // fin $value instanceof SimpleXMLElement) {
+  }
+
+  // si index > 1, alors tableau, donc ajout d'une saisie d'un nouveau champ
+  if ($index > 0 && !$noValue) {
+    //echo "affect4 $element = <br/>";
+    if ($listeComplex) {
+        //print_r($tabAtt);
+        analyseXML($xml,$parent, $tabAtt, $index);
+    }
+    else {
+      $elementString=$parent."[".$element."][".($index)."][value]";
+      affich_input($elementString, $element, "",$tabAtt);
+    }
+  }
+
+  if ($first) {
+    echo "</table>";
+    echo "</fieldset >";
+  }
+
+}
+
+/**
+ * appel de l'analyse d'un fichier xml
+ * @param unknown_type $file
+ * @return unknown_type
+ */
+function analyseFileXML($file) {
+  global $THE_MOD;
+  $THE_MOD=trim(preg_replace("[_config.xml]","",basename($file)));
+  return analyseXML(simplexml_load_file($file));
+}

@@ -1,0 +1,13 @@
+<?php
+require "../Functions/ouvrage_functions.php";
+
+
+function return_ouvrage_ajax($ouv, $tyo) {
+	$row = return_ouvrage($ouv,$tyo);
+	$row['ouv_libelle']=utf8Encode($row['ouv_libelle']);
+	$row['ouv_resume']=utf8Encode($row['ouv_resume']);
+	$row['ouv_mots_clefs']=utf8Encode($row['ouv_mots_clefs']);
+	
+	return $row;
+}
+?>

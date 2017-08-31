@@ -1,0 +1,160 @@
+<script type="text/javascript">
+<!--
+function valideSaisieSto(laForm, action) {
+	// test obligation sur titre, entete, debut, fin, question 0
+	var message="Les données suivantes sont incorrectes : ";
+	var suite=true;
+	if (laForm.sto_libelle_court.value == "") {
+		message+="\n\t-Libelle court obligatoire";
+		suite=false
+	}
+	if (laForm.sto_libelle.value == "") {
+		message+="\n\t-Libelle obligatoire";
+		suite=false
+	}
+	
+	if (suite) {
+		laForm.lAction.value=action;
+		laForm.submit();
+	}
+	else {
+		alert(message);
+	}
+}	
+
+function supSto(id) {
+	laForm=document.formsto;
+	if (confirm('Etes vous sur de vouloir supprimer ce classement.')) {
+		laForm.lAction.value="SupSto";
+        laForm.sto_id.value=id;
+        laForm.submit();
+	}
+}
+
+function display_sto_maj(val) {
+
+	display_formulaire(val, document.formsto);
+	enableDisplay('maj_sto');
+	var repr="<input  type='button' value='Modifier' class='button'  ";
+	repr+=" onclick=\"valideSaisieSto(this.form,'ModifSto')\"/>";
+	repr+="&nbsp;&nbsp;&nbsp;&nbsp;";
+	repr+="<input type='button' value='Reset' ";
+	repr+=" onclick='x_return_sto_ajax("+val['sto_id']+", display_sto_maj)' class='button' />";
+	repr+="&nbsp;&nbsp;&nbsp;&nbsp;";
+	repr+="<input type='submit' value='Nouveau' name='newSto' class='button' />";
+
+	//alert(repr);
+	getElement("barreActionsto").innerHTML=repr; 
+	document.location.href="#top";
+}
+
+//-->
+</script>
+	
+<?php 
+function afficheClassement($tabSto,$niv=0) {?>
+	<?php foreach ($tabSto as $val) {?>
+	<tr class="tabl0">
+    <?php if ($niv) {?>
+		<td width="10%">
+		</td>
+	<?php }?>
+		<td width="10%">
+			<table width=100% class="maj">
+            	<tr>
+	            	<td valign="top"  align="center" width="5%">
+    	            	<img src="Images/b_drop.png" border="0" title="Effacer le champ d'ouvrage" 
+        	               	alt="Effacer le sto"  
+            	          	onclick="supSto('<?=$val['sto_id']?>')"
+                	    	class="link" />
+					</td>
+    		        <td valign="top" align="center" width="5%" >
+        	        	<img src="Images/b_edit.png" border="0"
+	        	        	alt="Modifier"  title="Modifier"
+    	        	        onclick="x_return_sto_ajax('<?=$val['sto_id']?>', display_sto_maj)"
+        	        	    class="link" />
+        		   	</td>
+        	    	<td valign="top"  align="center" width="5%">
+			        	<form action="actions/ouvrageType_actions.php" name="formStoAdd_<?=$val['sto_id']?>" method='POST' >
+		    				<?makeURL_FORM(sizeof($_POST) > 0 ? $_POST : $_GET);?>
+						    <input type='hidden' value='Nouveau' name='newSto' />
+				    		<input type=hidden name="sto_id_tyo" value="<?=$val['sto_id_tyo']?>" />
+						    <input type=hidden name="sto_id_sto" value="<?=$val['sto_id']?>" />
+        				    <img src="Images/iconePlus.png" border="0" 
+    							onclick="document.formStoAdd_<?=$val['sto_id']?>.submit()"style="cursor:pointer" />
+    					</form>
+					</td>
+				</tr>
+	  		</table>
+		</td>
+    	<td width="90%" colspan=10>
+    		<?=$val['sto_libelle_court']?> ; [<?=$val['sto_libelle']?>]</td>
+	</tr>
+	<?php if (sizeof($val['sto_sous']) > 0) {?>
+		<?afficheClassement($val['sto_sous'],1);?>
+	<?php }?>
+	<?php }?>
+<?php }?>
+	
+	<fieldset>
+	<legend> Gestion des sous types</legend>
+	    <center class="maj">
+    	<h3>Modification ou ajout des sous types.	
+    		<img src="Images/iconePlus.png" id="iconemaj_sto" border="0" 
+    			onclick="inverseDisplay('maj_sto')"style="cursor:pointer" />
+    	</h3>
+    	<div style="position:relative; width:100%;" >
+    	<div id="maj_sto" style="display:none;position:abslolute;left:0" >
+    	<form action="actions/ouvrageType_actions.php" name="formsto" method='POST' >
+		    <?makeURL_FORM(sizeof($_POST) > 0 ? $_POST : $_GET);?>
+			<input type=hidden name="lAction" value="" />
+            <input type=hidden name="sto_id" value="" />
+            <input type=hidden name="sto_id_sto" value="<?=$GET_sto_id_sto?>" />
+            <input type=hidden name="sto_id_tyo" value="<?=$GET_tyo_id?>" />
+            	<table width='100%'>
+                	<tr>
+						<td width="10%" class="titrow">Libelle court</td>
+                        <td width="40%" class="tabl0"  >
+                        	<input type=text  name="sto_libelle_court" size="20" maxlength="20" />
+                        </td>
+						<td width="10%" class="titrow">Libelle long</td>
+                        <td width="40%" class="tabl0" >
+                        	<input type=text  name="sto_libelle" size="50" maxlength="200" />
+                        </td>
+					</tr>
+				</table>
+				<br/>
+				<div id="barreActionsto" class="maj">
+					<input type="button" value="Déposer" class="button" onclick="valideSaisieSto(this.form,'AjoutSto')"/>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="reset" value="Annuler" class="button" />
+				</div>
+				<br/>
+		</form>
+		</div>
+		</div>
+	</center>
+            
+	<center>
+		<table width='80%'> 
+			<tr class="tabl0">
+                <td width="10%">
+                	<center>
+                	<form action="actions/ouvrageType_actions.php" name="formStoAdd" method='POST' >
+		    		<?makeURL_FORM(sizeof($_POST) > 0 ? $_POST : $_GET);?>
+		    			<input type='hidden' value='Nouveau' name='newSto' />
+		    			<input type=hidden name="sto_id_tyo" value="<?=$GET_tyo_id?>" />
+		    			<input type=hidden name="sto_id_sto" value="0" />
+                		<img src="Images/iconePlus.png" border="0" 
+    						onclick="document.formStoAdd.submit()"style="cursor:pointer" />
+    				</form>
+    				</center>
+    			</td>
+               	<td class="tittab" width="90%" colspan=10>
+                   	 Libelle court ; Libelle Long
+                </td>
+			</tr>  
+		<?php afficheClassement($tabSto)?>  	
+   		</table>
+   	</center>
+   	</fieldset>

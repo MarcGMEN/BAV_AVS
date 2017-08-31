@@ -1,0 +1,61 @@
+<?php
+
+/*
+ * retourne un user pour un id
+ */
+function return_liens() {
+  $row=null;
+  $tabReturn=array();
+  $requete = "select * from  ".CFG_PREFIXE_TABLE."lien ";
+  $requete .= "order by lie_dossier, lie_texte ";
+  //echo $requete;
+  $resultat = mysql_query($requete);
+  
+  $i=0;
+  while ($row = mysql_fetch_array($resultat, MYSQL_ASSOC)) {
+    $tabReturn[$row['lie_id']] = $row;
+  }
+
+  return  $tabReturn;
+}
+
+function return_liens_en_avant() {
+  $row=null;
+  $tabReturn=array();
+  $requete = "select * from  ".CFG_PREFIXE_TABLE."lien ";
+  $requete .= "where lie_avant = 'oui' ";
+  $requete .= "order by lie_date desc ";
+  $requete .= "limit 0,10";
+  //echo $requete;
+  $resultat = mysql_query($requete);
+  
+  $i=0;
+  while ($row = mysql_fetch_array($resultat, MYSQL_ASSOC)) {
+    $tabReturn[$row['lie_id']] = $row;
+  }
+
+  return  $tabReturn;
+}
+
+function return_lien($id) {
+  $row=null;
+  $requete = "select * from  ".CFG_PREFIXE_TABLE."lien ";
+  $requete .= " where lie_id =  ".$id;
+  //echo $requete;
+  $resultat = mysql_query($requete);
+  
+  if (!$row = mysql_fetch_array($resultat, MYSQL_ASSOC) ) {
+    echo "erreur sur $requete ".mysql_error()."<br/>";
+  }
+  else {
+    $row['types_avant']=recupEnumToArray(" ".CFG_PREFIXE_TABLE."lien","lie_avant");
+  }
+  return  $row;
+}
+
+
+function cmp_lien_texte($a, $b) {
+  return strcasecmp($a["lie_texte_lien"],$b["lie_texte_lien"]);
+  
+}
+?>

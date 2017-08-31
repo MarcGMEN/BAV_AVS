@@ -1,0 +1,24 @@
+<table>
+    <tbody>
+        <tr>
+            <td>--SITE--</td>
+            <td>Nom de votre site internet</td>
+		</tr>
+        <tr>
+            <td>--SUJET--</td>
+            <td>Sujet de l'actualité, présent dans le titre du mail</td>
+		</tr>
+        <tr>
+            <td>--SUJET_RDV--</td>
+            <td>Sujet l'evenement</td>
+		</tr>
+		<tr>
+            <td>--TEXTE_RDV--</td>
+            <td>Texte complet de l'evenement</td>
+		</tr>
+		<tr>
+            <td>--DATE_RDV--</td>
+            <td>Date de l'evenement</td>
+		</tr>
+    </tbody>
+</table>

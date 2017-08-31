@@ -1,0 +1,27 @@
+<?php
+
+$module="sondage";
+include_once "../Functions/".$module."_functions.php";
+
+/**************************************/
+/**************************************/
+/* PHOTOS */
+/**************************************/
+/**************************************/
+
+/*
+ * recherche d'un photo aleatoire
+ */
+function return_sondage_ajax($id) {
+  $row=return_sondage($id);
+  $row['son_texte_entete']=utf8Encode($row['son_texte_entete']);
+  $row['son_texte_fin']=utf8Encode($row['son_texte_fin']);
+  $row['son_titre']=utf8Encode($row['son_titre']);
+  foreach ($row['questions'] as $key => $val) {
+    $row['questions'][$key]['qso_libelle']=utf8Encode($val['qso_libelle']);
+    $row['questions'][$key]['qso_valeur1']=utf8Encode($val['qso_valeur1']);
+    $row['questions'][$key]['qso_valeur2']=utf8Encode($val['qso_valeur2']);
+  }
+  return $row;
+}
+?>

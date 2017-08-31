@@ -1,0 +1,639 @@
+<?php
+
+
+function cmpDate($imgA, $imgB)
+{
+	$tabStatA=stat($imgA);
+	$tabStatB=stat($imgB);
+	$a=$tabStatA['ctime'];
+	$b=$tabStatB['ctime'];
+	if ($a == $b) {
+		return 0;
+	}
+	return ($a < $b) ? -1 : 1;
+}
+//require("photos/conf.php");
+
+error_reporting(E_ALL); // afficher les erreurs
+//error_reporting(0); // ne pas afficher les erreurs
+
+function return_photos_from($photoDir) {
+	global $photos_THUMBS_DIR;
+	global $photos_IMAGE_STDDIM;
+	global $photos_IMAGE_400;
+	global $photos_IMAGE_800;
+	global $photos_ICO_FILENAME;
+	global $photos_ORDER;
+	global $photos_MINIATURE_MAXDIM;
+
+	$tabReturn=array();
+	$listDir=array();
+	$listFile=array();
+	//scan des répertoires qui contiennent des caractères interdits
+	scan_invalid_char($photoDir);
+	// listage des répertoires et fichiers
+	if ($handle = opendir($photoDir)) {
+		$cDir = 0;
+		$cFile = 0;
+		while (false !== ($file = readdir($handle))) {
+			if($file != "." && $file != ".." && $file != ".couverture" &&
+			$file != $photos_THUMBS_DIR &&
+			$file != $photos_IMAGE_STDDIM &&
+			$file != $photos_IMAGE_400 &&
+			$file != $photos_IMAGE_800){
+				if(is_dir($photoDir . "/" . $file)){
+					$listDir[$cDir] = $file;
+					$cDir++;
+				}
+				else {
+					$pathInfo = pathinfo($file);
+					if (array_key_exists("extension",$pathInfo)) {
+						$ext=$pathInfo['extension'];
+						if ((strtoupper($ext) == "JPG" || strtoupper($ext) == "JPEG" || strtoupper($ext) == "TIFF" || $ext == "gif" || $ext == "png") && ($file !== $photos_ICO_FILENAME) ){
+
+							if (strtoupper($ext) == "JPG" || strtoupper($ext) == "JPEG" || strtoupper($ext) == "TIFF" ) {
+								$exif = exif_read_data("./".$photoDir."/".$file, 'FILE',true);
+								if (isset($exif['EXIF']['DateTimeOriginal'])) {
+									$tabTmp=explode(" ",$exif['EXIF']['DateTimeOriginal']);
+									$tabDay=explode(":",$tabTmp[0]);
+									$tabHour=explode(":",$tabTmp[1]);
+
+									$datePhoto = mktime($tabHour[0],$tabHour[1] ,$tabHour[2], $tabDay[1], $tabDay[2], $tabDay[0]);
+								}
+								else if (isset($exif['FILE'])) {
+
+									$datePhoto = $exif['FILE']['FileDateTime'];
+								}
+							}
+							else {
+								$tabStat=stat("./".$photoDir."/".$file);
+								$datePhoto= $tabStat['mtime'];
+							}
+							$listFile[$cFile] = $file;
+							//$tabStat=stat("./".$photoDir."/".$file);
+							$sortedTab[$datePhoto.sprintf("[%05s]\n",rand(0,10000))]=$file;
+							//$sortedTab[$tabStat['mtime'].sprintf("[%05s]\n",rand(0,10000))]=$file;
+							//$sortedTab[$tabStat['mtime']]=$file;
+							$cFile++;
+						}
+					}
+				}
+			}
+		}
+		if ($photos_ORDER == 'ALPHA') {
+			usort($listFile,"strnatcmp");
+		}
+
+		if ($photos_ORDER == 'DATE') {
+			if (isset($sortedTab)) {
+				krsort($sortedTab , SORT_NUMERIC );
+				$cFile=0;
+				$listFile=array();
+				foreach($sortedTab as $val) {
+					$listFile[$cFile++]=$val;
+				}
+			}
+		}
+		if ($photos_ORDER == 'DATE_INVERSE') {
+			if (isset($sortedTab)) {
+				ksort($sortedTab , SORT_NUMERIC );
+				$cFile=0;
+				$listFile=array();
+				foreach($sortedTab as $val) {
+					$listFile[$cFile++]=$val;
+				}
+			}
+		}
+
+
+
+		closedir($handle);
+		$listAlbum=array();
+		$index=0;
+
+		if (!file_exists($photoDir. "/" . $photos_THUMBS_DIR)) {
+			create_folder($photoDir. "/", $photos_THUMBS_DIR);
+		}
+		if (!file_exists($photoDir. "/" . $photos_IMAGE_STDDIM)) {
+			create_folder($photoDir. "/", $photos_IMAGE_STDDIM);
+		}
+
+		foreach($listDir as $val) {
+			// creation des images et icones pour ce repertoire
+			//$listAlbum[$index++]=return_titreAlbum($val,$photoDir);
+
+			if (!file_exists($photoDir. "/" . $val . "/" . $photos_THUMBS_DIR)) {
+				create_folder($photoDir. "/" . $val, $photos_THUMBS_DIR);
+			}
+			if (!file_exists($photoDir. "/" . $val . "/" . $photos_IMAGE_STDDIM)) {
+				create_folder($photoDir. "/" . $val, $photos_IMAGE_STDDIM);
+			}
+			create_icon2($photoDir. "/" . $val);
+		}
+
+		//on recree les miniataures des nouveau fichiers
+		//echo "recherche des miniature de ".$photoDir."/".$photos_THUMBS_DIR."<br/>";
+		foreach($listFile as $image) {
+			//echo "recherche miniature de ".$photoDir."/".$photos_THUMBS_DIR. "/__" . $image."<br/>";
+			if (!file_exists("./".$photoDir."/".$photos_THUMBS_DIR . "/__" . $image)){
+				//echo "creation de $image sur ".$photoDir."/".$photos_THUMBS_DIR. "/__" . $image."<br/>";
+				create_newimage($photoDir, $image, $photos_MINIATURE_MAXDIM, $photos_THUMBS_DIR, "__");
+			}
+		}
+
+		// on dispose de la liste des fichiers dans listFile et de la liste des repertoires dans listDir
+
+		//$tabReturn['ALBUM']=$listAlbum;
+		$tabReturn['DIR']=$listDir;
+		$tabReturn['FILE']=$listFile;
+	} // fin si ouverture correcte du repertoire
+
+	return $tabReturn;
+}
+
+///////////////////////////////////////////////////////////////////////
+//fonction qui renomme les dossiers comprenant des caractères interdits
+///////////////////////////////////////////////////////////////////////
+function scan_invalid_char($dir2scan) {
+	if ($handle = opendir($dir2scan)) {
+		while (false !== ($file = readdir($handle))) {
+			if ($file != "." && $file != ".." && preg_match("[\[\]àáâãäåÀÁÂÃÄÅÈÉÊËèéêëÌÍÎÏìíîïÒÓÔÕÖòóôõöÙÚÛÜùúûü.!@#$%^&*+{}()'=$]", $file) && is_dir($dir2scan.'/'.$file)) {
+				$newfilename = $file;
+				$newfilename = eregi_replace("[]\[\.!@#$%^&*+{}()'=$]", "_", $newfilename);
+				$newfilename = eregi_replace("[àáâãäåÀÁÂÃÄÅ]", "a", $newfilename);
+				$newfilename = eregi_replace("[ÈÉÊËèéêë]", "e", $newfilename);
+				$newfilename = eregi_replace("[Çç]", "c", $newfilename);
+				$newfilename = eregi_replace("[ÌÍÎÏìíîï]", "i", $newfilename);
+				$newfilename = eregi_replace("[ÒÓÔÕÖòóôõö]", "o", $newfilename);
+				$newfilename = eregi_replace("[ÙÚÛÜùúûü]", "u", $newfilename);
+				rename($dir2scan.'/'.$file, $dir2scan.'/'.$newfilename);
+			}
+		}
+		closedir($handle);
+	}
+}
+
+//////////////////////////////////////////////////////////////////////////
+//fonction pour créer une miniature de la 1ère image du sous dossier photo
+//////////////////////////////////////////////////////////////////////////
+function create_icon($dir2iconize) {
+	global $photos_ICO_WIDTH;
+	global $photos_ICO_HEIGHT;
+	global $photos_ICO_FILENAME;
+	global $photos_GLOBAL_JPG_QUALITY;
+
+
+	$dir = $dir2iconize; //chemin vers le répertoire à dont on doit créer l'icone
+	if ($handle = opendir($dir)) {
+		$cFile = 0;
+		while (false !== ($file = readdir($handle))) {
+			if($file != "." && $file != ".." && substr($file,0,1) != "_"){
+				if(is_file($dir . "/" . $file)){
+					$listFile[$cFile] = $file;
+					$cFile++;
+				}
+			}
+		}
+		closedir($handle);
+	}
+	//$extract = scandir($dir);//scan des "array" du répertoire
+
+	//print_r($listFile);
+
+	$nbFic=rand(0,sizeof($listFile));
+	$first_dir_item = $listFile[$nbFic]; // on extrait la valeur du premier fichier du répertoire (après"." et "..")
+	while (!getimagesize($dirImageBase."/".$first_dir_item)) {
+		$nbFic=rand(0,sizeof($listFile));
+		$first_dir_item = $listFile[$nbFic]; // on extrait la valeur du premier fichier du répertoire (après"." et "..")
+	}
+	list($width, $height, $type, $attr) = getimagesize($dirImageBase."/".$first_dir_item);//on liste les valeur de l'image
+	$miniature = imagecreatetruecolor($photos_ICO_WIDTH, $photos_ICO_HEIGHT);
+	if ($type == 1) {
+		$image = imagecreatefromgif($dirImageBase."/".$first_dir_item);
+	}
+	if ($type == 2) {
+		$image = imagecreatefromjpeg($dirImageBase."/".$first_dir_item);
+	}
+	if ($type == 3) {
+		$image = imagecreatefrompng($dirImageBase."/".$first_dir_item);
+	}
+	$icoWidth=$photos_ICO_WIDTH;
+	if ($width < $photos_ICO_WIDTH) {
+		$icoWidth=$width;
+	}
+	$ratio=2;
+	$posX=rand(1,$width);
+	$posXOK=($width/$ratio) - $posX < $photos_ICO_WIDTH ? (($width/$ratio) - $photos_ICO_WIDTH < 0 ? 0 : ($width/$ratio) - $photos_ICO_WIDTH ) : $posX ;
+	$posY=rand(1,$height);
+	$posYOK=($height/$ratio)- $posY < $photos_ICO_HEIGHT? ($height/$ratio)- $photos_ICO_HEIGHT : $posY ;
+
+
+	/*echo $dir."/".$first_dir_item;
+	 echo ";posXOK = $posXOK & posYOK = $posYOK";
+	 echo ";width = $width & height = $height";
+	 echo ";ICO_WIDTH = ".ICO_WIDTH." & ICO_HEIGHT= ".ICO_HEIGHT;
+	 echo ";icoWidth = ".$icoWidth;
+	 echo "<br/>";*/
+	//imagecopyresampled(image de destination, image source, int dst_x, int dst_y, int src_x, int src_y, int dst_w, int dst_h, int src_w, int src_h);
+	//imagecopyresampled($miniature, $image, 0, 0,((($width - $icoWidth)/2) <= $icoWidth ? $icoWidth-(($width - $icoWidth)/2) : ($width - $icoWidth)/2), ((($height - ICO_HEIGHT)/2) <= 0 ? ICO_HEIGHT-(($height - ICO_HEIGHT)/2) : ($height - ICO_HEIGHT)/2), $icoWidth, ICO_HEIGHT, $icoWidth*2, ICO_HEIGHT*2);
+
+	imagecopyresampled($miniature, $image, 0, 0,$posXOK,$posYOK, $icoWidth, $photos_ICO_HEIGHT, $icoWidth*$ratio, $photos_ICO_HEIGHT*$ratio);
+	imagejpeg($miniature, $dir."/".$photos_ICO_FILENAME, $photos_GLOBAL_JPG_QUALITY);
+
+}
+
+//////////////////////////////////////////////////////////////////////////
+//fonction pour créer une miniature de la 1ère image du sous dossier photo
+//////////////////////////////////////////////////////////////////////////
+function create_icon2($dir2iconize) {
+	global $photos_ICO_WIDTH;
+	global $photos_ICO_HEIGHT;
+	global $photos_ICO_NB_IMG;
+	global $photos_GLOBAL_JPG_QUALITY;
+	global $photos_ICO_FILENAME;
+
+	$dir = $dir2iconize; //chemin vers le répertoire à dont on doit créer l'icone
+	$listFile= array();
+	searchImages($dir,$listFile,"","R");
+	//echo "pour $dir => ".sizeof($listFile)."<br/>";
+
+	$miniature = imagecreatetruecolor($photos_ICO_WIDTH, $photos_ICO_HEIGHT);
+
+	$indexFile=array();
+	for ($index=0;$index < $photos_ICO_NB_IMG;$index++) {
+		if (sizeof($listFile)) {
+			$nbFic=rand(1,sizeof($listFile));
+			$nbFic--;
+			if (file_exists($dir."/.couverture")) {
+				$listFile[$nbFic]=$dir."/".return_imageAlbum($dir);
+			}
+
+			if (is_file($listFile[$nbFic])) {
+				list($width, $height, $type, $attr) = getimagesize($listFile[$nbFic]);//on liste les valeur de l'image
+				if ($type == 1) {
+					$image = imagecreatefromgif($listFile[$nbFic]);
+				}
+				if ($type == 2) {
+					$image = imagecreatefromjpeg($listFile[$nbFic]);
+				}
+				if ($type == 3) {
+					$image = imagecreatefrompng($listFile[$nbFic]);
+				}
+				$ratio=2;
+				$posX=rand(1,$width);
+				$posXOK=($width/$ratio) - $posX < $photos_ICO_WIDTH ? (($width/$ratio) - $photos_ICO_WIDTH < 0 ? 0 : ($width/$ratio) - $photos_ICO_WIDTH ) : $posX ;
+				$posY=rand(1,$height);
+				$posYOK=($height/$ratio)- $posY < $photos_ICO_HEIGHT? ($height/$ratio)- $photos_ICO_HEIGHT : $posY ;
+
+
+				/*echo $dir."/".$first_dir_item;
+				 echo ";posXOK = $posXOK & posYOK = $posYOK";
+				 echo ";width = $width & height = $height";
+				 echo ";ICO_WIDTH = ".ICO_WIDTH." & ICO_HEIGHT= ".ICO_HEIGHT;
+				 echo ";icoWidth = ".$icoWidth;
+				 echo "<br/>";*/
+				//imagecopyresampled(image de destination, image source, int dst_x, int dst_y, int src_x, int src_y, int dst_w, int dst_h, int src_w, int src_h);
+				imagecopyresampled($miniature, $image, 0, 0,$posXOK,$posYOK, $photos_ICO_WIDTH,  $photos_ICO_HEIGHT,  $photos_ICO_WIDTH*$ratio,  $photos_ICO_HEIGHT*$ratio);
+			}
+		}
+	}
+	imagejpeg($miniature, $dir."/". $photos_ICO_FILENAME,  $photos_GLOBAL_JPG_QUALITY);
+
+	//print_r(error_get_last());
+}
+
+
+//////////////////////////////////////////////
+//fonction pour créer le répertoire miniatures
+//////////////////////////////////////////////
+function create_folder($dirwhere2folderize, $dir_name) {
+	mkdir($dirwhere2folderize."/".$dir_name);
+}
+
+/////////////////////////////////////////////////////////////////////
+//fonction pour créer toutes les miniatures du répertoire en question
+/////////////////////////////////////////////////////////////////////
+function create_newimage($dirname, $file2miniaturize, $dimensionmax, $dir_where2save, $file_prefixe) {
+	global $photos_GLOBAL_JPG_QUALITY;
+	$dir = $dirname; //chemin vers le répertoire à dont on doit créer l'icone
+	$dir_where2save = ($dir_where2save ? "/".$dir_where2save : "");
+	$file_prefixe = ($file_prefixe ? $file_prefixe : "");
+	list($width, $height, $type, $attr) = getimagesize($dir."/".$file2miniaturize);//on liste les valeur de l'image
+	if ($width >= $height) {
+		$newwidth = $dimensionmax;
+		$newheight = ($dimensionmax*$height)/$width;
+	} else {
+		//		$newwidth = $dimensionmax;
+		//		$newheight = ($dimensionmax*$height)/$width;
+		$newwidth = ($dimensionmax*$width)/$height;
+		$newheight = $dimensionmax;
+	}
+	$miniature = imagecreatetruecolor($newwidth, $newheight);
+	if ($type == 1) {
+		$image = imagecreatefromgif($dir."/".$file2miniaturize);
+	}
+	if ($type == 2) {
+		$image = imagecreatefromjpeg($dir."/".$file2miniaturize);
+	}
+	if ($type == 3) {
+		$image = imagecreatefrompng($dir."/".$file2miniaturize);
+	}
+	imagecopyresampled($miniature, $image, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+	imagejpeg($miniature, $dir.$dir_where2save."/".$file_prefixe.$file2miniaturize, $photos_GLOBAL_JPG_QUALITY);
+}
+
+/////////////////////////////////////////
+//fonction pour tronquer un nom trop long
+/////////////////////////////////////////
+function wordTruncate($str) {
+	global  $photos_PHOTONAME_MAXCHAR;
+	$str_to_count = html_entity_decode($str);
+	//  echo strlen($str_to_count);
+	if (strlen($str_to_count) <= $photos_PHOTONAME_MAXCHAR) {
+		return $str;
+	} else {
+		$str2 = substr($str_to_count, 0, $photos_PHOTONAME_MAXCHAR - 3)."...";
+		return htmlentities($str2);
+	}
+}
+
+////////////////////////////////////
+//fonction pour la gestion des pages
+////////////////////////////////////
+function gestionPage($page_num, $totalPages, $url) {?>
+<div class="fdcolor1" align="center">
+	<span class="Style2"> <?if ( $totalPages > 1) {?> <?if ($page_num > 1) { ?>
+		<!-- page precedente  --> <a
+		href="<?=$url?>&page_num=<?= ($page_num-1); ?>" class="Style2">
+			&laquo;</a> &nbsp;|&nbsp; <?} 
+			for ($l =1; $l < $totalPages; $l++) {
+				if ($page_num != $l) {?> <!-- les pages --> <a
+		href="<?=$url?>&page_num=<?= $l; ?>" class="Style2"><?= $l; ?> </a>
+		&nbsp;|&nbsp; <?} else {?> <!-- page selectionne --> <b><?= $l; ?> </b>
+		&nbsp;|&nbsp; <?
+		}
+			}
+
+			if ($page_num != $l) {?> <a href="<?=$url?>&page_num=<?= $l; ?>"
+		class="Style2"><?= $l; ?> </a> <?} else {?> <b><?= $l; ?> </b> <?}
+		if ($page_num < $totalPages) { ?> &nbsp;|&nbsp; <!-- page suivante -->
+		<a href="<?=$url?>&page_num=<?= ($page_num+1) ?>" class="Style2">&raquo;</a>
+		<?php }
+	}?> </span>
+</div>
+	<?
+}
+
+/*
+ * recherche de la liste des photos a partir d'un repertoire
+ * parametre :  le repertoire de base
+ * 				la liste des fichiers miniatures
+ * 				la liste des fichiers format 640
+ * 				flag de recherche que des incones
+ */
+function searchImages($photosDir, &$listFile,$typeDir="",$recur="") {
+	global $photos_THUMBS_DIR;
+	global $photos_IMAGE_STDDIM;
+	global $photos_IMAGE_400;
+	global $photos_IMAGE_800;
+	global $photos_ICO_FILENAME;
+
+	if (is_dir($photosDir)) {
+		if ($handle = opendir($photosDir)) {
+			$cFile = 0;
+			while (false !== ($file = readdir($handle))) {
+				//echo $file;
+				if(	$file != "." &&
+				$file != ".." &&
+				$file != ".couverture" &&
+				$file != $photos_THUMBS_DIR &&
+				$file != $photos_IMAGE_STDDIM &&
+				$file != $photos_IMAGE_400 &&
+				$file != $photos_IMAGE_800) {
+					if(is_dir($photosDir . "/" . $file)){
+						if (strlen($typeDir) == 0) {
+							$dir = $photosDir."/".$file; //chemin vers le répertoire à dont on doit créer l'icone
+						}
+						else {
+							$dir = $photosDir."/".$file."/".$typeDir; //chemin vers le répertoire à dont on doit créer l'icone
+						}
+						// echo $dir;
+						if ($handle1 = opendir($dir)) {
+							while (false !== ($file1 = readdir($handle1))) {
+								if($file1 != "." && $file1 != ".." && $file1 != ".couverture" ){
+									if(is_file($dir . "/" . $file1)){
+										$pathInfo = pathinfo($dir . "/" . $file1);
+										$ext=$pathInfo['extension'];
+										if ((strtoupper($ext) == "JPEG" || strtoupper($ext) == "JPG" || strtoupper($ext) == "GIF" || strtoupper($ext)== "PNG" ) &&
+										($file1 !== $photos_ICO_FILENAME) ){
+											//echo "ajout 1 $file1";
+											$listFile[$cFile] = $dir . "/" .$file1;
+											$cFile++;
+										}
+									}
+								}
+							}
+							closedir($handle1);
+						}
+						if ($recur=="R") {
+							searchImages($photosDir . "/" . $file, $listFile,$typeDir,$recur);
+						}
+					} // fin si repertoire
+					if (strlen($typeDir) == 0) {
+						$dir = $photosDir."/".$file; //chemin vers le répertoire à dont on doit créer l'icone
+					}
+					else {
+						if ($typeDir == $photos_THUMBS_DIR) {
+							$dir = $photosDir."/".$typeDir."/__".$file; //chemin vers le répertoire à dont on doit créer l'icone
+						}
+						else {
+							$dir = $photosDir."/".$typeDir."/".$file; //chemin vers le répertoire à dont on doit créer l'icone
+						}
+					}
+					//echo $dir;
+					if(is_file($dir)){
+						$pathInfo = pathinfo($dir);
+						 
+						if (array_key_exists("extension",$pathInfo)) {
+							$ext=$pathInfo['extension'];
+							//echo $ext;
+							if ((strtoupper($ext) == "JPEG" || strtoupper($ext) == "JPG" || strtoupper($ext) == "GIF" || strtoupper($ext)== "PNG" ) && ($file !== $photos_ICO_FILENAME) ){
+								//echo "ajout 2 $file !== $photos_ICO_FILENAME..";
+								$listFile[$cFile] = $dir;
+								$cFile++;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+
+
+
+
+////////////////////////////////////
+//fonction de determination du titre de l'album
+////////////////////////////////////
+function return_titreAlbum($dir, $rep ) {
+	$file=$rep."/.".$dir;
+	if (file_exists($file)) {
+		$titre_album = file_get_contents($file);
+	}
+	else {
+		$titre_album= $dir;
+	}
+	return $titre_album;
+}
+
+function return_imageAlbum($rep ) {
+	$file=$rep."/.couverture";
+	$image_album = "";
+	if (file_exists($file)) {
+		$image_album = file_get_contents($file);
+	}
+	return  $image_album ;
+}
+
+
+function rubriqueAlbum($tabDir,$tabRubrique,$niveau=1) {
+	global $photos_MAX_ALBUM_LIBRE;
+	//echo "tabRubrique = $tabRubrique";
+	$rubAlbum=null;
+	//echo "$niveau <= ".sizeof($tabDir)." && $niveau <= $photos_MAX_ALBUM_LIBRE";
+	if ($niveau <= sizeof($tabDir) && $niveau <= $photos_MAX_ALBUM_LIBRE) {
+		$album=explode("_",$tabDir[sizeof($tabDir)-$niveau]);
+		//print_r($album);
+		if (isset($album[1])) {
+			if (!$rubAlbum=return_rubrique($album[1])) {
+				$rubAlbum=rubriqueAlbum($tabDir,$tabRubrique,++$niveau);
+			}
+			else if (is_array($tabRubrique)) {
+				//echo "recherche des rub pour ".$rubAlbum['rub_id'];
+				$tabRubrique=return_rubriqueMedia($rubAlbum['rub_id']);
+			}
+		}
+		else {
+			// verru si album non formé correctement
+			$rubAlbum=rubriqueAlbum($tabDir,null,++$niveau);
+		}
+	}
+	//print_r($rubAlbum);
+	return $rubAlbum;
+}
+
+/****************************************************************************/
+/****************************************************************************/
+/****************************************************************************/
+
+/****************/
+/* COMMENTAIRES */
+/****************/
+function return_commentaire_photo($url) {
+	$requete = "select ".CFG_PREFIXE_TABLE."commentaires.*, usr_nom";
+	$requete .= " from ".CFG_PREFIXE_TABLE."commentaires, ".CFG_PREFIXE_TABLE."user ";
+	$requete .= " where com_url = '".$url."'" ;
+	$requete .= " and com_user = usr_id " ;
+	$requete .= " order by com_date asc " ;
+	//echo $requete;
+	if (!$resultat = mysql_query($requete)) {
+		echo "erreur sur $requete ";
+	}
+
+	$tabReturn=array();
+	$i=0;
+	while ($row = mysql_fetch_array($resultat, MYSQL_ASSOC)) {
+		$tabReturn[$row['com_id']] = $row;
+	}
+	return  $tabReturn;
+}
+
+function insert_commentaire($url, $user, $texte) {
+	$req = "INSERT INTO ".CFG_PREFIXE_TABLE."commentaires ";
+	$req .= "VALUES ('".$url."','".add_slashes($texte)."',".$user.",'".date("Y-m-d H:i:s")."',0)";
+	// echo $req;
+	if (!$resultat = mysql_query($req)) {
+		echo "erreur sur $req ".mysql_error()."<br/>";
+	}
+}
+
+function delete_commentaire($id) {
+	$req = "delete from ".CFG_PREFIXE_TABLE."commentaires ";
+	$req .= "where com_id = $id";
+	// echo $req;
+	if (!$resultat = mysql_query($req)) {
+		echo "erreur sur $req ".mysql_error()."<br/>";
+	}
+}
+
+function return_commentairePhotoForUser($url, $rubAlbum, $idUser) {
+	$tabReturn=array();
+	$requete = "select ".CFG_PREFIXE_TABLE."commentaires.*, usr_nom";
+	$requete .= " from ".CFG_PREFIXE_TABLE."commentaires, ".CFG_PREFIXE_TABLE."user ";
+	$requete .= " where com_url = '".$url."'" ;
+	$requete .= " and com_user = usr_id " ;
+	$requete .= " order by com_date asc " ;
+	//echo $requete;
+	if (!$resultat = mysql_query($requete)) {
+		echo "erreur sur $requete ";
+	}
+	//$tabRubrique=return_rubriqueMedia($rubAlbum['rub_id']);
+	$leUser=null;
+	if ($idUser != "" && $idUser != "visiteur") {
+		$leUser=return_user($idUser);
+	}
+	$rubMedia=return_rubrique($rubAlbum);
+	//print_r($rubMedia);
+
+	$i=0;
+	while ($row = mysql_fetch_array($resultat, MYSQL_ASSOC)) {
+		if (droitUDMedia($rubMedia, $leUser,$row['com_user']) && $leUser!= null) {
+			$row['droit']=true;
+		}
+		else {
+			$row['droit']=false;
+		}
+		$tabReturn[$i++] = $row;
+	}
+
+	return $tabReturn;
+
+}
+
+
+function recupImage($file, $path,$fileTmp="") {
+
+	if ($fileTmp == "") {
+		$fileTmp=$file;
+	}
+	$message="";
+	$newfilename =strtolower(basename($file));
+	if (preg_match("([\àáâãäåÀÁÂÃÄÅÈÉÊËèéêëÌÍÎÏìíîïÒÓÔÕÖòóôõöÙÚÛÜùúûü!@#$%^&*+{}()'\"=$ ])", $newfilename)) {
+		$newfilename = preg_replace("[ ]", "_", $newfilename);
+		$newfilename = preg_replace("([\!@#$%^&*+{}()'=$\"])", "", $newfilename);
+		$newfilename = preg_replace("([àáâãäåÀÁÂÃÄÅ])", "a", $newfilename);
+		$newfilename = preg_replace("([ÈÉÊËèéêë])", "e", $newfilename);
+		$newfilename = preg_replace("([Çç])", "c", $newfilename);
+		$newfilename = preg_replace("([ÌÍÎÏìíîï])", "i", $newfilename);
+		$newfilename = preg_replace("([ÒÓÔÕÖòóôõö])", "o", $newfilename);
+		$newfilename = preg_replace("([ÙÚÛÜùúûü])", "u", $newfilename);
+	}
+	if (getimagesize($fileTmp)) {
+		if (filesize($fileTmp) < 1500000) { 
+		if (!copy($fileTmp, $path."/".$COOKIE_AR_id_usr."_".$newfilename) ) {
+			$message="La copie du fichier ".$file." n'a pas reussi....";
+		}
+		}
+		else {
+			$message="  - Image [".basename($file)."] trop grande ".round((filesize($fileTmp)/1024/1024),2)."Mo > 1.5 Mo" ;
+			
+		}
+	}
+	else {
+		$message="Format de l'image incorrect ! $file $fileTmp";
+	}
+	return $message;
+}
+?>

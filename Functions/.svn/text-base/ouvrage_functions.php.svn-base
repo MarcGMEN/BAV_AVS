@@ -1,0 +1,165 @@
+<?php
+
+
+function nextIdOuv($tyo) {
+	$requete = "select max(ouv_id) nextOuvId ";
+	$requete .= " from ".CFG_PREFIXE_TABLE."ouvrage ";
+	$requete .= " where ouv_id_tyo = $tyo ";
+	if (!$resultat = mysql_query($requete)) {
+		echo "erreur sur $requete ";
+	}
+	else {
+		$index=0;
+		$row = mysql_fetch_array($resultat, MYSQL_ASSOC);
+	}
+	return  ++$row['nextOuvId'];
+}
+
+function return_ouvrage($ouv, $tyo) {
+	$requete = "select *  ";
+	$requete .= " from ".CFG_PREFIXE_TABLE."ouvrage, ".CFG_PREFIXE_TABLE."ouvrage_classement ";
+	$requete .= " where ouv_id = $ouv ";
+	$requete .= " and ouv_id_tyo = $tyo ";
+	$requete .= " and ouv_id_sto = sto_id ";
+	if (!$resultat = mysql_query($requete)) {
+		echo "erreur sur $requete ";
+	}
+	else {
+		if ($row = mysql_fetch_array($resultat, MYSQL_ASSOC)) {
+			$row=array_merge($row,return_champDeLOuvrage($row['ouv_id'],$row['ouv_id_tyo']));
+		}
+	}
+
+	return $row;
+}
+
+// OUVRAGE
+function return_AllOuvrage($tyo) {
+	$tabOuvrage=array();
+	$requete = "select *";
+	$requete .= " from ".CFG_PREFIXE_TABLE."ouvrage";
+	$requete .= " where ouv_id_tyo = $tyo ";
+	if (!$resultat = mysql_query($requete)) {
+		echo "erreur sur $requete ";
+	}
+	else {
+		$index=0;
+		while ($row = mysql_fetch_array($resultat, MYSQL_ASSOC)) {
+			$row=array_merge($row,return_champDeLOuvrage($row['ouv_id'],$row['ouv_id_tyo']));
+			$tabOuvrage[$index++]=$row;
+		}
+	}
+	return  $tabOuvrage;
+}
+
+
+function return_AllOuvrageForSto($tyo,$sto, $recur=false) {
+	$tabOuvrage=array();
+	$tabSto = return_AllClassementsOuvrage($tyo,$sto);
+
+	$requete = "select *";
+	$requete .= " from ".CFG_PREFIXE_TABLE."ouvrage";
+	$requete .= " where ouv_id_tyo = $tyo ";
+	$requete .= " and ouv_id_sto = $sto";
+	if (!$resultat = mysql_query($requete)) {
+		echo "erreur sur $requete ";
+	}
+	else {
+		$index=0;
+		while ($row = mysql_fetch_array($resultat, MYSQL_ASSOC)) {
+			$row=array_merge($row,return_champDeLOuvrage($row['ouv_id'],$row['ouv_id_tyo']));
+			$tabOuvrage[$index++]=$row;
+		}
+	}
+
+	foreach ($tabSto['sto_sous'] as $val) {
+		array_merge($tabOuvrage,return_AllOuvrageForSto($tyo,$val['sto_id'], $recur));
+	}
+	return  $tabOuvrage;
+}
+
+
+// Le CHAMPS pour l'OUVRAGE
+function return_champDeLOuvrage($ouv, $tyo, $witdhId=true) {
+	$tabOuvrage=array();
+	$requete = "select cso_id, cso_libelle,cho_id, cso_mode_saisie, cso_type_data, cho_valeur_char, cho_valeur_decimal";
+	$requete .= " from ".CFG_PREFIXE_TABLE."ouvrage_champs cso, ";
+	$requete .= CFG_PREFIXE_TABLE."ouvrage_champ cho, ";
+	$requete .= CFG_PREFIXE_TABLE."ouvrage_a_un_champ cao ";
+	$requete .= " where cao_id_ouv = $ouv ";
+	$requete .= " and  cao_id_tyo = $tyo ";
+	$requete .= " and cho_id = cao_id_cho ";
+	$requete .= " and cso_id = cho_id_cso ";
+
+	if (!$resultat = mysql_query($requete)) {
+		echo "erreur sur $requete ".mysql_error()."<br/>";
+	}
+	else {
+		$index=0;
+		while ($row = mysql_fetch_array($resultat, MYSQL_ASSOC)) {
+			if ($witdhId) {
+				if ($row['cso_mode_saisie'] == "select") {
+					$tabOuvrage["cho_valeur[".$row['cso_id']."]"]=$row['cho_id'];
+					$tabOuvrage["cho_valeur_libelle[".$row['cso_id']."]"]=$row['cho_valeur_'.$row['cso_type_data']];
+				}
+				else {
+					$tabOuvrage["cho_valeur[".$row['cso_id']."]"]=$row['cho_valeur_'.$row['cso_type_data']];
+					$tabOuvrage["cho_valeur_libelle[".$row['cso_id']."]"]=$row['cho_valeur_'.$row['cso_type_data']];
+				}
+				$tabOuvrage["cso_titre[".$row['cso_id']."]"]=$row['cso_libelle'];
+			
+			}
+			else {
+				$tabOuvrage[$row['cso_libelle']]=$row['cho_valeur_'.$row['cso_type_data']];
+			}
+		}
+	}
+	return  $tabOuvrage;
+}
+
+function return_ouvrageFromTyo($tabSearch, $tyo) {
+	$tabOuvrage=array();
+
+	$requete = "select ouv_id, ouv_cote, ouv_libelle, ouv_resume, ouv_mots_clefs, sto_libelle_court ";
+	$requete .= " from ".CFG_PREFIXE_TABLE."ouvrage, ".CFG_PREFIXE_TABLE."ouvrage_classement, ";
+	$requete .= " from ".CFG_PREFIXE_TABLE."ouvrage_champs cso, ";
+	$requete .= CFG_PREFIXE_TABLE."ouvrage_champ cho, ";
+	$requete .= CFG_PREFIXE_TABLE."ouvrage_a_un_champ cao ";
+	$requete .= " where ouv_id_sto = sto_id ";
+	$requete .= " and ouv_id_tyo = $GET_tyo_id  ";
+	$requete .= " and cao_id_ouv = oub_id";
+	$requete .= " and cao_id_tyo = ouv_id_tyo ";
+	$requete .= " and cho_id = cao_id_cho ";
+	$requete .= " and cso_id = cho_id_cso ";
+	if (sizeof($tabSearch ) > 0) {
+		$requete .= " $firstAnd ( ";
+		$or="";
+		foreach ($tabSearch as $val) {
+			$requete .= " $or cho_valeur_char like '%".htmlentities($val)."%'";
+			$or=" or ";
+		}
+		$requete .= ") ";
+	}
+
+	if (!$resultat = mysql_query($requete)) {
+		echo "erreur sur $requete ".mysql_error()."<br/>";
+	}
+	else {
+		$index=0;
+		while ($row = mysql_fetch_array($resultat, MYSQL_ASSOC)) {
+			if ($row['cso_mode_saisie'] == "select") {
+				//				print_r($row);
+				$tabOuvrage["cho_valeur[".$row['cso_id']."]"]=$row['cho_id'];
+				//			print_r($tabOuvrage);
+			}
+			else {
+				$tabOuvrage["cho_valeur[".$row['cso_id']."]"]=$row['cho_valeur_'.$row['cso_type_data']];
+			}
+		}
+	}
+	return  $tabOuvrage;
+}
+
+
+
+?>

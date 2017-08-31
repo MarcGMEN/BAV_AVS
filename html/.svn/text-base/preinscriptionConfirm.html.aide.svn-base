@@ -1,0 +1,26 @@
+<table>
+    <tbody>
+        <tr>
+            <td>--SITE--</td>
+            <td>Nom de votre site internet</td>
+</tr>
+        <tr>
+            <td>--SUJET--</td>
+            <td>Sujet de la pr&eacute;-inscription</td>
+</tr>
+        <tr>
+            <td>--TEXTE1--</td>
+            <td>Texte entete de la pr&eacute;-inscription</td>
+</tr>
+	<tr>
+        
+            <td>--INSCRIPT--</td>
+            <td>Donn&eacute;es d'inscription</td>
+</tr>
+	<tr>
+        
+            <td>--TEXTE2--</td>
+            <td>Texte de fin de la pr&eacute;-inscription</td>
+        </tr>
+    </tbody>
+</table>
