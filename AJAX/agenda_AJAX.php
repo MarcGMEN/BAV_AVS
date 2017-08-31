@@ -34,6 +34,7 @@ function return_evt_ajax($id) {
   return $row;
 }
 
+
 function update_LatLng($idEvt, $lat, $lng) {
   $requete1 = " update ".CFG_PREFIXE_TABLE."calendrier ";
   $requete1 .= " set cal_latitude = $lat ";
