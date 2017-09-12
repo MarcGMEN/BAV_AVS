@@ -1,3 +1,0 @@
-<?
-sajax_export("return_rubrique_ajax","return_rubriqueMediaForUser_ajax","return_appletsFromBloc");
-?>

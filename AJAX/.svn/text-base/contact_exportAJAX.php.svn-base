@@ -1,6 +1,0 @@
-<?
-sajax_export("return_contacts_ajax",
-    "return_contacts_mail_ajax","return_contacts_telephone_ajax",
-    "return_contact_simple_ajax","return_contact_ajax",
-	"update_geolocalisation");
-?>

@@ -1,8 +1,0 @@
-<?php
-function search_modules($place) {
-  //echo "../userfiles/modules/$place";
-  $tabFiles=searchFiles("../userfiles/modules/$place","_user_$place.html");
-  sort($tabFiles);
-  return $tabFiles;
-}
-?>

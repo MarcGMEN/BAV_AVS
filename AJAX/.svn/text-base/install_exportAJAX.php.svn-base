@@ -1,5 +1,0 @@
-<?
-sajax_export("verifInstallAjax","returnVersionAjax","recupLivraisonAjax","voirPatchAjax",
-  "verifInstallAttAjax","installAjax","returnNiveauPhase","returnLogPhaseAjax",
-"appelPhaseAJAX","saveToFileAjax");
-?>

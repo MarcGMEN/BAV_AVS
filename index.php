@@ -42,6 +42,7 @@ sajax_handle_client_request();
 <!-- <script src="JS/fileIO.js" type="text/javascript"></script> -->
 
 <?php
+// recuperation des modules
 $test=array_search($GET_mod, $CFG_MODULE_MAP);
 if (is_numeric($test) || (!is_array($CFG_MODULE_MAP) && $GET_mod == $CFG_MODULE_MAP)) {?>
 <!--  GOOGLE MAP -->
