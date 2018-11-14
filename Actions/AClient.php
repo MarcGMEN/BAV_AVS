@@ -143,7 +143,7 @@ if (isset($_POST['lAction']) && $_POST['lAction'] == "email") {
 					$addr=$actu['cal_lieu'].", france";
 				}
 
-				$sujet.=" à <A HREF='http://maps.google.fr/maps?f=d&source=s_d&saddr=$agenda_LIEU_EVT&daddr=".$addr."' target='_new'> ";
+				$sujet.=" Ã  <A HREF='http://maps.google.fr/maps?f=d&source=s_d&saddr=$agenda_LIEU_EVT&daddr=".$addr."' target='_new'> ";
 				$sujet.=$actu['cal_lieu'];
 				$sujet.="</A>";
 
@@ -169,7 +169,7 @@ if (isset($_POST['lAction']) && $_POST['lAction'] == "email") {
 				}
 			}
 
-			$page_src .= "&message=Envoi de la newsletter a ".$cpt." adhérents. ".$erreur;
+			$page_src .= "&message=Envoi de la newsletter a ".$cpt." adhÃ©rents. ".$erreur;
 		}
 	}
 }

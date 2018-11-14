@@ -177,13 +177,16 @@ function valideEmail(value) {
  	  Expression = new RegExp("^([a-zA-Z0-9_-]+)@([a-zA-Z0-9_-]+).{2,4}$");
  		Expression2 = new RegExp("^([a-zA-Z0-9_-]+).([a-zA-Z0-9_-]+){1,}@([a-zA-Z0-9_-]+).([a-zA-Z_-]+){2,4}$");
  		Expression3 = new RegExp("^([a-zA-Z0-9_-]+).([a-zA-Z0-9_-]+){1,}@([a-zA-Z0-9_-]+).([a-zA-Z0-9_-]+).([a-zA-Z]+){2,4}$");
- 	//Expression3 = new RegExp("^([a-zA-Z0-9_.-]+){1,}@([a-zA-Z0-9]+)([_\.-]+)([a-zA-Z0-9]+).([a-zA-Z]+){2,4}$","g");
+	 //Expression3 = new RegExp("^([a-zA-Z0-9_.-]+){1,}@([a-zA-Z0-9]+)([_\.-]+)([a-zA-Z0-9]+).([a-zA-Z]+){2,4}$","g");
+	 re = new RegExp("^/\S+@\S+\.\S+/");
  	if (value.length > 0 && 
-         	!Expression.test(value) &&
-        	!Expression2.test(value) && 
-         	!Expression3.test(value) ) {
+         	!re.test(value)
+         //	!Expression.test(value) &&
+        	//!Expression2.test(value) && 
+			 //!Expression3.test(value) 
+			 ) {
 	 	 	return false;
- 	}  
+ 	} 
  	return true;
 	
 }

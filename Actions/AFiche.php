@@ -1,8 +1,8 @@
 <?
 require "../Functions/commun_functions.php";
-require "../Commun/connect.php";
-require "../Commun/mail.php";
-require "../Functions/fiche_functions.php";
+// require "../Commun/connect.php";
+// require "../Commun/mail.php";
+// require "../Functions/fiche_functions.php";
 
 $page_src = "location:../index.php?page=fiche.php";
 $date = date("Y-m-d H:i:s");
@@ -13,6 +13,10 @@ error_reporting(E_ALL);
 /*****************************************************/
 /*****************************************************/
 /*****************************************************/
+if (isset($_POST['action']) && $_POST['action'] == "") {
+	$page_src = "location:../index.php";
+}
+
 if (isset($_POST['action']) && $_POST['action'] == "new") {
 
 	$requete2 = " insert into objet (obj_numero, obj_numero_bav,obj_type, obj_taille,obj_public, obj_marque, obj_modele,";
@@ -304,6 +308,6 @@ if (isset($_POST['lAction']) && $_POST['lAction'] == "nextMonth") {
 }
 
 
-mysql_close($id_db);
+//mysql_close($id_db);
 
 header($page_src);

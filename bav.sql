@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: 127.0.0.1
--- Généré le : Dim 21 Décembre 2014 à 21:01
+-- GÃ©nÃ©rÃ© le : Dim 21 DÃ©cembre 2014 Ã  21:01
 -- Version du serveur: 5.5.20
 -- Version de PHP: 5.3.9
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de données: `bav`
+-- Base de donnÃ©es: `bav`
 --
 
 -- --------------------------------------------------------
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `client` (
   `cli_emel` varchar(100) DEFAULT NULL,
   `cli_emel_bis` varchar(100) DEFAULT NULL,
   `cli_piece_indetite` varchar(50) DEFAULT NULL,
-  `cli_type_piece` enum('carte identité','permis de conduire','autre') NOT NULL,
+  `cli_type_piece` enum('carte identitÃ©','permis de conduire','autre') NOT NULL,
   `cli_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `cli_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `cli_taux_com` enum('1','2','3') NOT NULL DEFAULT '1',
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `client` (
 --
 
 INSERT INTO `client` (`cli_nom`, `cli_prenom`, `cli_adresse`, `cli_codePostal`, `cli_ville`, `cli_telephone`, `cli_emel`, `cli_emel_bis`, `cli_piece_indetite`, `cli_type_piece`, `cli_date`, `cli_id`, `cli_taux_com`, `cli_prix_depot`) VALUES
-('Tarreau', 'Giovanni', '21, rue des boulaaux', 44600, 'Saint Nazaire', '0627887354', 'pounet7@gmail.com', NULL, '031044300017', 'carte identité', '2014-12-20 20:00:13', 1, '1', '1');
+('Tarreau', 'Giovanni', '21, rue des boulaaux', 44600, 'Saint Nazaire', '0627887354', 'pounet7@gmail.com', NULL, '031044300017', 'carte identitÃ©', '2014-12-20 20:00:13', 1, '1', '1');
 
 -- --------------------------------------------------------
 
