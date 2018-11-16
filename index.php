@@ -3,7 +3,12 @@ if (!isset($_GET['page'])) {
 	$_GET['page']="accueil.php";
 }
 
-?>
+// debut des tabIndex pour les ecrans;
+$tabindex=1;
+
+if (!isset($_COOKIE['NUMERO_BAV'])) {
+	setcookie('NUMERO_BAV', 2019, time() + (86400 * 30), "/"); // 86400 = 1 day
+}?>
 <html>
 <head>
 <TITLE>BAV 2019</TITLE>
@@ -13,7 +18,10 @@ if (!isset($_GET['page'])) {
 <META NAME="Author" LANG="fr" CONTENT="romael">
 <link REL="SHORTCUT ICON" HREF="Icones/BAV.png">
 <LINK HREF='style.css' REL='stylesheet' TYPE='text/css'>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" 
+	integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+<!--  GOOGLE MAP -->
+<!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script> -->
 
 <script src="JS/cookies.js" type="text/javascript"></script>
 <script src="JS/fenetre.js" type="text/javascript"></script>

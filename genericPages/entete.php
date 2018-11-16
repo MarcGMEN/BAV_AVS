@@ -28,7 +28,19 @@
 		<td width="5%">
 			<A HREF="index.php">
 				<img src="Images/cycleBAV.png" height='100px'/>
+				<?=$_COOKIE['NUMERO_BAV']?>
 			</A>
+			<i class="fas fa-bars" onclick="inverseDisplay('divMenu')"></i>
+			<div  style="position:absolute; display:none" id='divMenu' >
+				<div class="MENU">
+					<div style='text-algin: center'>Menu</div>
+					<hr/>
+					<div><A HREF='index.php?page=login.php'>Login</A></div>
+					<div><A HREF='index.php?page=parametre.php'>Parametres</A></div>
+					
+				</div>
+			</div>
+
 		</td>
 		<td width="95%">
 			<table width="100%">

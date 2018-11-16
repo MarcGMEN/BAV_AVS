@@ -1,9 +1,3 @@
-<?php
-	// gestion des tabIndex en dynamique
-	$tabindex=1;
-?>
-
-
 <script>
 	function initPage() {
 
@@ -16,8 +10,8 @@
 		display_list_type(['Route','Demi-Course','VTT','VTC','Ville','Tamden','BMX','Autre']);
 		display_list_pratique(['Loisir','Sportif','Competition','Autre']);
 
-		display_list_taux_com([0,5,10]);
-		display_list_prix_depot([0,3]);
+		display_list_taux_com([10,5,00]);
+		display_list_prix_depot([3,1,0]);
 		
 		getElement("obj_type").focus();
 	}
@@ -67,7 +61,7 @@
 	var idRamdomVendeur="<?=$idRamdomVendeur?>";
 
 	// validation de la fiche
-	function ValideFiche(laForm) {
+	function ValideFiche(laForm,action) {
 		var tab_fiche = new Array();
 		var insert=true;
 		
@@ -115,21 +109,25 @@
 			 insert=false;
 		}
 		else {
-			 if (!valideEmail(laForm.cli_emel.value)) {
+			 /*if (!valideEmail(laForm.cli_emel.value)) {
 				getElement('VEN_EMEL_ERR').innerHTML="Format mel incorrect";
 			 	insert=false;
 			 }
-			 else {
+			 else {*/
 			 getElement('VEN_EMEL_ERR').innerHTML="";
-			}
+			//}
 		}
 
 		if (!laForm.checkCGU.checked) {
 			getElement('CHEKCGU_ERR').innerHTML="Veuillez valider les CGU";
 			insert=false;
 		}
+		else { 
+			getElement('CHEKCGU_ERR').innerHTML="";
+		}
 		
 		if (insert) {
+			laForm.lAction=action;
 			laForm.submit();
 			return true;
 		}
@@ -312,14 +310,26 @@
 		val['cli_nom_'+idRamdomAcheteur]=val['cli_nom'];
 		display_formulaire(val,document.acheteurForm);		
 	}
+	
+	function searchAdress(input) {
+		var options = {
+  		//	types: ['(cities)'],
+	  		componentRestrictions: {country: 'fr'}
+		};
+		autocomplete = new google.maps.places.Autocomplete(input, options);
+		if (autocomplete.getPlace() != undefined) {
+			alert(autocomplete.getPlace());
+		}
+	}
 </script>
 
-<form name="ficheForm" method="POST" action="Actions/AFiche.php" onsubmit="return ValideFiche(this)">
+<form name="ficheForm" method="POST" action="Actions/AFiche.php" >
 	<!--<input type=hidden name=obj_numero value='<?=$GET_numeroFiche?>' />-->
-	<input type=hidden name='obj_numero_bav' value="<?=$_COOKIE['NUMERO_BAV']?>"/>
-	<input type=hidden name='action' value='<?=$GET_action?>' />
+	<input type=text name='obj_numero_bav' value="<?=$_COOKIE['NUMERO_BAV']?>"/>
+	<input type=hidden name='lAction' value='' />
 	<!-- redefiniation car input sur obj_cli_<aleatoire>-->
 	<input type=hidden name='cli_nom' value='' />
+	<input type=text name='cli_id' value='' />
 
 <fieldset class=fiche>
 	<legend class=titreFiche>Le depot</legend>
@@ -330,13 +340,12 @@
 				<table width="100%" class="tittab" cellpadding=0 cellspacing=0 >
 					<tr>
 						<td class="titrow" width=8%>No Fiche</td>
-						<td class="tabl0" width=25%>
+						<td class="tabl1" width=25%>
 							<span id='obj_numero' ></span>
 						</td>
-						<td width=8%></td>
-						<td class="tittab1" width=25% >STOCK - VENDU - RETOUR</td>
+						<td class="tabl1" width=33% colspan=2>CONFIRME - STOCK - VENDU - RETOUR</td>
 						<td class="titrow" width=8%>ID</td>
-						<td class="tabl0" width=25% >
+						<td class="tabl1" width=25% >
 							<span id='obj_id_fiche' ></span>
 						</td>
 					</tr>
@@ -384,11 +393,23 @@
 				</td>
 		</tr>
 		<tr>
-			<td class="titrow" >Description</td>
-			<td class="tabl0"  colspan=7>
-				<textarea rows="5" cols="100" tabindex=<?=$tabindex++?> 
-						name="obj_description"  onkeyup="setStartSaisie(true);"
-						placeholder="Année d'achat, prix d'achat, taille, accessoires..."></textarea>
+			<td colspan=10>
+				<table width="100%" cellpadding=0 cellspacing=0 >
+					<tr>
+						<td class="titrow" width=8% >Description</td>
+						<td class="tabl0" width=20%>
+								<textarea rows="5" cols="100" tabindex=<?=$tabindex++?> 
+								name="obj_description"  onkeyup="setStartSaisie(true);"
+								placeholder="Année d'achat, prix d'achat, taille, accessoires, révision (transmission, pneus, freins..)"></textarea>
+						</td>
+						<td class="help link" onclick="inverseLayer('aide_descript')" width="1%">?</td>
+						<td class="help">
+							<div id="aide_descript" style="visibility: hidden;" >
+								Année d'achat, prix d'achat, taille, accessoires, révision (transmission, pneus, freins..)
+							</div>
+						</td>
+					</tr>
+				</table>
 			</td>
 		</tr>
 		<tr>
@@ -407,19 +428,18 @@
 		<!-- vue uniqueTABLE -->
 		<tr>
 			<td class="titrow" >
-				PRIX VENTE </span>
+				PRIX VENTE : </span>
 			</td>
-			<td class="tabl0"  >
-				<span id="prix_vente"></span>&nbsp <span id="date_vente">
+			<td class="tabl1"  >
+				&nbsp&nbsp<span id="prix_vente">0.00</span>&#8364;&nbsp <span id="date_vente">
 			</td>
-			<td class="titrow" >Tarif Depot</td>
-			<td class="tabl0"  >
-				<span id="obj_prix_depot"></span>
+			<td class="titrow" >Depot : </td>
+			<td class="tabl1"  >
+				&nbsp&nbsp<span id="depot_calc">...</span>&#8364;
 			</td>
-			<td class="titrow" >Commission</td>
-			<td class="tabl0">
-				<span id="obj_comission"></span>
-				
+			<td class="titrow" >Com : </td>
+			<td class="tabl1">
+				&nbsp&nbsp<span id="comission_calc">...</span>&#8364;
 			</td>
 		</tr>
 	</table>
@@ -430,7 +450,8 @@
 			<tr>
 				<td class="titrow" width="8%">Emel <span title="Obligatoire">*<span></td>
 				<td class="tabl0" width=25%>
-					<input type=text name='cli_emel' size="70" maxlength="100" tabindex=<?=$tabindex++?>  /> 
+					<input type=text name='cli_emel' size="70" maxlength="100" tabindex=<?=$tabindex++?> 
+						placeholder="aaaa.bbbb@ccc.dd" /> 
 					<span id="VEN_EMEL_ERR" class="error"></span></td>
     
 				<td class="titrow" width=8%>Nom/prenom <span title="Obligatoire">*<span></td>
@@ -445,15 +466,27 @@
 			<tr>
 				<td class="titrow">Adresse</td>
 				<td class="tabl0" >
-					<textarea name="cli_adresse" rows="2" cols="50" tabindex=<?=$tabindex++?>
-						placeholder="Votre adresse" style="overflow:auto;resize:none"   ></textarea>
+					<input type=text name="cli_adresse_0" size=50 maxlength='100' tabindex=<?=$tabindex++?>
+						placeholder="Adresse" />
+					<br/>
+					<input type=text name="cli_adresse_1" size=50 maxlength='100' tabindex=<?=$tabindex++?>
+						placeholder="Complement adresse" />
+					<br/>
+					<input type=text name="cli_code_postal" size=5 maxlength='10' tabindex=<?=$tabindex++?>
+						placeholder="Code postal" />
+					<input type=text name="cli_ville" size=40 maxlength='100' tabindex=<?=$tabindex++?>
+						placeholder="Ville" />
 				</td>
 				<td class="titrow">Telephone</td>
 				<td class="tabl0" >
 					<input type=text name='cli_telephone' size="15" maxlength="15" tabindex=<?=$tabindex++?> 
 						placeholder="Pour vous joindre durant la bourse"
 						title="Pour vous joindre durant la bourse"/> 
-					<span id="VEN_TELEPHONE_ERR" class="error"></span></td>
+					<span id="VEN_TELEPHONE_ERR" class="error"></span>
+					<input type=text name='cli_telephone_bis' size="15" maxlength="15" tabindex=<?=$tabindex++?> 
+						placeholder="autre numéro"
+						title="autre numéro"/> 
+					</td>
 			</tr>
 			<!-- TODO : juste TABLE -->
 			<tr>
@@ -461,7 +494,7 @@
 				<td class="tabl0"% >
 					<select name='cli_taux_com' id='cli_taux_com' tabindex=<?=$tabindex++?>></select>%
 				</td>
-				<td class="titrow">Tarif Dépôt</td>
+				<td class="titrow">Tarif Depot</td>
 				<td class="tabl0">
 					<select name='cli_prix_depot' tabindex=<?=$tabindex++?> id='cli_prix_depot'></select>&#8364;
 				</td>
@@ -480,8 +513,8 @@
 	</tr>
 	<tr>
 		<td width=33% align=center>
-			<input type=button value="Valider" name="buttonValideFiche" onclick="ValideFiche(this.form)"
-				onkeypress="ValideFiche(this.form)" tabindex=<?=$tabindex++?>>
+			<input type=button value="Enregistrer" name="buttonValideFiche" onclick="ValideFiche(this.form,'enregister')"
+				onkeypress="ValideFiche(this.form,'enregister')" tabindex=<?=$tabindex++?>>
 		</td>
 		<td width=33% align=center>
 			<input type=button value="Supprimer" name="buttonSupprimeFiche" 

@@ -4,39 +4,69 @@ require "../Functions/commun_functions.php";
 // require "../Commun/mail.php";
 // require "../Functions/fiche_functions.php";
 
-$page_src = "location:../index.php?page=fiche.php";
+$page_src = "location:../index.php?1=1";
 $date = date("Y-m-d H:i:s");
 $message="";
-//print_r($_POST);
+echo "<pre>";
+print_r($_POST);
+echo "</pre>";
 error_reporting(E_ALL);
 
 /*****************************************************/
 /*****************************************************/
 /*****************************************************/
-if (isset($_POST['action']) && $_POST['action'] == "") {
+if (isset($_POST['lAction']) && $_POST['lAction'] == "") {
 	$page_src = "location:../index.php";
 }
 
-if (isset($_POST['action']) && $_POST['action'] == "new") {
+/**
+ * enregistrement d'un fiche sans numero
+ */
+if (isset($_POST['lAction']) && $_POST['lAction'] == "enregister") {
+	// creation du vendeur si pas id vendeur
+	if ($_POST['cli_id'] == "") {
+		// creation 
+		$requete2 = " insert into client (cli_nom, cli_adresse, cli_codePostal, cli_ville,";
+		$requete2 .= "cli_telephone, cli_emel) values ";
+		$requete2 .= " ('".addslashes($_POST['cli_nom'])."','".addslashes($_POST['cli_adresse'])."',";
+		$requete2 .= " '".addslashes($_POST['cli_codePostal'])."','".addslashes($_POST['cli_ville'])."',";
+		$requete2 .= " '".addslashes($_POST['cli_telephone'])."', '".addslashes($_POST['cli_emel'])."')";
 
-	$requete2 = " insert into objet (obj_numero, obj_numero_bav,obj_type, obj_taille,obj_public, obj_marque, obj_modele,";
-	$requete2 .= " obj_couleur, obj_description, obj_prix_1) values ";
-	$requete2 .= " (".$_POST['obj_numero'].",".$_POST['obj_numero_bav'].", '".$_POST['obj_type']."', '".addslashes($_POST['obj_taille'])."','".$_POST['obj_public']."',  '".addslashes($_POST['obj_marque'])."',";
-	 $requete2 .= " '".addslashes($_POST['obj_modele'])."',";
-	$requete2 .= " '".addslashes($_POST['obj_couleur'])."', '".addslashes($_POST['obj_description'])."', '".$_POST['obj_prix_1']."') ";
-
-	if (!$resultat = mysql_query($requete2)) {
-		$page_src.="&action=new&numeroFiche=".$_POST['obj_numero']."&message=erreur sur $requete2 ".mysql_error();
+		if ($resultat = mysql_query($requete2)) {
+			$idVendeur = mysql_id_insert();
+		}
+		else {
+			$page_src .= "location:../index.php?page=Erreur&message=Gros problème....";
+		}
 	}
 	else {
-		$page_src.="&action=visu&numeroFiche=".$_POST['obj_numero'];
+		$idVendeur = $_POST['cli_id'];
+	}
+
+	// creation de la fichier a l'etat 00-INIT par defaut
+	// calcul d'un ID tempo
+	$IDTempo = substr(hash_hmac('md5', rand(0,5000), $_POST['obj_numero_bav']),0,5);
+
+	$requete2 = " insert into objet (obj_id_modif, obj_numero_bav,obj_type, obj_public, obj_pratique, obj_id_vendeur ";
+	$requete2 .= " obj_marque, obj_marque, obj_modele, ";
+	$requete2 .= " obj_couleur, obj_description, obj_prix_depot) values ";
+	$requete2 .= " ('$$IDTempo', ".$_POST['obj_numero_bav'].", '".$_POST['obj_type']."', '".$_POST['obj_public']."',";
+	$requete2 .= " '".$_POST['obj_pratique']."', $idVendeur";
+	$requete2 .=  "'".addslashes($_POST['obj_marque'])."', '".addslashes($_POST['obj_modele'])."',";
+	$requete2 .= " '".addslashes($_POST['obj_couleur'])."', '".addslashes($_POST['obj_description'])."', '".$_POST['obj_prix_depot']."') ";
+
+	if ($resultat = mysql_query($requete2)) {
+		$page_src .= "&page=EnregOk&ID=$IDTempo";
+	}
+	else {
+		$page_src.="&page=create.php&message=Problème de création, resaisisez..";
 	}
 }
 
 /*****************************************************/
 /*****************************************************/
 /*****************************************************/
-if (isset($_POST['action']) && $_POST['action'] == "visu") {
+if (isset($_POST['lAction']) && $_POST['lAction'] == "visu") {
 
 	$requete2 = " update objet set obj_type = '".$_POST['obj_type']."',";
 	$requete2 .= " obj_public = '".$_POST['obj_public']."',";
@@ -53,17 +83,17 @@ if (isset($_POST['action']) && $_POST['action'] == "visu") {
 	$requete2 .= " where obj_numero =".$_POST['obj_numero']." and obj_numero_bav=".$_POST['obj_numero_bav'];
 
 	if (!$resultat = mysql_query($requete2)) {
-		$page_src.="&action=visu&numeroFiche=".$_POST['obj_numero']."&message=erreur sur $requete2 ".mysql_error();
+		$page_src.="&lAction=visu&numeroFiche=".$_POST['obj_numero']."&message=erreur sur $requete2 ".mysql_error();
 	}
 	else {
-		$page_src.="&action=visu&numeroFiche=".$_POST['obj_numero'];
+		$page_src.="&lAction=visu&numeroFiche=".$_POST['obj_numero'];
 	}
 }
 
 /*****************************************************/
 /*****************************************************/
 /*****************************************************/
-if (isset($_POST['action']) && $_POST['action'] == "ficheSupprimer") {
+if (isset($_POST['lAction']) && $_POST['lAction'] == "ficheSupprimer") {
 
 	$req = "DELETE FROM  objet ";
 	$req .= " where obj_numero =".$_POST['obj_numero']." and obj_numero_bav=".$_POST['obj_numero_bav'];
@@ -78,7 +108,7 @@ if (isset($_POST['action']) && $_POST['action'] == "ficheSupprimer") {
 /*****************************************************/
 /*****************************************************/
 /*****************************************************/
-if (isset($_POST['action']) && ($_POST['action'] == "vendeur" ||  $_POST['action'] == "acheteur")) {
+if (isset($_POST['lAction']) && ($_POST['lAction'] == "vendeur" ||  $_POST['lAction'] == "acheteur")) {
 	
 	// si cli_id present => modif sinon insert
 	echo "cli_id = ".$_POST['cli_id'];
@@ -92,12 +122,12 @@ if (isset($_POST['action']) && ($_POST['action'] == "vendeur" ||  $_POST['action
 		$requete2 .= " '".$_POST['cli_piece_indetite']."','".$_POST['cli_type_piece']."', ";
 		$requete2 .= " '".$_POST['cli_taux_com']."','".$_POST['cli_prix_depot']."') ";
 		if (!$resultat = mysql_query($requete2)) {
-			$page_src.="&action=visu&numeroFiche=".$_POST['obj_numero']."&message=erreur sur $requete2 ".mysql_error();
+			$page_src.="&lAction=visu&numeroFiche=".$_POST['obj_numero']."&message=erreur sur $requete2 ".mysql_error();
 		}
 		else {
 
 			$cli_id=mysql_insert_id();
-			if ($_POST['action'] == "vendeur") {
+			if ($_POST['lAction'] == "vendeur") {
 				$requete2 = " update objet set obj_id_vendeur = $cli_id ";
 			}
 			else {
@@ -107,10 +137,10 @@ if (isset($_POST['action']) && ($_POST['action'] == "vendeur" ||  $_POST['action
 			}
 			$requete2 .= " where obj_numero =".$_POST['obj_numero']." and obj_numero_bav=".$_POST['obj_numero_bav'];
 			if (!$resultat = mysql_query($requete2)) {
-				$page_src.="&action=visu&numeroFiche=".$_POST['obj_numero']."&message=erreur sur $requete2 ".mysql_error();
+				$page_src.="&lAction=visu&numeroFiche=".$_POST['obj_numero']."&message=erreur sur $requete2 ".mysql_error();
 			}
 			else {
-				$page_src.="&action=visu&numeroFiche=".$_POST['obj_numero'];
+				$page_src.="&lAction=visu&numeroFiche=".$_POST['obj_numero'];
 			}
 		}
 	}
@@ -133,11 +163,11 @@ if (isset($_POST['action']) && ($_POST['action'] == "vendeur" ||  $_POST['action
 		}
 		$requete2 .= " where cli_id = ".$_POST['cli_id'];
 		if (!$resultat = mysql_query($requete2)) {
-			$page_src.="&action=visu&numeroFiche=".$_POST['obj_numero']."&message=erreur sur $requete2 ".mysql_error();
+			$page_src.="&lAction=visu&numeroFiche=".$_POST['obj_numero']."&message=erreur sur $requete2 ".mysql_error();
 		}
 		else {
 		
-			if ($_POST['action'] == "vendeur") {
+			if ($_POST['lAction'] == "vendeur") {
 				$requete2 = " update objet set obj_id_vendeur = ".$_POST['cli_id'];
 			}
 			else {
@@ -148,10 +178,10 @@ if (isset($_POST['action']) && ($_POST['action'] == "vendeur" ||  $_POST['action
 			}
 			$requete2 .= " where obj_numero =".$_POST['obj_numero']." and obj_numero_bav=".$_POST['obj_numero_bav'];
 			if (!$resultat = mysql_query($requete2)) {
-				$page_src.="&action=visu&numeroFiche=".$_POST['obj_numero']."&message=erreur sur $requete2 ".mysql_error();
+				$page_src.="&lAction=visu&numeroFiche=".$_POST['obj_numero']."&message=erreur sur $requete2 ".mysql_error();
 			}
 			else {
-				$page_src.="&action=visu&numeroFiche=".$_POST['obj_numero'];
+				$page_src.="&lAction=visu&numeroFiche=".$_POST['obj_numero'];
 			}
 		}
 
@@ -162,67 +192,67 @@ if (isset($_POST['action']) && ($_POST['action'] == "vendeur" ||  $_POST['action
 /*****************************************************/
 /*****************************************************/
 /*****************************************************/
-if (isset($_POST['action']) && $_POST['action'] == "changeVendeur") {
+if (isset($_POST['lAction']) && $_POST['lAction'] == "changeVendeur") {
 
 	$requete2 = " update objet set obj_id_vendeur =0, obj_date_retour = null  ";
 	$requete2 .= " where obj_numero =".$_POST['obj_numero']." and obj_numero_bav=".$_POST['obj_numero_bav'];
 	if (!$resultat = mysql_query($requete2)) {
-		$page_src.="&action=visu&numeroFiche=".$_POST['obj_numero']."&message=erreur sur $requete2 ".mysql_error();
+		$page_src.="&lAction=visu&numeroFiche=".$_POST['obj_numero']."&message=erreur sur $requete2 ".mysql_error();
 	}
 	else {
-		$page_src.="&action=visu&numeroFiche=".$_POST['obj_numero'];
+		$page_src.="&lAction=visu&numeroFiche=".$_POST['obj_numero'];
 	}
 }
 
 /*****************************************************/
 /*****************************************************/
 /*****************************************************/
-if (isset($_POST['action']) && $_POST['action'] == "changeAcheteur") {
+if (isset($_POST['lAction']) && $_POST['lAction'] == "changeAcheteur") {
 
 	$requete2 = " update objet set obj_id_acheteur =0 , obj_date_vente = null ";
 	$requete2 .= " where obj_numero =".$_POST['obj_numero']." and obj_numero_bav=".$_POST['obj_numero_bav'];
 	if (!$resultat = mysql_query($requete2)) {
-		$page_src.="&action=visu&numeroFiche=".$_POST['obj_numero']."&message=erreur sur $requete2 ".mysql_error();
+		$page_src.="&lAction=visu&numeroFiche=".$_POST['obj_numero']."&message=erreur sur $requete2 ".mysql_error();
 	}
 	else {
-		$page_src.="&action=visu&numeroFiche=".$_POST['obj_numero'];
+		$page_src.="&lAction=visu&numeroFiche=".$_POST['obj_numero'];
 	}
 }
 /*****************************************************/
 /*****************************************************/
 /*****************************************************/
-if (isset($_POST['action']) && $_POST['action'] == "retourVendeur") {
+if (isset($_POST['lAction']) && $_POST['lAction'] == "retourVendeur") {
 
 	$requete2 = " update objet set obj_date_retour = '".date('Y-m-d H:i:s')."'";
 	$requete2 .= " ,obj_comission = 0 ";
 	$requete2 .= " where obj_numero =".$_POST['obj_numero']." and obj_numero_bav=".$_POST['obj_numero_bav'];
 	if (!$resultat = mysql_query($requete2)) {
-		$page_src.="&action=visu&numeroFiche=".$_POST['obj_numero']."&message=erreur sur $requete2 ".mysql_error();
+		$page_src.="&lAction=visu&numeroFiche=".$_POST['obj_numero']."&message=erreur sur $requete2 ".mysql_error();
 	}
 	else {
-		$page_src.="&action=visu&numeroFiche=".$_POST['obj_numero'];
+		$page_src.="&lAction=visu&numeroFiche=".$_POST['obj_numero'];
 	}
 }
 
 /*****************************************************/
 /*****************************************************/
 /*****************************************************/
-if (isset($_POST['action']) && $_POST['action'] == "resetRetourVendeur") {
+if (isset($_POST['lAction']) && $_POST['lAction'] == "resetRetourVendeur") {
 
 	$requete2 = " update objet set obj_date_retour = null ";
 	$requete2 .= " where obj_numero =".$_POST['obj_numero']." and obj_numero_bav=".$_POST['obj_numero_bav'];
 	if (!$resultat = mysql_query($requete2)) {
-		$page_src.="&action=visu&numeroFiche=".$_POST['obj_numero']."&message=erreur sur $requete2 ".mysql_error();
+		$page_src.="&lAction=visu&numeroFiche=".$_POST['obj_numero']."&message=erreur sur $requete2 ".mysql_error();
 	}
 	else {
-		$page_src.="&action=visu&numeroFiche=".$_POST['obj_numero'];
+		$page_src.="&lAction=visu&numeroFiche=".$_POST['obj_numero'];
 	}
 }
 
 /*****************************************************/
 /*****************************************************/
 /*****************************************************/
-if (isset($_POST['lAction']) && $_POST['lAction'] == "email") {
+if (isset($_POST['llAction']) && $_POST['llAction'] == "email") {
 
 	$requete = "select *, usr_nom from  ".CFG_PREFIXE_TABLE."calendrier, ".CFG_PREFIXE_TABLE."user ";
 	$requete .= " where cal_id = ".$GET_cal_id;
@@ -294,7 +324,7 @@ if (isset($_POST['lAction']) && $_POST['lAction'] == "email") {
 /*****************************************************/
 /*****************************************************/
 /*****************************************************/
-if (isset($_POST['lAction']) && $_POST['lAction'] == "DepuisLe") {
+if (isset($_POST['llAction']) && $_POST['llAction'] == "DepuisLe") {
 	$tabTmp=explode("/",$GET_dt);
 	$dt=mktime(0,0,0,$tabTmp[1],$tabTmp[0],$tabTmp[2]);
 	$page_src = "location:../".makeURL_GET($_POST,"dt=$dt&dtSel=$GET_dt");
@@ -303,11 +333,11 @@ if (isset($_POST['lAction']) && $_POST['lAction'] == "DepuisLe") {
 /*****************************************************/
 /*****************************************************/
 /*****************************************************/
-if (isset($_POST['lAction']) && $_POST['lAction'] == "nextMonth") {
+if (isset($_POST['llAction']) && $_POST['llAction'] == "nextMonth") {
 	$page_src = "location:../".makeURL_GET($_POST,"dt=$GET_dt&lastDay=$GET_lastDay");
 }
 
 
 //mysql_close($id_db);
 
-header($page_src);
+//header($page_src);
