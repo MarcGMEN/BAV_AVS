@@ -23,6 +23,8 @@ if (!isset($_COOKIE['NUMERO_BAV'])) {
 <!--  GOOGLE MAP -->
 <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script> -->
 
+
+<script src="JS/modal.js" type="text/javascript"></script>
 <script src="JS/cookies.js" type="text/javascript"></script>
 <script src="JS/fenetre.js" type="text/javascript"></script>
 <script src="JS/commun.js" type="text/javascript"></script>
@@ -34,6 +36,7 @@ if (!isset($_COOKIE['NUMERO_BAV'])) {
 <script type="text/javascript" >
 	startSaisie=false; 
   function initIndex() {
+	initModal();
   } 
 
 	function setStartSaisie(cStartSaisie)  {
@@ -55,8 +58,18 @@ if (!isset($_COOKIE['NUMERO_BAV'])) {
 		</tr>
 		<tr >
 			<td class="FENETRE_PRINCIPALE"  id="page" >
+			<!-- Trigger/Open The Modal -->
+				<button id="myBtn">Open Modal</button>
+				<div id="myModal" class="modal">
+					<!-- Modal content -->	
+					<div class="modal-content"> -->
+  						<span class="close">X&times;</span>
+  						<p>Some text in the Modal..</p>
+					</div>
+				</div>
 				<?echo "go to page [".$_GET['page']."]";?>
 				<?include('pages/'.$_GET['page']);?>
+				
 			</td>
 		</tr>
 		<tr height="2%">
