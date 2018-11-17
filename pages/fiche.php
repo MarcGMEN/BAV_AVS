@@ -216,7 +216,7 @@
 			 insert=false;
 		}
 		else if (!numcheck.test(laForm.obj_prix_1.value) ){
-			getElement('OBJ_PRIX_1_ERR').innerHTML="Valeur décimale";				
+			getElement('OBJ_PRIX_1_ERR').innerHTML="Valeur dï¿½cimale";				
 		}
 		else {
 			getElement('OBJ_PRIX_1_ERR').innerHTML="";
@@ -289,21 +289,21 @@
 	}
 
 	function ResetVendeur(laForm) {
-		if (confirm("Modifier le vendeur de ce dépôt ?")) {
+		if (confirm("Modifier le vendeur de ce dï¿½pï¿½t ?")) {
 			document.ficheForm.action.value="changeVendeur";
 			document.ficheForm.submit();
 		}
 	} 
 
 	function RetourVendeur(laForm) {
-		if (confirm("Retour au vendeur de ce dépôt ?")) {
+		if (confirm("Retour au vendeur de ce dï¿½pï¿½t ?")) {
 			document.ficheForm.action.value="retourVendeur";
 			document.ficheForm.submit();
 		}
 	} 
 
 	function ResetRetourVendeur(laForm) {
-		if (confirm("Annulation du retour au vendeur de ce dépôt ?")) {
+		if (confirm("Annulation du retour au vendeur de ce dï¿½pï¿½t ?")) {
 			document.ficheForm.action.value="resetRetourVendeur";
 			document.ficheForm.submit();
 		}
@@ -409,7 +409,7 @@
 	}
 
 	function ResetAcheteur(laForm) {
-		if (confirm("Modifier le acheteur de ce dépôt ?")) {
+		if (confirm("Modifier le acheteur de ce dï¿½pï¿½t ?")) {
 			document.ficheForm.action.value="changeAcheteur";
 			document.ficheForm.submit();
 		}
@@ -446,10 +446,11 @@
 		display_formulaire(val,document.acheteurForm);		
 	}
 </script>
-<h3 class=fiche><? if ($GET_action=="new") {?> Création de la fiche <?=$GET_numeroFiche?>
+<h3 class=fiche><? if ($GET_action=="new") {?> Crï¿½ation de la fiche <?=$GET_numeroFiche?>
 	<?}
-	else {?> Mise à jour de la fiche <?=$GET_numeroFiche?> le <span
-	id='obj_date_depot_FR'>...</span> <?php }?></h3>
+	else {?> Mise Ã  jour de la fiche <?=$GET_numeroFiche?> le <span
+	id='obj_date_depot_FR'>...</span> 
+	<?php }?></h3>
 
 <!-- <div id=lesFiches style="visibility: hidden;" />-->
 
@@ -458,7 +459,7 @@
 	<input type=hidden name=obj_numero_bav value="<?=$_COOKIE['NUMERO_BAV']?>"/>
 	<input type=hidden name=action value='<?=$GET_action?>' />
 
-<fieldset class=fiche><legend class=titreFiche>Le dépôt &nbsp;<span
+<fieldset class=fiche><legend class=titreFiche>Le dï¿½pï¿½t &nbsp;<span
 	onclick="inverseDisplay('divDepot')"><img id="iconedivDepot"
 	src="Images/iconeMoins.png"></img></span></legend>
 <div id="divDepot" style="visibility: visible;">
@@ -480,7 +481,7 @@
 					size=30 maxlength="100" tabindex="4" />
 					<span id="OBJ_MARQUE_ERR" class="error"></span>
 				</td>
-				<td class="titrow" width=13%>Modèle</td>
+				<td class="titrow" width=13%>Modï¿½le</td>
 				<td class="tabl0" width=20% id="OBJ_MODELE"><input type=text
 					name="obj_modele" size=30 maxlength="100" tabindex="5" /> <span
 					id="OBJ_MODELE_ERR" class="error"></span></td>
@@ -507,7 +508,7 @@
 			id="OBJ_PRIX_3_ERR" class="error"></span></td>
 	</tr>
 	<tr>
-		<td class="titrow" >Tarif Dépot</td>
+		<td class="titrow" >Tarif Dï¿½pot</td>
 		<td class="tabl0" colspan=2 >
 			<span id="obj_prix_depot"></span>
 			<input type=hidden size=5 name="obj_prix_depot" /></td>
@@ -575,7 +576,7 @@
 				<div id="autoCompletionVendeur" style="position: absolute"
 					class="info"></div>
 				</td>
-				<td class="titrow" width=25%>Prénom</td>
+				<td class="titrow" width=25%>Prï¿½nom</td>
 				<td class="tabl0" width=25%><input type=text name='cli_prenom'
 					tabindex="101" size="20" maxlength="100" disabled="disabled" /> <span
 					id="VEN_PRENOM_ERR" class="error"></span></td>
@@ -600,17 +601,17 @@
 					id="VEN_EMEL_ERR" class="error"></span></td>
 			</tr>
 			<tr>
-				<td class="titrow">Téléphone</td>
+				<td class="titrow">Tï¿½lï¿½phone</td>
 				<td class="tabl0" colspan="3"><input type=text name='cli_telephone'
 					size="30" maxlength="100" tabindex=106 disabled="disabled" /> <span
 					id="VEN_TELEPHONE_ERR" class="error"></span></td>
 			</tr>
 			<tr>
-				<td class="titrow">Type pièce</td>
+				<td class="titrow">Type piï¿½ce</td>
 				<td class="tabl0"><select name='cli_type_piece'
 					id='cli_type_piece_vente' tabindex=107 disabled="disabled"></select>
 				</td>
-				<td class="titrow">Numéro pièce</td>
+				<td class="titrow">Numï¿½ro piï¿½ce</td>
 				<td class="tabl0"><input type=text name='cli_piece_indetite'
 					size="20" maxlength="50" tabindex=108 disabled="disabled" /></td>
 			</tr>
@@ -618,7 +619,7 @@
 				<td class="titrow">Taux commission</td>
 				<td class="tabl0"% ><select name='cli_taux_com' id='cli_taux_com'
 					tabindex=109 disabled="disabled"></select>%</td>
-				<td class="titrow">Tarif Dépôt</td>
+				<td class="titrow">Tarif Dï¿½pï¿½t</td>
 				<td class="tabl0"><select name='cli_prix_depot' id='cli_prix_depot'
 					tabindex=110 disabled="disabled"></select>&#8364;</td>
 			</tr>
@@ -676,7 +677,7 @@
 				<div id="autoCompletionAcheteur" style="position: absolute"
 					class="info"></div>
 				</td>
-				<td class="titrow" width=25%>Prénom</td>
+				<td class="titrow" width=25%>Prï¿½nom</td>
 				<td class="tabl0" width=25%><input type=text name='cli_prenom'
 					 size="20" maxlength="100" disabled="disabled" tabindex="201"/> <span
 					id="ACH_PRENOM_ERR" class="error"></span></td>
@@ -701,7 +702,7 @@
 					id="ACH_EMEL_ERR" class="error"></span></td>
 			</tr>
 			<tr>
-				<td class="titrow">Téléphone</td>
+				<td class="titrow">Tï¿½lï¿½phone</td>
 				<td class="tabl0" colspan="3"><input type=text name='cli_telephone'
 					size="30" maxlength="100" disabled="disabled" tabindex="206"/> <span
 					id="ACH_TELEPHONE_ERR" class="error"></span></td>
@@ -713,13 +714,13 @@
 				</td>
 				</tr>
 			<tr>
-				<td class="titrow">Type pièce</td>
+				<td class="titrow">Type piï¿½ce</td>
 				<td class="tabl0">
-				 si chèque
+				 si chï¿½que
 				 <select name='cli_type_piece'
 					id='cli_type_piece_achat' disabled="disabled" tabindex="208"></select>
 				</td>
-				<td class="titrow">Numéro pièce</td>
+				<td class="titrow">Numï¿½ro piï¿½ce</td>
 				<td class="tabl0"><input type=text name='cli_piece_indetite'
 					size="20" maxlength="50" disabled="disabled" tabindex="209"/></td>
 			</tr>

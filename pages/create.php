@@ -398,7 +398,7 @@
 					<tr>
 						<td class="titrow" width=8% >Description</td>
 						<td class="tabl0" width=20%>
-								<textarea rows="5" cols="100" tabindex=<?=$tabindex++?> 
+								<textarea rows="5" cols="95" tabindex=<?=$tabindex++?> 
 								name="obj_description"  onkeyup="setStartSaisie(true);"
 								placeholder="Année d'achat, prix d'achat, taille, accessoires, révision (transmission, pneus, freins..)"></textarea>
 						</td>
@@ -445,19 +445,19 @@
 	</table>
 	<fieldset class=fiche>
 		<legend class=titreFiche>Le vendeur</legend>
-		<table width=90% align=center cellpadding=2 cellspacing=2>
+		<table width=100% align=center cellpadding=2 cellspacing=2>
 			<tr>
 			<tr>
-				<td class="titrow" width="8%">Emel <span title="Obligatoire">*<span></td>
-				<td class="tabl0" width=25%>
-					<input type=text name='cli_emel' size="70" maxlength="100" tabindex=<?=$tabindex++?> 
+				<td class="titrow" width="10%">Emel <span title="Obligatoire">*<span></td>
+				<td class="tabl0" width=40%>
+					<input type=text name='cli_emel' size="50" maxlength="100" tabindex=<?=$tabindex++?> 
 						placeholder="aaaa.bbbb@ccc.dd" /> 
 					<span id="VEN_EMEL_ERR" class="error"></span></td>
     
-				<td class="titrow" width=8%>Nom/prenom <span title="Obligatoire">*<span></td>
-				<td class="tabl0" width=25%>
+				<td class="titrow" width=10%>Nom/prenom <span title="Obligatoire">*<span></td>
+				<td class="tabl0" width=40%>
 					<input type=text name='cli_nom_<?=$idRamdomVendeur?>' tabindex=<?=$tabindex++?> 
-							size="70" maxlength="100"  
+							size="50" maxlength="100"  
 							onkeyup="x_return_client_completion(this.value,display_vendeur_completion)" /> 
 					<span id="VEN_NOM_ERR" class="error"></span>
 					<div id="autoCompletionVendeur" style="position: absolute" class="info"></div>
@@ -530,6 +530,9 @@
 		<td width=33% align=center><input type=button value="Reset"
 			onclick="resetFiche(this.form)" tabindex=<?=$tabindex++?>>
 		</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
 	</tr>
 </table>
 </form>
