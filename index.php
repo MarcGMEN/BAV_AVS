@@ -1,4 +1,11 @@
 <?php
+$time_start = microtime(true);
+
+require_once "Commun/commun_functions.php";
+require_once "Commun/connect.php";
+// require_once "Commun/Sajax.php";
+
+error_reporting(E_ERROR);
 if (!isset($_GET['page'])) {
 	$_GET['page']="accueil.php";
 }
@@ -8,7 +15,18 @@ $tabindex=1;
 
 if (!isset($_COOKIE['NUMERO_BAV'])) {
 	setcookie('NUMERO_BAV', 2019, time() + (86400 * 30), "/"); // 86400 = 1 day
-}?>
+}
+echo  "coucou";
+// init ajax
+$sajax_request_type = "POST";
+$sajax_debug_mode = false;
+
+//sajax_init("AJAX/AJAX.php");
+// inclusion des exports pour le module membre, incontournable
+//include "AJAX/exportAJAX.php";
+
+// sajax_handle_client_request();
+?>
 <html>
 <head>
 <TITLE>BAV 2019</TITLE>
@@ -33,6 +51,13 @@ if (!isset($_COOKIE['NUMERO_BAV'])) {
 <!--  POUR le gestion des couleurs -->
 <script type="text/javascript" src="JS/jscolor.js"></script>
 
+<?php  // inclusion pour SAJAX?>
+<script type="text/javascript" src="JS/sajax/json_stringify.js"></script>
+<script type="text/javascript" src="JS/sajax/json_parse.js"></script>
+<script type="text/javascript" src="JS/sajax/sajax.js"></script> 
+
+<? //sajax_show_javascript();?> -->
+
 <script type="text/javascript" >
 	startSaisie=false; 
   function initIndex() {
@@ -44,7 +69,7 @@ if (!isset($_COOKIE['NUMERO_BAV'])) {
 		enteteSaisie();
 	}
 
-	</script> 
+</script> 
 	
 </head>
 <BODY class="parent" LANG="fr-FR" onload="initIndex();initEntete();initPage()" onunload="unloadPage()" >

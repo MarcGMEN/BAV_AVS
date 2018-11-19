@@ -1,6 +1,6 @@
 // remote scripting library
 // (c) copyright 2005 modernmethod, inc
-var sajax_debug_mode = false;
+var sajax_debug_mode = true;
 var sajax_failure_redirect = "";
 var sajax_remote_uri = "";
 var sajax_request_type = "";

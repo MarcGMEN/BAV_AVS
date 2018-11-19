@@ -28,7 +28,7 @@
 		<td width="5%">
 			<A HREF="index.php">
 				<img src="Images/cycleBAV.png" height='100px'/>
-				<?=$_COOKIE['NUMERO_BAV']?>
+				<?=$_COOKIE['NUMERO_BAV']?>[<?=$_SERVER['REMOTE_ADDR']?>]
 			</A>
 			<i class="fas fa-bars" onclick="inverseDisplay('divMenu')"></i>
 			<div  style="position:absolute; display:none" id='divMenu' >

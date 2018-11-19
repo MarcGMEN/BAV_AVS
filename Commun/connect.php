@@ -16,10 +16,18 @@ if (isset($_FILES)) {
 	extract($_FILES,EXTR_PREFIX_ALL,'FILE');
 }
 
-
+echo "debut connect";
+error_reporting(E_ALL);
+error_reporting(-1);
 // en local
-$id_db = mysql_connect('localhost','theBavSQL','AVS' );
-mysql_select_db('BAV');
+$id_db = mysql_connect("localhost", "bav", "AVS44BAV1200");
+mysql_select_db("bav");
+print_r("mysql_connect $id_db");
+print_r(error_get_last());
+$id_db = new Mysqli('localhost','bav','AVS44BAV1200' , 'bav');
+print_r("new mysqli $id_db");
+print_r(error_get_last());
+
 
 // en prod
 //$id_db = mysql_connect('localhost','romael.website','romael' );

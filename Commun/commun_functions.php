@@ -142,7 +142,7 @@ function moisFrench($num_m) {
 	switch ($num_m)
 	{
 		case 1:  $mois="janvier";break;
-		case 2:  $mois="février";break;
+		case 2:  $mois="fï¿½vrier";break;
 		case 3:  $mois="mars";break;
 		case 4:  $mois="avril";break;
 		case 5:  $mois="mai";break;
@@ -152,7 +152,7 @@ function moisFrench($num_m) {
 		case 9:  $mois="septembre";break;
 		case 10: $mois="octobre";break;
 		case 11: $mois="novembre";break;
-		case 12: $mois="décembre";break;
+		case 12: $mois="dï¿½cembre";break;
 	}
 	return $mois;
 }
@@ -304,7 +304,7 @@ function verifTicket2($clef) {
 function makeTicket() {
 	global  $TAB_KEY;
 	$key="AZERTY";
-	// creation de la clef sur 10 caractères rando.
+	// creation de la clef sur 10 caractï¿½res rando.
 	for ($i=0;$i<5;$i++) {
 		$key[$i]=substr($TAB_KEY,rand(0, strlen($TAB_KEY)-1),1);
 	}
@@ -470,7 +470,7 @@ function formateDateMYSQLtoFR($date,$heure=false) {
 		
 		if ($dateR!="00/00/0000") {
 			if ($heure && isset($tab_date[1])) {
-				$dateR.=" à ".$tab_date[1];
+				$dateR.=" ï¿½ ".$tab_date[1];
 			}
 		}
 		else {
@@ -543,5 +543,4 @@ function is_date($value, $format = 'yyyy-mm-dd'){
 //echo date('d/m/Y H:i:s',dateMysqlInt("2001-06-12 12:12:12"));
 //echo "\n";
 //echo  date('d/m/Y H:i:s',dateMysqlInt("2001-06-12"));
-
 ?>

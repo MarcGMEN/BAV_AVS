@@ -1,7 +1,7 @@
 <?php
 $time_start = microtime(true);
 
-require_once "Functions/commun_functions.php";
+require_once "Include/commun_functions.php";
 require_once "Commun/connect.php";
 require_once "Commun/Sajax.php";
 error_reporting(E_ERROR);

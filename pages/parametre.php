@@ -1,6 +1,6 @@
 <script>
 	function initPage() {
-		//x_return_parametre(display_parametres);
+		x_getAllParametre(display_parametres);
 		getElement("par_numero_bav").focus();
 	}
 	var modePage=null;
@@ -141,21 +141,21 @@
 			<td class="titrow" >Date Client <span title="Obligatoire">*<span></td>
 			<td class="tabl0" >
 				<input type=date name="par_client_date_debut" size=15 maxlength="15" tabindex=<?=$tabindex++?> 
-						onkeyup="setStartSaisie(true);" required  />
+						onkeyup="setStartSaisie(true);" required   min="<?=date('Y-m-d')?>" max="2030-12-31"/>
 				&nbsp;&nbsp;
 				<input type=date name="par_client_date_fin" 
 						tabindex=<?=$tabindex++?> 
-						onkeyup="setStartSaisie(true);" required  />
+						onkeyup="setStartSaisie(true);" required   min="<?=date('Y-m-d')?>" max="2030-12-31"/>
 			</td>
 		</tr>
 		<tr>
 			<td class="titrow" >Date Table <span title="Obligatoire">*<span></td>
 			<td class="tabl0" >
 				<input type=date name="par_table_date_debut" tabindex=<?=$tabindex++?> 
-					 onkeyup="setStartSaisie(true);" required />
+					 onkeyup="setStartSaisie(true);" required min="<?=date('Y-m-d')?>" max="2030-12-31"/>
 				&nbsp;&nbsp;
 				<input type=date name="par_table_date_fin" size=15 maxlength="15" tabindex=<?=$tabindex++?> 
-					 onkeyup="setStartSaisie(true);" required />
+					 onkeyup="setStartSaisie(true);" required min="<?=date('Y-m-d')?>" max="2030-12-31"/>
 			</td>
 		</tr><tr>
 			<td class="titrow" >IPs Table <span title="Obligatoire">*<span></td>
