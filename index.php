@@ -3,7 +3,7 @@ $time_start = microtime(true);
 
 require_once "Commun/commun_functions.php";
 require_once "Commun/connect.php";
-// require_once "Commun/Sajax.php";
+require_once "Commun/Sajax.php";
 
 error_reporting(E_ERROR);
 if (!isset($_GET['page'])) {
@@ -16,14 +16,14 @@ $tabindex=1;
 if (!isset($_COOKIE['NUMERO_BAV'])) {
 	setcookie('NUMERO_BAV', 2019, time() + (86400 * 30), "/"); // 86400 = 1 day
 }
-echo  "coucou";
+
 // init ajax
 $sajax_request_type = "POST";
 $sajax_debug_mode = false;
 
-//sajax_init("AJAX/AJAX.php");
+sajax_init("AJAX/AJAX.php");
 // inclusion des exports pour le module membre, incontournable
-//include "AJAX/exportAJAX.php";
+include "AJAX/exportAJAX.php";
 
 // sajax_handle_client_request();
 ?>
@@ -34,7 +34,7 @@ $sajax_debug_mode = false;
 <meta name="keywords" lang="fr" content="web 2.0, association">
 <meta name="description" lang="fr" content="">
 <META NAME="Author" LANG="fr" CONTENT="romael">
-<link REL="SHORTCUT ICON" HREF="Icones/BAV.png">
+<link REL="SHORTCUT ICON" HREF="Images/BAV.png">
 <LINK HREF='style.css' REL='stylesheet' TYPE='text/css'>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" 
 	integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -56,7 +56,7 @@ $sajax_debug_mode = false;
 <script type="text/javascript" src="JS/sajax/json_parse.js"></script>
 <script type="text/javascript" src="JS/sajax/sajax.js"></script> 
 
-<? //sajax_show_javascript();?> -->
+<? sajax_show_javascript();?> -->
 
 <script type="text/javascript" >
 	startSaisie=false; 

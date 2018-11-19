@@ -1,14 +1,13 @@
 <?
-include_once("base_reposirory.php");
-
 function getOneParemetre($id)
 {
+    echo "icic";
     return getOne($id, 'parametre');
 }
 
-function getAllParametre($id)
+function getAllParametre()
 {
-	return getAll('parametre','par_id');
+	return getAll('parametre','par_numero_bav');
 }
 
 ?>

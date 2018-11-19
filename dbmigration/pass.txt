@@ -1,0 +1,8 @@
+admin
+howtoforge
+
+bav
+AVS44BAV1200
+
+root
+Xircuit1

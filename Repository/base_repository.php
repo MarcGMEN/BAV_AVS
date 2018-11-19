@@ -4,26 +4,20 @@ function getOne($id, $table)
     $row = null;
     if (isset($id)) {
         $requete2 = " SELECT * from $table ";
-        $requete2 .= " where par_id = " . $id;
-        // echo $requete2;
-        $resultat = mysql_query($requete2);
-        $row = mysql_fetch_array($resultat, MYSQL_ASSOC);
+        $requete2 .= " where par_numero_bav = " . $id;
+        return $GLOBALS['MYSQLI']->query($requete2)->fetch_assoc();
     }
-    return $row;
+    return null;
 }
 
 function getAll($table, $nameId)
 {
-    $row = null;
-    if (isset($id)) {
-        $requete2 = " SELECT * from $table ";
-        // echo $requete2;
-        $resultat = mysql_query($requete2);
-        $tab=array();
-        while ($row = mysql_fetch_array($resultat, MYSQL_ASSOC)) {
-            $tab[$nameId]=$rowSvg;
-        }
+    $requete2 = " SELECT * from $table ";
+    $resultat = $GLOBALS['MYSQLI']->query($requete2);
+    $tab=array();
+    while ($row = $resultat->fetch_assoc()) {
+        $tab[$row[$nameId]]=$row;
     }
-    return $tag;
+    return $tab;
 }
 ?>

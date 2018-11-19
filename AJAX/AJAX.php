@@ -1,9 +1,10 @@
 <?
-require_once "../Repository/parametres_repositort.php";
 require_once "../Commun/connect.php";
+require_once "../Repository/base_repository.php";
+require_once "../Repository/parametres_repository.php";
 require_once "../Commun/Sajax.php";
 require_once "../Commun/mail.php";
-require_once("../Commun/html2pdf.class.php");
+require_once "../Commun/html2pdf.class.php";
 
 
 error_reporting(E_ERROR);
@@ -60,6 +61,7 @@ $tabFile=searchFiles("AJAX","_AJAX.php");
 
 //sajax_init("");
 // definition des fonction ajax possible
+
 include "exportAJAX.php";
 sajax_handle_client_request();
 ?>

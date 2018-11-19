@@ -13,20 +13,14 @@ require_once "Commun/commun_functions.php";
 echo "OK Commun/commun_functions.php";
 echo "<br/>";
 require_once "Commun/connect.php";
-echo "OK ommun/connect.php";
+echo "OK Commun/connect.php";
 echo "<br/>";
 
-echo "mysql_connect('localhost','bav','AVS44BAV1200' );";
+require_once "AJAX/parametre_AJAX.php";
+echo "OK AJAX/parametre_AJAX.php.php";
+echo "<br/>";
 
-$id_db = mysql_connect('localhost', 'bav', 'AVS44BAV1200') or die("Unable to Connect");
-print_($id_db);
-print_r(error_get_last());
-echo "ici1";
-mysql_select_db('bav');
-print_r(error_get_last());
-echo "ici2";
-
-print_($id_db);
-
+$row = return_oneParametre('2019');
+print_r($row);
 ?>
 </pre>

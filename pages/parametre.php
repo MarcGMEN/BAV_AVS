@@ -1,6 +1,6 @@
 <script>
 	function initPage() {
-		x_getAllParametre(display_parametres);
+		x_return_allParametre(display_parametres);
 		getElement("par_numero_bav").focus();
 	}
 	var modePage=null;
