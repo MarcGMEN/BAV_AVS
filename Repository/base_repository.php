@@ -1,21 +1,24 @@
 <?
+
 function infoTable($table)
 {
-$query = "SELECT * from $table";
+    $query = "SELECT * from $table";
+    $tab=array();
+    if ($result = $GLOBALS['MYSQLI']->query($query)) {
 
-if ($result = $GLOBALS['MYSQLI']->query($query)) {
-
-    /* Récupère les informations d'un champ pour toutes les colonnes */
-    $finfo = $result->fetch_fields();
-
-    foreach ($finfo as $val) {
-        printf("Name:     %s\n", $val->name);
-        printf("Table:    %s\n", $val->table);
-        printf("max. Len: %d\n", $val->max_length);
-        printf("Flags:    %d\n", $val->flags);
-        printf("Type:     %d\n\n", $val->type);
+        /* Récupère les informations d'un champ pour toutes les colonnes */
+        $finfo = $result->fetch_fields();
+        foreach ($finfo as $val) {
+            $tab[$val->name]=$val->name;
+            // printf("Name:     %s\n", $val->name);
+            // printf("Table:    %s\n", $val->table);
+            // printf("max. Len: %d\n", $val->max_length);
+            // printf("Flags:    %d\n", $val->flags);
+            // printf("Type:     %d\n\n", $val->name);
+        }
     }
     $result->close();
+    return $tab;
 }
 
 function getOne($id, $table, $cleId)
@@ -27,7 +30,7 @@ function getOne($id, $table, $cleId)
         $row=$GLOBALS['MYSQLI']->query($requete2)->fetch_assoc();
 
     }
-    return $rowl;
+    return $row;
 }
 
 function getAll($table, $nameId)

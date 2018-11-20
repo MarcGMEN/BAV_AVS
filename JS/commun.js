@@ -61,9 +61,11 @@ function display_formulaire(val, laForm) {
 				}
 			} else {
 				jnum = parseInt(i) + 1;
+				console.log(i+ "   type :"+typeof i+ " ("+jnum+" "+ typeof jnum +") value : "+val[i]);
 				//alert(i+ "   type :"+typeof i+ " ("+jnum+" "+ typeof jnum +") value : "+val[i]);
 				if (typeof i == "string" && !jnum) {
 					if (laForm && laForm.elements[i]) {
+						console.log(i+" = "+laForm.elements[i].type );
 						//alert(i+" = "+laForm.elements[i].type );
 						if (laForm.elements[i].type == "checkbox") {
 							laForm.elements[i].checked = true;

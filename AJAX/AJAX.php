@@ -1,8 +1,8 @@
 <?php
 require_once "../Commun/commun_functions.php";
 require_once "../Commun/connect.php";
-require_once "../Repository/parametre_repository.php";
 require_once "../Repository/base_repository.php";
+require_once "../Repository/parametre_repository.php";
 require_once "../Commun/Sajax.php";
 require_once "../Commun/mail.php";
 require_once "../Commun/html2pdf.class.php";
@@ -57,6 +57,7 @@ foreach ($tabFile as $val) {
 sajax_init("");
 // definition des fonction ajax possible
 include "exportAJAX.php";
+
 sajax_handle_client_request();
 
 ?>

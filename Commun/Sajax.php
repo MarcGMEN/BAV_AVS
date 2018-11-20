@@ -297,7 +297,6 @@ if (!isset($SAJAX_INCLUDED)) {
 				}
 			}
 			
-			
 			sajax_debug(func_name + " uri = " + uri + "/post = " + post_data);
 			x.send(post_data);
 			if (!sajax_asynchro[func_name]) {
@@ -337,6 +336,7 @@ if (!isset($SAJAX_INCLUDED)) {
 						}
 					}
 			}
+			sajax_debug(x.status);
 			delete x;
 			sajax_debug("XMLHttpRequest delete..");
 			return true;

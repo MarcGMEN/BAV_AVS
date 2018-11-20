@@ -51,7 +51,6 @@
 	}
 
 	function display_parametre(val) {
-
         display_formulaire(val,document.parametreForm);
 		disableDisplay('parametres');
 		enableDisplay('parametre');
@@ -95,8 +94,8 @@
 		// TODO :  appel insert, ou modif
 		// creation d'un tableau de style object javacript
 		if (modePage='modification') {
-            if (recup_formulaire(laForm, 'par')) {
-                display_update(null);
+            if ($par = recup_formulaire(laForm, 'par')) {
+                x_action_updateParametre($par,display_update);
 			}
 		}
 		

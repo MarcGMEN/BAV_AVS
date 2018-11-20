@@ -1,6 +1,7 @@
 <?
-$cleID="par_numero_bav";
+$cleIDParametre="par_numero_bav";
 
+//$tabInfoParametre=infoTable('parametre');
 
 function getAllParametre()
 {
@@ -16,8 +17,9 @@ function updateParametre($obj) {
     $req = "update parametre set ";
     // todo : fr sur les champs sauf cleID
     $virgule="";
+    print_r($obj);
     foreach($obj as $key => $val) {
-        if ($key != $cleID) {
+        if ($key != $cleIDParametre) {
             $req .= $virgule.$key." = '".addslashes($val)."'";
             $virgule=" , ";
         }
