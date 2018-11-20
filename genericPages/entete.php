@@ -32,7 +32,7 @@
 			</A>
 			<i class="fas fa-bars" onclick="inverseDisplay('divMenu')"></i>
 			<div  style="position:absolute; display:none" id='divMenu' >
-				<div class="MENU">
+				<div class="MENU" >
 					<div style='text-algin: center'>Menu</div>
 					<hr/>
 					<div><A HREF='index.php?page=login.php'>Login</A></div>

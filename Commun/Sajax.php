@@ -11,7 +11,7 @@ if (!isset($SAJAX_INCLUDED)) {
 	$GLOBALS['sajax_request_type'] = 'GET';
 	$GLOBALS['sajax_remote_uri'] = '';
 	$GLOBALS['sajax_failure_redirect'] = '';
-	$GLOBALS['sajax_asynchro'] = '';
+	$GLOBALS['sajax_asynchro'] = array();
 	
 	/*
 	 * CODE
@@ -153,14 +153,15 @@ if (!isset($SAJAX_INCLUDED)) {
 		var sajax_failure_redirect = "<?php echo $sajax_failure_redirect; ?>";
 		var sajax_asynchro = new Array();
 		<?
-		if (is_array($sajax_asynchro) ) {
+        if (is_array($sajax_asynchro) ) {
 		while (list($key,$val) = each($sajax_asynchro)) {?>
 		sajax_asynchro['<?=$key?>']=<?=$val?>;
 		<?}}?>
 		
 		function sajax_debug(text) {
 			if (sajax_debug_mode)
-				alert(text);
+                console.log(text);
+				//alert(text);
 		}
 		
  		function sajax_init_object() {
@@ -300,7 +301,9 @@ if (!isset($SAJAX_INCLUDED)) {
 			sajax_debug(func_name + " uri = " + uri + "/post = " + post_data);
 			x.send(post_data);
 			if (!sajax_asynchro[func_name]) {
-					while (x.status != 200) {} 
+					while (x.status != 200 && x.status != 500) {
+                        sajax_debug(x.status);
+					} 
 
 					sajax_debug("received " + x.responseText);
 				
@@ -345,7 +348,7 @@ if (!isset($SAJAX_INCLUDED)) {
 		return $html;
 	}
 	
-		function sajax_show_common_js() {
+	function sajax_show_common_js() {
 		echo sajax_get_common_js();
 	}
 	
@@ -389,7 +392,7 @@ if (!isset($SAJAX_INCLUDED)) {
 		for ($i = $base; $i < $n+$base; $i++) {
 			$func_name = func_get_arg($i-$base);
 			$sajax_export_list[] = $func_name;
-			$sajax_asynchro[$func_name] = "true";
+			$sajax_asynchro[$func_name] = true;
 		}
 	}
 	

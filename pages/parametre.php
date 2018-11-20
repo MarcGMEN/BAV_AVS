@@ -3,20 +3,37 @@
 		x_return_allParametre(display_parametres);
 		getElement("par_numero_bav").focus();
 	}
+
 	var modePage=null;
 	function display_parametres(val) {
 
-		var repr="<table width='100%'>";
+		var repr="<table width='90%'><tr >";
+		repr+="<td class='tittab' width=5% >No BAV</td>";
+		repr+="<td class='tittab' width=45% >Titre</td>";
+		repr+="<td class='tittab' width=15% >Taux Com</td>";
+		repr+="<td class='tittab' width=15% >Tarif Depot</td>";
+		repr+="<td class='tittab' width=10% >Debut client</td>";
+		repr+="<td class='tittab' width=10% >Debut table</td>";
 		for (index in val) {
-			repr+="<tr class='tabl0 link' onclick=''>";
-			repr+="<td width=40% >";
+			repr+="<tr class='tabl0 link' onclick=\"getOne(\'"+val[index]['par_numero_bav']+"\')\">";
+			repr+="<td width=5% >";
 			repr+=val[index]['par_numero_bav'];
 			repr+="</td>";
-			repr+="<td width=25% >";
+			repr+="<td width=45% >";
 			repr+=val[index]['par_titre'];
 			repr+="</td>";
 			repr+="<td width=15% >";
-			repr+=val[index]['par_client_date_debut'];
+			repr+=val[index]['par_taux_1']+", "+val[index]['par_taux_2']+", "+val[index]['par_taux_3']
+			repr+="</td>";
+			repr+="<td width=15% >";
+			repr+=val[index]['par_prix_depot_1']+", "+val[index]['par_prix_depot_2']+", "+val[index]['par_prix_depot_3']
+			repr+="</td>";
+			
+			repr+="<td width=10% >";
+			repr+=val[index]['par_client_date_debut_FR'];
+			repr+="</td>";
+			repr+="<td width=10% >";
+			repr+=val[index]['par_table_date_debut_FR'];
 			repr+="</td>";
 			repr+="</tr>";
 		}
@@ -29,11 +46,24 @@
 		
 	}
 
+	function getOne(id) {
+		x_return_oneParametre(id, display_parametre);
+	}
+
+	function display_parametre(val) {
+
+        display_formulaire(val,document.parametreForm);
+		disableDisplay('parametres');
+		enableDisplay('parametre');
+		modePage="modification";
+	}
+
 	function modeCreation() {
 		disableDisplay('parametres');
 		enableDisplay('parametre');
 		modePage="creation";
 	}
+
 	function fermer() {
 		disableDisplay('parametre');
 		enableDisplay('parametres');
@@ -64,6 +94,9 @@
 
 		// TODO :  appel insert, ou modif
 		// creation d'un tableau de style object javacript
+		if (modePage='modification') {
+            updateParametre(???????);
+		}
 		
 		return false;
 	}
@@ -93,8 +126,8 @@
 						required/>
 					<span id="par_numero_bav_err" class="error"></span>
 			</td>
-			<td class="titrow" width=15%></td>
-			<td class="tabl0" width=35% ></td>
+			<td  width=15%></td>
+			<td  width=35% ></td>
 			</td>
 		</tr>
 		<tr>
@@ -124,15 +157,15 @@
 		<tr>
 			<td class="titrow" >Depot <span title="Obligatoire">*<span></td>
 			<td class="tabl0" >
-				<input type=number name="par_tarif_depot_1"  tabindex=<?=$tabindex++?> 
+				<input type=number name="par_prix_depot_1"  tabindex=<?=$tabindex++?> 
 						placeholder="00.0" onkeyup="setStartSaisie(true);" 
 						required min=1 max=10 size=2/>&#8364;
 				&nbsp;&nbsp;
-				<input type=number name="par_tarif_depot_2"  tabindex=<?=$tabindex++?> 
+				<input type=number name="par_prix_depot_2"  tabindex=<?=$tabindex++?> 
 						placeholder="00.0" onkeyup="setStartSaisie(true);" 
 						min=0 max=10 size=2/>&#8364;
 				&nbsp;&nbsp;
-				<input type=number name="par_tarif_depot_3"  tabindex=<?=$tabindex++?> 
+				<input type=number name="par_prix_depot_3"  tabindex=<?=$tabindex++?> 
 						placeholder="00.0" onkeyup="setStartSaisie(true);" 
 						min=0 max=10 size=2 />&#8364;
 			</td>

@@ -19,13 +19,13 @@ if (!isset($_COOKIE['NUMERO_BAV'])) {
 
 // init ajax
 $sajax_request_type = "POST";
-$sajax_debug_mode = false;
+$sajax_debug_mode = true;
 
 sajax_init("AJAX/AJAX.php");
 // inclusion des exports pour le module membre, incontournable
 include "AJAX/exportAJAX.php";
 
-// sajax_handle_client_request();
+sajax_handle_client_request();
 ?>
 <html>
 <head>
@@ -52,9 +52,9 @@ include "AJAX/exportAJAX.php";
 <script type="text/javascript" src="JS/jscolor.js"></script>
 
 <?php  // inclusion pour SAJAX?>
-<script type="text/javascript" src="JS/sajax/json_stringify.js"></script>
+<!-- <script type="text/javascript" src="JS/sajax/json_stringify.js"></script>
 <script type="text/javascript" src="JS/sajax/json_parse.js"></script>
-<script type="text/javascript" src="JS/sajax/sajax.js"></script> 
+<script type="text/javascript" src="JS/sajax/sajax.js"></script>  -->
 
 <? sajax_show_javascript();?> -->
 

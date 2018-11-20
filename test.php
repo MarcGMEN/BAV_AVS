@@ -19,7 +19,7 @@ echo "<br/>";
 require_once "AJAX/parametre_AJAX.php";
 echo "OK AJAX/parametre_AJAX.php.php";
 echo "<br/>";
-
+print_r($mysqli);
 $row = return_oneParametre('2019');
 print_r($row);
 ?>

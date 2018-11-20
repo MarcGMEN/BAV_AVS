@@ -1,10 +1,10 @@
 <?
-function getOne($id, $table)
+function getOne($id, $table, $cleId)
 {
     $row = null;
     if (isset($id)) {
         $requete2 = " SELECT * from $table ";
-        $requete2 .= " where par_numero_bav = " . $id;
+        $requete2 .= " where $cleId = '" . $id."'";
         return $GLOBALS['MYSQLI']->query($requete2)->fetch_assoc();
     }
     return null;
@@ -12,6 +12,7 @@ function getOne($id, $table)
 
 function getAll($table, $nameId)
 {
+
     $requete2 = " SELECT * from $table ";
     $resultat = $GLOBALS['MYSQLI']->query($requete2);
     $tab=array();
