@@ -1,4 +1,7 @@
 <?
+$cleID="par_numero_bav";
+
+
 function getAllParametre()
 {
 	return getAll('parametre','par_numero_bav');
@@ -11,12 +14,19 @@ function getOneParemetre($id)
 
 function updateParametre($obj) {
     $req = "update parametre set ";
-    $req .= "par_titre = '".addslashes($obj['par_titre'])."'";
-    $req .= "where par_numero_bav = '".$obj['par_numero_bav']."'";
-
-    if (!$GLOBALS['MYSQLI']->query($req)) {
-        throw new Exception("Pb de mise a jour ".mysql_error());
+    // todo : fr sur les champs sauf cleID
+    $virgule="";
+    foreach($obj as $key => $val) {
+        if ($key != $cleID) {
+            $req .= $virgule.$key." = '".addslashes($val)."'";
+            $virgule=" , ";
+        }
     }
+    $req .= "where par_numero_bav = '".$obj['par_numero_bav']."'";
+    echo $req;
+    // if (!$GLOBALS['MYSQLI']->query($req)) {
+    //     throw new Exception("Pb de mise a jour ".mysql_error());
+    // }
     return true;
 }
 ?>
