@@ -1,3 +1,3 @@
 <?
-sajax_export("return_oneParametre","return_allParametre","updateParametre");
+sajax_export("return_oneParametre","return_allParametre","action_updateParametre");
 ?>

@@ -36,8 +36,10 @@ function return_allParametre()
     return $tab;
 }
 
-function updateParametre($obj)
+function action_updateParametre($obj)
 {
     // TODO : test cohérence object
     updateParametre($obj);
 }
+
+?>

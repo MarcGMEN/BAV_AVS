@@ -85,6 +85,23 @@ function display_formulaire(val, laForm) {
 	}
 }
 
+function recup_formulaire(laForm, trigrame) {
+	var obj = [];
+	if (laForm) {
+		for (key in laForm.elements) {
+			var element = laForm.elements[key];
+			if (element) {
+				var name = element.name;
+				if (name && name.startsWith(trigrame)) {
+					obj[name] = element.value;
+				}
+			}
+		}
+		console.log(obj);
+	}
+	return obj;
+}
+
 
 function miseEnFormeData(id, val) {
 	/*
