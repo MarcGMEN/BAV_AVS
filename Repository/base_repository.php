@@ -35,7 +35,6 @@ function getOne($id, $table, $cleId)
 
 function getAll($table, $nameId)
 {
-
     $requete2 = " SELECT * from $table ";
     $resultat = $GLOBALS['MYSQLI']->query($requete2);
     $tab=array();

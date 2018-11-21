@@ -19,7 +19,7 @@ if (!isset($_COOKIE['NUMERO_BAV'])) {
 
 // init ajax
 $sajax_request_type = "POST";
-$sajax_debug_mode = true;
+$sajax_debug_mode = false;
 
 sajax_init("AJAX/AJAX.php");
 // inclusion des exports pour le module membre, incontournable

@@ -15,7 +15,6 @@ function return_oneParametre($id)
 
         $row['par_table_date_debut_FR'] = utf8_encode(formateDateMYSQLtoFR($row['par_table_date_debut'], true));
         $row['par_table_date_fin_FR'] = utf8_encode(formateDateMYSQLtoFR($row['par_table_date_fin'], true));
-
     }
     return $row;
 }
@@ -38,8 +37,14 @@ function return_allParametre()
 
 function action_updateParametre($obj)
 {
-    // TODO : test cohérence object
-    updateParametre($obj);
+    $tabArg = explode("#2C", $obj);
+    $tab=array();
+    foreach ($tabArg as $val) {
+        $tabTmp = explode("#3D", $val);
+        if ($tabTmp[0]) {
+            $tab[$tabTmp[0]]=$tabTmp[1];
+        }
+    }
+    // // TODO : test cohérence object
+    updateParametre($tab);
 }
-
-?>

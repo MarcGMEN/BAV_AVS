@@ -23,10 +23,10 @@
 			repr+=val[index]['par_titre'];
 			repr+="</td>";
 			repr+="<td width=15% >";
-			repr+=val[index]['par_taux_1']+", "+val[index]['par_taux_2']+", "+val[index]['par_taux_3']
+			repr+=val[index]['par_taux_1']+"%, "+val[index]['par_taux_2']+"%, "+val[index]['par_taux_3']+"%"
 			repr+="</td>";
 			repr+="<td width=15% >";
-			repr+=val[index]['par_prix_depot_1']+", "+val[index]['par_prix_depot_2']+", "+val[index]['par_prix_depot_3']
+			repr+=val[index]['par_prix_depot_1']+"€, "+val[index]['par_prix_depot_2']+"€, "+val[index]['par_prix_depot_3']+"€"
 			repr+="</td>";
 			
 			repr+="<td width=10% >";
@@ -51,6 +51,7 @@
 	}
 
 	function display_parametre(val) {
+		document.parametreForm.reset();
         display_formulaire(val,document.parametreForm);
 		disableDisplay('parametres');
 		enableDisplay('parametre');
@@ -58,6 +59,7 @@
 	}
 
 	function modeCreation() {
+		document.parametreForm.reset();
 		disableDisplay('parametres');
 		enableDisplay('parametre');
 		modePage="creation";
@@ -94,8 +96,8 @@
 		// TODO :  appel insert, ou modif
 		// creation d'un tableau de style object javacript
 		if (modePage='modification') {
-            if ($par = recup_formulaire(laForm, 'par')) {
-                x_action_updateParametre($par,display_update);
+            if (par = recup_formulaire(laForm, 'par')) {
+				x_action_updateParametre(tabToString(par),display_update);
 			}
 		}
 		

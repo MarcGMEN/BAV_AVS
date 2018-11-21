@@ -288,8 +288,7 @@ if (!isset($SAJAX_INCLUDED)) {
 								}
 								callback(eval(data), extra_data);
 							} catch (e) {
-								alert("Caught error " + e + ": Could not eval " + data );
-								sajax_debug("Caught error " + e + ": Could not eval " + data );
+								console.error("Caught error " + e + ": Could not eval : [" + data +"]");
 							}
 						}
 					}
@@ -298,48 +297,54 @@ if (!isset($SAJAX_INCLUDED)) {
 			}
 			
 			sajax_debug(func_name + " uri = " + uri + "/post = " + post_data);
-			x.send(post_data);
-			if (!sajax_asynchro[func_name]) {
-					while (x.status != 200 && x.status != 500) {
-                        sajax_debug(x.status);
-					} 
+			try {
+				x.send(post_data);
+				if (!sajax_asynchro[func_name]) {
+						while (x.status != 200 && x.status != 500) {
+            	            sajax_debug(x.status);
+						} 
 
-					sajax_debug("received " + x.responseText);
-				
-					var status;
-					var data;
-					var txt = x.responseText.replace(/^\s*|\s*$/g,"");
-					status = txt.charAt(0);
-					data = txt.substring(2);
+						sajax_debug("received " + x.responseText);
+						
+						var status;
+						var data	;
+						var txt = x.responseText.replace(/^\s*|\s*$/g,"");
+						status = txt.charAt(0);
+						data = txt.substring(2);
 
-					if (status == "") {
-						// let's just assume this is a pre-response bailout and let it slide for now
-					} else if (status == "-") 
-						alert("Error: " + data);
-					else {
-						if (target_id != "") 
-							document.getElementById(target_id).innerHTML = eval(data);
+						if (status == "") {
+							// let's just assume this is a pre-response bailout and let it slide for now
+						} else if (status == "-") 
+							alert("Error: " + data);
 						else {
-							try {
-								var callback;
-								var extra_data = false;
-								if (typeof args[args.length-1] == "object") {
-									callback = args[args.length-1].callback;
-									extra_data = args[args.length-1].extra_data;
-								} else {
-									callback = args[args.length-1];
+							if (target_id != "") 
+							document.getElementById(target_id).innerHTML = eval(data);
+							else {
+								try {
+									var callback;
+									var extra_data = false;
+									if (typeof args[args.length-1] == "object") {
+										callback = args[args.length-1].callback;
+										extra_data = args[args.length-1].extra_data;
+									} else {
+										callback = args[args.length-1];
+									}
+									callback(eval(data), extra_data);
+								} catch (e) {
+									sajax_debug("Caught error " + e + ": Could not eval " + data );
 								}
-								callback(eval(data), extra_data);
-							} catch (e) {
-								sajax_debug("Caught error " + e + ": Could not eval " + data );
 							}
 						}
-					}
+				}
+				sajax_debug(x.status);
+				delete x;
+				sajax_debug("XMLHttpRequest delete..");
+				return true;
 			}
-			sajax_debug(x.status);
-			delete x;
-			sajax_debug("XMLHttpRequest delete..");
-			return true;
+			catch(error) {
+				  console.error(error);
+				  return false;
+			}
 		}
 		
 		<?php

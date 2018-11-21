@@ -61,11 +61,11 @@ function display_formulaire(val, laForm) {
 				}
 			} else {
 				jnum = parseInt(i) + 1;
-				console.log(i+ "   type :"+typeof i+ " ("+jnum+" "+ typeof jnum +") value : "+val[i]);
+				// console.log(i+ "   type :"+typeof i+ " ("+jnum+" "+ typeof jnum +") value : "+val[i]);
 				//alert(i+ "   type :"+typeof i+ " ("+jnum+" "+ typeof jnum +") value : "+val[i]);
 				if (typeof i == "string" && !jnum) {
 					if (laForm && laForm.elements[i]) {
-						console.log(i+" = "+laForm.elements[i].type );
+						// console.log(i+" = "+laForm.elements[i].type );
 						//alert(i+" = "+laForm.elements[i].type );
 						if (laForm.elements[i].type == "checkbox") {
 							laForm.elements[i].checked = true;
@@ -99,9 +99,17 @@ function recup_formulaire(laForm, trigrame) {
 				}
 			}
 		}
-		console.log(obj);
+		// console.log(obj);
 	}
 	return obj;
+}
+
+function tabToString(par) {
+	var arg="";
+	for(key in par) {
+		arg+=key+"#3D"+par[key]+"#2C";
+	}
+	return arg;
 }
 
 

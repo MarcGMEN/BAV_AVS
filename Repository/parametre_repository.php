@@ -17,18 +17,18 @@ function updateParametre($obj) {
     $req = "update parametre set ";
     // todo : fr sur les champs sauf cleID
     $virgule="";
-    print_r($obj);
     foreach($obj as $key => $val) {
         if ($key != $cleIDParametre) {
             $req .= $virgule.$key." = '".addslashes($val)."'";
             $virgule=" , ";
         }
     }
-    $req .= "where par_numero_bav = '".$obj['par_numero_bav']."'";
-    echo $req;
-    // if (!$GLOBALS['MYSQLI']->query($req)) {
-    //     throw new Exception("Pb de mise a jour ".mysql_error());
-    // }
+    $req .= " where par_numero_bav = '".$obj['par_numero_bav']."'";
+
+    //echo $req;
+    if (!$GLOBALS['MYSQLI']->query($req)) {
+        throw new Exception("Pb de mise a jour ".mysql_error());
+    }
     return true;
 }
 ?>
