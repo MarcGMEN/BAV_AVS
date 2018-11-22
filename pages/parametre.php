@@ -130,7 +130,7 @@
             setStartSaisie(false);
             fermerCRUD();
 		}
-		else {
+		else { 
 			alert(val);
 		}
 	}

@@ -21,10 +21,11 @@ function return_infoAppli()
     $par = return_oneParametre($numBAV);
 
     $today=time();
-    
+    //print_r(strtotime($par['par_table_date_debut'])." < .$today < ".strtotime($par['par_table_date_fin']));
     if (strtotime($par['par_table_date_debut']) < $today && $today < strtotime($par['par_table_date_fin'])) {
         $tabIps=explode(",", $par['par_table_id_mac']);
         foreach ($tabIps as $ipOk) {
+            //print_r(trim($ipOk)." == ".trim($ipLu));
             if (trim($ipOk) == trim($ipLu)) {
                 $infos['connexOK']='TABLE';
                 break;
