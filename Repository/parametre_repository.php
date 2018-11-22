@@ -20,7 +20,7 @@ function updateParametre($obj) {
         }
     }
     $req .= " where par_numero_bav = '".$obj['par_numero_bav']."'";
-
+    //echo $req;
     if (!$GLOBALS['MYSQLI']->query($req)) {
         throw new Exception("Pb d'update' [$req]".mysqli_error());
     }

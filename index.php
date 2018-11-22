@@ -58,7 +58,7 @@ sajax_handle_client_request();
 <script type="text/javascript" src="JS/sajax/json_parse.js"></script>
 <script type="text/javascript" src="JS/sajax/sajax.js"></script>  -->
 
-	<? sajax_show_javascript();?> -->
+	<? sajax_show_javascript();?>
 
 	<script type="text/javascript">
 		startSaisie = false;
@@ -80,7 +80,7 @@ sajax_handle_client_request();
 		<A name="top"></A>
 		<table width="95%" height="100%" cellspacing="0" cellpadding="0" class="PAGE" border=0 id="ecran">
 			<tr>
-				<td class="entete" colspan="6" height="15%" id="entete">
+				<td class="entete" height="15%" id="entete">
 					<?include('genericPages/entete.php');  ?>
 				</td>
 			</tr>
@@ -90,8 +90,13 @@ sajax_handle_client_request();
 					<button id="myBtn">Open Modal</button>
 					<div id="myModal" class="modal">
 						<!-- Modal content -->
-						<div class="modal-content"> -->
-							<span class="close">X</span>
+						<div class="modal-content" id="modalWind"> 
+							<table width=100%>
+								<tr>
+									<td width="80%" id='modalTitre'></td>
+									</td><span class="close">X</span></td>
+								</tr>
+							</table>
 							<div id="modalText"></div>
 						</div>
 					</div>

@@ -43,7 +43,7 @@
 		}
 	}
 </script>
-<table class="BH_CADRE" cellspacing="0" cellpadding="1" border="0">
+<table class="BH_CADRE" cellspacing="0" cellpadding="0" border="0" wifth="100%">
 	<tr height="100%">
 		<td width="5%">
 			<A HREF="index.php">

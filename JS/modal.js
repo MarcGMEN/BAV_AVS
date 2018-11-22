@@ -1,5 +1,8 @@
-function alertModal(message) {
+function alertModalError(message) {
     getElement('myModal').style.display = "block";
+    getElement('modalWind').className += " error";
+    getElement('modalTitre').className = "BH_CADRE";
+    getElement('modalTitre').innerHTML = "<h3>Erreur</h3>";
     getElement("modalText").innerHTML = message;
 }
 

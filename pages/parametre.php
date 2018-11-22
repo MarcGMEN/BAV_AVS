@@ -74,7 +74,10 @@
 	function fermerCRUD() {
 		suite=true;
 		if (startSaisie) {
-			if (!confirm("Vous avez des modifications en cours ! ")) {
+			if (confirm("Vous avez des modifications en cours ! ")) {
+				setStartSaisie(false);
+			}
+			else {
 				suite=false;
 			}
 		}
@@ -131,7 +134,7 @@
             fermerCRUD();
 		}
 		else { 
-			alert(val);
+			alertModalError(val);
 		}
 	}
 </script>
@@ -148,7 +151,7 @@
 	</div>
 </div>
 <div id="parametre" style="display:none">
-	<form name="parametreForm" method="POST" action="" onsubmit='valider(document.parametreForm)'>
+	<form name="parametreForm" method="POST" action="" onsubmit='return valider(document.parametreForm)'>
 		<fieldset class=fiche>
 			<legend class=titreFiche>Parametre<small><div id="mode"></div></small></legend>
 			<table width=100% cellpadding=2 cellspacing=2>
@@ -242,13 +245,11 @@
 			<table width=100% class=fiche>
 				<tr>
 					<td width=50% align=center>
-						<button name=buttonValideAcheteur tabindex=<?=$tabindex++?>
-							onclick=""
-							>Valider</button>
+						<button name=buttonValideAcheteur tabindex=<?=$tabindex++?>>Valider</button>
 					</td>
-					<td width=50% align=center><input type=button value="Fermer" onclick="fermerCRUD()" onkeypress="fermerCRUD()"
-						 tabindex=<?=$tabindex++?>
-						>
+					<td width=50% align=center>
+						<input type=button value="Fermer" onclick="fermerCRUD()" onkeypress="fermerCRUD()"
+						 tabindex=<?=$tabindex++?> >
 					</td>
 				</tr>
 			</table>
