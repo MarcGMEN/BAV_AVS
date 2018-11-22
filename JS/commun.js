@@ -1,5 +1,3 @@
-<!--
-
 var regExpBeginning = /^\s+/;
 var regExpEnd = /\s+$/;
 

@@ -14,7 +14,8 @@ if (!isset($_GET['page'])) {
 $tabindex=1;
 
 if (!isset($_COOKIE['NUMERO_BAV'])) {
-	setcookie('NUMERO_BAV', 2019, time() + (86400 * 30), "/"); // 86400 = 1 day
+	setcookie('NUMERO_BAV', date('Y'), time() + (86400 * 30), "/"); // 86400 = 1 day
+	$_COOKIE['NUMERO_BAV']=date('Y');
 }
 
 // init ajax

@@ -1,20 +1,30 @@
 
 <script>
 	function get_nb_fiches(val) {
-		
+
 	}
 	function display_nbs(val) {
 	}
 
 	function initEntete() {
+		x_return_oneParametre(GetCookie('NUMERO_BAV'), display_paramBAV);
 		//x_return_nb_fiches_par_etat(display_nbs);
+	}
+
+	function display_paramBAV(val) {
+		if (val instanceof Object) {
+			getElement('titre').innerHTML=val['par_titre'];
+		}
+		else {
+			getElement('titre').innerHTML="Pas de BAV programme..";
+		}
 	}
 
 	function enteteSaisie() {
 		getElement('deposer').disabled=startSaisie;
 		getElement('inputSearch').disabled=startSaisie;
 	}
-	
+
 	function search(laForm) {
 		if (laForm.numeroFiche.value != "") {
 			laForm.Action.value='fiche';
@@ -28,25 +38,28 @@
 		<td width="5%">
 			<A HREF="index.php">
 				<img src="Images/cycleBAV.png" height='100px'/>
-				<?=$_COOKIE['NUMERO_BAV']?>[<?=$_SERVER['REMOTE_ADDR']?>]
 			</A>
-			<i class="fas fa-bars" onclick="inverseDisplay('divMenu')"></i>
-			<div  style="position:absolute; display:none" id='divMenu' >
+
+
+		</td>
+		<td width="95%">
+			<table width="100%" border=1>
+				<tr>
+					<td width="90%" colspan="2" class="TITRE_FENETRE_PRINCIPALE" id=titre>
+
+					</td>
+					<td width="10%">
+						<span style="float: left"><i class="fas fa-bars fa-3x" onclick="inverseDisplay('divMenu')"></i>
+						<div  style="position:absolute; display:none" id='divMenu' >
 				<div class="MENU" >
 					<div style='text-algin: center'>Menu</div>
 					<hr/>
 					<div><A HREF='index.php?page=login.php'>Login</A></div>
 					<div><A HREF='index.php?page=parametre.php'>Parametres</A></div>
-					
-				</div>
-			</div>
 
-		</td>
-		<td width="95%">
-			<table width="100%">
-				<tr>
-					<td width="100%" colspan="10" class="TITRE_FENETRE_PRINCIPALE">
-						16eme Bourse au velos.
+				</div>
+			</div></span>
+						<span style="float: right"><?=$_COOKIE['NUMERO_BAV']?>  [<?=$_SERVER['REMOTE_ADDR']?>]</span>
 					</td>
 				</tr>
 				<tr>
@@ -59,9 +72,9 @@
 									<div onclick="document.enteteFormFiche.value='';
 										document.enteteFormFiche.lAction.value='create';
 										document.enteteFormFiche.submit()"
-									title="Remplir la fiche de dépot" 
+									title="Remplir la fiche de dépot"
 										>
-										<button height="100%" id="deposer"> 
+										<button height="100%" id="deposer">
 											<span class="fas fa-plus-square" ></span>&nbsp;Deposer<br/>
 										</button>
 									</div>
@@ -71,7 +84,7 @@
 										<tr>
 											<td align="center">
 												<small>Recherche</small><br/>
-												<input type="text" name="numeroFiche" size="15" maxlength="50" 
+												<input type="text" name="numeroFiche" size="15" maxlength="50"
 												title="Saisisez le numéro de fiche, ou l'identifiant de la fiche"
 												placeholder="Saisisez le numéro ou l'identifiant de la fiche."
 												onchange="search(this.form)" id="inputSearch"/>
@@ -81,14 +94,14 @@
 											</td>
 										</tr>
 									</table>
-									
+
 								</td>
 							</tr>
 						</table>
 						</form>
 					</td>
-					<?php $tail=(int)100/3;?>
-					<td width="75%" >
+					<?php $tail = (int) 100 / 3;?>
+					<td width="75%" colspan=2 >
 						<table width="100%" >
 							<tr>
 								<td width="<?=$tail?>%">
@@ -108,7 +121,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td>
+					<td colspan=2 >
 						<table width="100%" >
 							<tr>
 								<td width="<?=$tail?>%">
@@ -118,7 +131,7 @@
 								<td width="<?=$tail?>%">
 									<!-- fiche etat valide - vendu - retour -->
 									Stock : <span id="stock" >...</span>
-								</td>				
+								</td>
 								<td width="<?=$tail?>%">
 									Retour : <span id="retour" >...</span>
 									&nbsp;&nbsp;<small><span id="statRetour" >...</span></small>
@@ -126,7 +139,7 @@
 							</tr>
 						</table>
 					</td>
-				</tr>					
+				</tr>
 			</table>
 		</td>
 	</tr>
