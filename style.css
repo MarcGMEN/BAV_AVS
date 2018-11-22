@@ -184,6 +184,10 @@ table {
 	font-size: 11pt;
 }
 
+.btnAction {
+	text-align: center;
+}
+
 /*  POUR LES IMAGES */
 
 /********************/
@@ -365,6 +369,11 @@ table {
 	font-weight: bold;
 	font-size: 14pt;
 }
+
+.tabInput {
+	font-size: 12pt;
+}
+
 
 tr.tabl0:hover {
 	background-color: #1161a2;

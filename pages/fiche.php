@@ -459,35 +459,40 @@
 	<input type=hidden name=obj_numero_bav value="<?=$_COOKIE['NUMERO_BAV']?>"/>
 	<input type=hidden name=action value='<?=$GET_action?>' />
 
-<fieldset class=fiche><legend class=titreFiche>Le d�p�t &nbsp;<span
-	onclick="inverseDisplay('divDepot')"><img id="iconedivDepot"
-	src="Images/iconeMoins.png"></img></span></legend>
-<div id="divDepot" style="visibility: visible;">
-<table width=90% align=center cellpadding=2 cellspacing=2>
-	<tr>
-		<td class="titrow" width=13%>Type</td>
-		<td class="tabl0" width=20%><select name='obj_type' id='obj_type'
-			tabindex="1"></select></td>
-		<td class="titrow" width=13%>Public</td>
-		<td class="tabl0" width=20% ><select name='obj_public'
-			id='obj_public' tabindex="2"></select></td>
-		<td class="titrow" width=13%>Taille</td>
-		<td class="tabl0" width=20% ><input type=text name="obj_taille"
-				size=20 maxlength="20" tabindex="3" /></td>
+<fieldset class=fiche>
+	<legend class=titreFiche>
+		Le depot &nbsp;
+		<!--<span onclick="inverseDisplay('divDepot')">
+		<img id="iconedivDepot"	src="Images/iconeMoins.png"></img></span>-->
+	</legend>
+	<div id="divDepot" style="visibility: visible;">
+	<table width=90% align=center cellpadding=2 cellspacing=2>
+		<tr>
+			<td class="titrow" width=13%>Type</td>
+			<td class="tabl0" width=20%>
+				<select name='obj_type' id='obj_type' tabindex="<?=$tabindex++?>"></select>
+			</td>
+			<td class="titrow" width=13%>Public</td>
+			<td class="tabl0" width=20% >
+				<select name='obj_public' id='obj_public' tabindex="<?=$tabindex++?>"></select>
+			</td>
+			<td class="titrow" width=13%>Taille</td>
+			<td class="tabl0" width=20% >
+				<input type=text name="obj_taille" size=20 maxlength="20" tabindex="<?=$tabindex++?>" />
+			</td>
 	</tr>
 	<tr>
-				<td class="titrow" width=13%>Marque</td>
-				<td class="tabl0" width=20%><input type=text name="obj_marque"
-					size=30 maxlength="100" tabindex="4" />
-					<span id="OBJ_MARQUE_ERR" class="error"></span>
-				</td>
-				<td class="titrow" width=13%>Mod�le</td>
-				<td class="tabl0" width=20% id="OBJ_MODELE"><input type=text
-					name="obj_modele" size=30 maxlength="100" tabindex="5" /> <span
+		<td class="titrow" width=13%>Marque</td>
+		<td class="tabl0" width=20%>
+			<input type=text name="obj_marque" size=30 maxlength="100" tabindex="<?=$tabindex++?>" required/>
+		</td>
+		<td class="titrow" width=13%>Modele</td>
+		<td class="tabl0" width=20% id="OBJ_MODELE"><input type=text
+					name="obj_modele" size=30 maxlength="100" tabindex="<?=$tabindex++?>" /> <span
 					id="OBJ_MODELE_ERR" class="error"></span></td>
 				<td class="titrow" width=13%>Couleur</td>
 				<td class="tabl0" width=20% id="OBJ_COULEUR"><input type=text
-					name="obj_couleur" size=20 maxlength="20" tabindex="6" /> <span
+					name="obj_couleur" size=20 maxlength="20" tabindex="<?=$tabindex++?>6" /> <span
 					id="OBJ_COULEUR_ERR" class="error"></span></td>
 	</tr>
 	<tr>

@@ -323,7 +323,7 @@
 	}
 </script>
 
-<form name="ficheForm" method="POST" action="Actions/AFiche.php" >
+<form name="ficheForm" method="POST" action="return ValideFiche(this.form,'enregister')" >
 	<!--<input type=hidden name=obj_numero value='<?=$GET_numeroFiche?>' />-->
 	<input type=text name='obj_numero_bav' value="<?=$_COOKIE['NUMERO_BAV']?>"/>
 	<input type=hidden name='lAction' value='' />
@@ -354,19 +354,19 @@
 		</tr>
 		<tr>
 			<td class="titrow" width=8%>Type</td>
-			<td class="tabl0" width=25%>
+			<td class="tabInput" width=25%>
 				<select name='obj_type' id='obj_type' tabindex=<?=$tabindex++?> 
 					onchange="setStartSaisie(true);">
 				</select>
 			</td>
 			<td class="titrow" width=8%>Public</td>
-			<td class="tabl0" width=25% >
+			<td class="tabInput" width=25% >
 				<select name='obj_public' id='obj_public' tabindex=<?=$tabindex++?>
 					onchange="setStartSaisie(true);">
 				</select>
 			</td>
 			<td class="titrow" width=8%>Pratique</td>
-			<td class="tabl0" width=25% >
+			<td class="tabInput" width=25% >
 				<select name='obj_pratique' id='obj_pratique' tabindex=<?=$tabindex++?>
 					onchange="setStartSaisie(true);">
 				</select>
@@ -374,22 +374,19 @@
 		</tr>
 		<tr>
 			<td class="titrow" >Marque <span title="Obligatoire">*<span></td>
-			<td class="tabl0" >
+			<td class="tabInput" >
 					<input type=text name="obj_marque" size=30 maxlength="50" tabindex=<?=$tabindex++?> 
-						placeholder="Marque du vélo" onkeyup="setStartSaisie(true);" />
-					<span id="OBJ_MARQUE_ERR" class="error"></span>
+						placeholder="Marque du vélo" onkeyup="setStartSaisie(true);" required/>
 				</td>
 				<td class="titrow" >Modele</td>
-				<td class="tabl0" id="OBJ_MODELE">
+				<td class="tabInput" id="OBJ_MODELE">
 					<input type=text name="obj_modele" size=30 maxlength="50" tabindex=<?=$tabindex++?> 
 						onkeyup="setStartSaisie(true);"/> 
-					<span id="OBJ_MODELE_ERR" class="error"></span>
 				</td>
 				<td class="titrow" width=13%>Couleur <span title="Obligatoire">*<span></td>
-				<td class="tabl0" width=20% id="OBJ_COULEUR">
+				<td class="tabInput" width=20% id="OBJ_COULEUR">
 					<input type=text name="obj_couleur" id="obj_couleur" size=20 maxlength="30" tabindex=<?=$tabindex++?> 
-						placeholder="Couleurs dominante" onkeyup="setStartSaisie(true);"/> 
-					<span id="OBJ_COULEUR_ERR" class="error"></span>
+						placeholder="Couleurs dominante" onkeyup="setStartSaisie(true);" required/> 
 				</td>
 		</tr>
 		<tr>
@@ -397,7 +394,7 @@
 				<table width="100%" cellpadding=0 cellspacing=0 >
 					<tr>
 						<td class="titrow" width=8% >Description</td>
-						<td class="tabl0" width=20%>
+						<td class="tabInput" width=20%>
 								<textarea rows="5" cols="95" tabindex=<?=$tabindex++?> 
 								name="obj_description"  onkeyup="setStartSaisie(true);"
 								placeholder="Année d'achat, prix d'achat, taille, accessoires, révision (transmission, pneus, freins..)"></textarea>
@@ -414,11 +411,10 @@
 		</tr>
 		<tr>
 			<td class="titrow" >Prix</td>
-			<td class="tabl0" >
+			<td class="tabInput" >
 				<input type=text name="obj_prix_depot" size=5 maxlength="10" tabindex=<?=$tabindex++?> 
 					onkeyup="setStartSaisie(true);"
 					title="Prix vente" placeholder="00.00"/>&#8364;
-				<span id="OBJ_PRIX_DEPOT_ERR" class="error">
 				</span>
 			</td>
 		</tr>
@@ -428,7 +424,7 @@
 		<!-- vue uniqueTABLE -->
 		<tr>
 			<td class="titrow" >
-				PRIX VENTE : </span>
+				PRIX : </span>
 			</td>
 			<td class="tabl1"  >
 				&nbsp&nbsp<span id="prix_vente">0.00</span>&#8364;&nbsp <span id="date_vente">
@@ -449,23 +445,21 @@
 			<tr>
 			<tr>
 				<td class="titrow" width="10%">Emel <span title="Obligatoire">*<span></td>
-				<td class="tabl0" width=40%>
-					<input type=text name='cli_emel' size="50" maxlength="100" tabindex=<?=$tabindex++?> 
-						placeholder="aaaa.bbbb@ccc.dd" /> 
-					<span id="VEN_EMEL_ERR" class="error"></span></td>
+				<td class="tabInput" width=40%>
+					<input type=mail name='cli_emel' size="50" maxlength="100" tabindex=<?=$tabindex++?> 
+						placeholder="aaaa.bbbb@ccc.dd" required multiple/> 
     
 				<td class="titrow" width=10%>Nom/prenom <span title="Obligatoire">*<span></td>
-				<td class="tabl0" width=40%>
+				<td class="tabInput" width=40%>
 					<input type=text name='cli_nom_<?=$idRamdomVendeur?>' tabindex=<?=$tabindex++?> 
-							size="50" maxlength="100"  
+							size="50" maxlength="100" required
 							onkeyup="x_return_client_completion(this.value,display_vendeur_completion)" /> 
-					<span id="VEN_NOM_ERR" class="error"></span>
 					<div id="autoCompletionVendeur" style="position: absolute" class="info"></div>
 				</td>
 			</tr>
 			<tr>
 				<td class="titrow">Adresse</td>
-				<td class="tabl0" >
+				<td class="tabInput" >
 					<input type=text name="cli_adresse_0" size=50 maxlength='100' tabindex=<?=$tabindex++?>
 						placeholder="Adresse" />
 					<br/>
@@ -478,11 +472,10 @@
 						placeholder="Ville" />
 				</td>
 				<td class="titrow">Telephone</td>
-				<td class="tabl0" >
+				<td class="tabInput" >
 					<input type=text name='cli_telephone' size="15" maxlength="15" tabindex=<?=$tabindex++?> 
 						placeholder="Pour vous joindre durant la bourse"
 						title="Pour vous joindre durant la bourse"/> 
-					<span id="VEN_TELEPHONE_ERR" class="error"></span>
 					<input type=text name='cli_telephone_bis' size="15" maxlength="15" tabindex=<?=$tabindex++?> 
 						placeholder="autre numéro"
 						title="autre numéro"/> 
@@ -491,11 +484,11 @@
 			<!-- TODO : juste TABLE -->
 			<tr>
 				<td class="titrow">Taux commission</td>
-				<td class="tabl0"% >
+				<td class="tabInput"% >
 					<select name='cli_taux_com' id='cli_taux_com' tabindex=<?=$tabindex++?>></select>%
 				</td>
 				<td class="titrow">Tarif Depot</td>
-				<td class="tabl0">
+				<td class="tabInput">
 					<select name='cli_prix_depot' tabindex=<?=$tabindex++?> id='cli_prix_depot'></select>&#8364;
 				</td>
 			</tr>
@@ -506,15 +499,15 @@
 <table width=100% class=fiche>
 	<tr>
 		<td colspan=3 class="cgu">
-			<input type="checkbox" name="checkCGU" />Je déclare avec lu et pris connaissance des 
+			<input type="checkbox" name="checkCGU" required />Je déclare avec lu et pris connaissance des 
 			<A HREF="data/CGU.pfg" target="_blanck">CGU</A>
-			<span id="CHEKCGU_ERR" class=error></span>
 		</td>	
 	</tr>
 	<tr>
-		<td width=33% align=center>
-			<input type=button value="Enregistrer" name="buttonValideFiche" onclick="ValideFiche(this.form,'enregister')"
-				onkeypress="ValideFiche(this.form,'enregister')" tabindex=<?=$tabindex++?>>
+		<td width=33% class="btnAction">
+			<button  name="buttonValideFiche" 
+				onkeypress="" tabindex=<?=$tabindex++?>>Enregristrer
+			</button>
 		</td>
 		<td width=33% align=center>
 			<input type=button value="Supprimer" name="buttonSupprimeFiche" 
