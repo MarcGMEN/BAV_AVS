@@ -8,12 +8,27 @@ require_once "../Commun/mail.php";
 require_once "../Commun/html2pdf.class.php";
 
 
+
 error_reporting(E_ERROR);
 //Creation de l'aJAX avec tout les AJAX possible _AJAX.php
 $tabFile=searchFiles("AJAX", "_AJAX.php");
 foreach ($tabFile as $val) {
     include_once $val;
 }
+
+function string2Tab($obj)
+{
+    $tabArg = explode("#2C", $obj);
+    $tab=array();
+    foreach ($tabArg as $val) {
+        $tabTmp = explode("#3D", $val);
+        if ($tabTmp[0]) {
+            $tab[$tabTmp[0]]=$tabTmp[1];
+        }
+    }
+    return $tab;
+}
+    
 // function return_numeros_bav() {
 // 	return get_numeros_bav();
 // }
@@ -59,5 +74,4 @@ sajax_init("");
 include "exportAJAX.php";
 
 sajax_handle_client_request();
-
 ?>

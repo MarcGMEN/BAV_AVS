@@ -10,17 +10,20 @@
 //echo substr(hash_hmac('md5', rand(0,1000), 'avs44'),0,5)."<br/>";
 //print_r($_SERVER);
 require_once "Commun/commun_functions.php";
-echo "OK Commun/commun_functions.php";
-echo "<br/>";
+require_once "Repository/base_repository.php";
+require_once "Repository/parametre_repository.php";
 require_once "Commun/connect.php";
-echo "OK Commun/connect.php";
-echo "<br/>";
-
 require_once "AJAX/parametre_AJAX.php";
-echo "OK AJAX/parametre_AJAX.php.php";
-echo "<br/>";
+
+if (!isset($_COOKIE['NUMERO_BAV'])) {
+	setcookie('NUMERO_BAV', date('Y'), time() + (86400 * 30), "/"); // 86400 = 1 day
+	$_COOKIE['NUMERO_BAV']=date('Y');
+}
 print_r($mysqli);
-$row = return_oneParametre('2019');
-print_r($row);
+print_r(return_infoAppli());
 ?>
+<script src="JS/cookies.js" type="text/javascript"></script>
+<script>
+    SetCookie('CONNEX_BAV', null);
+</script>
 </pre>

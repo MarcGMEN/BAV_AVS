@@ -2,9 +2,11 @@
 	function initPage() {
 		x_return_allParametre(display_parametres);
 		getElement("par_numero_bav").focus();
+		modePage="select";
+		// getElement('mode').innerHTML=modePage;
 	}
 
-	var modePage=null;
+	var modePage="select";
 	function display_parametres(val) {
 
 		var repr="<table width='90%'><tr >";
@@ -56,6 +58,8 @@
 		disableDisplay('parametres');
 		enableDisplay('parametre');
 		modePage="modification";
+		document.parametreForm.par_numero_bav.disabled=true;
+		getElement('mode').innerHTML=modePage;
 	}
 
 	function modeCreation() {
@@ -63,16 +67,30 @@
 		disableDisplay('parametres');
 		enableDisplay('parametre');
 		modePage="creation";
+		document.parametreForm.par_numero_bav.disabled=false;
+		getElement('mode').innerHTML=modePage;
 	}
 
-	function fermer() {
-		disableDisplay('parametre');
-		enableDisplay('parametres');
-		modePage="select";
+	function fermerCRUD() {
+		suite=true;
+		if (startSaisie) {
+			if (!confirm("Vous avez des modifications en cours ! ")) {
+				suite=false;
+			}
+		}
+
+		if (suite) {
+			disableDisplay('parametre');
+			enableDisplay('parametres');
+			modePage="select";
+			//getElement('mode').innerHTML=modePage;
+		}
+		
 	}
 
 	// validation de la fiche
 	function valider(laForm) {
+        // console.log("modePage : "+modePage);
 		// comparaison date
 		var debClient = laForm.par_client_date_debut.value;
 		var finClient = laForm.par_client_date_fin.value;
@@ -95,18 +113,26 @@
 
 		// TODO :  appel insert, ou modif
 		// creation d'un tableau de style object javacript
-		if (modePage='modification') {
-            if (par = recup_formulaire(laForm, 'par')) {
-				x_action_updateParametre(tabToString(par),display_update);
-			}
+		par = recup_formulaire(laForm, 'par');
+		if (modePage == 'modification') {
+			x_action_updateParametre(tabToString(par),display_update);
+		}
+		if (modePage=='creation') {
+			x_action_insertParametre(tabToString(par),display_update);
 		}
 		
 		return false;
 	}
 
 	function display_update(val) {
-		x_return_allParametre(display_parametres);
-	    fermer();
+        if (val == 1) {
+            x_return_allParametre(display_parametres);
+            setStartSaisie(false);
+            fermerCRUD();
+		}
+		else {
+			alert(val);
+		}
 	}
 </script>
 
@@ -122,14 +148,14 @@
 	</div>
 </div>
 <div id="parametre" style="display:none">
-	<form name="parametreForm" method="POST" action="" onsubmit='return false'>
+	<form name="parametreForm" method="POST" action="" onsubmit='valider(document.parametreForm)'>
 		<fieldset class=fiche>
-			<legend class=titreFiche>Parametre</legend>
+			<legend class=titreFiche>Parametre<small><div id="mode"></div></small></legend>
 			<table width=100% cellpadding=2 cellspacing=2>
 				<tr>
 					<td class="titrow" width=15%>Numero BAV <span title="Obligatoire">*<span></td>
 					<td class="tabl0" width=35%>
-						<input type=text name="par_numero_bav" id="par_numero_bav" size=4 maxlength="10" tabindex=<?=$tabindex++?>
+						<input type=number name="par_numero_bav" id="par_numero_bav" size=4 min=2010 max=2100 tabindex=<?=$tabindex++?>
 						placeholder="numéro BAV (année)" onkeyup="setStartSaisie(true);"
 						required/>
 						<span id="par_numero_bav_err" class="error"></span>
@@ -207,7 +233,7 @@
 					<td class="tabl0">
 						<input type=text name="par_table_id_mac" size=50 maxlength="600" tabindex=<?=$tabindex++?>
 						placeholder="Adresse ips pour accés table, séparé d'une virgule" onkeyup="setStartSaisie(true);"
-						required />
+						required value="localhost, 127:0:0:1, ::1"/>
 					</td>
 				</tr>
 			</table>
@@ -217,11 +243,11 @@
 				<tr>
 					<td width=50% align=center>
 						<button name=buttonValideAcheteur tabindex=<?=$tabindex++?>
-							onclick="valider(document.parametreForm)"
-							onkeypress="valider(document.parametreForm)"
+							onclick=""
 							>Valider</button>
 					</td>
-					<td width=50% align=center><input type=button value="Fermer" onclick="fermer()" onkeypress="fermer()" tabindex=<?=$tabindex++?>
+					<td width=50% align=center><input type=button value="Fermer" onclick="fermerCRUD()" onkeypress="fermerCRUD()"
+						 tabindex=<?=$tabindex++?>
 						>
 					</td>
 				</tr>
