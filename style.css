@@ -96,16 +96,6 @@ legend {
 
 /**********/
 
-textarea, select {
-	border: 1px solid #999;
-	font-size: 11pt;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	background: WHITE;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
-	z-index: 50;
-}
-
 button, input[type=button], input[type=submit] {
 	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
 	font-weight: normal;
@@ -116,14 +106,10 @@ button, input[type=button], input[type=submit] {
 	cursor: pointer;
 	border-width: 1px;
 	border-color: #fff200;
-	border-style: outset;
+	border-style: solid;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
-}
-
-input[type=button] {
-	border-width: 0px;
-	border-style: solid;
+	padding: 0.2em;
 }
 
 button:hover, input[type=button]:hover, input.type[submit]:hover {
@@ -144,12 +130,20 @@ input.button:disabled, input.submit:disabled, input:disabled, textarea:disabled,
 	color: #fff200;
 }
 
+input, textarea, select {
+	border: 0.5pt solid gray;
+	padding: 0.2em;
+	font-size: 11pt;
+}
+
 input:invalid {
-	border: 1px dashed orange;
+	border: 0.5px dashed orange;
+	padding: 0.2em;
+	font-size: 11pt;
 }
 
 input:valid {
-	background-color: lightcyan
+	background-color: lightcyan;
 }
 
 .change {
@@ -406,7 +400,25 @@ tr.tabl0:hover {
 /**************************************/
 
 /**************************************/
+.BH_MODAL, .BH_MODAL_ERR {
+	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
+	color: black;
+	text-align: center;
+	font-weight: bold;
+	font-size: 14pt;
+	border: 2px;
+	border-style: solid;
+	border-color: #AAA;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	letter-spacing: 3px;
+	height: 2em;
+}
 
+.BH_MODAL_ERR {
+	background-color: lightpink;
+}
+	
 .modal {
 	display: none;
 	/* Hidden by default */
@@ -435,22 +447,36 @@ tr.tabl0:hover {
 .modal-content {
 	background-color: #fefefe;
 	margin: auto;
-	padding: 20px;
+	padding: 2px;
 	border: 1px solid #888;
 	width: 80%;
-}
-
-/* The Close Button */
-
-.close {
-	color: #aaaaaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
+	height: auto;
+	min-height: 150px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	
 }
 
 .close:hover, .close:focus {
 	color: #000;
 	text-decoration: none;
 	cursor: pointer;
+}
+
+#modalText {
+	height: auto;
+	padding: 10px 20px 5px 20px;
+}
+
+#modalAction {
+	height: 1.5em;
+	vertical-align: bottom;
+	background-color: lightsteelblue;
+	text-align: center;
+	border: 2px;
+	border-color: #AAA;
+	border-style: solid;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	padding: 3px;
 }

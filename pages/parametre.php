@@ -74,7 +74,8 @@
 	function fermerCRUD() {
 		suite=true;
 		if (startSaisie) {
-			if (confirm("Vous avez des modifications en cours ! ")) {
+			if (alertModalConfirm("Vous avez des modifications en cours <br/><br/><br/><br/>!<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>dd<br/><br/><br/><br/><br/><br/><br/>coucou ")) {
+			//if (confirm("Vous avez des modifications en cours ! ")) {
 				setStartSaisie(false);
 			}
 			else {
@@ -82,12 +83,12 @@
 			}
 		}
 
-		if (suite) {
+		/*if (suite) {
 			disableDisplay('parametre');
 			enableDisplay('parametres');
 			modePage="select";
 			//getElement('mode').innerHTML=modePage;
-		}
+		}*/
 		
 	}
 

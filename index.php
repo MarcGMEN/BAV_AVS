@@ -90,14 +90,15 @@ sajax_handle_client_request();
 					<button id="myBtn">Open Modal</button>
 					<div id="myModal" class="modal">
 						<!-- Modal content -->
-						<div class="modal-content" id="modalWind"> 
-							<table width=100%>
+						<div class="modal-content" > 
+							<table width=100% class="BH_MODAL">
 								<tr>
 									<td width="80%" id='modalTitre'></td>
-									</td><span class="close">X</span></td>
+									</td width="20%" id="close"></td>
 								</tr>
 							</table>
 							<div id="modalText"></div>
+							<div id="modalAction"></div>
 						</div>
 					</div>
 					<?echo "go to page [".$_GET['page']."]";?>
