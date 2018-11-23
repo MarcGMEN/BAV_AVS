@@ -74,7 +74,7 @@
 	function fermerCRUD() {
 		suite=true;
 		if (startSaisie) {
-			if (alertModalConfirm("Vous avez des modifications en cours <br/><br/><br/><br/>!<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>dd<br/><br/><br/><br/><br/><br/><br/>coucou ")) {
+			if (alertModalConfirm("<br/><br/><center>Vous avez des modifications en cours<center>","Param")) {
 			//if (confirm("Vous avez des modifications en cours ! ")) {
 				setStartSaisie(false);
 			}
@@ -83,14 +83,21 @@
 			}
 		}
 
-		/*if (suite) {
+		if (suite) {
 			disableDisplay('parametre');
 			enableDisplay('parametres');
 			modePage="select";
 			//getElement('mode').innerHTML=modePage;
-		}*/
-		
+		}
 	}
+
+	function confirmModalParam() {
+		closeModal();
+		disableDisplay('parametre');
+		enableDisplay('parametres');
+		modePage="select";
+	}
+
 
 	// validation de la fiche
 	function valider(laForm) {

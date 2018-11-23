@@ -97,7 +97,9 @@ sajax_handle_client_request();
 									</td width="20%" id="close"></td>
 								</tr>
 							</table>
+							<br/><br/>
 							<div id="modalText"></div>
+							<br/><br/>
 							<div id="modalAction"></div>
 						</div>
 					</div>
