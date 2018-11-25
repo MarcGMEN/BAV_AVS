@@ -4,5 +4,7 @@ sajax_export(
     "return_allParametre",
     "action_updateParametre",
     "action_insertParametre",
-    "return_infoAppli"
+    "return_infoAppli",
+    "return_depotsBAV",
+    "return_tauxBAV"
 );

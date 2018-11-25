@@ -83,27 +83,6 @@ function backup($dbhost,$dbuser,$dbpass,$dbname,$force=false,$repBase="") {
 	}
 }
 
-function recupEnumToArray($table, $champ) {
-	$query_EnumList = "DESCRIBE $table '$champ'";
-	$EnumList = mysql_query($query_EnumList) or die(mysql_error());
-	$row_EnumList = mysql_fetch_assoc($EnumList);
-	
-	$str = preg_replace("[enum\(]",'',$row_EnumList['Type']);
-	$str1 = preg_replace("[\)]",'',$str);
-	$str = preg_replace("[\']",'',$str1);
-	return preg_split("[,]",$str);
-}
-
-function recupValToArray($table, $champ, $search) {
-	$tabRet=array();
-	$index=1;
-	$query_EnumList = "SELECT '$champ' from $table where $champ like '%$search%' group by $champ order by $champ ";
-	$EnumList = mysql_query($query_EnumList) or die(mysql_error());
-	while ($row_EnumList = mysql_fetch_assoc($EnumList)) {
-		$tabRet[$index++]=$row_EnumList[$champ];
-	}
-	return $tabRet;
-}
 
 /**
  * This function extracts the non-tags string and returns a correctly formatted string

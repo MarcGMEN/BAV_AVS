@@ -20,7 +20,7 @@ if (!isset($_COOKIE['NUMERO_BAV'])) {
 	$_COOKIE['NUMERO_BAV']=date('Y');
 }
 print_r($mysqli);
-print_r(return_infoAppli());
+print_r(getEnumValues('objet','obj_public'));
 ?>
 <script src="JS/cookies.js" type="text/javascript"></script>
 <script>

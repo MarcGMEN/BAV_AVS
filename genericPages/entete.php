@@ -10,24 +10,28 @@
 		//x_return_nb_fiches_par_etat(display_nbs);
 	}
 
+	var TABLE=null;
+	var ADMIN=null;
 	function display_paramBAV(val) {
 		if (val instanceof Object) {
 			getElement('titre').innerHTML=val['titre'];
-			if (val['connexOK']) {
+			if (val['TABLE']=='OK') {
 				getElement('theMenu').style.display='block';
-				getElement('connex').innerHTML=val['connexOK'];
-				SetCookie('CONNEX_BAV',val['connexOK']);
+				getElement('connex').innerHTML='TABLE';
+				TABLE=true;
 			}
 			else {
 				getElement('theMenu').style.display='none';
-				SetCookie('CONNEX_BAV',null,-1);
+				TABLE=false;
 			}
 		}
 		else {
 			getElement('titre').innerHTML="Pas de BAV programme..";
 			getElement('theMenu').style.display='none';
-			SetCookie('CONNEX_BAV',null,-1);
+			TABLE=false;
 		}
+		console.log(TABLE);
+		setParamVal(val);
 	}
 
 	function enteteSaisie() {
@@ -42,7 +46,18 @@
 			laForm.submit();
 		}
 	}
+	function goTo(page, modePage='') {
+		document.formNavigation.action='index.php';
+		document.formNavigation.page.value=page
+		document.formNavigation.modePage.value=modePage;
+		document.formNavigation.submit();
+	}
+
 </script>
+<form name=formNavigation method=post>
+	<input type=hidden name=page value="">
+	<input type=hidden name=modePage value="">
+</form>
 <table class="BH_CADRE" cellspacing="0" cellpadding="0" border="0" wifth="100%">
 	<tr height="100%">
 		<td width="5%">
@@ -62,7 +77,7 @@
 								<div class="MENU">
 									<div style='text-algin: center'>Menu</div>
 									<hr />
-									<div><A HREF='index.php?page=parametre.php'>Parametres</A></div>
+									<div onclick='goTo("parametre.php")'>Parametres</A></div>
 
 								</div>
 							</div>
@@ -74,14 +89,10 @@
 				</tr>
 				<tr>
 					<td width="25%" rowspan="2">
-						<form name="enteteFormFiche" method="POST" action="Actions/AEntete.php">
-							<input type="hidden" name="lAction" value="fiche" />
 							<table width="100%">
 								<tr>
 									<td width="40%">
-										<div onclick="document.enteteFormFiche.value='';
-										document.enteteFormFiche.lAction.value='create';
-										document.enteteFormFiche.submit()"
+										<div onclick='goTo("fiche.php","create");'
 										 title="Remplir la fiche de dépot">
 											<button height="100%" id="deposer">
 												<span class="fas fa-plus-square"></span>&nbsp;Deposer<br />
@@ -97,7 +108,7 @@
 													 placeholder="Saisisez le numéro ou l'identifiant de la fiche." onchange="search(this.form)" id="inputSearch" />
 												</td>
 												<td align="center">
-													<i class="fas fa-search link" onclick="document.enteteFormFiche.lAction.value='fiche';	document.enteteFormFiche.submit()"></i>
+													<i class="fas fa-search link" onclick="search(document.enteteFormFiche)"></i>
 												</td>
 											</tr>
 										</table>
@@ -105,7 +116,6 @@
 									</td>
 								</tr>
 							</table>
-						</form>
 					</td>
 					<?php $tail = (int) 100 / 3;?>
 					<td width="75%" colspan=2>

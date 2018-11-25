@@ -19,4 +19,4 @@ if (isset($_POST['lAction']) && $_POST['lAction'] == "fiche") {
   }
 }
 
-header($page_src);
+//header($page_src);

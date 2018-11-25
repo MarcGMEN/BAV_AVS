@@ -21,6 +21,34 @@ function infoTable($table)
     return $tab;
 }
 
+/**
+ * retourne les valeurs d'un enum d'une table
+ */
+function recupEnumToArray($table, $champ) {
+    // recupearation des datas de la colonne.
+	$result = $GLOBALS['MYSQLI']->query("SHOW COLUMNS FROM $table LIKE '$champ'");
+    if ($result) {
+       $row = $result->fetch_assoc();
+       $tab =  explode("','",utf8_encode(preg_replace("/(enum|set)\('(.+?)'\)/","\\2", $row['Type'])));
+       return $tab;
+    }
+    else {
+        throw new Exception("Pb getEnumValues ".mysqli_error());
+    }
+}
+
+function recupValToArray($table, $champ, $search) {
+	$tabRet=array();
+	$index=1;
+	$query_EnumList = "SELECT '$champ' from $table where $champ like '%$search%' group by $champ order by $champ ";
+	$EnumList = mysql_query($query_EnumList) or die(mysql_error());
+	while ($row_EnumList = mysql_fetch_assoc($EnumList)) {
+		$tabRet[$index++]=$row_EnumList[$champ];
+	}
+	return $tabRet;
+}
+
+
 function getOne($id, $table, $cleId)
 {
     $row = null;

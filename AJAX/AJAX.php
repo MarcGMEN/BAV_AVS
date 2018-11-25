@@ -29,6 +29,10 @@ function string2Tab($obj)
     return $tab;
 }
     
+ function return_enum($table, $champ) {
+ 	return recupEnumToArray($table, $champ);
+ }
+
 // function return_numeros_bav() {
 // 	return get_numeros_bav();
 // }

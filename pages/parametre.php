@@ -6,7 +6,12 @@
 		// getElement('mode').innerHTML=modePage;
 	}
 
-	var modePage="select";
+	// recuperation des donnees de la BAV
+	function setParamVal(val) {
+		console.log(TABLE+ADMIN)
+	}
+
+	
 	function display_parametres(val) {
 
 		var repr="<table width='90%'><tr >";
@@ -59,7 +64,7 @@
 		enableDisplay('parametre');
 		modePage="modification";
 		document.parametreForm.par_numero_bav.disabled=true;
-		getElement('mode').innerHTML=modePage;
+		getElement('modeParametre').innerHTML=modePage;
 	}
 
 	function modeCreation() {
@@ -68,7 +73,7 @@
 		enableDisplay('parametre');
 		modePage="creation";
 		document.parametreForm.par_numero_bav.disabled=false;
-		getElement('mode').innerHTML=modePage;
+		getElement('modeParametre').innerHTML=modePage;
 	}
 
 	function fermerCRUD() {
@@ -161,7 +166,7 @@
 <div id="parametre" style="display:none">
 	<form name="parametreForm" method="POST" action="" onsubmit='return valider(document.parametreForm)'>
 		<fieldset class=fiche>
-			<legend class=titreFiche>Parametre<small><div id="mode"></div></small></legend>
+			<legend class=titreFiche>Parametre<small><div id="modeParametre"></div></small></legend>
 			<table width=100% cellpadding=2 cellspacing=2>
 				<tr>
 					<td class="titrow" width=15%>Numero BAV <span title="Obligatoire">*<span></td>
@@ -244,6 +249,14 @@
 					<td class="tabl0">
 						<input type=text name="par_table_id_mac" size=50 maxlength="600" tabindex=<?=$tabindex++?>
 						placeholder="Adresse ips pour accés table, séparé d'une virgule" onkeyup="setStartSaisie(true);"
+						required value="localhost, 127:0:0:1, ::1"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="titrow">IPs Admin <span title="Obligatoire">*<span></td>
+					<td class="tabl0">
+						<input type=text name="par_admin_id_mac" size=50 maxlength="600" tabindex=<?=$tabindex++?>
+						placeholder="Adresse ips pour accés admin, séparé d'une virgule" onkeyup="setStartSaisie(true);"
 						required value="localhost, 127:0:0:1, ::1"/>
 					</td>
 				</tr>

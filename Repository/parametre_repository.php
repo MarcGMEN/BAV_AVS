@@ -9,6 +9,10 @@ function getOneParemetre($id)
     return getOne($id, 'parametre','par_numero_bav');
 }
 
+
+// x_return_list_taux_commision(display_list_taux_com);
+		// x_return_list_prix_depot(display_list_prix_depot);
+
 function updateParametre($obj) {
     $req = "update parametre set ";
     // todo : fr sur les champs sauf cleID

@@ -1,5 +1,5 @@
 <?php
-sajax_export();
+sajax_export("return_enum");
 
 //export de toutes les fonction AJAX des modules
 $tabFile = searchFiles("AJAX", "_exportAJAX.php");

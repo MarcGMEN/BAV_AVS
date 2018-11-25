@@ -6,8 +6,8 @@ require_once "Commun/connect.php";
 require_once "Commun/Sajax.php";
 
 error_reporting(E_ERROR);
-if (!isset($_GET['page'])) {
-	$_GET['page']="accueil.php";
+if (!isset($GET_page)) {
+	$GET_page="accueil.php";
 }
 
 // debut des tabIndex pour les ecrans;
@@ -71,6 +71,13 @@ sajax_handle_client_request();
 			startSaisie = cStartSaisie;
 			enteteSaisie();
 		}
+
+		var modePage="select";
+		// recuperation des donnees de la BAV
+		function setParamVal(val) {
+			getElement("mode").innerHTML=modePage+" -"+TABLE+"-"+ADMIN;
+		}
+
 	</script>
 
 </head>
@@ -86,8 +93,9 @@ sajax_handle_client_request();
 			</tr>
 			<tr>
 				<td class="FENETRE_PRINCIPALE" id="page">
+					MODE: <span id="mode"></span>
 					<!-- Trigger/Open The Modal -->
-					<button id="myBtn">Open Modal</button>
+					<!--<button id="myBtn">Open Modal</button>-->
 					<div id="myModal" class="modal">
 						<!-- Modal content -->
 						<div class="modal-content" > 
@@ -103,8 +111,8 @@ sajax_handle_client_request();
 							<div id="modalAction"></div>
 						</div>
 					</div>
-					<?echo "go to page [".$_GET['page']."]";?>
-					<?include('pages/'.$_GET['page']);?>
+					<?//echo "go to page [".$GET_page."]";?>
+					<?include('pages/'.$GET_page);?>
 
 				</td>
 			</tr>
@@ -115,13 +123,7 @@ sajax_handle_client_request();
 			</tr>
 		</table>
 
-	</center>
-	<?if (isset($_GET['message']) && $_GET['message'] != "") {?>
-	<script>
-		window.alert("<?=$_GET['message']?>");
-	</script>
-	<? }?>
-	<!-- insertion d'un commentaire -->
+	</center>	
 </body>
 
 </html>

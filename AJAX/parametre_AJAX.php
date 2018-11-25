@@ -27,7 +27,7 @@ function return_infoAppli()
         foreach ($tabIps as $ipOk) {
     //        print_r(trim($ipOk)." == ".trim($ipLu));
             if (trim($ipOk) == trim($ipLu)) {
-                $infos['connexOK']='TABLE';
+                $infos['TABLE']='OK';
                 break;
             }
         }
@@ -92,4 +92,24 @@ function action_insertParametre($obj)
     else {
         return "Numéro déjà présent..";
     }
+}
+
+function return_tauxBAV() {
+    $param = return_oneParametre($_COOKIE['NUMERO_BAV']);
+
+    $tabTaux[1]=$param["par_taux_1"];
+	$tabTaux[2]=$param["par_taux_2"];
+    $tabTaux[3]=$param["par_taux_3"];
+    
+    return $tabTaux;
+}
+
+function return_depotsBAV() {
+    $param = return_oneParametre($_COOKIE['NUMERO_BAV']);
+
+    $tabDepot[1]=$param["par_prix_depot_1"];
+	$tabDepot[2]=$param["par_prix_depot_2"];
+    $tabDepot[3]=$param["par_prix_depot_3"];
+    
+    return $tabDepot;
 }
