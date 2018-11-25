@@ -422,8 +422,14 @@
 		<tr>
 			<td class="titrow" >Marque <span title="Obligatoire">*<span></td>
 			<td class="tabInput" >
-					<input type=text name="obj_marque" size=30 maxlength="50" tabindex=<?=$tabindex++?>
+					<input type=text list="marques" name="obj_marque" size=30 maxlength="50" tabindex=<?=$tabindex++?>
 						placeholder="Marque du vélo" onkeyup="setStartSaisie(true);" required/>
+						<datalist id="marques">
+  	<option value="Meteor">
+  	<option value="Pils">
+  	<option value="Kronenbourg">
+  	<option value="Grimbergen">
+	</datalist>
 				</td>
 				<td class="titrow" >Modele</td>
 				<td class="tabInput" id="OBJ_MODELE">
@@ -493,14 +499,13 @@
 			<tr>
 				<td class="titrow" width="10%">Emel <span title="Obligatoire">*<span></td>
 				<td class="tabInput" width=40%>
-					<input type=mail name='cli_emel' size="50" maxlength="100" tabindex=<?=$tabindex++?>
+					<input type=email name='cli_emel' size="50" maxlength="100" tabindex=<?=$tabindex++?>
 						placeholder="aaaa.bbbb@ccc.dd" required/>
 
 				<td class="titrow" width=10%>Nom/prenom <span title="Obligatoire">*<span></td>
 				<td class="tabInput" width=40%>
 					<input type=text name='cli_nom_<?=$idRamdomVendeur?>' tabindex=<?=$tabindex++?>
-							size="50" maxlength="100" required
-							onkeyup="x_return_client_completion(this.value,display_vendeur_completion)" />
+							size="50" maxlength="100" required />
 					<div id="autoCompletionVendeur" style="position: absolute" class="info"></div>
 				</td>
 			</tr>
