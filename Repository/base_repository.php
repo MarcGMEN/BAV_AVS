@@ -48,7 +48,6 @@ function recupValToArray($table, $champ, $search) {
 	return $tabRet;
 }
 
-
 function getOne($id, $table, $cleId)
 {
     $row = null;
@@ -72,4 +71,45 @@ function getAll($table, $nameId)
     $resultat->close();
     return $tab;
 }
+
+
+function update($table, $obj, $cleId) {
+    $req = "update $table set ";
+    // todo : fr sur les champs sauf cleID
+    $virgule="";
+    foreach($obj as $key => $val) {
+        if ($key != $cleId) {
+            $req .= $virgule.$key." = '".addslashes($val)."'";
+            $virgule=" , ";
+        }
+    }
+    $req .= " where $cleId = '".$obj[$cleId]."'";
+    //echo $req;
+    if (!$GLOBALS['MYSQLI']->query($req)) {
+        throw new Exception("Pb d'update' [$req]".mysqli_error());
+    }
+    return true;
+}
+
+function insert($table, $obj) {
+    $req = "insert into $table (";
+    $virgule="";
+    foreach($obj as $key => $val) {
+        $req .= $virgule.$key;
+        $virgule=" , ";
+    }
+    $req.=") values (";
+    $virgule="";
+    foreach($obj as $key => $val) {
+        $req .= $virgule."'".addslashes($val)."'";
+        $virgule=" , ";
+    }
+    $req.=")";
+    
+    if (!$GLOBALS['MYSQLI']->query($req)) {
+         throw new Exception("Pb d'insert' [$req]".mysqli_error());
+     }
+    return $GLOBALS['MYSQLI']->insert_id;
+}
+
 ?>

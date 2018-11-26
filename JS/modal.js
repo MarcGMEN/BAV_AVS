@@ -1,17 +1,49 @@
-function alertModalError(message) {
+function alertModalWarnTimeout(message) { 
+    // Get the <span> element that closes the modal
+    var span = getElement("closeModal");
+
+    if (span) {
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+           closeModal();
+        }
+    }
     getElement('myModal').style.display = "block";
 
-    getElement('modalTitre').className = "BH_MODAL_ERREUR";
+    getElement('modalTitre').className = "BH_MODAL_ERR";
     getElement('modalTitre').innerHTML = "Erreur";
+    getElement("modalClose").innerHTML = "<i class='fa fa-times-circle size-3 close' id=closeModal></i>";
 
     getElement("modalText").innerHTML = message;
-    getElement("modalText").innerHTML = "<i class='fa fa-times-circle size-3 close'></i>";
+
+    setTimeout(closeModal(),3*1000);
+}
+
+
+function alertModalError(message) { 
+    // Get the <span> element that closes the modal
+    var span = getElement("closeModal");
+
+    if (span) {
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+           closeModal();
+        }
+    }
+    getElement('myModal').style.display = "block";
+
+    getElement('modalTitre').className = "BH_MODAL_ERR";
+    getElement('modalTitre').innerHTML = "Erreur";
+    getElement("modalClose").innerHTML = "<i class='fa fa-times-circle size-3 close' id=closeModal></i>";
+
+    getElement("modalText").innerHTML = message;
+    
 }
 
 function alertModalConfirm(message, plus='') {
     getElement('myModal').style.display = "block";
 
-    getElement('modalTitre').innerHTML = "Confirm";
+    getElement('modalTitre').innerHTML = "Confirmation";
 
     getElement("modalText").innerHTML = message;
 
@@ -22,18 +54,6 @@ function alertModalConfirm(message, plus='') {
 
 function  closeModal() {
      // Get the modal
-     var modal = document.getElementById('myModal');
+     var modal = getElement('myModal');
      modal.style.display = "none";
-}
-
-function initModal() {
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
-    if (span) {
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function () {
-           closeModal();
-        }
-    }
 }

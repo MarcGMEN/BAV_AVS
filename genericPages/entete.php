@@ -46,7 +46,7 @@
 			laForm.submit();
 		}
 	}
-	function goTo(page, modePage='') {
+	function goTo(page='accueil.php', modePage='') {
 		document.formNavigation.action='index.php';
 		document.formNavigation.page.value=page
 		document.formNavigation.modePage.value=modePage;
@@ -77,7 +77,7 @@
 								<div class="MENU">
 									<div style='text-algin: center'>Menu</div>
 									<hr />
-									<div onclick='goTo("parametre.php")'>Parametres</A></div>
+									<div class="link" onclick='goTo("parametre.php")'>Parametres</A></div>
 
 								</div>
 							</div>

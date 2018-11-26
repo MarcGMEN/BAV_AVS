@@ -141,11 +141,11 @@ input:focus, textarea:focus, select:focus {
 }
 
 
-input:invalid {
+input:invalid, textarea:invalid, select:invalid {
 	border: 1px dashed red;
 }
 
-input:valid {
+input:valid, textarea:valid, select:valid {
 	background-color: lightcyan;
 }
 
@@ -448,6 +448,7 @@ tr.tabl0:hover {
 /* Modal Content */
 
 .modal-content {
+	
 	background-color: #fefefe;
 	margin: auto;
 	padding: 2px;
@@ -467,6 +468,7 @@ tr.tabl0:hover {
 }
 
 #modalText {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
 	height: auto;
 	padding: 10px 20px 5px 20px;
 }

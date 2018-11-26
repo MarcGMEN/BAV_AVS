@@ -3,6 +3,8 @@ require_once "../Commun/commun_functions.php";
 require_once "../Commun/connect.php";
 require_once "../Repository/base_repository.php";
 require_once "../Repository/parametre_repository.php";
+require_once "../Repository/fiche_repository.php";
+require_once "../Repository/client_repository.php";
 require_once "../Commun/Sajax.php";
 require_once "../Commun/mail.php";
 require_once "../Commun/html2pdf.class.php";
@@ -29,9 +31,10 @@ function string2Tab($obj)
     return $tab;
 }
     
- function return_enum($table, $champ) {
- 	return recupEnumToArray($table, $champ);
- }
+function return_enum($table, $champ)
+{
+     return recupEnumToArray($table, $champ);
+}
 
 // function return_numeros_bav() {
 // 	return get_numeros_bav();
@@ -78,4 +81,3 @@ sajax_init("");
 include "exportAJAX.php";
 
 sajax_handle_client_request();
-?>

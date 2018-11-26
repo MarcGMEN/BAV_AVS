@@ -64,7 +64,6 @@ sajax_handle_client_request();
 		startSaisie = false;
 
 		function initIndex() {
-			initModal();
 		}
 
 		function setStartSaisie(cStartSaisie) {
@@ -72,10 +71,10 @@ sajax_handle_client_request();
 			enteteSaisie();
 		}
 
-		var modePage="select";
+		var modePage='<?=$GET_modePage?>';
 		// recuperation des donnees de la BAV
 		function setParamVal(val) {
-			getElement("mode").innerHTML=modePage+" -"+TABLE+"-"+ADMIN;
+			getElement("mode").innerHTML=modePage+"-"+TABLE+"-"+ADMIN;
 		}
 
 	</script>
@@ -93,7 +92,7 @@ sajax_handle_client_request();
 			</tr>
 			<tr>
 				<td class="FENETRE_PRINCIPALE" id="page">
-					MODE: <span id="mode"></span>
+					MODE: <span id="mode"></span> 
 					<!-- Trigger/Open The Modal -->
 					<!--<button id="myBtn">Open Modal</button>-->
 					<div id="myModal" class="modal">
@@ -101,8 +100,8 @@ sajax_handle_client_request();
 						<div class="modal-content" > 
 							<table width=100% class="BH_MODAL">
 								<tr>
-									<td width="80%" id='modalTitre'></td>
-									</td width="20%" id="close"></td>
+									<td width="95%" id='modalTitre'></td>
+									<td width="5%" id="modalClose"></td>
 								</tr>
 							</table>
 							<br/><br/>
@@ -111,7 +110,7 @@ sajax_handle_client_request();
 							<div id="modalAction"></div>
 						</div>
 					</div>
-					<?//echo "go to page [".$GET_page."]";?>
+					<?echo "go to page [".$GET_page."]";?>
 					<?include('pages/'.$GET_page);?>
 
 				</td>

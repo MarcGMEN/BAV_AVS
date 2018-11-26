@@ -9,6 +9,12 @@
 	// recuperation des donnees de la BAV
 	function setParamVal(val) {
 		console.log(TABLE+ADMIN)
+		if (TABLE || ADMIN) {
+
+		}
+		else {
+			goTo();
+		}
 	}
 
 	
@@ -57,6 +63,7 @@
 		x_return_oneParametre(id, display_parametre);
 	}
 
+
 	function display_parametre(val) {
 		document.parametreForm.reset();
         display_formulaire(val,document.parametreForm);
@@ -67,6 +74,7 @@
 		getElement('modeParametre').innerHTML=modePage;
 	}
 
+	/* acces en creation */>
 	function modeCreation() {
 		document.parametreForm.reset();
 		disableDisplay('parametres');
@@ -76,6 +84,7 @@
 		getElement('modeParametre').innerHTML=modePage;
 	}
 
+	/* fermeture du CRUD */>
 	function fermerCRUD() {
 		suite=true;
 		if (startSaisie) {
