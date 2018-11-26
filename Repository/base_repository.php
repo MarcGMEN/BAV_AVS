@@ -1,11 +1,10 @@
-<?
+<?php
 
 function infoTable($table)
 {
     $query = "SELECT * from $table";
     $tab=array();
     if ($result = $GLOBALS['MYSQLI']->query($query)) {
-
         /* Récupère les informations d'un champ pour toutes les colonnes */
         $finfo = $result->fetch_fields();
         foreach ($finfo as $val) {
@@ -24,20 +23,21 @@ function infoTable($table)
 /**
  * retourne les valeurs d'un enum d'une table
  */
-function recupEnumToArray($table, $champ) {
+function recupEnumToArray($table, $champ)
+{
     // recupearation des datas de la colonne.
 	$result = $GLOBALS['MYSQLI']->query("SHOW COLUMNS FROM $table LIKE '$champ'");
     if ($result) {
-       $row = $result->fetch_assoc();
-       $tab =  explode("','",utf8_encode(preg_replace("/(enum|set)\('(.+?)'\)/","\\2", $row['Type'])));
-       return $tab;
-    }
-    else {
+        $row = $result->fetch_assoc();
+        $tab =  explode("','", utf8_encode(preg_replace("/(enum|set)\('(.+?)'\)/", "\\2", $row['Type'])));
+        return $tab;
+    } else {
         throw new Exception("Pb getEnumValues ".mysqli_error());
     }
 }
 
-function recupValToArray($table, $champ, $search) {
+function recupValToArray($table, $champ, $search)
+{
 	$tabRet=array();
 	$index=1;
 	$query_EnumList = "SELECT '$champ' from $table where $champ like '%$search%' group by $champ order by $champ ";
@@ -55,7 +55,6 @@ function getOne($id, $table, $cleId)
         $requete2 = " SELECT * from $table ";
         $requete2 .= " where $cleId = '" . $id."'";
         $row=$GLOBALS['MYSQLI']->query($requete2)->fetch_assoc();
-
     }
     return $row;
 }
@@ -73,11 +72,12 @@ function getAll($table, $nameId)
 }
 
 
-function update($table, $obj, $cleId) {
+function update($table, $obj, $cleId)
+{
     $req = "update $table set ";
     // todo : fr sur les champs sauf cleID
     $virgule="";
-    foreach($obj as $key => $val) {
+    foreach ($obj as $key => $val) {
         if ($key != $cleId) {
             $req .= $virgule.$key." = '".addslashes($val)."'";
             $virgule=" , ";
@@ -91,16 +91,17 @@ function update($table, $obj, $cleId) {
     return true;
 }
 
-function insert($table, $obj) {
+function insert($table, $obj)
+{
     $req = "insert into $table (";
     $virgule="";
-    foreach($obj as $key => $val) {
+    foreach ($obj as $key => $val) {
         $req .= $virgule.$key;
         $virgule=" , ";
     }
     $req.=") values (";
     $virgule="";
-    foreach($obj as $key => $val) {
+    foreach ($obj as $key => $val) {
         $req .= $virgule."'".addslashes($val)."'";
         $virgule=" , ";
     }
@@ -108,8 +109,6 @@ function insert($table, $obj) {
     
     if (!$GLOBALS['MYSQLI']->query($req)) {
          throw new Exception("Pb d'insert' [$req]".mysqli_error());
-     }
+    }
     return $GLOBALS['MYSQLI']->insert_id;
 }
-
-?>

@@ -243,7 +243,7 @@
 	// ***********************************************************
 	// ***********************************************************
 	
-	<?php $idRamdomVendeur=rand(1000,9999);?>
+	<?php $idRamdomVendeur=rand(1000, 9999);?>
 	var idRamdomVendeur="<?=$idRamdomVendeur?>";
 
 
@@ -364,7 +364,7 @@
 	// ***********************************************************
 	// ***********************************************************
 
-	<?php $idRamdomAcheteur=rand(10000,99999);?>
+	<?php $idRamdomAcheteur=rand(10000, 99999);?>
 	var idRamdomAcheteur="<?=$idRamdomAcheteur?>";
 	 
 	// validation de la fiche

@@ -7,7 +7,9 @@
 /**************************************/
 function return_list_marques()
 {
-    $tabMarques = ['TREK','SCOTT','CANNONDALE','GITANE','PEUGEOT','MERCIER','SUNN','GT','EXS','CERVELO','BIANCHI','COLNAGO','KUOTA','BH','BMC','BTWIN','DECATHLON','CANYON','CKT','COMMENCAL','DIAMONDBACK','GIANT','KONA','KTM','MBK','MERIDA','ORBEA','PINARELLO','RIDLEY','SPECIALIZED','TIME','WILLIER','LOOK'];
+	$tabMarques = ['TREK','SCOTT','CANNONDALE','GITANE','PEUGEOT','MERCIER','SUNN','GT','EXS','CERVELO','BIANCHI',
+		'COLNAGO','KUOTA','BH','BMC','BTWIN','DECATHLON','CANYON','CKT','COMMENCAL','DIAMONDBACK','GIANT','KONA',
+		'KTM','MBK','MERIDA','ORBEA','PINARELLO','RIDLEY','SPECIALIZED','TIME','WILLIER','LOOK'];
 
     $tabRetour = array_merge($tabMarques, get_marques());
     asort($tabRetour);
@@ -62,9 +64,10 @@ function action_createFiche($objStr, $cliStr)
 		$tabObj['obj_id']=0;
 
 		// creation du numero
+		echo getCountFiche();
 		$tabObj['obj_numero']=5000+getCountFiche();
 		// creation de idmodif
-		$tabObj['obj_id_modif']=substr(hash_hmac('md5', $numeroFiche, 'avs44'), 0, 5);
+		$tabObj['obj_id_modif']=substr(hash_hmac('md5', $tabObj['obj_numero'], 'avs44'), 0, 5);
 
     	$tabObj['obj_id']=insertFiche($tabObj);
 

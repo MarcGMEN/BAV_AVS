@@ -88,13 +88,13 @@ function action_insertParametre($obj)
         // // TODO : test cohérence object
         insertParametre($tab);
         return true;
-    }
-    else {
+    } else {
         return "Numéro déjà présent..";
     }
 }
 
-function return_tauxBAV() {
+function return_tauxBAV()
+{
     $param = return_oneParametre($_COOKIE['NUMERO_BAV']);
 
     $tabTaux[1]=$param["par_taux_1"];
@@ -104,7 +104,8 @@ function return_tauxBAV() {
     return $tabTaux;
 }
 
-function return_depotsBAV() {
+function return_depotsBAV()
+{
     $param = return_oneParametre($_COOKIE['NUMERO_BAV']);
 
     $tabDepot[1]=$param["par_prix_depot_1"];

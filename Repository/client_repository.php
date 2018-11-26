@@ -36,12 +36,9 @@ function getOneClientByMel($id)
 function updateClient($obj)
 {
     return update('client', $obj, "cli_id");
-    
 }
 
 function insertClient($obj)
 {
     return insert('client', $obj);
 }
-
-?>

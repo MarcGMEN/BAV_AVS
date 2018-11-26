@@ -116,8 +116,10 @@
 		
 		var repr="";
 		repr += "Vous enregistrez un dépôt pour : <br/><ul>";
-		repr += "<li><b>"+tabObj['obj_type']+" "+tabObj['obj_public']+"</b> avec une pratique : <b>"+tabObj['obj_pratique']+"</b></li>";
-		repr += "<li><b>"+tabObj['obj_marque']+" - "+tabObj['obj_modele']+"</b> de couleur : <b>"+tabObj['obj_couleur']+"</b></li>";
+		repr += "<li><b>"+tabObj['obj_type']+" "+tabObj['obj_public']+"</b> avec une pratique : <b>"+
+			tabObj['obj_pratique']+"</b></li>";
+		repr += "<li><b>"+tabObj['obj_marque']+" - "+tabObj['obj_modele']+"</b> de couleur : <b>"+
+			tabObj['obj_couleur']+"</b></li>";
 		repr += "<li> Description : \"<b>"+tabObj['obj_description']+"</b>\"</li>";
 		if (tabObj['obj_prix_depot']) {
 			repr += "<li> PRIX : <b>"+tabObj['obj_prix_depot']+" &#8364;</b></li><br/>";
@@ -126,9 +128,11 @@
 		}
 			
 		repr += "<li> Vous : <b>"+tabCli['cli_nom']+" ("+tabCli['cli_telephone']+") <br/><blockquote> ";
-		repr += tabCli['cli_adresse']+" "+tabCli['cli_adresse1']+" ["+tabCli['cli_code_postal']+"] "+tabCli['cli_ville']+"</b></blockquote></li><br/>";
+		repr += tabCli['cli_adresse']+" "+tabCli['cli_adresse1']+" ["+tabCli['cli_code_postal']+"] "+
+			tabCli['cli_ville']+"</b></blockquote></li><br/>";
 		repr += "Vous allez recevoir un mel à l'adresse <b>"+tabCli['cli_emel']+"</b> pour confirmer ce dépot.<br/>";
-		repr += "Une fois cette confirmation effectuée, vous recevrez la fiche de dépôt ainsi que les instructions de dépôt.";
+		repr += "Une fois cette confirmation effectuée, vous recevrez la "+
+			"fiche de dépôt ainsi que les instructions de dépôt.";
 
         alertModalConfirm(repr, "Fiche");
 		return false;
@@ -382,93 +386,3 @@
 		</tr>
 	</table>
 </form>
-<table>
-	<tr>
-		<!--  ********************************************************************************************* -->
-		<!--  ********************************************************************************************* -->
-		<!--  ********************************************************************************************* -->
-		<!--  ********************************************************************************************* -->
-		<!--  ********************************************************************************************* -->
-		<!--  ********************************************************************************************* -->
-		<!--  ********************************************************************************************* -->
-		<!--  ********************************************************************************************* -->
-		<td width=50% valign="top">
-			<fieldset class=fiche>
-				<legend class=titreFiche>L'acheteur &nbsp;<span onclick="inverseDisplay('divAcheteur')"><img id="iconedivAcheteur"
-						 src="Images/iconeMoins.png"></img></span> </legend>
-				<div id="divAcheteur" style="visibility: visible;">
-					<form name="acheteurForm" method="POST" action="Actions/AFiche.php" onsubmit="return ValideAcheteur(this)">
-						<input type=hidden name=obj_numero value='<?=$GET_numeroFiche?>' />
-						<input type=hidden name=obj_numero_bav value="<?=$_COOKIE['NUMERO_BAV']?>" />
-						<input type=hidden name=cli_id />
-						<input type=hidden name=action value="acheteur" />
-						<input type=hidden name=cli_nom />
-						<table width=90% align=center cellpadding=2 cellspacing=2>
-
-							<tr>
-								<td class="titrow" width=25%>Nom</td>
-								<td class="tabl0" width=25%>
-									<input type=text name='cli_nom_<?=$idRamdomAcheteur?>'
-									 tabindex="200" size="20" maxlength="100" onkeyup="x_return_client_completion(this.value,display_acheteur_completion)"
-									 disabled="disabled" />
-									<span id="ACH_NOM_ERR" class="error"></span>
-									<div id="autoCompletionAcheteur" style="position: absolute" class="info"></div>
-								</td>
-								<td class="titrow" width=25%>Prénom</td>
-								<td class="tabl0" width=25%><input type=text name='cli_prenom' size="20" maxlength="100" disabled="disabled"
-									 tabindex="201" /> <span id="ACH_PRENOM_ERR" class="error"></span></td>
-							</tr>
-							<tr>
-								<td class="titrow">Adresse</td>
-								<td class="tabl0" colspan="3"><textarea name="cli_adresse" rows="2" cols="50" disabled="disabled" tabindex="202"></textarea></td>
-							</tr>
-							<tr>
-								<td class="titrow">Code postal</td>
-								<td class="tabl0"><input type=text name='cli_codePostal' size="10" maxlength="10" disabled="disabled" tabindex="203" /></td>
-								<td class="titrow">Ville</td>
-								<td class="tabl0"><input type=text name='cli_ville' size="20" maxlength="100" disabled="disabled" tabindex="204" /></td>
-							</tr>
-							<tr>
-								<td class="titrow">Emel</td>
-								<td class="tabl0" colspan="3"><input type=text name='cli_emel' size="30" maxlength="100" disabled="disabled"
-									 tabindex="205" /> <span id="ACH_EMEL_ERR" class="error"></span></td>
-							</tr>
-							<tr>
-								<td class="titrow">Téléphone</td>
-								<td class="tabl0" colspan="3"><input type=text name='cli_telephone' size="30" maxlength="100" disabled="disabled"
-									 tabindex="206" /> <span id="ACH_TELEPHONE_ERR" class="error"></span></td>
-							</tr>
-							<tr>
-								<td class="titrow">Mode Paiement</td>
-								<td class="tabl0" colspan="3">
-									<select name='obj_type_achat' id='obj_type_achat' disabled="disabled" tabindex="207"></select>
-								</td>
-							</tr>
-							<tr>
-								<td class="titrow">Type pièce</td>
-								<td class="tabl0">
-									si chèque
-									<select name='cli_type_piece' id='cli_type_piece_achat' disabled="disabled" tabindex="208"></select>
-								</td>
-								<td class="titrow">Numéro pièce</td>
-								<td class="tabl0"><input type=text name='cli_piece_indetite' size="20" maxlength="50" disabled="disabled"
-									 tabindex="209" /></td>
-							</tr>
-						</table>
-						<br />
-
-						<table width=100% class=fiche>
-							<tr>
-								<td width=50% align=center><input type=button value="Valider" onclick="ValideAcheteur(this.form)" onkeypress="ValideAcheteur(this.form)"
-									 disabled="disabled" name=buttonValideAcheteur tabindex="220"></td>
-								<td width=50% align=center><input type=button value="Reset" name="buttonResetAcheteur" onclick="ResetAcheteur(this.form)"
-									 tabindex="221"></td>
-							</tr>
-						</table>
-					</form>
-
-			</fieldset>
-		</td>
-	</tr>
-</table>
-</div>

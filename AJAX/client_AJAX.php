@@ -45,5 +45,3 @@ function action_insertClient($obj)
     insertClient($tab);
     return true;
 }
-
-?>

@@ -30,12 +30,9 @@ function getOneFiche($id)
 function getCountFiche()
 {
     $row = null;
-    if (isset($id)) {
-        $requete2 = " SELECT count(*) from objet ";
-        $row=$GLOBALS['MYSQLI']->query($requete2)->fetch_assoc();
-
-    }
-    return $row[0];
+    $requete2 = " SELECT count(*) from objet ";
+    $row=$GLOBALS['MYSQLI']->query($requete2)->fetch_assoc();
+    return $row['count(*)'];
 }
 
 
@@ -56,17 +53,12 @@ function getOneFicheByIdModif($id)
 }
 
 
-
-
 function updateFiche($obj)
 {
     return update('objet', $obj, "obj_id");
-    
 }
 
 function insertFiche($obj)
 {
     return insert('objet', $obj);
 }
-
-?>

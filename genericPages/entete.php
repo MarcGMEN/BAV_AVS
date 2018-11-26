@@ -104,11 +104,15 @@
 											<tr>
 												<td align="center">
 													<small>Recherche</small><br />
-													<input type="text" name="numeroFiche" size="15" maxlength="50" title="Saisisez le numéro de fiche, ou l'identifiant de la fiche"
-													 placeholder="Saisisez le numéro ou l'identifiant de la fiche." onchange="search(this.form)" id="inputSearch" />
+													<input type="text" name="numeroFiche" size="15" 
+														maxlength="50" 
+													title="Saisisez le numéro de fiche, ou l'identifiant de la fiche"
+														 placeholder="Saisisez le numéro ou l'identifiant de la fiche." 
+														 onchange="search(this.form)" id="inputSearch" />
 												</td>
 												<td align="center">
-													<i class="fas fa-search link" onclick="search(document.enteteFormFiche)"></i>
+													<i class="fas fa-search link" 
+														onclick="search(document.enteteFormFiche)"></i>
 												</td>
 											</tr>
 										</table>
@@ -143,7 +147,8 @@
 							<tr>
 								<td width="<?=$tail?>%">
 									<!-- fiche etat modif prix -->
-									Modif prix : <A href="index.php?page=modif" method="POST"><span id="modifPrix">...</span></A>
+									Modif prix : <A href="index.php?page=modif" method="POST">
+											<span id="modifPrix">...</span></A>
 								</td>
 								<td width="<?=$tail?>%">
 									<!-- fiche etat valide - vendu - retour -->
