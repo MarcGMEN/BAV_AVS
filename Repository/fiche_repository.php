@@ -2,15 +2,23 @@
 /**
  * retourne les marques dans la liste des object
  */
+
+function formatData($row)
+{
+    if ($row) {
+        $row['obj_date_depot_FR'] = formateDateMYSQLtoFR($row['obj_date_depot'], true);
+    }
+    return $row;
+}
 function get_marques()
 {
-    $query = "SELECT obj_marques from objet group by obj_marques";
+    $query = "SELECT obj_marque from objet group by obj_marque";
     $tab=array();
     if ($result = $GLOBALS['MYSQLI']->query($query)) {
         $tab=array();
         $index=0;
-        while ($row = $resultat->fetch_assoc()) {
-            $tab[$index++]=strtoupper($row);
+        while ($row = $result->fetch_assoc()) {
+            $tab[$index++]=strtoupper($row['obj_marque']);
         }
         $result->close();
     }
@@ -19,20 +27,30 @@ function get_marques()
 }
 function getAllFiche()
 {
-	return getAll("objet", "obj_id");
+    return getAll("objet", "obj_id");
 }
 
 function getOneFiche($id)
 {
-    return getOne($id, "objet", "obj_id");
+    return formatData(getOne($id, "objet", "obj_id"));
 }
 
-function getCountFiche()
+function getFicheLibre($base)
 {
     $row = null;
-    $requete2 = " SELECT count(*) from objet ";
-    $row=$GLOBALS['MYSQLI']->query($requete2)->fetch_assoc();
-    return $row['count(*)'];
+    $query = " SELECT obj_numero from objet where obj_numero >= $base order by obj_numero";
+    if ($result = $GLOBALS['MYSQLI']->query($query)) {
+        $tab=array();
+        $index=0;
+        while ($row = $result->fetch_assoc()) {
+            if ($row['obj_numero'] != $base) {
+                break;
+            }
+            $base++;
+        }
+        $result->close();
+    }
+    return $base;
 }
 
 
@@ -41,7 +59,7 @@ function getCountFiche()
  */
 function getOneFicheByCode($id)
 {
-    return getOne($id, "objet", "obj_numero");
+    return formatData(getOne($id, "objet", "obj_numero"));
 }
 
 /**
@@ -49,7 +67,7 @@ function getOneFicheByCode($id)
  */
 function getOneFicheByIdModif($id)
 {
-    return getOne($id, "objet", "obj_id_modif");
+    return formatData(getOne($id, "objet", "obj_id_modif"));
 }
 
 

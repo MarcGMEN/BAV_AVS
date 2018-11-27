@@ -12,7 +12,7 @@ function return_list_marques()
 		'KTM','MBK','MERIDA','ORBEA','PINARELLO','RIDLEY','SPECIALIZED','TIME','WILLIER','LOOK'];
 
     $tabRetour = array_merge($tabMarques, get_marques());
-    asort($tabRetour);
+    sort($tabRetour);
     return $tabRetour ;
 }
 
@@ -20,7 +20,7 @@ function return_oneFicheByCode($id)
 {
     $row = getOneFicheByCode($id);
     if ($row) {
-        //$row['obj_date'] = utf8_encode(formateDateMYSQLtoFR($row['obj_date'], true));
+        $row['obj_date_depot_FR'] = utf8_encode(formateDateMYSQLtoFR($row['obj_date_depot'], true));
     }
     return $row;
 }
@@ -29,7 +29,7 @@ function return_oneFicheByIdModif($id)
 {
     $row = getOneFicheByIdModif($id);
     if ($row) {
-        //$row['obj_date'] = utf8_encode(formateDateMYSQLtoFR($row['obj_date'], true));
+        $row['obj_date_depot_FR'] = utf8_encode(formateDateMYSQLtoFR($row['obj_date_depot'], true));
     }
     return $row;
 }
@@ -38,7 +38,7 @@ function return_oneFiche($id)
 {
     $row = getOneFiche($id);
     if ($row) {
-        $row['obj_date'] = utf8_encode(formateDateMYSQLtoFR($row['obj_date'], true));
+        $row['obj_date_depot_FR'] = utf8_encode(formateDateMYSQLtoFR($row['obj_date_depot'], true));
     }
     return $row;
 }
@@ -46,34 +46,47 @@ function return_oneFiche($id)
 
 function action_createFiche($objStr, $cliStr)
 {
+	extract($GLOBALS);
 	try {
 		// creation du client, avec test si pas deja connu
 		$tabCli=string2Tab(utf8_encode($cliStr));
-    	$cliLu = getOneClientByMel($tabCli['cli_emel']);
+		$cliLu = getOneClientByMel($tabCli['cli_emel']);
 		if ($cliLu) {
 			$tabCli['cli_id']=$cliLu['cli_id'];
         	updateClient($tabCli);
 		} else {
-	        $tabCli['cli_id']=0;
+			$tabCli['cli_id']=0;
+			$tabCli['cli_id_modif']=substr(hash_hmac('md5', rand(0, 10000), 'avs44'), 0, 8);
         	$tabCli['cli_id']=insertClient($tabCli);
 		}
 		$tabObj=string2Tab(utf8_encode($objStr));
+		
 		$tabObj['obj_id_vendeur']=$tabCli['cli_id'];
 	
 		// TODO : insert fiche
 		$tabObj['obj_id']=0;
 
 		// creation du numero
-		echo getCountFiche();
-		$tabObj['obj_numero']=5000+getCountFiche();
+		// TODO : recherche des place libre apres 5000
+		$tabObj['obj_numero']=getFicheLibre(5000);
 		// creation de idmodif
 		$tabObj['obj_id_modif']=substr(hash_hmac('md5', $tabObj['obj_numero'], 'avs44'), 0, 5);
 
+        $tabObj['obj_numero_bav']=$_COOKIE['NUMERO_BAV'];
     	$tabObj['obj_id']=insertFiche($tabObj);
 
 		$objNew= getOneFiche($tabObj['obj_id']);
 	
-		echo $objNew['obj_id_modif'];
+		//echo $objNew['obj_id_modif'];
+		$tabObj['lien_confirm']=$CFG_URL."/Action/rest.php?a=C&id=".$tabObj['obj_id_modif'];
+		
+		if ($tabObj['obj_prix_depot'] == "" ) {
+            $tabObj['obj_prix_depot']='____.__';
+		}
+		$message = makeMessage("Confirmation du dépôt", array_merge($tabObj, $tabCli), "mel_enregistrement.html");
+		
+		sendMail($tabCli['cli_emel'], $message, $_COOKIE['NUMERO_BAV']);
+		
 
 		// TODO : creation du mel
 

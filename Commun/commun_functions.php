@@ -470,7 +470,7 @@ function formateDateMYSQLtoFR($date,$heure=false) {
 		
 		if ($dateR!="00/00/0000") {
 			if ($heure && isset($tab_date[1])) {
-				$dateR.=" � ".$tab_date[1];
+				$dateR.=" à ".$tab_date[1];
 			}
 		}
 		else {

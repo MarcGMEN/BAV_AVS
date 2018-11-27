@@ -14,20 +14,19 @@
 		x_return_enum('objet','obj_pratique',display_list_pratique);
 
 		x_return_list_marques(display_list_marques)
-
+		// chargement des taux
+		x_return_tauxBAV(display_list_taux_com);
+		// chargement des depot
+		x_return_depotsBAV(display_list_prix_depot);
+		
 		getElement("obj_type").focus();
 	}
 
 	// recuperation des donnees de la BAV
 	function setParamVal(val) {
 		if (TABLE || ADMIN) {
-			// chargement des taux
-			x_return_tauxBAV(display_list_taux_com);
-			// chargement des depot
-			x_return_depotsBAV(display_list_prix_depot);
 			getElement("trTauxCom").style.display='table-row';
 			getElement("trPrix").style.display='table-row';
-			
 		}
 		getElement("mode").innerHTML="fiche.php "+modePage+"-"+TABLE+"-"+ADMIN;
 	}
@@ -80,7 +79,10 @@
 		tabTauxCom=val;
 		var select = getElement("cli_taux_com");
 		for(index in val) {
-		    select.options[select.options.length] = new Option(val[index], index);
+		    select.appendChild(new Option(val[index], val[index]));
+			if (index == 0) {
+				select.selectedIndex=val[index];
+			}
 		}
 	}
 	var tabPrixDepot;
@@ -88,7 +90,11 @@
 		tabPrixDepot=val;
 		var select = getElement("cli_prix_depot");
 		for(index in val) {
-		    select.options[select.options.length] = new Option(val[index], index);
+			select.appendChild(new Option(val[index], val[index]));
+			if (index == 0) {
+				select.selectedIndex=val[index];
+			}
+
 		}
 	}
 

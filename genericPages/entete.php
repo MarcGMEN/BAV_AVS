@@ -88,7 +88,27 @@
 					</td>
 				</tr>
 				<tr>
-					<td width="25%" rowspan="2">
+					
+					<?php $tail = (int) 100 / 3;?>
+					<td width="80%" colspan=2>
+						<table width="100%">
+							<tr>
+								<td width="<?=$tail?>%">
+									<!-- fiche etat cofirme -->
+									A valider : <span id="confirme">...</span>
+								</td>
+								<td width="<?=$tail?>%">
+									<!-- fiche etat valide -->
+									Depot : <span id="valide">...</span>
+								</td>
+								<td width="<?=$tail?>%">
+									Vendu : <span id="vendu">...</span>
+									<small><span id="statVendu">...</span></small>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td width="20%" rowspan="2">
 							<table width="100%">
 								<tr>
 									<td width="40%">
@@ -120,25 +140,6 @@
 									</td>
 								</tr>
 							</table>
-					</td>
-					<?php $tail = (int) 100 / 3;?>
-					<td width="75%" colspan=2>
-						<table width="100%">
-							<tr>
-								<td width="<?=$tail?>%">
-									<!-- fiche etat cofirme -->
-									A valider : <span id="confirme">...</span>
-								</td>
-								<td width="<?=$tail?>%">
-									<!-- fiche etat valide -->
-									Depot : <span id="valide">...</span>
-								</td>
-								<td width="<?=$tail?>%">
-									Vendu : <span id="vendu">...</span>
-									<small><span id="statVendu">...</span></small>
-								</td>
-							</tr>
-						</table>
 					</td>
 				</tr>
 				<tr>

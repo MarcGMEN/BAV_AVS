@@ -2,6 +2,7 @@
 
 require_once "../Commun/commun_functions.php";
 require_once "../Commun/connect.php";
+require_once "../config.ini";
 require_once "../Repository/base_repository.php";
 require_once "../Repository/parametre_repository.php";
 require_once "../Repository/fiche_repository.php";
