@@ -74,7 +74,6 @@ function sendMail($to, $messageMail, $annee)
         } else {
             $erreur="mail envoi ok a [$to]";
         }
-        echo $erreur;
         return $erreur;
     } catch (Exception $e) {
         return "Exception sur mail ".$to." => ".$e->getMessage();

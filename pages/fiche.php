@@ -146,19 +146,12 @@
 
 	/**click sur btn cofirm de modalFiche */
 	function confirmModalFiche() {
-        // enregistrement
-        console.log(tabObj);
-        console.log(tabCli);
-        // stockage cli_id en cookies
-
         x_action_createFiche(tabToString(tabObj), tabToString(tabCli), display_fin_create);
-
-        // envoi mel
 	}	
 	
 	function display_fin_create(val) {
 		// retour sur la fiche en mode Page actuel
-		//goTo('fiche.php',modePage);
+		goTo('fiche.php',modePage,null,"Fiche prise en compte");
 	}
 
 

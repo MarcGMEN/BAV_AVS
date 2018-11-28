@@ -46,17 +46,22 @@
 			laForm.submit();
 		}
 	}
-	function goTo(page='accueil.php', modePage='') {
+	function goTo(page='accueil.php', modePage='', id=null,message='') {
 		document.formNavigation.action='index.php';
 		document.formNavigation.page.value=page
 		document.formNavigation.modePage.value=modePage;
+		document.formNavigation.message.value=message;
+		document.formNavigation.id.value=id;
 		document.formNavigation.submit();
 	}
+	
 
 </script>
 <form name=formNavigation method=post>
 	<input type=hidden name=page value="">
 	<input type=hidden name=modePage value="">
+	<input type=hidden name=id value="">
+	<input type=hidden name=message value="">
 </form>
 <table class="BH_CADRE" cellspacing="0" cellpadding="0" border="0" wifth="100%">
 	<tr height="100%">

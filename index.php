@@ -125,5 +125,14 @@ sajax_handle_client_request();
 
 	</center>	
 </body>
+<?
+if (isset($GET_message) && trim($GET_message) != '') {
+	?>
+
+	<script> 
+        console.log("message");
+		alertModalInfo('<?=$GET_message?>');
+	</script>
+<?}?>
 
 </html>

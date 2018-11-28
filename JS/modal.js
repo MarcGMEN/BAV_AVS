@@ -18,7 +18,24 @@ function alertModalWarnTimeout(message) {
 
     setTimeout(closeModal(),3*1000);
 }
+function alertModalInfo(message) {
+      // Get the <span> element that closes the modal
+      var span = getElement("closeModal");
 
+      if (span) {
+          // When the user clicks on <span> (x), close the modal
+          span.onclick = function () {
+             closeModal();
+          }
+      }
+      getElement('myModal').style.display = "block";
+  
+      getElement('modalTitre').className = "BH_MODAL";
+      getElement('modalTitre').innerHTML = "Info";
+      getElement("modalClose").innerHTML = "<i class='fa fa-times-circle size-3 link' onclick='closeModal()'></i>";
+  
+      getElement("modalText").innerHTML = message;  
+}
 
 function alertModalError(message) { 
     // Get the <span> element that closes the modal

@@ -78,24 +78,19 @@ function action_createFiche($objStr, $cliStr)
 		$objNew= getOneFiche($tabObj['obj_id']);
 	
 		//echo $objNew['obj_id_modif'];
-		$tabObj['lien_confirm']=$CFG_URL."/Action/rest.php?a=C&id=".$tabObj['obj_id_modif'];
+		$tabObj['lien_confirm']=$CFG_URL."/Actions/rest.php?a=C&id=".$tabObj['obj_id_modif'];
 		
-		if ($tabObj['obj_prix_depot'] == "" ) {
+		if ($tabObj['obj_prix_depot'] == "") {
             $tabObj['obj_prix_depot']='____.__';
 		}
 		$message = makeMessage("Confirmation du dépôt", array_merge($tabObj, $tabCli), "mel_enregistrement.html");
 		
 		sendMail($tabCli['cli_emel'], $message, $_COOKIE['NUMERO_BAV']);
-		
-
-		// TODO : creation du mel
-
 	} catch (Exception $e) {
-        print_r($e);
+        return $e->getMessage();
 	}
-	// mel
 
-	// retour OK
+    return "mail envoyé.";
 }
 
 function action_updateFiche($obj)

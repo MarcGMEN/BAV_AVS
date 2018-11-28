@@ -1,0 +1,30 @@
+<?php
+require_once dirname(__FILE__).'/../vendor/autoload.php';
+
+use Spipu\Html2Pdf\Html2Pdf;
+use Spipu\Html2Pdf\Exception\Html2PdfException;
+use Spipu\Html2Pdf\Exception\ExceptionFormatter;
+
+function html2pdf($data, $html, $fileOut)
+{
+    try {
+        $message = makeCorps($data, $html);
+        
+        file_put_contents(dirname(__FILE__)."/../out/html/$fileOut.html", stripslashes($message));
+
+        ob_start();
+        include dirname(__FILE__)."/../out/html/$fileOut.html";
+        $content = ob_get_clean();
+        $html2pdf = new Html2Pdf('P', 'A4', 'fr', true, 'UTF-8', 3);
+        //$html2pdf->setDefaultFont('Arial');
+        //$html2pdf->pdf->SetDisplayMode('fullpage')
+        $html2pdf->pdf->SetAuthor('AVS44');
+        $html2pdf->writeHTML($content);
+        $html2pdf->output(dirname(__FILE__)."/../out/PDF/$fileOut.pdf", 'F');
+    } catch (Html2PdfException $e) {
+        $html2pdf->clean();
+        $formatter = new ExceptionFormatter($e);
+        echo $formatter->getHtmlMessage();
+    }
+    return "$fileOut.pdf";
+}

@@ -3,13 +3,6 @@
  * retourne les marques dans la liste des object
  */
 
-function formatData($row)
-{
-    if ($row) {
-        $row['obj_date_depot_FR'] = formateDateMYSQLtoFR($row['obj_date_depot'], true);
-    }
-    return $row;
-}
 function get_marques()
 {
     $query = "SELECT obj_marque from objet group by obj_marque";
@@ -32,7 +25,7 @@ function getAllFiche()
 
 function getOneFiche($id)
 {
-    return formatData(getOne($id, "objet", "obj_id"));
+    return getOne($id, "objet", "obj_id");
 }
 
 function getFicheLibre($base)
@@ -59,7 +52,7 @@ function getFicheLibre($base)
  */
 function getOneFicheByCode($id)
 {
-    return formatData(getOne($id, "objet", "obj_numero"));
+    return  getOne($id, "objet", "obj_numero");
 }
 
 /**
@@ -67,7 +60,7 @@ function getOneFicheByCode($id)
  */
 function getOneFicheByIdModif($id)
 {
-    return formatData(getOne($id, "objet", "obj_id_modif"));
+    return getOne($id, "objet", "obj_id_modif");
 }
 
 

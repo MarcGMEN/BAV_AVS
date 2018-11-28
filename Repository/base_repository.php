@@ -84,7 +84,6 @@ function update($table, $obj, $cleId)
         }
     }
     $req .= " where $cleId = '".$obj[$cleId]."'";
-    //echo $req;
     if (!$GLOBALS['MYSQLI']->query($req)) {
         throw new Exception("Pb d'update' [$req]".mysqli_error());
     }
