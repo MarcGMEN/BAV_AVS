@@ -9,7 +9,6 @@ require_once "../Repository/fiche_repository.php";
 require_once "../Repository/client_repository.php";
 require_once "../Commun/Sajax.php";
 require_once "../Commun/mail.php";
-require_once "../Commun/html2pdf.class.php";
 
 // demande de confirmation de la fiche
 if ($GET_a=="C") {
@@ -23,18 +22,25 @@ if ($GET_a=="C") {
             $fiche['obj_numero']=getFicheLibre(700);
             // creation de idmodif
             $fiche['obj_id_modif']=substr(hash_hmac('md5', $fiche['obj_numero'], 'avs44'), 0, 5);
-            $fiche['obj_date_depot_FR_SH'] = formateDateMYSQLtoFR($fiche['obj_date_depot'], false);
+            $tabPlus['obj_date_depot_FR_SH'] = formateDateMYSQLtoFR($fiche['obj_date_depot'], false);
 
             
             $client = getOneClient($fiche['obj_id_vendeur']);
-            $client['URL']=$CFG_URL;
+
+            $tabPlus['URL']=$CFG_URL;
             
             // création de la fiche et envoi par mel
-            $message = makeMessage("La fiche", array_merge($fiche, $client), "fiche_depot.html");
+            $message = makeCorps(array_merge($fiche, $client, $tabPlus), "fiche_depot.html");
             print_r($message);
-            echo file_put_contents("../fiche_".$fiche['obj_numero'].".html", stripslashes($message));
+            file_put_contents("../fiche_".$fiche['obj_numero'].".html", stripslashes($message));
 
             //updateFiche($fiche);
+
+            // convert en PDF
+
+            // envoi du mel au client
+            $message = makeMessage("Confirmation", array_merge($fiche, $client), "mel_confirm.html");
+            print_r($message);
         } else {
             $message="Fiche déjà confirmé.";
         }

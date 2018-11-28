@@ -16,17 +16,26 @@ function makeMessage($titre, $data, $fileHTML)
     $messageMail="";
 
     $messageMail.=makeEntete($titre);
+    $messageMail.=makeCorps($data, $fileHTML);
+    $messageMail.=makePied($titre);
     
+    return  $messageMail;
+}
+
+function makeCorps($data, $fileHTML)
+{
+    extract($GLOBALS);
+    $messageMail="";
+
     $messageMail.=file_get_contents("../html/$fileHTML");
     foreach ($data as $key => $val) {
         //echo "publipost de $key avec $val\n";
         $messageMail=str_replace("--$key--", $val, $messageMail);
     }
-
-    $messageMail.=makePied($titre);
     
     return  $messageMail;
 }
+
 function makePied()
 {
     extract($GLOBALS);
