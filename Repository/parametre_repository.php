@@ -1,12 +1,12 @@
 <?php
 function getAllParametre()
 {
-	return getAll('parametre', 'par_numero_bav');
+	return getAll('bav_parametre', 'par_numero_bav');
 }
 
 function getOneParemetre($id)
 {
-    return getOne($id, 'parametre', 'par_numero_bav');
+    return getOne($id, 'bav_parametre', 'par_numero_bav');
 }
 
 
@@ -15,10 +15,10 @@ function getOneParemetre($id)
 
 function updateParametre($obj)
 {
-    return update('parametre', $obj, "par_numero_bav");
+    return update('bav_parametre', $obj, "par_numero_bav");
 }
 
 function insertParametre($obj)
 {
-    return insert('parametre', $obj);
+    return insert('bav_parametre', $obj);
 }

@@ -9,9 +9,9 @@
 	 * action lors du chargement de la page
 	 */
 	function initPage() {
-		x_return_enum('objet','obj_type',display_list_type);
-		x_return_enum('objet','obj_public',display_list_public);
-		x_return_enum('objet','obj_pratique',display_list_pratique);
+		x_return_enum('bav_objet','obj_type',display_list_type);
+		x_return_enum('bav_objet','obj_public',display_list_public);
+		x_return_enum('bav_objet','obj_pratique',display_list_pratique);
 
 		x_return_list_marques(display_list_marques)
 		// chargement des taux

@@ -8,9 +8,9 @@
 
 	// recuperation des donnees de la BAV
 	function setParamVal(val) {
-		console.log(TABLE+ADMIN)
+		console.log(TABLE || ADMIN);
 		if (TABLE || ADMIN) {
-
+			var j=1;
 		}
 		else {
 			goTo();
@@ -74,7 +74,7 @@
 		getElement('modeParametre').innerHTML=modePage;
 	}
 
-	/* acces en creation */>
+	/* acces en creation */
 	function modeCreation() {
 		document.parametreForm.reset();
 		disableDisplay('parametres');
@@ -84,7 +84,7 @@
 		getElement('modeParametre').innerHTML=modePage;
 	}
 
-	/* fermeture du CRUD */>
+	/* fermeture du CRUD */
 	function fermerCRUD() {
 		suite=true;
 		if (startSaisie) {

@@ -13,6 +13,7 @@
 	var TABLE=null;
 	var ADMIN=null;
 	function display_paramBAV(val) {
+		console.log(val);
 		if (val instanceof Object) {
 			getElement('titre').innerHTML=val['titre'];
 			if (val['TABLE']=='OK') {
@@ -20,8 +21,14 @@
 				getElement('connex').innerHTML='TABLE';
 				TABLE=true;
 			}
+			else if (val['ADMIN']=='OK') {
+				getElement('theMenu').style.display='block';
+				getElement('connex').innerHTML='ADMIN';
+				ADMIN=true;
+			}
 			else {
 				getElement('theMenu').style.display='none';
+				ADMIN=false;
 				TABLE=false;
 			}
 		}

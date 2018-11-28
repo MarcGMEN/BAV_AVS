@@ -5,7 +5,7 @@
 
 function get_marques()
 {
-    $query = "SELECT obj_marque from objet group by obj_marque";
+    $query = "SELECT obj_marque from bav_objet group by obj_marque";
     $tab=array();
     if ($result = $GLOBALS['MYSQLI']->query($query)) {
         $tab=array();
@@ -20,18 +20,18 @@ function get_marques()
 }
 function getAllFiche()
 {
-    return getAll("objet", "obj_id");
+    return getAll( "bav_objet", "obj_id");
 }
 
 function getOneFiche($id)
 {
-    return getOne($id, "objet", "obj_id");
+    return getOne($id,  "bav_objet", "obj_id");
 }
 
 function getFicheLibre($base)
 {
     $row = null;
-    $query = " SELECT obj_numero from objet where obj_numero >= $base order by obj_numero";
+    $query = " SELECT obj_numero from bav_objet where obj_numero >= $base order by obj_numero";
     if ($result = $GLOBALS['MYSQLI']->query($query)) {
         $tab=array();
         $index=0;
@@ -52,7 +52,7 @@ function getFicheLibre($base)
  */
 function getOneFicheByCode($id)
 {
-    return  getOne($id, "objet", "obj_numero");
+    return  getOne($id,  "bav_objet", "obj_numero");
 }
 
 /**
@@ -60,16 +60,16 @@ function getOneFicheByCode($id)
  */
 function getOneFicheByIdModif($id)
 {
-    return getOne($id, "objet", "obj_id_modif");
+    return getOne($id,  "bav_objet", "obj_id_modif");
 }
 
 
 function updateFiche($obj)
 {
-    return update('objet', $obj, "obj_id");
+    return update('bav_objet', $obj, "obj_id");
 }
 
 function insertFiche($obj)
 {
-    return insert('objet', $obj);
+    return insert('bav_objet', $obj);
 }

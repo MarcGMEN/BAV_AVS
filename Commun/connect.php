@@ -17,6 +17,7 @@ if (isset($_FILES)) {
 }
 
 $mysqli = mysqli_connect('localhost','bav','AVS44BAV1200' , 'bav');
+//$mysqli = mysql_connect('localhost','u58357168','randovtt' , 'db326893785');
 
 if (mysqli_connect_errno($mysqli)) {
     echo "Echec lors de la connexion à MySQL : " . mysqli_connect_error();

@@ -4,7 +4,7 @@
  */
 function get_emel()
 {
-    $query = "SELECT cli_emel from client group by cli_emel";
+    $query = "SELECT cli_emel from bav_client group by cli_emel";
     $tab=array();
     if ($result = $GLOBALS['MYSQLI']->query($query)) {
         $tab=array();
@@ -19,26 +19,26 @@ function get_emel()
 }
 function getAllClient()
 {
-	return getAll("client", "cli_id");
+	return getAll("bav_client", "cli_id");
 }
 
 function getOneClient($id)
 {
-    return getOne($id, "client", "cli_id");
+    return getOne($id, "bav_client", "cli_id");
 }
 
 function getOneClientByMel($id)
 {
-    return getOne($id, "client", "cli_emel");
+    return getOne($id, "bav_client", "cli_emel");
 }
 
 
 function updateClient($obj)
 {
-    return update('client', $obj, "cli_id");
+    return update("bav_client", $obj, "cli_id");
 }
 
 function insertClient($obj)
 {
-    return insert('client', $obj);
+    return insert("bav_client", $obj);
 }
