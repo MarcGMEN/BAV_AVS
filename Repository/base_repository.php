@@ -4,7 +4,7 @@ function infoTable($table)
 {
     $query = "SELECT * from $table";
     $tab=array();
-    if ($result = $GLOBALS['MYSQLI']->query($query)) {
+    if ($result = $GLOBALS['mysqli']->query($query)) {
         /* Récupère les informations d'un champ pour toutes les colonnes */
         $finfo = $result->fetch_fields();
         foreach ($finfo as $val) {
@@ -26,7 +26,7 @@ function infoTable($table)
 function recupEnumToArray($table, $champ)
 {
     // recupearation des datas de la colonne.
-	$result = $GLOBALS['MYSQLI']->query("SHOW COLUMNS FROM $table LIKE '$champ'");
+	$result = $GLOBALS['mysqli']->query("SHOW COLUMNS FROM $table LIKE '$champ'");
     if ($result) {
         $row = $result->fetch_assoc();
         $tab =  explode("','", utf8_encode(preg_replace("/(enum|set)\('(.+?)'\)/", "\\2", $row['Type'])));
@@ -54,7 +54,7 @@ function getOne($id, $table, $cleId)
     if (isset($id)) {
         $requete2 = " SELECT * from $table ";
         $requete2 .= " where $cleId = '" . $id."'";
-        $row=$GLOBALS['MYSQLI']->query($requete2)->fetch_assoc();
+        $row=$GLOBALS['mysqli']->query($requete2)->fetch_assoc();
     }
     return $row;
 }
@@ -62,7 +62,7 @@ function getOne($id, $table, $cleId)
 function getAll($table, $nameId)
 {
     $requete2 = " SELECT * from $table ";
-    $resultat = $GLOBALS['MYSQLI']->query($requete2);
+    $resultat = $GLOBALS['mysqli']->query($requete2);
     $tab=array();
     while ($row = $resultat->fetch_assoc()) {
         $tab[$row[$nameId]]=$row;
@@ -84,7 +84,7 @@ function update($table, $obj, $cleId)
         }
     }
     $req .= " where $cleId = '".$obj[$cleId]."'";
-    if (!$GLOBALS['MYSQLI']->query($req)) {
+    if (!$GLOBALS['mysqli']->query($req)) {
         throw new Exception("Pb d'update' [$req]".mysqli_error());
     }
     return true;
@@ -106,8 +106,8 @@ function insert($table, $obj)
     }
     $req.=")";
     
-    if (!$GLOBALS['MYSQLI']->query($req)) {
+    if (!$GLOBALS['mysqli']->query($req)) {
          throw new Exception("Pb d'insert' [$req]".mysqli_error());
     }
-    return $GLOBALS['MYSQLI']->insert_id;
+    return $GLOBALS['mysqli']->insert_id;
 }

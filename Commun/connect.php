@@ -16,14 +16,19 @@ if (isset($_FILES)) {
 	extract($_FILES,EXTR_PREFIX_ALL,'FILE');
 }
 
-$mysqli = mysqli_connect('localhost','bav','AVS44BAV1200' , 'bav');
-//$mysqli = mysql_connect('localhost','u58357168','randovtt' , 'db326893785');
+if ($_SERVER['SERVER_NAME'] == "avs44.com") {
+
+	$mysqli = mysqli_connect('db2463.1and1.fr','dbo326893785','randovtt' , 'db326893785');
+}
+else {
+
+	$mysqli = mysqli_connect('localhost','bav','AVS44BAV1200' , 'bav');
+}
 
 if (mysqli_connect_errno($mysqli)) {
+	print_r($mysqli);
     echo "Echec lors de la connexion à MySQL : " . mysqli_connect_error();
 }
-$GLOBALS['MYSQLI'] = $mysqli;
-
 
 /*********************************************************************************/
 /*********************************************************************************/

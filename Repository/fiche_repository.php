@@ -7,7 +7,7 @@ function get_marques()
 {
     $query = "SELECT obj_marque from bav_objet group by obj_marque";
     $tab=array();
-    if ($result = $GLOBALS['MYSQLI']->query($query)) {
+    if ($result = $GLOBALS['mysqli']->query($query)) {
         $tab=array();
         $index=0;
         while ($row = $result->fetch_assoc()) {
@@ -32,7 +32,7 @@ function getFicheLibre($base)
 {
     $row = null;
     $query = " SELECT obj_numero from bav_objet where obj_numero >= $base order by obj_numero";
-    if ($result = $GLOBALS['MYSQLI']->query($query)) {
+    if ($result = $GLOBALS['mysqli']->query($query)) {
         $tab=array();
         $index=0;
         while ($row = $result->fetch_assoc()) {
