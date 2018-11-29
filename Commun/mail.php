@@ -58,11 +58,11 @@ function sendMail($to, $messageMail, $annee)
     
     /* Pour envoyer un mail au format HTML, vous pouvez configurer le type Content-type. */
     $headers  = "MIME-Version: 1.0\r\n";
-    $headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
-
+    $headers .= "Content-type: text/html; charset=utf-8\r\n";
+    $headers .= "X-Mailer: PHP\r\n";
     /* D'autres en-têtes */
     //$headers .= "To: marc.garces@tele2.fr\r\n";
-    $headers .= "To: ".$to."\r\n";
+   // $headers .= "To: ".$to."\r\n";
     $headers .= "From: avs.vtt@gmail.com\r\n";
     // 	$headers .= "From: romael.website@free.fr\r\n";
     $headers .= "Reply-To: avs.vtt@gmail.com\r\n";

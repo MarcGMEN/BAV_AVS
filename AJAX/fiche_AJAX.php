@@ -47,6 +47,7 @@ function return_oneFiche($id)
 function action_createFiche($objStr, $cliStr)
 {
 	extract($GLOBALS);
+	$retour="";
 	try {
 		// creation du client, avec test si pas deja connu
 		$tabCli=string2Tab(utf8_encode($cliStr));
@@ -85,12 +86,12 @@ function action_createFiche($objStr, $cliStr)
 		}
 		$message = makeMessage("Confirmation du dépôt", array_merge($tabObj, $tabCli), "mel_enregistrement.html");
 		
-		sendMail($tabCli['cli_emel'], $message, $_COOKIE['NUMERO_BAV']);
+		$retour = sendMail($tabCli['cli_emel'], $message, $_COOKIE['NUMERO_BAV']);
 	} catch (Exception $e) {
         return $e->getMessage();
 	}
 
-    return "mail envoyé.";
+    return $retour;
 }
 
 function action_updateFiche($obj)
