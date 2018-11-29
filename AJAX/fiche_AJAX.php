@@ -84,9 +84,10 @@ function action_createFiche($objStr, $cliStr)
 		if ($tabObj['obj_prix_depot'] == "") {
             $tabObj['obj_prix_depot']='____.__';
 		}
-		$message = makeMessage("Confirmation du dépôt", array_merge($tabObj, $tabCli), "mel_enregistrement.html");
+		$titreMel="Confirmation du dépôt de la Bourse Aux Vélos";
+		$message = makeMessage($titreMel, array_merge($tabObj, $tabCli), "mel_enregistrement.html");
 		
-		$retour = sendMail($tabCli['cli_emel'], $message, $_COOKIE['NUMERO_BAV']);
+		$retour = sendMail($titreMel,$tabCli['cli_emel'], $message, $_COOKIE['NUMERO_BAV']);
 	} catch (Exception $e) {
         return $e->getMessage();
 	}

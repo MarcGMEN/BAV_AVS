@@ -51,7 +51,7 @@ function makePied()
 /**
  * @param $actu
  */
-function sendMail($to, $messageMail, $annee)
+function sendMail($titre,$to, $messageMail, $annee)
 {
     extract($GLOBALS);
     $erreur="";
@@ -68,7 +68,7 @@ function sendMail($to, $messageMail, $annee)
     $headers .= "Reply-To: avs.vtt@gmail.com\r\n";
     /* et hop, à la poste */
     try {
-        if (!mail($to, "Bourse aux Velos $annee", stripslashes($messageMail), $headers)) {
+        if (!mail($to, $titre, stripslashes($messageMail), $headers)) {
             file_put_contents("../mail.html", stripslashes($messageMail));
             $erreur = "Pb sur mail pour : ".$to;
         } else {
