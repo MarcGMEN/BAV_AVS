@@ -8,19 +8,18 @@
 //  echo base_convert(64, 16, 6)."<br/>"; 
 //  echo crypt($fiche)."<br/>";   
 //echo substr(hash_hmac('md5', rand(0,1000), 'avs44'),0,5)."<br/>";
-print_r($_SERVER);
-// require_once "Commun/commun_functions.php";
-// require_once "Repository/base_repository.php";
-// require_once "Repository/parametre_repository.php";
-require_once "Commun/mail.php";
-// require_once "AJAX/parametre_AJAX.php";
-echo date('d/m/y');
-if (!isset($_COOKIE['NUMERO_BAV'])) {
-	setcookie('NUMERO_BAV', date('Y'), time() + (86400 * 30), "/"); // 86400 = 1 day
-	$_COOKIE['NUMERO_BAV']=date('Y');
-}
-//print_r(sendMail('marc.garces@free.fr', "test avs44.com comme prevu",'2019'));
-// print_r($mysqli);
-// print_r(getEnumValues('objet','obj_public'));
+
+
+require_once "Commun/connect.php";
+require_once "config.ini";
+require_once "Commun/commun_functions.php";
+require_once "Repository/base_repository.php";
+require_once "Repository/parametre_repository.php";
+require_once "Repository/fiche_repository.php";
+require_once "AJAX/parametre_AJAX.php";
+require_once "AJAX/fiche_AJAX.php";
+echo "test.php";
+//print_r($mysqli);
+print_r(return_list_marques());
 ?>
 </pre>
