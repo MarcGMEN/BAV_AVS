@@ -8,7 +8,6 @@
 
 	// recuperation des donnees de la BAV
 	function setParamVal(val) {
-		console.log(TABLE || ADMIN);
 		if (TABLE || ADMIN) {
 			var j=1;
 		}
@@ -122,7 +121,7 @@
 
 		if( (new Date(debClient).getTime() > new Date(finClient).getTime()))
     	{
-			laForm.par_client_date_debut.setCustomValidity("Date de début doit être après la date de fin");
+			laForm.par_client_date_debut.setCustomValidity("Date de début doit être avant la date de fin");
 			return false;
 		}
 
@@ -132,7 +131,7 @@
 
 		if( (new Date(debTable).getTime() > new Date(finTable).getTime()))
     	{
-			laForm.par_table_date_debut.setCustomValidity("Date de début doit être après la date de fin");
+			laForm.par_table_date_debut.setCustomValidity("Date de début doit être avant la date de fin");
 			return false;
 		}
 
@@ -192,7 +191,7 @@
 				<tr>
 					<td class="titrow">Titre <span title="Obligatoire">*<span></td>
 					<td class="tabl0">
-						<input name="par_titre" size=70 maxlength="100" tabindex=<?=$tabindex++?>
+						<input type='text' name="par_titre" size=70 maxlength="100" tabindex=<?=$tabindex++?>
 						placeholder="titre BAV" onkeyup="setStartSaisie(true);" required/>
 					</td>
 				</tr>
@@ -233,23 +232,21 @@
 					<td class="titrow">Date Client <span title="Obligatoire">*<span></td>
 					<td class="tabl0">
 						<input type=date name="par_client_date_debut" size=15 maxlength="15" tabindex=<?=$tabindex++?>
-						onkeyup="setStartSaisie(true);" required min="<?=date('Y-m-d')?>"
-						max="2030-12-31"/>
+						onkeyup="setStartSaisie(true);" required max="2030-12-31"/>
 						&nbsp;&nbsp;
 						<input type=date name="par_client_date_fin" tabindex=<?=$tabindex++?>
-						onkeyup="setStartSaisie(true);" required min="<?=date('Y-m-d')?>"
-						max="2030-12-31"/>
+						onkeyup="setStartSaisie(true);" required max="2030-12-31"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="titrow">Date Table <span title="Obligatoire">*<span></td>
 					<td class="tabl0">
 						<input type=date name="par_table_date_debut" tabindex=<?=$tabindex++?>
-						onkeyup="setStartSaisie(true);" required min="<?=date('Y-m-d')?>"
+						onkeyup="setStartSaisie(true);" required 
 						max="2030-12-31"/>
 						&nbsp;&nbsp;
 						<input type=date name="par_table_date_fin" size=15 maxlength="15" tabindex=<?=$tabindex++?>
-						onkeyup="setStartSaisie(true);" required min="<?=date('Y-m-d')?>"
+						onkeyup="setStartSaisie(true);" required 
 						max="2030-12-31"/>
 					</td>
 				</tr>

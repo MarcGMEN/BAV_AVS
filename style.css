@@ -81,7 +81,7 @@ legend {
 	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
 	font-weight: bold;
 	color: #665D2F;
-	font-size: 15pt;
+	font-size: 1.2em;
 	margin: 2 2 2 2;
 	padding: 5 20 5 30;
 	margin-left: 40%;
@@ -96,7 +96,24 @@ legend {
 
 /**********/
 
-button, input[type=button], input[type=submit] {
+input[type=date]:hover,
+input[type=email]:hover,
+input[type=number]:hover,
+input[type=text]:hover,
+select:hover,
+textarea:hover {
+	border: 1px solid black;
+	border-bottom: 1px solid;
+	border-top: 0px  solid;
+	border-right: 1px  solid; 
+	border-left: 1px  solid;
+}
+input:required {
+	font-weight: bold;
+}
+button,
+input[type=button],
+input[type=submit] {
 	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
 	font-weight: normal;
 	/*font-weight: bold;*/
@@ -112,41 +129,67 @@ button, input[type=button], input[type=submit] {
 	padding: 0.2em;
 }
 
-button:hover, input[type=button]:hover, input.type[submit]:hover {
+button:hover,
+input[type=button]:hover  {
 	background-color: #fff200;
 	color: #1161a2;
 	border-style: inset;
 }
 
-input.button:disabled, input.submit:disabled, input:disabled, textarea:disabled, select:disabled, button:disabled {
+input[type=date],
+input[type=email],
+input[type=number],
+input[type=text],
+select {
+	border-bottom: 1px solid;
+	border-top: 0px;
+	border-right: 0px;
+	border-left: 0px;
+	padding: 0.2em;
+	border-style: solid;
+	width: 90%;
+	background-color: white;
+}
+
+textarea {
+	border-bottom: 1px solid;
+	border-top: 0px;
+	border-right: 1px;
+	border-left: 0px;
+	padding: 0.2em;
+	border-style: solid;
+	background-color: white;
+}
+
+input.button:disabled,
+input.submit:disabled,
+input:disabled,
+textarea:disabled,
+select:disabled,
+button:disabled {
 	background: GREY;
 	cursor: default;
 	color: #fff200;
 }
 
-input, textarea, select {
-	border: 0.5pt solid gray;
-	border-top: 0px;
-	border-right: 0px;
-	padding: 0.2em;
-	font-size: 11pt;
-}
-input:focus, textarea:focus, select:focus {
-	border-style: solid;
-	border-color: black;
-	border-bottom: 1px;
-	border-left: 0px;
-	border-top: 0px;
-	border-right: 0px;
+
+input:focus,
+textarea:focus,
+select:focus {
+	background-color: lavender;
 }
 
-
-input:invalid, textarea:invalid, select:invalid {
-	border: 1px dashed red;
+input:invalid,
+textarea:invalid,
+select:invalid {
+	border-bottom: 1px solid red;
 }
 
-input:valid, textarea:valid, select:valid {
-	background-color: lightcyan;
+input:valid,
+textarea:valid,
+select:valid {
+	border-color: blue;
+
 }
 
 .change {
@@ -156,10 +199,11 @@ input:valid, textarea:valid, select:valid {
 form {
 	margin: 0px;
 }
+
 .error {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	color: RED;
-	font-size: 8pt;
+	font-size: 0.8em;
 	font-weight: bold;
 }
 
@@ -175,10 +219,6 @@ input.error {
 .help {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	vertical-align: top;
-}
-
-table {
-	font-size: 11pt;
 }
 
 .btnAction {
@@ -231,31 +271,6 @@ div.MENU {
 	padding: 5px 5px 5px 5px;
 }
 
-/* login */
-
-/************************/
-
-.login {
-	font-weight: bold;
-	font-family: Trebuchet MS, Arial, sans-serif;
-	font-size: 10pt;
-	background-color: #EEE;
-}
-
-table.loginForm {
-	display: block;
-	position: relative;
-	font-family: Trebuchet MS, Arial, sans-serif;
-	font-size: 10pt;
-	background-color: #EEE;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	margin: 2 2 2 2
-	/*	-moz-opacity:0.5;
-	opacity: 0.5;
-	filter:alpha(opacity=50);*/
-}
-
 */
 /*-- Pied de page --*/
 
@@ -286,7 +301,7 @@ td.FENETRE_PRINCIPALE {
 .TITRE_FENETRE_PRINCIPALE {
 	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
 	width: 100%;
-	font-size: 32px;
+	font-size: 2em;
 	font-weight: BOLD;
 	text-align: center;
 	letter-spacing: 5px;
@@ -298,7 +313,7 @@ td.FENETRE_PRINCIPALE {
 /*********************/
 
 .fiche {
-	background-color: lightsteelblue;
+	background-color: white;
 	text-align: center;
 	border: 2px;
 	border-color: #AAA;
@@ -310,7 +325,7 @@ td.FENETRE_PRINCIPALE {
 .titreFiche {
 	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
 	font-weight: bold;
-	font-size: 12pt;
+	font-size: 1.1em;
 	background-color: #1161a2;
 	color: #fff200;
 	text-align: center;
@@ -352,23 +367,23 @@ table {
 	color: #1161a2;
 	font-weight: bold;
 	text-align: right;
+	font-size: 0.8em;
 }
 
 .tabl0 {
 	background-color: WHITE;
 	color: #1161a2;
-	font-size: 12pt;
 }
 
 .tabl1 {
 	/*background-color: WHITE;*/
 	color: BLACK;
 	font-weight: bold;
-	font-size: 14pt;
 }
 
-.tabInput {
-	font-size: 12pt;
+td.tabInput {
+	font-size: 1em;
+	/*border-bottom: 1px solid blue;*/
 }
 
 
@@ -403,12 +418,13 @@ tr.tabl0:hover {
 /**************************************/
 
 /**************************************/
-.BH_MODAL, .BH_MODAL_ERR {
+.BH_MODAL,
+.BH_MODAL_ERR {
 	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
 	color: black;
 	text-align: center;
 	font-weight: bold;
-	font-size: 14pt;
+	font-size: 1.2em;
 	border: 2px;
 	border-style: solid;
 	border-color: #AAA;
@@ -421,7 +437,7 @@ tr.tabl0:hover {
 .BH_MODAL_ERR {
 	background-color: lightpink;
 }
-	
+
 .modal {
 	display: none;
 	/* Hidden by default */
@@ -448,7 +464,7 @@ tr.tabl0:hover {
 /* Modal Content */
 
 .modal-content {
-	
+
 	background-color: #fefefe;
 	margin: auto;
 	padding: 2px;
@@ -458,10 +474,11 @@ tr.tabl0:hover {
 	min-height: 150px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
-	
+
 }
 
-.close:hover, .close:focus {
+.close:hover,
+.close:focus {
 	color: #000;
 	text-decoration: none;
 	cursor: pointer;

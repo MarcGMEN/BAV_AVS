@@ -16,28 +16,28 @@
 		console.log(val);
 		if (val instanceof Object) {
 			getElement('titre').innerHTML=val['titre'];
-			if (val['TABLE']=='OK') {
+			CLIENT=val['CLIENT'];
+			TABLE=val['TABLE'];
+			ADMIN=val['ADMIN'];
+			ADMIN=1;
+			if (TABLE || ADMIN) {
 				getElement('theMenu').style.display='block';
-				getElement('connex').innerHTML='TABLE';
-				TABLE=true;
-			}
-			else if (val['ADMIN']=='OK') {
-				getElement('theMenu').style.display='block';
-				getElement('connex').innerHTML='ADMIN';
-				ADMIN=true;
+				getElement('connex').innerHTML=TABLE ? 'TABLE' : 'ADMIN';
+				getElement('tabSearch').style.display='table';
 			}
 			else {
 				getElement('theMenu').style.display='none';
-				ADMIN=false;
-				TABLE=false;
+				if (CLIENT) {
+					getElement('tabSearch').style.display='table';
+				}
 			}
+
 		}
 		else {
 			getElement('titre').innerHTML="Pas de BAV programme..";
 			getElement('theMenu').style.display='none';
-			TABLE=false;
 		}
-		console.log(TABLE);
+		console.log("CLIENT:"+CLIENT+" TABLE:"+TABLE+" ADMIN:"+ADMIN+"");
 		setParamVal(val);
 	}
 
@@ -121,7 +121,7 @@
 						</table>
 					</td>
 					<td width="20%" rowspan="2">
-							<table width="100%">
+							<table width="100%" id="tabSearch" style='display:none'>
 								<tr>
 									<td width="40%">
 										<div onclick='goTo("fiche.php","create");'

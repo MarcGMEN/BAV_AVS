@@ -6,5 +6,6 @@ sajax_export(
     "action_insertFiche",
     "return_oneFicheByIdModif",
     "return_oneFicheByCode",
-    "action_createFiche"
+    "action_createFiche",
+    "action_mail"
 );

@@ -53,19 +53,20 @@ if ($GET_a == "C") {
                 $titreMel = "Enregistrement correct de votre fiche ".$fiche['obj_numero'];
                 $message = makeMessage(titreMel, array_merge($fiche, $client, $tabPlus), "mel_confirme.html");
 
-                $retour = sendMail($titreMel,$client['cli_emel'], $message, $_COOKIE['NUMERO_BAV']);
-                if ($retour == '') {
-                    $retour = "Un mel de confirmation avec votre fiche de dépot vous a été envoyé à : " . $client['cli_emel'];
+                $retour = sendMail($titreMel, $client['cli_emel'], $message, "/BAV/out/PDF/$filePDF");
+                if ($retour == 1) {
+                    $retour = "Un mel de confirmation avec votre fiche n°[".
+                        $fiche['obj_numero']."] de dépôt vous a été envoyé à : " . $client['cli_emel'];
                 }
             } else {
-                $retour = "Fiche déjà confirmé.";
+                $retour = "Fiche déjà confirmé avec le n°[".$fiche['obj_numero']."].";
             }
         } else {
             $retour = "Fiche Inconnue.";
         }
     } catch (Exception $e) {
-        $message = $e->getMessage();
+        $retour = $e->getMessage();
     }
 }
-$page_src = "location:../index.php?message=$message";
+$page_src = "location:../index.php?message=$retour";
 header($page_src);

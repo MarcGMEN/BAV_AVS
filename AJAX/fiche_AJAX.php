@@ -12,7 +12,7 @@ function return_list_marques()
 		'KTM','MBK','MERIDA','ORBEA','PINARELLO','RIDLEY','SPECIALIZED','TIME','WILLIER','LOOK'];
 
     $tabRetour = array_merge($tabMarques, get_marques());
-    sort($tabRetour);
+    usort(array_unique($tabRetour));
     return $tabRetour ;
 }
 
@@ -86,13 +86,25 @@ function action_createFiche($objStr, $cliStr)
 		}
 		$titreMel="Confirmation du dépôt de la Bourse Aux Vélos";
 		$message = makeMessage($titreMel, array_merge($tabObj, $tabCli), "mel_enregistrement.html");
-		
-		$retour = sendMail($titreMel,$tabCli['cli_emel'], $message, $_COOKIE['NUMERO_BAV']);
+		$retour = sendMail($titreMel, $tabCli['cli_emel'], $message);
 	} catch (Exception $e) {
         return $e->getMessage();
 	}
 
     return $retour;
+}
+
+function action_mail()
+{
+	/*$headers  = "MIME-Version: 1.0\r\n";
+	$headers .= "Content-type: text/html; charset=utf-8\r\n";*/
+	//$headers .= "Content-Transfer-Encoding:8bit \n";
+    /*$headers .= "From: avs.vtt@gmail.com\r\n";
+    $headers .= "Reply-To: avs.vtt@gmail.com\r\n";
+*/
+	$titreMel="Confirmation du dépôt de la Bourse Aux Vélos";
+    echo sendMailTEST($titreMel, "marc.garces@free.fr", "coucou sendMailTéééééàààéààçàèèôöEST");
+	return sendMail($titreMel, "braillou@gmail.com", "coucou sendMail", "/BAV/out/PDF/Fiche_700.pdf");
 }
 
 function action_updateFiche($obj)

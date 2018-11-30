@@ -22,13 +22,19 @@ function return_infoAppli()
 
     $tabIpsAdmin=explode(",", $par['par_admin_id_mac']);
     $today=time();
-  //  print_r(strtotime($par['par_table_date_debut'])." < $today < ".strtotime($par['par_table_date_fin']));
+    $infos['CLIENT']=0;
+    $infos['TABLE']=0;
+    $infos['ADMIN']=0;
+    //  print_r(strtotime($par['par_table_date_debut'])." < $today < ".strtotime($par['par_table_date_fin']));
+    if (strtotime($par['par_client_date_debut']) < $today && $today < strtotime($par['par_client_date_fin'])) {
+        $infos['CLIENT']=1;
+    }
     if (strtotime($par['par_table_date_debut']) < $today && $today < strtotime($par['par_table_date_fin'])) {
         $tabIps=explode(",", $par['par_table_id_mac']);
         foreach ($tabIps as $ipOk) {
-    //        print_r(trim($ipOk)." == ".trim($ipLu));
+            //        print_r(trim($ipOk)." == ".trim($ipLu));
             if (trim($ipOk) == trim($ipLu)) {
-                $infos['TABLE']='OK';
+                $infos['TABLE']=1;
                 break;
             }
         }
@@ -40,7 +46,7 @@ function return_infoAppli()
     foreach ($tabIpsAdmin as $ipOk) {
         if (trim($ipOk) == trim($ipLu)) {
             //print_r(trim($ipOk)." == ".trim($ipLu));
-            $infos['ADMIN']='OK';
+            $infos['ADMIN']=1;
             break;
         }
     }
@@ -106,7 +112,7 @@ function return_tauxBAV()
     $param = return_oneParametre($_COOKIE['NUMERO_BAV']);
 
     $tabTaux[1]=$param["par_taux_1"];
-	$tabTaux[2]=$param["par_taux_2"];
+    $tabTaux[2]=$param["par_taux_2"];
     $tabTaux[3]=$param["par_taux_3"];
     
     return $tabTaux;
@@ -117,7 +123,7 @@ function return_depotsBAV()
     $param = return_oneParametre($_COOKIE['NUMERO_BAV']);
 
     $tabDepot[1]=$param["par_prix_depot_1"];
-	$tabDepot[2]=$param["par_prix_depot_2"];
+    $tabDepot[2]=$param["par_prix_depot_2"];
     $tabDepot[3]=$param["par_prix_depot_3"];
     
     return $tabDepot;

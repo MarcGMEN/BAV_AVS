@@ -74,8 +74,16 @@ sajax_handle_client_request();
 
 		var modePage='<?=$GET_modePage?>';
 		// recuperation des donnees de la BAV
+		function setParamValIndex(val) {
+			getElement("mode").innerHTML=modePage+"-"+CLIENT+"-"+TABLE+"-"+ADMIN;
+		}
+
 		function setParamVal(val) {
-			getElement("mode").innerHTML=modePage+"-"+TABLE+"-"+ADMIN;
+            setParamValIndex(val);
+		}
+
+		function display_retour_test(val) {
+            console.log(val);
 		}
 
 	</script>
@@ -95,7 +103,7 @@ sajax_handle_client_request();
 				<td class="FENETRE_PRINCIPALE" id="page">
 					MODE: <span id="mode"></span> 
 					<!-- Trigger/Open The Modal -->
-					<!--<button id="myBtn">Open Modal</button>-->
+					<button onclick="x_action_mail(display_retour_test)">Open Modal</button>
 					<div id="myModal" class="modal">
 						<!-- Modal content -->
 						<div class="modal-content" > 

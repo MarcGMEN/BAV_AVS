@@ -24,11 +24,15 @@
 
 	// recuperation des donnees de la BAV
 	function setParamVal(val) {
+		setParamValIndex(val);
 		if (TABLE || ADMIN) {
 			getElement("trTauxCom").style.display='table-row';
 			getElement("trPrix").style.display='table-row';
+			getElement("trTitreFiche").style.display='table-row';
 		}
-		getElement("mode").innerHTML="fiche.php "+modePage+"-"+TABLE+"-"+ADMIN;
+		else if (!CLIENT) {
+			goTo();
+		}
 	}
 
 
@@ -134,8 +138,11 @@
 		}
 			
 		repr += "<li> Vous : <b>"+tabCli['cli_nom']+" ("+tabCli['cli_telephone']+") <br/><blockquote> ";
-		repr += tabCli['cli_adresse']+" "+tabCli['cli_adresse1']+" ["+tabCli['cli_code_postal']+"] "+
-			tabCli['cli_ville']+"</b></blockquote></li><br/>";
+		repr += tabCli['cli_adresse']+" "+tabCli['cli_adresse1'];
+		if (tabCli['cli_code_postal']) {
+			repr +=  " ["+tabCli['cli_code_postal']+"]";
+		}
+		repr += " "+tabCli['cli_ville']+"</b></blockquote></li><br/>";
 		repr += "Vous allez recevoir un mel à l'adresse <b>"+tabCli['cli_emel']+"</b> pour confirmer ce dépot.<br/>";
 		repr += "Une fois cette confirmation effectuée, vous recevrez la "+
 			"fiche de dépôt ainsi que les instructions de dépôt.";
@@ -151,7 +158,7 @@
 	
 	function display_fin_create(val) {
 		// retour sur la fiche en mode Page actuel
-		goTo('fiche.php',modePage,null,"Fiche prise en compte");
+		goTo('fiche.php',modePage,null,val);
 	}
 
 
@@ -190,11 +197,11 @@
 
 
 <form name="ficheForm" method="POST" onsubmit="return submitForm()" action="">
-	<fieldset class=fiche>
+	<fieldset class=fiche >
 		<legend class=titreFiche>Le depot</legend>
-		<table width=100% cellpadding=2 cellspacing=2>
+		<table width=100% cellpadding=4 cellspacing=0>
 			<!-- Pas en creation -->
-			<tr>
+			<tr id='trTitreFiche' style='display:  none'>
 				<td colspan=10>
 					<table width="100%" class="tittab" cellpadding=0 cellspacing=0>
 						<tr>
@@ -232,7 +239,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="titrow">Marque <abbr title="Ce champ est obligatoire">*</abbr></td>
+				<td class="titrow">Marque <span title="Obligatoire">*<span></td>
 				<td class="tabInput">
 					<input type=text list="listMarques" name="obj_marque_<?=$idRamdom?>"
 					 size=30 maxlength="50" tabindex=<?=$tabindex++?>
@@ -244,13 +251,14 @@
 				<td class="tabInput">
 					<input type=text name="obj_modele" size=30 maxlength="50" tabindex=<?=$tabindex++?>
 					style="text-transform:uppercase"
+					placeholder="Nom du vélo"
 					onkeyup="setStartSaisie(true);"/>
 				</td>
 				<td class="titrow">Couleur <span title="Obligatoire">*<span></td>
 				<td class="tabInput">
 					<input type=text name="obj_couleur" size=20 maxlength="30" tabindex=<?=$tabindex++?>
 					style="text-transform:uppercase"
-					placeholder="Couleurs dominante" onkeyup="setStartSaisie(true);" required/>
+					placeholder="Couleurs dominantes" onkeyup="setStartSaisie(true);" required/>
 				</td>
 			</tr>
 			<tr>
@@ -261,7 +269,10 @@
 							<td class="tabInput" width=20%>
 								<textarea rows="5" cols="95" tabindex=<?=$tabindex++?>
 								name="obj_description"  onkeyup="setStartSaisie(true);"
-								placeholder="Année d'achat, prix d'achat, taille, accessoires, révision (transmission, pneus, freins..)"></textarea>
+								placeholder="Année d'achat, prix d'achat, taille, accessoires, révision (transmission, pneus, freins..)">Taille :
+Prix d'achat : 
+Année d'achat : 
+.....</textarea>
 							</td>
 							<td class="help link" onclick="inverseLayer('aide_descript')" width="1%">?</td>
 							<td class="help">
@@ -373,11 +384,12 @@
 				<button name="buttonValideFiche" tabindex=<?=$tabindex++?>>Enregristrer
 				</button>
 			</td>
+			<td width=33% align=center id="tdBtnSup" style='display:none'>
+				<input type=button value="Supprimer" name="buttonSupprimeFiche" onclick="supprimerFiche()" 
+						tabindex=<?=$tabindex++?> disabled=true>
+			</td>
 			<td width=33% align=center>
-				<input type=button value="Supprimer" name="buttonSupprimeFiche" onclick="supprimerFiche()" onkeypress="supprimerFiche()"
-				 tabindex=<?=$tabindex++?> disabled="disabled"></td>
-			<td width=33% align=center>
-				<input type=button value="Annuler" onclick="fermerCRUD()" onkeypress="fermerCRUD()" tabindex=<?=$tabindex++?>>
+				<input type=button value="Annuler" onclick="fermerCRUD()" tabindex=<?=$tabindex++?>>
 			</td>
 		</tr>
 		<tr>
