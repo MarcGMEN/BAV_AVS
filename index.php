@@ -85,7 +85,9 @@ sajax_handle_client_request();
 		function display_retour_test(val) {
             console.log(val);
 		}
-
+		function confirmModalTest() {
+            setTimeout(function() {closeModal();},1000);
+		}
 	</script>
 
 </head>
@@ -103,10 +105,10 @@ sajax_handle_client_request();
 				<td class="FENETRE_PRINCIPALE" id="page">
 					MODE: <span id="mode"></span> 
 					<!-- Trigger/Open The Modal -->
-					<button onclick="x_action_mail(display_retour_test)">Open Modal</button>
+					<button onclick="alertModalConfirm('tets','Test')">Open Modal</button>
 					<div id="myModal" class="modal">
 						<!-- Modal content -->
-						<div class="modal-content" > 
+						<div class="modal-content" id="id-modal-content"> 
 							<table width=100% class="BH_MODAL">
 								<tr>
 									<td width="95%" id='modalTitre'></td>
@@ -117,6 +119,7 @@ sajax_handle_client_request();
 							<div id="modalText"></div>
 							<br/><br/>
 							<div id="modalAction"></div>
+							
 						</div>
 					</div>
 					<?echo "go to page [".$GET_page."]";?>

@@ -57,6 +57,11 @@ function alertModalError(message) {
     
 }
 
+/**
+ * fenetre de confirmatio
+ * @param {} message 
+ * @param {*} plus 
+ */
 function alertModalConfirm(message, plus='') {
     getElement('myModal').style.display = "block";
 
@@ -64,9 +69,13 @@ function alertModalConfirm(message, plus='') {
 
     getElement("modalText").innerHTML = message;
 
-    $repr = "<input type=button value=Confirmer onclick='confirmModal"+plus+"()'>";
+    $repr = "<input type=button value=Confirmer onclick='searchStyle();confirmModal"+plus+"()'>";
     $repr += "&nbsp;&nbsp;&nbsp;&nbsp;<input type=button value=Annuler onclick='closeModal()'>";
     getElement("modalAction").innerHTML = $repr;
+}
+
+function searchStyle() {
+    getElement('modalAction').innerHTML="<img src='Images/spinner_white_tiny.gif' />";
 }
 
 function  closeModal() {

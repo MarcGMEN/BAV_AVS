@@ -474,7 +474,10 @@ tr.tabl0:hover {
 	min-height: 150px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
+}
 
+.modalDo {
+	content: url(Images/spinner_white_tiny.gif);
 }
 
 .close:hover,

@@ -10,9 +10,9 @@ function return_list_marques()
 	$tabMarques = ['TREK','SCOTT','CANNONDALE','GITANE','PEUGEOT','MERCIER','SUNN','GT','EXS','CERVELO','BIANCHI',
 		'COLNAGO','KUOTA','BH','BMC','BTWIN','DECATHLON','CANYON','CKT','COMMENCAL','DIAMONDBACK','GIANT','KONA',
 		'KTM','MBK','MERIDA','ORBEA','PINARELLO','RIDLEY','SPECIALIZED','TIME','WILLIER','LOOK'];
-
-    $tabRetour = array_merge($tabMarques, get_marques());
-    usort(array_unique($tabRetour));
+	$tabRetour = array_merge($tabMarques, get_marques());
+	$tabRetour=array_unique($tabRetour);
+	sort($tabRetour);
     return $tabRetour ;
 }
 

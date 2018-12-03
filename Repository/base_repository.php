@@ -84,6 +84,7 @@ function update($table, $obj, $cleId)
         }
     }
     $req .= " where $cleId = '".$obj[$cleId]."'";
+    //echo $req;
     if (!$GLOBALS['mysqli']->query($req)) {
         throw new Exception("Pb d'update' [$req]".mysqli_error());
     }
@@ -105,6 +106,8 @@ function insert($table, $obj)
         $virgule=" , ";
     }
     $req.=")";
+
+
     
     if (!$GLOBALS['mysqli']->query($req)) {
          throw new Exception("Pb d'insert' [$req]".mysqli_error());
