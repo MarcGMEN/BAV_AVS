@@ -14,6 +14,8 @@ function get_marques()
             $tab[$index++]=strtoupper($row['obj_marque']);
         }
         $result->close();
+    } else {
+        throw new Exception("Pb d'update' [$req]".mysqli_error());
     }
     
     return $tab;
@@ -38,7 +40,8 @@ function makeNumeroFiche($base, &$objet)
 function getFicheLibre($base)
 {
     $row = null;
-    $query = " SELECT obj_numero from bav_objet where obj_numero >= $base order by obj_numero";
+    $query = " SELECT obj_numero from bav_objet where obj_numero >= $base and obj_numero_bav = ".
+        $_COOKIE['NUMERO_BAV']." order by obj_numero";
     if ($result = $GLOBALS['mysqli']->query($query)) {
         $tab=array();
         $index=0;
@@ -49,6 +52,8 @@ function getFicheLibre($base)
             $base++;
         }
         $result->close();
+    } else {
+        throw new Exception("Pb d'update' [$req]".mysqli_error());
     }
     return $base;
 }
@@ -57,9 +62,16 @@ function getFicheLibre($base)
 /**
  * recherche de la fiche par code
  */
-function getOneFicheByCode($id)
+function getOneFicheByCode($id, $numeroBAV)
 {
-    return  getOne($id, "bav_objet", "obj_numero");
+    $row = null;
+    if (isset($id)) {
+        $requete2 = " SELECT * from bav_objet ";
+        $requete2 .= " where obj_numero = '" . $id."'";
+        $requete2 .= " and  obj_numero_bav = '" . $numeroBAV."'";
+        $row=$GLOBALS['mysqli']->query($requete2)->fetch_assoc();
+    }
+    return $row;
 }
 
 /**

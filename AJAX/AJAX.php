@@ -18,6 +18,16 @@ foreach ($tabFile as $val) {
     include_once $val;
 }
 
+function tabToObject($data, $trigramme)
+{
+    foreach ($data as $key => $val) {
+        if (substr($key, 0, 4) == $trigramme.'_') {
+            $obj[$key]=$val;
+        }
+    }
+    return $obj;
+}
+
 function string2Tab($obj)
 {
     $tabArg = explode("#2C", $obj);
@@ -33,7 +43,7 @@ function string2Tab($obj)
     
 function return_enum($table, $champ)
 {
-     return recupEnumToArray($table, $champ);
+    return recupEnumToArray($table, $champ);
 }
 
 function get_publiHtml($data, $html)

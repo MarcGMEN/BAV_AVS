@@ -47,6 +47,8 @@ if ($GET_a == "C") {
                 if ($fiche['obj_prix_depot'] == "") {
                     $fiche['obj_prix_depot'] = '____.__';
                 }
+                $fiche['obj_prix_vente']="<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
+                $client['cli_com']="<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>";
                 // envoi du mel au client
                 $titreMel = "Enregistrement correct de votre fiche ".$fiche['obj_numero'];
                 $message = makeMessage(titreMel, array_merge($fiche, $client, $tabPlus), "mel_confirme.html");

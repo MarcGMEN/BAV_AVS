@@ -18,7 +18,7 @@ function return_list_marques()
 
 function return_oneFicheByCode($id)
 {
-    $row = getOneFicheByCode($id);
+    $row = getOneFicheByCode($id, $_COOKIE['NUMERO_BAV']);
     if ($row) {
         $row['obj_date_depot_FR'] = utf8_encode(formateDateMYSQLtoFR($row['obj_date_depot'], true));
     }
@@ -56,10 +56,9 @@ function action_createFiche($data)
     $retour="";
     try {
         // creation du client, avec test si pas deja connu
-        $tabData=string2Tab(utf8_encode($data));
+        $tabObj =tabToObject(string2Tab(utf8_encode($data)), "obj");
+        $tabCli =tabToObject(string2Tab(utf8_encode($data)), "cli");
 
-        $tabCli = extract'cli';
-        $tabObj = extract'obj';
         makeClient($tabCli);
         $tabObj=string2Tab(utf8_encode($objStr));
         
@@ -129,7 +128,27 @@ function action_makePDF($id)
     $tabPlus['titre'] = "BAV";
     $tabPlus['URL'] = $CFG_URL;
 
-    $filePDF = html2pdf(array_merge($fiche, $client, $tabPlus), "fiche_depot.html", "Fiche_" . $fiche['obj_numero']);
+    if ($fiche['obj_prix_vente'] != $fiche['obj_prix_depot']) {
+        $fiche['obj_prix_depot']="<s>".$fiche['obj_prix_depot']." €</s><span style='color:RED'>".$fiche['obj_prix_vente']."</span>";
+    }
+
+    if ($fiche['obj_id_acheteur'] != null) {
+        $acheteur = getOneClient($fiche['obj_id_acheteur']);
+        $client['cli_com']=($client['cli_taux_com']*$fiche['obj_prix_vente']/100) > 100 ? 100 :
+            ($client['cli_taux_com']*$fiche['obj_prix_vente']/100);
+    } else {
+        $acheteur=[];
+        $fiche['obj_prix_vente']="<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
+        $client['cli_com']="<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>";
+    }
+
+    // todo : acheteur
+    // prix de vente, date de vente
+
+    
+    
+            
+    $filePDF = html2pdf(array_merge($fiche, $client, $acheteur, $tabPlus), "fiche_depot.html", "Fiche_" . $fiche['obj_numero']);
 
     return $CFG_URL.$filePDF;
 }
@@ -178,14 +197,14 @@ function action_changeEtatFiche($obj)
         $fiche['obj_etat']=$fiche['obj_etat_new'];
         unset($fiche['obj_etat_new']);
     
-        if ($fiche['obj_etat'] == 'STOCK') {
+        if ($fiche['obj_etat'] == 'CONFIRME') {
+            makeNumeroFiche(700, $fiche);
+        } elseif ($fiche['obj_etat'] == 'STOCK') {
             $fiche['obj_prix_vente']=$fiche['obj_prix_depot'];
-        }
-        
-        if ($fiche['obj_etat'] == 'VENDU') {
+            $fiche['obj_date_depot']=date('y-m-d h:m:s');
+        } elseif ($fiche['obj_etat'] == 'VENDU') {
             $fiche['obj_date_vente']=date('y-m-d h:m:s');
-        }
-        if ($fiche['obj_etat'] == 'RENDU' || $fiche['obj_etat'] == 'PAYE') {
+        } elseif ($fiche['obj_etat'] == 'RENDU' || $fiche['obj_etat'] == 'PAYE') {
             $fiche['obj_date_retour']=date('y-m-d h:m:s');
         }
         //print_r($fiche);
@@ -194,22 +213,38 @@ function action_changeEtatFiche($obj)
     return $fiche;
 }
 
-function action_updateFiche($obj, $cli)
+function action_vendFiche($data)
 {
-    $fiche =string2Tab(utf8_encode($obj));
-    $client =string2Tab(utf8_encode($cli));
+    $fiche =tabToObject(string2Tab(utf8_encode($data)), "obj");
+    $client =tabToObject(string2Tab(utf8_encode($data)), "cli");
+    
+    makeClient($client);
+    
+    $fiche['obj_etat']=$fiche['obj_etat_new'];
+    unset($fiche['obj_etat_new']);
+        
+    $fiche['obj_id_acheteur']=$client['cli_id'];
+    $fiche['obj_date_vente']=date('y-m-d h:m:s');
+    if (updateFiche($fiche)) {
+        return $fiche;
+    } else {
+        return "Oups problème de mise a jour";
+    }
+}
+
+function action_updateFiche($data)
+{
+    $fiche =tabToObject(string2Tab(utf8_encode($data)), "obj");
+    $client =tabToObject(string2Tab(utf8_encode($data)), "cli");
     
     makeClient($client);
         
     $fiche['obj_id_vendeur']=$client['cli_id'];
     if (updateFiche($fiche)) {
         return $fiche;
-    }
-    else {
+    } else {
         return "Oups problème de mise a jour";
     }
-
-    
 }
 
 function action_insertFiche($obj)

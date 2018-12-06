@@ -33,7 +33,6 @@ function initPage() {
 
 // que faire en cas de changement de saisie
 function pageSaisie() {
-    console.log(startSaisie);
     if (startSaisie) {
         document.ficheForm.buttonValideFiche.disabled = false;
         document.ficheForm.buttonPDFFiche.title = "Valider vos modifications";
@@ -132,6 +131,13 @@ function display_fiche(val) {
 
             document.ficheForm.buttonEtatFiche.value = "A payer";
             document.ficheForm.obj_etat_new.value = "PAYE";
+
+            document.ficheForm.buttonEtatFicheBis.style.display = 'none';
+            document.ficheForm.buttonEtatFicheBis.value = '';
+            
+            getElement("fieldSetAcheteur").style.display = 'block';
+            console.log(val['obj_id_acheteur']);
+            x_return_oneClient(val['obj_id_acheteur'], display_infoClientAcheteurFiche);
         }
 
         if (val['obj_etat'] == "RENDU" || val['obj_etat'] == "PAYE") {
@@ -144,6 +150,9 @@ function display_fiche(val) {
             // pas la peine de voir les CGU
             getElement("tdCGU").style.display = 'none';
             getElement("tdBtnEtat").style.display = 'none';
+
+            disable_formulaire(document.ficheForm, "obj");
+            disable_formulaire(document.ficheForm, "cli");
 
         }
     } else {
@@ -175,7 +184,6 @@ function setParamVal(val) {
 }
 
 function display_list_marques(val) {
-    console.log(val);
     var list = getElement("listMarques");
     for (index in val) {
         list.appendChild(new Option(val[index], val[index]));
@@ -186,18 +194,15 @@ function display_list_marques(val) {
  * affichage de la liste de type possible
  */
 function display_list_type(val) {
-    console.log(val);
     var select = document.ficheForm.obj_type;
     for (index in val) {
         select.appendChild(new Option(val[index], val[index]));
     }
-    console.log(select);
 }
 /*
  * affichage de la liste de pratique possible
  */
 function display_list_pratique(val) {
-    console.log(val);
     var select = document.ficheForm.obj_pratique;
     for (index in val) {
         select.appendChild(new Option(val[index], val[index]));
@@ -215,7 +220,6 @@ function display_list_public(val) {
 
 function display_list_taux_com(val) {
     tabTauxCom = val;
-    console.log(val);
     var select = document.ficheForm.cli_taux_com;
     for (index in val) {
         select.appendChild(new Option(val[index], val[index]));
@@ -252,7 +256,6 @@ function affectPrix() {
  * Action en submit de form si valide
  */
 function submitForm() {
-    console.log(document.ficheForm.obj_etat_new.value);
     if (modePage == 'create') {
         enregisterFiche();
     } else if (modePage == 'modif' && document.ficheForm.obj_etat_new.value == "") {
@@ -316,7 +319,8 @@ function modifFiche() {
     delete tabObj['obj_marque_' + idRamdom];
     delete tabObj['obj_etat_new'];
     console.log(tabObj);
-    x_action_updateFiche(tabToString(tabObj), tabToString(tabCli), display_fin_modif);
+    var tabData = Object.assign({}, tabObj, tabCli);
+    x_action_updateFiche(tabToString(tabData), display_fin_modif);
     return false;
 
 }
@@ -403,11 +407,10 @@ function confirmModalForm() {
     var tabObj = recup_formulaire(document.ficheForm, 'obj');
     tabObj['obj_marque'] = document.ficheForm.elements.namedItem('obj_marque_' + idRamdom).value;
     delete tabObj['obj_marque_' + idRamdom];
-    x_action_vendFiche(tabToString(tabObj), display_fin_modif);
-
-    // save acheteur + mise a jout fiche
+    var tabData = Object.assign({}, tabObj, tabAch);
+    closeModal();
+    x_action_vendFiche(tabToString(tabData), display_fin_modif);
 }
-
 
 
 function display_messageConfirmChangeEtat(val) {
@@ -440,7 +443,9 @@ function confirmModalClose() {
 }
 
 function display_infoClientVendeur(val) {
-    if (val instanceof Object) {} else {
+    if (val instanceof Object) {
+        getElement('legendVendeur').title=val['cli_id_modif']
+    } else {
         // reset des champs cli
         val = [];
         val['cli_id'] = "";
@@ -453,6 +458,7 @@ function display_infoClientVendeur(val) {
         val['cli_telephone_bis'] = "";
         val['cli_taux_com'] = "";
         val['cli_prix_depot'] = "";
+        getElement('legendVendeur').title="";
 
         x_return_tauxBAV(display_list_taux_com);
         // chargement des depot
@@ -460,6 +466,20 @@ function display_infoClientVendeur(val) {
     }
     display_formulaire(val, document.ficheForm);
     affectPrix();
+}
+
+function display_infoClientAcheteurFiche(val)
+{
+    console.log(val);
+    if (val instanceof Object) {
+        // remplacement du trigramme cli par ach
+        for(i in val) {
+            newKey= i.replace("cli_", "ach_");
+            val[newKey]=val[i];
+            delete val[i];
+        }
+    }
+    display_formulaire(val,);
 }
 
 function display_infoClientAcheteur(val) {

@@ -384,7 +384,11 @@ table {
 
 td.tabInput {
 	font-size: 1em;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
 	/*border-bottom: 1px solid blue;*/
+}
+td.tabInput:hover {
+	font-weight: bold;
 }
 
 

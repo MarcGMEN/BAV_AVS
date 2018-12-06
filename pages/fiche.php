@@ -1,5 +1,5 @@
 <script>
-	var idFiche=<?=$GET_id?>;
+	var idFiche='<?=$GET_id?>';
 	// pour rendre le champ nom du client unique
 	<?php $idRamdom = rand(1000, 9999);?>
 	var idRamdom="<?=$idRamdom?>";
@@ -144,7 +144,7 @@ Année d'achat :
 			</tr>
 		</table>
 		<fieldset class=fiche>
-			<legend class=titreFiche>Le vendeur</legend>
+			<legend class=titreFiche id='legendVendeur'>Le vendeur</legend>
 			<table width=100% align=center cellpadding=2 cellspacing=2>
 				<tr>
 				<tr>
@@ -233,4 +233,32 @@ Année d'achat :
 			<td>&nbsp;</td>
 		</tr>
 	</table>
+
+	<fieldset class=fiche style='display:none' id="fieldSetAcheteur">
+			<legend class=titreFiche>L'acheteur</legend>
+			<table width=100% align=center cellpadding=2 cellspacing=2>
+				<tr>
+				<tr>
+					<td class="titrow" width="10%">Emel </td>
+					<td class="tabInput" width=40% id="ach_emel">
+					<td class="titrow" width=10% >Nom/prenom </td>
+					<td class="tabInput" width=40% id='ach_nom'></td>
+				</tr>
+				<tr>
+					<td class="titrow">Adresse</td>
+					<td class="tabInput">
+						<div id='ach_adresse' ></div>
+						<div id='ach_adresse1' ></div>
+						<div id='ach_code_postal'></div>
+						<div id='ach_ville'></div>
+					</td>
+					<td class="titrow">Telephone</td>
+					<td class="tabInput">
+						<div id='ach_telephone' ></div>
+						<div id='ach_telephone_bis' ></div>
+					</td>
+				</tr>
+			</table>
+		</fieldset>
+	</fieldset>
 </form>

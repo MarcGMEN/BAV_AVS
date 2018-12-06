@@ -11,5 +11,6 @@ sajax_export(
     "action_mail",
     "action_makePDF",
     "action_changeEtatFiche",
-    "action_confirmeFiche"
+    "action_confirmeFiche",
+    "action_vendFiche"
 );
