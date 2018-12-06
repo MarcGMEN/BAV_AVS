@@ -1,0 +1,71 @@
+Vente de la fiche --obj_numero-- : <br />
+<ul>
+    <li><b>--obj_type-- --obj_public--</b> avec une pratique : <b>--obj_pratique--</b></li>
+    <li><b>--obj_marque-- - --obj_modele--</b> de couleur : <b>--obj_couleur--</b></li>
+    <li> PRIX : <b>--obj_prix_vente--</b></li><br /></li>
+</ul>
+<input type=text name="ach_id" />
+<table width=100% cellpadding=2 cellspacing=2>
+    <tr>
+    <tr>
+        <td class="titrow" width="10%">Emel </td>
+        <td class="tabInput" width=40%>
+            <input type=email name='ach_emel' id="cli_emel" size="50" maxlength="100" tabindex=1
+            placeholder="aaaa.bbbb@ccc.dd" onblur='x_return_oneClientByMel(this.value, display_infoClientAcheteur)'
+            onkeyup='x_return_listClientByMel(this.value, display_listAcheteur)'
+            list="listAcheteur"/>
+            <datalist id="listAcheteur"></datalist>
+        <td class="titrow" width=10%>Nom/prenom <span title="Obligatoire">*<span></td>
+        <td class="tabInput" width=40%>
+            <input type=text name='ach_nom' tabindex=2
+            size="50" maxlength="100" required />
+
+        </td>
+    </tr>
+    <tr>
+        <td class="titrow">Adresse</td>
+        <td class="tabInput">
+            <input type=text name="ach_adresse" size=50 maxlength='100' tabindex=3
+            placeholder="Adresse" />
+            <br />
+            <input type=text name="ach_adresse1" size=50 maxlength='100' tabindex=4
+            placeholder="Complement adresse" />
+            <br />
+            <input type=text name="ach_code_postal" size=5 maxlength='10' tabindex=5
+            placeholder="Code postal" />
+            <input type=text name="ach_ville" size=40 maxlength='100' tabindex=6
+            placeholder="Ville" />
+        </td>
+        <td class="titrow">Telephone</td>
+        <td class="tabInput">
+            <input type=text name='ach_telephone' size="15" maxlength="15" tabindex=7
+            placeholder="Pour vous joindre après la bourse" 
+            title="Pour vous joindre après la bourse"/>
+            <input type=text name='ach_telephone_bis' size="15" maxlength="15" tabindex=8
+            placeholder="autre numéro" title="autre numéro"/>
+        </td>
+    </tr>
+</table>
+
+<script>
+function display_infoClientAcheteur(val) {
+    console.log(val);
+    if (val instanceof Object) {
+        // remplacement du trigramme cli par ach
+
+    }
+    else {
+        // reset des champs cli
+        val=[];
+        val['ach_id']="";
+        val['ach_nom']="";
+        val['ach_adresse']="";
+        val['ach_adresse1']="";
+        val['ach_code_postal']="";
+        val['ach_ville']="";
+        val['ach_telephone']="";
+        val['ach_telephone_bis']="";
+    }
+    display_formulaire(val,document.modalForm);
+}
+</script>

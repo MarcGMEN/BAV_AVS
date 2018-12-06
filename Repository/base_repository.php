@@ -114,3 +114,13 @@ function insert($table, $obj)
     }
     return $GLOBALS['mysqli']->insert_id;
 }
+
+function delete($table, $id, $cleId)
+{
+    $req = "delete from $table ";
+    $req .= " where $cleId = ".$id;
+    if (!$GLOBALS['mysqli']->query($req)) {
+        throw new Exception("Pb d'update' [$req]".mysqli_error());
+    }
+    return true;
+}

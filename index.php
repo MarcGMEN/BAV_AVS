@@ -70,12 +70,13 @@ sajax_handle_client_request();
 		function setStartSaisie(cStartSaisie) {
 			startSaisie = cStartSaisie;
 			enteteSaisie();
+			pageSaisie();
 		}
 
 		var modePage='<?=$GET_modePage?>';
 		// recuperation des donnees de la BAV
 		function setParamValIndex(val) {
-			getElement("mode").innerHTML=modePage+"-"+CLIENT+"-"+TABLE+"-"+ADMIN;
+			getElement("mode").innerHTML=modePage+"-"+CLIENT+"-"+TABLE+"-"+ADMIN+ "; id=<?=$GET_id?>";
 		}
 
 		function setParamVal(val) {
@@ -104,27 +105,26 @@ sajax_handle_client_request();
 			<tr>
 				<td class="FENETRE_PRINCIPALE" id="page">
 					MODE: <span id="mode"></span> 
+					<?echo "go to page [".$GET_page."]";?>
+					<?include('pages/'.$GET_page);?>
 					<!-- Trigger/Open The Modal -->
-					<button onclick="alertModalConfirm('tets','Test')">Open Modal</button>
 					<div id="myModal" class="modal">
 						<!-- Modal content -->
 						<div class="modal-content" id="id-modal-content"> 
-							<table width=100% class="BH_MODAL">
-								<tr>
-									<td width="95%" id='modalTitre'></td>
-									<td width="5%" id="modalClose"></td>
-								</tr>
-							</table>
-							<br/><br/>
-							<div id="modalText"></div>
-							<br/><br/>
-							<div id="modalAction"></div>
-							
+							<form name="modalForm" method="POST" onsubmit="return submitFormModal()" action="">
+								<table width=100% class="BH_MODAL" id="id_bh_modal">
+									<tr>
+										<td width="95%" id='modalTitre'></td>
+										<td width="5%" id="modalClose"></td>
+									</tr>
+								</table>
+								<br/><br/>
+								<div id="modalText"></div>
+								<br/><br/>
+								<div id="modalAction"></div>
+							</form>
 						</div>
 					</div>
-					<?echo "go to page [".$GET_page."]";?>
-					<?include('pages/'.$GET_page);?>
-
 				</td>
 			</tr>
 			<tr height="2%">

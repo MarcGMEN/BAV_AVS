@@ -326,8 +326,8 @@ td.FENETRE_PRINCIPALE {
 	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
 	font-weight: bold;
 	font-size: 1.1em;
-	background-color: #1161a2;
-	color: #fff200;
+	background-color: #00a4dd;
+	color: black;
 	text-align: center;
 	cursor: pointer;
 	border-width: 1px;
@@ -349,6 +349,7 @@ table {
 	text-align: center;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
+	font-size: 1.5em;
 }
 
 .tittab1 {

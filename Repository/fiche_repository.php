@@ -20,12 +20,19 @@ function get_marques()
 }
 function getAllFiche()
 {
-    return getAll( "bav_objet", "obj_id");
+    return getAll("bav_objet", "obj_id");
 }
 
 function getOneFiche($id)
 {
-    return getOne($id,  "bav_objet", "obj_id");
+    return getOne($id, "bav_objet", "obj_id");
+}
+
+function makeNumeroFiche($base, &$objet)
+{
+    $objet['obj_numero']=getFicheLibre($base);
+    // creation de idmodif
+    $objet['obj_id_modif']=substr(hash_hmac('md5', $objet['obj_numero'], 'avs44'+$_COOKIE['NUMERO_BAV']), 0, 5);
 }
 
 function getFicheLibre($base)
@@ -52,7 +59,7 @@ function getFicheLibre($base)
  */
 function getOneFicheByCode($id)
 {
-    return  getOne($id,  "bav_objet", "obj_numero");
+    return  getOne($id, "bav_objet", "obj_numero");
 }
 
 /**
@@ -60,7 +67,7 @@ function getOneFicheByCode($id)
  */
 function getOneFicheByIdModif($id)
 {
-    return getOne($id,  "bav_objet", "obj_id_modif");
+    return getOne($id, "bav_objet", "obj_id_modif");
 }
 
 
@@ -72,4 +79,9 @@ function updateFiche($obj)
 function insertFiche($obj)
 {
     return insert('bav_objet', $obj);
+}
+
+function deleteFiche($id)
+{
+    return delete('bav_objet', $id, "obj_id");
 }

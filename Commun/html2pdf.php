@@ -9,7 +9,7 @@ function html2pdf($data, $html, $fileOut)
 {
     try {
         $message = makeCorps($data, $html);
-        
+        extract($GLOBALS);
         file_put_contents(dirname(__FILE__)."/../out/html/$fileOut.html", stripslashes($message));
 
         ob_start();
@@ -26,5 +26,5 @@ function html2pdf($data, $html, $fileOut)
         $formatter = new ExceptionFormatter($e);
         echo $formatter->getHtmlMessage();
     }
-    return "$fileOut.pdf";
+    return $CFG_OUT_PDF.$fileOut.".pdf";
 }

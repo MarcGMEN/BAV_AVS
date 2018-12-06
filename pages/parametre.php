@@ -5,7 +5,9 @@
 		modePage="select";
 		// getElement('mode').innerHTML=modePage;
 	}
-
+	function pageSaisie() {
+		
+	}
 	// recuperation des donnees de la BAV
 	function setParamVal(val) {
 		if (TABLE || ADMIN) {

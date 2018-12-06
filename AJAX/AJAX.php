@@ -9,7 +9,7 @@ require_once "../Repository/fiche_repository.php";
 require_once "../Repository/client_repository.php";
 require_once "../Commun/Sajax.php";
 require_once "../Commun/mail.php";
-
+require_once "../Commun/html2pdf.php";
 
 error_reporting(E_ERROR);
 //Creation de l'aJAX avec tout les AJAX possible _AJAX.php
@@ -36,45 +36,10 @@ function return_enum($table, $champ)
      return recupEnumToArray($table, $champ);
 }
 
-// function return_numeros_bav() {
-// 	return get_numeros_bav();
-// }
-
-// //print_r(error_get_last());
-// function return_nb_fiche() {
-// 	$nbBav=$_COOKIE["NUMERO_BAV"];
-// 	return get_nb_fiche_from_bav($nbBav);
-// }
-
-// function return_nb_vendeur() {
-// 	$nbBav=$_COOKIE["NUMERO_BAV"];
-// 	return get_nb_vendeur_from_bav($nbBav);
-// }
-
-// function return_nb_acheteur() {
-// 	$nbBav=$_COOKIE["NUMERO_BAV"];
-// 	return get_nb_acheteur_from_bav($nbBav);
-// }
-
-// function return_nb_clients() {
-// 	return get_nb_clients();
-// }
-
-
-// function return_nb_vendu() {
-// 	$nbBav=$_COOKIE["NUMERO_BAV"];
-// 	return get_nb_vendu($nbBav);
-// }
-
-// function return_nb_stock() {
-// 	$nbBav=$_COOKIE["NUMERO_BAV"];
-// 	return get_nb_stock($nbBav);
-// }
-
-// function return_nb_retour() {
-// 	$nbBav=$_COOKIE["NUMERO_BAV"];
-// 	return get_nb_retour($nbBav);
-// }
+function get_publiHtml($data, $html)
+{
+    return makeCorps(string2Tab(utf8_encode($data)), $html);
+}
 
 sajax_init("");
 // definition des fonction ajax possible
