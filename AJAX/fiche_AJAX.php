@@ -5,6 +5,13 @@
 /* FICHE */
 /**************************************/
 /**************************************/
+
+function return_countByEtat()
+{
+    return countByEtat();
+}
+
+
 function return_list_marques()
 {
     $tabMarques = ['TREK','SCOTT','CANNONDALE','GITANE','PEUGEOT','MERCIER','SUNN','GT','EXS','CERVELO','BIANCHI',
@@ -58,9 +65,7 @@ function action_createFiche($data)
         // creation du client, avec test si pas deja connu
         $tabObj =tabToObject(string2Tab(utf8_encode($data)), "obj");
         $tabCli =tabToObject(string2Tab(utf8_encode($data)), "cli");
-
         makeClient($tabCli);
-        $tabObj=string2Tab(utf8_encode($objStr));
         
         $tabObj['obj_id_vendeur']=$tabCli['cli_id'];
     
@@ -71,6 +76,8 @@ function action_createFiche($data)
         if ($ADMIN || $TABLE) {
             makeNumeroFiche(700, $tabObj);
             $tabObj['obj_etat'] = 'STOCK';
+            $tabObj['obj_prix_vente']=$tabObj['obj_prix_depot'];
+            $tabObj['obj_date_depot']=date('y-m-d h:m:s');
         } else {
             makeNumeroFiche(5000, $tabObj);
             $tabObj['lien_confirm']=$CFG_URL."/Actions/rest.php?a=C&id=".$tabObj['obj_id_modif'];
@@ -83,11 +90,12 @@ function action_createFiche($data)
         }
         
         $tabObj['obj_numero_bav']=$_COOKIE['NUMERO_BAV'];
+//        print_r($tabObj);
         $tabObj['obj_id']=insertFiche($tabObj);
 
         if ($ADMIN || $TABLE) {
             $retour=array();
-            $retour['message'] = "OK pour creation de ".$tabObj['obj_numero'];
+            //$retour['message'] = "OK pour creation de ".$tabObj['obj_numero'];
             $retour['id']=$tabObj['obj_id'];
         } else {
             $retour = sendMail($titreMel, $tabCli['cli_emel'], $message);
@@ -125,7 +133,7 @@ function action_makePDF($id)
     $fiche = getOneFiche($id);
     $client = getOneClient($fiche['obj_id_vendeur']);
 
-    $tabPlus['titre'] = "BAV";
+    $tabPlus['titre'] = $par['titre'];
     $tabPlus['URL'] = $CFG_URL;
 
     if ($fiche['obj_prix_vente'] != $fiche['obj_prix_depot']) {
@@ -144,10 +152,7 @@ function action_makePDF($id)
 
     // todo : acheteur
     // prix de vente, date de vente
-
-    
-    
-            
+        
     $filePDF = html2pdf(array_merge($fiche, $client, $acheteur, $tabPlus), "fiche_depot.html", "Fiche_" . $fiche['obj_numero']);
 
     return $CFG_URL.$filePDF;

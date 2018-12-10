@@ -10,6 +10,7 @@
 
 <form name="ficheForm" method="POST" onsubmit="return submitForm()" action="">
 	<input type=hidden name="obj_id" />
+	cli_id <i id=cli_id ></i>
 	<input type=hidden name="cli_id" />
 	<fieldset class=fiche>
 		<legend class=titreFiche>Le depot</legend>
@@ -103,7 +104,7 @@ Année d'achat :
 							<td class="help link" onclick="inverseLayer('aide_descript')" width="1%">?</td>
 							<td class="help">
 								<div id="aide_descript" style="visibility: hidden;">
-									Année d'achat, prix d'achat, taille, accessoires, révision (transmission, pneus, freins..)
+Année d'achat, prix d'achat, taille, accessoires, révision (transmission, pneus, freins..)
 								</div>
 							</td>
 						</tr>
@@ -115,7 +116,8 @@ Année d'achat :
 				<td class="tabInput">
 					<input type=number name="obj_prix_depot" size=5 maxlength="10" tabindex=<?=$tabindex++?>
 					onkeyup="setStartSaisie(true);" onchange="affectPrix();"
-					title="Prix vente, vous pouvez le laisser vide et le renseigner le jour du dépôt." placeholder="00.00"/>&#8364;
+					title="Prix vente, vous pouvez le laisser vide et le renseigner le jour du dépôt." 
+					placeholder="00.00"/>&#8364;
 					</span>
 				</td>
 			</tr>
@@ -145,14 +147,16 @@ Année d'achat :
 		</table>
 		<fieldset class=fiche>
 			<legend class=titreFiche id='legendVendeur'>Le vendeur</legend>
-			<table width=100% align=center cellpadding=2 cellspacing=2>
+			<table width=100% cellpadding=2 cellspacing=2>
 				<tr>
 				<tr>
 					<td class="titrow" width="10%">Emel <span title="Obligatoire">*<span></td>
 					<td class="tabInput" width=40%>
 						<input type=email name='cli_emel' id="cli_emel" size="50" maxlength="100" tabindex=<?=$tabindex++?>
-						placeholder="aaaa.bbbb@ccc.dd" required onkeyup="setStartSaisie(true);"
-						onblur='x_return_oneClientByMel(this.value, display_infoClientVendeur)'/>
+						placeholder="aaaa.bbbb@ccc.dd" required onkeyup="keyUpMel()"
+						onblur='x_return_oneClientByMel(this.value, display_infoClientVendeur)'
+						list='listVendeur'/>
+						<datalist id="listVendeur"></datalist>
 					<td class="titrow" width=10%>Nom/prenom <span title="Obligatoire">*<span></td>
 					<td class="tabInput" width=40%>
 						<input type=text name='cli_nom' tabindex=<?=$tabindex++?>

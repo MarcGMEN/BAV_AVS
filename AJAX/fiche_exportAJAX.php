@@ -12,5 +12,6 @@ sajax_export(
     "action_makePDF",
     "action_changeEtatFiche",
     "action_confirmeFiche",
-    "action_vendFiche"
+    "action_vendFiche",
+    "return_countByEtat"
 );

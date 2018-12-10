@@ -25,7 +25,8 @@
 		repr+="<td class='tittab' width=5% >No BAV</td>";
 		repr+="<td class='tittab' width=45% >Titre</td>";
 		repr+="<td class='tittab' width=15% >Taux Com</td>";
-		repr+="<td class='tittab' width=15% >Tarif Depot</td>";
+		repr+="<td class='tittab' width=10% >Tarif Depot</td>";
+		repr+="<td class='tittab' width=5% >Nb modif //</td>";
 		repr+="<td class='tittab' width=10% >Debut client</td>";
 		repr+="<td class='tittab' width=10% >Debut table</td>";
 		for (index in val) {
@@ -39,8 +40,11 @@
 			repr+="<td width=15% >";
 			repr+=val[index]['par_taux_1']+"%, "+val[index]['par_taux_2']+"%, "+val[index]['par_taux_3']+"%"
 			repr+="</td>";
-			repr+="<td width=15% >";
+			repr+="<td width=10% >";
 			repr+=val[index]['par_prix_depot_1']+"€, "+val[index]['par_prix_depot_2']+"€, "+val[index]['par_prix_depot_3']+"€"
+			repr+="</td>";
+			repr+="<td width=10% >";
+			repr+=val[index]['par_nb_modif'];
 			repr+="</td>";
 			
 			repr+="<td width=10% >";
@@ -89,27 +93,20 @@
 	function fermerCRUD() {
 		suite=true;
 		if (startSaisie) {
-			if (alertModalConfirm("<br/><br/><center>Vous avez des modifications en cours<center>","Param")) {
-			//if (confirm("Vous avez des modifications en cours ! ")) {
-				setStartSaisie(false);
-			}
-			else {
-				suite=false;
-			}
+            alertModalConfirm("<br/><br/><center>Vous avez des modifications en cours<center>", "Param");
 		}
-
-		if (suite) {
+		else {
 			disableDisplay('parametre');
 			enableDisplay('parametres');
 			modePage="select";
-			//getElement('mode').innerHTML=modePage;
 		}
 	}
 
 	function confirmModalParam() {
 		closeModal();
 		disableDisplay('parametre');
-		enableDisplay('parametres');
+        enableDisplay('parametres');
+		setStartSaisie(false);
 		modePage="select";
 	}
 
@@ -228,6 +225,14 @@
 						<input type=number name="par_prix_depot_3" tabindex=<?=$tabindex++?>
 						placeholder="00.0" onkeyup="setStartSaisie(true);"
 						min=0 max=10 size=2 />&#8364;
+					</td>
+				</tr>
+				<tr>
+					<td class="titrow">Nb modif en parallele <span title="Obligatoire">*<span></td>
+					<td class="tabl0">
+						<input type=number name="par_nb_modif" tabindex=<?=$tabindex++?>
+						placeholder="entre 0 et 10" onkeyup="setStartSaisie(true);"
+						required min=0 max=10 size=2/>
 					</td>
 				</tr>
 				<tr>

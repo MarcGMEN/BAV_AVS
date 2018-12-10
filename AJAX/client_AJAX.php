@@ -10,9 +10,11 @@ function return_listClientByMel($mel)
     return getListClientByMel($mel);
 }
 
-function return_oneClientByMel($id)
+function return_oneClientByMel($mel)
 {
-    return getOneClientByMel($id);
+    if (strlen($mel) > 0) {
+        return getOneClientByMel($mel);
+    }
 }
 
 

@@ -177,10 +177,17 @@ function setParamVal(val) {
         getElement("trPrix").style.display = 'table-row';
 
         getElement("tdBtnEtat").style.display = 'table-cell';
-
+        
     } else if (!CLIENT) {
         goTo();
     }
+}
+
+function keyUpMel() {
+    setStartSaisie(true);
+    if (ADMIN || TABLE) {
+        x_return_listClientByMel(document.ficheForm.cli_emel.value, display_listVendeur);
+    }   
 }
 
 function display_list_marques(val) {
@@ -305,7 +312,12 @@ function display_fin_create(val) {
     setStartSaisie(false);
     if (TABLE || ADMIN) {
         console.log(val);
-        goTo('fiche.php', 'modif', val['id'], val['message']);
+        if (val instanceof Object) {
+            goTo('fiche.php', 'modif', val['id'], val['message']);
+        }
+        else {
+            alertModalInfo(val);
+        }
     } else {
         goTo('fiche.php', modePage, null, val);
     }
@@ -329,6 +341,7 @@ function display_fin_modif(val) {
     console.log(val);
     if (val instanceof Object) {
         setStartSaisie(false);
+        x_return_countByEtat(display_counter);
         x_return_oneFiche(val['obj_id'], display_fiche);
     } else {
         alertModalWarnTimeout(val, 2);
@@ -383,10 +396,12 @@ function changeEtatFiche() {
         // ecran confirm avec saisie de l'acheteur
         x_get_publiHtml(tabToString(tabObj), 'modal_confirm_vendre.html', display_messageConfirmChangeEtatForm);
     } else if (etat == 'RENDU') {
-        // => cloturé
+        // => cloturé 
+        // TODO : confirm
         x_action_changeEtatFiche(tabToString(tabObj), display_fin_modif);
     } else if (etat == 'PAYE') {
         // => cloturé
+        // TODO : confirm
         x_action_changeEtatFiche(tabToString(tabObj), display_fin_modif);
     }
 
@@ -511,5 +526,14 @@ function display_listAcheteur(val)  {
         list.appendChild(new Option(val[index], val[index]));
     }
 }
+
+function display_listVendeur(val)  {
+    var list = getElement("listVendeur");
+    list.innerHTML="";;
+    for (index in val) {
+        list.appendChild(new Option(val[index], val[index]));
+    }
+}
+
 
 -->

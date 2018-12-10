@@ -30,6 +30,23 @@ function getOneFiche($id)
     return getOne($id, "bav_objet", "obj_id");
 }
 
+function countByEtat()
+{
+    $requete2 = "SELECT count(*), obj_etat from bav_objet where obj_numero_bav = ".
+        $_COOKIE['NUMERO_BAV']." group by obj_etat ";
+    if ($result = $GLOBALS['mysqli']->query($requete2)) {
+        $tab=array();
+        $index=0;
+        while ($row = $result->fetch_assoc()) {
+            $tab[$row['obj_etat']] = $row['count(*)'];
+        }
+        $result->close();
+    } else {
+        throw new Exception("countByEtat' [$requete2]".mysqli_error());
+    }
+    return $tab;
+}
+
 function makeNumeroFiche($base, &$objet)
 {
     $objet['obj_numero']=getFicheLibre($base);
@@ -53,7 +70,7 @@ function getFicheLibre($base)
         }
         $result->close();
     } else {
-        throw new Exception("Pb d'update' [$req]".mysqli_error());
+        throw new Exception("Pb getFicheLibre' [$req]".mysqli_error());
     }
     return $base;
 }

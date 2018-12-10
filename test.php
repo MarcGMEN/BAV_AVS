@@ -20,7 +20,7 @@ require_once "AJAX/parametre_AJAX.php";
 require_once "AJAX/fiche_AJAX.php";
 echo "test.php";
 //print_r($mysqli);
-echo substr(hash_hmac('md5', 700, 'avs442019'), 0, 5);
-//print_r(return_list_marques());
+//echo substr(hash_hmac('md5', 700, 'avs442019'), 0, 5);
+print_r(infotable('bav_objet'));
 ?>
 </pre>

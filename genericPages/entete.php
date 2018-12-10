@@ -7,7 +7,7 @@
 
 	function initEntete() {
 		x_return_infoAppli(display_paramBAV);
-		//x_return_nb_fiches_par_etat(display_nbs);
+        x_return_countByEtat(display_counter);
 	}
 
 	var TABLE=null;
@@ -42,6 +42,16 @@
 		
 		console.log("CLIENT:"+CLIENT+" TABLE:"+TABLE+" ADMIN:"+ADMIN+"");
 		setParamVal(val);
+	}
+
+	function display_counter(val) {
+		if (val instanceof Object) {
+			for (key in val) {
+				getElement(key).innerHTML=val[key];
+			}
+		}
+		getElement("depotTOT").innerHTML=parseInt(val['STOCK'])+parseInt(val['VENDU'])+parseInt(val['RENDU']);
+		
 	}
 
 	function enteteSaisie() {
@@ -119,6 +129,7 @@
 <table class="BH_CADRE" cellspacing="0" cellpadding="0" border="0" wifth="100%">
 	<tr height="100%">
 		<td width="5%">
+			<span id="depotTOT"></span>
 			<A HREF="index.php">
 				<img src="Images/cycleBAV.png" height='100px' />
 			</A>
@@ -153,14 +164,14 @@
 							<tr>
 								<td width="<?=$tail?>%">
 									<!-- fiche etat cofirme -->
-									A valider : <span id="confirme">...</span>
+									A valider : <span id="CONFIRME">...</span>
 								</td>
 								<td width="<?=$tail?>%">
 									<!-- fiche etat valide -->
-									Depot : <span id="valide">...</span>
+									Stock : <span id="STOCK">...</span>
 								</td>
 								<td width="<?=$tail?>%">
-									Vendu : <span id="vendu">...</span>
+									Vendu : <span id="VENDU">...</span>
 									<small><span id="statVendu">...</span></small>
 								</td>
 							</tr>
@@ -200,16 +211,15 @@
 						<table width="100%">
 							<tr>
 								<td width="<?=$tail?>%">
+									Init : <span id="INIT">...</span>
+								</td>
+								<td width="<?=$tail?>%">
 									<!-- fiche etat modif prix -->
 									Modif prix : <A href="index.php?page=modif" method="POST">
 										<span id="modifPrix">...</span></A>
 								</td>
 								<td width="<?=$tail?>%">
-									<!-- fiche etat valide - vendu - retour -->
-									Stock : <span id="stock">...</span>
-								</td>
-								<td width="<?=$tail?>%">
-									Retour : <span id="retour">...</span>
+									Retour : <span id="RENDU">...</span>
 									&nbsp;&nbsp;<small><span id="statRetour">...</span></small>
 								</td>
 							</tr>
