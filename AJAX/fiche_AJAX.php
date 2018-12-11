@@ -16,6 +16,14 @@ function return_list_marques()
     return $tabRetour ;
 }
 
+function return_list_modeles($marque)
+{
+	$tabRetour=get_modelesByMarques(strtoupper($marque));
+	sort($tabRetour);
+    return $tabRetour ;
+}
+
+
 function return_oneFicheByCode($id)
 {
     $row = getOneFicheByCode($id);

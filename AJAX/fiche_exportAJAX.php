@@ -1,6 +1,7 @@
 <?php
 sajax_export(
     "return_list_marques",
+    "return_list_modeles",
     "return_oneFiche",
     "action_updateFiche",
     "action_insertFiche",

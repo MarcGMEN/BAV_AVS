@@ -45,6 +45,14 @@
 			list.appendChild(new Option(val[index], val[index]));
 		}
 	}
+	function display_list_modeles(val) {
+		var list = getElement("listModeles");
+		//TODO : remise a zero de la liste
+		for(index in val) {
+			list.appendChild(new Option(val[index], val[index]));
+		}
+	}
+	
 
 	/*
 	 * affichage de la liste de type possible
@@ -154,7 +162,6 @@
 		goTo('fiche.php',modePage,null,"Fiche prise en compte");
 	}
 
-
 	function supprimerFiche(laForm) {
 		if (confirm("Suppresion de la fiche "+laForm.obj_numero.value+" ?")) {
 			laForm.action.value="ficheSupprimer";
@@ -237,14 +244,16 @@
 					<input type=text list="listMarques" name="obj_marque_<?=$idRamdom?>"
 					 size=30 maxlength="50" tabindex=<?=$tabindex++?>
 					style="text-transform:uppercase"
-					placeholder="Marque du vélo" onkeyup="setStartSaisie(true);" required/>
+					placeholder="Marque du vélo" onkeyup="setStartSaisie(true);" 
+					onblur="x_return_list_modeles(this.value,display_list_modeles)" required/>
 					<datalist id="listMarques"></datalist>
 				</td>
 				<td class="titrow">Modele</td>
 				<td class="tabInput">
 					<input type=text name="obj_modele" size=30 maxlength="50" tabindex=<?=$tabindex++?>
-					style="text-transform:uppercase"
+					style="text-transform:uppercase" list="listModeles" 
 					onkeyup="setStartSaisie(true);"/>
+					<datalist id="listModeles"></datalist>
 				</td>
 				<td class="titrow">Couleur <span title="Obligatoire">*<span></td>
 				<td class="tabInput">

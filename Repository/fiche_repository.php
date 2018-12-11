@@ -18,6 +18,24 @@ function get_marques()
     
     return $tab;
 }
+
+
+function get_modelesByMarques($marque) {
+    $query = "SELECT obj_modele from bav_objet where obj_marque = '$marque' group by obj_modele";
+    $tab=array();
+
+    if ($result = $GLOBALS['mysqli']->query($query)) {
+        $tab=array();
+        $index=0;
+        while ($row = $result->fetch_assoc()) {
+            $tab[$index++]=strtoupper($row['obj_modele']);
+        }
+        $result->close();
+    }
+    
+    return $tab;  
+}
+
 function getAllFiche()
 {
     return getAll( "bav_objet", "obj_id");
