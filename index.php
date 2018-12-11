@@ -70,14 +70,25 @@ sajax_handle_client_request();
 		function setStartSaisie(cStartSaisie) {
 			startSaisie = cStartSaisie;
 			enteteSaisie();
+			pageSaisie();
 		}
 
 		var modePage='<?=$GET_modePage?>';
 		// recuperation des donnees de la BAV
-		function setParamVal(val) {
-			getElement("mode").innerHTML=modePage+"-"+TABLE+"-"+ADMIN;
+		function setParamValIndex(val) {
+			getElement("mode").innerHTML=modePage+"-"+CLIENT+"-"+TABLE+"-"+ADMIN+ "; id=<?=$GET_id?>";
 		}
 
+		function setParamVal(val) {
+            setParamValIndex(val);
+		}
+
+		function display_retour_test(val) {
+            console.log(val);
+		}
+		function confirmModalTest() {
+            setTimeout(function() {closeModal();},1000);
+		}
 	</script>
 
 </head>
@@ -94,26 +105,26 @@ sajax_handle_client_request();
 			<tr>
 				<td class="FENETRE_PRINCIPALE" id="page">
 					MODE: <span id="mode"></span> 
-					<!-- Trigger/Open The Modal -->
-					<!--<button id="myBtn">Open Modal</button>-->
-					<div id="myModal" class="modal">
-						<!-- Modal content -->
-						<div class="modal-content" > 
-							<table width=100% class="BH_MODAL">
-								<tr>
-									<td width="95%" id='modalTitre'></td>
-									<td width="5%" id="modalClose"></td>
-								</tr>
-							</table>
-							<br/><br/>
-							<div id="modalText"></div>
-							<br/><br/>
-							<div id="modalAction"></div>
-						</div>
-					</div>
 					<?echo "go to page [".$GET_page."]";?>
 					<?include('pages/'.$GET_page);?>
-
+					<!-- Trigger/Open The Modal -->
+					<div id="myModal" class="modal">
+						<!-- Modal content -->
+						<div class="modal-content" id="id-modal-content"> 
+							<form name="modalForm" method="POST" onsubmit="return submitFormModal()" action="">
+								<table width=100% class="BH_MODAL" id="id_bh_modal">
+									<tr>
+										<td width="95%" id='modalTitre'></td>
+										<td width="5%" id="modalClose"></td>
+									</tr>
+								</table>
+								<br/><br/>
+								<div id="modalText"></div>
+								<br/><br/>
+								<div id="modalAction"></div>
+							</form>
+						</div>
+					</div>
 				</td>
 			</tr>
 			<tr height="2%">

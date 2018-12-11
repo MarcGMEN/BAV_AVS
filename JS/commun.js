@@ -42,7 +42,7 @@ function display_formulaire(val, laForm) {
 			if (typeof val[i] == "object") {
 				for (var j in val[i]) {
 					jnum = parseInt(j) + 1;
-					//alert(j+ "   type :"+typeof j+ " ("+ typeof jnum +") value : "+val[i][j]);
+					// console.log(j+ "   type :"+typeof j+ " ("+ typeof jnum +") value : "+val[i][j]);
 					if (typeof j == "string" && !jnum) {
 						//alert(j+ "OK");
 						if (laForm && laForm.elements[j]) {
@@ -50,10 +50,10 @@ function display_formulaire(val, laForm) {
 								laForm.elements[i].checked = true;
 							}
 							laForm.elements[j].value = miseEnFormeData(j, val[i][j]);
-							laForm.elements[j].className = "";
+							//laForm.elements[j].className = "";
 						}
 						if (getElement(j)) {
-							getElement(j).insertChildren = miseEnFormeData(j, val[i][j]);
+							getElement(j).innerHTML= miseEnFormeData(j, val[i][j]);
 						}
 					}
 				}
@@ -62,8 +62,8 @@ function display_formulaire(val, laForm) {
 				// console.log(i+ "   type :"+typeof i+ " ("+jnum+" "+ typeof jnum +") value : "+val[i]);
 				//alert(i+ "   type :"+typeof i+ " ("+jnum+" "+ typeof jnum +") value : "+val[i]);
 				if (typeof i == "string" && !jnum) {
-					if (laForm && laForm.elements[i]) {
-						// console.log(i+" = "+laForm.elements[i].type );
+					if (laForm && laForm.elements[i] != undefined) {
+						// console.log("FORM : "+i+" = "+laForm.elements[i].type+" <- "+val[i]+" ("+laForm.elements[i].value+")");
 						//alert(i+" = "+laForm.elements[i].type );
 						if (laForm.elements[i].type == "checkbox") {
 							laForm.elements[i].checked = true;
@@ -73,11 +73,11 @@ function display_formulaire(val, laForm) {
 						} else {
 							laForm.elements[i].value = miseEnFormeData(i, val[i]);
 						}
-						laForm.elements[i].className = "";
+						//laForm.elements[i].className = "";
 					}
-					if (getElement(i)) {
-						//		alert(miseEnFormeData(i, val[i]));
-						getElement(i).insertChildren = miseEnFormeData(i, val[i]);
+					if (getElement(i) != undefined) {
+						// console.log("ID : "+i+" = "+val[i]+" => "+miseEnFormeData(i, val[i]));
+						getElement(i).innerHTML= miseEnFormeData(i, val[i]);
 					}
 				}
 			}
@@ -94,6 +94,23 @@ function recup_formulaire(laForm, trigrame) {
 				var name = element.name;
 				if (name && name.startsWith(trigrame)) {
 					obj[name] = element.value;
+				}
+			}
+		}
+		// console.log(obj);
+	}
+	return obj;
+}
+
+function disable_formulaire(laForm, trigrame) {
+	var obj = [];
+	if (laForm) {
+		for (key in laForm.elements) {
+			var element = laForm.elements[key];
+			if (element) {
+				var name = element.name;
+				if (name && name.startsWith(trigrame)) {
+					laForm.elements[key].disabled=true;
 				}
 			}
 		}

@@ -2,19 +2,20 @@
 /**
  * retourne les marques dans la liste des object
  */
-function get_emel()
+function getListClientByMel($mel)
 {
-    $query = "SELECT cli_emel from bav_client group by cli_emel";
+    $query = "SELECT cli_emel from bav_client where cli_emel like '%".$mel."%' group by cli_emel order by cli_emel ";
     $tab=array();
-    if ($result = $GLOBALS['MYSQLI']->query($query)) {
+    if ($result = $GLOBALS['mysqli']->query($query)) {
         $tab=array();
         $index=0;
-        while ($row = $resultat->fetch_assoc()) {
-            $tab[$index++]=strtoupper($row);
+        while ($row = $result->fetch_assoc()) {
+            $tab[$index++]=$row['cli_emel'];
         }
         $result->close();
+    } else {
+        throw new Exception("Pb select' [$query]".mysqli_error());
     }
-    
     return $tab;
 }
 function getAllClient()

@@ -5,10 +5,11 @@
 		modePage="select";
 		// getElement('mode').innerHTML=modePage;
 	}
-
+	function pageSaisie() {
+		
+	}
 	// recuperation des donnees de la BAV
 	function setParamVal(val) {
-		console.log(TABLE || ADMIN);
 		if (TABLE || ADMIN) {
 			var j=1;
 		}
@@ -24,7 +25,8 @@
 		repr+="<td class='tittab' width=5% >No BAV</td>";
 		repr+="<td class='tittab' width=45% >Titre</td>";
 		repr+="<td class='tittab' width=15% >Taux Com</td>";
-		repr+="<td class='tittab' width=15% >Tarif Depot</td>";
+		repr+="<td class='tittab' width=10% >Tarif Depot</td>";
+		repr+="<td class='tittab' width=5% >Nb modif //</td>";
 		repr+="<td class='tittab' width=10% >Debut client</td>";
 		repr+="<td class='tittab' width=10% >Debut table</td>";
 		for (index in val) {
@@ -38,8 +40,11 @@
 			repr+="<td width=15% >";
 			repr+=val[index]['par_taux_1']+"%, "+val[index]['par_taux_2']+"%, "+val[index]['par_taux_3']+"%"
 			repr+="</td>";
-			repr+="<td width=15% >";
+			repr+="<td width=10% >";
 			repr+=val[index]['par_prix_depot_1']+"€, "+val[index]['par_prix_depot_2']+"€, "+val[index]['par_prix_depot_3']+"€"
+			repr+="</td>";
+			repr+="<td width=10% >";
+			repr+=val[index]['par_nb_modif'];
 			repr+="</td>";
 			
 			repr+="<td width=10% >";
@@ -88,27 +93,20 @@
 	function fermerCRUD() {
 		suite=true;
 		if (startSaisie) {
-			if (alertModalConfirm("<br/><br/><center>Vous avez des modifications en cours<center>","Param")) {
-			//if (confirm("Vous avez des modifications en cours ! ")) {
-				setStartSaisie(false);
-			}
-			else {
-				suite=false;
-			}
+            alertModalConfirm("<br/><br/><center>Vous avez des modifications en cours<center>", "Param");
 		}
-
-		if (suite) {
+		else {
 			disableDisplay('parametre');
 			enableDisplay('parametres');
 			modePage="select";
-			//getElement('mode').innerHTML=modePage;
 		}
 	}
 
 	function confirmModalParam() {
 		closeModal();
 		disableDisplay('parametre');
-		enableDisplay('parametres');
+        enableDisplay('parametres');
+		setStartSaisie(false);
 		modePage="select";
 	}
 
@@ -122,7 +120,7 @@
 
 		if( (new Date(debClient).getTime() > new Date(finClient).getTime()))
     	{
-			laForm.par_client_date_debut.setCustomValidity("Date de début doit être après la date de fin");
+			laForm.par_client_date_debut.setCustomValidity("Date de début doit être avant la date de fin");
 			return false;
 		}
 
@@ -132,7 +130,7 @@
 
 		if( (new Date(debTable).getTime() > new Date(finTable).getTime()))
     	{
-			laForm.par_table_date_debut.setCustomValidity("Date de début doit être après la date de fin");
+			laForm.par_table_date_debut.setCustomValidity("Date de début doit être avant la date de fin");
 			return false;
 		}
 
@@ -192,7 +190,7 @@
 				<tr>
 					<td class="titrow">Titre <span title="Obligatoire">*<span></td>
 					<td class="tabl0">
-						<input name="par_titre" size=70 maxlength="100" tabindex=<?=$tabindex++?>
+						<input type='text' name="par_titre" size=70 maxlength="100" tabindex=<?=$tabindex++?>
 						placeholder="titre BAV" onkeyup="setStartSaisie(true);" required/>
 					</td>
 				</tr>
@@ -230,26 +228,32 @@
 					</td>
 				</tr>
 				<tr>
+					<td class="titrow">Nb modif en parallele <span title="Obligatoire">*<span></td>
+					<td class="tabl0">
+						<input type=number name="par_nb_modif" tabindex=<?=$tabindex++?>
+						placeholder="entre 0 et 10" onkeyup="setStartSaisie(true);"
+						required min=0 max=10 size=2/>
+					</td>
+				</tr>
+				<tr>
 					<td class="titrow">Date Client <span title="Obligatoire">*<span></td>
 					<td class="tabl0">
 						<input type=date name="par_client_date_debut" size=15 maxlength="15" tabindex=<?=$tabindex++?>
-						onkeyup="setStartSaisie(true);" required min="<?=date('Y-m-d')?>"
-						max="2030-12-31"/>
+						onkeyup="setStartSaisie(true);" required max="2030-12-31"/>
 						&nbsp;&nbsp;
 						<input type=date name="par_client_date_fin" tabindex=<?=$tabindex++?>
-						onkeyup="setStartSaisie(true);" required min="<?=date('Y-m-d')?>"
-						max="2030-12-31"/>
+						onkeyup="setStartSaisie(true);" required max="2030-12-31"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="titrow">Date Table <span title="Obligatoire">*<span></td>
 					<td class="tabl0">
 						<input type=date name="par_table_date_debut" tabindex=<?=$tabindex++?>
-						onkeyup="setStartSaisie(true);" required min="<?=date('Y-m-d')?>"
+						onkeyup="setStartSaisie(true);" required 
 						max="2030-12-31"/>
 						&nbsp;&nbsp;
 						<input type=date name="par_table_date_fin" size=15 maxlength="15" tabindex=<?=$tabindex++?>
-						onkeyup="setStartSaisie(true);" required min="<?=date('Y-m-d')?>"
+						onkeyup="setStartSaisie(true);" required 
 						max="2030-12-31"/>
 					</td>
 				</tr>

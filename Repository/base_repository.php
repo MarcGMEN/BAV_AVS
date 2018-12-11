@@ -1,4 +1,64 @@
 <?php
+/*
+       NOT_NULL_FLAG = 1
+       PRI_KEY_FLAG = 2
+       UNIQUE_KEY_FLAG = 4
+       BLOB_FLAG = 16
+       UNSIGNED_FLAG = 32
+       ZEROFILL_FLAG = 64
+       BINARY_FLAG = 128
+       ENUM_FLAG = 256
+       AUTO_INCREMENT_FLAG = 512
+       TIMESTAMP_FLAG = 1024
+       SET_FLAG = 2048
+       NUM_FLAG = 32768
+       PART_KEY_FLAG = 16384
+       GROUP_FLAG = 32768
+       UNIQUE_FLAG = 65536
+*/
+function map_field_type_to_bind_type($field_type)
+{
+    switch ($field_type) {
+        case MYSQLI_TYPE_DECIMAL:
+        case MYSQLI_TYPE_NEWDECIMAL:
+        case MYSQLI_TYPE_FLOAT:
+        case MYSQLI_TYPE_DOUBLE:
+            return 'd';
+
+        case MYSQLI_TYPE_BIT:
+        case MYSQLI_TYPE_TINY:
+        case MYSQLI_TYPE_SHORT:
+        case MYSQLI_TYPE_LONG:
+        case MYSQLI_TYPE_LONGLONG:
+        case MYSQLI_TYPE_INT24:
+        case MYSQLI_TYPE_YEAR:
+        case MYSQLI_TYPE_ENUM:
+            return 'i';
+
+        case MYSQLI_TYPE_TIMESTAMP:
+        case MYSQLI_TYPE_DATE:
+        case MYSQLI_TYPE_TIME:
+        case MYSQLI_TYPE_DATETIME:
+        case MYSQLI_TYPE_NEWDATE:
+        case MYSQLI_TYPE_INTERVAL:
+        case MYSQLI_TYPE_SET:
+        case MYSQLI_TYPE_VAR_STRING:
+        case MYSQLI_TYPE_STRING:
+        case MYSQLI_TYPE_CHAR:
+        case MYSQLI_TYPE_GEOMETRY:
+            return 's';
+
+        case MYSQLI_TYPE_TINY_BLOB:
+        case MYSQLI_TYPE_MEDIUM_BLOB:
+        case MYSQLI_TYPE_LONG_BLOB:
+        case MYSQLI_TYPE_BLOB:
+            return 'b';
+
+        default:
+            trigger_error("unknown type: $field_type");
+            return 's';
+    }
+}
 
 function infoTable($table)
 {
@@ -8,12 +68,8 @@ function infoTable($table)
         /* Récupère les informations d'un champ pour toutes les colonnes */
         $finfo = $result->fetch_fields();
         foreach ($finfo as $val) {
-            $tab[$val->name]=$val->name;
-            // printf("Name:     %s\n", $val->name);
-            // printf("Table:    %s\n", $val->table);
-            // printf("max. Len: %d\n", $val->max_length);
-            // printf("Flags:    %d\n", $val->flags);
-            // printf("Type:     %d\n\n", $val->name);
+            $tab[$val->name]=$val;
+            $tab[$val->name]->type=map_field_type_to_bind_type($val->type);
         }
     }
     $result->close();
@@ -26,7 +82,7 @@ function infoTable($table)
 function recupEnumToArray($table, $champ)
 {
     // recupearation des datas de la colonne.
-	$result = $GLOBALS['mysqli']->query("SHOW COLUMNS FROM $table LIKE '$champ'");
+    $result = $GLOBALS['mysqli']->query("SHOW COLUMNS FROM $table LIKE '$champ'");
     if ($result) {
         $row = $result->fetch_assoc();
         $tab =  explode("','", utf8_encode(preg_replace("/(enum|set)\('(.+?)'\)/", "\\2", $row['Type'])));
@@ -38,14 +94,14 @@ function recupEnumToArray($table, $champ)
 
 function recupValToArray($table, $champ, $search)
 {
-	$tabRet=array();
-	$index=1;
-	$query_EnumList = "SELECT '$champ' from $table where $champ like '%$search%' group by $champ order by $champ ";
-	$EnumList = mysql_query($query_EnumList) or die(mysql_error());
-	while ($row_EnumList = mysql_fetch_assoc($EnumList)) {
-		$tabRet[$index++]=$row_EnumList[$champ];
-	}
-	return $tabRet;
+    $tabRet=array();
+    $index=1;
+    $query_EnumList = "SELECT '$champ' from $table where $champ like '%$search%' group by $champ order by $champ ";
+    $EnumList = mysql_query($query_EnumList) or die(mysql_error());
+    while ($row_EnumList = mysql_fetch_assoc($EnumList)) {
+        $tabRet[$index++]=$row_EnumList[$champ];
+    }
+    return $tabRet;
 }
 
 function getOne($id, $table, $cleId)
@@ -74,17 +130,28 @@ function getAll($table, $nameId)
 
 function update($table, $obj, $cleId)
 {
+    $descTable=infoTable($table);
     $req = "update $table set ";
     // todo : fr sur les champs sauf cleID
     $virgule="";
     foreach ($obj as $key => $val) {
+    }
+    foreach ($obj as $key => $val) {
         if ($key != $cleId) {
-            $req .= $virgule.$key." = '".addslashes($val)."'";
-            $virgule=" , ";
+            if ($descTable[$key]) {
+                $guillemet="";
+                if ($descTable[$key]->type== "s" || $descTable[$key]->type == "b") {
+                    $guillemet="'";
+                } elseif (strlen($val) == 0) {
+                    $val=0;
+                }
+                $req .= $virgule.$key." = $guillemet".addslashes($val)."$guillemet";
+                $virgule=" , ";
+            }
         }
     }
     $req .= " where $cleId = '".$obj[$cleId]."'";
-    echo $req;
+    //echo $req;
     if (!$GLOBALS['mysqli']->query($req)) {
         throw new Exception("Pb d'update' [$req]".mysqli_error());
     }
@@ -93,24 +160,45 @@ function update($table, $obj, $cleId)
 
 function insert($table, $obj)
 {
+    $descTable=infoTable($table);
+    error_clear_last();
     $req = "insert into $table (";
     $virgule="";
     foreach ($obj as $key => $val) {
-        $req .= $virgule.$key;
-        $virgule=" , ";
+        if ($descTable[$key]) {
+            $req .= $virgule.$key;
+            $virgule=" , ";
+        }
     }
     $req.=") values (";
     $virgule="";
     foreach ($obj as $key => $val) {
-        $req .= $virgule."'".addslashes($val)."'";
-        $virgule=" , ";
+        if ($descTable[$key]) {
+            $guillemet="";
+            if ($descTable[$key]->type== "s" || $descTable[$key]->type == "b") {
+                $guillemet="'";
+            } elseif (strlen($val) == 0) {
+                $val=0;
+            }
+            $req .= $virgule."$guillemet".addslashes($val)."$guillemet";
+            $virgule=" , ";
+        }
     }
     $req.=")";
-
-
+    //cho $req;
     
     if (!$GLOBALS['mysqli']->query($req)) {
-         throw new Exception("Pb d'insert' [$req]".mysqli_error());
+        throw new Exception("Pb d'insert' [$req]".error_get_last()['message']);
     }
     return $GLOBALS['mysqli']->insert_id;
+}
+
+function delete($table, $id, $cleId)
+{
+    $req = "delete from $table ";
+    $req .= " where $cleId = ".$id;
+    if (!$GLOBALS['mysqli']->query($req)) {
+        throw new Exception("Pb d'update' [$req]".mysqli_error());
+    }
+    return true;
 }

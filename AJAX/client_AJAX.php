@@ -5,18 +5,16 @@
 /* CLIENT */
 /**************************************/
 /**************************************/
-function return_list_emel()
+function return_listClientByMel($mel)
 {
-    return get_emel();
+    return getListClientByMel($mel);
 }
 
-function return_oneClientByMel($id)
+function return_oneClientByMel($mel)
 {
-    $row = getOneClientByMel($id);
-    if ($row) {
-        //$row['obj_date'] = utf8_encode(formateDateMYSQLtoFR($row['obj_date'], true));
+    if (strlen($mel) > 0) {
+        return getOneClientByMel($mel);
     }
-    return $row;
 }
 
 
@@ -44,4 +42,16 @@ function action_insertClient($obj)
     $tab =string2Tab($obj);
     insertClient($tab);
     return true;
+}
+
+function makeClient(&$tabCli)
+{
+    if ($tabCli['cli_id'] != null) {
+       	updateClient($tabCli);
+	} else {
+		$tabCli['cli_id']=0;
+		$tabCli['cli_id_modif']=substr(hash_hmac('md5', rand(0, 10000), 'avs44'), 0, 8);
+       	$tabCli['cli_id']=insertClient($tabCli);
+	}
+    return $tabCli;
 }
