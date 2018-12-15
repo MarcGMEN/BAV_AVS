@@ -26,7 +26,7 @@ body.parent {
 	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
 	color: BLACK;
 	margin: 0px;
-	font-size: 12pt;
+	font-size: 10px;
 	/*	background-image: url(Images/BAV2.png);
 	background-repeat: no-repeat;
 	background-position: bottom left;
@@ -107,6 +107,7 @@ textarea:hover {
 	border-top: 0px  solid;
 	border-right: 1px  solid; 
 	border-left: 1px  solid;
+	
 }
 input:required {
 	font-weight: bold;
@@ -127,6 +128,7 @@ input[type=submit] {
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	padding: 0.2em;
+	font-size: 0.9em;
 }
 
 button:hover,
@@ -149,6 +151,7 @@ select {
 	border-style: solid;
 	width: 85%;
 	background-color: white;
+	font-size: 0.9em;
 }
 
 textarea {
@@ -158,6 +161,7 @@ textarea {
 	border-left: 0px;
 	padding: 0.2em;
 	border-style: solid;
+	font-size: 0.9em;
 	background-color: white;
 }
 
@@ -288,6 +292,12 @@ div.MENU {
 	color: #00a4dd;
 }
 
+.navigationSel {
+	background-color: blue;
+	color: #fff200;
+	font-weight: bold;
+}
+
 */
 /*-- Pied de page --*/
 
@@ -302,6 +312,8 @@ table.PP {
 /**********************/
 
 td.FENETRE_PRINCIPALE {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 0.9em;
 	background-color: #EEE;
 	vertical-align: top;
 	width: 100%;
@@ -313,6 +325,15 @@ td.FENETRE_PRINCIPALE {
 	border-style: outset;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
+}
+
+.TEXTE_FEN {
+	vertical-align: top;
+	width: 90%;
+	height: 100%;
+	z-index: 2;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .TITRE_FENETRE_PRINCIPALE {
@@ -331,24 +352,25 @@ td.FENETRE_PRINCIPALE {
 
 .fiche {
 	background-color: white;
-	text-align: center;
+	text-align: left;
 	border: 2px;
 	border-color: #AAA;
 	border-style: outset;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
+	margin: 5px
 }
 
 .titreFiche {
 	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
 	font-weight: bold;
 	font-size: 1.1em;
-	background-color: #00a4dd;
+	/*background-color: #00a4dd;*/
 	color: black;
 	text-align: center;
 	cursor: pointer;
 	border-width: 1px;
-	border-color: #fff200;
+	border-color: #00a4dd;
 	border-style: outset;
 	border-radius: 5px;
 }
@@ -366,7 +388,7 @@ table {
 	text-align: center;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
-	font-size: 1.5em;
+	font-size: 1.1em;
 }
 
 .tittab1 {
@@ -437,6 +459,10 @@ tr.tabl0:hover {
 
 /**************************************/
 
+.ul, .li {
+	font-weight: normal;
+}
+
 /**************************************/
 
 /**************************************/
@@ -467,7 +493,7 @@ tr.tabl0:hover {
 	/* Stay in place */
 	z-index: 1;
 	/* Sit on top */
-	padding-top: 100px;
+	padding-top: 30px;
 	/* Location of the box */
 	left: 0;
 	top: 0;

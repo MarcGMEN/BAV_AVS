@@ -96,7 +96,7 @@
 						<tr>
 							<td class="titrow" width=8%>Description</td>
 							<td class="tabInput" width=20%>
-								<textarea rows="5" cols="95" tabindex=<?=$tabindex++?>
+								<textarea rows="5" cols="50" tabindex=<?=$tabindex++?>
 								name="obj_description"  onkeyup="setStartSaisie(true);"
 								placeholder="Année d'achat, prix d'achat, taille, accessoires, révision (transmission, pneus, freins..)">Taille :
 Prix d'achat : 

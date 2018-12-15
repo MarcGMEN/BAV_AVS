@@ -7,7 +7,7 @@
 
 	function initEntete() {
 		x_return_infoAppli(display_paramBAV);
-        x_return_countByEtat(display_counter);
+    //    x_return_countByEtat(display_counter);
 	}
 
 	var TABLE=null;
@@ -47,11 +47,14 @@
 	function display_counter(val) {
 		if (val instanceof Object) {
 			for (key in val) {
-				getElement(key).innerHTML=val[key];
+				if (getElement(key)) {
+					getElement(key).innerHTML=val[key];
+				}
 			}
-		}
-		getElement("depotTOT").innerHTML=parseInt(val['STOCK'])+parseInt(val['VENDU'])+parseInt(val['RENDU']);
+			getElement("depotTOT").innerHTML=parseInt(val['STOCK'])+parseInt(val['VENDU'])+parseInt(val['RENDU']);
 
+		}
+		
 	}
 
 	function enteteSaisie() {
@@ -154,10 +157,10 @@
 		</td>
 	</tr>
 	<tr>
-		<td colspan=2 >
+		<th colspan=2 >
 			<? include "./genericPages/navigation.php"?>
 			<? //include "./genericPages/menuTABLE.php"?>
-		</td>
+		</th>
 		<td>
 			<table width="100%" id="tabSearch" style='display:none'>
 				<tr>

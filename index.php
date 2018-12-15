@@ -44,6 +44,7 @@ sajax_handle_client_request();
 	<!--  GOOGLE MAP -->
 	<!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script> -->
 
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 	<script src="JS/modal.js" type="text/javascript"></script>
 	<script src="JS/cookies.js" type="text/javascript"></script>
@@ -104,10 +105,12 @@ sajax_handle_client_request();
 			</tr>
 			<tr>
 				<td class="FENETRE_PRINCIPALE" id="page">
+					<div class="TEXTE_FEN" >
 					MODE: <span id="mode"></span> 
 					<?echo "go to page [".$GET_page."]";?>
 					<?include('pages/'.$GET_page);?>
 					<!-- Trigger/Open The Modal -->
+					</div>
 					<div id="myModal" class="modal">
 						<!-- Modal content -->
 						<div class="modal-content" id="id-modal-content"> 
@@ -125,6 +128,7 @@ sajax_handle_client_request();
 							</form>
 						</div>
 					</div>
+	
 				</td>
 			</tr>
 			<tr height="2%">
