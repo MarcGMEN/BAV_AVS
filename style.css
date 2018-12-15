@@ -247,7 +247,6 @@ input.error {
 .BH_CADRE {
 	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
 	background-color: #00a4dd;
-	color: #fff200;
 	/*width: 100%;*/
 	height: 100%;
 	/*text-align: center;*/
@@ -269,6 +268,24 @@ div.MENU {
 	-moz-border-radius: 10px;
 	border-radius: 10px;
 	padding: 5px 5px 5px 5px;
+}
+
+.navigation {
+	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
+	background-color: #00a4dd;
+	color: #fff200;
+	border: 1px;
+	border-color: #AAA;
+	border-style: solid;
+	font-size: 0.5em;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	padding: 1px 1px 1px 1px;
+}
+
+.navigation:hover {
+	background-color: #fff200;
+	color: #00a4dd;
 }
 
 */
