@@ -92,6 +92,28 @@ function recupEnumToArray($table, $champ)
     }
 }
 
+function listUnique($table, $champ, $sel = null)
+{
+    $query = "SELECT $champ from $table  ";
+    if ($sel) {
+        $query .= " where $champ like '%$sel%' ";
+    }
+    $query .= " group by $champ order by $champ";
+    //echo $query;
+    $tab=array();
+    if ($result = $GLOBALS['mysqli']->query($query)) {
+        $tab=array();
+        $index=0;
+        while ($row = $result->fetch_assoc()) {
+            $tab[$index++]=strtoupper($row[$champ]);
+        }
+        $result->close();
+    } else {
+        throw new Exception("listUnique' [$req]".mysqli_error());
+    }
+    return $tab;
+}
+
 function recupValToArray($table, $champ, $search)
 {
     $tabRet=array();

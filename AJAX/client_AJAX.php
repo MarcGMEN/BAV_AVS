@@ -7,7 +7,7 @@
 /**************************************/
 function return_listClientByMel($mel)
 {
-    return getListClientByMel($mel);
+    return listUnique("client", "cli_emel", $mel);
 }
 
 function return_oneClientByMel($mel)
@@ -16,8 +16,22 @@ function return_oneClientByMel($mel)
         return getOneClientByMel($mel);
     }
 }
+function return_oneClientByIdModif($mid)
+{
+    return getOne($id, "bav_client", "cli_idmodif");
+}
 
 
+function return_clients($tri, $sens, $selection)
+{
+    $tab = getClients($tri, $sens, string2Tab(utf8_encode($selection)));
+
+    foreach ($tab as $key => $val) {
+        $tab[$key]['vente']=countByEtat($val['cli_id']);
+        $tab[$key]['achat']=sizeof(getAllFichesAcheteur($val['cli_id']));
+    }
+    return $tab;
+}
 
 function return_oneClient($id)
 {

@@ -201,52 +201,28 @@ function display_list_marques(val) {
  * affichage de la liste de type possible
  */
 function display_list_type(val) {
-    var select = document.ficheForm.obj_type;
-    for (index in val) {
-        select.appendChild(new Option(val[index], val[index]));
-    }
+    display_list_select(val,'obj_type',document.ficheForm);
 }
 /*
  * affichage de la liste de pratique possible
  */
 function display_list_pratique(val) {
-    var select = document.ficheForm.obj_pratique;
-    for (index in val) {
-        select.appendChild(new Option(val[index], val[index]));
-    }
+    display_list_select(val,'obj_pratique',document.ficheForm);
 }
 /*
  * affichage de la liste de public possible
  */
 function display_list_public(val) {
-    var select = document.ficheForm.obj_public;
-    for (index in val) {
-        select.appendChild(new Option(val[index], val[index]));
-    }
+    display_list_select(val,'obj_public',document.ficheForm);
 }
 
 function display_list_taux_com(val) {
-    tabTauxCom = val;
-    var select = document.ficheForm.cli_taux_com;
-    for (index in val) {
-        select.appendChild(new Option(val[index], val[index]));
-        if (index == 1) {
-            select.selectedIndex = val[index];
-        }
-    }
-
+    display_list_select(val,'cli_taux_com',document.ficheForm);
 }
 
 function display_list_prix_depot(val) {
-    tabPrixDepot = val;
-    var select = document.ficheForm.cli_prix_depot;
-    for (index in val) {
-        select.appendChild(new Option(val[index], val[index]));
-        if (index == 1) {
-            select.selectedIndex = val[index];
-            getElement("depot_calc").innerHTML = val[index];
-        }
-    }
+    display_list_select(val,'cli_prix_depot',document.ficheForm);
+    affectPrix();
 }
 
 function affectPrix() {

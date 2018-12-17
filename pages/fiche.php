@@ -146,7 +146,9 @@ Année d'achat, prix d'achat, taille, accessoires, révision (transmission, pneu
 			</tr>
 		</table>
 		<fieldset class=fiche>
-			<legend class=titreFiche id='legendVendeur'>Le vendeur</legend>
+			<legend class=titreFiche id='legendVendeur' onclick='goTo("client.php","consult",document.ficheForm.cli_id.value,"")'>
+				Le vendeur
+			</legend>
 			<table width=100% cellpadding=2 cellspacing=2>
 				<tr>
 				<tr>

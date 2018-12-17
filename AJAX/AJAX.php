@@ -46,6 +46,12 @@ function return_enum($table, $champ)
     return recupEnumToArray($table, $champ);
 }
 
+function return_list_unique($table, $champ)
+{
+    return listUnique($table, $champ);
+}
+
+
 function get_publiHtml($data, $html)
 {
     return makeCorps(string2Tab(utf8_encode($data)), $html);

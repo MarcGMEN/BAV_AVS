@@ -1,13 +1,6 @@
 <script>
-	function get_nb_fiches(val) {
-
-	}
-	function display_nbs(val) {
-	}
-
 	function initEntete() {
 		x_return_infoAppli(display_paramBAV);
-        x_return_countByEtat(display_counter);
 	}
 
 	var TABLE=null;
@@ -26,6 +19,9 @@
 					getElement('theMenu').style.display='block';
 					getElement('connex').innerHTML=TABLE ? 'TABLE' : 'ADMIN';
 					getElement('tabSearch').style.display='table';
+
+					getElement('tabStat').style.display='table';
+					x_return_countByEtat(display_counter);
 				}
 				else {
 					getElement('theMenu').style.display='none';
@@ -47,11 +43,12 @@
 	function display_counter(val) {
 		if (val instanceof Object) {
 			for (key in val) {
-				getElement(key).innerHTML=val[key];
+				if (getElement(key)) {
+					getElement(key).innerHTML=val[key];
+				}
 			}
 		}
 		getElement("depotTOT").innerHTML=parseInt(val['STOCK'])+parseInt(val['VENDU'])+parseInt(val['RENDU']);
-		
 	}
 
 	function enteteSaisie() {
@@ -72,7 +69,7 @@
 		}
 		else if (value.length == 8) {
 			console.log("consule client "+value);
-			//x_return_fichesFromClient(value, display_getFiche);
+			x_return_oneClientByIdModif(value, display_getClient);
 		}
 		else {
             alertModalWarnTimeout("Format incorrect (N° fiche, code fiche, code client)",2);
@@ -104,7 +101,17 @@
 			goTo("fiche.php","modif",val['obj_id']);
 		}
 		else {
-			alertModalWarnTimeout("Fiche inconnue",2);
+			alertModalWarnTimeout("Code incorrect",2);
+		}
+		
+	}
+
+	function display_getClient(val) {
+		if (val instanceof Object) {
+			goTo("client.php","consult",val['cli_id']);
+		}
+		else {
+			alertModalWarnTimeout("Code incorrect",2);
 		}
 		
 	}
@@ -137,9 +144,9 @@
 		<td width="95%">
 			<table width="100%" border=1>
 				<tr>
-					<td width="90%" colspan="2" class="TITRE_FENETRE_PRINCIPALE" id=titre>
+					<td width="80%" class="TITRE_FENETRE_PRINCIPALE" id=titre>
 					</td>
-					<td width="10%">
+					<td width="20%">
 						<span style="float: left; display:none" id="theMenu">
 							<i class="fas fa-bars fa-3x" onclick="inverseDisplay('divMenu')"></i>
 							<div style="position:absolute; display:none" id='divMenu'>
@@ -157,27 +164,50 @@
 					</td>
 				</tr>
 				<tr>
-
 					<?php $tail = (int) 100 / 3;?>
-					<td width="80%" colspan=2>
-						<table width="100%">
+					<td width="80%" >
+						<table width="100%" id="tabStat" style="display:none">
 							<tr>
 								<td width="<?=$tail?>%">
 									<!-- fiche etat cofirme -->
-									A valider : <span id="CONFIRME">...</span>
+									A valider : 
+									<span id="CONFIRME" class="link" 
+										onclick="goTo('stock.php','obj_etat','CONFIRME','')">...
+									</span>
 								</td>
 								<td width="<?=$tail?>%">
 									<!-- fiche etat valide -->
-									Stock : <span id="STOCK">...</span>
+									Stock : 
+									<span id="STOCK" class="link" 
+										onclick="goTo('stock.php','obj_etat','STOCK','')">...
+									</span>
+
 								</td>
 								<td width="<?=$tail?>%">
-									Vendu : <span id="VENDU">...</span>
-									<small><span id="statVendu">...</span></small>
+									Vendu : 
+									<span id="VENDU" class="link" 
+										onclick="goTo('stock.php','obj_etat','VENDU','')">...
+									</span>
+								</td>
+							</tr>
+							<tr>
+								<td width="<?=$tail?>%">
+									Init : <span id="INIT"  class="link" 
+										onclick="goTo('stock.php','obj_etat','INIT','')">...</span>
+								</td>
+								<td width="<?=$tail?>%">
+									<!-- fiche etat modif prix -->
+									Modif prix : <span id="modifPrix" class="link" 
+										onclick="goTo('stock.php','obj_etat','CONFIRME','')">...</span>
+								</td>
+								<td width="<?=$tail?>%">
+									Retour : <span id="RENDU"  class="link" 
+										onclick="goTo('stock.php','obj_etat','RENDU','')">...</span>
 								</td>
 							</tr>
 						</table>
 					</td>
-					<td width="20%" rowspan="2">
+					<td width="20%" >
 						<table width="100%" id="tabSearch" style='display:none'>
 							<tr>
 								<td width="40%">
@@ -201,26 +231,6 @@
 										</tr>
 									</table>
 
-								</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-				<tr>
-					<td colspan=2>
-						<table width="100%">
-							<tr>
-								<td width="<?=$tail?>%">
-									Init : <span id="INIT">...</span>
-								</td>
-								<td width="<?=$tail?>%">
-									<!-- fiche etat modif prix -->
-									Modif prix : <A href="index.php?page=modif" method="POST">
-										<span id="modifPrix">...</span></A>
-								</td>
-								<td width="<?=$tail?>%">
-									Retour : <span id="RENDU">...</span>
-									&nbsp;&nbsp;<small><span id="statRetour">...</span></small>
 								</td>
 							</tr>
 						</table>

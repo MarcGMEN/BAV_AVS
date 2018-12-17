@@ -57,8 +57,9 @@ a:hover {
 	cursor: pointer;
 }
 
-td.link:hover {
+.link:hover {
 	font-weight: bold;
+	border: 1px solid #fff200;
 }
 
 img.link:hover {
@@ -191,6 +192,12 @@ select:valid {
 	border-color: blue;
 
 }
+
+input[type=text].autocomplete::after  {
+	content: "X";
+}
+
+
 
 .change {
 	background: #80743B;
@@ -349,7 +356,7 @@ table {
 	text-align: center;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
-	font-size: 1.5em;
+	font-size: 1.1em;
 }
 
 .tittab1 {

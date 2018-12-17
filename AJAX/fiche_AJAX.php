@@ -17,7 +17,7 @@ function return_list_marques()
     $tabMarques = ['TREK','SCOTT','CANNONDALE','GITANE','PEUGEOT','MERCIER','SUNN','GT','EXS','CERVELO','BIANCHI',
         'COLNAGO','KUOTA','BH','BMC','BTWIN','DECATHLON','CANYON','CKT','COMMENCAL','DIAMONDBACK','GIANT','KONA',
         'KTM','MBK','MERIDA','ORBEA','PINARELLO','RIDLEY','SPECIALIZED','TIME','WILLIER','LOOK'];
-    $tabRetour = array_merge($tabMarques, get_marques());
+    $tabRetour = array_merge($tabMarques, listUnique("bav_objet", "obj_marque"));
     $tabRetour=array_unique($tabRetour);
     sort($tabRetour);
     return $tabRetour ;
@@ -257,4 +257,18 @@ function action_insertFiche($obj)
     $tab =string2Tab($obj);
     insertFiche($tab);
     return true;
+}
+
+
+function return_fiches($tri, $sens, $selection)
+{
+    $tab = getFiches($tri, $sens, string2Tab(utf8_encode($selection)));
+
+    $tab['total_vente']=0;
+    foreach ($tab as $key => $val) {
+        if ($val['obj_etat'] == "VENDU" || $val['obj_etat'] == "PAYE") {
+            $tab['total_vente']+= $val['obj_prix_vente'];
+        }
+    }
+    return $tab;
 }
