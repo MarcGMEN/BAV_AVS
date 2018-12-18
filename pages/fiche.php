@@ -71,15 +71,17 @@
 					<input type=text list="listMarques" name="obj_marque_<?=$idRamdom?>"
 					 size=30 maxlength="50" tabindex=<?=$tabindex++?>
 					style="text-transform:uppercase"
-					placeholder="Marque du vélo" onkeyup="setStartSaisie(true);" required/>
+					placeholder="Marque du vélo" onkeyup="setStartSaisie(true);" 
+					onblur="x_return_list_modeles(this.value,display_list_modeles)" required/>
 					<datalist id="listMarques"></datalist>
 				</td>
 				<td class="titrow">Modele</td>
 				<td class="tabInput">
 					<input type=text name="obj_modele" size=30 maxlength="50" tabindex=<?=$tabindex++?>
-					style="text-transform:uppercase"
+					style="text-transform:uppercase" list="listModeles" 
 					placeholder="Nom du vélo"
 					onkeyup="setStartSaisie(true);"/>
+					<datalist id="listModeles"></datalist>
 				</td>
 				<td class="titrow">Couleur <span title="Obligatoire">*<span></td>
 				<td class="tabInput">
@@ -94,7 +96,7 @@
 						<tr>
 							<td class="titrow" width=8%>Description</td>
 							<td class="tabInput" width=20%>
-								<textarea rows="5" cols="95" tabindex=<?=$tabindex++?>
+								<textarea rows="5" cols="50" tabindex=<?=$tabindex++?>
 								name="obj_description"  onkeyup="setStartSaisie(true);"
 								placeholder="Année d'achat, prix d'achat, taille, accessoires, révision (transmission, pneus, freins..)">Taille :
 Prix d'achat : 

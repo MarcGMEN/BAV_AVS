@@ -57,6 +57,14 @@ function get_publiHtml($data, $html)
     return makeCorps(string2Tab(utf8_encode($data)), $html);
 }
 
+function action_makePDFFromHtml($data, $html)
+{
+    extract($GLOBALS);
+    $filePDF = html2pdf(string2Tab(utf8_encode($data)), "../html/$html", "reglement_" .$_COOKIE['NUMERO_BAV']);
+
+    return $CFG_URL.$filePDF;
+}
+
 sajax_init("");
 // definition des fonction ajax possible
 include "exportAJAX.php";

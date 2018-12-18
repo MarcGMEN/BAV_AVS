@@ -23,6 +23,14 @@ function return_list_marques()
     return $tabRetour ;
 }
 
+function return_list_modeles($marque)
+{
+	$tabRetour=get_modelesByMarques(strtoupper($marque));
+	sort($tabRetour);
+    return $tabRetour ;
+}
+
+
 function return_oneFicheByCode($id)
 {
     $row = getOneFicheByCode($id, $_COOKIE['NUMERO_BAV']);
@@ -130,11 +138,40 @@ function action_makePDF($id)
 
     extract($GLOBALS);
 
-    $fiche = getOneFiche($id);
-    $client = getOneClient($fiche['obj_id_vendeur']);
+    $numBAV=$_COOKIE['NUMERO_BAV'];
+    $par = return_oneParametre($numBAV);
+
+     // pas de data, on fait un objet vide
+    if ($id) {
+        $fiche = getOneFiche($id);
+        $client = getOneClient($fiche['obj_id_vendeur']);
+    } else {
+        $client['cli_prix_depot']=$par['par_prix_depot_1'];
+        $client['cli_nom']="";
+        $client['cli_emel']="";
+        $client['cli_adresse']="";
+        $client['cli_adresse1']="";
+        $client['cli_code_postal']="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+        $client['cli_ville']="";
+        $client['cli_telephone']="";
+        $client['cli_telephone_bis']="";
+        $client['cli_taux_com']=$par['par_taux_1'];
+        
+        $fiche['obj_numero']="";
+        $fiche['obj_type']="";
+        $fiche['obj_public']="";
+        $fiche['obj_pratique']="";
+        $fiche['obj_marque']="";
+        $fiche['obj_modele']="";
+        $fiche['obj_couleur']="";
+        $fiche['obj_description']="Date d'achat:<br/>Prix d'achat :<br/>Taille :";
+        $fiche['obj_prix_vente'] ="<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
+        $fiche['obj_prix_depot'] ="<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
+    }
 
     $tabPlus['titre'] = $par['titre'];
     $tabPlus['URL'] = $CFG_URL;
+
 
     if ($fiche['obj_prix_vente'] != $fiche['obj_prix_depot']) {
         $fiche['obj_prix_depot']="<s>".$fiche['obj_prix_depot']." €</s><span style='color:RED'>".$fiche['obj_prix_vente']."</span>";
@@ -149,9 +186,8 @@ function action_makePDF($id)
         $fiche['obj_prix_vente']="<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
         $client['cli_com']="<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>";
     }
-
-    // todo : acheteur
-    // prix de vente, date de vente
+   
+    // todo  faire un fichier fiche + etiquette.
         
     $filePDF = html2pdf(array_merge($fiche, $client, $acheteur, $tabPlus), "fiche_depot.html", "Fiche_" . $fiche['obj_numero']);
 

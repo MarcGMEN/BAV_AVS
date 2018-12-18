@@ -1,6 +1,7 @@
 <script>
 	function initEntete() {
 		x_return_infoAppli(display_paramBAV);
+    //    x_return_countByEtat(display_counter);
 	}
 
 	var TABLE=null;
@@ -29,13 +30,13 @@
 						getElement('tabSearch').style.display='table';
 					}
 				}
-			
+
 		}
 		else {
 			getElement('titre').innerHTML="Pas de BAV programme..";
 			getElement('theMenu').style.display='none';
 		}
-		
+
 		console.log("CLIENT:"+CLIENT+" TABLE:"+TABLE+" ADMIN:"+ADMIN+"");
 		setParamVal(val);
 	}
@@ -47,8 +48,9 @@
 					getElement(key).innerHTML=val[key];
 				}
 			}
+			getElement("depotTOT").innerHTML=parseInt(val['STOCK'])+parseInt(val['VENDU'])+parseInt(val['RENDU']);
+
 		}
-		getElement("depotTOT").innerHTML=parseInt(val['STOCK'])+parseInt(val['VENDU'])+parseInt(val['RENDU']);
 	}
 
 	function enteteSaisie() {
@@ -113,7 +115,7 @@
 		else {
 			alertModalWarnTimeout("Code incorrect",2);
 		}
-		
+
 	}
 
 	function goTo(page='accueil.php', modePage='', id=null,message='') {
@@ -124,7 +126,7 @@
 		document.formNavigation.id.value=id;
 		document.formNavigation.submit();
 	}
-	
+
 
 </script>
 <form name=formNavigation method=post>
@@ -133,7 +135,7 @@
 	<input type=hidden name=id value="">
 	<input type=hidden name=message value="">
 </form>
-<table class="BH_CADRE" cellspacing="0" cellpadding="0" border="0" wifth="100%">
+<table class="BH_CADRE" cellspacing="0" cellpadding="0" border="0" width="100%">
 	<tr height="100%">
 		<td width="5%">
 			<span id="depotTOT"></span>
@@ -141,97 +143,53 @@
 				<img src="Images/cycleBAV.png" height='100px' />
 			</A>
 		</td>
-		<td width="95%">
-			<table width="100%" border=1>
-				<tr>
-					<td width="80%" class="TITRE_FENETRE_PRINCIPALE" id=titre>
-					</td>
-					<td width="20%">
-						<span style="float: left; display:none" id="theMenu">
-							<i class="fas fa-bars fa-3x" onclick="inverseDisplay('divMenu')"></i>
-							<div style="position:absolute; display:none" id='divMenu'>
-								<div class="MENU">
-									<div style='text-algin: center'>Menu</div>
-									<hr />
-									<div class="link" onclick='goTo("parametre.php")'>Parametres</A></div>
+		<td width="80%" class="TITRE_FENETRE_PRINCIPALE" id=titre>
+		</td>
+		<td width="15%">
+			<span style="float: left; display:none" id="theMenu">
+				<i class="fas fa-bars fa-3x" onclick="inverseDisplay('divMenu')"></i>
+				<div style="position:absolute; display:none" id='divMenu'>
+					<div class="MENU">
+						<div style='text-algin: center'>Menu</div>
+						<hr />
+						<div class="link" onclick='goTo("parametre.php")'>Parametres</A></div>
 
-								</div>
-							</div>
-						</span>
-						<span style="float: right" title="[<?=$_SERVER['REMOTE_ADDR']?>]"><?=$_COOKIE['NUMERO_BAV']?>
-							<div id="connex"></div>
-						</span>
-					</td>
+					</div>
+				</div>
+			</span>
+			<span style="float: right" title="[<?=$_SERVER['REMOTE_ADDR']?>]"><?=$_COOKIE['NUMERO_BAV']?>
+				<div id="connex"></div>
+			</span>
+		</td>
+	</tr>
+	<tr>
+		<th colspan=2 >
+			<? include "./genericPages/navigation.php"?>
+			<? //include "./genericPages/menuTABLE.php"?>
+		</th>
+		<td>
+			<table width="100%" id="tabSearch" style='display:none' >
+				<tr>
+					<th width="100%">
+						<div onclick='goTo("fiche.php","create");' title="Remplir la fiche de dépot" >
+							<button height="100%" id="deposer" >
+								<span class="fas fa-plus-square navigation"></span>&nbsp;Deposer<br />
+							</button>
+						</div>
+					</th>
 				</tr>
 				<tr>
-					<?php $tail = (int) 100 / 3;?>
-					<td width="80%" >
-						<table width="100%" id="tabStat" style="display:none">
-							<tr>
-								<td width="<?=$tail?>%">
-									<!-- fiche etat cofirme -->
-									A valider : 
-									<span id="CONFIRME" class="link" 
-										onclick="goTo('stock.php','obj_etat','CONFIRME','')">...
-									</span>
+					<td >
+						<table width="100%" >
+							<tr >
+								<td>
+									<!-- <small>Recherche</small><br /> -->
+									<input type="text" name="numeroFiche" size="15" maxlength="50" title="Saisisez le numéro de fiche, ou l'identifiant de la fiche"
+										 placeholder="Recherche" onchange="search(this.value)" id="inputSearch" />
 								</td>
-								<td width="<?=$tail?>%">
-									<!-- fiche etat valide -->
-									Stock : 
-									<span id="STOCK" class="link" 
-										onclick="goTo('stock.php','obj_etat','STOCK','')">...
-									</span>
-
-								</td>
-								<td width="<?=$tail?>%">
-									Vendu : 
-									<span id="VENDU" class="link" 
-										onclick="goTo('stock.php','obj_etat','VENDU','')">...
-									</span>
-								</td>
-							</tr>
-							<tr>
-								<td width="<?=$tail?>%">
-									Init : <span id="INIT"  class="link" 
-										onclick="goTo('stock.php','obj_etat','INIT','')">...</span>
-								</td>
-								<td width="<?=$tail?>%">
-									<!-- fiche etat modif prix -->
-									Modif prix : <span id="modifPrix" class="link" 
-										onclick="goTo('stock.php','obj_etat','CONFIRME','')">...</span>
-								</td>
-								<td width="<?=$tail?>%">
-									Retour : <span id="RENDU"  class="link" 
-										onclick="goTo('stock.php','obj_etat','RENDU','')">...</span>
-								</td>
-							</tr>
-						</table>
-					</td>
-					<td width="20%" >
-						<table width="100%" id="tabSearch" style='display:none'>
-							<tr>
-								<td width="40%">
-									<div onclick='goTo("fiche.php","create");' title="Remplir la fiche de dépot">
-										<button height="100%" id="deposer">
-											<span class="fas fa-plus-square"></span>&nbsp;Deposer<br />
-										</button>
-									</div>
-								</td>
-								<td width="60%">
-									<table>
-										<tr>
-											<td align="center">
-												<small>Recherche</small><br />
-												<input type="text" name="numeroFiche" size="15" maxlength="50" title="Saisisez le numéro de fiche, ou l'identifiant de la fiche"
-												 placeholder="Saisisez le numéro ou l'identifiant de la fiche." onchange="search(this.value)" id="inputSearch" />
-											</td>
-											<td align="center">
-												<i class="fas fa-search link" onclick="search(document.enteteFormFiche.inputSearch)"></i>
-											</td>
-										</tr>
-									</table>
-
-								</td>
+								<th>
+									<i class="fas fa-search link" onclick="search(document.enteteFormFiche.inputSearch)"></i>
+								</th>
 							</tr>
 						</table>
 					</td>

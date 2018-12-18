@@ -1,20 +1,4 @@
 <?
-function phpVersionDouble() {
-	$phpversion = phpversion();
-
-	$phpversion=preg_replace("[A-Za-z]","",$phpversion);
-	$tabTmp=explode(".",$phpversion);
-	$phpVersionInt=(double)($tabTmp[0].".".$tabTmp[1]);
-	return $phpVersionInt;
-}
-
-function isInstall(){
-	if (file_exists("./install/.initInstall") || file_exists("../install/.initInstall")) {
-		return true;
-	}
-	return false;
-}
-
 /**
  * verification des droit d'acces a cette rubrique, module, option pour un utilisateur
  * @param unknown_type $mod
@@ -54,55 +38,6 @@ function verif_paramURL($tabPost, $user) {
 		}
 	}
 	return $retour;
-
-}
-
-/**
- * retourne le nom de fichier d'une applet d'un bloc
- * @param unknown_type $applet
- * @param unknown_type $type
- * @param unknown_type $skin
- * @return unknown_type
- */
-function return_bloc($applet,$type) {
-	//echo "$applet,$type,$skin";
-	$file="$type/".trim($applet)."_$type.php";
-	$fileDef="userfiles/modules/$type/".trim($applet)."_$type.html";
-	if (file_exists($file)) {
-		return $file;
-	}
-	else if (file_exists($fileDef)) {
-		return $fileDef;
-	}
-	else if (($type == "coteD") || ($type == "coteG") ) {
-		return return_bloc($applet, "cote");
-	}
-	//trigger_error("Impossible de trouver $applet pour $type", E_USER_WARNING);
-}
-
-function makeOption($tab, $key, $val, $select) {
-	$repr="";
-	foreach ($tab as $valTab) {
-		if ($val) {
-			$repr.="<option value='".$valTab[$key]."'";
-			if ($select != null  && $select==$valTab[$key]) {
-				$repr.=" selected ";
-			}
-			$repr.=		">";
-			$repr.=$valTab[$val];
-			$repr.="</option>";
-		}
-		else {
-			$repr.="<option value='".$valTab."'";
-			if ($select != null  && $select==$valTab) {
-				$repr.=" selected ";
-			}
-			$repr.=		">";
-			$repr.=$valTab;
-			$repr.="</option>";
-		}
-	}
-	return $repr;
 
 }
 
@@ -543,4 +478,19 @@ function is_date($value, $format = 'yyyy-mm-dd'){
 //echo date('d/m/Y H:i:s',dateMysqlInt("2001-06-12 12:12:12"));
 //echo "\n";
 //echo  date('d/m/Y H:i:s',dateMysqlInt("2001-06-12"));
+
+function makeCorps($data, $fileHTML)
+{
+    extract($GLOBALS);
+    $messageMail="";
+
+    $messageMail.=file_get_contents(dirname(__FILE__)."/../html/$fileHTML");
+    foreach ($data as $key => $val) {
+        //echo "publipost de $key avec $val\n";
+        $messageMail=str_replace("--$key--", $val, $messageMail);
+    }
+    
+    return  $messageMail;
+}
+
 ?>

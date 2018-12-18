@@ -23,19 +23,6 @@ function makeMessage($titre, $data, $fileHTML)
     return  $messageMail;
 }
 
-function makeCorps($data, $fileHTML)
-{
-    extract($GLOBALS);
-    $messageMail="";
-
-    $messageMail.=file_get_contents(dirname(__FILE__)."/../html/$fileHTML");
-    foreach ($data as $key => $val) {
-        //echo "publipost de $key avec $val\n";
-        $messageMail=str_replace("--$key--", $val, $messageMail);
-    }
-    
-    return  $messageMail;
-}
 
 function makePied()
 {

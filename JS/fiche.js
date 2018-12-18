@@ -347,11 +347,6 @@ function imprimeFiche() {
     x_action_makePDF(tabObj['obj_id'], display_openPDF);
 }
 
-function display_openPDF(val) {
-    console.log(val);
-    window.open(val, '_blank');
-}
-
 function changeEtatFiche() {
     var tabObj = recup_formulaire(document.ficheForm, 'obj');
     var tabCli = recup_formulaire(document.ficheForm, 'cli');

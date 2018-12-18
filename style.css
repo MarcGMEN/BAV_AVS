@@ -22,11 +22,11 @@
 	src: url('font/d3euronism/D3Euronism_b_i.ttf');
 }
 
-body.parent {
+body.parent, body {
 	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
 	color: BLACK;
 	margin: 0px;
-	font-size: 12pt;
+	font-size: 10px;
 	/*	background-image: url(Images/BAV2.png);
 	background-repeat: no-repeat;
 	background-position: bottom left;
@@ -108,6 +108,7 @@ textarea:hover {
 	border-top: 0px  solid;
 	border-right: 1px  solid; 
 	border-left: 1px  solid;
+	
 }
 input:required {
 	font-weight: bold;
@@ -128,6 +129,7 @@ input[type=submit] {
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	padding: 0.2em;
+	font-size: 0.9em;
 }
 
 button:hover,
@@ -150,6 +152,7 @@ select {
 	border-style: solid;
 	width: 85%;
 	background-color: white;
+	font-size: 0.9em;
 }
 
 textarea {
@@ -159,6 +162,7 @@ textarea {
 	border-left: 0px;
 	padding: 0.2em;
 	border-style: solid;
+	font-size: 0.9em;
 	background-color: white;
 }
 
@@ -251,14 +255,29 @@ input.error {
 	height: 95%
 }
 
+div.PAGE {
+	width:95%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div.pied {
+}
+
+div.entete {
+	position :fixed;
+	margin-left: auto;
+	margin-right: auto;
+	top : 0px;
+}
+
 .BH_CADRE {
 	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
-	background-color: #00a4dd;
-	color: #fff200;
+	background-color: lightblue;
 	/*width: 100%;*/
-	height: 100%;
+	/*height: 100%;*/
 	/*text-align: center;*/
-	border: 2px;
+	/*border: 2px;*/
 	border-color: #AAA;
 	border-style: outset;
 	-moz-border-radius: 10px;
@@ -278,6 +297,24 @@ div.MENU {
 	padding: 5px 5px 5px 5px;
 }
 
+.navigation {
+	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
+	color: black;
+	border: 1px;
+	border-color: #AAA;
+	border-style: solid;
+	font-size: 0.8em;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	padding: 1px 1px 1px 1px;
+}
+
+
+.navigationSel {
+	color: #fff200;
+	font-style: italic;
+}
+
 */
 /*-- Pied de page --*/
 
@@ -291,11 +328,13 @@ table.PP {
 
 /**********************/
 
-td.FENETRE_PRINCIPALE {
+div.FENETRE_PRINCIPALE {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 0.9em;
 	background-color: #EEE;
 	vertical-align: top;
 	width: 100%;
-	height: 100%;
+	height: 80%;
 	z-index: 2;
 	/*text-align: center;*/
 	border: 2px;
@@ -305,14 +344,22 @@ td.FENETRE_PRINCIPALE {
 	border-radius: 10px;
 }
 
+.TEXTE_FEN {
+	vertical-align: top;
+	width: 90%;
+	height: 100%;
+	z-index: 2;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 .TITRE_FENETRE_PRINCIPALE {
 	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
-	width: 100%;
 	font-size: 2em;
 	font-weight: BOLD;
 	text-align: center;
 	letter-spacing: 5px;
-	/*white-space: nowrap;*/
+	white-space: normal;
 }
 
 /* tableau */
@@ -321,7 +368,7 @@ td.FENETRE_PRINCIPALE {
 
 .fiche {
 	background-color: white;
-	text-align: center;
+	text-align: left;
 	border: 2px;
 	border-color: #AAA;
 	border-style: outset;
@@ -333,16 +380,23 @@ td.FENETRE_PRINCIPALE {
 	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
 	font-weight: bold;
 	font-size: 1.1em;
-	background-color: #00a4dd;
 	color: black;
 	text-align: center;
-	cursor: pointer;
+	border-spacing: 15px 50px;
 	border-width: 1px;
-	border-color: #fff200;
+	border-color: #00a4dd;
 	border-style: outset;
 	border-radius: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	line-height: 2;
 }
 
+table.PAGE, td.pied, td.entete {
+	margin-right: auto;
+	margin-left: auto;
+	border-collapse: inherit;
+}
 table {
 	margin-right: auto;
 	margin-left: auto;
@@ -427,6 +481,10 @@ tr.tabl0:hover {
 
 /**************************************/
 
+.ul, .li {
+	font-weight: normal;
+}
+
 /**************************************/
 
 /**************************************/
@@ -457,7 +515,7 @@ tr.tabl0:hover {
 	/* Stay in place */
 	z-index: 1;
 	/* Sit on top */
-	padding-top: 100px;
+	padding-top: 30px;
 	/* Location of the box */
 	left: 0;
 	top: 0;
