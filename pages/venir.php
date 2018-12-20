@@ -8,7 +8,7 @@
 	<div class="col-xs-12 col-sm-6 col-md-6" style="vertical-align:top">
 		<fieldset class=fiche>
 			<legend class=titreFiche>Comment Venir</legend>
-			<p style="vertical-align:middle"><A href="https://www.stran.fr/" target="_blank" alt="www.stran.fr" class="link navigation">STRAN</A>
+			<p style="vertical-align:middle"><A href="https://www.stran.fr/" target="_blank" alt="www.stran.fr" class="link url">STRAN</A>
 				: hélYce, U2
 				<img src="Images/stranSoucoupe.png" width=150px height=auto class=link onclick=' alertModalInfo("<img width=100% height=400px src=\"Images/stranSoucoupe.png\" alt=\"plan STRAN\" />")' />
 			</p>
@@ -40,11 +40,11 @@
 			<legend class=titreFiche>Contact</legend>
 			<p>En cas de question concernant la <b>Bourse aux Vélos</b>,
 				veuillez consulter notre
-				<span class="link navigation" onclick='goTo("faq.php",null, null, null)' )>Foire Aux Questions</span>
+				<span class="link url" onclick='goTo("faq.php",null, null, null)' )>Foire Aux Questions</span>
 				<p>Pour toute autre demande, contactez-nous directement :</p>
 
 				<p><span class="label label-info">Email</span>
-					<a href='mailto:avs.vtt@gmail.com' class="navigation">avs.vtt@gmail.com</a></p>
+					<a href='mailto:avs.vtt@gmail.com' class="url">avs.vtt@gmail.com</a></p>
 				<p><span class="label label-info">Tél</span>
 					<span style="font-size: 16px;">06.46.58.06.61</span></p>
 		</fieldset>

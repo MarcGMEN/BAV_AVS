@@ -49,11 +49,11 @@
 	<p><b>ASTUCE AVS</b> :
 		<ul>
 			<li>Télécharger et remplir votre fiche d'inscription à l'avance pour gagner du temps :
-				<span class="link navigation" onclick='x_action_makePDF(new Array(), display_openPDF);' )>fiche depot</span>
+				<span class="link url" onclick='x_action_makePDF(new Array(), display_openPDF);' )>fiche depot</span>
 			</li>
 			<li>Télécharger et remplir votre état des lieux (pour les très beaux vélos)
 
-				<span class="link navigation" onclick=' window.open("downloads/etat_des_lieux.pdf", "_blank");'>
+				<span class="link url" onclick=' window.open("downloads/etat_des_lieux.pdf", "_blank");'>
 					Etat des lieux</span>
 
 	</p>
@@ -80,7 +80,7 @@
 		timbrée à son adresse et le reçu vendeur de couleur. Dès réception,
 		le montant de la vente lui sera envoyé.(Transaction souhaitable dans
 		la semaine qui suit la Bourse aux vélos). <br />Consultez la
-		<span class="link navigation" onclick=' window.open("downloads/bav_rayon_30_km.pdf", "_blank");'>PAIEMENT PAR CORRESPONDANCE</span>
+		<span class="link url" onclick=' window.open("downloads/bav_rayon_30_km.pdf", "_blank");'>PAIEMENT PAR CORRESPONDANCE</span>
 		pour plus d'informations.</p>
 </div>
 
@@ -106,7 +106,7 @@
 	<li>17h à 19h : restitution des invendus</li>
 </ul>
 
-<p>Lieu : <b><span class="link navigation" onclick='goTo("venir.php",null, null, null)' )>Soucoupe</span>, avenue Léo
+<p>Lieu : <b><span class="link url" onclick='goTo("venir.php",null, null, null)' )>Soucoupe</span>, avenue Léo
 		Lagrange, Saint-Nazaire</b></p>
 
 <h3 class="titreFiche">PRINCIPES</h3>

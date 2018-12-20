@@ -12,7 +12,7 @@ echo "CFG_URL $CFG_URL";
 		"<? foreach ($data as $key => $val) {echo $key."#3D".$val."#2C";}?>";
 </script>
 
-<span class="link navigation" onclick='x_action_makePDFFromHtml(data,"reglement.html", display_openPDF);' )>
+<span class="link url" onclick='x_action_makePDFFromHtml(data,"reglement.html", display_openPDF);' )>
 	telecharger le reglement</span>
 <hr />
 <?=$message?>

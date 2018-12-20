@@ -1,3 +1,13 @@
+<script>
+    function menuSel() {
+        var x = getElement("IDmenuNavigation");
+  if (x.className === "menuNavigation") {
+    x.className += " responsive";
+  } else {
+    x.className = "menuNavigation";
+  }
+    }
+</script>
 <?php
     $tabNavAll = [
         'bav.php'=>[
@@ -40,12 +50,10 @@
         ];
     }
     $tabNav = array_merge($tabNavAll, $tabNavAdm);
-
-    $tail = (int) (100 / sizeof($tabNav));
     ?>
-
+<div class="menuMobile" onclick="menuSel()"><i class="fas fa-bars"></i></div>
+<div  class="menuNavigation"  id="IDmenuNavigation" >
 <div class="row col-md-12" style="width:100%">
-
     <?
     foreach ($tabNav as $key => $val) {
         if ($GET_page == $key) {
@@ -54,7 +62,8 @@
             $className="";
         }
         ?>
-    <span style="width:<?=$tail?>%" class="link navigation <?=$className?>"
+    <span class="link navigation <?=$className?> "
         onclick="goTo('<?=$key?>', '<?=$val["mode"]?>', null, null)"><?=$val['libelle']?></span>
     <?} ?>
 </div>
+    </div>

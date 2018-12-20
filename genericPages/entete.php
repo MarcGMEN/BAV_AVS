@@ -34,13 +34,13 @@
 
 <table class="BH_CADRE" cellspacing="0" cellpadding="0">
 	<tr height="100%">
-		<td width="5%">
+		<td width="15%">
 			<span id="depotTOT"></span>
 			<A HREF="index.php">
 				<img src="Images/cycleBAV.png" id="cycleBAV" height='100pt' />
 			</A>
 		</td>
-		<td width="80%" >
+		<td width="70%" >
 			<div class="TITRE_FENETRE_PRINCIPALE" >
 				<?=$infAppli['titre']?>
 			</div>
@@ -60,46 +60,24 @@
 					</div>
 				</div>
 			</span>-->
-			<span style="float: left" ?>
+			<span style="float: left" >
 				<img src="Images/logoAVS.png"  id="logoAVS" height='120pt'>
 			</span>
-			<span style="float: right; vertical-align:middle" title="[<?=$_SERVER['REMOTE_ADDR']?>]"><?=$_COOKIE['NUMERO_BAV']?>
-				<div id="connex"></div>
+			<span style="float: right; vertical-align:middle; font-size: 0.5em" title="[<?=$_SERVER['REMOTE_ADDR']?>]"><?=$_COOKIE['NUMERO_BAV']?>
+				<span id="connex"></span>
 			</span>
 		</td>
 	</tr>
+</table>
+<table  class="BH_CADRE" cellspacing="0" cellpadding="0">
 	<tr>
-		<th colspan=2>
+		<th class="tdMenu" >
 			<?php include "./genericPages/navigation.php"?>
 		</th>
-		<td>
-			<table width="100%" id="tabSearch">
-				<!--				<tr>
-					<th width="100%">
-						<div onclick='goTo("fiche.php","create");' title="Remplir la fiche de dépot" >
-							<button height="100%" id="deposer" >
-								<span class="fas fa-plus-square navigation"></span>&nbsp;Deposer<br />
-							</button>
-						</div>
-					</th>
-				</tr>-->
-				<tr>
-					<td>
-						<table width="100%">
-							<tr>
-								<td>
-									<!-- <small>Recherche</small><br /> -->
-									<input type="text" name="numeroFiche" size="15" maxlength="50" title="Saisisez le numéro de fiche, ou l'identifiant de la fiche"
-									 placeholder="Recherche" id="inputSearch" />
-								</td>
-								<th>
-									<i class="fas fa-search link" onclick="search(document.enteteFormFiche.inputSearch)"></i>
-								</th>
-							</tr>
-						</table>
-					</td>
-				</tr>
-			</table>
+		<td class="tdSearch" >
+			<input type="text" name="numeroFiche" size="15" maxlength="50" title="Saisisez le numéro de fiche, ou l'identifiant de la fiche"
+				placeholder="Recherche" id="inputSearch" />
+			<i class="fas fa-search link" onclick="search(document.enteteFormFiche.inputSearch)"></i>
 		</td>
 	</tr>
 </table>
