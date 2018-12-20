@@ -4,5 +4,7 @@ sajax_export(
     "action_updateClient",
     "action_insertClient",
     "return_oneClientByMel",
-    "return_listClientByMel"
+    "return_oneClientByIdModif",
+    "return_listClientByMel",
+    "return_clients"
 );

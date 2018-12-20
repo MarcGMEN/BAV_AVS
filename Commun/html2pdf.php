@@ -13,7 +13,9 @@ function html2pdf($data, $html, $fileOut)
         file_put_contents(dirname(__FILE__)."/../out/html/$fileOut.html", stripslashes($message));
 
         ob_start();
+        echo "<page backtop='5mm' backleft='5mm' backright='5mm' backbottom='5mm'>";
         include dirname(__FILE__)."/../out/html/$fileOut.html";
+        echo "</page>";
         $content = ob_get_clean();
         $html2pdf = new Html2Pdf('P', 'A4', 'fr', true, 'UTF-8', 3);
         //$html2pdf->setDefaultFont('Arial');

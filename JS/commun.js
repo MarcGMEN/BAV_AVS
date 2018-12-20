@@ -228,64 +228,16 @@ function valideEmail(value) {
 
 }
 
-function makeOption(tab, key, val, select) {
-	var repr = "";
-	for (i in tab) {
-		if (typeof tab[i] == "object") {
-			repr += "<option value='" + tab[i][key] + "'";
-			if (select != null && select == tab[i][key]) {
-				repr += " selected ";
-			}
-			repr += ">";
-			repr += tab[i][val];
-			repr += "</option>";
-		} else {
-			repr += "<option value='" + tab[i] + "'";
-			if (select != null && select == tab[i]) {
-				repr += " selected ";
-			}
-			repr += ">";
-			repr += tab[i];
-			repr += "</option>";
-		}
-	}
-	return repr;
+function display_list_select(val, champ, leForm) {
+    tabPrixDepot = val;
+    var select = leForm.elements[champ];
+    for (index in val) {
+        select.appendChild(new Option(val[index], val[index]));
+        if (index == 1) {
+            select.selectedIndex = val[index];
+        }
+    }
 }
-
-function makeOptionForm(tab, key, val, select, input) {
-	var repr = "";
-	var index = 0;
-	input.options.length = sizeof(tab);
-	for (i in tab) {
-
-		//var elOptNouv = document.createElement('OPTION');
-		if (typeof tab[i] == "object") {
-			input.options[index].value = tab[i][key];
-			input.options[index].text = tab[i][val];
-			//elOptNouv.text = tab[i][val];
-			//elOptNouv.value = tab[i][key];
-			if (select != null && select == tab[i][key]) {
-				//elOptNouv.selected=true;
-				input.options[index].selected = true;
-			}
-			//input.appendChild(elOptNouv);
-		} else {
-			input.options[index].value = tab[i];
-			input.options[index].text = tab[i];
-			//	elOptNouv.text = tab[i];
-			//	elOptNouv.value = tab[i];
-			if (select != null && select == tab[i]) {
-				//elOptNouv.selected=true;
-				input.options[index].selected = true;
-			}
-			//input.appendChild(elOptNouv);
-			//alert(input.options.value);
-		}
-		index++;
-	}
-	return repr;
-}
-
 
 function basename(path, suffix) {
 	// http://kevin.vanzonneveld.net

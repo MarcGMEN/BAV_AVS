@@ -20,6 +20,26 @@ function initPage() {
     x_return_depotsBAV(display_list_prix_depot);
 
     document.ficheForm.obj_type.focus();
+    
+    if (TABLE || ADMIN) {
+        console.log("mode "+ADMIN+" "+TABLE);
+        // en mode create de table, le mail n'est pas obligatoire
+        document.ficheForm.cli_emel.required = false;
+        // pas de CGU pour la TABLE et ADMIN
+        document.ficheForm.checkCGU.required = false;
+        // pas la peine de voir les CGU
+        getElement("tdCGU").style.display = 'none';
+        document.ficheForm.obj_prix_depot.required = true;
+        document.ficheForm.obj_prix_depot.min = 1;
+
+        getElement("trTauxCom").style.display = 'block';
+        getElement("divPrix").style.display = 'block';
+
+        getElement("tdBtnEtat").style.display = 'table-cell';
+        
+    } else if (!CLIENT) {
+        goTo();
+    }
 
     if (idFiche) {
         x_return_oneFiche(idFiche, display_fiche);
@@ -68,16 +88,16 @@ function display_fiche(val) {
         // TODO : en fonction de l'etat, on propose les btn
         // etat INIT
         if (val['obj_etat'] == "INIT") {
-            getElement("tdBtnSup").style.display = 'table-cell';
+            getElement("tdBtnSup").style.display = 'block';
             document.ficheForm.buttonValideFiche.innerHTML = "Modifier";
             document.ficheForm.buttonEtatFiche.value = "Confirmer";
             document.ficheForm.obj_etat_new.value = "CONFIRME";
         }
         // etat CONFIRME
         if (val['obj_etat'] == "CONFIRME") {
-            getElement("tdBtnPdf").style.display = 'table-cell';
-            getElement("tdBtnSup").style.display = 'table-cell';
-            getElement("trPrix").style.display = 'table-row';
+            getElement("tdBtnPdf").style.display = 'block';
+            getElement("tdBtnSup").style.display = 'block';
+            getElement("divPrix").style.display = 'block';
             document.ficheForm.buttonValideFiche.innerHTML = "Modifier";
             // pas de CGU pour la TABLE et ADMIN
             document.ficheForm.checkCGU.required = false;
@@ -94,8 +114,8 @@ function display_fiche(val) {
         }
         // etat STOCK
         if (val['obj_etat'] == "STOCK") {
-            getElement("trPrix").style.display = 'table-row';
-            getElement("tdBtnPdf").style.display = 'table-cell';
+            getElement("divPrix").style.display = 'block';
+            getElement("tdBtnPdf").style.display = 'block';
             document.ficheForm.buttonValideFiche.innerHTML = "Modifier";
 
             // pas de CGU pour la TABLE et ADMIN
@@ -117,8 +137,8 @@ function display_fiche(val) {
 
         }
         if (val['obj_etat'] == "VENDU") {
-            getElement("trPrix").style.display = 'table-row';
-            getElement("tdBtnPdf").style.display = 'table-cell';
+            getElement("divPrix").style.display = 'block';
+            getElement("tdBtnPdf").style.display = 'block';
 
             // pas de CGU pour la TABLE et ADMIN
             document.ficheForm.checkCGU.required = false;
@@ -141,9 +161,9 @@ function display_fiche(val) {
         }
 
         if (val['obj_etat'] == "RENDU" || val['obj_etat'] == "PAYE") {
-            getElement("trPrix").style.display = 'table-row';
-            getElement("tdBtnPdf").style.display = 'table-cell';
-            getElement("tdBtnSup").style.display = 'table-cell';
+            getElement("divPrix").style.display = 'block';
+            getElement("tdBtnPdf").style.display = 'block';
+            getElement("tdBtnSup").style.display = 'block';
 
             // pas de CGU pour la TABLE et ADMIN
             document.ficheForm.checkCGU.required = false;
@@ -162,25 +182,7 @@ function display_fiche(val) {
 
 // recuperation des donnees de la BAV
 function setParamVal(val) {
-    setParamValIndex(val);
-    if (TABLE || ADMIN) {
-        // en mode create de table, le mail n'est pas obligatoire
-        document.ficheForm.cli_emel.required = false;
-        // pas de CGU pour la TABLE et ADMIN
-        document.ficheForm.checkCGU.required = false;
-        // pas la peine de voir les CGU
-        getElement("tdCGU").style.display = 'none';
-        document.ficheForm.obj_prix_depot.required = true;
-        document.ficheForm.obj_prix_depot.min = 1;
-
-        getElement("trTauxCom").style.display = 'table-row';
-        getElement("trPrix").style.display = 'table-row';
-
-        getElement("tdBtnEtat").style.display = 'table-cell';
-        
-    } else if (!CLIENT) {
-        goTo();
-    }
+    
 }
 
 function keyUpMel() {
@@ -201,52 +203,28 @@ function display_list_marques(val) {
  * affichage de la liste de type possible
  */
 function display_list_type(val) {
-    var select = document.ficheForm.obj_type;
-    for (index in val) {
-        select.appendChild(new Option(val[index], val[index]));
-    }
+    display_list_select(val,'obj_type',document.ficheForm);
 }
 /*
  * affichage de la liste de pratique possible
  */
 function display_list_pratique(val) {
-    var select = document.ficheForm.obj_pratique;
-    for (index in val) {
-        select.appendChild(new Option(val[index], val[index]));
-    }
+    display_list_select(val,'obj_pratique',document.ficheForm);
 }
 /*
  * affichage de la liste de public possible
  */
 function display_list_public(val) {
-    var select = document.ficheForm.obj_public;
-    for (index in val) {
-        select.appendChild(new Option(val[index], val[index]));
-    }
+    display_list_select(val,'obj_public',document.ficheForm);
 }
 
 function display_list_taux_com(val) {
-    tabTauxCom = val;
-    var select = document.ficheForm.cli_taux_com;
-    for (index in val) {
-        select.appendChild(new Option(val[index], val[index]));
-        if (index == 1) {
-            select.selectedIndex = val[index];
-        }
-    }
-
+    display_list_select(val,'cli_taux_com',document.ficheForm);
 }
 
 function display_list_prix_depot(val) {
-    tabPrixDepot = val;
-    var select = document.ficheForm.cli_prix_depot;
-    for (index in val) {
-        select.appendChild(new Option(val[index], val[index]));
-        if (index == 1) {
-            select.selectedIndex = val[index];
-            getElement("depot_calc").innerHTML = val[index];
-        }
-    }
+    display_list_select(val,'cli_prix_depot',document.ficheForm);
+    affectPrix();
 }
 
 function affectPrix() {
@@ -369,11 +347,6 @@ function confirmModalSupp() {
 function imprimeFiche() {
     var tabObj = recup_formulaire(document.ficheForm, 'obj');
     x_action_makePDF(tabObj['obj_id'], display_openPDF);
-}
-
-function display_openPDF(val) {
-    console.log(val);
-    window.open(val, '_blank');
 }
 
 function changeEtatFiche() {

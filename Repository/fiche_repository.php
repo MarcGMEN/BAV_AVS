@@ -3,41 +3,6 @@
  * retourne les marques dans la liste des object
  */
 
-function get_marques()
-{
-    $query = "SELECT obj_marque from bav_objet group by obj_marque";
-    $tab=array();
-    if ($result = $GLOBALS['mysqli']->query($query)) {
-        $tab=array();
-        $index=0;
-        while ($row = $result->fetch_assoc()) {
-            $tab[$index++]=strtoupper($row['obj_marque']);
-        }
-        $result->close();
-    } else {
-        throw new Exception("Pb d'update' [$req]".mysqli_error());
-    }
-    
-    return $tab;
-}
-
-
-function get_modelesByMarques($marque) {
-    $query = "SELECT obj_modele from bav_objet where obj_marque = '$marque' group by obj_modele";
-    $tab=array();
-
-    if ($result = $GLOBALS['mysqli']->query($query)) {
-        $tab=array();
-        $index=0;
-        while ($row = $result->fetch_assoc()) {
-            $tab[$index++]=strtoupper($row['obj_modele']);
-        }
-        $result->close();
-    }
-    
-    return $tab;  
-}
-
 function getAllFiche()
 {
     return getAll("bav_objet", "obj_id");
@@ -48,10 +13,53 @@ function getOneFiche($id)
     return getOne($id, "bav_objet", "obj_id");
 }
 
-function countByEtat()
+function getAllFichesAcheteur($idAcheteur)
+{
+    if ($idAcheteur) {
+        $requete2 = "SELECT * from bav_objet where obj_numero_bav = ".$_COOKIE['NUMERO_BAV'];
+        $requete2 .= " and obj_id_acheteur = $idAcheteur ";
+        if ($result = $GLOBALS['mysqli']->query($requete2)) {
+            $tab=array();
+            $index=0;
+            while ($row = $result->fetch_assoc()) {
+                $tab[$row['obj_etat']] = $row['count(*)'];
+            }
+            $result->close();
+        } else {
+            throw new Exception("getAllFichesAcheteur' [$requete2]".mysqli_error());
+        }
+    }
+    return $tab;
+}
+
+function getAllFichesVendeur($idVendeur)
+{
+    if ($idVendeur) {
+        $requete2 = "SELECT * from bav_objet where obj_numero_bav = ".$_COOKIE['NUMERO_BAV'];
+        $requete2 .= " and obj_id_vendeur = $idVendeur ";
+        if ($result = $GLOBALS['mysqli']->query($requete2)) {
+            $tab=array();
+            $index=0;
+            while ($row = $result->fetch_assoc()) {
+                $tab[$row['obj_etat']] = $row['count(*)'];
+            }
+            $result->close();
+        } else {
+            throw new Exception("getAllFichesVendeur' [$requete2]".mysqli_error());
+        }
+    }
+    return $tab;
+}
+
+
+function countByEtat($idVendeur = null)
 {
     $requete2 = "SELECT count(*), obj_etat from bav_objet where obj_numero_bav = ".
-        $_COOKIE['NUMERO_BAV']." group by obj_etat ";
+        $_COOKIE['NUMERO_BAV'];
+    if ($idVendeur) {
+        $requete2 .= " and obj_id_vendeur = $idVendeur";
+    }
+    $requete2 .= " group by obj_etat ";
     if ($result = $GLOBALS['mysqli']->query($requete2)) {
         $tab=array();
         $index=0;
@@ -107,6 +115,32 @@ function getOneFicheByCode($id, $numeroBAV)
         $row=$GLOBALS['mysqli']->query($requete2)->fetch_assoc();
     }
     return $row;
+}
+
+function getFiches($order, $sens, $tabSel)
+{
+    $requete2 = "SELECT * from bav_objet where obj_numero_bav = ".$_COOKIE['NUMERO_BAV'];
+    foreach ($tabSel as $key => $val) {
+        if ($val != "*") {
+            $requete2 .= " and $key = '$val' ";
+        }
+    }
+    if ($order != null) {
+        $requete2 .= " order by $order $sens";
+    }
+    //echo $requete2;
+    
+    if ($result = $GLOBALS['mysqli']->query($requete2)) {
+        $tab=array();
+        $index=0;
+        while ($row = $result->fetch_assoc()) {
+            $tab[$index++] = $row;
+        }
+        $result->close();
+    } else {
+        throw new Exception("getFiches' [$requete2]".mysqli_error());
+    }
+    return $tab;
 }
 
 /**
