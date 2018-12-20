@@ -164,7 +164,8 @@ textarea {
 	border-style: solid;
 	font-size: 0.9em;
 	background-color: white;
-}
+	max-width: 100%;
+  }
 
 input.button:disabled,
 input.submit:disabled,
@@ -444,6 +445,8 @@ table {
 	font-weight: bold;
 	text-align: right;
 	font-size: 0.8em;
+	padding-top: 5pt;
+	padding-bottom: 5pt;
 }
 
 .tabl0 {
@@ -453,7 +456,7 @@ table {
 	border: 0px;
 }
 
-tr.tabl0:hover {
+.tabl0:hover {
 	background-color: #1161a2;
 	color: WHITE;
 	
@@ -464,15 +467,18 @@ tr.tabl0:hover {
 	/*background-color: WHITE;*/
 	color: BLACK;
 	font-weight: bold;
+	padding-top: 5pt;
+	padding-bottom: 5pt;
 }
 
-td.tabInput {
+.tabInput {
 	font-size: 1em;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	/*border-bottom: 1px solid blue;*/
-	padding: 5pt;
+	padding-top: 5pt;
+	padding-bottom: 5pt;
 }
-td.tabInput:hover {
+.tabInput:hover {
 	font-weight: bold;
 }
 
@@ -506,19 +512,32 @@ td.tabInput:hover {
 	display: table;
 }
 
+img {
+	max-width: 100%;
+}
+
 img.imgBAV {
 	height:200pt;
 }
-/* responsive from tabStat */
+img #logoAVS #cycleBAV{
+	height:100pt;
+}
+
+img.logo{
+	height:100pt;
+}
+
+
+/* responsive si < 1000px*/
 @media screen and (max-width: 1000px) {
 	#tabStat.tabStatShow {
 		display: none;
 	}
-	#cycleBAV, #logoAVS {
+	#cycleBAV, #logoAVS, img.logo {
 		height : 25pt
 	}
 	img.imgBAV {
-		height : 100pt
+		height : 100pt;
 	}
 	.BH_CADRE {
 		font-size: 0.7em;
@@ -526,6 +545,17 @@ img.imgBAV {
 	.TITRE_FENETRE_PRINCIPALE {
 		font-size: 1em;
 	}
+	.titrow {
+		font-size: 0.6em;
+	}
+	h3{
+		font-size: 1.0em !important;
+	}
+	small{
+		font-size: 60% !important;
+	}
+
+	
 	
 }
 

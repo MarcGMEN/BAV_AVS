@@ -32,8 +32,8 @@ function initPage() {
         document.ficheForm.obj_prix_depot.required = true;
         document.ficheForm.obj_prix_depot.min = 1;
 
-        getElement("trTauxCom").style.display = 'table-row';
-        getElement("trPrix").style.display = 'table-row';
+        getElement("trTauxCom").style.display = 'block';
+        getElement("divPrix").style.display = 'block';
 
         getElement("tdBtnEtat").style.display = 'table-cell';
         
@@ -88,16 +88,16 @@ function display_fiche(val) {
         // TODO : en fonction de l'etat, on propose les btn
         // etat INIT
         if (val['obj_etat'] == "INIT") {
-            getElement("tdBtnSup").style.display = 'table-cell';
+            getElement("tdBtnSup").style.display = 'block';
             document.ficheForm.buttonValideFiche.innerHTML = "Modifier";
             document.ficheForm.buttonEtatFiche.value = "Confirmer";
             document.ficheForm.obj_etat_new.value = "CONFIRME";
         }
         // etat CONFIRME
         if (val['obj_etat'] == "CONFIRME") {
-            getElement("tdBtnPdf").style.display = 'table-cell';
-            getElement("tdBtnSup").style.display = 'table-cell';
-            getElement("trPrix").style.display = 'table-row';
+            getElement("tdBtnPdf").style.display = 'block';
+            getElement("tdBtnSup").style.display = 'block';
+            getElement("divPrix").style.display = 'block';
             document.ficheForm.buttonValideFiche.innerHTML = "Modifier";
             // pas de CGU pour la TABLE et ADMIN
             document.ficheForm.checkCGU.required = false;
@@ -114,8 +114,8 @@ function display_fiche(val) {
         }
         // etat STOCK
         if (val['obj_etat'] == "STOCK") {
-            getElement("trPrix").style.display = 'table-row';
-            getElement("tdBtnPdf").style.display = 'table-cell';
+            getElement("divPrix").style.display = 'block';
+            getElement("tdBtnPdf").style.display = 'block';
             document.ficheForm.buttonValideFiche.innerHTML = "Modifier";
 
             // pas de CGU pour la TABLE et ADMIN
@@ -137,8 +137,8 @@ function display_fiche(val) {
 
         }
         if (val['obj_etat'] == "VENDU") {
-            getElement("trPrix").style.display = 'table-row';
-            getElement("tdBtnPdf").style.display = 'table-cell';
+            getElement("divPrix").style.display = 'block';
+            getElement("tdBtnPdf").style.display = 'block';
 
             // pas de CGU pour la TABLE et ADMIN
             document.ficheForm.checkCGU.required = false;
@@ -161,9 +161,9 @@ function display_fiche(val) {
         }
 
         if (val['obj_etat'] == "RENDU" || val['obj_etat'] == "PAYE") {
-            getElement("trPrix").style.display = 'table-row';
-            getElement("tdBtnPdf").style.display = 'table-cell';
-            getElement("tdBtnSup").style.display = 'table-cell';
+            getElement("divPrix").style.display = 'block';
+            getElement("tdBtnPdf").style.display = 'block';
+            getElement("tdBtnSup").style.display = 'block';
 
             // pas de CGU pour la TABLE et ADMIN
             document.ficheForm.checkCGU.required = false;
