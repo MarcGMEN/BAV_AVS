@@ -1,4 +1,4 @@
-<!--
+
 // mode de fonctionnement de la page
 // create  : creation d'une fiche CLIENT
 // modif   : modification par le client avec ID_FICHE, par la TABLE avec le numero fiche
@@ -534,6 +534,3 @@ function display_listVendeur(val)  {
         list.appendChild(new Option(val[index], val[index]));
     }
 }
-
-
--->
