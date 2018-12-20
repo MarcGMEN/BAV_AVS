@@ -1,12 +1,13 @@
+<?$idRamdom = rand(1000, 9999);?>
 <script>
 	var idFiche='<?=$GET_id?>';
 	// pour rendre le champ nom du client unique
-	<?php $idRamdom = rand(1000, 9999);?>
 	var idRamdom="<?=$idRamdom?>";
 </script>
 
-<script src="JS/fiche.js" type="text/javascript">
-</script>
+<script src="JS/fiche.js" type="text/javascript"></script>
+
+<h2><b>Nouveauté 2019 :</b> Pour gagner tu temps, saisissez votre dépot directement le ligne.</h2>
 
 <form name="ficheForm" method="POST" onsubmit="return submitForm()" action="">
 	<input type=hidden name="obj_id" />
@@ -14,7 +15,7 @@
 	<input type=hidden name="cli_id" />
 	<fieldset class=fiche>
 		<legend class=titreFiche>Le depot</legend>
-		<table width=100% cellpadding=4 cellspacing=0>
+		<table width=100% cellpadding=4 cellspacing=5>
 			<!-- Pas en creation -->
 			<tr id='trTitreFiche' style='display: none'>
 				<td colspan=10>

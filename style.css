@@ -26,7 +26,7 @@ body.parent, body {
 	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
 	color: BLACK;
 	margin: 0px;
-	font-size: 10px;
+	font-size: 10pt;
 	/*	background-image: url(Images/BAV2.png);
 	background-repeat: no-repeat;
 	background-position: bottom left;
@@ -74,8 +74,8 @@ fieldset {
 	border-style: solid;
 	border-width: 1px;
 	border-color: #D99652;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
+	/*-moz-border-radius: 4px;
+	border-radius: 4px;*/
 }
 
 legend {
@@ -113,14 +113,14 @@ textarea:hover {
 input:required {
 	font-weight: bold;
 }
+
 button,
 input[type=button],
 input[type=submit] {
-	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
+	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif !important;
 	font-weight: normal;
 	/*font-weight: bold;*/
-	background-color: #1161a2;
-	color: #fff200;
+	background-color: lightblue;
 	text-align: center;
 	cursor: pointer;
 	border-width: 1px;
@@ -172,7 +172,7 @@ input:disabled,
 textarea:disabled,
 select:disabled,
 button:disabled {
-	background: GREY;
+	background: lightslategray;
 	cursor: default;
 	color: #fff200;
 }
@@ -262,13 +262,22 @@ div.PAGE {
 }
 
 div.pied {
+	width:95%;
+	position: fixed;
+	margin-right: auto;
+	margin-left: auto;
+	bottom : 0;
+	z-index: 100;
 }
 
 div.entete {
-	position :fixed;
-	margin-left: auto;
+	width:95%;
+	position: fixed;
 	margin-right: auto;
-	top : 0px;
+	margin-left: auto;
+	top : 0;
+	height: 150px;
+	z-index: 100;
 }
 
 .BH_CADRE {
@@ -277,11 +286,11 @@ div.entete {
 	/*width: 100%;*/
 	/*height: 100%;*/
 	/*text-align: center;*/
-	/*border: 2px;*/
+	border: 0px;
 	border-color: #AAA;
 	border-style: outset;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
+	/*-moz-border-radius: 10px;
+	border-radius: 10px;*/
 }
 
 div.MENU {
@@ -311,7 +320,7 @@ div.MENU {
 
 
 .navigationSel {
-	color: #fff200;
+	color: darkblue;
 	font-style: italic;
 }
 
@@ -330,27 +339,28 @@ table.PP {
 
 div.FENETRE_PRINCIPALE {
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 0.9em;
+	font-size: 1em;
 	background-color: #EEE;
 	vertical-align: top;
 	width: 100%;
-	height: 80%;
 	z-index: 2;
+	margin-top:160px;
 	/*text-align: center;*/
 	border: 2px;
 	border-color: #AAA;
 	border-style: outset;
-	-moz-border-radius: 10px;
+/*	-moz-border-radius: 10px;
 	border-radius: 10px;
+	*/
 }
 
 .TEXTE_FEN {
 	vertical-align: top;
 	width: 90%;
-	height: 100%;
 	z-index: 2;
 	margin-left: auto;
 	margin-right: auto;
+	margin-bottom:50px;
 }
 
 .TITRE_FENETRE_PRINCIPALE {
@@ -372,8 +382,10 @@ div.FENETRE_PRINCIPALE {
 	border: 2px;
 	border-color: #AAA;
 	border-style: outset;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
+	margin-top: 10pt;
+	margin-bottom: 10pt;
+	/*-moz-border-radius: 10px;
+	border-radius: 10px;*/
 }
 
 .titreFiche {
@@ -382,6 +394,7 @@ div.FENETRE_PRINCIPALE {
 	font-size: 1.1em;
 	color: black;
 	text-align: center;
+	margin-left: 0;
 	border-spacing: 15px 50px;
 	border-width: 1px;
 	border-color: #00a4dd;
@@ -392,7 +405,7 @@ div.FENETRE_PRINCIPALE {
 	line-height: 2;
 }
 
-table.PAGE, td.pied, td.entete {
+table.PAGE {
 	margin-right: auto;
 	margin-left: auto;
 	border-collapse: inherit;
@@ -403,17 +416,17 @@ table {
 }
 
 .tittab {
+	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
 	color: #1161a2;
 	border-color: #1161a2;
 	border-style: solid;
 	font-weight: bold;
 	text-align: center;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
 	font-size: 1.1em;
 }
 
 .tittab1 {
+	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
 	color: #fff200;
 	background-color: #00a4dd;
 	border-style: solid;
@@ -426,6 +439,7 @@ table {
 }
 
 .titrow {
+	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
 	color: #1161a2;
 	font-weight: bold;
 	text-align: right;
@@ -433,11 +447,20 @@ table {
 }
 
 .tabl0 {
+	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
 	background-color: WHITE;
 	color: #1161a2;
+	border: 0px;
+}
+
+tr.tabl0:hover {
+	background-color: #1161a2;
+	color: WHITE;
+	
 }
 
 .tabl1 {
+	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
 	/*background-color: WHITE;*/
 	color: BLACK;
 	font-weight: bold;
@@ -447,16 +470,13 @@ td.tabInput {
 	font-size: 1em;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	/*border-bottom: 1px solid blue;*/
+	padding: 5pt;
 }
 td.tabInput:hover {
 	font-weight: bold;
 }
 
 
-tr.tabl0:hover {
-	background-color: #1161a2;
-	color: WHITE;
-}
 
 .sortable {
 	background-image: url(Images/arrow_off.png);
@@ -477,6 +497,36 @@ tr.tabl0:hover {
 	background-position: right;
 	background-repeat: no-repeat;
 	cursor: pointer;
+}
+
+#tabStat {
+	display: none;
+}
+#tabStat.tabStatShow {
+	display: table;
+}
+
+img.imgBAV {
+	height:200pt;
+}
+/* responsive from tabStat */
+@media screen and (max-width: 1000px) {
+	#tabStat.tabStatShow {
+		display: none;
+	}
+	#cycleBAV, #logoAVS {
+		height : 25pt
+	}
+	img.imgBAV {
+		height : 100pt
+	}
+	.BH_CADRE {
+		font-size: 0.7em;
+	}
+	.TITRE_FENETRE_PRINCIPALE {
+		font-size: 1em;
+	}
+	
 }
 
 /**************************************/

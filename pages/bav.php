@@ -22,6 +22,21 @@
 		 target="_blank"><span class="glyphicon glyphicon-camera"></span></a></li>
 </ul>
 
+<h3 class="titreFiche">NOS STATISTIQUES</h3>
+
+<div class="row">
+
+    <div class="col-sm-6 col-md-6 col-xs-12">
+            <p>Statistique de l'année 2017</p>
+            <img src="Images/statistiques_2017.jpg"  class="imgBAV" />
+    </div>
+    <div class="col-sm-6 col-md-6 col-xs-12">
+            <p>La première colonne représente le nombre de vélos déposés, la deuxième, le nombre de vélos vendus.</p>
+			<img src="Images/statistiques.png"  class="link imgBAV" onclick='
+				alertModalInfo("<img width=70% height=auto src=\"Images/statistiques.png\" alt=\"statistique BAV\" />")' />
+    </div>
+</div>
+
 <h3 class="titreFiche">QUOI VENDRE ?</h3>
 <p>Tous les types de vélos sont acceptés : VTT, route, VTC, vélos d’enfants, vélos de ville, tandems, cadres… Les
 	accessoires ne sont pas acceptés. <span class="bold">Attention : seuls les vélos en parfait état de fonctionnement
@@ -45,8 +60,13 @@
 </div>
 
 <div class="alert alert-success">
-	<p><b>ASTUCE AVS</b> : Suivre les ventes en direct pour savoir si votre vélo est vendu :
-		<span class="link navigation" onclick='goTo("vente.php",null, null, null)' )>ventes en direct</span></p>
+	<form name="bavForm">
+	<p><b>ASTUCE AVS</b> : Suivre les ventes en direct pour savoir si votre vélo est vendu, en indiquant ci-dessous votre numéro de dépot :
+		<input type="text" name="numeroFiche" size="15" width=10% title="Saisisez le numéro de fiche, ou l'identifiant de la fiche"
+						 placeholder="Recherche" id="inputSearchBav" />
+		<i class="fas fa-search link" onclick="search(bavForm.inputSearchBav.value)"></i>
+		</form>
+	</p>
 </div>
 
 <div class="alert alert-warning">
@@ -60,7 +80,7 @@
 		timbrée à son adresse et le reçu vendeur de couleur. Dès réception,
 		le montant de la vente lui sera envoyé.(Transaction souhaitable dans
 		la semaine qui suit la Bourse aux vélos). <br />Consultez la
-		<span class="link navigation" onclick='goTo("telechargements.php",null, null, null)' )>fiche depot</span>
+		<span class="link navigation" onclick=' window.open("downloads/bav_rayon_30_km.pdf", "_blank");'>PAIEMENT PAR CORRESPONDANCE</span>
 		pour plus d'informations.</p>
 </div>
 
@@ -99,5 +119,5 @@
 		vendeur.</li>
 </ul>
 
-<P>Grâce à notre expérience, nous sommes à votre disposition afin de vous conseiller sur l’achat des vélos (taille,
+<p>Grâce à notre expérience, nous sommes à votre disposition afin de vous conseiller sur l’achat des vélos (taille,
 	rapport qualité-prix, etc…).</p>

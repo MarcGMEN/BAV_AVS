@@ -2,9 +2,13 @@
 $time_start = microtime(true);
 
 require_once "Commun/commun_functions.php";
+require_once "Repository/base_repository.php";
+require_once "Repository/parametre_repository.php";
+require_once "AJAX/parametre_AJAX.php";
 require_once "Commun/connect.php";
 require_once "Commun/Sajax.php";
 require_once "config.ini";
+
 
 error_reporting(E_ERROR);
 if (!isset($GET_page)) {
@@ -18,6 +22,10 @@ if (!isset($_COOKIE['NUMERO_BAV'])) {
 	setcookie('NUMERO_BAV', date('Y'), time() + (86400 * 30), "/"); // 86400 = 1 day
 	$_COOKIE['NUMERO_BAV']=date('Y');
 }
+
+$infAppli = return_infoAppli();
+
+
 
 // init ajax
 $sajax_request_type = "POST";
@@ -36,21 +44,26 @@ sajax_handle_client_request();
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="keywords" lang="fr" content="web 2.0, association">
 	<meta name="description" lang="fr" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<META NAME="Author" LANG="fr" CONTENT="romael">
 	<link REL="SHORTCUT ICON" HREF="Images/BAV.png">
-	<LINK HREF='style.css' REL='stylesheet' TYPE='text/css'>
+
+	<LINK HREF='style.css' REL='stylesheet' TYPE='text/css' >
+
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
 	 crossorigin="anonymous">
+	 
 	<!--  GOOGLE MAP -->
 	<!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script> -->
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 	 crossorigin="anonymous">
-
 	<script src="JS/modal.js" type="text/javascript"></script>
 	<script src="JS/cookies.js" type="text/javascript"></script>
 	<script src="JS/fenetre.js" type="text/javascript"></script>
 	<script src="JS/commun.js" type="text/javascript"></script>
+	<script src="JS/index.js" type="text/javascript"></script>
+
 	<!-- <script src="JS/calendrier.js" type="text/javascript"></script> -->
 	<!-- <script src="JS/fileIO.js" type="text/javascript"></script> -->
 	<!--  POUR le gestion des couleurs -->
@@ -65,6 +78,10 @@ sajax_handle_client_request();
 
 	<script type="text/javascript">
 		startSaisie = false;
+		var TABLE = <?=$infAppli['TABLE'] ? 1 : 0?>;
+		var ADMIN = <?=$infAppli['ADMIN'] ? 1 : 0?>;
+		var CLIENT = <?=$infAppli['CLIENT'] ? 1 : 0?>;
+		var modePage = '<?=$GET_modePage?>';
 
 		function initIndex() {}
 
@@ -74,7 +91,6 @@ sajax_handle_client_request();
 			pageSaisie();
 		}
 
-		var modePage = '<?=$GET_modePage?>';
 		// recuperation des donnees de la BAV
 		function setParamValIndex(val) {
 			getElement("mode").innerHTML = modePage + "-" + CLIENT + "-" + TABLE + "-" + ADMIN +
@@ -99,19 +115,36 @@ sajax_handle_client_request();
 			console.log(val);
 			window.open(val, '_blank');
 		}
+
+		function goTo(page = 'accueil.php', modePage = '', id = null, message = '') {
+			document.formNavigation.action = 'index.php';
+			document.formNavigation.page.value = page
+			document.formNavigation.modePage.value = modePage;
+			document.formNavigation.message.value = message;
+			document.formNavigation.id.value = id;
+			document.formNavigation.submit();
+		}
 	</script>
 
 </head>
 
+
 <BODY class="parent" LANG="fr-FR" onload="initIndex();initEntete();initPage()" onunload="unloadPage()">
+	<form name=formNavigation method=post>
+		<input type=hidden name=page value="">
+		<input type=hidden name=modePage value="">
+		<input type=hidden name=id value="">
+		<input type=hidden name=message value="">
+	</form>
 	<A name="top"></A>
-	<div width="95%"  cellspacing="0" cellpadding="0" class=PAGE id="ecran">
-		<div height="15%" id="entete">
+	<div width="95%" cellspacing="0" cellpadding="0" class=PAGE>
+		<div class="entete">
 			<?include('genericPages/entete.php');  ?>
 		</div>
-		<div class="FENETRE_PRINCIPALE" id="page">
+		<div class="FENETRE_PRINCIPALE">
+			<?print_r($infAppli);?>
 			<div class="TEXTE_FEN">
-				MODE: <span id="mode"></span>
+				MODE:<?=$GET_modePage?>; ID:<?=$GET_id?>;</span>
 				<?echo "go to page [".$GET_page."]";?>
 				<?include('pages/'.$GET_page);?>
 				<!-- Trigger/Open The Modal -->
@@ -135,7 +168,7 @@ sajax_handle_client_request();
 			</div>
 
 		</div>
-		<div height="2%" valign="bottom">
+		<div class="pied">
 			<?include('genericPages/pied.php');?>
 		</div>
 	</div>

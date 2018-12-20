@@ -1,22 +1,22 @@
 <?php $tail = (int) 100 / 3;?>
-<table width="100%">
+<table width="100%" id="tabStat">
 	<tr>
     	<td width="<?=$tail?>%">
 	    	<!-- fiche etat cofirme -->
-		    A valider : <span id="CONFIRME">...</span>
+		    A valider : <span id="CONFIRME" class='link' onclick='goTo("stock.php","obj_etat","CONFIRME",null)'>...</span>
 		</td>
 		<td width="<?=$tail?>%">
 			<!-- fiche etat valide -->
-			Stock : <span id="STOCK">...</span>
+			Stock : <span id="STOCK" class='link' onclick='goTo("stock.php","obj_etat","STOCK",null)'>...</span>
 		</td>
 	    <td width="<?=$tail?>%">
-			Vendu : <span id="VENDU">...</span>
-			<small><span id="statVendu">...</span></small>
+			Vendu : <span id="VENDU" class='link' onclick='goTo("stock.php","obj_etat","VENDU",null)'>...</span>
+			<small><span id="statVendu" >...</span></small>
 		</td>
     </tr>
     <tr>
 		<td width="<?=$tail?>%">
-			Init : <span id="INIT">...</span>
+			Init : <span id="INIT" class='link' onclick='goTo("stock.php","obj_etat","INIT",null)'>...</span>
 		</td>
 		<td width="<?=$tail?>%">
 			<!-- fiche etat modif prix -->
@@ -24,7 +24,7 @@
 			<span id="modifPrix">...</span></A>
 		</td>
 			<td width="<?=$tail?>%">
-				Retour : <span id="RENDU">...</span>
+				Rendu : <span id="RENDU" class='link' onclick='goTo("stock.php","obj_etat","RENDU",null)'>...</span>
 	    		&nbsp;&nbsp;<small><span id="statRetour">...</span></small>
 		</td>
 	</tr>

@@ -174,7 +174,7 @@
 	<form name="parametreForm" method="POST" action="" onsubmit='return valider(document.parametreForm)'>
 		<fieldset class=fiche>
 			<legend class=titreFiche>Parametre<small><div id="modeParametre"></div></small></legend>
-			<table width=100% cellpadding=2 cellspacing=2>
+			<table width=100% cellpadding=2 cellspacing=2 border=1>
 				<tr>
 					<td class="titrow" width=15%>Numero BAV <span title="Obligatoire">*<span></td>
 					<td class="tabl0" width=35%>
@@ -182,9 +182,6 @@
 						placeholder="numéro BAV (année)" onkeyup="setStartSaisie(true);"
 						required/>
 						<span id="par_numero_bav_err" class="error"></span>
-					</td>
-					<td width=15%></td>
-					<td width=35%></td>
 					</td>
 				</tr>
 				<tr>

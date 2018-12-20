@@ -20,6 +20,26 @@ function initPage() {
     x_return_depotsBAV(display_list_prix_depot);
 
     document.ficheForm.obj_type.focus();
+    
+    if (TABLE || ADMIN) {
+        console.log("mode "+ADMIN+" "+TABLE);
+        // en mode create de table, le mail n'est pas obligatoire
+        document.ficheForm.cli_emel.required = false;
+        // pas de CGU pour la TABLE et ADMIN
+        document.ficheForm.checkCGU.required = false;
+        // pas la peine de voir les CGU
+        getElement("tdCGU").style.display = 'none';
+        document.ficheForm.obj_prix_depot.required = true;
+        document.ficheForm.obj_prix_depot.min = 1;
+
+        getElement("trTauxCom").style.display = 'table-row';
+        getElement("trPrix").style.display = 'table-row';
+
+        getElement("tdBtnEtat").style.display = 'table-cell';
+        
+    } else if (!CLIENT) {
+        goTo();
+    }
 
     if (idFiche) {
         x_return_oneFiche(idFiche, display_fiche);
@@ -162,25 +182,7 @@ function display_fiche(val) {
 
 // recuperation des donnees de la BAV
 function setParamVal(val) {
-    setParamValIndex(val);
-    if (TABLE || ADMIN) {
-        // en mode create de table, le mail n'est pas obligatoire
-        document.ficheForm.cli_emel.required = false;
-        // pas de CGU pour la TABLE et ADMIN
-        document.ficheForm.checkCGU.required = false;
-        // pas la peine de voir les CGU
-        getElement("tdCGU").style.display = 'none';
-        document.ficheForm.obj_prix_depot.required = true;
-        document.ficheForm.obj_prix_depot.min = 1;
-
-        getElement("trTauxCom").style.display = 'table-row';
-        getElement("trPrix").style.display = 'table-row';
-
-        getElement("tdBtnEtat").style.display = 'table-cell';
-        
-    } else if (!CLIENT) {
-        goTo();
-    }
+    
 }
 
 function keyUpMel() {
