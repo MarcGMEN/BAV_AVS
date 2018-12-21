@@ -45,6 +45,17 @@
 	est ensuite exposé et vendu par les organisateurs pendant les deux jours de la <b>Bourse aux Vélos</b>.
 	A l’issue du week-end, les vendeurs viennent chercher leur chèque en cas de vente ou leur vélo en cas d’invendu.</p>
 
+<?php
+	$data = array('date1'=>8, 'date2'=>9, 'date3'=>10, 'mois'=>'novembre', 'annee'=>2019,'URL'=>$CFG_URL);
+	$message = makeCorps($data, "reglement.html");
+?>
+<script>
+	var data = "";
+	data ="<? foreach ($data as $key => $val) {echo $key."#3D".$val."#2C";}?>";
+</script>
+<span class="link url" onclick='x_action_makePDFFromHtml(data,"reglement.html", display_openPDF);' )>
+	Telecharger le reglement</span>
+	
 <div class="alert alert-info">
 	<p><b>ASTUCE AVS</b> :
 		<ul>
@@ -52,7 +63,6 @@
 				<span class="link url" onclick='x_action_makePDF(new Array(), display_openPDF);' )>fiche depot</span>
 			</li>
 			<li>Télécharger et remplir votre état des lieux (pour les très beaux vélos)
-
 				<span class="link url" onclick=' window.open("downloads/etat_des_lieux.pdf", "_blank");'>
 					Etat des lieux</span>
 

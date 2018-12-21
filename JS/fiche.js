@@ -173,7 +173,7 @@ function display_fiche(val) {
             getElement("divPrix").style.display = 'block';
             if (TABLE || ADMIN) {
                 getElement("tdBtnPdf").style.display = 'block';
-                //getElement("tdBtnSup").style.display = 'block';
+                getElement("tdBtnSup").style.display = 'block';
             }
             else {
                 disable_formulaire(document.ficheForm, "obj");

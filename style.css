@@ -585,8 +585,12 @@ img.logo {
 		font-size: 0.6em;
 	}
 	h3 {
-		font-size: 1.0em !important;
+		font-size: 1.2em !important;
 	}
+	h4 {
+		font-size: 1.1em !important;
+	}
+
 	small {
 		font-size: 60% !important;
 	}

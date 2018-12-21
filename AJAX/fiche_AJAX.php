@@ -171,6 +171,7 @@ function action_makePDF($id)
         $fiche['obj_marque']="";
         $fiche['obj_modele']="";
         $fiche['obj_couleur']="";
+        $fiche['obj_accessoire']="";
         $fiche['obj_description']="Date d'achat:<br/>Prix d'achat :<br/>Taille :";
         $fiche['obj_prix_vente'] ="<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
         $fiche['obj_prix_depot'] ="<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";

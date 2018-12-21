@@ -7,6 +7,10 @@
 
 <script src="JS/fiche.js" type="text/javascript"></script>
 
+<? if (!$infAppli['TABLE'] && !$infAppli['ADMIN']) {?>
+<h4>Remplissez votre fiche en ligne ici, ou téléchargez la : 
+		<span class="link url" onclick='x_action_makePDF(new Array(), display_openPDF);' )>fiche depot</span>
+<?}?>
 <form name="ficheForm" method="POST" onsubmit="return submitForm()" action="">
 	<input type=hidden name="obj_id" />
 	cli_id <i id=cli_id></i>
@@ -96,23 +100,38 @@
 				</span>
 			</div>
 
-			<div class="col-sm-8 col-md-8 col-xs-12">
+			<div class="col-sm-6 col-md-6 col-xs-12">
 				<span class="titrow col-md-2 col-sm-2 col-xs-3">Description
 					<span class="help link" onclick="inverseLayer('aide_descript')">?</span>
 				</span>
 				<span class="tabInput col-md-10 col-sm-10 col-xs-9">
-					<textarea rows="5" cols=300 tabindex=<?=$tabindex++?>
+					<textarea rows="5" cols=100 tabindex=<?=$tabindex++?>
 						name="obj_description"  onkeyup="setStartSaisie(true);"
 						placeholder="Année d'achat, prix d'achat, taille, accessoires, révision (transmission, pneus, freins..)">Taille :
 Prix d'achat : 
 Année d'achat : 
 .....</textarea>
 				</span>
+				<span class="col-md-12 col-sm-12 col-xs-12 help">
+					<div id="aide_descript" style="visibility: hidden;">
+						<small>Année d'achat, prix d'achat, taille, accessoires, révision (transmission, pneus, freins..)</small>
+					</div>
+				</span>
+			</div>
+			<div class="col-sm-6 col-md-6 col-xs-12">
+				<span class="titrow col-md-2 col-sm-2 col-xs-3">Accessoires
+					<span class="help link" onclick="inverseLayer('aide_accessoire')">?</span>
+				</span>
+				<span class="tabInput col-md-10 col-sm-10 col-xs-9">
+					<textarea rows="5" cols=100 max-size=200 tabindex=<?=$tabindex++?>
+						name="obj_accessoire"  onkeyup="setStartSaisie(true);"
+						placeholder="La liste de tous les accessoires déposés avec le vélo."></textarea>
+				</span>
 			</div>
 			<div class="col-sm-4 col-md-4 col-xs-12">
 				<span class="col-md-12 col-sm-12 col-xs-12 help">
-					<div id="aide_descript" style="visibility: hidden;">
-						Année d'achat, prix d'achat, taille, accessoires, révision (transmission, pneus, freins..)
+					<div id="aide_accessoire" style="visibility: hidden;">
+						<small>La liste de tous les accessoires déposés avec le vélo.</small>
 					</div>
 				</span>
 			</div>
