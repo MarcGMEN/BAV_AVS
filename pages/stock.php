@@ -7,8 +7,9 @@
 
 	function initPage() {
 		x_return_enum('bav_objet', 'obj_type', display_list_type);
-		x_return_enum('bav_objet', 'obj_public', display_list_public);
-		x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);
+		//x_return_enum('bav_objet', 'obj_public', display_list_public);
+		//x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);
+
 		x_return_list_marques(display_list_marque)
 		x_return_list_unique("bav_objet", "obj_etat", display_list_etat)
 		x_return_list_unique("bav_objet", "obj_couleur", display_list_couleur)
@@ -74,25 +75,29 @@
 				repr += "<td width=10% align=center>";
 				repr += val[index]['obj_numero'];
 				repr += "</td>";
-				repr += "<td width=10% >";
+				repr += "<td width=20% >";
 				repr += val[index]['obj_type'];
 				repr += "</td>";
-				repr += "<td width=10% >";
+				/*repr += "<td width=10% >";
 				repr += val[index]['obj_public'];
 				repr += "</td>";
 				repr += "<td width=10% >";
 				repr += val[index]['obj_pratique'];
-				repr += "</td>";
-				repr += "<td width=20% >";
+				repr += "</td>";*/
+				repr += "<td class='maskMobile' width=20% >";
 				repr += val[index]['obj_marque'];
 				repr += "</td>";
-				repr += "<td width=20% >";
+				repr += "<td class='maskMobile' width=20% >";
 				repr += val[index]['obj_couleur'];
 				repr += "</td>";
-				repr += "<td width=10% >";
-				repr += val[index]['obj_prix_vente'];
+				repr += "<td width=15% >";
+				if (val[index]['obj_prix_vente'] == 0) {
+					repr += "<span style='color:orange'>"+val[index]['obj_prix_depot']+"</span>";
+				} else {
+					repr += val[index]['obj_prix_vente'];
+				}
 				repr += "</td>";
-				repr += "<td width=10% >";
+				repr += "<td width=15% >";
 				repr += val[index]['obj_etat'];
 				repr += "</td>";
 				repr += "</tr>";
@@ -135,11 +140,11 @@
 
 	function selectColonne(col, mask) {
 		tabSel['obj_type'] = getElement("sel_obj_type").value;
-		tabSel['obj_public'] = getElement("sel_obj_public").value;
+		//tabSel['obj_public'] = getElement("sel_obj_public").value;
+		//tabSel['obj_pratique'] = getElement("sel_obj_pratique").value;
 		tabSel['obj_marque'] = getElement("sel_obj_marque").value;
 		tabSel['obj_etat'] = getElement("sel_obj_etat").value;
 		tabSel['obj_couleur'] = getElement("sel_obj_couleur").value;
-		tabSel['obj_pratique'] = getElement("sel_obj_pratique").value;
 		console.log(col + "," + sens);
 		console.log(tabSel);
 		x_return_fiches(col, sens, tabToString(tabSel), 0, display_fiches);
@@ -158,24 +163,24 @@
 		<tr>
 			<td class="tittab" width=10%>
 				<span id='obj_numero' onclick="triColonne('obj_numero')" class="sortable">Numero&nbsp;&nbsp;&nbsp;</span></td>
-			<td class="tittab" width=10%>
+			<td class="tittab" width=20%>
 				<span id='obj_type' onclick="triColonne('obj_type')" class="sortable">Type&nbsp;&nbsp;&nbsp;</span>
 				&nbsp;<select id="sel_obj_type" onchange="selectColonne('obj_type', this.value)"></select></td>
-			<td class="tittab" width=10%>
+			<!--<td class="tittab" width=10%>
 				<span id='obj_public' onclick="triColonne('obj_public')" class="sortable">Public&nbsp;&nbsp;&nbsp;</span>
 				&nbsp;<select id="sel_obj_public" onchange="selectColonne('obj_public', this.value)"></select></td>
 			<td class="tittab" width=10%>
 				<span id='obj_pratique' onclick="triColonne('obj_pratique')" class="sortable">Pratique&nbsp;&nbsp;&nbsp;</span>
-				&nbsp;<select id="sel_obj_pratique" onchange="selectColonne('obj_pratique', this.value)"></select></td>
-			<td class="tittab" width=20%>
+				&nbsp;<select id="sel_obj_pratique" onchange="selectColonne('obj_pratique', this.value)"></select></td>-->
+			<td class="tittab maskMobile" width=20%>
 				<span id='obj_marque' onclick="triColonne('obj_marque')" class="sortable">Marque&nbsp;&nbsp;&nbsp;</span>
 				&nbsp;<select id="sel_obj_marque" onchange="selectColonne('obj_marque', this.value)"></select></td>
-			<td class="tittab" width=20%>
+			<td class="tittab maskMobile" width=20%>
 				<span id='obj_marque' onclick="triColonne('obj_couleur')" class="sortable">Couleur&nbsp;&nbsp;&nbsp;</span>
 				&nbsp;<select id="sel_obj_couleur" onchange="selectColonne('obj_couleur', this.value)"></select></td>
-			<td class="tittab" width=10%>
+			<td class="tittab" width=15%>
 				<span class="sortable" id='obj_prix_vente' onclick="triColonne('obj_prix_vente')">Prix vente&nbsp;&nbsp;&nbsp;</span></td>
-			<td class="tittab" width=10%>
+			<td class="tittab" width=15%>
 				<span id='obj_etat' onclick="triColonne('obj_etat')" class="sortable">Etat&nbsp;&nbsp;&nbsp;</span>
 				&nbsp;<select id="sel_obj_etat" onchange="selectColonne('obj_etat', this.value)"></select></td>
 		</tr>

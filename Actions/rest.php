@@ -32,7 +32,6 @@ if ($GET_a == "C") {
 
                 $client = getOneClient($fiche['obj_id_vendeur']);
 
-                $tabPlus['URL'] = $CFG_URL;
                 $tabPlus['titre'] = $par['titre'];
 
                 // convert en PDF
@@ -41,14 +40,18 @@ if ($GET_a == "C") {
                 //updateFiche($fiche);
                 updateFiche($fiche);
 
-                $tabPlus['lien_update_fiche'] = $CFG_URL . "/index.php?consult.php&id=" . $fiche['obj_id_modif'];
-                $tabPlus['lien_vue-client'] = $CFG_URL . "/index.php?consult.php&id=" . $client['cli_id_modif'];
+                $tabPlus['lien_update_fiche'] = $CFG_URL . "/index.php?modePage=consult&id=" . $fiche['obj_id_modif'];
+                $tabPlus['lien_vue-client'] = $CFG_URL . "/index.php?modePage=consult&id=" . $client['cli_id_modif'];
 
-                if ($fiche['obj_prix_depot'] == "") {
-                    $fiche['obj_prix_depot'] = '____.__';
+                if ($fiche['obj_prix_depot'] == 0) {
+                    $tabPlus['obj_prix_depot']='A renseigner le jour du dépôt dernier délai';
+                    $fiche['obj_prix_depot'] == 0;
+                } else {
+                    $tabPlus['obj_prix_depot']=$fiche['obj_prix_depot']." €";
                 }
-                $fiche['obj_prix_vente']="<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
-                $client['cli_com']="<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>";
+    
+                $tabPlus['obj_prix_vente']="<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
+                $tabPlus['cli_com']="<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>";
                 // envoi du mel au client
                 $titreMel = "Enregistrement correct de votre fiche ".$fiche['obj_numero'];
                 $message = makeMessage(titreMel, array_merge($fiche, $client, $tabPlus), "mel_confirme.html");

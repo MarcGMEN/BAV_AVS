@@ -109,7 +109,7 @@ function listUnique($table, $champ, $sel = null)
         }
         $result->close();
     } else {
-        throw new Exception("listUnique' [$req]".mysqli_error());
+        throw new Exception("listUnique' [$query]".mysqli_error());
     }
     return $tab;
 }

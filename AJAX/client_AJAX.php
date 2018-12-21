@@ -7,7 +7,7 @@
 /**************************************/
 function return_listClientByMel($mel)
 {
-    return listUnique("client", "cli_emel", $mel);
+    return listUnique("bav_client", "cli_emel", $mel);
 }
 
 function return_oneClientByMel($mel)

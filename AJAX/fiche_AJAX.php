@@ -87,14 +87,21 @@ function action_createFiche($data)
             $tabObj['obj_prix_vente']=$tabObj['obj_prix_depot'];
             $tabObj['obj_date_depot']=date('y-m-d h:m:s');
         } else {
+            $tabObj['obj_etat'] = 'INIT';
             makeNumeroFiche(5000, $tabObj);
-            $tabObj['lien_confirm']=$CFG_URL."/Actions/rest.php?a=C&id=".$tabObj['obj_id_modif'];
+            $tabPlus['lien_confirm']=$CFG_URL."/Actions/rest.php?a=C&id=".$tabObj['obj_id_modif'];
         
             if ($tabObj['obj_prix_depot'] == "") {
-                $tabObj['obj_prix_depot']='____.__';
+                $tabPlus['obj_prix_depot']='A renseigner le jour du dépôt dernier délai';
+                $tabObj['obj_prix_depot'] == 0;
+            } else {
+                $tabPlus['obj_prix_depot']=$tabObj['obj_prix_depot']." €";
             }
-            $titreMel="Confirmation du dépôt de la Bourse Aux Vélos";
-            $message = makeMessage($titreMel, array_merge($tabObj, $tabCli), "mel_enregistrement.html");
+
+            $tabPlus['titre'] = $infoAppli['titre'];
+
+            $titreMel="Confirmation de votre dépôt à ".$infoAppli['titre'];
+            $message = makeMessage($titreMel, array_merge($tabObj, $tabCli, $tabPlus), "mel_enregistrement.html");
         }
         
         $tabObj['obj_numero_bav']=$_COOKIE['NUMERO_BAV'];

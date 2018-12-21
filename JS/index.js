@@ -16,6 +16,7 @@ function search(value) {
     else {
         alertModalWarnTimeout("Format incorrect (N° fiche, code fiche, code client)",2);
     }
+    return false;
     // si numerique < 10000 alors fiche en consult
     // si 5 caracteres => modif fiche
     // si 8 caracteres => consult client

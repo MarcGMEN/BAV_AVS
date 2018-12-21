@@ -35,7 +35,7 @@ function initPage() {
         getElement("trTauxCom").style.display = 'block';
         getElement("divPrix").style.display = 'block';
 
-        getElement("tdBtnEtat").style.display = 'table-cell';
+        getElement("tdBtnEtat").style.display = 'block';
         
     } else if (!CLIENT) {
         goTo();
@@ -48,6 +48,7 @@ function initPage() {
         if (modePage != "create") {
             goTo();
         }
+        document.ficheForm.obj_etat_new.value = "INIT";
     }
 }
 
@@ -84,7 +85,7 @@ function display_fiche(val) {
         console.log(val);
         x_return_oneClient(val['obj_id_vendeur'], display_infoClientVendeur);
 
-        getElement("trTitreFiche").style.display = 'table-row';
+        getElement("trTitreFiche").style.display = 'block';
         // TODO : en fonction de l'etat, on propose les btn
         // etat INIT
         if (val['obj_etat'] == "INIT") {
@@ -99,6 +100,8 @@ function display_fiche(val) {
             getElement("tdBtnSup").style.display = 'block';
             getElement("divPrix").style.display = 'block';
             document.ficheForm.buttonValideFiche.innerHTML = "Modifier";
+
+            document.ficheForm.cli_emel.disabled = true;
             // pas de CGU pour la TABLE et ADMIN
             document.ficheForm.checkCGU.required = false;
             // pas la peine de voir les CGU
@@ -131,48 +134,57 @@ function display_fiche(val) {
             document.ficheForm.obj_etat_new.value = "VENDU";
             document.ficheForm.buttonEtatFicheBis.style.display = 'inline';
             document.ficheForm.buttonEtatFicheBis.value = 'Rendre';
-            if (TABLE) {
+            if (!ADMIN) {
                 disable_formulaire(document.ficheForm, "cli");
             }
 
         }
         if (val['obj_etat'] == "VENDU") {
             getElement("divPrix").style.display = 'block';
-            getElement("tdBtnPdf").style.display = 'block';
-
+            
             // pas de CGU pour la TABLE et ADMIN
             document.ficheForm.checkCGU.required = false;
             // pas la peine de voir les CGU
             getElement("tdCGU").style.display = 'none';
             getElement("tdBtnSup").style.display = 'none';
 
-            disable_formulaire(document.ficheForm, "obj");
-            disable_formulaire(document.ficheForm, "cli");
+            if (!ADMIN) {
+                disable_formulaire(document.ficheForm, "obj");
+                disable_formulaire(document.ficheForm, "cli");
+                getElement("tdBtnAction").style.display = 'none';
+            }
 
             document.ficheForm.buttonEtatFiche.value = "A payer";
             document.ficheForm.obj_etat_new.value = "PAYE";
 
             document.ficheForm.buttonEtatFicheBis.style.display = 'none';
             document.ficheForm.buttonEtatFicheBis.value = '';
-            
-            getElement("fieldSetAcheteur").style.display = 'block';
-            console.log(val['obj_id_acheteur']);
-            x_return_oneClient(val['obj_id_acheteur'], display_infoClientAcheteurFiche);
+
+            if (TABLE || ADMIN) {
+                getElement("tdBtnPdf").style.display = 'block';
+
+                getElement("fieldSetAcheteur").style.display = 'block';
+                console.log(val['obj_id_acheteur']);
+                x_return_oneClient(val['obj_id_acheteur'], display_infoClientAcheteurFiche);
+            }
         }
 
         if (val['obj_etat'] == "RENDU" || val['obj_etat'] == "PAYE") {
             getElement("divPrix").style.display = 'block';
-            getElement("tdBtnPdf").style.display = 'block';
-            getElement("tdBtnSup").style.display = 'block';
-
+            if (TABLE || ADMIN) {
+                getElement("tdBtnPdf").style.display = 'block';
+                //getElement("tdBtnSup").style.display = 'block';
+            }
+            else {
+                disable_formulaire(document.ficheForm, "obj");
+                disable_formulaire(document.ficheForm, "cli");
+                getElement("tdBtnAction").style.display = 'none';
+            }
             // pas de CGU pour la TABLE et ADMIN
             document.ficheForm.checkCGU.required = false;
             // pas la peine de voir les CGU
             getElement("tdCGU").style.display = 'none';
             getElement("tdBtnEtat").style.display = 'none';
-
-            disable_formulaire(document.ficheForm, "obj");
-            disable_formulaire(document.ficheForm, "cli");
 
         }
     } else {
@@ -261,7 +273,7 @@ function enregisterFiche() {
     if (tabObj['obj_prix_depot']) {
         tabObj['obj_prix_depot'] += " &#8364;";
     } else {
-        tabObj['obj_prix_depot'] = "A renseigner le jour du dépôt tard";
+        tabObj['obj_prix_depot'] = "A renseigner le jour du dépôt au plus tard.";
     }
     if (tabCli['cli_code_postal']) {
         tabCli['cli_code_postal'] = " [" + tabCli['cli_code_postal'] + "]";
@@ -371,11 +383,12 @@ function changeEtatFiche() {
     } else if (etat == 'RENDU') {
         // => cloturé 
         // TODO : confirm
-        x_action_changeEtatFiche(tabToString(tabObj), display_fin_modif);
+        x_get_publiHtml(tabToString(tabObj), 'modal_confirm_rendre.html', display_messageConfirmChangeEtat);
     } else if (etat == 'PAYE') {
         // => cloturé
         // TODO : confirm
-        x_action_changeEtatFiche(tabToString(tabObj), display_fin_modif);
+        tabObj['commission']=getElement("comission_calc").innerHTML;
+        x_get_publiHtml(tabToString(tabObj), 'modal_confirm_paye.html', display_messageConfirmChangeEtat);
     }
 
     return false;
@@ -392,9 +405,14 @@ function confirmModalForm() {
         tabAch[newKey]=tabAch[i];
         delete tabAch[i];
     }
+    var tabObjModal = recup_formulaire(document.modalForm, 'obj');
+    
     var tabObj = recup_formulaire(document.ficheForm, 'obj');
     tabObj['obj_marque'] = document.ficheForm.elements.namedItem('obj_marque_' + idRamdom).value;
     delete tabObj['obj_marque_' + idRamdom];
+
+    tabObj['obj_prix_vente']=tabObjModal['obj_prix_vente'];
+
     var tabData = Object.assign({}, tabObj, tabAch);
     closeModal();
     x_action_vendFiche(tabToString(tabData), display_fin_modif);

@@ -250,14 +250,13 @@ div.entete {
 	margin-right: auto;
 	margin-left: auto;
 	top: 0;
-	height: 150px;
 	z-index: 100;
 }
 
 .BH_CADRE {
 	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
 	background-color: lightblue;
-	/*width: 100%;*/
+	width: 100%;
 	/*height: 100%;*/
 	/*text-align: center;*/
 	border: 0px;
@@ -386,7 +385,7 @@ div.FENETRE_PRINCIPALE {
 	z-index: 2;
 	margin-left: auto;
 	margin-right: auto;
-	margin-bottom: 50px;
+	margin-bottom: 50pt;
 }
 
 .TITRE_FENETRE_PRINCIPALE {
@@ -535,6 +534,10 @@ td.tabl0 {
 	cursor: pointer;
 }
 
+.maskMobile {
+	display: table-cell;
+}
+
 #tabStat {
 	display: none;
 }
@@ -588,7 +591,10 @@ img.logo {
 		font-size: 60% !important;
 	}
 	div.FENETRE_PRINCIPALE {
-		margin-top: 100px;
+		margin-top: 65px;
+	}
+	.maskMobile {
+		display: none;
 	}
 }
 
@@ -614,7 +620,7 @@ img.logo {
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	letter-spacing: 3px;
-	height: 2em;
+	height: auto;
 }
 
 .BH_MODAL_ERR {
@@ -652,10 +658,13 @@ img.logo {
 	padding: 2px;
 	border: 1px solid #888;
 	width: 80%;
+	max-width: 80%;
 	height: auto;
-	min-height: 150px;
+	max-height: 90%;
+	min-height: 150pt;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
+	overflow:auto;
 }
 
 .modalDo {
@@ -675,7 +684,7 @@ img.logo {
 }
 
 #modalAction {
-	height: 1.5em;
+	height: auto;
 	vertical-align: bottom;
 	background-color: lightsteelblue;
 	text-align: center;

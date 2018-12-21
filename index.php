@@ -67,7 +67,7 @@ sajax_handle_client_request();
 	<!-- <script src="JS/calendrier.js" type="text/javascript"></script> -->
 	<!-- <script src="JS/fileIO.js" type="text/javascript"></script> -->
 	<!--  POUR le gestion des couleurs -->
-	<script type="text/javascript" src="JS/jscolor.js"></script>
+	<!-- <script type="text/javascript" src="JS/jscolor.js"></script> -->
 
 	<?php  // inclusion pour SAJAX?>
 	<!-- <script type="text/javascript" src="JS/sajax/json_stringify.js"></script>
@@ -77,13 +77,18 @@ sajax_handle_client_request();
 	<? sajax_show_javascript();?>
 
 	<script type="text/javascript">
-		startSaisie = false;
+		var startSaisie = false;
 		var TABLE = <?=$infAppli['TABLE'] ? 1 : 0?>;
 		var ADMIN = <?=$infAppli['ADMIN'] ? 1 : 0?>;
 		var CLIENT = <?=$infAppli['CLIENT'] ? 1 : 0?>;
 		var modePage = '<?=$GET_modePage?>';
+		var id='<?=$GET_id?>';
 
-		function initIndex() {}
+		function initIndex() {
+			if (modePage == "consult" && id != '') {
+                search(id);
+			}
+		}
 
 		function setStartSaisie(cStartSaisie) {
 			startSaisie = cStartSaisie;
@@ -159,9 +164,8 @@ sajax_handle_client_request();
 								<td width="5%" id="modalClose"></td>
 							</tr>
 						</table>
-						<br /><br />
 						<div id="modalText"></div>
-						<br /><br />
+						<br />
 						<div id="modalAction"></div>
 					</form>
 				</div>

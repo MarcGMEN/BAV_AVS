@@ -7,46 +7,40 @@
 
 <script src="JS/fiche.js" type="text/javascript"></script>
 
-<h2><b>Nouveauté 2019 :</b> Pour gagner tu temps, saisissez votre dépot directement le ligne.</h2>
-
 <form name="ficheForm" method="POST" onsubmit="return submitForm()" action="">
 	<input type=hidden name="obj_id" />
 	cli_id <i id=cli_id></i>
 	<input type=hidden name="cli_id" />
 	<fieldset class=fiche>
 		<legend class=titreFiche>Le depot</legend>
-		<table width=100% cellpadding=4 cellspacing=5>
-			<!-- Pas en creation -->
-			<tr id='trTitreFiche' style='display: none'>
-				<td colspan=10>
-					<table width="100%" class="tittab" cellpadding=0 cellspacing=0>
-						<tr>
-							<td class="titrow" width=8%>No Fiche</td>
-							<td class="tabl1" width=25%>
-								<input type="hidden" name="obj_numero" />
-								<span id='obj_numero'></span>
-							</td>
-							<td class="tabl1" width=18%>
-								<span id="obj_etat"></span>
-								<input type="hidden" name="obj_etat" />
-								<input type="hidden" name="obj_etat_new" />
-								<span>
-							<td class="fiche tabl1" width=15% id="tdBtnEtat" style="display:none">
-								<input type=submit name="buttonEtatFiche" tabindex=<?=$tabindex++?>
-								/>
-								<input type=submit name="buttonEtatFicheBis" style="display:none" onclick="this.form.obj_etat_new.value='RENDU'"
-								 tabindex=<?=$tabindex++?> />
-								</span>
-							</td>
-							<td class="titrow" width=8%>ID</td>
-							<td class="tabl1" width=25%>
-								<span id='obj_id_modif'></span>
-							</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-		</table>
+		<div class="row tittab" id='trTitreFiche' style='display: none'>
+			<div class="col-sm-4 col-md-4 col-xs-4">
+				<span class="titrow col-md-3 col-sm-3 col-xs-3" width=20%>No</span>
+				<span class="tabl1 col-md-9 col-sm-9 col-xs-9">
+					<input type="hidden" name="obj_numero" />
+					<span id='obj_numero'></span>
+				</span>
+			</div>
+			<div class="col-sm-4 col-md-4 col-xs-4">
+				<div class="col-sm-6 col-md-6 col-xs-6 tabl1">
+					<span id="obj_etat"></span>
+					<input type="hidden" name="obj_etat" />
+					<input type="hidden" name="obj_etat_new" />
+				</div>
+				<div class="col-sm-6 col-md-6 col-xs-6 tabl1" id="tdBtnEtat"  style='display: none'>
+				<input type=submit name="buttonEtatFiche" tabindex=<?=$tabindex++?>	/>
+				<input type=submit name="buttonEtatFicheBis" style="display:none" onclick="this.form.obj_etat_new.value='RENDU'"
+					 tabindex=<?=$tabindex++?> />
+				</div>
+			</div>
+			<div class="col-sm-4 col-md-4 col-xs-4">
+				<span class="titrow col-md-3 col-sm-3 col-xs-3" width=20%>ID</span>
+				<span class="tabl1 col-md-9 col-sm-9 col-xs-9">
+					<span id='obj_id_modif'></span>
+				</span>
+			</div>
+		</div>
+		
 		<div class="row">
 			<div class="col-sm-4 col-md-4 col-xs-12">
 				<span class="titrow col-md-3 col-sm-3 col-xs-3" width=20%>Type</span>
@@ -149,7 +143,7 @@ Année d'achat :
 				</span>
 			</div>
 			<div class="col-sm-4 col-md-4 col-xs-4">
-				<span class="titrow  col-md-3 col-sm-3 col-xs-12">Commision :</span>
+				<span class="titrow  col-md-3 col-sm-3 col-xs-12">Commission :</span>
 				<span class="tabl1 col-md-9 col-sm-9 col-xs-12">
 					&nbsp&nbsp<span id="comission_calc">...</span>&#8364;
 				</span>
@@ -223,56 +217,59 @@ Année d'achat :
 			</div>
 		</div>
 	</fieldset>
-	<div class="row fiche">
+	<div class="row fiche" >
 		<div class="col-sm-12 col-md-12 col-xs-12" id="tdCGU">
 			<input type="checkbox" name="checkCGU" required />Je déclare avec lu et pris connaissance des
 			<A HREF="data/CGU.pfg" target="_blanck">CGU</A>
 		</div>
-		<div class="col-sm-4 col-md-4 col-xs-4 btnAction" >
-			<button name="buttonValideFiche" tabindex=<?=$tabindex++?>
-					disabled
-					onclick="this.form.obj_etat_new.value=''">Enregristrer
+
+		<div class="col-sm-3 col-md-3 col-xs-6 btnAction" id="tdBtnAction" >
+			<button name="buttonValideFiche" tabindex=<?=$tabindex++?> disabled onclick="this.form.obj_etat_new.value=''">Enregristrer
 			</button>
 		</div>
-		<div class="col-sm-4 col-md-4 col-xs-4 btnAction" style='display:none'>
+<!--		<div class="col-sm-3 col-md-3 col-xs-6 btnAction" style='display:none'>
 			<button name="buttonValideBisFiche" tabindex=<?=$tabindex++?>>???????</button>
-		</div>
-		<div class="col-sm-4 col-md-4 col-xs-4" style='display:none' id="tdBtnPdf">
+		</div>-->
+		<div class="col-sm-3 col-md-3 col-xs-6 btnAction" style='display:none' id="tdBtnPdf">
 			<input type=button value="Impression" onclick="imprimeFiche()" name="buttonPDFFiche" tabindex=<?=$tabindex++?>>
 		</div>
-		<div class="col-sm-4 col-md-4 col-xs-4" style='display:none' id="tdBtnSup">
+		<div class="col-sm-3 col-md-3 col-xs-6 btnAction" style='display:none' id="tdBtnSup">
 			<input type=button value="Supprimer" name="buttonSupprimeFiche" onclick="supprimerFiche()" tabindex=<?=$tabindex++?> />
 		</div>
-		<div class="col-sm-4 col-md-4 col-xs-4" >
+		<div class="col-sm-3 col-md-3 col-xs-6 btnAction"  >
 			<input type=button value="Annuler" onclick="fermerCRUD()" tabindex=<?=$tabindex++?>>
 		</div>
 	</div>
 
 	<fieldset class=fiche style='display:none' id="fieldSetAcheteur">
 		<legend class=titreFiche>L'acheteur</legend>
-		<table width=100% align=center cellpadding=2 cellspacing=2>
-			<tr>
-			<tr>
-				<td class="titrow" width="10%">Emel </td>
-				<td class="tabInput" width=40% id="ach_emel">
-				<td class="titrow" width=10%>Nom/prenom </td>
-				<td class="tabInput" width=40% id='ach_nom'></td>
-			</tr>
-			<tr>
-				<td class="titrow">Adresse</td>
-				<td class="tabInput">
+		<div class="row">
+			<div class="col-sm-6 col-md-6 col-xs-12">
+				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Emel </span>
+				<span class="tabInput col-md-9 col-sm-9 col-xs-9" id="ach_emel">
+				</span>
+			</div>
+			<div class="col-sm-6 col-md-6 col-xs-12">
+				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Nom/prenom </span></span>
+				<span class="tabInput col-md-9 col-sm-9 col-xs-9" id="ach_nom">
+				</span>
+			</div>
+			<div class="col-sm-6 col-md-6 col-xs-12">
+				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Adresse</span>
+				<span class="tabInput col-md-9 col-sm-9 col-xs-9" >
 					<div id='ach_adresse'></div>
 					<div id='ach_adresse1'></div>
 					<div id='ach_code_postal'></div>
 					<div id='ach_ville'></div>
-				</td>
-				<td class="titrow">Telephone</td>
-				<td class="tabInput">
+				</span>
+			</div>
+			<div class="col-sm-6 col-md-6 col-xs-12">
+				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Telephone</span>
+				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
 					<div id='ach_telephone'></div>
 					<div id='ach_telephone_bis'></div>
-				</td>
-			</tr>
-		</table>
-	</fieldset>
+				</span>
+			</div>
+		</div>
 	</fieldset>
 </form>
