@@ -1,8 +1,17 @@
 <h3>LA BOURSE AUX VELOS DANS LA PRESSE</h3>
 
+<div id="editor1" contenteditable="true">
 <h4>Presse Océan - Octobre 2017</h4>
-<a href="<?php echo base_url(); ?>images/BAV_PO_01102017.png"><img src="<?php echo base_url(); ?>images/BAV_PO_01102017.png" alt="Presse" class="img-rounded sidebar-image" width="800px"></a>
-
+<a href="Images/BAV_PO_01102017.png">
+    <img src="Images/BAV_PO_01102017.png" alt="Presse" 
+        class="img-rounded sidebar-image" width="800px">
+    </a>
+</div>
+<script>
+    // Turn off automatic editor creation first.
+    CKEDITOR.disableAutoInline = true;
+    CKEDITOR.inline( 'editor1' );
+</script>
 <h4>Estuaire Hebdo - Octobre 2017</h4>
 <a href="<?php echo base_url(); ?>images/BAV_EH_01102017.png"><img src="<?php echo base_url(); ?>images/BAV_EH_01102017.png" alt="Presse" class="img-rounded sidebar-image" width="800px"></a>
 

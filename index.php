@@ -64,6 +64,8 @@ sajax_handle_client_request();
 	<script src="JS/commun.js" type="text/javascript"></script>
 	<script src="JS/index.js" type="text/javascript"></script>
 
+	<script src="ckeditor/ckeditor.js"></script>
+
 	<!-- <script src="JS/calendrier.js" type="text/javascript"></script> -->
 	<!-- <script src="JS/fileIO.js" type="text/javascript"></script> -->
 	<!--  POUR le gestion des couleurs -->
