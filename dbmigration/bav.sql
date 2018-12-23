@@ -49,19 +49,8 @@ CREATE TABLE `bav_client` (
 
 INSERT INTO `bav_client` (`cli_id`, `cli_id_modif`, `cli_nom`, `cli_emel`, `cli_adresse`, `cli_adresse1`, `cli_code_postal`, `cli_ville`, `cli_telephone`, `cli_telephone_bis`, `cli_taux_com`, `cli_prix_depot`) VALUES
 (12, '7e3299ab', 'marc Braillou', 'braillou@gmail.com', '2, rue des judelles', '', '44117', 'SAINT ANDRE DES EAUX', '0681629671', '', '10.00', '3.00'),
-(13, '43c37962', 'sfsdfsfsdf', 'sfsdf@sfsd.fsd', '', '', '', '', '', '', '10.00', '0.00'),
-(14, 'a7b65785', 'sfsdsfsf', 'sfdfsd@xn--sdfs-9ga', 'm', '', 'l', 'sfsd', '', '', '10.00', '3.00'),
-(15, '17ac7d38', 'sdfsdfsd', 'sfsdfsdfsd@sdfsdfs', '', '', '', '', '', '', '10.00', '3.00'),
-(16, '102f143e', 'sfsdf', '', '2, rue des judelles', '2, rue des judelles', '', 'SAINT ANDRE DES EAUX', '0681629671', '', '10.00', '3.00'),
 (17, 'c407c04e', 'Garcès Marc', 'marc.garces@free.fr', '2, rue des judelles', '', '44117', 'SAINT ANDRÉ DES EAUX', '0681629671', '', '5.00', '0.00'),
-(18, 'dd23bd52', 'Corduan Olivier', 'olivier.corduan@orange.fr', '', '', '44600', 'Saint Nazaire', '', '', '10.00', '3.00'),
-(22, '61dc0369', 'dgdg', '', '', '', '', '', '', '', '10.00', '3.00'),
-(23, '6ce34174', 'sfsdfsd', '', '', '', '', '', '', '', '10.00', '3.00'),
-(24, '51817654', 'sfsdfsdsdsd', '', '', '', '', '', '', '', '10.00', '3.00'),
-(25, 'd6d6d11a', 'sfsdfsdsf', 'sdfsdfsd@sfsdfs', '', '', '', '', '', '', '5.00', '3.00'),
-(26, 'c6ad5e0c', 'test test', 'test@test.com', '', '', '', 'paris', '', '', '10.00', '3.00'),
-(27, '43ce3e43', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0.00', '0.00'),
-(28, '2899948f', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0.00', '0.00');
+(18, 'dd23bd52', 'Corduan Olivier', 'olivier.corduan@orange.fr', '', '', '44600', 'Saint Nazaire', '', '', '10.00', '3.00');
 
 -- --------------------------------------------------------
 
@@ -114,12 +103,8 @@ INSERT INTO `bav_objet` (`obj_id`, `obj_numero`, `obj_id_modif`, `obj_numero_bav
 (120, 703, 'fd1d6', 2018, 'Autre', 'Autre', 'Autre', 'sfs', '', 'sfsd', '', '0.00', '2018-12-10 08:54:41', '0.00', NULL, NULL, 16, NULL, NULL, 'STOCK'),
 (122, 704, '2ed65', 2018, 'Autre', 'Autre', 'Autre', 'sfsd', '', 'sfsd', 'Taille :\nPrix d\'achat : \nAnnée d\'achat : \n.....', '120.00', '2018-12-10 12:37:31', '0.00', NULL, NULL, 18, NULL, '2018-12-21 02:12:41', 'RENDU'),
 (124, 705, 'c9e21', 2018, 'VTT', 'Homme', 'Sportif', 'ORBEA', '', 'NOIR CARBONNE', 'Taille :\nPrix d\'achat : \nAnnée d\'achat : \n.....', '120.00', '2018-12-10 01:12:21', '120.00', NULL, NULL, 18, NULL, NULL, 'STOCK'),
-(125, 5000, 'b9b05', 2018, 'Autre', 'Autre', 'Autre', 'BTWIN', 'toto', 'noir', 'Taille :\nPrix d\'achat : \nAnnée d\'achat : \n.....', '1200.00', '2018-12-19 14:45:37', '0.00', NULL, NULL, 17, NULL, NULL, ''),
-(126, 5001, '10db5', 2018, 'Autre', 'Autre', 'Autre', 'BTWIN', 'toto', 'noir', 'Taille :\nPrix d\'achat : \nAnnée d\'achat : \n.....', '1200.00', '2018-12-19 14:46:07', '0.00', NULL, NULL, 17, NULL, NULL, ''),
 (127, 708, 'a6c1f', 2018, 'Autre', 'Autre', 'Autre', 'BMC', 'dfsdf', 'sfsd', 'Taille :\nPrix d\'achat : \nAnnée d\'achat : \n.....', '0.00', '2018-12-20 00:12:30', '0.00', NULL, NULL, 12, NULL, NULL, 'STOCK'),
 (128, 712, '927cf', 2018, 'VTT', 'Homme', 'Sportif', 'BIANCHI', 'tour de france', 'VERT', 'Taille :\nPrix d\'achat : \nAnnée d\'achat : \n.....', '120.00', '2018-12-21 08:12:43', '120.00', NULL, NULL, 17, NULL, NULL, 'STOCK'),
-(129, 5002, 'd3289', 2018, 'Route', 'Homme', 'Loisir', 'nakamura', '', 'bleu', 'Taille :\nPrix d\'achat : \nAnnée d\'achat : \n.....', '150.00', '2018-12-21 11:27:50', '0.00', NULL, NULL, 17, NULL, NULL, ''),
-(130, 5003, 'ded58', 2018, 'Autre', 'Autre', 'Autre', 'NAKAMURA', '', 'sfsd', 'Taille :\nPrix d\'achat : \nAnnée d\'achat : \n.....', '120.00', '2018-12-21 11:34:20', '0.00', NULL, NULL, 12, NULL, NULL, ''),
 (131, 714, '8e9e4', 2018, 'Autre', 'Autre', 'Autre', 'TREk', 'SUPERFLY 100', 'MARRON', 'Taille :\nPrix d\'achat : \nAnnée d\'achat : \n.....', '2010.00', '2018-12-21 12:23:21', '0.00', '0000-00-00 00:00:00', '0.00', 17, 0, '0000-00-00 00:00:00', 'CONFIRME'),
 (132, 5004, '0f943', 2018, 'Route', 'Homme', 'Loisir', 'BTWIN', '', 'bleu', 'Taille :\nPrix d\'achat : \nAnnée d\'achat : \n.....', '155.00', '2018-12-21 12:38:59', '0.00', NULL, NULL, 18, NULL, NULL, 'INIT'),
 (133, 5005, 'ca57e', 2018, 'Autre', 'Autre', 'Autre', 'fsd', '', 'fsf', 'Taille :\nPrix d\'achat : \nAnnée d\'achat : \n.....', '0.00', '2018-12-21 12:53:29', '0.00', NULL, NULL, 26, NULL, NULL, 'INIT'),
