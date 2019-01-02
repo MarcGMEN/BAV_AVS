@@ -2,13 +2,6 @@
  * action lors du chargement de la page
  */
 function initPage() {
-	// chargement des taux
-	x_return_tauxBAV(display_list_taux_com);
-	// chargement des depot
-	x_return_depotsBAV(display_list_prix_depot);
-
-	document.clientForm.cli_emel.focus();
-
 	if (idClient) {
 		x_return_oneClient(idClient, display_client);
 	} else {
@@ -20,14 +13,8 @@ function initPage() {
 function pageSaisie() {
 	if (startSaisie) {
 		document.clientForm.buttonValideFiche.disabled = false;
-		document.clientForm.buttonPDFFiche.title = "Valider vos modifications";
-		document.clientForm.buttonPDFFiche.disabled = true;
-		document.clientForm.buttonPDFFiche.title = "Valider les modifications avant d'imprimer";
 	} else {
 		document.clientForm.buttonValideFiche.disabled = true;
-		document.clientForm.buttonPDFFiche.title = "Rien de changé";
-		document.clientForm.buttonPDFFiche.disabled = false;
-		document.clientForm.buttonPDFFiche.title = "Impression en PDF";
 	}
 }
 
@@ -44,19 +31,11 @@ function unloadPage() {
  */
 function display_client(val) {
 	if (val instanceof Object) {
+		tabSel['obj_id_vendeur']=val['cli_id'];
+		x_return_fiches(tri, sens, tabToString(tabSel), display_fiches);
 		display_formulaire(val, document.clientForm);
-		console.log(val);
-
 	} else {
 		goTo(null, null, null, "Client inconnue.");
-	}
-}
-
-// recuperation des donnees de la BAV
-function setParamVal(val) {
-	setParamValIndex(val);
-	if (TABLE || ADMIN) {} else if (!CLIENT) {
-		goTo();
 	}
 }
 
@@ -90,18 +69,6 @@ function display_fin_modif(val) {
     }
 }
 
-function display_client(val) {
-	display_formulaire(val, document.clientForm);
-}
-
-function display_list_taux_com(val) {
-	display_list_select(val, 'cli_taux_com', document.clientForm);
-}
-
-function display_list_prix_depot(val) {
-	display_list_select(val, 'cli_prix_depot', document.clientForm);
-}
-
 
 // ***********************************************************
 // ***********************************************************
@@ -120,29 +87,28 @@ function display_fiches(val) {
 	var total = 0;
 	var repr = "<table width='100%'>";
 	for (index in val) {
-		repr += "<tr class='tabl0 link' onclick='location.href=\"index.php?page=fiche.php&numeroFiche=" + val[index]['obj_numero'] + "&action=visu\"'>";
-		repr += "<td width=10% align=center>";
-		repr += val[index]['obj_numero'];
-		repr += "</td>";
-		repr += "<td width=20% >";
-		repr += val[index]['obj_type'];
-		repr += "</td>";
-		repr += "<td width=20% >";
-		repr += val[index]['obj_public'];
-		repr += "</td>";
-		repr += "<td width=20% >";
-		repr += val[index]['obj_marque'];
-		repr += "</td>";
-		repr += "<td width=10% >";
-		repr += val[index]['obj_prix_vente'];
-		repr += "</td>";
-		repr += "<td width=10% >";
-		repr += val[index]['obj_comission'];
-		repr += "</td>";
-		repr += "<td width=5% >";
-		repr += val[index]['obj_etat'];
-		repr += "</td>";
-		repr += "</tr>";
+		if (!isNaN(index)) {
+			repr += "<tr class='tabl0 link' onclick='goTo(\"fiche.php\",\"modif\","+val[index]['obj_id']+",null)'>";
+			repr += "<td width=10% align=center>";
+			repr += val[index]['obj_numero'];
+			repr += "</td>";
+			repr += val[index]['obj_type'];
+			repr += "</td>";
+			repr += "<td width=20% >";
+			repr += val[index]['obj_public'];
+			repr += "<td width=20% >";
+			repr += "</td>";
+			repr += "<td width=20% >";
+			repr += val[index]['obj_marque'];
+			repr += "</td>";
+			repr += "<td width=15% >";
+			repr += val[index]['obj_prix_vente'];
+			repr += "</td>";
+			repr += "<td width=15% >";
+			repr += val[index]['obj_etat'];
+			repr += "</td>";
+			repr += "</tr>";
+		}
 
 		total = total + 1;
 	}

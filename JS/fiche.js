@@ -56,12 +56,12 @@ function initPage() {
 function pageSaisie() {
     if (startSaisie) {
         document.ficheForm.buttonValideFiche.disabled = false;
-        document.ficheForm.buttonPDFFiche.title = "Valider vos modifications";
+        document.ficheForm.buttonValideFiche.title = "Valider vos modifications";
         document.ficheForm.buttonPDFFiche.disabled = true;
         document.ficheForm.buttonPDFFiche.title = "Valider les modifications avant d'imprimer";
     } else {
         document.ficheForm.buttonValideFiche.disabled = true;
-        document.ficheForm.buttonPDFFiche.title = "Rien de changé";
+        document.ficheForm.buttonValideFiche.title = "Rien de changé";
         document.ficheForm.buttonPDFFiche.disabled = false;
         document.ficheForm.buttonPDFFiche.title = "Impression en PDF";
     }

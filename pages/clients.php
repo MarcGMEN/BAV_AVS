@@ -15,7 +15,7 @@
 	function display_clients(val) {
         console.log(val);
 		var total = 0;
-		var repr="<table width='100%'>";
+		var repr="<table width='100%' border=1>";
 		if (selection != "*") {
 			var reg=new RegExp("("+selection+")", "gi");
 		}
@@ -23,7 +23,7 @@
 		for (index in val) {  
 			if (!isNaN(index)) {
 			repr+="<tr class='tabl0 link' onclick='goTo(\"client.php\",\"select\","+val[index]['cli_id']+")'>";
-			repr+="<td width=40% >";
+			repr+="<td width=35% >";
 			chaine=val[index]['cli_nom'];
 			if (selection != "*") {
 				repr+=chaine.replace(reg,"<b>$1</b>");
@@ -32,7 +32,7 @@
 				repr+=chaine;
 			}
 			repr+="</td>";
-			repr+="<td width=25% >";
+			repr+="<td width=35% >";
 			repr+=val[index]['cli_emel'];
 			repr+="</td>";
 			repr+="<td width=15% >";
@@ -103,28 +103,34 @@
 	
 </script>
 <h2>Nb Total de la selection : <span id=total></span></h2>
-<table width="100%">
+<table width="100%" >
 	<tr>
-		<td class="tittab" width=40%>
+		<td class="tittab" width=35%>
 			<span id='cli_nom' onclick="triColonne('cli_nom')" class="sortable">Nom - Prenom&nbsp;&nbsp;&nbsp;</span>
 			<input type=text name='cli_nom_<?=rand(1, 100)?>' size="20" class="autocomplete"
 			 maxlength="100" onkeyup="selectColonne(this.value)" list="listClient" />
-			<datalist id="listClient"></datalist> </td>
+			<datalist id="listClient"></datalist> 
+		</td>
 
-		<td class="tittab" width=25%>
-			<span id='cli_emel' onclick="triColonne('cli_emel')" class="sortable">Emel&nbsp;&nbsp;&nbsp;</span></td>
+		<td class="tittab" width=35%>
+			<span id='cli_emel' onclick="triColonne('cli_emel')" class="sortable">Emel&nbsp;&nbsp;&nbsp;</span>
+		</td>
 
 		<td class="tittab" width=15%>
-			<span id='cli_telephone' onclick="triColonne('cli_telephone')" class="sortable">Telephone&nbsp;&nbsp;&nbsp;</span></td>
+			<span id='cli_telephone' onclick="triColonne('cli_telephone')" class="sortable">Telephone&nbsp;&nbsp;&nbsp;</span>
+		</td>
 
-		<td class="tittab" width=5%>
-			<span class="sortable" id='cli_depot' onclick="triColonne('cli_depot')">Depot&nbsp;&nbsp;&nbsp;</span></td>
+		<th class="tittab" width=5%>
+			<span class="sortable" id='cli_depot' onclick="triColonne('cli_depot')">D&nbsp;&nbsp;&nbsp;</span>
+		</th>
 
-		<td class="tittab" width=5%>
-			<span class="sortable" id='cli_vente' onclick="triColonne('cli_vente')">Vente&nbsp;&nbsp;&nbsp;</span></td>
+		<th class="tittab" width=5%>
+			<span class="sortable" id='cli_vente' onclick="triColonne('cli_vente')">V&nbsp;&nbsp;&nbsp;</span>
+		</th>
 
-		<td class="tittab" width=5%>
-			<span class="sortable" id='cli_achat' onclick="triColonne('cli_achat')">Achat&nbsp;&nbsp;&nbsp;</span></td>
+		<th class="tittab" width=5%>
+			<span class="sortable" id='cli_achat' onclick="triColonne('cli_achat')">A&nbsp;&nbsp;&nbsp;</span>
+		</th>
 
 	</tr>
 </table>

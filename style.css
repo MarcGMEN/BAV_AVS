@@ -448,7 +448,7 @@ table {
 	border-style: solid;
 	font-weight: bold;
 	text-align: center;
-	font-size: 1.1em;
+	font-size: 0.9em;
 }
 
 .tittab1 {
@@ -479,8 +479,8 @@ table {
 	background-color: WHITE;
 	color: #1161a2;
 	border: 0px;
-	padding-top: 2pt;
-	padding-bottom: 2pt;
+	padding: 2pt 2pt 2pt 2pt;
+	font-size: 0.8em;
 }
 
 td.tabl0 {

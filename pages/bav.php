@@ -28,11 +28,11 @@
 
     <div class="col-sm-6 col-md-6 col-xs-12">
             <p>Statistique de l'année 2017</p>
-            <img src="Images/statistiques_2017.jpg"  class="imgBAV" />
+            <img src="Images/res2018.jpg"  class="imgBAV" />
     </div>
     <div class="col-sm-6 col-md-6 col-xs-12">
             <p>La première colonne représente le nombre de vélos déposés, la deuxième, le nombre de vélos vendus.</p>
-			<img src="Images/statistiques.png"  class="link imgBAV" onclick='
+			<img src="Images/statistiques2018.png"  class="link imgBAV" onclick='
 				alertModalInfo("<img width=70% height=auto src=\"Images/statistiques.png\" alt=\"statistique BAV\" />")' />
     </div>
 </div>

@@ -177,7 +177,7 @@
 			<table width=100% cellpadding=2 cellspacing=2 border=1>
 				<tr>
 					<td class="titrow" width=15%>Numero BAV <span title="Obligatoire">*<span></td>
-					<td class="tabl0" width=35%>
+					<td class="tabInput" width=35%>
 						<input type=number name="par_numero_bav" id="par_numero_bav" size=4 min=2010 max=2100 tabindex=<?=$tabindex++?>
 						placeholder="numéro BAV (année)" onkeyup="setStartSaisie(true);"
 						required/>
@@ -186,31 +186,34 @@
 				</tr>
 				<tr>
 					<td class="titrow">Titre <span title="Obligatoire">*<span></td>
-					<td class="tabl0">
+					<td class="tabInput">
 						<input type='text' name="par_titre" size=70 maxlength="100" tabindex=<?=$tabindex++?>
 						placeholder="titre BAV" onkeyup="setStartSaisie(true);" required/>
 					</td>
 				</tr>
 				<tr>
 					<td class="titrow">Taux <span title="Obligatoire">*<span></td>
-					<td class="tabl0">
-						<input type=number name="par_taux_1" size=3 tabindex=<?=$tabindex++?>
+					<td class="tabInput">
+						<input type=number name="par_taux_1" style="width:20%'" 
+						tabindex=<?=$tabindex++?>
 						placeholder="Taux 1" onkeyup="setStartSaisie(true);"
 						required min=1 max=100 />%
 						<span id="PAR_TAUX_1" class="error"></span>
 						&nbsp;&nbsp;
-						<input type=number name="par_taux_2" size=3 tabindex=<?=$tabindex++?>
+						<input type=number name="par_taux_2" style="width:20%'" 
+						 tabindex=<?=$tabindex++?>
 						placeholder="Taux 2" onkeyup="setStartSaisie(true);"
 						min=0 max=100 />%
 						&nbsp;&nbsp;
-						<input type=number name="par_taux_3" size=3 tabindex=<?=$tabindex++?>
+						<input type=number name="par_taux_3" style="width:20%'" 
+						 tabindex=<?=$tabindex++?>
 						placeholder="Taux 3" onkeyup="setStartSaisie(true);"
 						min=0 max=100 />%
 					</td>
 				</tr>
 				<tr>
 					<td class="titrow">Depot <span title="Obligatoire">*<span></td>
-					<td class="tabl0">
+					<td class="tabInput">
 						<input type=number name="par_prix_depot_1" tabindex=<?=$tabindex++?>
 						placeholder="00.0" onkeyup="setStartSaisie(true);"
 						required min=1 max=10 size=2/>&#8364;
@@ -226,15 +229,31 @@
 				</tr>
 				<tr>
 					<td class="titrow">Nb modif en parallele <span title="Obligatoire">*<span></td>
-					<td class="tabl0">
+					<td class="tabInput">
 						<input type=number name="par_nb_modif" tabindex=<?=$tabindex++?>
 						placeholder="entre 0 et 10" onkeyup="setStartSaisie(true);"
 						required min=0 max=10 size=2/>
 					</td>
 				</tr>
 				<tr>
+					<td class="titrow">Date BAV <span title="Obligatoire">*<span></td>
+					<td class="tabInput">
+						<input type=date name="par_dat_1" tabindex=<?=$tabindex++?>
+						onkeyup="setStartSaisie(true);" required 
+						max="2030-12-31"/>
+						&nbsp;&nbsp;
+						<input type=date name="par_dat_2" tabindex=<?=$tabindex++?>
+						onkeyup="setStartSaisie(true);" required 
+						max="2030-12-31"/>
+						&nbsp;&nbsp;
+						<input type=date name="par_dat_3" tabindex=<?=$tabindex++?>
+						onkeyup="setStartSaisie(true);" required 
+						max="2030-12-31"/>
+					</td>
+				</tr>
+				<tr>
 					<td class="titrow">Date Client <span title="Obligatoire">*<span></td>
-					<td class="tabl0">
+					<td class="tabInput">
 						<input type=date name="par_client_date_debut" size=15 maxlength="15" tabindex=<?=$tabindex++?>
 						onkeyup="setStartSaisie(true);" required max="2030-12-31"/>
 						&nbsp;&nbsp;
@@ -244,7 +263,7 @@
 				</tr>
 				<tr>
 					<td class="titrow">Date Table <span title="Obligatoire">*<span></td>
-					<td class="tabl0">
+					<td class="tabInput">
 						<input type=date name="par_table_date_debut" tabindex=<?=$tabindex++?>
 						onkeyup="setStartSaisie(true);" required 
 						max="2030-12-31"/>
@@ -256,7 +275,7 @@
 				</tr>
 				<tr>
 					<td class="titrow">IPs Table <span title="Obligatoire">*<span></td>
-					<td class="tabl0">
+					<td class="tabInput">
 						<input type=text name="par_table_id_mac" size=50 maxlength="600" tabindex=<?=$tabindex++?>
 						placeholder="Adresse ips pour accés table, séparé d'une virgule" onkeyup="setStartSaisie(true);"
 						required value="localhost, 127:0:0:1, ::1"/>
@@ -264,7 +283,7 @@
 				</tr>
 				<tr>
 					<td class="titrow">IPs Admin <span title="Obligatoire">*<span></td>
-					<td class="tabl0">
+					<td class="tabInput">
 						<input type=text name="par_admin_id_mac" size=50 maxlength="600" tabindex=<?=$tabindex++?>
 						placeholder="Adresse ips pour accés admin, séparé d'une virgule" onkeyup="setStartSaisie(true);"
 						required value="localhost, 127:0:0:1, ::1"/>

@@ -11,8 +11,21 @@ echo "CFG_URL $CFG_URL";
 	data =
 		"<? foreach ($data as $key => $val) {echo $key."#3D".$val."#2C";}?>";
 </script>
+<? if ($infAppli['ADMIN']) {?>
+<div>
+Admin
+<div id="editor1" contenteditable="true">
+<?=file_get_contents('html/reglement.html')?>
+</div>
+<script>
+CKEDITOR.replace( 'editor1' );
+</script>
+</div>
+<?}?>
+
 
 <span class="link url" onclick='x_action_makePDFFromHtml(data,"reglement.html", display_openPDF);' )>
 	telecharger le reglement</span>
 <hr />
+
 <?=$message?>
