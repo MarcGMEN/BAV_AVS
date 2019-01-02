@@ -15,7 +15,7 @@ echo "CFG_URL $CFG_URL";
 <div>
 Admin
 <div id="editor1" contenteditable="true">
-<?=file_get_contents('html/reglement.html')?>
+<? include 'html/reglement.html'?>
 </div>
 <script>
 CKEDITOR.replace( 'editor1' );

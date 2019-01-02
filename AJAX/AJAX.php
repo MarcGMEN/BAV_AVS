@@ -65,6 +65,15 @@ function action_makePDFFromHtml($data, $html)
     return $CFG_URL.$filePDF;
 }
 
+function return_html($html) {
+    return file_get_contents('../html/'.$html.'.html');
+}
+
+function save_html($html, $data) {
+     file_put_contents('../html/'.$html.'.html',htmlspecialchars_decode(utf8_encode($data)));
+     return $html;
+}
+
 sajax_init("");
 // definition des fonction ajax possible
 include "exportAJAX.php";
