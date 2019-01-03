@@ -56,7 +56,7 @@ if ($GET_a == "C") {
                 $titreMel = "Enregistrement correct de votre fiche ".$fiche['obj_numero'];
                 $message = makeMessage(titreMel, array_merge($fiche, $client, $tabPlus), "mel_confirme.html");
 
-                $retour = sendMail($titreMel, $client['cli_emel'], $message, $filePDF);
+                $retour = sendMail($titreMel, $client['cli_emel'], $message, $CFG_PROJET.$filePDF);
                 if ($retour == 1) {
                     $retour = "Un mel de confirmation avec votre fiche n°[".
                         $fiche['obj_numero']."] de dépôt vous a été envoyé à : " . $client['cli_emel'];

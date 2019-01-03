@@ -13,14 +13,12 @@
 require_once "Commun/connect.php";
 require_once "config.ini";
 require_once "Commun/commun_functions.php";
-require_once "Repository/base_repository.php";
-require_once "Repository/parametre_repository.php";
-require_once "Repository/fiche_repository.php";
-require_once "AJAX/parametre_AJAX.php";
-require_once "AJAX/fiche_AJAX.php";
+require_once "Commun/mail.php";
+
 echo "test.php";
+echo sendMail("test PJ", "braillou@gmail.com", "piece jointe", "/BAV/out/PDF/Fiche_710.pdf");
+//echo sendMail("test ", "braillou@gmail.com", "sans piece jointe", null);
 //print_r($mysqli);
-//echo substr(hash_hmac('md5', 700, 'avs442019'), 0, 5);
-print_r(infotable('bav_objet'));
+//echo substr(hash_hmac('md5', 700, 'avs442019'), 0, 5);;
 ?>
 </pre>
