@@ -87,7 +87,7 @@ function sendMail($titre, $toMail, $messageMail, $pieceJointe = null)
             $message .= "\n";
             $message .= "--".$boundary."--";
         }
-        error_clear_last();
+        //error_clear_last();
         if (!mail($toMail, $titre, stripslashes($message), $headers)) {
             file_put_contents(dirname(__FILE__)."/../mail.html", stripslashes($messageMail));
             $erreur = "Pb sur mail pour : ".$toMail." => ";

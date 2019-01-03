@@ -13,7 +13,7 @@
 <?}?>
 <form name="ficheForm" method="POST" onsubmit="return submitForm()" action="">
 	<input type=hidden name="obj_id" />
-	cli_id <i id=cli_id></i>
+	<!--cli_id <i id=cli_id></i>-->
 	<input type=hidden name="cli_id" />
 	<fieldset class=fiche>
 		<legend class=titreFiche>Le depot</legend>
@@ -32,8 +32,8 @@
 					<input type="hidden" name="obj_etat_new" />
 				</div>
 				<div class="col-sm-6 col-md-6 col-xs-6 tabl1" id="tdBtnEtat"  style='display: none'>
-				<input type=submit name="buttonEtatFiche" tabindex=<?=$tabindex++?>	/>
-				<input type=submit name="buttonEtatFicheBis" style="display:none" onclick="this.form.obj_etat_new.value='RENDU'"
+				<input type=button name="buttonEtatFiche" tabindex=<?=$tabindex++?>	onclick='changeEtatFiche()'/>
+				<input type=button name="buttonEtatFicheBis" style="display:none" onclick="changeEtatFiche('RENDU')"
 					 tabindex=<?=$tabindex++?> />
 				</div>
 			</div>
@@ -139,7 +139,7 @@ Année d'achat :
 				<span class="titrow col-md-2 col-sm-2 col-xs-3">Prix</span>
 				<span class="tabInput col-md-10 col-sm-10 col-xs-9">
 					<input type=number name="obj_prix_depot" size=5 maxlength="10" tabindex=<?=$tabindex++?>
-					onkeyup="setStartSaisie(true);" onchange="affectPrix();"
+					onkeyup="setStartSaisie(true);"
 					title="Prix vente, vous pouvez le laisser vide et le renseigner le jour du dépôt."
 					placeholder="00.00"/>&#8364;
 				</span>
@@ -151,9 +151,16 @@ Année d'achat :
 			<div class="col-sm-4 col-md-4 col-xs-4">
 				<span class="titrow  col-md-3 col-sm-3 col-xs-12">PRIX :</span>
 				<span class="tabl1 col-md-9 col-sm-9 col-xs-12">
-					<input type=hidden name="obj_prix_vente">
-					&nbsp&nbsp<span id="obj_prix_vente">0.00</span>&#8364;&nbsp <span id="date_vente">
-					</span>
+					<? if ($infAppli['ADMIN'] && $GET_modePage != "create") {?>
+						<input type=number name="obj_prix_vente" size=5 maxlength="10" tabindex=<?=$tabindex++?>
+							onkeyup="setStartSaisie(true);" onchange="affectPrix();"
+							title="Prix vente" required
+							placeholder="00.00"/>&#8364;
+					<? } else {?>
+						<input type=hidden name="obj_prix_vente">
+						&nbsp&nbsp<span id="obj_prix_vente">0.00</span>&#8364;&nbsp <span id="date_vente">
+						</span>
+					<? } ?>
 			</div>
 			<div class="col-sm-4 col-md-4 col-xs-4">
 				<span class="titrow col-md-3 col-sm-3 col-xs-12">Depot :</span>
@@ -243,6 +250,7 @@ Année d'achat :
 		</div>
 
 		<div class="col-sm-3 col-md-3 col-xs-6 btnAction" id="tdBtnAction" >
+		 <!-- etat vide pour reconnaitre une action de modif simple -->
 			<button name="buttonValideFiche" tabindex=<?=$tabindex++?> disabled onclick="this.form.obj_etat_new.value=''">Enregristrer
 			</button>
 		</div>

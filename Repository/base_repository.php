@@ -85,7 +85,7 @@ function recupEnumToArray($table, $champ)
     $result = $GLOBALS['mysqli']->query("SHOW COLUMNS FROM $table LIKE '$champ'");
     if ($result) {
         $row = $result->fetch_assoc();
-        $tab =  explode("','", utf8_encode(preg_replace("/(enum|set)\('(.+?)'\)/", "\\2", $row['Type'])));
+        $tab =  explode("','", preg_replace("/(enum|set)\('(.+?)'\)/", "\\2", $row['Type']));
         return $tab;
     } else {
         throw new Exception("Pb getEnumValues ".mysqli_error());
@@ -183,7 +183,6 @@ function update($table, $obj, $cleId)
 function insert($table, $obj)
 {
     $descTable=infoTable($table);
-    error_clear_last();
     $req = "insert into $table (";
     $virgule="";
     foreach ($obj as $key => $val) {

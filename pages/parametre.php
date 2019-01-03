@@ -1,23 +1,17 @@
 <script>
 	function initPage() {
-		x_return_allParametre(display_parametres);
-		getElement("par_numero_bav").focus();
-		modePage="select";
-		// getElement('mode').innerHTML=modePage;
-	}
-	function pageSaisie() {
-		
-	}
-	// recuperation des donnees de la BAV
-	function setParamVal(val) {
-		if (TABLE || ADMIN) {
-			var j=1;
+		if (ADMIN) {
+			x_return_allParametre(display_parametres);
+			getElement("par_numero_bav").focus();
+			modePage="select";
 		}
 		else {
 			goTo();
 		}
 	}
-
+	function pageSaisie() {
+		
+	}
 	
 	function display_parametres(val) {
 
@@ -238,15 +232,15 @@
 				<tr>
 					<td class="titrow">Date BAV <span title="Obligatoire">*<span></td>
 					<td class="tabInput">
-						<input type=date name="par_dat_1" tabindex=<?=$tabindex++?>
+						<input type=date name="par_date_1" tabindex=<?=$tabindex++?>
 						onkeyup="setStartSaisie(true);" required 
 						max="2030-12-31"/>
 						&nbsp;&nbsp;
-						<input type=date name="par_dat_2" tabindex=<?=$tabindex++?>
+						<input type=date name="par_date_2" tabindex=<?=$tabindex++?>
 						onkeyup="setStartSaisie(true);" required 
 						max="2030-12-31"/>
 						&nbsp;&nbsp;
-						<input type=date name="par_dat_3" tabindex=<?=$tabindex++?>
+						<input type=date name="par_date_3" tabindex=<?=$tabindex++?>
 						onkeyup="setStartSaisie(true);" required 
 						max="2030-12-31"/>
 					</td>

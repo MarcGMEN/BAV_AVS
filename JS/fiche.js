@@ -106,7 +106,9 @@ function display_fiche(val) {
             document.ficheForm.checkCGU.required = false;
             // pas la peine de voir les CGU
             getElement("tdCGU").style.display = 'none';
-            getElement("obj_prix_vente").innerHTML = val['obj_prix_depot'];
+            if (getElement("obj_prix_vente")) {
+                getElement("obj_prix_vente").innerHTML = val['obj_prix_depot'];
+            }
             document.ficheForm.obj_prix_vente.value = val['obj_prix_depot'];
 
             document.ficheForm.obj_prix_depot.required = true;
@@ -164,7 +166,6 @@ function display_fiche(val) {
                 getElement("tdBtnPdf").style.display = 'block';
 
                 getElement("fieldSetAcheteur").style.display = 'block';
-                console.log(val['obj_id_acheteur']);
                 x_return_oneClient(val['obj_id_acheteur'], display_infoClientAcheteurFiche);
             }
         }
@@ -257,9 +258,7 @@ function submitForm() {
         enregisterFiche();
     } else if (modePage == 'modif' && document.ficheForm.obj_etat_new.value == "") {
         modifFiche();
-    } else if (modePage == 'modif' && document.ficheForm.obj_etat_new.value != "") {
-        changeEtatFiche();
-    }
+    } 
     return false;
 }
 
@@ -301,7 +300,6 @@ function display_fin_create(val) {
     // retour sur la fiche en mode Page actuel
     setStartSaisie(false);
     if (TABLE || ADMIN) {
-        console.log(val);
         if (val instanceof Object) {
             goTo('fiche.php', 'modif', val['id'], val['message']);
         }
@@ -309,7 +307,7 @@ function display_fin_create(val) {
             alertModalInfo(val);
         }
     } else {
-        goTo('fiche.php', modePage, null, val);
+        goTo('fiche.php', modePage, null, null);
     }
 }
 
@@ -360,14 +358,21 @@ function imprimeFiche() {
     var tabObj = recup_formulaire(document.ficheForm, 'obj');
     x_action_makePDF(tabObj['obj_id'], display_openPDF);
 }
-
-function changeEtatFiche() {
+var gNewEtat=null;
+function changeEtatFiche(newEtat = null) {
     var tabObj = recup_formulaire(document.ficheForm, 'obj');
     var tabCli = recup_formulaire(document.ficheForm, 'cli');
     tabObj['obj_marque'] = document.ficheForm.elements.namedItem('obj_marque_' + idRamdom).value;
     delete tabObj['obj_marque_' + idRamdom];
 
-    etat = tabObj['obj_etat_new'];
+    if (newEtat) {
+        etat = newEtat;
+        gNewEtat=etat;
+    }
+    else {
+        etat = tabObj['obj_etat_new'];
+        
+    }
 
     if (etat == 'CONFIRME') {
         // => confirme
@@ -382,7 +387,6 @@ function changeEtatFiche() {
         x_get_publiHtml(tabToString(tabObj), 'modal_confirm_vendre.html', display_messageConfirmChangeEtatForm);
     } else if (etat == 'RENDU') {
         // => cloturé 
-        // TODO : confirm
         x_get_publiHtml(tabToString(tabObj), 'modal_confirm_rendre.html', display_messageConfirmChangeEtat);
     } else if (etat == 'PAYE') {
         // => cloturé
@@ -428,6 +432,10 @@ function confirmModalEtat() {
     var tabObj = recup_formulaire(document.ficheForm, 'obj');
     tabObj['obj_marque'] = document.ficheForm.elements.namedItem('obj_marque_' + idRamdom).value;
     delete tabObj['obj_marque_' + idRamdom];
+
+    if (gNewEtat) {
+        tabObj['obj_etat_new']=gNewEtat;
+    }
 
     x_action_changeEtatFiche(tabToString(tabObj), display_fin_modif);
 }

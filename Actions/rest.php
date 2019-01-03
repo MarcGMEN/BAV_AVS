@@ -33,6 +33,7 @@ if ($GET_a == "C") {
                 $client = getOneClient($fiche['obj_id_vendeur']);
 
                 $tabPlus['titre'] = $par['titre'];
+                $tabPlus['URL'] = $CFG_URL;
 
                 // convert en PDF
                 $filePDF = html2pdf(array_merge($fiche, $client, $tabPlus), "fiche_depot.html", "Fiche_" . $fiche['obj_numero']);

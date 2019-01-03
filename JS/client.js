@@ -92,11 +92,11 @@ function display_fiches(val) {
 			repr += "<td width=10% align=center>";
 			repr += val[index]['obj_numero'];
 			repr += "</td>";
+			repr += "<td width=20%>";
 			repr += val[index]['obj_type'];
 			repr += "</td>";
 			repr += "<td width=20% >";
 			repr += val[index]['obj_public'];
-			repr += "<td width=20% >";
 			repr += "</td>";
 			repr += "<td width=20% >";
 			repr += val[index]['obj_marque'];

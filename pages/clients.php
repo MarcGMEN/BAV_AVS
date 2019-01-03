@@ -38,7 +38,7 @@
 			repr+="<td width=15% >";
 			repr+=val[index]['cli_telephone'];
 			repr+="</td>";
-			repr+="<th width=5% >";
+			repr+="<th width=3% >";
 			if (val[index]['vente']['STOCK']) {
 				repr+=val[index]['vente']['STOCK'];
 			}
@@ -46,15 +46,26 @@
 				repr+="0";
 			}
 			repr+="</th>";
-			repr+="<th width=5% >";
+			repr+="<th width=3% >";
 			if (val[index]['vente']['VENDU']) {
 				repr+=val[index]['vente']['VENDU'];
+			}
+			else if (val[index]['vente']['PAYE']) {
+				repr+=val[index]['vente']['PAYE'];
 			}
 			else {
 				repr+="0";
 			}
 			repr+="</th>";
-			repr+="<th width=5% >";
+			repr+="<th width=3% >";
+			if (val[index]['vente']['RENDU']) {
+				repr+=val[index]['vente']['RENDU'];
+			}
+			else {
+				repr+="0";
+			}
+			repr+="</th>";
+			repr+="<th width=3% >";
 			repr+=val[index]['achat'];
 			repr+="</th>";
 			repr+="</tr>";
@@ -120,15 +131,19 @@
 			<span id='cli_telephone' onclick="triColonne('cli_telephone')" class="sortable">Telephone&nbsp;&nbsp;&nbsp;</span>
 		</td>
 
-		<th class="tittab" width=5%>
+		<th class="tittab" width=3%>
 			<span class="sortable" id='cli_depot' onclick="triColonne('cli_depot')">D&nbsp;&nbsp;&nbsp;</span>
 		</th>
 
-		<th class="tittab" width=5%>
+		<th class="tittab" width=3%>
 			<span class="sortable" id='cli_vente' onclick="triColonne('cli_vente')">V&nbsp;&nbsp;&nbsp;</span>
 		</th>
+		<th class="tittab" width=3%>
+			<span class="sortable" id='cli_rendu' onclick="triColonne('cli_rendu')">R&nbsp;&nbsp;&nbsp;</span>
+		</th>
 
-		<th class="tittab" width=5%>
+		
+		<th class="tittab" width=3%>
 			<span class="sortable" id='cli_achat' onclick="triColonne('cli_achat')">A&nbsp;&nbsp;&nbsp;</span>
 		</th>
 

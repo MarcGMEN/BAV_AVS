@@ -87,9 +87,6 @@ sajax_handle_client_request();
 		var id='<?=$GET_id?>';
 
 		function initIndex() {
-			if (modePage == "consult" && id != '') {
-                search(id);
-			}
 		}
 
 		function setStartSaisie(cStartSaisie) {
@@ -149,10 +146,10 @@ sajax_handle_client_request();
 			<?include('genericPages/entete.php');  ?>
 		</div>
 		<div class="FENETRE_PRINCIPALE">
-			<?print_r($infAppli);?>
+			<?//print_r($infAppli);?>
 			<div class="TEXTE_FEN">
-				MODE:<?=$GET_modePage?>; ID:<?=$GET_id?>;</span>
-				<?echo "go to page [".$GET_page."]";?>
+				<!--MODE:<?=$GET_modePage?>; ID:<?=$GET_id?>;</span>
+				<?echo "go to page [".$GET_page."]";?>-->
 				<?include('pages/'.$GET_page);?>
 				<!-- Trigger/Open The Modal -->
 			</div>
@@ -184,7 +181,7 @@ if (isset($GET_message) && trim($GET_message) != '') {
 	?>
 
 <script>
-	console.log("message");
+	console.log("message <?=$GET_message?>");
 	alertModalInfo('<?=$GET_message?>');
 </script>
 <?}?>

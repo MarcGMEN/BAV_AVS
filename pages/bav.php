@@ -91,11 +91,12 @@
 <div id="<?=$idText?>" ></div>
 <? if ($infAppli['ADMIN']) {?>
 <div id="<?=$idText?>_maj"  style='display:none'>
-<textarea style="width:100%" rows=10 id="editor_<?=$idText?>" contenteditable="true" ></textarea>
-<!-- <script>
+<textarea style="width:100%" rows=10 id="editor_<?=$idText?>" ></textarea>
+<!--<textarea id="editor_<?=$idText?>" contenteditable="true" ></textarea>-->
+<script>
 	// Turn off automatic editor creation first.
-	CKEDITOR.replace( 'editor_<?=$idText?>' );
-</script> -->
+	//CKEDITOR.replace( 'editor_<?=$idText?>' );
+</script>
 </div>
 <?}?>
 <?}?>

@@ -1,6 +1,4 @@
 function search(value) {
-    console.log(value.length);
-    console.log(!isNaN(Number(value)));
     if (!isNaN(Number(value)) && value < 9999) {
         console.log("consult fiche");
         x_return_oneFicheByCode(value, display_getFicheConsult);
@@ -23,11 +21,14 @@ function search(value) {
 }
 
 function display_getFicheConsult(val) {
+    console.log(val);
     if (val instanceof Object) {
         if (TABLE || ADMIN) {
+            console.log("fiche.php&id="+val['obj_id']);
             goTo("fiche.php","modif",val['obj_id']);
         }
         else if (val['obj_numero'] < 5000) {
+            console.log("consult.php&id="+val['obj_id']);
             goTo("consult.php","consult",val['obj_id']);
         }
         else {
