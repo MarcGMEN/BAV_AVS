@@ -74,11 +74,10 @@ function sendMail($titre, $toMail, $messageMail, $pieceJointe = null)
             //$message .= "Content-Transfer-Encoding:8bit \n";
         }
         $message.=$messageMail;
-        $message.=dirname(__FILE__)."/".$pieceJointe;
         if ($pieceJointe != null) {
             $file_name =basename($pieceJointe);
-            $typepiecejointe = filetype(dirname(__FILE__)."/".$pieceJointe);
-            $data = chunk_split(base64_encode(file_get_contents(dirname(__FILE__)."/".$pieceJointe)));
+            $typepiecejointe = filetype($_SERVER['DOCUMENT_ROOT'].$pieceJointe);
+            $data = chunk_split(base64_encode(file_get_contents($_SERVER['DOCUMENT_ROOT'].$pieceJointe)));
             $message .= "\n--$boundary \n";
             $message .= "Content-Type: $typepiecejointe; name=\"$file_name\" \n";
             $message .= "Content-Transfer-Encoding: base64 \n";
