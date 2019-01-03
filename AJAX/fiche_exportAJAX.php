@@ -1,0 +1,19 @@
+<?php
+sajax_export(
+    "return_list_marques",
+    "return_list_modeles",
+    "return_oneFiche",
+    "action_updateFiche",
+    "action_insertFiche",
+    "action_deleteFiche",
+    "return_oneFicheByIdModif",
+    "return_oneFicheByCode",
+    "action_createFiche",
+    "action_mail",
+    "action_makePDF",
+    "action_changeEtatFiche",
+    "action_confirmeFiche",
+    "action_vendFiche",
+    "return_countByEtat",
+    "return_fiches"
+);
