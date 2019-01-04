@@ -23,11 +23,12 @@
     </div>
     
     <div class="alert alert-success">
-        <form name="bavForm">
+        <form name="bavForm" method=POST>
         <p><b>ASTUCE AVS</b> : Suivre les ventes en direct pour savoir si votre vélo est vendu, en indiquant ci-dessous votre numéro de dépot :
-            <input type="text" name="numeroFiche" size="15" width=10% title="Saisisez le numéro de fiche, ou l'identifiant de la fiche"
+            <input type="hidden" name="modePage" value="rest"/>
+            <input type="text" name="id" size="15" width=10% title="Saisisez le numéro de fiche, ou l'identifiant de la fiche"
                              placeholder="Recherche" id="inputSearchBav" />
-            <i class="fas fa-search link" onclick="search(bavForm.inputSearchBav.value)"></i>
+            <i class="fas fa-search link" onclick="search(bavForm.inputSearchBav.value)" ></i>
             </form>
         </p>
     </div>

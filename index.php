@@ -84,7 +84,7 @@ sajax_handle_client_request();
 		var id='<?=$GET_id?>';
 
 		function initIndex() {
-			if (modePage == 'rest') {
+			if (id != "" && modePage == 'rest') {
 				search(id);
 				var stateObj = { foo: "bar" };
 				history.pushState(stateObj, "", "index.php");
