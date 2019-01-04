@@ -32,6 +32,9 @@
                 'libelle' => '<img src="Images/new.png" width=15pt/> Depot en ligne',
                 'mode' => 'create'
             ],
+            'editFiche.php'=>[
+                'libelle' => 'Edit Fiche'
+            ],
             'parametre.php'=>[
                 'libelle' => 'Parametre' ],
             'stock.php'=>[

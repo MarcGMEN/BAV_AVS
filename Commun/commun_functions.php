@@ -87,7 +87,7 @@ function moisFrench($num_m) {
 		case 9:  $mois="septembre";break;
 		case 10: $mois="octobre";break;
 		case 11: $mois="novembre";break;
-		case 12: $mois="d�cembre";break;
+		case 12: $mois="décembre";break;
 	}
 	return $mois;
 }
@@ -145,128 +145,6 @@ function searchFiles($rep,$mask) {
 	return $tabFic;
 }
 
-
-$TAB_KEY="0123456789AZERTUUIOPQSDFGHJKLMWXCVBN";
-$GLOBALS['TAB_KEY']=$TAB_KEY;
-/**
- * verfication de la clef de l'id
- * @param unknown_type $id
- * @return unknown_type
- */
-function verif_id($id) {
-	$keyTrue=return_key($id);
-
-	$keyTest=substr($id,6,4);
-
-	if ($keyTest != $keyTrue) {
-		return false;
-	}
-	else {
-		return true;
-	}
-}
-/**
- * calcul de la clef de l'id
- * @param unknown_type $id
- * @return unknown_type
- */
-function return_key($id) {
-	global  $TAB_KEY;
-
-	$key="AAAA";
-	// 7eme caracteres
-	$index=(strpos($TAB_KEY, $id[0])*strpos($TAB_KEY, $id[1]))%(strlen($TAB_KEY)-1);
-	$key[0]=substr($TAB_KEY,$index,1);
-	// 8eme caracteres
-	$index=(strpos($TAB_KEY, $id[1])*strpos($TAB_KEY, $id[2]))%(strlen($TAB_KEY)-1);
-	$key[1]=substr($TAB_KEY,$index,1);
-	// 9eme caracteres
-	$index=(strpos($TAB_KEY, $id[3])*strpos($TAB_KEY, $id[4]))%(strlen($TAB_KEY)-1);
-	$key[2]=substr($TAB_KEY,$index,1);
-	// 10eme caracteres
-	$index=(strpos($TAB_KEY, $id[4])*strpos($TAB_KEY, $id[5]))%(strlen($TAB_KEY)-1);
-	$key[3]=substr($TAB_KEY,$index,1);
-
-	return $key;
-}
-
-function makeTicket2($id) {
-	// timestamp today
-	$clef=time();
-	$clefFinal =strtohex($id)."-".$clef;
-
-	return $clefFinal;
-}
-
-function hextostr($x) {
-	$s='';
-	foreach(explode("\n",trim(chunk_split($x,2))) as $h) $s.=chr(hexdec($h));
-	return($s);
-}
-
-function strtohex($x) {
-	$s='';
-	foreach(str_split($x) as $c) $s.=sprintf("%02X",ord($c));
-	return($s);
-}
-
-function verifTicket2($clef) {
-	$tabTmp=explode('-',$clef);
-
-	$clef2=$tabTmp[1];
-	$clef1=$tabTmp[0];
-
-	$today=time();
-
-	$id="";
-	if ($clef2<=$today) {
-		if (date('d/m/Y' ,$clef2)) {
-			$id=hextostr($clef1);
-		}
-		else {
-			echo "clef pas date";
-		}
-
-	}
-	else {
-		echo "clef future";
-	}
-	return $id;
-}
-
-
-
-function makeTicket() {
-	global  $TAB_KEY;
-	$key="AZERTY";
-	// creation de la clef sur 10 caract�res rando.
-	for ($i=0;$i<5;$i++) {
-		$key[$i]=substr($TAB_KEY,rand(0, strlen($TAB_KEY)-1),1);
-	}
-	$key.=return_key($key);
-	return $key;
-}
-
-function sed($find, $replace, $input_file, $output_file = NULL){
-	$contents = file_get_contents($input_file);
-	$contents = preg_replace($find, $replace, $contents);
-	if($output_file == NULL)
-	$output_file = $input_file;
-	if (!file_put_contents($output_file, $contents)) {
-		echo "PB d'ecriture de $output_file sur remplacement de $find avec $replace <br/>";
-	}
-}
-
-
-function add_slashes($texte) {
-	if (CFG_ADDSLASHES == "true" ) {
-		return addslashes(ltrim($texte));
-	}
-	else {
-		return ltrim($texte);
-	}
-}
-
 function utf8Encode($texte) {
 	if (CFG_UTF8_AJAX == "true" ) {
 		return utf8_encode(ltrim($texte));
@@ -283,100 +161,6 @@ function utf8Decode($texte) {
 	else {
 		return ltrim($texte);
 	}
-}
-/**
- * suppression d'un repertoire
- * @param $current_dir
- * @param $mode Recursif par defaut , si different le repertoire doit etre vde
- * @return unknown_type
- */
-function remove_dir($current_dir, $mode="R") {
-
-	$delRep=true;
-	//echo "opendir $current_dir<br/>";
-	if($dir = @opendir($current_dir)) {
-		//echo "is dir $current_dir<br/>";
-
-		//echo $mode;
-		// si mode recursif
-		if ($mode == "R") {
-			while (($f = readdir($dir)) != false) {
-				if($f != "." && $f != "..") {
-					if (is_file($current_dir."/".$f)) {
-						//echo "sup de $current_dir/$f<br/>";
-						if (!unlink($current_dir."/".$f)) {
-							// echo "erreur lors du unlink<br/> ";
-						}
-					} elseif(is_dir($current_dir."/".$f)) {
-						// echo "sup  de $current_dir/$f<br/>";
-						remove_dir($current_dir."/".$f);
-					}
-				}
-			}
-		}
-		else {
-			// si c'est pas le mode recursif on supprime le repertoire que s'il est vide.
-			$tabf = scandir($current_dir);
-			if (sizeof($tabf) > 2) {
-				$delRep=false;
-				//  echo "pas de suppression du repertoire $current_dir";
-			}
-		}
-		closedir($dir);
-	}
-
-
-	if ($delRep) {
-		//echo "deplacement du repertoire $current_dir sous trash ";
-		if (!is_dir("../.trash/trash")) {
-			if (!mkdir("../.trash/trash",0777,true)) {
-				return "creation  ../.trash/trash";
-			}
-		}
-		if (is_dir($current_dir)) {
-			if (!rename ($current_dir,"../.trash/trash")) {
-				return "Renomage dans trash impossible....";
-			}
-		}
-	}
-
-
-	return $delRep;
-}
-function recurse_copy($src,$dst) {
-
-	$tabTrace=array();
-	$i=0;
-	//echo "opendir $src<br/>";
-	if (!is_dir($dst)) {
-		mkdir($dst);
-	}
-	//echo "mkdir $dst<br/>";
-	if($dir = @opendir($src)) {
-		while (($f = readdir($dir)) != false) {
-			if($f != "." && $f != "..") {
-				if (is_file($src."/".$f)) {
-					//echo "sup de $current_dir/$f<br/>";
-					//echo "$src."/".$f,$dst."/".$f";
-					copy($src."/".$f,$dst."/".$f );
-					array_push($tabTrace,$dst."/".$f);
-				} elseif(is_dir($src."/".$f)) {
-					// echo "sup  de $current_dir/$f<br/>";
-					$tabTrace = array_merge($tabTrace,recurse_copy($src."/".$f,$dst."/".$f));
-				}
-			}
-		}
-		closedir($dir);
-	}
-	return $tabTrace;
-}
-
-function my_is_dir($dir)
-{
-	error_reporting(E_PARSE);
-	$retour = is_dir($dir);
-	error_reporting(E_ERROR);
-	return $retour;
 }
 
 function formateDateFRtoMYSQL($dateFR) {
@@ -481,15 +265,14 @@ function is_date($value, $format = 'yyyy-mm-dd'){
 
 function makeCorps($data, $fileHTML)
 {
-    extract($GLOBALS);
     $messageMail="";
 
-    $messageMail.=file_get_contents(dirname(__FILE__)."/../html/$fileHTML");
+	$messageMail.=file_get_contents(dirname(__FILE__)."/../html/$fileHTML");
     foreach ($data as $key => $val) {
         //echo "publipost de $key avec $val\n";
         $messageMail=str_replace("--$key--", $val, $messageMail);
     }
-    
+	
     return  $messageMail;
 }
 

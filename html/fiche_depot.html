@@ -1,295 +1,257 @@
-	<page_header>
-		A imprimer <span style='float: right'>--titre--</span>
-	</page_header>
-	<style type="text/css">
-		body {
-			/*font-family: Verdana, Arial, Helvetica, sans-serif;*/
-			font-size: medium;
-			color: black;
-		}
-
-		table {
-			/*font-family: Verdana, Arial, Helvetica, sans-serif;*/
-			width: 100%;
-		}
-
-		.rubrique {
-			background: #c0c0c0;
-			width: 100%;
-			font-weight: bold;
-			font-size: large;
-			/*			font-family: D3Euronism, arial, sans-serif;*/
-		}
-
-		/*h2 {
-			font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
-		}
-		*/
-
-
-		span.ecrit,
-		td.ecrit {
-			border-bottom: 1px solid blue
-		}
-	</style>
-	<table cellpadding="0" cellspacing="0" style='background-color: lightblue'>
+<table cellpadding="0" cellspacing="0" style="width:100%">
+	<tbody>
 		<tr>
-			<td style='width: 80%; vertical-align: top;background-color: lightblue; vertical-align: middle;
-				font-weight: bold'>
-				Fiche depot No <span style='font-size: xx-large'>--obj_numero--</span>
-			</td>
-			<td style='width: 20%;margin: auto; text-align: right'>
-				<img src="--URL--/html/logoAVS.png" style='height: 50px;' />
-			</td>
+			<td style="background-color:lightblue; vertical-align:middle; width:80%"><span style="font-size:22px">Fiche d&eacute;p&ocirc;t No<strong> --obj_numero--</strong></span></td>
+			<td style="text-align:right; width:20%"><img src="http://localhost//BAV/html/logoAVS.png" style="height:50px" /></td>
 		</tr>
-	</table>
-	<table>
+	</tbody>
+</table>
+
+<table border="1" cellpadding="0" cellspacing="0" style="width:100%">
+	<tbody>
 		<tr>
-			<td style='width: 40%; border: 1px solid #000000;
-			vertical-align: top; font-size: x-small; color:red'>
-				Liste accessoires déposés dans les boites (écris en rouge)
-				<hr/>
-				<span style='font-size: medium"'>--obj_accessoire--</span>
-			</td>
-			<th style='width: 30%;text-align: center'>
-				<img src="--URL--/html/Bav.jpg" name="Nouveau_logobourseauxvelos" style='height: 100px' />
+			<td style="border-color:black; vertical-align:top; width:40%"><span style="font-size:9px"><span style="color:#c0392b">Liste accessoires d&eacute;pos&eacute;s dans les boites (&eacute;cris en rouge)</span></span>
+
+			<hr /><span style="font-size:9px"> <span style="color:#c0392b">--obj_accessoire--</span></span></td>
+			<th style="border-color:white; text-align:center; width:30%"><img src="http://localhost//BAV/html/Bav.jpg" style="height:100px" /></th>
+			<th style="border-color:white; text-align:center; vertical-align:middle; width:15%">D&eacute;p&ocirc;t
+			<p>--cli_prix_depot--&euro;</p>
 			</th>
-			<th style="vertical-align: middle;width:15%; padding: 10px">
-				<div style="width: 2cm; height:2cm; border: 1px solid #000000;vertical-align: top;
-					text-align:center;font-weight: bold; font-size: small; width:100%">
-					Dépôt<br />
-					<p style='font-weight: bold; font-size: xx-large' ; padding: 0> --cli_prix_depot--€</p>
-					<br />
-				</div>
-			</th>
-			<th style="text-align:center;vertical-align: top;width:15%;font-size: x-small;
-				border: 1px solid #000000;background-color: lightblue">
-				<span style="background-color: #c0c0c0">Initiales</span>
-			</th>
+			<th style="background-color:lightblue; text-align:center; vertical-align:top; width:15%">Initiales</th>
 		</tr>
-	</table>
-	<br />
-	<table cellpadding="0" cellspacing="5" style='font-size:small;border: 1.00pt solid #000000; padding: 0px 5px 0px 5px;'>
-		<tr>
-			<td valign="top" colspan="3" class="rubrique">Depot</td>
-		</tr>
-		<tr>
-			<td style="width: 33%" class="ecrit">Type de vélo&nbsp;: <b>--obj_type--</b></td>
-			<td style="width: 33%" class="ecrit">Public&nbsp;: <b>--obj_public--</b></td>
-			<td style="width: 33%" class="ecrit">Pratique&nbsp;: <b>--obj_pratique--</b></td>
-		</tr>
-		<tr>
-			<td class="ecrit">Marque&nbsp;: <b>--obj_marque--</b></td>
-			<td class="ecrit">Modèle&nbsp;: <b>--obj_modele--</b></td>
-			<td class="ecrit">Couleur&nbsp;: <b>--obj_couleur--</b></td>
-		</tr>
-		<tr>
-			<td colspan="3">Description&nbsp;du&nbsp;vélo :</td>
-		</tr>
-		<tr>
-			<td colspan="3">
-				<div style="vertical-align:top;font-weight: bold;height: 42pt;border:0.5px solid blue; padding: 5px;
-						overflow: hidden;">--obj_description--</div>
-			</td>
-		</tr>
-		<tr>
-			<td></td>
-			<td colspan="2" style='font-size: x-large'>
-				A vendre&nbsp;: <b>--obj_prix_depot-- €</b>
-			</td>
-		</tr>
-	</table>
-	<br />
-	<table cellpadding="0" cellspacing="5" style='font-size:small;border: 1.00pt solid #000000; padding: 0px 5px 0px 5px'>
-		<tr>
-			<td valign="top" colspan="2" class="rubrique">Vendeur
-			</td>
-		</tr>
-		<tr>
-			<td style="width: 50%" class="ecrit">Nom&nbsp;: <b>--cli_nom--</b></td>
-			<td style="width: 50%" class="ecrit">Mel&nbsp;: <b>--cli_emel--</b></td>
-		</tr>
-		<tr>
-			<td colspan="2" class="ecrit">Adresse&nbsp;: <b>--cli_adresse--&nbsp;--cli_adresse1--</b></td>
-		</tr>
-		<tr>
-			<td colspan="2" class="ecrit">Code Postal&nbsp;: <b>--cli_code_postal-- </b>Ville&nbsp;: <b>--cli_ville--</b></td>
-		</tr>
-		<tr>
-			<td colspan="2" class="ecrit">Téléphone (fixe ou <u>portable</u>) : <b>--cli_telephone-- --cli_telephone_bis--</b></td>
-		</tr>
-	</table>
+	</tbody>
+</table>
 
-	<table cellpadding="0" cellspacing="0">
+<table border="0" cellpadding="5" cellspacing="0" style="width:100%">
+	<tbody>
 		<tr>
-			<td style="border: 1px solid black; vertical-align: top; width: 50%">
-				<table cellspacing="5">
-					<tr>
-						<td>Le dépôt d’un vélo vaut acceptation du <br /><b>règlement de la Bourse aux vélos</b>.</td>
-					</tr>
-					<tr>
-						<td style='font-size: x-small'><b>(Prévoir --cli_taux_com-- % de la vente à l’ordre de l’AVS maxi 100 €)</b></td>
-					</tr>
-					<tr>
-						<td>
-							Signature&nbsp;avec la mention <b>«&nbsp;lu et approuvé&nbsp;»</b> :
-						</td>
-					</tr>
-					<tr>
-						<td>
-							Date : <u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
-							<br />&nbsp;<br />&nbsp;
-						</td>
-					</tr>
-				</table>
+			<td colspan="3" style="vertical-align:top">
+			<div style="background:#c0c0c0; font-size:large; font-weight:bold; text-align:center; width:100%">D&eacute;p&ocirc;t</div>
 			</td>
-			<td style="border: 1px solid black; background-color: lightblue;; vertical-align: top; width: 49%">
-				<table cellspacing="5">
-					<tr>
-						<td style="background-color: #c0c0c0;width:100%; vertical-align: top">
-							Réserve à l'administation
-						</td>
-					</tr>
-					<tr>
-						<td class="ecrit">
-							Pièce d’identité&nbsp;:&nbsp;n°
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<div style=" font-size: x-small">(Carte d’identité – Permis de cond. - Passeport…)</div>
-						</td>
-					</tr>
-				</table>
+		</tr>
+		<tr>
+			<td style="border-bottom:1px solid blue; width:33%">Type de v&eacute;lo&nbsp;: <strong>--obj_type--</strong></td>
+			<td style="border-bottom:1px solid blue; width:33%">Public&nbsp;: <strong>--obj_public--</strong></td>
+			<td style="border-bottom:1px solid blue; width:33%">Pratique&nbsp;: <strong>--obj_pratique--</strong></td>
+		</tr>
+		<tr>
+			<td style="border-bottom:1px solid blue">Marque&nbsp;: <strong>--obj_marque--</strong></td>
+			<td style="border-bottom:1px solid blue">Mod&egrave;le&nbsp;: <strong>--obj_modele--</strong></td>
+			<td style="border-bottom:1px solid blue">Couleur&nbsp;: <strong>--obj_couleur--</strong></td>
+		</tr>
+		<tr>
+			<td colspan="3" style="border-bottom:1px solid blue">Description&nbsp;du&nbsp;v&eacute;lo :</td>
+		</tr>
+		<tr>
+			<td colspan="3" style="vertical-align:top">
+			<p>--obj_description--</p>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td colspan="2"><span style="font-size:16px">Prix de vente <strong>--obj_prix_depot--</strong> &euro;</span></td>
+		</tr>
+	</tbody>
+</table>
 
-			</td>
-		</tr>
-	</table>
-	<br />
-	<table cellpadding="0" cellspacing="5" style='border: 1.00pt solid #000000;padding: 0px 5px 0px 5px;background-color: lightcyan;'>
-		<tr>
-			<td valign="top" colspan="2" class="rubrique">
-				L'acheteur
-			</td>
-		</tr>
-		<tr>
-			<td style="width:50%" class="ecrit">Nom&nbsp;: </td>
-			<td style="width:50%" class="ecrit">Mel&nbsp;: </td>
-		</tr>
-		<tr>
-			<td colspan="2" class="ecrit">Adresse&nbsp;:</td>
-		</tr>
-		<tr>
-			<td class="ecrit">Code Postal&nbsp;: </td>
-			<td class="ecrit">Ville: </td>
-		</tr>
-		<tr>
-			<td colspan="2" class="ecrit">Téléphone : </td>
-		</tr>
-	</table>
+<p>&nbsp;</p>
 
-	<table cellpadding="0" cellspacing="0">
+<table border="0" cellpadding="5" cellspacing="0" style="width:100%">
+	<tbody>
 		<tr>
-			<td style="border: 1px solid black; vertical-align: top;width:50%">
-				<table cellspacing="5">
-					<tr>
-						<td>
-							Payé la somme de --obj_prix_vente-- €
-							<br />
-							<span style=" font-size: x-small">en espèce - par chèque </span><u><b>à l’ordre du
-									vendeur</b></u>.
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<br />
-							Signature&nbsp;avec la mention <b>«&nbsp;lu et approuvé&nbsp;»</b> :
-						</td>
-					</tr>
-					<tr>
-						<td>
-							Date : <u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
-							<br />&nbsp;<br />&nbsp;
-						</td>
-					</tr>
-				</table>
-			</td>
-			<td style="border: 1px solid black; background-color: lightblue; vertical-align: top;width:49% ">
-				<table cellspacing="5">
-					<tr>
-						<td style="background-color: #c0c0c0;">
-							Réserve à l'administation
-						</td>
-					</tr>
-					<tr>
-						<td class="ecrit">
-							Pièce d’identité&nbsp;:&nbsp;n°
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<div style=" font-size: x-small">(Carte d’identité – Permis de cond. - Passeport…)</div>
-						</td>
-					</tr>
-				</table>
-
+			<td colspan="2" style="vertical-align:top">
+			<div style="background:#c0c0c0; font-size:large; font-weight:bold; text-align:center; width:100%"><strong>Vendeur</strong></div>
 			</td>
 		</tr>
-	</table>
-	<br />
-	<table cellpadding="0" cellspacing="0">
 		<tr>
-			<td style="border: 1px solid black; vertical-align: top;background-color: greenyellow; width: 50%">
-				<table cellspacing="5">
-					<tr>
-						<td class="rubrique">Retour achat</td>
-					</tr>
-					<tr>
-						<td>Vélo payé au vendeur : --obj_prix_vente-- €</td>
-					</tr>
-					<tr>
-						<td>
-							Commission due par le vendeur&nbsp;: --cli_com-- €
-						</td>
-					</tr>
-					<tr>
-						<td>Payée par&nbsp;:
-							<span style=" font-size: x-small">espèces - chèque </span>
-							<span style=" font-size: x-small"><b>(à l’ordre de l’AVS)</b></span>
-						</td>
-					</tr>
-					<tr>
-						<td><br />Signature&nbsp;du vendeur :</td>
-					</tr>
-					<tr>
-						<td>Date : <u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
-						</td>
-					</tr>
-				</table>
-			</td>
-			<td style="border: 1px solid black; background-color: lightcoral; vertical-align: top; width:50%">
-				<table cellspacing="5">
-					<tr>
-						<td class="rubrique">Retour velo
-						</td>
-					</tr>
-					<tr>
-						<td>
-							Vélo non vendu et remis au vendeur
-						</td>
-					</tr>
-					<tr>
-						<td>
-							Signature&nbsp;du vendeur :
-						</td>
-					</tr>
-					<tr>
-						<td>
-							Date : <u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
-						</td>
-					</tr>
-				</table>
+			<td style="border-bottom:1px solid blue; width:50%">Nom&nbsp;: <strong>--cli_nom--</strong></td>
+			<td style="border-bottom:1px solid blue; width:50%">Mel&nbsp;: <strong>--cli_emel--</strong></td>
+		</tr>
+		<tr>
+			<td colspan="2" style="border-bottom:1px solid blue">Adresse&nbsp;: <strong>--cli_adresse--&nbsp;--cli_adresse1--</strong></td>
+		</tr>
+		<tr>
+			<td colspan="2" style="border-bottom:1px solid blue">Code Postal&nbsp;: <strong>--cli_code_postal-- </strong>Ville&nbsp;: <strong>--cli_ville--</strong></td>
+		</tr>
+		<tr>
+			<td colspan="2" style="border-bottom:1px solid blue">T&eacute;l&eacute;phone (fixe ou portable) : <strong>--cli_telephone-- --cli_telephone_bis--</strong></td>
+		</tr>
+		<tr>
+			<td colspan="2">&nbsp;</td>
+		</tr>
+	</tbody>
+</table>
 
+<table border="1" cellpadding="0" cellspacing="0" style="width:100%">
+	<tbody>
+		<tr>
+			<td style="border-color:black; vertical-align:top; width:50%">
+			<table cellpadding="5" cellspacing="0" style="width:100%">
+				<tbody>
+					<tr>
+						<td>Le d&eacute;p&ocirc;t d&rsquo;un v&eacute;lo vaut acceptation du&nbsp;<br />
+						<strong>r&egrave;glement de la Bourse aux v&eacute;los</strong>.</td>
+					</tr>
+					<tr>
+						<td><strong>(Pr&eacute;voir --cli_taux_com-- % de la vente<br />
+						&agrave; l&rsquo;ordre de l&rsquo;AVS maxi 100 &euro;)</strong></td>
+					</tr>
+					<tr>
+						<td>Signature&nbsp;avec la mention <strong>&laquo;&nbsp;lu et approuv&eacute;&nbsp;&raquo;</strong> :</td>
+					</tr>
+					<tr>
+						<td style="width:50%">Date :<span style="color:#3498db"><u> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></span><br />
+						&nbsp;<br />
+						&nbsp;</td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+			<td style="background-color:lightblue; border-color:black; vertical-align:top; width:50%">
+			<table cellpadding="5" style="width:100%">
+				<tbody>
+					<tr>
+						<td style="background-color:#c0c0c0; vertical-align:top; width:100%">R&eacute;serve &agrave; l&#39;administation</td>
+					</tr>
+					<tr>
+						<td>Pi&egrave;ce d&rsquo;identit&eacute;&nbsp;:&nbsp;n&deg;<span style="color:#3498db"><u>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</u></span></td>
+					</tr>
+					<tr>
+						<td>
+						<p>(Carte d&rsquo;identit&eacute; &ndash; Permis de cond. - Passeport&hellip;)</p>
+
+						<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 			</td>
 		</tr>
-	</table>
+	</tbody>
+</table>
+
+<p>&nbsp;</p>
+
+<table border="0" cellpadding="5" cellspacing="0" style="width:100%">
+	<tbody>
+		<tr>
+			<td colspan="2" style="vertical-align:top">
+			<div style="background:#c0c0c0; font-size:large; font-weight:bold; text-align:center; width:100%">Acheteur</div>
+			</td>
+		</tr>
+		<tr>
+			<td style="border-bottom:1px solid blue; width:50%">Nom&nbsp;:</td>
+			<td style="border-bottom:1px solid blue; width:50%">Mel&nbsp;:</td>
+		</tr>
+		<tr>
+			<td colspan="2" style="border-bottom:1px solid blue">Adresse&nbsp;:</td>
+		</tr>
+		<tr>
+			<td style="border-bottom:1px solid blue">Code Postal&nbsp;:</td>
+			<td style="border-bottom:1px solid blue">Ville:</td>
+		</tr>
+		<tr>
+			<td colspan="2" style="border-bottom:1px solid blue">T&eacute;l&eacute;phone :</td>
+		</tr>
+		<tr>
+			<td colspan="2">&nbsp;</td>
+		</tr>
+	</tbody>
+</table>
+
+<table border="1" cellpadding="0" cellspacing="0" style="width:100%">
+	<tbody>
+		<tr>
+			<td style="border-color:black; vertical-align:top; width:50%">
+			<table border="0" cellpadding="5" style="width:100%">
+				<tbody>
+					<tr>
+						<td>Pay&eacute; la somme de --obj_prix_vente-- &euro;<br />
+						en esp&egrave;ce - par ch&egrave;que <strong>&agrave; l&rsquo;ordre du vendeur</strong>.</td>
+					</tr>
+					<tr>
+						<td><br />
+						Signature&nbsp;avec la mention <strong>&laquo;&nbsp;lu et approuv&eacute;&nbsp;&raquo;</strong> :</td>
+					</tr>
+					<tr>
+						<td>Date : <span style="color:#3498db"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></span><br />
+						&nbsp;<br />
+						&nbsp;</td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+			<td style="background-color:lightblue; border-color:black; vertical-align:top; width:50%">
+			<table cellpadding="5" cellspacing="0" style="width:100%">
+				<tbody>
+					<tr>
+						<td style="background-color:#c0c0c0"><strong>R&eacute;serve &agrave; l&#39;administation</strong></td>
+					</tr>
+					<tr>
+						<td>Pi&egrave;ce d&rsquo;identit&eacute;&nbsp;:&nbsp;n&deg;<span style="color:#3498db"><u>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</u></span></td>
+					</tr>
+					<tr>
+						<td>
+						<p>(Carte d&rsquo;identit&eacute; &ndash; Permis de cond. - Passeport&hellip;)</p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>&nbsp;</p>
+
+<table cellpadding="0" cellspacing="0" style="width:100%">
+	<tbody>
+		<tr>
+			<td style="background-color:greenyellow; border-color:black; vertical-align:top; width:50%">
+			<table cellpadding="5" cellspacing="0" style="width:100%">
+				<tbody>
+					<tr>
+						<td><strong>Retour achat</strong></td>
+					</tr>
+					<tr>
+						<td>V&eacute;lo pay&eacute; au vendeur : <strong>--obj_prix_vente--</strong> &euro;</td>
+					</tr>
+					<tr>
+						<td>Commission due par le vendeur&nbsp;: <strong>--cli_com--</strong> &euro;</td>
+					</tr>
+					<tr>
+						<td>Pay&eacute;e par&nbsp;: esp&egrave;ces - ch&egrave;que <strong>(&agrave; l&rsquo;ordre de l&rsquo;AVS)</strong></td>
+					</tr>
+					<tr>
+						<td>
+						<p>Signature&nbsp;du vendeur :</p>
+						</td>
+					</tr>
+					<tr>
+						<td>Date :<span style="color:#3498db"><u>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; /&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</u></span><br />
+						&nbsp;</td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+			<td style="background-color:lightcoral; border-color:black; vertical-align:top; width:50%">
+			<table cellpadding="5" style="width:100%">
+				<tbody>
+					<tr>
+						<td><strong>Retour v&eacute;lo</strong></td>
+					</tr>
+					<tr>
+						<td>V&eacute;lo non vendu et remis au vendeur</td>
+					</tr>
+					<tr>
+						<td>Signature&nbsp;du vendeur :</td>
+					</tr>
+					<tr>
+						<td>Date :<span style="color:#3498db"><u>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</u></span></td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+	</tbody>
+</table>

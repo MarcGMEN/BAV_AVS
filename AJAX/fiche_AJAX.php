@@ -177,7 +177,7 @@ function action_makePDF($id)
         $fiche['obj_prix_depot'] ="<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
     }
 
-    $tabPlus['titre'] = $par['titre'];
+    $tabPlus['titre'] = $par['par_titre'];
     $tabPlus['URL'] = $CFG_URL;
 
 
@@ -185,18 +185,17 @@ function action_makePDF($id)
         $fiche['obj_prix_depot']="<s>".$fiche['obj_prix_depot']." €</s><span style='color:RED'>".$fiche['obj_prix_vente']."</span>";
     }
 
-    if ($fiche['obj_id_acheteur'] != null) {
+    $acheteur = array();
+    if ($fiche['obj_id_acheteur'] != null && $fiche['obj_id_acheteur']  > 0) {
         $acheteur = getOneClient($fiche['obj_id_acheteur']);
         $client['cli_com']=($client['cli_taux_com']*$fiche['obj_prix_vente']/100) > 100 ? 100 :
             ($client['cli_taux_com']*$fiche['obj_prix_vente']/100);
     } else {
-        $acheteur=[];
         $fiche['obj_prix_vente']="<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
         $client['cli_com']="<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>";
     }
    
     // todo  faire un fichier fiche + etiquette.
-        
     $filePDF = html2pdf(array_merge($fiche, $client, $acheteur, $tabPlus), "fiche_depot.html", "Fiche_" . $fiche['obj_numero']);
 
     return $CFG_URL.$filePDF;

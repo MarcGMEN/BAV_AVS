@@ -52,6 +52,13 @@ function return_infoAppli()
         }
     }
     $infos['titre']=$par['par_titre'];
+    $infos['date_j1_FR'] = utf8_encode(formateDateMYSQLtoFR($par['par_date_1'], true));
+    $infos['date_j2_FR'] = utf8_encode(formateDateMYSQLtoFR($par['par_date_2'], true));
+    $infos['date_j3_FR'] = utf8_encode(formateDateMYSQLtoFR($par['par_date_3'], true));
+
+    $infos['date_j1'] = strtotime($par['par_date_1']);
+    $infos['date_j2'] = strtotime($par['par_date_2']);
+    $infos['date_j3'] = strtotime($par['par_date_3']);
 
     return $infos;
 }

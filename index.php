@@ -25,8 +25,6 @@ if (!isset($_COOKIE['NUMERO_BAV'])) {
 
 $infAppli = return_infoAppli();
 
-
-
 // init ajax
 $sajax_request_type = "POST";
 $sajax_debug_mode = false;
