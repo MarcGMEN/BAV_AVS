@@ -73,9 +73,8 @@ sajax_handle_client_request();
 
 	<?php  // inclusion pour SAJAX?>
 	<!-- <script type="text/javascript" src="JS/sajax/json_stringify.js"></script>
-<script type="text/javascript" src="JS/sajax/json_parse.js"></script>
-<script type="text/javascript" src="JS/sajax/sajax.js"></script>  -->
-
+	<script type="text/javascript" src="JS/sajax/json_parse.js"></script>
+	<script type="text/javascript" src="JS/sajax/sajax.js"></script>  -->
 	<? sajax_show_javascript();?>
 
 	<script type="text/javascript">
@@ -87,61 +86,26 @@ sajax_handle_client_request();
 		var id='<?=$GET_id?>';
 
 		function initIndex() {
+			if (modePage == 'rest') {
+				search(id);
+				var stateObj = { foo: "bar" };
+				history.pushState(stateObj, "", "index.php");
+			}
 		}
 
-		function setStartSaisie(cStartSaisie) {
-			startSaisie = cStartSaisie;
-			enteteSaisie();
-			pageSaisie();
-		}
-
-		// recuperation des donnees de la BAV
-		function setParamValIndex(val) {
-			getElement("mode").innerHTML = modePage + "-" + CLIENT + "-" + TABLE + "-" + ADMIN +
-				"; id=<?=$GET_id?>";
-		}
-
-		function setParamVal(val) {
-			setParamValIndex(val);
-		}
-
-		function display_retour_test(val) {
-			console.log(val);
-		}
-
-		function confirmModalTest() {
-			setTimeout(function() {
-				closeModal();
-			}, 1000);
-		}
-
-		function display_openPDF(val) {
-			console.log(val);
-			window.open(val, '_blank');
-		}
-
-		function goTo(page = 'accueil.php', modePage = '', id = null, message = '') {
-			document.formNavigation.action = 'index.php';
-			document.formNavigation.page.value = page
-			document.formNavigation.modePage.value = modePage;
-			document.formNavigation.message.value = message;
-			document.formNavigation.id.value = id;
-			document.formNavigation.submit();
-		}
+		
 	</script>
 
 </head>
-
-
-<BODY class="parent" LANG="fr-FR" onload="initIndex();initEntete();initPage()" onunload="unloadPage()">
+<body class="parent" LANG="fr-FR" onload="initIndex();initEntete();initPage()" onunload="unloadPage()">
 	<form name=formNavigation method=post>
 		<input type=hidden name=page value="">
 		<input type=hidden name=modePage value="">
 		<input type=hidden name=id value="">
 		<input type=hidden name=message value="">
 	</form>
-	<A name="top"></A>
-	<div width="95%" cellspacing="0" cellpadding="0" class=PAGE>
+	<a name="top"></a>
+	<div cellspacing="0" cellpadding="0" class=PAGE>
 		<div class="entete">
 			<?include('genericPages/entete.php');  ?>
 		</div>

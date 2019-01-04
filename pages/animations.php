@@ -18,7 +18,7 @@
           gratuite de la Bourse aux Vélos pour gagner un très beau <b>VTT NEUF</b> de chez "Terre de Cycle" à La Baule.<br />
           Tirage au sort le dimanche soir vers 17h30.</p>
         <p><span class="glyphicon glyphicon-save"></span>
-          <span class="link navigation" onclick=' window.open("downloads/reglement_tombola.pdf", "_blank");'>
+          <span class="link navigation" onclick='window.open("downloads/reglement_tombola.pdf", "_blank");'>
             Reglement Tombola</span></p>
       </div>
     </div>

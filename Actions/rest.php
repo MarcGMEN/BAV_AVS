@@ -16,6 +16,9 @@ if (!isset($_COOKIE['NUMERO_BAV'])) {
     setcookie('NUMERO_BAV', date('Y'), time() + (86400 * 30), "/"); // 86400 = 1 day
     $_COOKIE['NUMERO_BAV'] = date('Y');
 }
+
+header($page_src);
+
 $par = return_infoAppli();
 // demande de confirmation de la fiche;
 if ($GET_a == "C") {
@@ -41,8 +44,8 @@ if ($GET_a == "C") {
                 //updateFiche($fiche);
                 updateFiche($fiche);
 
-                $tabPlus['lien_update_fiche'] = $CFG_URL . "/index.php?modePage=consult&id=" . $fiche['obj_id_modif'];
-                $tabPlus['lien_vue-client'] = $CFG_URL . "/index.php?modePage=consult&id=" . $client['cli_id_modif'];
+                $tabPlus['lien_update_fiche'] = $CFG_URL . "/index.php?modePage=rest&id=" . $fiche['obj_id_modif'];
+                $tabPlus['lien_vue-client'] = $CFG_URL . "/index.php?modePage=rest&id=" . $client['cli_id_modif'];
 
                 if ($fiche['obj_prix_depot'] == 0) {
                     $tabPlus['obj_prix_depot']='A renseigner le jour du dépôt dernier délai';
@@ -71,6 +74,7 @@ if ($GET_a == "C") {
     } catch (Exception $e) {
         $retour = $e->getMessage();
     }
+    $page_src = "location:../index.php?message=$retour";
 }
-$page_src = "location:../index.php?message=$retour";
+
 header($page_src);

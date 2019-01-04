@@ -15,6 +15,14 @@
 		<input type=hidden name=cli_id />
 		<div class="row">
 			<div class="col-sm-6 col-md-6 col-xs-12">
+				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Id</span>
+				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
+					<span id='cli_id_modif'></span>
+				</span>
+			</div>
+		<div class="row">
+		</div>
+			<div class="col-sm-6 col-md-6 col-xs-12">
 				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Emel <span title="Obligatoire">*</span></span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
 					<? if ($GET_modePage=='consult') {?>

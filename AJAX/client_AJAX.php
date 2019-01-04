@@ -18,7 +18,7 @@ function return_oneClientByMel($mel)
 }
 function return_oneClientByIdModif($mid)
 {
-    return getOne($id, "bav_client", "cli_idmodif");
+    return getOne($mid, "bav_client", "cli_id_modif");
 }
 
 

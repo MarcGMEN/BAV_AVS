@@ -1,3 +1,41 @@
+function setStartSaisie(cStartSaisie) {
+    startSaisie = cStartSaisie;
+    enteteSaisie();
+    pageSaisie();
+}
+
+// recuperation des donnees de la BAV
+function setParamValIndex(val) {
+    getElement("mode").innerHTML = modePage + "-" + CLIENT + "-" + TABLE + "-" + ADMIN +
+        "; id=<?=$GET_id?>";
+}
+
+function setParamVal(val) {
+    setParamValIndex(val);
+}
+
+function display_retour_test(val) {
+    console.log(val);
+}
+
+function confirmModalTest() {
+    setTimeout(function() {
+        closeModal();
+    }, 1000);
+}
+
+function display_openPDF(val) {
+    window.open(val, '_blank');
+}
+
+function goTo(page = 'accueil.php', modePage = '', id = null, message = '') {
+    document.formNavigation.page.value = page
+    document.formNavigation.modePage.value = modePage;
+    document.formNavigation.id.value = id;
+    document.formNavigation.message.value = message;
+    document.formNavigation.submit();
+}
+
 function search(value) {
     if (!isNaN(Number(value)) && value < 9999) {
         console.log("consult fiche");

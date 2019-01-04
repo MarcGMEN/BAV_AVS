@@ -51,7 +51,7 @@
     }
     $tabNav = array_merge($tabNavAll, $tabNavAdm);
     ?>
-<div class="menuMobile" onclick="menuSel()"><i class="fas fa-bars"></i></div>
+
 <div  class="menuNavigation"  id="IDmenuNavigation" >
 <div class="row col-md-12" style="width:100%">
     <?

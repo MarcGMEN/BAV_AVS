@@ -336,16 +336,25 @@ div.MENU {
 		width: 90%;
 	}
 	.navigation {
+		font-family: Verdana, Arial, Helvetica, sans-serif;
 		color: white;
 		display: block;
+		font-size: 1.2em;
+		margin: 5pt;
+		background-color: black;
 	}
 	.tdSearch {
 		width: 85%;
 	}
+	#inputSearch {
+		font-size: 1.1em;
+	}
 	.tdMenu {
 		width: 15%;
 	}
-	
+	div.PAGE, div.entete, div.pied  {
+		width:100%;
+	}
 }
 
 
@@ -554,7 +563,7 @@ img.imgBAV {
 	height: 200pt;
 }
 
-img #logoAVS #cycleBAV {
+img #logoAVS, #cycleBAV {
 	height: 100pt;
 }
 
@@ -579,7 +588,7 @@ img.logo {
 		width: 100%;
 	}
 	.TITRE_FENETRE_PRINCIPALE {
-		font-size: 1em;
+		font-size: 1.4em;
 	}
 	.titrow {
 		font-size: 0.6em;

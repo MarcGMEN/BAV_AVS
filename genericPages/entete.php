@@ -18,7 +18,7 @@
 					getElement(key).innerHTML=val[key];
 				}
 			}
-			getElement("depotTOT").innerHTML=parseInt(val['STOCK'])+parseInt(val['VENDU'])+parseInt(val['RENDU']);
+			//getElement("depotTOT").innerHTML=parseInt(val['STOCK'])+parseInt(val['VENDU'])+parseInt(val['RENDU']);
 		}
 	}
 
@@ -30,10 +30,14 @@
 <table class="BH_CADRE" cellspacing="0" cellpadding="0">
 	<tr height="100%">
 		<td width="15%">
-			<span id="depotTOT"></span>
-			<A HREF="index.php">
-				<img src="Images/cycleBAV.png" id="cycleBAV" height='100pt' />
-			</A>
+			<div class="row">
+				<div class="col-sm-6 col-md-6 col-xs-6 menuMobile">
+					<i class="fas fa-bars" style="font-size:36px" onclick="menuSel()"></i>
+				</div>
+				<div class="col-sm-12 col-md-12 col-xs-6">
+					<img src="Images/cycleBAV.png" id="cycleBAV" class=link onclick="location.href='index.php'" />
+				</div>
+			</div>
 		</td>
 		<td width="70%" >
 			<div class="TITRE_FENETRE_PRINCIPALE" >

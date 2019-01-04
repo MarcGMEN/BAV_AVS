@@ -7,7 +7,7 @@
 
 <script src="JS/fiche.js" type="text/javascript"></script>
 
-<? if (!$infAppli['TABLE'] && !$infAppli['ADMIN']) {?>
+<? if (!$infAppli['TABLE'] && !$infAppli['ADMIN'] && $GET_modePage == 'create') {?>
 <h4>Remplissez votre fiche en ligne ici, ou téléchargez la : 
 		<span class="link url" onclick='x_action_makePDF(new Array(), display_openPDF);' )>fiche depot</span>
 <?}?>
