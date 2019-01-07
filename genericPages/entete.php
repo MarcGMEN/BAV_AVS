@@ -7,6 +7,11 @@
 				getElement('tabStat').className='tabStatShow';
 				x_return_countByEtat(display_counter);
 			}
+			getElement('tdSearch').style.display="table-cell";
+			
+		}
+		else if (CLIENT) {
+			getElement('tdSearch').style.display="table-cell";
 		}
 		console.log("Fin initEntete");
 	}
@@ -73,7 +78,7 @@
 		<th class="tdMenu" >
 			<?php include "./genericPages/navigation.php"?>
 		</th>
-		<td class="tdSearch" >
+		<td class="tdSearch" id="tdSearch" style="display:none" >
 			<form name="enteteFormFiche" action="#" onsubmit='return search(document.enteteFormFiche.inputSearch.value)'>
 			<input type="text" name="numeroFiche" size="15" maxlength="50" title="Saisisez le numéro de fiche, ou l'identifiant de la fiche"
 				placeholder="Recherche" id="inputSearch" onsubmit='search(this.value)' />
