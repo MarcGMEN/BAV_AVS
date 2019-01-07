@@ -44,7 +44,7 @@
 				<p>Pour toute autre demande, contactez-nous directement :</p>
 
 				<p><span class="label label-info">Email</span>
-					<a href='mailto:avs.vtt@gmail.com' class="url">avs.vtt@gmail.com</a></p>
+					<a href='mailto:bourse-aux-velos@avs44.com' class="url">bourse-aux-velos@avs44.com</a></p>
 				<p><span class="label label-info">Tél</span>
 					<span style="font-size: 16px;">06.46.58.06.61</span></p>
 		</fieldset>

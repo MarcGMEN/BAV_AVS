@@ -63,8 +63,8 @@ function sendMail($titre, $toMail, $messageMail, $pieceJointe = null)
     $headers .= "X-Mailer: PHP\r\n";
     //$headers .= "X-Priority: 1 \n";
     /* D'autres en-têtes */
-    $headers .= "From: avs.vtt@gmail.com\r\n";
-    $headers .= "Reply-To: avs.vtt@gmail.com\r\n";
+    $headers .= "From: <bourse-aux-velos@avs44.com>\r\n";
+    $headers .= "Reply-To: <bourse-aux-velos@avs44.com>\r\n";
     /* et hop, à la poste */
     try {
         $message="";

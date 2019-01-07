@@ -59,15 +59,19 @@ function pageSaisie() {
         document.ficheForm.buttonValideFiche.title = "Valider vos modifications";
         document.ficheForm.buttonPDFFiche.disabled = true;
         document.ficheForm.buttonPDFFiche.title = "Valider les modifications avant d'imprimer";
-        document.ficheForm.buttonPDFEtiquette.disabled = true;
-        document.ficheForm.buttonPDFEtiquette.title = "Valider les modifications avant d'imprimer";
+        if (document.ficheForm.buttonPDFEtiquette) {
+            document.ficheForm.buttonPDFEtiquette.disabled = true;
+            document.ficheForm.buttonPDFEtiquette.title = "Valider les modifications avant d'imprimer";
+        }
     } else {
         document.ficheForm.buttonValideFiche.disabled = true;
         document.ficheForm.buttonValideFiche.title = "Rien de changé";
         document.ficheForm.buttonPDFFiche.disabled = false;
         document.ficheForm.buttonPDFFiche.title = "Impression en PDF";
-        document.ficheForm.buttonPDFEtiquette.disabled = false;
-        document.ficheForm.buttonPDFEtiquette.title = "Impression en PDF";
+        if (document.ficheForm.buttonPDFEtiquette) {
+            document.ficheForm.buttonPDFEtiquette.disabled = false;
+            document.ficheForm.buttonPDFEtiquette.title = "Impression en PDF";
+        }
     }
 }
 
