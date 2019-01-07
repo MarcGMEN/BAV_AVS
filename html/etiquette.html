@@ -1,29 +1,38 @@
-        <page_header>
-            A imprimer <span style='float: right'>--titre--</span>
-        </page_header>
-        <br/>
-        <table cellpadding="0" cellspacing="5" style='border: 1.00pt solid #000000; padding: 0px 5px 0px 5px;'>
-            <tr>
-                <td style="width: 28%">Type de vélo&nbsp;: <b>--obj_type--</b></td>
-                <td style="width: 28%">Public&nbsp;: <b>--obj_public--</b></td>
-                <td style="width: 28%">Pratique&nbsp;: <b>--obj_pratique--</b></td>
-                <td style="width: 15%;font-size: x-large;font-weight: bold;border: 1px dashed BLUE" rowspan="2">N° --obj_numero--</td>
-            </tr>
-            <tr>
-                <td>Marque&nbsp;: <b>--obj_marque--</b></td>
-                <td>Modèle&nbsp;: <b>--obj_modele--</b></td>
-                <td>Couleur&nbsp;: <b>--obj_couleur--</b></td>
-            </tr>
-            <tr>
-                <td colspan="2">Description&nbsp;du&nbsp;vélo :</td>
-                <td colspan="2" style='font-size: large;background-color: yellow'>A vendre&nbsp;: <b>--obj_prix_depot-- €</b></td>
-            </tr>
-            <tr>
-                <td colspan="4">
-                    <div style="vertical-align:top;font-weight: bold;height: 42pt;border:0.5px solid blue; padding: 5px;
-                            overflow: hidden;">--obj_description--</div>
-                </td>
-            </tr>
-        </table>
-        <hr style='border: 1px dashed BLUE;' />
-    
+<p>A imprimer --titre--</p>
+
+<hr />
+<table border="1" cellpadding="2" cellspacing="0" style="height:20%; width:72%">
+	<tbody>
+		<tr>
+			<td style="width:28%"><span style="font-size:9px">Type de v&eacute;lo&nbsp;:<strong> --obj_type--</strong></span></td>
+			<td style="width:28%"><span style="font-size:9px">Public&nbsp;: <strong>--obj_public--</strong></span></td>
+			<td style="width:28%"><span style="font-size:9px">Pratique&nbsp;: <strong>--obj_pratique--</strong></span></td>
+			<td rowspan="2" style="background-color:blue; border-color:blue; text-align:center; width:15%"><span style="font-size:18px"><span style="color:#f1c40f"><strong>--obj_numero--</strong></span></span></td>
+		</tr>
+		<tr>
+			<td><span style="font-size:9px">Marque&nbsp;:<strong> --obj_marque--</strong></span></td>
+			<td><span style="font-size:9px">Mod&egrave;le&nbsp;:<strong> --obj_modele--</strong></span></td>
+			<td><span style="font-size:9px">Couleur&nbsp;: <strong>--obj_couleur--</strong></span></td>
+		</tr>
+		<tr>
+			<td colspan="2"><span style="font-size:9px">Description&nbsp;du&nbsp;v&eacute;lo :</span></td>
+			<td colspan="2" style="background-color:yellow">A vendre&nbsp;:<strong><span style="color:#2980b9">--obj_prix_depot--</span></strong> &euro;</td>
+		</tr>
+		<tr>
+			<td colspan="4">
+			<p><strong><span style="font-size:9px">--obj_description--</span></strong></p>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<hr />
+<h2>R&eacute;cap de votre depot :</h2>
+
+<p>D&eacute;pot n&deg; <strong><span style="font-size:14px">--obj_numero-- </span></strong></p>
+
+<p>Acc&eacute;s en modification de votre Fiche sur le site --URL-- avec le code <strong>--obj_id_modif-- </strong><br />
+Acc&eacute;s en visualisation de vos ventes sur le site --URL-- avec le code<strong> --cli_id_modif--</strong></p>
+
+<hr />
+<p>&nbsp;</p>

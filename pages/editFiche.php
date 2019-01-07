@@ -1,39 +1,19 @@
-<?php
-    $data = array(
-		'URL'=>$CFG_URL);
-		$message = makeCorps($data, "fiche_depot.html");
-?>
+
 <script>
 	function initPage() {
-		x_return_html('fiche_depot', display_fiche_depot);
 	}
 
 	function unloadPage() {}
 
-
-	var data2PDF = "";
-	data2PDF =
-		"<? foreach ($data as $key => $val) {echo $key."#3D".$val."#2C";}?>";
-
-	function display_fiche_depot(val) {
-		<? if ($infAppli['ADMIN']) {?>
-			getElement('editor_fiche_depot').innerHTML=val;
-			CKEDITOR.replace( 'editor_fiche_depot' );
-		<?}?>
-		//getElement('fiche_depot').innerHTML=val;
+	function display_html_file(val) {
+		getElement('editor_html_file').innerHTML=val;
+		CKEDITOR.replace( 'editor_html_file' );
+		getElement('html_file_title').innerHTML="TITRE";
+		getElement('edition').style.display='block';
 	}
 
 	function unloadPage() {}
 
-	function affichEditor(id) {
-		getElement(id).style.display='none';
-		<? if ($infAppli['ADMIN']) {?>
-			getElement(id+"_edit").style.display='none';
-			getElement(id+"_save").style.display='inline';
-			getElement(id+"_cancel").style.display='inline';
-			getElement(id+"_maj").style.display='block';
-		<?}?>
-	}
 
 	function saveEditor(id,data) {
 		x_save_html(id, data, display_fin_save);
@@ -43,31 +23,38 @@
 		location.reload();
 	}
 	function cancelEditor(id) {
-		getElement(id).style.display='block';
-		<? if ($infAppli['ADMIN']) {?>
-		getElement(id+"_edit").style.display='inline';
-		getElement(id+"_save").style.display='none';
-		getElement(id+"_cancel").style.display='none';
-		getElement(id+"_maj").style.display='none';
-		<?}?>
+		getElement('edition').style.display='none';
+		CKEDITOR.editor_html_file.destroy();
+		CKEDITOR.remove('editor_html_file');
+		getElement('editor_html_file').innerHTML="";
 	}
 </script>
-<span class="link url" onclick='x_action_makePDF(new Array(), display_openPDF);' )>
-	telecharger le fiche_depot</span>
-	<? if ($infAppli['ADMIN']) {?>
-	<span>
-		<i class="fas fa-edit" id="fiche_depot_edit" onclick="affichEditor('fiche_depot')"></i>
-		<i class="fas fa-save" id="fiche_depot_save" style='display:none' 
-			onclick="saveEditor('fiche_depot',CKEDITOR.instances.editor_fiche_depot.getData())"></i>	
-		<i class="fas fa-times"id="fiche_depot_cancel" style='display:none' onclick="cancelEditor('fiche_depot')"></i>	
-	</span>	
-	<?}?>
+<table width="100%" > 
+<?
+$tabInfo=['FICHE DEPOT' => "fiche_depot",
+'ETIQUETTE' => "etiquette",
+	];
+	foreach ($tabInfo as $title => $idText) {
+?>
+	<tr>
+		<td class='tittab'><?=$title?></td>
+		<td class='tittab'><span class="link url" onclick='x_action_makePDF(new Array(), "<?=$idText?>.html", display_openPDF);' )>
+				PDF</span>
+		</td>
+		<td class='tittab'>
+			<i class="fas fa-edit" onclick="x_return_html('<?=$idText?>', display_html_file);"></i>
+		</td>
+	</tr>
+<?}?>
+</table>
 
-<div id="fiche_depot" ><?=$message?></div>
-<? if ($infAppli['ADMIN']) {?>
-<div id="fiche_depot_maj"  style='display:none'>
-	<textarea style="width:100%" rows=150 id="editor_fiche_depot" contenteditable="true"></textarea>
-</div>
+<div id="edition" style="display:none">
+	<hr/>
+	<div id="html_file_title" ></div>
+<i class="fas fa-save" onclick="saveEditor('<?=$idText?>',CKEDITOR.instances.editor_html_file.getData())"></i>	
+<i class="fas fa-times" onclick="cancelEditor('html_file')"></i>
+
+<textarea style="width:100%" rows=150 id="editor_html_file" contenteditable="true"></textarea>
 <script>
 	// Inline styles.
 	CKEDITOR.stylesSet.add( 'style_fic', [
@@ -91,4 +78,4 @@
 	CKEDITOR.config.stylesSet='style_fic';
 	CKEDITOR.config.height = '400pt';
 </script>
-<?}?>
+</div>

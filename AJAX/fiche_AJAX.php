@@ -25,7 +25,8 @@ function return_list_marques()
 
 function return_list_modeles($marque)
 {
-	$tabRetour=get_modelesByMarques(strtoupper($marque));
+    $tabRetour=get_modelesByMarques(strtoupper($marque));
+    //print_r($tabRetour);
 	sort($tabRetour);
     return $tabRetour ;
 }
@@ -135,8 +136,9 @@ function action_deleteFiche($id)
     deleteFiche($id);
 }
 
-function action_makePDF($id)
+function action_makePDF($id, $html = 'fiche_depot.html')
 {
+    //echo $html;
     $infoAppli = return_infoAppli();
     // droit = ADMIN+TABLE+CLIENT
     $ADMIN=$infoAppli['ADMIN'];
@@ -180,7 +182,6 @@ function action_makePDF($id)
     $tabPlus['titre'] = $par['par_titre'];
     $tabPlus['URL'] = $CFG_URL;
 
-
     if ($fiche['obj_prix_vente'] != $fiche['obj_prix_depot']) {
         $fiche['obj_prix_depot']="<s>".$fiche['obj_prix_depot']." €</s><span style='color:RED'>".$fiche['obj_prix_vente']."</span>";
     }
@@ -194,10 +195,11 @@ function action_makePDF($id)
         $fiche['obj_prix_vente']="<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
         $client['cli_com']="<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>";
     }
-   
-    // todo  faire un fichier fiche + etiquette.
-    $filePDF = html2pdf(array_merge($fiche, $client, $acheteur, $tabPlus), "fiche_depot.html", "Fiche_" . $fiche['obj_numero']);
 
+    //print_r(array_merge($fiche, $client, $acheteur, $tabPlus));
+   
+    $filePDF = html2pdf(array_merge($fiche, $client, $acheteur, $tabPlus), $html, "Fiche_" . $fiche['obj_numero']);
+    
     return $CFG_URL.$filePDF;
 }
 

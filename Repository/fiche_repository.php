@@ -13,6 +13,24 @@ function getOneFiche($id)
     return getOne($id, "bav_objet", "obj_id");
 }
 
+function get_modelesByMarques($marque)
+{
+    $tab=array();
+            
+    if ($marque) {
+        $requete2 = "SELECT distinct(obj_modele) modele from bav_objet where obj_marque = '".$marque."'";
+        if ($result = $GLOBALS['mysqli']->query($requete2)) {
+            $index=0;
+            while ($row = $result->fetch_assoc()) {
+                $tab[$index++] = $row['modele'];
+            }
+            $result->close();
+        } else {
+            throw new Exception("get_modelesByMarques' [$requete2]".mysqli_error());
+        }
+    }
+    return $tab;
+}
 function getAllFichesAcheteur($idAcheteur)
 {
     if ($idAcheteur) {

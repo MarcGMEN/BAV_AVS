@@ -59,11 +59,15 @@ function pageSaisie() {
         document.ficheForm.buttonValideFiche.title = "Valider vos modifications";
         document.ficheForm.buttonPDFFiche.disabled = true;
         document.ficheForm.buttonPDFFiche.title = "Valider les modifications avant d'imprimer";
+        document.ficheForm.buttonPDFEtiquette.disabled = true;
+        document.ficheForm.buttonPDFEtiquette.title = "Valider les modifications avant d'imprimer";
     } else {
         document.ficheForm.buttonValideFiche.disabled = true;
         document.ficheForm.buttonValideFiche.title = "Rien de changé";
         document.ficheForm.buttonPDFFiche.disabled = false;
         document.ficheForm.buttonPDFFiche.title = "Impression en PDF";
+        document.ficheForm.buttonPDFEtiquette.disabled = false;
+        document.ficheForm.buttonPDFEtiquette.title = "Impression en PDF";
     }
 }
 
@@ -93,6 +97,7 @@ function display_fiche(val) {
             document.ficheForm.buttonValideFiche.innerHTML = "Modifier";
             document.ficheForm.buttonEtatFiche.value = "Confirmer";
             document.ficheForm.obj_etat_new.value = "CONFIRME";
+            document.ficheForm.obj_prix_vente.disabled=true
         }
         // etat CONFIRME
         if (val['obj_etat'] == "CONFIRME") {
@@ -110,7 +115,8 @@ function display_fiche(val) {
                 getElement("obj_prix_vente").innerHTML = val['obj_prix_depot'];
             }
             document.ficheForm.obj_prix_vente.value = val['obj_prix_depot'];
-
+            document.ficheForm.obj_prix_vente.disabled=true
+            
             document.ficheForm.obj_prix_depot.required = true;
             document.ficheForm.obj_prix_depot.min = 1;
             document.ficheForm.buttonEtatFiche.value = "Mettre en stock";
@@ -136,6 +142,8 @@ function display_fiche(val) {
             document.ficheForm.obj_etat_new.value = "VENDU";
             document.ficheForm.buttonEtatFicheBis.style.display = 'inline';
             document.ficheForm.buttonEtatFicheBis.value = 'Rendre';
+            document.ficheForm.obj_prix_vente.disabled=false
+            
             if (!ADMIN) {
                 disable_formulaire(document.ficheForm, "cli");
             }
@@ -163,6 +171,8 @@ function display_fiche(val) {
             document.ficheForm.buttonEtatFicheBis.value = '';
 
             if (TABLE || ADMIN) {
+                document.ficheForm.obj_prix_vente.disabled=false
+
                 getElement("tdBtnPdf").style.display = 'block';
 
                 getElement("fieldSetAcheteur").style.display = 'block';
@@ -212,6 +222,14 @@ function display_list_marques(val) {
     }
 }
 
+function display_list_modeles(val) {
+    var list = getElement("listModeles");
+    list.innerHTML="";
+    for (index in val) {
+        list.appendChild(new Option(val[index], val[index]));
+    }
+}
+
 /*
  * affichage de la liste de type possible
  */
@@ -243,11 +261,18 @@ function display_list_prix_depot(val) {
 function affectPrix() {
     getElement("depot_calc").innerHTML = document.ficheForm.cli_prix_depot.selectedOptions[0].value;
 
-    var com = document.ficheForm.obj_prix_vente.value * (document.ficheForm.cli_taux_com.value / 100);
+    if (!document.ficheForm.obj_prix_vente.disabled) {
+    var com = Number(document.ficheForm.obj_prix_vente.value * (document.ficheForm.cli_taux_com.value / 100)).toFixed(2);
     if (com > 100) {
         com = 100;
     }
     getElement("comission_calc").innerHTML = com;
+    }
+    else {
+        getElement("comission_calc").innerHTML = "****";
+        
+    }
+
 }
 
 /**
@@ -358,6 +383,11 @@ function imprimeFiche() {
     var tabObj = recup_formulaire(document.ficheForm, 'obj');
     x_action_makePDF(tabObj['obj_id'], display_openPDF);
 }
+function imprimeEtiquette() {
+    var tabObj = recup_formulaire(document.ficheForm, 'obj');
+    x_action_makePDF(tabObj['obj_id'], 'etiquette.html', display_openPDF);
+}
+
 var gNewEtat=null;
 function changeEtatFiche(newEtat = null) {
     var tabObj = recup_formulaire(document.ficheForm, 'obj');

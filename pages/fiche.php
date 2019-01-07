@@ -139,7 +139,7 @@ Année d'achat :
 				<span class="titrow col-md-2 col-sm-2 col-xs-3">Prix</span>
 				<span class="tabInput col-md-10 col-sm-10 col-xs-9">
 					<input type=number name="obj_prix_depot" size=5 maxlength="10" tabindex=<?=$tabindex++?>
-					onkeyup="setStartSaisie(true);"
+					onkeyup="setStartSaisie(true);" step="0.1"
 					title="Prix vente, vous pouvez le laisser vide et le renseigner le jour du dépôt."
 					placeholder="00.00"/>&#8364;
 				</span>
@@ -154,24 +154,24 @@ Année d'achat :
 					<? if ($infAppli['ADMIN'] && $GET_modePage != "create") {?>
 						<input type=number name="obj_prix_vente" size=5 maxlength="10" tabindex=<?=$tabindex++?>
 							onkeyup="setStartSaisie(true);" onchange="affectPrix();"
-							title="Prix vente" required
-							placeholder="00.00"/>&#8364;
+							title="Prix vente" required step="0.1"
+							placeholder="00.00"/>&nbsp;&#8364;
 					<? } else {?>
 						<input type=hidden name="obj_prix_vente">
-						&nbsp&nbsp<span id="obj_prix_vente">0.00</span>&#8364;&nbsp <span id="date_vente">
+						&nbsp&nbsp<span id="obj_prix_vente">0.00</span>&nbsp;&#8364;&nbsp <span id="date_vente">
 						</span>
 					<? } ?>
 			</div>
 			<div class="col-sm-4 col-md-4 col-xs-4">
 				<span class="titrow col-md-3 col-sm-3 col-xs-12">Depot :</span>
 				<span class="tabl1 col-md-9 col-sm-9 col-xs-12">
-					&nbsp&nbsp<span id="depot_calc">...</span>&#8364;
+					&nbsp&nbsp<span id="depot_calc">...</span>&nbsp;&#8364;
 				</span>
 			</div>
 			<div class="col-sm-4 col-md-4 col-xs-4">
 				<span class="titrow  col-md-3 col-sm-3 col-xs-12">Commission :</span>
 				<span class="tabl1 col-md-9 col-sm-9 col-xs-12">
-					&nbsp&nbsp<span id="comission_calc">...</span>&#8364;
+					&nbsp&nbsp<span id="comission_calc">...</span>&nbsp;&#8364;
 				</span>
 			</div>
 		</div>
@@ -258,7 +258,10 @@ Année d'achat :
 			<button name="buttonValideBisFiche" tabindex=<?=$tabindex++?>>???????</button>
 		</div>-->
 		<div class="col-sm-3 col-md-3 col-xs-6 btnAction" style='display:none' id="tdBtnPdf">
-			<input type=button value="Impression" onclick="imprimeFiche()" name="buttonPDFFiche" tabindex=<?=$tabindex++?>>
+			<input type=button value="Impression Fiche" onclick="imprimeFiche()" name="buttonPDFFiche" tabindex=<?=$tabindex++?>>
+			<? if ($infAppli['TABLE'] || $infAppli['ADMIN']) {?>
+			<input type=button value="Impression Etiquette" onclick="imprimeEtiquette()" name="buttonPDFEtiquette" tabindex=<?=$tabindex++?>>
+			<?}?>
 		</div>
 		<div class="col-sm-3 col-md-3 col-xs-6 btnAction" style='display:none' id="tdBtnSup">
 			<input type=button value="Supprimer" name="buttonSupprimeFiche" onclick="supprimerFiche()" tabindex=<?=$tabindex++?> />
