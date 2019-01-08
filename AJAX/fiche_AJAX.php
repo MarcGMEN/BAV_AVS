@@ -182,7 +182,7 @@ function action_makePDF($id, $html = 'fiche_depot.html')
     $tabPlus['titre'] = $par['par_titre'];
     $tabPlus['URL'] = $CFG_URL;
 
-    if ($fiche['obj_prix_vente'] != $fiche['obj_prix_depot']) {
+    if ($fiche['obj_prix_vente'] != $fiche['obj_prix_depot'] && $fiche['obj_prix_vente'] > 0) {
         $fiche['obj_prix_depot']="<s>".$fiche['obj_prix_depot']." €</s><span style='color:RED'>".$fiche['obj_prix_vente']."</span>";
     }
 

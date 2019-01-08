@@ -10,6 +10,7 @@
 <div class="alert alert-info" style="border: 2px solid;">
 		<h3>Bienvenue sur le site de la Bourse aux Vélos organisée par l'Atlantique Vélo Sport !</h3>
 		<h5>Venez nous voir pour notre prochaine édition <span style="font-weight: bold; font-size: 18px;">les 9 et 10 novembre 2019</span> pour encore plus de bonnes affaires.</h5>
+		<h5 style="background-color:yellow"><b>NOUVEAUTE  2019:</b>le dépôt en ligne <b><span class="link url" onclick='goTo("fiche.php","create", null, null)' )>Cliquez ici</span></b></h5>
 		<h5>Naviguer les différents pages pour en savoir plus sur cet évenement incontournable pour des passionnés de vélo.</h5>
 		<h5>Suivez l'actualité du club AVS et de la <b>Bourse aux Vélos</b> de <b>St Nazaire</b> sur <a href="https://www.facebook.com/avs44" target="_blank">Facebook</a></h5>
 		<h5>A bientôt !<h5>
@@ -29,9 +30,8 @@
 			<li>Encore plus de volume donc plus de choix et de visibilité des vélos pour choisir plus facilement, et plus de parkings.</li>
 			<li>Des vélos en état de fonctionnement à tous les prix de 10€ pour les enfants jusqu’à 5000€ pour les plus beaux vélos.</li>
 			<li><b>NOUVEAUTE  2019:</b> Un show room dédié uniquement aux beaux vélos dont le prix de vente sera supérieur à 500 €</li>
+			<li><b>NOUVEAUTE  2019:</b> Le dépôt en ligne <b><span class="link url" onclick='goTo("fiche.php","create", null, null)' )>Dépôt en ligne</span></li>
 		</ul>
-
-
 		<h4><span class="label label-primary">Pour les vendeurs</span></h4>
 		<ul>
 			<li>Plus de chance de vendre sa monture et plus de parkings. Une commission de 10 % avec un maximum de 100€ et un dépôt de 3€ par vélo déposé (tarifs inchangés depuis 14 ans).</li>

@@ -102,7 +102,11 @@ function display_fiches(val) {
 			repr += val[index]['obj_marque'];
 			repr += "</td>";
 			repr += "<td width=15% >";
-			repr += val[index]['obj_prix_vente'];
+			if (val[index]['obj_prix_vente'] == 0) {
+				repr += "<span style='color:orange'>"+val[index]['obj_prix_depot']+"</span>";
+			} else {
+				repr += val[index]['obj_prix_vente'];
+			}
 			repr += "</td>";
 			repr += "<td width=15% >";
 			repr += val[index]['obj_etat'];

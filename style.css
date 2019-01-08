@@ -110,7 +110,7 @@ input:required {
 }
 
 button, input[type=button], input[type=submit] {
-	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif !important;
+	font-family: Verdana, Arial, Helvetica, sans-serif !important;
 	font-weight: normal;
 	/*font-weight: bold;*/
 	background-color: lightblue;
@@ -267,7 +267,7 @@ div.entete {
 }
 
 div.MENU {
-	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
 	background-color: #00a4dd;
 	color: #fff200;
 	width: 150px;
@@ -280,7 +280,7 @@ div.MENU {
 }
 
 .url {
-	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
 	color: black;
 	border: 1px;
 	border-color: #AAA;
@@ -290,7 +290,7 @@ div.MENU {
 }
 
 .navigation {
-	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
 	color: black;
 	border: 1px;
 	border-color: #AAA;
@@ -474,7 +474,7 @@ table {
 }
 
 .titrow {
-	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
 	color: #1161a2;
 	font-weight: bold;
 	text-align: right;
@@ -484,7 +484,7 @@ table {
 }
 
 .tabl0 {
-	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
+	font-family:  Verdana, Arial, Helvetica, sans-serif;
 	background-color: WHITE;
 	color: #1161a2;
 	border: 0px;
@@ -502,7 +502,7 @@ td.tabl0 {
 }
 
 .tabl1 {
-	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
+	font-family:  Verdana, Arial, Helvetica, sans-serif;
 	/*background-color: WHITE;*/
 	color: BLACK;
 	font-weight: bold;
