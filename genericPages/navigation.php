@@ -15,7 +15,7 @@
         'animations.php'=>[
             'libelle' => 'Animations' ],
         'reglement.php'=>[
-            'libelle' => 'Reglement' ],
+            'libelle' => 'Réglement' ],
         'faq.php'=>[
             'libelle' => 'F.A.Q.' ],
         'venir.php' => [
@@ -26,17 +26,30 @@
 
     $tabNavAdm=[];
 
-    if ($infAppli['TABLE'] || $infAppli['ADMIN']) {
+    if ($infAppli['TABLE']) {
         $tabNavAdm = [
             'fiche.php'=>[
-                'libelle' => '<img src="Images/new.png" width=15pt/> Depot en ligne',
+                'libelle' => '<img src="Images/new.png" width=15pt/> Dépôt en ligne',
+                'mode' => 'create'
+            ],
+            'stock.php'=>[
+                'libelle' => 'Stock'
+            ],
+            'clients.php'=>[
+                'libelle' => 'Clients'
+            ]
+        ];
+    } elseif ($infAppli['ADMIN']) {
+        $tabNavAdm = [
+            'fiche.php'=>[
+                'libelle' => 'Dépôt en ligne',
                 'mode' => 'create'
             ],
             'editFiche.php'=>[
-                'libelle' => 'Edit Fiche'
+                'libelle' => 'Edit HTML'
             ],
             'parametre.php'=>[
-                'libelle' => 'Parametre' ],
+                'libelle' => 'Paramètres' ],
             'stock.php'=>[
                 'libelle' => 'Stock'
             ],
@@ -47,7 +60,7 @@
     } elseif ($infAppli['CLIENT']) {
         $tabNavAdm = [
             'fiche.php'=>[
-                'libelle' => '<img src="Images/new.png" width=15pt/> Depot en ligne',
+                'libelle' => '<img src="Images/new.png" width=15pt/> Dépôt en ligne',
                 'mode' => 'create'
             ]
         ];

@@ -145,9 +145,32 @@ function searchFiles($rep,$mask) {
 	return $tabFic;
 }
 
+function utf8_encode2($str) { 
+
+    $final_str = $str; 
+
+    $final_str = str_replace('œ', '&#339;',  $final_str); 
+    $final_str = str_replace('’', '&#2019;', $final_str); 
+    $final_str = str_replace('“', '&#201C;', $final_str); 
+    $final_str = str_replace('”', '&#201D;', $final_str); 
+    $final_str = str_replace('…', '&#2026;', $final_str); 
+    $final_str = str_replace('€', '&#8364;', $final_str); 
+
+    $final_str = utf8_encode($final_str); 
+
+    $final_str = str_replace(utf8_encode('&#339;') , 'Å“',     $final_str); 
+    $final_str = str_replace(utf8_encode('&#2019;'), 'â€™', $final_str); 
+    $final_str = str_replace(utf8_encode('&#201C;'), 'â€œ', $final_str); 
+    $final_str = str_replace(utf8_encode('&#2026;'), 'â€¦', $final_str); 
+    $final_str = str_replace(utf8_encode('&#201D;'), 'â€', $final_str); 
+    $final_str = str_replace(utf8_encode('&#8364;'), 'â‚¬', $final_str); 
+
+    return $final_str; 
+} 
+
 function utf8Encode($texte) {
 	if (CFG_UTF8_AJAX == "true" ) {
-		return utf8_encode(ltrim($texte));
+		return utf8_encode2(ltrim($texte));
 	}
 	else {
 		return ltrim($texte);

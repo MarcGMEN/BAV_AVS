@@ -274,7 +274,6 @@ function affectPrix() {
     }
     else {
         getElement("comission_calc").innerHTML = "****";
-        
     }
 
 }

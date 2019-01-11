@@ -30,7 +30,34 @@ function tabToObject($data, $trigramme)
 
 function string2Tab($obj)
 {
-    $tabArg = explode("#2C", $obj);
+    $obj = str_replace('%u20AC', '€', $obj);
+    $json= json_decode($obj, true);
+    switch (json_last_error()) {
+        case JSON_ERROR_NONE:
+            echo ' - Aucune erreur';
+            break;
+        case JSON_ERROR_DEPTH:
+            echo ' - Profondeur maximale atteinte';
+            break;
+        case JSON_ERROR_STATE_MISMATCH:
+            echo ' - Inadéquation des modes ou underflow';
+            break;
+        case JSON_ERROR_CTRL_CHAR:
+            echo ' - Erreur lors du contrôle des caractères';
+            break;
+        case JSON_ERROR_SYNTAX:
+            echo ' - Erreur de syntaxe ; JSON malformé';
+            break;
+        case JSON_ERROR_UTF8:
+            $obj8 = utf8_encode2($obj);
+            $obj8 = str_replace('â‚¬', '€', $obj8);
+            $json =json_decode($obj8, true);
+            break;
+        default:
+            echo ' - Erreur inconnue';
+            break;
+    }
+    /*$tabArg = explode("#2C", $obj);
     $tab=array();
     foreach ($tabArg as $val) {
         $tabTmp = explode("#3D", $val);
@@ -38,12 +65,17 @@ function string2Tab($obj)
             $tab[$tabTmp[0]]=$tabTmp[1];
         }
     }
-    return $tab;
+    return $tab;*/
+    return $json;
 }
     
 function return_enum($table, $champ)
 {
-    return recupEnumToArray($table, $champ);
+    $tabEnum = recupEnumToArray($table, $champ);
+    foreach ($tabEnum as $key => $val) {
+        $tabEnum[$key]=utf8Encode($val);
+    }
+    return $tabEnum;
 }
 
 function return_list_unique($table, $champ)
@@ -54,13 +86,13 @@ function return_list_unique($table, $champ)
 
 function get_publiHtml($data, $html)
 {
-    return makeCorps(string2Tab(utf8_encode($data)), $html);
+    return makeCorps(string2Tab($data), $html);
 }
 
 function action_makePDFFromHtml($data, $html)
 {
     extract($GLOBALS);
-    $filePDF = html2pdf(string2Tab(utf8_encode($data)), "../html/$html", "reglement_" .$_COOKIE['NUMERO_BAV']);
+    $filePDF = html2pdf(string2Tab($data), "../html/$html", "reglement_" .$_COOKIE['NUMERO_BAV']);
 
     return $CFG_URL.$filePDF;
 }
@@ -74,8 +106,7 @@ function return_html($html)
 
 function save_html($html, $data)
 {
-//     file_put_contents('../html/'.$html.'.html', htmlspecialchars_decode(utf8_encode($data)));
-     file_put_contents('../html/'.$html.'.html', utf8_encode($data));
+     file_put_contents('../html/'.$html.'.html', $data);
      return $html;
 }
 

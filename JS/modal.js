@@ -1,4 +1,8 @@
 function alertModalWarnTimeout(message, timeSec) { 
+    alertModalWarn(message);
+    setTimeout(function() {closeModal()},timeSec*1000);
+}
+function alertModalWarn(message) { 
     // Get the <span> element that closes the modal
     var span = getElement("closeModal");
 
@@ -15,9 +19,13 @@ function alertModalWarnTimeout(message, timeSec) {
     getElement("modalClose").innerHTML = "<i class='fa fa-times-circle size-3 close' id=closeModal></i>";
 
     getElement("modalText").innerHTML = message;
+}
 
+function alertModalInfoTimeout(message,timeSec) {
+    alertModalInfo(message);
     setTimeout(function() {closeModal()},timeSec*1000);
 }
+
 function alertModalInfo(message) {
       // Get the <span> element that closes the modal
       var span = getElement("closeModal");

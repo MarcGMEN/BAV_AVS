@@ -36,7 +36,7 @@ function return_oneFicheByCode($id)
 {
     $row = getOneFicheByCode($id, $_COOKIE['NUMERO_BAV']);
     if ($row) {
-        $row['obj_date_depot_FR'] = utf8_encode(formateDateMYSQLtoFR($row['obj_date_depot'], true));
+        $row['obj_date_depot_FR'] = utf8Encode(formateDateMYSQLtoFR($row['obj_date_depot'], true));
     }
     return $row;
 }
@@ -45,7 +45,7 @@ function return_oneFicheByIdModif($id)
 {
     $row = getOneFicheByIdModif($id);
     if ($row) {
-        $row['obj_date_depot_FR'] = utf8_encode(formateDateMYSQLtoFR($row['obj_date_depot'], true));
+        $row['obj_date_depot_FR'] = utf8Encode(formateDateMYSQLtoFR($row['obj_date_depot'], true));
     }
     return $row;
 }
@@ -54,7 +54,7 @@ function return_oneFiche($id)
 {
     $row = getOneFiche($id);
     if ($row) {
-        $row['obj_date_depot_FR'] = utf8_encode(formateDateMYSQLtoFR($row['obj_date_depot'], true));
+        $row['obj_date_depot_FR'] = utf8Encode(formateDateMYSQLtoFR($row['obj_date_depot'], true));
     }
     return $row;
 }
@@ -72,8 +72,8 @@ function action_createFiche($data)
     $retour="";
     try {
         // creation du client, avec test si pas deja connu
-        $tabObj =tabToObject(string2Tab(utf8_encode($data)), "obj");
-        $tabCli =tabToObject(string2Tab(utf8_encode($data)), "cli");
+        $tabObj =tabToObject(string2Tab($data), "obj");
+        $tabCli =tabToObject(string2Tab($data), "cli");
         makeClient($tabCli);
         
         $tabObj['obj_id_vendeur']=$tabCli['cli_id'];
@@ -224,7 +224,7 @@ function action_confirmeFiche($obj)
     $CLIENT=$infoAppli['CLIENT'];
 
     if ($ADMIN || $TABLE) {
-        $fiche =string2Tab(utf8_encode($obj));
+        $fiche =string2Tab($obj);
         $fiche['obj_etat']=$fiche['obj_etat_new'];
         unset($fiche['obj_etat_new']);
 
@@ -243,7 +243,7 @@ function action_changeEtatFiche($obj)
     $CLIENT=$infoAppli['CLIENT'];
 
     if ($ADMIN || $TABLE) {
-        $fiche =string2Tab(utf8_encode($obj));
+        $fiche =string2Tab($obj);
         $fiche['obj_etat']=$fiche['obj_etat_new'];
         unset($fiche['obj_etat_new']);
     
@@ -265,8 +265,8 @@ function action_changeEtatFiche($obj)
 
 function action_vendFiche($data)
 {
-    $fiche =tabToObject(string2Tab(utf8_encode($data)), "obj");
-    $client =tabToObject(string2Tab(utf8_encode($data)), "cli");
+    $fiche =tabToObject(string2Tab($data), "obj");
+    $client =tabToObject(string2Tab($data), "cli");
     
     makeClient($client);
     
@@ -284,8 +284,8 @@ function action_vendFiche($data)
 
 function action_updateFiche($data)
 {
-    $fiche =tabToObject(string2Tab(utf8_encode($data)), "obj");
-    $client =tabToObject(string2Tab(utf8_encode($data)), "cli");
+    $fiche =tabToObject(string2Tab($data), "obj");
+    $client =tabToObject(string2Tab($data), "cli");
     
     makeClient($client);
         
@@ -293,7 +293,7 @@ function action_updateFiche($data)
     if (updateFiche($fiche)) {
         return $fiche;
     } else {
-        return "Oups problème de mise a jour";
+        return "Oups problème de mise à jour";
     }
 }
 
@@ -307,7 +307,7 @@ function action_insertFiche($obj)
 
 function return_fiches($tri, $sens, $selection)
 {
-    $tab = getFiches($tri, $sens, string2Tab(utf8_encode($selection)));
+    $tab = getFiches($tri, $sens, string2Tab($selection));
 
     $tab['total_vente']=0;
     foreach ($tab as $key => $val) {

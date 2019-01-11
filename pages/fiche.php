@@ -106,7 +106,7 @@
 				</span>
 				<span class="tabInput col-md-10 col-sm-10 col-xs-9">
 					<textarea rows="5" cols=100 tabindex=<?=$tabindex++?>
-						name="obj_description"  onkeyup="setStartSaisie(true);"
+						name="obj_description"  onkeyup="setStartSaisie(true);" 
 						placeholder="Année d'achat, prix d'achat, taille, accessoires, révision (transmission, pneus, freins..)">Taille :
 Prix d'achat : 
 Année d'achat : 
@@ -122,22 +122,20 @@ Année d'achat :
 				<span class="titrow col-md-2 col-sm-2 col-xs-3">Accessoires
 					<span class="help link" onclick="inverseLayer('aide_accessoire')">?</span>
 				</span>
-				<span class="tabInput col-md-10 col-sm-10 col-xs-9">
-					<textarea rows="5" cols=100 max-size=200 tabindex=<?=$tabindex++?>
+				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
+					<textarea rows="5" cols=100 max-size=200 tabindex=<?=$tabindex++?> 
 						name="obj_accessoire"  onkeyup="setStartSaisie(true);"
 						placeholder="La liste de tous les accessoires déposés avec le vélo."></textarea>
 				</span>
-			</div>
-			<div class="col-sm-4 col-md-4 col-xs-12">
 				<span class="col-md-12 col-sm-12 col-xs-12 help">
 					<div id="aide_accessoire" style="visibility: hidden;">
 						<small>La liste de tous les accessoires déposés avec le vélo.</small>
 					</div>
 				</span>
 			</div>
-			<div class="col-sm-8 col-md-8 col-xs-12">
-				<span class="titrow col-md-2 col-sm-2 col-xs-3">Prix</span>
-				<span class="tabInput col-md-10 col-sm-10 col-xs-9">
+			<div class="col-sm-12 col-md-12 col-xs-12">
+				<span class="titrow col-md-1 col-sm-1 col-xs-3">Prix</span>
+				<span class="tabInput col-md-2 col-sm-2 col-xs-9">
 					<input type=number name="obj_prix_depot" size=5 maxlength="10" tabindex=<?=$tabindex++?>
 					onkeyup="setStartSaisie(true);" step="0.1"
 					title="Prix vente, vous pouvez le laisser vide et le renseigner le jour du dépôt."
@@ -228,14 +226,14 @@ Année d'achat :
 		<div class="row" id=trTauxCom style='display:none'>
 			<!-- TODO : juste TABLE -->
 			<div class="col-sm-6 col-md-6 col-xs-12"  >
-				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Taux commission<</span>
+				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Taux commission</span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
 					<select name='cli_taux_com' tabindex=<?=$tabindex++?>
 						onchange="affectPrix();setStartSaisie(true);"></select>%
 				</span>
 			</div>
 			<div class="col-sm-6 col-md-6 col-xs-12" >
-				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Tarif Depot<</span>
+				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Tarif Depot</span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
 					<select name='cli_prix_depot' tabindex=<?=$tabindex++?>
 						onchange="affectPrix();setStartSaisie(true);"></select>&#8364;

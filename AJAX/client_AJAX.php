@@ -24,7 +24,7 @@ function return_oneClientByIdModif($mid)
 
 function return_clients($tri, $sens, $selection)
 {
-    $tab = getClients($tri, $sens, string2Tab(utf8_encode($selection)));
+    $tab = getClients($tri, $sens, string2Tab($selection));
 
     foreach ($tab as $key => $val) {
         $tab[$key]['vente']=countByEtat($val['cli_id']);
@@ -37,7 +37,6 @@ function return_oneClient($id)
 {
     $row = getOneClient($id);
     if ($row) {
-        //$row['obj_date'] = utf8_encode(formateDateMYSQLtoFR($row['obj_date'], true));
     }
     return $row;
 }

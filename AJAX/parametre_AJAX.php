@@ -52,9 +52,9 @@ function return_infoAppli()
         }
     }
     $infos['titre']=$par['par_titre'];
-    $infos['date_j1_FR'] = utf8_encode(formateDateMYSQLtoFR($par['par_date_1'], true));
-    $infos['date_j2_FR'] = utf8_encode(formateDateMYSQLtoFR($par['par_date_2'], true));
-    $infos['date_j3_FR'] = utf8_encode(formateDateMYSQLtoFR($par['par_date_3'], true));
+    $infos['date_j1_FR'] = utf8Encode(formateDateMYSQLtoFR($par['par_date_1'], true));
+    $infos['date_j2_FR'] = utf8Encode(formateDateMYSQLtoFR($par['par_date_2'], true));
+    $infos['date_j3_FR'] = utf8Encode(formateDateMYSQLtoFR($par['par_date_3'], true));
 
     $infos['date_j1'] = strtotime($par['par_date_1']);
     $infos['date_j2'] = strtotime($par['par_date_2']);
@@ -68,12 +68,13 @@ function return_oneParametre($id)
 {
     $row = getOneParemetre($id);
     if ($row) {
-        $row['par_client_date_debut_FR'] = utf8_encode(formateDateMYSQLtoFR($row['par_client_date_debut'], true));
-        $row['par_client_date_fin_FR'] = utf8_encode(formateDateMYSQLtoFR($row['par_client_date_fin'], true));
+        $row['par_client_date_debut_FR'] = utf8Encode(formateDateMYSQLtoFR($row['par_client_date_debut'], false));
+        $row['par_client_date_fin_FR'] = utf8Encode(formateDateMYSQLtoFR($row['par_client_date_fin'], false));
 
-        $row['par_table_date_debut_FR'] = utf8_encode(formateDateMYSQLtoFR($row['par_table_date_debut'], true));
-        $row['par_table_date_fin_FR'] = utf8_encode(formateDateMYSQLtoFR($row['par_table_date_fin'], true));
+        $row['par_table_date_debut_FR'] = utf8Encode(formateDateMYSQLtoFR($row['par_table_date_debut'], false));
+        $row['par_table_date_fin_FR'] = utf8Encode(formateDateMYSQLtoFR($row['par_table_date_fin'], false));
     }
+    //print_r($row);
     return $row;
 }
 
@@ -84,20 +85,18 @@ function return_allParametre()
     }
     $tab = getAllParametre();
     foreach ($tab as $key => $row) {
-        $tab[$key]['par_client_date_debut_FR'] = utf8_encode(formateDateMYSQLtoFR($row['par_client_date_debut'], true));
-        $tab[$key]['par_client_date_fin_FR'] = utf8_encode(formateDateMYSQLtoFR($row['par_client_date_fin'], true));
+        $tab[$key]['par_client_date_debut_FR'] = utf8Encode(formateDateMYSQLtoFR($row['par_client_date_debut'], true));
+        $tab[$key]['par_client_date_fin_FR'] = utf8Encode(formateDateMYSQLtoFR($row['par_client_date_fin'], true));
 
-        $tab[$key]['par_table_date_debut_FR'] = utf8_encode(formateDateMYSQLtoFR($row['par_table_date_debut'], true));
-        $tab[$key]['par_table_date_fin_FR'] = utf8_encode(formateDateMYSQLtoFR($row['par_table_date_fin'], true));
+        $tab[$key]['par_table_date_debut_FR'] = utf8Encode(formateDateMYSQLtoFR($row['par_table_date_debut'], true));
+        $tab[$key]['par_table_date_fin_FR'] = utf8Encode(formateDateMYSQLtoFR($row['par_table_date_fin'], true));
     }
     return $tab;
 }
 
 function action_updateParametre($obj)
 {
-    $tab =string2Tab($obj);
-    // // TODO : test cohérence object
-    updateParametre($tab);
+    updateParametre(string2Tab($obj, true));
 
     return true;
 }

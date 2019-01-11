@@ -1,48 +1,62 @@
 
 <script>
+	var idText="";
 	function initPage() {
 	}
 
 	function unloadPage() {}
 
 	function display_html_file(val) {
-		getElement('editor_html_file').innerHTML=val;
-		CKEDITOR.replace( 'editor_html_file' );
-		getElement('html_file_title').innerHTML="TITRE";
+        CKEDITOR.replace( 'editor_html_file' );
+		CKEDITOR.instances.editor_html_file.setData(val);
 		getElement('edition').style.display='block';
+		getElement('tableHTML').style.display='none';
 	}
 
 	function unloadPage() {}
 
 
 	function saveEditor(id,data) {
+        console.log(data);
+		alertModalInfo(data);
 		x_save_html(id, data, display_fin_save);
-		cancelEditor(id);
+		//cancelEditor(id);
 	}
 	function display_fin_save(val) {
-		location.reload();
+        alertModalInfoTimeout("save OK "+val,1);
+		//location.reload();
 	}
 	function cancelEditor(id) {
 		getElement('edition').style.display='none';
-		CKEDITOR.editor_html_file.destroy();
-		CKEDITOR.remove('editor_html_file');
-		getElement('editor_html_file').innerHTML="";
+		CKEDITOR.instances.editor_html_file.destroy();
+		getElement('tableHTML').style.display='table';
+		
 	}
 </script>
-<table width="100%" > 
+<h1>Gestion des textes HTML</h1>
+<table width="100%" id="tableHTML"> 
+	<tr class="tittab">
+		<td >Fichier</td>
+		<td >Actions</td>
+	</tr>
 <?
-$tabInfo=['FICHE DEPOT' => "fiche_depot",
-'ETIQUETTE' => "etiquette",
+$tabInfo=[	'FICHE DEPOT' => "fiche_depot",
+			'ETIQUETTE' => "etiquette",
+			'CREATE MODAL' => "modal_confirm_create",
+			'CONFIRME MODAL' => "modal_confirm_confirme",
+			'PAYE MODAL' => "modal_confirm_paye",
+			'RENDRE MODAL' => "modal_confirm_rendre",
+			'MAIL ENREGISTREMENT' => "mel_enregistrement",
+			'MAIL CONFIRME' => "mel_confirme"
 	];
 	foreach ($tabInfo as $title => $idText) {
 ?>
-	<tr>
-		<td class='tittab'><?=$title?></td>
-		<td class='tittab'><span class="link url" onclick='x_action_makePDF(new Array(), "<?=$idText?>.html", display_openPDF);' )>
+	<tr class="tabl0">
+		<td ><?=$title?></td>
+		<td ><span class="link url" onclick='x_action_makePDF(new Array(), "<?=$idText?>.html", display_openPDF);' )>
 				PDF</span>
-		</td>
-		<td class='tittab'>
-			<i class="fas fa-edit" onclick="x_return_html('<?=$idText?>', display_html_file);"></i>
+			<i class="fas fa-edit" 
+				onclick="x_return_html('<?=$idText?>', display_html_file);idText='<?=$idText?>';getElement('html_file_title').innerHTML='<?=$title?>'";></i>
 		</td>
 	</tr>
 <?}?>
@@ -50,10 +64,11 @@ $tabInfo=['FICHE DEPOT' => "fiche_depot",
 
 <div id="edition" style="display:none">
 	<hr/>
-	<div id="html_file_title" ></div>
-<i class="fas fa-save" onclick="saveEditor('<?=$idText?>',CKEDITOR.instances.editor_html_file.getData())"></i>	
-<i class="fas fa-times" onclick="cancelEditor('html_file')"></i>
-
+	<h2 class=fiche> 
+		<span id="html_file_title" ></span>
+		<i class="fas fa-save" onclick="saveEditor(idText,CKEDITOR.instances.editor_html_file.getData())"></i>	
+		<i class="fas fa-times" onclick="cancelEditor('html_file')"></i>
+	</h2>
 <textarea style="width:100%" rows=150 id="editor_html_file" contenteditable="true"></textarea>
 <script>
 	// Inline styles.

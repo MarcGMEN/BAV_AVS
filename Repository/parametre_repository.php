@@ -14,7 +14,7 @@ function getOneParemetre($id)
 		// x_return_list_prix_depot(display_list_prix_depot);
 
 function updateParametre($obj)
-{
+{   
     return update('bav_parametre', $obj, "par_numero_bav");
 }
 

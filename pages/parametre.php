@@ -14,7 +14,6 @@
 	}
 	
 	function display_parametres(val) {
-
 		var repr="<table width='100%'><tr >";
 		repr+="<td class='tittab' width=5% >No BAV</td>";
 		repr+="<td class='tittab' width=45% >Titre</td>";
@@ -64,7 +63,7 @@
 
 
 	function display_parametre(val) {
-		document.parametreForm.reset();
+        document.parametreForm.reset();
         display_formulaire(val,document.parametreForm);
 		disableDisplay('parametres');
 		enableDisplay('parametre');
@@ -132,7 +131,7 @@
 		// creation d'un tableau de style object javacript
 		par = recup_formulaire(laForm, 'par');
 		if (modePage == 'modification') {
-			x_action_updateParametre(tabToString(par),display_update);
+            x_action_updateParametre(tabToString(par),display_update);
 		}
 		if (modePage=='creation') {
 			x_action_insertParametre(tabToString(par),display_update);
