@@ -31,12 +31,11 @@ function return_list_modeles($marque)
     return $tabRetour ;
 }
 
-
 function return_oneFicheByCode($id)
 {
     $row = getOneFicheByCode($id, $_COOKIE['NUMERO_BAV']);
     if ($row) {
-        $row['obj_date_depot_FR'] = utf8Encode(formateDateMYSQLtoFR($row['obj_date_depot'], true));
+        $row['obj_date_depot_FR'] = formateDateMYSQLtoFR($row['obj_date_depot'], true);
     }
     return $row;
 }
@@ -45,7 +44,7 @@ function return_oneFicheByIdModif($id)
 {
     $row = getOneFicheByIdModif($id);
     if ($row) {
-        $row['obj_date_depot_FR'] = utf8Encode(formateDateMYSQLtoFR($row['obj_date_depot'], true));
+        $row['obj_date_depot_FR'] = formateDateMYSQLtoFR($row['obj_date_depot'], true);
     }
     return $row;
 }
@@ -54,7 +53,7 @@ function return_oneFiche($id)
 {
     $row = getOneFiche($id);
     if ($row) {
-        $row['obj_date_depot_FR'] = utf8Encode(formateDateMYSQLtoFR($row['obj_date_depot'], true));
+        $row['obj_date_depot_FR'] = formateDateMYSQLtoFR($row['obj_date_depot'], true);
     }
     return $row;
 }
@@ -286,7 +285,7 @@ function action_updateFiche($data)
 {
     $fiche =tabToObject(string2Tab($data), "obj");
     $client =tabToObject(string2Tab($data), "cli");
-    
+
     makeClient($client);
         
     $fiche['obj_id_vendeur']=$client['cli_id'];
