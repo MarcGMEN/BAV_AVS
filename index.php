@@ -108,10 +108,10 @@ sajax_handle_client_request();
 			<?include('genericPages/entete.php');  ?>
 		</div>
 		<div class="FENETRE_PRINCIPALE">
-			<?//print_r($infAppli);?>
+			<?print_r($infAppli);?>
 			<div class="TEXTE_FEN">
-				<!--MODE:<?=$GET_modePage?>; ID:<?=$GET_id?>;</span>
-				<?echo "go to page [".$GET_page."]";?>-->
+				<MODE:<?=$GET_modePage?>; ID:<?=$GET_id?>;</span>
+				<?echo "go to page [".$GET_page."]";?>
 				<?include('pages/'.$GET_page);?>
 				<!-- Trigger/Open The Modal -->
 			</div>

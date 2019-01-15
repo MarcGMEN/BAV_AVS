@@ -121,6 +121,41 @@ function action_createFiche($data)
     return $retour;
 }
 
+function action_createFicheExpress($data)
+{
+    $infoAppli = return_infoAppli();
+    // droit = ADMIN+TABLE+CLIENT
+    $ADMIN=$infoAppli['ADMIN'];
+    $TABLE=$infoAppli['TABLE'];
+    $CLIENT=$infoAppli['CLIENT'];
+
+    extract($GLOBALS);
+    $retour="";
+    try {
+        // creation du client, avec test si pas deja connu
+        $tabObj =tabToObject(string2Tab($data), "obj");
+        $tabCli =tabToObject(string2Tab($data), "cli");
+        makeClient($tabCli);
+        
+        $tabObj['obj_prix_depot']=$tabObj['obj_prix_vente'];
+        
+        $tabObj['obj_id_vendeur']=$tabCli['cli_id'];
+        $tabObj['obj_id_modif']=substr(hash_hmac('md5', $tabObj['obj_numero'], 'avs44'+$_COOKIE['NUMERO_BAV']), 0, 5);
+        // TODO : insert fiche
+        $tabObj['obj_id']=0;
+        
+        $tabObj['obj_numero_bav']=$_COOKIE['NUMERO_BAV'];
+        if (insertFiche($tabObj)) {
+        } else {
+            print_r($tabObj);
+            return "Oups problème de mise a jour";
+        }
+    } catch (Exception $e) {
+        return "ERREUR ".$e->getMessage();
+    }
+    return $retour;
+}
+
 
 function action_deleteFiche($id)
 {
@@ -314,5 +349,12 @@ function return_fiches($tri, $sens, $selection)
             $tab['total_vente']+= $val['obj_prix_vente'];
         }
     }
+    return $tab;
+}
+
+
+function return_fiches_express()
+{
+    $tab = getFichesExpress();
     return $tab;
 }

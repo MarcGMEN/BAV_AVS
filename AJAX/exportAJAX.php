@@ -1,6 +1,13 @@
 <?php
-sajax_export("return_enum", "get_publiHtml", "return_list_unique",
-    "action_makePDFFromHtml", "return_html", "save_html");
+sajax_export(
+    "return_enum",
+    "get_publiHtml",
+    "return_list_unique",
+    "action_makePDFFromHtml",
+    "return_html",
+    "save_html",
+    "whatYourName"
+);
 
 //export de toutes les fonction AJAX des modules
 $tabFile = searchFiles("AJAX", "_exportAJAX.php");

@@ -6,5 +6,7 @@ sajax_export(
     "return_oneClientByMel",
     "return_oneClientByIdModif",
     "return_listClientByMel",
+    "return_listClientByName",
+    "return_oneClientByName",
     "return_clients"
 );

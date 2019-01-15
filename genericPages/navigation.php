@@ -37,6 +37,9 @@
             ],
             'clients.php'=>[
                 'libelle' => 'Clients'
+            ],
+            'saisieExpress.php'=>[
+                'libelle' => 'Saisie Express'
             ]
         ];
     } elseif ($infAppli['ADMIN']) {
@@ -55,6 +58,9 @@
             ],
             'clients.php'=>[
                 'libelle' => 'Clients'
+            ],
+            'saisieExpress.php'=>[
+                'libelle' => 'Saisie Express'
             ]
         ];
     } elseif ($infAppli['CLIENT']) {

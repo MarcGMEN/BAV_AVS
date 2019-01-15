@@ -18,6 +18,15 @@ foreach ($tabFile as $val) {
     include_once $val;
 }
 
+function whatYourName($pass)
+{
+    if (password_verify($pass, '$2y$10$yoVUoKDoorP3Rvv7XMrSweQdZTFP0E4NOrye2L1R0tNmx2fgcH3dS')) {
+        setcookie('AADD', 1, 0, "/");
+    } else {
+        setcookie('AADD', null, 0, "/");
+    }
+}
+
 function tabToObject($data, $trigramme)
 {
     foreach ($data as $key => $val) {
@@ -34,7 +43,7 @@ function string2Tab($obj)
     $json= json_decode($obj, true);
     switch (json_last_error()) {
         case JSON_ERROR_NONE:
-            echo ' - Aucune erreur';
+            //echo ' - Aucune erreur';
             break;
         case JSON_ERROR_DEPTH:
             echo ' - Profondeur maximale atteinte';

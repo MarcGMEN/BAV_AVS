@@ -30,6 +30,16 @@
 	function enteteSaisie() {
 		getElement('inputSearch').disabled=startSaisie;
 	}
+
+
+	function hello() {
+		var input = prompt("Hello : ");
+        x_whatYourName(input, displayhello);
+	}
+
+	function displayhello(val) {
+		goTo("accueil.php");
+	}
 </script>
 
 <table class="BH_CADRE" cellspacing="0" cellpadding="0">
@@ -67,7 +77,9 @@
 			<span style="float: left" >
 				<img src="Images/logoAVS.png"  id="logoAVS" height='120pt'>
 			</span>
-			<span style="float: right; vertical-align:middle; font-size: 0.5em" title="[<?=$_SERVER['REMOTE_ADDR']?>]"><?=$_COOKIE['NUMERO_BAV']?>
+			<span style="float: right; vertical-align:middle; font-size: 0.5em" 
+				onclick="hello()"
+				title="[<?=$_SERVER['REMOTE_ADDR']?>]"><?=$_COOKIE['NUMERO_BAV']?>
 				<span id="connex"></span>
 			</span>
 		</td>

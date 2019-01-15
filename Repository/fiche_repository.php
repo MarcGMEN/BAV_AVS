@@ -161,6 +161,25 @@ function getFiches($order, $sens, $tabSel)
     return $tab;
 }
 
+function getFichesExpress()
+{
+    $requete2 = "SELECT * from bav_objet left outer join bav_client on obj_id_vendeur = cli_id where obj_numero_bav = ".$_COOKIE['NUMERO_BAV'];
+    $requete2 .= " order by obj_numero";
+    //echo $requete2;
+    
+    if ($result = $GLOBALS['mysqli']->query($requete2)) {
+        $tab=array();
+        $index=0;
+        while ($row = $result->fetch_assoc()) {
+            $tab[$index++] = $row;
+        }
+        $result->close();
+    } else {
+        throw new Exception("getFichesExpress' [$requete2]".mysqli_error());
+    }
+    return $tab;
+}
+
 /**
  * recherche de la fiche par code
  */

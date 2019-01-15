@@ -10,10 +10,21 @@ function return_listClientByMel($mel)
     return listUnique("bav_client", "cli_emel", $mel);
 }
 
+function return_listClientByName($nom)
+{
+    return listUnique("bav_client", "cli_nom", utf8_encode($nom));
+}
+
 function return_oneClientByMel($mel)
 {
     if (strlen($mel) > 0) {
-        return getOneClientByMel($mel);
+        return getOne($mel, "bav_client", "cli_emel");
+    }
+}
+function return_oneClientByName($mel)
+{
+    if (strlen($mel) > 0) {
+        return getOne(utf8_encode($mel), "bav_client", "cli_nom");
     }
 }
 function return_oneClientByIdModif($mid)

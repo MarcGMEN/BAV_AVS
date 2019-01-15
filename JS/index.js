@@ -24,6 +24,7 @@ function confirmModalTest() {
     }, 1000);
 }
 
+
 function display_openPDF(val) {
     window.open(val, '_blank');
 }

@@ -9,11 +9,13 @@ sajax_export(
     "return_oneFicheByIdModif",
     "return_oneFicheByCode",
     "action_createFiche",
+    "action_createFicheExpress",
     "action_mail",
     "action_makePDF",
     "action_changeEtatFiche",
     "action_confirmeFiche",
     "action_vendFiche",
     "return_countByEtat",
-    "return_fiches"
+    "return_fiches",
+    "return_fiches_express"
 );

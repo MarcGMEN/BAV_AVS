@@ -132,7 +132,10 @@ function getOne($id, $table, $cleId)
     if (isset($id)) {
         $requete2 = " SELECT * from $table ";
         $requete2 .= " where $cleId = '" . $id."'";
-        $row=$GLOBALS['mysqli']->query($requete2)->fetch_assoc();
+        if ($row=$GLOBALS['mysqli']->query($requete2)->fetch_assoc()) {
+        } else {
+            throw new Exception("getOne' [$requete2]".mysqli_error());
+        }
     }
     return $row;
 }

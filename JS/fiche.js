@@ -404,7 +404,6 @@ function changeEtatFiche(newEtat = null) {
     }
     else {
         etat = tabObj['obj_etat_new'];
-        
     }
 
     if (etat == 'CONFIRME') {
