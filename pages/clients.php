@@ -1,8 +1,7 @@
 <script>
 	var tri="cli_nom";
 	var sens="asc";
-	var selection = new Array();
-	selection['cli_nom']="*";
+	var selection = {"cli_nom" : "*"};
 	
 	function initPage() {
 		x_return_clients(tri,sens,tabToString(selection),display_clients);
@@ -13,28 +12,32 @@
 	} 
 
 	function display_clients(val) {
-        console.log(val);
-		var total = 0;
+        var total = 0;
 		var repr="<table width='100%' border=1>";
-		if (selection != "*") {
-			var reg=new RegExp("("+selection+")", "gi");
+		if (selection.cli_nom != "*") {
+			var reg=new RegExp("("+selection.cli_nom+")", "gi");
 		}
 		var chaine="";
 		for (index in val) {  
 			if (!isNaN(index)) {
 			repr+="<tr class='tabl0 link' onclick='goTo(\"client.php\",\"select\","+val[index]['cli_id']+")'>";
-			repr+="<td width=35% >";
+			repr+="<td width=25% >";
 			chaine=val[index]['cli_nom'];
-			if (selection != "*") {
+			if (selection.cli_nom != "*") {
 				repr+=chaine.replace(reg,"<b>$1</b>");
 			}
 			else {
 				repr+=chaine;
 			}
 			repr+="</td>";
+			repr+="<td width=10% >";
+			repr+=val[index]['cli_taux_com']+" % -- "+val[index]['cli_prix_depot']+" €";
+			repr+="</td>";
+			
 			repr+="<td width=35% >";
 			repr+=val[index]['cli_emel'];
 			repr+="</td>";
+			
 			repr+="<td width=15% >";
 			repr+=val[index]['cli_telephone'];
 			repr+="</td>";
@@ -103,10 +106,10 @@
 
 	function selectColonne(mask) {
 		if (mask.length > 1) {
-			selection['cli_nom']=mask;
+			selection = {'cli_nom' : mask};
 		}
 		else {
-			selection['cli_nom']="*";
+			selection = {'cli_nom' : "*"};
 		}
 		x_return_clients(tri,sens,tabToString(selection),display_clients);
 		
@@ -116,7 +119,7 @@
 <h2>Nb Total de la selection : <span id=total></span></h2>
 <table width="100%" >
 	<tr>
-		<td class="tittab" width=35%>
+		<td class="tittab" width=35% colspan="2">
 			<span id='cli_nom' onclick="triColonne('cli_nom')" class="sortable">Nom - Prenom&nbsp;&nbsp;&nbsp;</span>
 			<input type=text name='cli_nom_<?=rand(1, 100)?>' size="20" class="autocomplete"
 			 maxlength="100" onkeyup="selectColonne(this.value)" list="listClient" />

@@ -395,9 +395,7 @@ var gNewEtat=null;
 function changeEtatFiche(newEtat = null) {
     var tabObj = recup_formulaire(document.ficheForm, 'obj');
     var tabCli = recup_formulaire(document.ficheForm, 'cli');
-    tabObj['obj_marque'] = document.ficheForm.elements.namedItem('obj_marque_' + idRamdom).value;
-    delete tabObj['obj_marque_' + idRamdom];
-
+    
     if (newEtat) {
         etat = newEtat;
         gNewEtat=etat;
@@ -462,9 +460,7 @@ function display_messageConfirmChangeEtat(val) {
 function confirmModalEtat() {
     closeModal();
     var tabObj = recup_formulaire(document.ficheForm, 'obj');
-    tabObj['obj_marque'] = document.ficheForm.elements.namedItem('obj_marque_' + idRamdom).value;
-    delete tabObj['obj_marque_' + idRamdom];
-
+    
     if (gNewEtat) {
         tabObj['obj_etat_new']=gNewEtat;
     }

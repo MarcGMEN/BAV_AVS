@@ -132,7 +132,8 @@ function getOne($id, $table, $cleId)
     if (isset($id)) {
         $requete2 = " SELECT * from $table ";
         $requete2 .= " where $cleId = '" . $id."'";
-        if ($row=$GLOBALS['mysqli']->query($requete2)->fetch_assoc()) {
+        if ($res=$GLOBALS['mysqli']->query($requete2)) {
+            $row = $res->fetch_assoc();
         } else {
             throw new Exception("getOne' [$requete2]".mysqli_error());
         }
@@ -180,7 +181,6 @@ function update($table, $obj, $cleId)
     if (!$GLOBALS['mysqli']->query($req)) {
         throw new Exception("Pb d'update' [$req]".mysqli_error());
     }
-    return true;
 }
 
 function insert($table, $obj)

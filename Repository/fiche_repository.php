@@ -137,9 +137,9 @@ function getOneFicheByCode($id, $numeroBAV)
 
 function getFiches($order, $sens, $tabSel)
 {
-    $requete2 = "SELECT * from bav_objet where obj_numero_bav = ".$_COOKIE['NUMERO_BAV'];
+    $requete2 = "SELECT * from bav_objet left outer join bav_client on obj_id_vendeur = cli_id where obj_numero_bav = ".$_COOKIE['NUMERO_BAV'];
     foreach ($tabSel as $key => $val) {
-        if ($val != "*") {
+        if ($key && $val != "*") {
             $requete2 .= " and $key = '$val' ";
         }
     }

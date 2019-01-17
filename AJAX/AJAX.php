@@ -11,6 +11,8 @@ require_once "../Commun/Sajax.php";
 require_once "../Commun/mail.php";
 require_once "../Commun/html2pdf.php";
 
+ini_set('session.cookie_httponly', 1);
+    
 error_reporting(E_ERROR);
 //Creation de l'aJAX avec tout les AJAX possible _AJAX.php
 $tabFile=searchFiles("AJAX", "_AJAX.php");
@@ -21,9 +23,13 @@ foreach ($tabFile as $val) {
 function whatYourName($pass)
 {
     if (password_verify($pass, '$2y$10$yoVUoKDoorP3Rvv7XMrSweQdZTFP0E4NOrye2L1R0tNmx2fgcH3dS')) {
-        setcookie('AADD', 1, 0, "/");
+        //setcookie("AADD", 1, time()+1000, '/') or die('unable to create cookie');
+        //$_COOKIE['AADD']=1;
+        return 1;
     } else {
-        setcookie('AADD', null, 0, "/");
+        //setcookie('AADD', null, 0, "/")  or die('unable to remove cookie');
+        //$_COOKIE['AADD']=0;
+        return null;
     }
 }
 

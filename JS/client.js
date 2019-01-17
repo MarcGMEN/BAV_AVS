@@ -3,6 +3,11 @@
  */
 function initPage() {
 	if (idClient) {
+
+		x_return_tauxBAV(display_list_taux_com);
+		// chargement des depot
+		x_return_depotsBAV(display_list_prix_depot);
+
 		x_return_oneClient(idClient, display_client);
 	} else {
 		goTo();
@@ -26,14 +31,25 @@ function unloadPage() {
 
 }
 
+function display_list_taux_com(val) {
+	display_list_select(val, 'cli_taux_com', document.clientForm);
+}
+
+function display_list_prix_depot(val) {
+	display_list_select(val, 'cli_prix_depot', document.clientForm);
+}
 /**
  * 
  */
 function display_client(val) {
 	if (val instanceof Object) {
-		tabSel['obj_id_vendeur']=val['cli_id'];
-		x_return_fiches(tri, sens, tabToString(tabSel), display_fiches);
+		console.log(val);
+		var tabSel = {
+			"obj_id_vendeur": val['cli_id']
+		};
 		display_formulaire(val, document.clientForm);
+
+		x_return_fiches(tri, sens, tabToString(tabSel), display_fiches);
 	} else {
 		goTo(null, null, null, "Client inconnue.");
 	}
@@ -52,21 +68,21 @@ function unloadPage() {}
 function submitForm() {
 	if (modePage == 'modif') {
 		var tabCli = recup_formulaire(document.clientForm, 'cli');
-		console.log(tabCli);
-		var tabData = Object.assign({}, tabObj, tabCli);
-		x_action_updateClient(tabToString(tabData), display_fin_modif);
+		x_action_updateClient(tabToString(tabCli), display_fin_modif);
 	}
 	return false;
 }
 
 function display_fin_modif(val) {
-    console.log(val);
-    if (val instanceof Object) {
-		setStartSaisie(false);
-		x_return_oneClient(idClient, display_client);
-    } else {
-        alertModalWarnTimeout(val, 2);
-    }
+	setStartSaisie(false);
+	if (val instanceof Object) {
+		var tabSel = {
+			"obj_id_vendeur": val['cli_id']
+		};
+		x_return_fiches(tri, sens, tabToString(tabSel), display_fiches);
+	} else if (val) {
+		alertModalWarnTimeout(val, 2);
+	}
 }
 
 
@@ -88,7 +104,7 @@ function display_fiches(val) {
 	var repr = "<table width='100%'>";
 	for (index in val) {
 		if (!isNaN(index)) {
-			repr += "<tr class='tabl0 link' onclick='goTo(\"fiche.php\",\"modif\","+val[index]['obj_id']+",null)'>";
+			repr += "<tr class='tabl0 link' onclick='goTo(\"fiche.php\",\"modif\"," + val[index]['obj_id'] + ",null)'>";
 			repr += "<td width=10% align=center>";
 			repr += val[index]['obj_numero'];
 			repr += "</td>";
@@ -103,7 +119,7 @@ function display_fiches(val) {
 			repr += "</td>";
 			repr += "<td width=15% >";
 			if (val[index]['obj_prix_vente'] == 0) {
-				repr += "<span style='color:orange'>"+val[index]['obj_prix_depot']+"</span>";
+				repr += "<span style='color:orange'>" + val[index]['obj_prix_depot'] + "</span>";
 			} else {
 				repr += val[index]['obj_prix_vente'];
 			}
@@ -112,9 +128,8 @@ function display_fiches(val) {
 			repr += val[index]['obj_etat'];
 			repr += "</td>";
 			repr += "</tr>";
+			total = total + 1;
 		}
-
-		total = total + 1;
 	}
 	repr += "</table>";
 
@@ -126,6 +141,35 @@ function display_fiches(val) {
 		classSort = "sortDown";
 	}
 	getElement(tri).className = classSort;
+
+	if (total == 0) {
+		getElement('tdBtnSup').style.display = "block";
+	}
+	getElement('total').innerHTML = total;
+
+	getElement('total_vente_stock').innerHTML = "0.00";
+	getElement('total_vente_vendu').innerHTML = "0.00";
+	getElement('total_vente_paye').innerHTML = "0.00";
+	getElement('total_vente_depot').innerHTML = "0.00";;
+	getElement('total_com_vendu').innerHTML = "0.00";
+	getElement('total_com_paye').innerHTML = "0.00";
+	getElement('total_depot').innerHTML = "0.00";
+
+	if (val['total_vente_STOCK']) {
+		getElement('total_vente_stock').innerHTML = val['total_vente_STOCK'];
+		getElement('total_vente_depot').innerHTML = val['total_vente_depot'];
+		getElement('total_depot').innerHTML = val['total_depot'];
+	}
+	if (val['total_vente_VENDU']) {
+		getElement('total_vente_vendu').innerHTML = val['total_vente_VENDU'];
+		getElement('total_com_vendu').innerHTML = val['total_com_vendu'];
+	}
+
+	if (val['total_vente_PAYE']) {
+		getElement('total_vente_paye').innerHTML = val['total_vente_PAYE'];
+		getElement('total_com_paye').innerHTML = val['total_com_paye'];
+	}
+
 }
 
 function triColonne(col) {

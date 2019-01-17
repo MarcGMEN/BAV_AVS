@@ -1,7 +1,7 @@
 <script>
 	var tri = "obj_numero";
 	var sens = "asc";
-	var tabSel = new Array();
+	var tabSel = {};
 
 	tabSel[modePage] = '<?=$GET_id?>';
 
@@ -14,7 +14,6 @@
 		x_return_list_unique("bav_objet", "obj_etat", display_list_etat)
 		x_return_list_unique("bav_objet", "obj_couleur", display_list_couleur)
 		x_return_fiches(tri, sens, tabToString(tabSel), display_fiches);
-
 	}
 
 	function display_list_type(val) {
@@ -24,6 +23,7 @@
 	function display_list_public(val) {
 		display_list(val, 'public');
 	}
+
 	function display_list_pratique(val) {
 		display_list(val, 'pratique');
 	}
@@ -41,37 +41,34 @@
 		display_list(val, 'etat');
 	}
 
-
 	function display_list(val, row) {
+		console.log(val);
 		var select = getElement("sel_obj_" + row);
 		select.options[select.options.length] = new Option("Choix", "*");
 		for (index in val) {
 			select.options[select.options.length] = new Option(val[index], val[index]);
-			if (tabSel['obj_' + row] == val[index]) {
+			if (tabSel['obj_' + row] != null && tabSel['obj_' + row] == val[index]) {
 				select.options[select.options.length - 1].selected = true;
 			}
 		}
 	}
 
-	function unloadPage() {
+	function unloadPage() {}
 
-	}
 	// recuperation des donnees de la BAV
 	function setParamVal(val) {
-    setParamValIndex(val);
-    if (TABLE || ADMIN) {
-
-    } else {
-        goTo();
-    }
-}
+		setParamValIndex(val);
+		if (TABLE || ADMIN) {} else {
+			goTo();
+		}
+	}
 
 	function display_fiches(val) {
 		var total = 0;
 		var repr = "<table width='100%'>";
 		for (index in val) {
-            if (!isNaN(index)) {
-				repr += "<tr class='tabl0 link' onclick='goTo(\"fiche.php\",\"modif\"," + val[index]['obj_id'] + ")'>";
+			if (!isNaN(index)) {
+				repr += "<tr class='tabl0 "+val[index]['obj_etat']+" link' onclick='goTo(\"fiche.php\",\"modif\"," + val[index]['obj_id'] + ")'>";
 				repr += "<td width=10% align=center>";
 				repr += val[index]['obj_numero'];
 				repr += "</td>";
@@ -92,7 +89,7 @@
 				repr += "</td>";
 				repr += "<td width=15% >";
 				if (val[index]['obj_prix_vente'] == 0) {
-					repr += "<span style='color:orange'>"+val[index]['obj_prix_depot']+"</span>";
+					repr += "<span style='color:orange'>" + val[index]['obj_prix_depot'] + "</span>";
 				} else {
 					repr += val[index]['obj_prix_vente'];
 				}
@@ -102,7 +99,7 @@
 				repr += "</td>";
 				repr += "</tr>";
 
-				total = total + 1;
+				total = total + 1;	
 			}
 		}
 		repr += "</table>";
@@ -110,8 +107,6 @@
 		getElement('fiches').innerHTML = repr;
 
 		getElement('total').innerHTML = total;
-		getElement('total_vente').innerHTML = val['total_vente'];
-
 
 		if (sens == "asc") {
 			classSort = "sortUp";
@@ -119,6 +114,30 @@
 			classSort = "sortDown";
 		}
 		getElement(tri).className = classSort;
+
+		getElement('total_vente_stock').innerHTML = "0.00";
+		getElement('total_vente_vendu').innerHTML = "0.00";
+		getElement('total_vente_paye').innerHTML = "0.00";
+		getElement('total_vente_depot').innerHTML = "0.00";;
+		getElement('total_com_vendu').innerHTML = "0.00";
+		getElement('total_com_paye').innerHTML = "0.00";
+		getElement('total_depot').innerHTML = "0.00";
+
+		if (val['total_vente_STOCK']) {
+			getElement('total_vente_stock').innerHTML = val['total_vente_STOCK'];
+			getElement('total_vente_depot').innerHTML = val['total_vente_depot'];
+			getElement('total_depot').innerHTML = val['total_depot'];
+		}
+		if (val['total_vente_VENDU']) {
+			getElement('total_vente_vendu').innerHTML = val['total_vente_VENDU'];
+			getElement('total_com_vendu').innerHTML = val['total_com_vendu'];
+		}
+
+		if (val['total_vente_PAYE']) {
+			getElement('total_vente_paye').innerHTML = val['total_vente_PAYE'];
+			getElement('total_com_paye').innerHTML = val['total_com_paye'];
+		}
+
 	}
 
 	function triColonne(col) {
@@ -132,8 +151,6 @@
 			sens = "asc";
 		}
 		getElement(tri).className = "sortable";
-		console.log(col + "," + sens);
-		console.log(tabSel);
 		x_return_fiches(col, sens, tabToString(tabSel), display_fiches);
 		tri = col;
 	}
@@ -150,39 +167,48 @@
 		x_return_fiches(col, sens, tabToString(tabSel), 0, display_fiches);
 	}
 </script>
-<table>
+<table width="100%">
 	<tr>
 		<td width=33%>
 			<h3>Nb Total de la selection : <span id=total></span></h3>
 		</td>
 		<td width=33%>
-			<h3>Total vente : <span id=total_vente></span>€</h3>
+			<h4>Total dépôt : <b><span id=total_vente_depot>0.00</span> €</b>
+				&nbsp;Total vendu : <b><span id=total_vente_vendu>0.00</span> €</b></h4>
+			<h4>Total stock : <b><span id=total_vente_stock>0.00</span> €</b>
+				&nbsp;Total paye : <b><span id=total_vente_paye>0.00</span> €</b></h4>
+		</td>
+		<td width=33%>
+			<h4>Total com en attente : <b><span id=total_com_vendu>0.00</span> €</b>
+				&nbsp;Total com recu : <b><span id=total_com_paye>0.00</span> €</b></h4>
+			<h4>Total depot : <b><span id=total_depot>0.00</span> €</b></h4>
 		</td>
 	</tr>
-	<table width="100%">
-		<tr>
-			<td class="tittab" width=10%>
-				<span id='obj_numero' onclick="triColonne('obj_numero')" class="sortable">No&nbsp;&nbsp;&nbsp;</span></td>
-			<td class="tittab" width=20%>
-				<span id='obj_type' onclick="triColonne('obj_type')" class="sortable">Type&nbsp;&nbsp;&nbsp;</span>
-				&nbsp;<select id="sel_obj_type" onchange="selectColonne('obj_type', this.value)"></select></td>
-			<!--<td class="tittab" width=10%>
-				<span id='obj_public' onclick="triColonne('obj_public')" class="sortable">Public&nbsp;&nbsp;&nbsp;</span>
-				&nbsp;<select id="sel_obj_public" onchange="selectColonne('obj_public', this.value)"></select></td>
-			<td class="tittab" width=10%>
-				<span id='obj_pratique' onclick="triColonne('obj_pratique')" class="sortable">Pratique&nbsp;&nbsp;&nbsp;</span>
-				&nbsp;<select id="sel_obj_pratique" onchange="selectColonne('obj_pratique', this.value)"></select></td>-->
-			<td class="tittab maskMobile" width=20%>
-				<span id='obj_marque' onclick="triColonne('obj_marque')" class="sortable">Marque&nbsp;&nbsp;&nbsp;</span>
-				&nbsp;<select id="sel_obj_marque" onchange="selectColonne('obj_marque', this.value)"></select></td>
-			<td class="tittab maskMobile" width=20%>
-				<span id='obj_marque' onclick="triColonne('obj_couleur')" class="sortable">Couleur&nbsp;&nbsp;&nbsp;</span>
-				&nbsp;<select id="sel_obj_couleur" onchange="selectColonne('obj_couleur', this.value)"></select></td>
-			<td class="tittab" width=15%>
-				<span class="sortable" id='obj_prix_vente' onclick="triColonne('obj_prix_vente')">Prix vente&nbsp;&nbsp;&nbsp;</span></td>
-			<td class="tittab" width=15%>
-				<span id='obj_etat' onclick="triColonne('obj_etat')" class="sortable">Etat&nbsp;&nbsp;&nbsp;</span>
-				&nbsp;<select id="sel_obj_etat" onchange="selectColonne('obj_etat', this.value)"></select></td>
-		</tr>
-	</table>
-	<div id=fiches></div>
+</table>
+<table width="100%">
+	<tr>
+		<td class="tittab" width=10%>
+			<span id='obj_numero' onclick="triColonne('obj_numero')" class="sortable">No&nbsp;&nbsp;&nbsp;</span></td>
+		<td class="tittab" width=20%>
+			<span id='obj_type' onclick="triColonne('obj_type')" class="sortable">Type&nbsp;&nbsp;&nbsp;</span>
+			&nbsp;<select id="sel_obj_type" onchange="selectColonne('obj_type', this.value)"></select></td>
+		<!--<td class="tittab" width=10%>
+			<span id='obj_public' onclick="triColonne('obj_public')" class="sortable">Public&nbsp;&nbsp;&nbsp;</span>
+			&nbsp;<select id="sel_obj_public" onchange="selectColonne('obj_public', this.value)"></select></td>
+		<td class="tittab" width=10%>
+			<span id='obj_pratique' onclick="triColonne('obj_pratique')" class="sortable">Pratique&nbsp;&nbsp;&nbsp;</span>
+			&nbsp;<select id="sel_obj_pratique" onchange="selectColonne('obj_pratique', this.value)"></select></td>-->
+		<td class="tittab maskMobile" width=20%>
+			<span id='obj_marque' onclick="triColonne('obj_marque')" class="sortable">Marque&nbsp;&nbsp;&nbsp;</span>
+			&nbsp;<select id="sel_obj_marque" onchange="selectColonne('obj_marque', this.value)"></select></td>
+		<td class="tittab maskMobile" width=20%>
+			<span id='obj_marque' onclick="triColonne('obj_couleur')" class="sortable">Couleur&nbsp;&nbsp;&nbsp;</span>
+			&nbsp;<select id="sel_obj_couleur" onchange="selectColonne('obj_couleur', this.value)"></select></td>
+		<td class="tittab" width=15%>
+			<span class="sortable" id='obj_prix_vente' onclick="triColonne('obj_prix_vente')">Prix vente&nbsp;&nbsp;&nbsp;</span></td>
+		<td class="tittab" width=15%>
+			<span id='obj_etat' onclick="triColonne('obj_etat')" class="sortable">Etat&nbsp;&nbsp;&nbsp;</span>
+			&nbsp;<select id="sel_obj_etat" onchange="selectColonne('obj_etat', this.value)"></select></td>
+	</tr>
+</table>
+<div id=fiches></div>

@@ -37,6 +37,9 @@ function return_oneFicheByCode($id)
     if ($row) {
         $row['obj_date_depot_FR'] = formateDateMYSQLtoFR($row['obj_date_depot'], true);
     }
+    else {
+        $row['obj_numero'] = $id;
+    }
     return $row;
 }
 
@@ -135,6 +138,8 @@ function action_createFicheExpress($data)
         // creation du client, avec test si pas deja connu
         $tabObj =tabToObject(string2Tab($data), "obj");
         $tabCli =tabToObject(string2Tab($data), "cli");
+        //print_r($tabCli);
+        
         makeClient($tabCli);
         
         $tabObj['obj_prix_depot']=$tabObj['obj_prix_vente'];
@@ -324,10 +329,11 @@ function action_updateFiche($data)
     makeClient($client);
         
     $fiche['obj_id_vendeur']=$client['cli_id'];
-    if (updateFiche($fiche)) {
+    try {
+        updateFiche($fiche);
         return $fiche;
-    } else {
-        return "Oups problème de mise à jour";
+    } catch (Exception $e) {
+        return "ERREUR ".$e->getMessage();
     }
 }
 
@@ -343,11 +349,21 @@ function return_fiches($tri, $sens, $selection)
 {
     $tab = getFiches($tri, $sens, string2Tab($selection));
 
-    $tab['total_vente']=0;
+    $tab['total_com']=0;
     foreach ($tab as $key => $val) {
-        if ($val['obj_etat'] == "VENDU" || $val['obj_etat'] == "PAYE") {
-            $tab['total_vente']+= $val['obj_prix_vente'];
+        $tab['total_vente_'.$val['obj_etat']]+= $val['obj_prix_vente'];
+        
+        if ($val['obj_etat'] == "PAYE") {
+            $tab['total_com_paye']+= $val['obj_prix_vente']*($val['cli_taux_com']/100);
         }
+        if ($val['obj_etat'] == "VENDU") {
+            $tab['total_com_vendu']+= $val['obj_prix_vente']*($val['cli_taux_com']/100);
+        }
+        if ($val['obj_etat'] == "STOCK" || $val['obj_etat'] == "VENDU" || $val['obj_etat'] == "RENDU" ||
+            $val['obj_etat'] == "PAYE" ) {
+                $tab['total_vente_depot']+= $val['obj_prix_vente'];
+        }
+        $tab['total_depot']+= $val['cli_prix_depot'];
     }
     return $tab;
 }

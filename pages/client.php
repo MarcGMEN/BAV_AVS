@@ -1,9 +1,13 @@
 <? $idRamdom = rand(1000, 9999);?>
+<? if ($infAppli['ADMIN']) {
+    	$GET_modePage="modif";
+}?>
 <script>
 	var idClient = '<?=$GET_id?>';
 	// pour rendre le champ nom du client unique
 	
 	var idRamdom = "<?=$idRamdom?>";
+	var modePage = '<?=$GET_modePage?>';
 </script>
 
 <script src="JS/client.js" type="text/javascript"></script>
@@ -25,11 +29,11 @@
 			<div class="col-sm-6 col-md-6 col-xs-12">
 				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Emel <span title="Obligatoire">*</span></span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
-					<? if ($GET_modePage=='consult') {?>
+					<? if ($GET_modePage!='modif') {?>
 						<span id='cli_emel'></span>
 					<? } else {?>
 						<input type=email name='cli_emel' id="cli_emel" size="50" maxlength="100" tabindex=<?=$tabindex++?>
-							placeholder="aaaa.bbbb@ccc.dd" required onkeyup="keyUpMel()"
+							placeholder="aaaa.bbbb@ccc.dd" onkeyup="keyUpMel()"
 							onblur='x_return_oneClientByMel(this.value, display_infoClientVendeur)'
 							list='listVendeur'/>
 							<datalist id="listVendeur"></datalist>
@@ -39,7 +43,7 @@
 			<div class="col-sm-6 col-md-6 col-xs-12">
 				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Nom/prenom <span title="Obligatoire">*</span></span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
-					<? if ($GET_modePage=='consult') {?>
+					<? if ($GET_modePage!='modif') {?>
 						<span id='cli_nom'></span>
 					<? } else {?>
 						<input type=text name='cli_nom' tabindex=<?=$tabindex++?>
@@ -50,7 +54,7 @@
 			<div class="col-sm-6 col-md-6 col-xs-12">
 				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Adresse</span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
-					<? if ($GET_modePage=='consult') {?>
+					<? if ($GET_modePage!='modif') {?>
 						<div id='cli_adresse'></div>
 						<div id='cli_adresse1'></div>
 						<div id='cli_code_postal'></div>
@@ -72,7 +76,7 @@
 			<div class="col-sm-6 col-md-6 col-xs-12">
 				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Telephone</span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
-					<? if ($GET_modePage=='consult') {?>
+					<? if ($GET_modePage!='modif') {?>
 						<div id='cli_telephone'></div>
 						<div id='cli_telephone_bis'></div>
 					<? } else {?>
@@ -86,21 +90,70 @@
 				</span>
 			</div>
 		</div>
+		<?if ($infAppli['TABLE'] || $infAppli['ADMIN']) {?>
+			<div class="row">
+				<!-- TODO : juste TABLE -->
+				<div class="col-sm-6 col-md-6 col-xs-12"  >
+					<span class="titrow  col-md-3 col-sm-3 col-xs-3">Taux commission</span>
+					<span class="tabInput col-md-9 col-sm-9 col-xs-9">
+					<? if ($GET_modePage!='modif') {?>
+							<span id='cli_taux_com'></span>%
+					<? } else {?>
+						<select name='cli_taux_com' tabindex=<?=$tabindex++?>
+							onchange="setStartSaisie(true);"></select>%
+					<? } ?>
+					</span>
+				</div>
+				<div class="col-sm-6 col-md-6 col-xs-12" >
+					<span class="titrow  col-md-3 col-sm-3 col-xs-3">Tarif Depot</span>
+					<span class="tabInput col-md-9 col-sm-9 col-xs-9">
+					<? if ($GET_modePage!='modif') {?>
+						<span id='cli_prix_depot'></span>€
+					<? } else {?>
+						<select name='cli_prix_depot' tabindex=<?=$tabindex++?>
+							onchange="setStartSaisie(true);"></select>&#8364;
+					<? } ?>
+					</span>
+				</div>
+			</div>
+		<?}?>
 		<br />
-		<? if ($GET_modePage!='consult') {?>
+		<? if ($GET_modePage=='modif') {?>
 		<div class="row fiche" >
-			<div class="col-sm-3 col-md-3 col-xs-6 btnAction" id="tdBtnAction" >
+			<div class="col-sm-3 col-md-3 col-xs-3 btnAction" id="tdBtnAction" >
 				<button name="buttonValideFiche" tabindex=<?=$tabindex++?> disabled >Enregristrer
 				</button>
 			</div>
-			<div class="col-sm-3 col-md-3 col-xs-6 btnAction"  >
+			<div class="col-sm-3 col-md-3 col-xs-3 btnAction"  >
 				<input type=button value="Annuler" onclick="fermerCRUD()" tabindex=<?=$tabindex++?>>
+			</div>
+				<div class="col-sm-3 col-md-3 col-xs-3 btnAction" style='display:none' id="tdBtnSup">
+				<input type=button value="Supprimer" name="buttonSupprimeFiche" onclick="supprimerClient()" tabindex=<?=$tabindex++?> />
 			</div>
 		</div>
 		<? }?>
 	</form>
 </fieldset>
-
+<?if ($infAppli['ADMIN']) {?>
+<table width="100%">	
+	<tr>
+		<td width=33%>
+			<h3>Nb Total de la selection : <span id=total>0</span></h3>
+		</td>
+		<td width=33%>
+			<h4>Total dépôt : <b><span id=total_vente_depot>0.00</span> €</b>
+			&nbsp;Total vendu : <b><span id=total_vente_vendu>0.00</span> €</b></h4>
+			<h4>Total stock : <b><span id=total_vente_stock>0.00</span> €</b>
+			&nbsp;Total paye : <b><span id=total_vente_paye>0.00</span> €</b></h4>
+		</td>
+		<td width=33%>
+			<h4>Total com en attente : <b><span id=total_com_vendu>0.00</span> €</b>
+			&nbsp;Total com recu : <b><span id=total_com_paye>0.00</span> €</b></h4>
+			<h4>Total depot : <b><span id=total_depot>0.00</span> €</b></h4>
+		</td>
+	</tr>
+</table>
+<?}?>
 <table width="100%">
 	<tr>
 		<td class="tittab" width=10%>

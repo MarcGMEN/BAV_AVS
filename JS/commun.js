@@ -120,7 +120,8 @@ function disable_formulaire(laForm, trigrame) {
 }
 
 function tabToString(par) {
-	return JSON.stringify(par);
+	var res = JSON.stringify(par);
+	return res;
 }
 
 
@@ -227,8 +228,7 @@ function valideEmail(value) {
 function display_list_select(val, champ, leForm) {
     tabPrixDepot = val;
 	var select = leForm.elements[champ];
-	console.log(val);
-    for (index in val) {
+	for (index in val) {
         select.appendChild(new Option(val[index], val[index]));
         if (index == 1) {
             select.selectedIndex = val[index];

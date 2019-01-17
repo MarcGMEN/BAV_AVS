@@ -38,6 +38,7 @@
 	}
 
 	function displayhello(val) {
+        SetCookie("AADD", val);
 		goTo("accueil.php");
 	}
 </script>

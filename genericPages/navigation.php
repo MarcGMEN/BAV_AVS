@@ -26,23 +26,7 @@
 
     $tabNavAdm=[];
 
-    if ($infAppli['TABLE']) {
-        $tabNavAdm = [
-            'fiche.php'=>[
-                'libelle' => '<img src="Images/new.png" width=15pt/> Dépôt en ligne',
-                'mode' => 'create'
-            ],
-            'stock.php'=>[
-                'libelle' => 'Stock'
-            ],
-            'clients.php'=>[
-                'libelle' => 'Clients'
-            ],
-            'saisieExpress.php'=>[
-                'libelle' => 'Saisie Express'
-            ]
-        ];
-    } elseif ($infAppli['ADMIN']) {
+    if ($infAppli['ADMIN']) {
         $tabNavAdm = [
             'fiche.php'=>[
                 'libelle' => 'Dépôt en ligne',
@@ -53,6 +37,22 @@
             ],
             'parametre.php'=>[
                 'libelle' => 'Paramètres' ],
+            'stock.php'=>[
+                'libelle' => 'Stock'
+            ],
+            'clients.php'=>[
+                'libelle' => 'Clients'
+            ],
+            'saisieExpress.php'=>[
+                'libelle' => 'Saisie Express'
+            ]
+        ];
+    } else if ($infAppli['TABLE']) {
+        $tabNavAdm = [
+            'fiche.php'=>[
+                'libelle' => '<img src="Images/new.png" width=15pt/> Dépôt en ligne',
+                'mode' => 'create'
+            ],
             'stock.php'=>[
                 'libelle' => 'Stock'
             ],

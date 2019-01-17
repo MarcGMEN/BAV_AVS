@@ -499,6 +499,23 @@ td.tabl0 {
 .tabl0:hover {
 	background-color: #1161a2;
 	color: WHITE;
+	font-weight: bold;
+}
+tr.STOCK {
+	background-color: ORANGE;
+	color: BLACK;
+}
+tr.VENDU {
+	background-color: GREEN;
+	color: BLACK;
+}
+tr.PAYE {
+	background-color: DARKGREEN;
+	color: WHITE;
+}
+tr.RENDU {
+	background-color: darkorange;
+	color: WHITE;
 }
 
 .tabl1 {

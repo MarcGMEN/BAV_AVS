@@ -5,7 +5,21 @@
 	function initPage() {
 		x_return_fiches_express(display_fiches);
 		document.formSaisieExpress.obj_numero.focus();
+
+		// chargement des taux
+		x_return_tauxBAV(display_list_taux_com);
+	    // chargement des depot
+	    x_return_depotsBAV(display_list_prix_depot);
 	}
+
+	function display_list_taux_com(val) {
+	    display_list_select(val,'cli_taux_com',document.formSaisieExpress);
+	}
+
+	function display_list_prix_depot(val) {
+	    display_list_select(val,'cli_prix_depot',document.formSaisieExpress);
+	}
+
 	function display_fiches(val) {
 		
         for (index in val) {
@@ -13,29 +27,14 @@
 				
 				getElement("numero_"+val[index]['obj_numero']).innerHTML=val[index]['obj_numero'];
 				getElement("prix_vente_"+val[index]['obj_numero']).innerHTML=val[index]['obj_prix_vente'];
-				getElement("vendeur_"+val[index]['obj_numero']).innerHTML=val[index]['cli_nom'];
+				getElement("vendeur_"+val[index]['obj_numero']).innerHTML=
+                    val[index]['cli_nom']+" -- "+val[index]['cli_taux_com']+" % -- "+val[index]['cli_prix_depot']+" €";
 				getElement("etat_"+val[index]['obj_numero']).innerHTML=val[index]['obj_etat'];
 				
-				getElement("tr_"+val[index]['obj_numero']).onclick="goTo(\"fiche.php\",\"modif\",val[index]['obj_id'])";
-				getElement("tr_"+val[index]['obj_numero']).className+=" link";
+				getElement("zoom_"+val[index]['obj_numero']).innerHTML="<i class='link fas fa-search' onclick='goTo(\"fiche.php\",\"modif\","+val[index]['obj_id']+")'></i>";
+				getElement("numero_"+val[index]['obj_numero']).className+=" link";
 
-				if (val[index]['obj_etat'] == "STOCK") {
-					getElement("tr_"+val[index]['obj_numero']).style.background="ORANGE";
-					getElement("tr_"+val[index]['obj_numero']).style.color="BLACK";
-				}
-				else if (val[index]['obj_etat'] == "VENDU") {
-					getElement("tr_"+val[index]['obj_numero']).style.background="GREEN";
-					getElement("tr_"+val[index]['obj_numero']).style.color="BLACK";
-				}
-				else if (val[index]['obj_etat'] == "PAYE") {
-					getElement("tr_"+val[index]['obj_numero']).style.background="DARKGREEN";
-					getElement("tr_"+val[index]['obj_numero']).style.color="WHITE";
-				}
-				else if (val[index]['obj_etat'] == "RENDU") {
-            		getElement("tr_"+val[index]['obj_numero']).style.background="DARKGREEN";
-					getElement("tr_"+val[index]['obj_numero']).style.color="WHITE";
-				}
-
+				getElement("tr_"+val[index]['obj_numero']).className="tabl0 "+val[index]['obj_etat'];
 			}
 		}
 		
@@ -44,35 +43,42 @@
 	function display_fiche(val) {
 		document.formSaisieExpress.elements.namedItem('cli_nom_' + idRamdom).disabled=false;
 		document.formSaisieExpress.obj_prix_vente.disabled=false;
-			
-		if (val instanceof Object) {
+		document.formSaisieExpress.cli_prix_depot.disabled=false;
+		document.formSaisieExpress.cli_taux_com.disabled=false;
+		getElement("but_action").disabled=false;
+		if (val['obj_etat']) {
 			getElement("but_action2").style.display='none';
 			getElement("but_action").innerHTML="TERMINER";
+			
             val['obj_etat_new']="STOCK";
 			if (val['obj_etat'] == "STOCK") {
 				getElement("but_action").innerHTML="VENDU";
 				getElement("but_action2").style.display='block';
 				getElement("but_action2").innerHTML="RENDU";
 				val['obj_etat_new']="VENDU";
+				document.formSaisieExpress.cli_prix_depot.disabled=true;
+				document.formSaisieExpress.cli_taux_com.disabled=true;
+
 			}
 			else if (val['obj_etat'] == "VENDU") {
 				getElement("but_action").innerHTML="PAYER";
 				val['obj_etat_new']="PAYE";
+				document.formSaisieExpress.cli_prix_depot.disabled=true;
+				document.formSaisieExpress.cli_taux_com.disabled=true;
+
 			}
 			else if (val['obj_etat'] == "PAYE") {
 				getElement("but_action").disabled=true;
-				if (!ADMIN) {
-					document.formSaisieExpress.elements.namedItem('cli_nom_' + idRamdom).disabled=true;
-					document.formSaisieExpress.obj_prix_vente.disabled=true;
-				}
+				document.formSaisieExpress.obj_prix_vente.disabled=true;
+				document.formSaisieExpress.elements.namedItem('cli_nom_' + idRamdom).disabled=true;
 				val['obj_etat_new']="";
 			}
 			else if (val['obj_etat'] == "RENDU") {
 				getElement("but_action").disabled=true;
-				if (!ADMIN) {
-					document.formSaisieExpress.elements.namedItem('cli_nom_' + idRamdom).disabled=true;
-					document.formSaisieExpress.obj_prix_vente.disabled=true;
-				}
+				document.formSaisieExpress.obj_prix_vente.disabled=true;
+				document.formSaisieExpress.elements.namedItem('cli_nom_' + idRamdom).disabled=true;
+				document.formSaisieExpress.cli_prix_depot.disabled=true;
+				document.formSaisieExpress.cli_taux_com.disabled=true;
 				val['obj_etat_new']="";
 			}
 			
@@ -80,13 +86,16 @@
 			
 			x_return_oneClient(val['obj_id_vendeur'], display_infoClientVendeur);
 		} else {
-			val = Array();
 			val['obj_prix_vente']="";
-			//val['cli_nom_'+idRamdom]="";
 			val['obj_etat_new']="STOCK";
 			val['obj_etat']="INIT";
 			val['obj_id']="";
+			
 			//val['cli_id']="";
+            console.log(val);
+            if (document.formSaisieExpress.cli_id.value!='') {
+                x_return_oneClient(document.formSaisieExpress.cli_id.value, display_infoClientVendeur);
+			}	
 			display_formulaire(val, document.formSaisieExpress);
 			getElement("but_action2").style.display='none';
 			getElement("but_action").innerHTML="CREER";
@@ -96,6 +105,7 @@
 	function display_infoClientVendeur(val) {
 		if (val instanceof Object) 
 		{
+            console.log(val);
 			val['cli_nom_'+idRamdom]=val['cli_nom'];
 		} else {
 			val = Array();
@@ -124,17 +134,19 @@
 			x_action_createFicheExpress(tabToString(tabData), display_fin_create);
 		}
 		else if (tabObj['obj_etat_new'] != '') {
-            console.log("etat => "+tabObj['obj_etat_new']);
+			console.log("etat => "+tabObj['obj_etat_new']);
 			x_action_changeEtatFiche(tabToString(tabObj), display_fin_create);
         }
-		document.formSaisieExpress.obj_numero.value="";
-		display_fiche(null);
+		//document.formSaisieExpress.obj_numero.value="";
+       // val['obj_numero']="";
+	//	display_fiche(val);
         return false;
 	}
 
 	function display_fin_create(val) {
 		x_return_fiches_express(display_fiches);
 		document.formSaisieExpress.obj_numero.focus();
+		x_return_oneFicheByCode(document.formSaisieExpress.obj_numero.value, display_fiche)
 	}
 	function unloadPage() {}
 
@@ -147,38 +159,49 @@
 		<tr>
 			<td class='tittab' width=10%>No</td>
 			<td class='tittab' width=15%>Prix vente</td>
-			<td class='tittab' width=45%>Vendeur</td>
+			<td class='tittab' width=45% colspan=4>Vendeur</td>
 			<td class='tittab' width=10%>Etat</td>
-			<td class='tittab' width=10%>Action</td>
-
+			<td class='tittab' width=10% colspan=2>Action</td>
+			
 		</tr>
 		<tr>
 			<td>
 				<input type="number" name="obj_numero" required onblur="x_return_oneFicheByCode(this.value, display_fiche)"
 				 tabindex=<?=$tabindex++?> >
-				 <span id="obj_id" ></span>
-				 <input type="hidden" name="obj_id"  >
+				<!--<span id="obj_id" ></span>-->
+				<input type="hidden" name="obj_id">
 			</td>
 			<td>
 				<input type=number name="obj_prix_vente" size=5 maxlength="10" tabindex=<?=$tabindex++?>
 				title="Prix vente" required step="0.1"
 				placeholder="00.00"/>&nbsp;&#8364;</td>
-			<td><input type=text name='cli_nom_<?=$idRamdom?>' tabindex=<?=$tabindex++?>
-				size="50" maxlength="100" required 
-				onblur='x_return_oneClientByName(this.value, display_infoClientVendeur)' 
-				list="listVendeur"
-				onkeyup='x_return_listClientByName(this.value, display_listVendeur)'>
-				<datalist id="listVendeur"></datalist>
-				<span id="cli_id" ></span>
-				<input type="hidden" name="cli_id"  >
+			<td> 
+				<input type=text name='cli_nom_<?=$idRamdom?>' tabindex=<?=$tabindex++?>
+					size="50" maxlength="100" required
+					onblur='x_return_oneClientByName(this.value, display_infoClientVendeur)'
+					list="listVendeur"
+					onkeyup='x_return_listClientByName(this.value, display_listVendeur)'>
+					<datalist id="listVendeur"></datalist>
+			</td>
+			<td>
+				<span id="cli_id"></span>
+				<input type="hidden" name="cli_id">
+			</td>
+			<td>
+				<select name='cli_taux_com' tabindex=<?=$tabindex++?> ></select>%
+			</td>
+			<td>
+				<select name='cli_prix_depot' tabindex=<?=$tabindex++?> ></select>&#8364;
 			</td>
 			<td id="obj_etat"></td>
-
 			<td>
-					<button id="but_action" tabindex=<?=$tabindex++?>></button>
-					<button id="but_action2" tabindex=<?=$tabindex++?> onclick="document.formSaisieExpress.obj_etat_new.value='RENDU'"></button>
-					<input type="hidden" name="obj_etat"  >
-					<input type="hidden" name="obj_etat_new"  >
+				<button id="but_action" tabindex=<?=$tabindex++?>></button>
+			</td>
+			<td>
+				<button id="but_action2" tabindex=<?=$tabindex++?>
+					onclick="document.formSaisieExpress.obj_etat_new.value='RENDU'"></button>
+				<input type="hidden" name="obj_etat">
+				<input type="hidden" name="obj_etat_new">
 			</td>
 		</tr>
 	</table>
@@ -191,15 +214,22 @@
 		<td class='tittab' width=10%>No</td>
 		<td class='tittab' width=15%>Prix vente</td>
 		<td class='tittab' width=55%>Vendeur</td>
-		<td class='tittab' width=20%>Etat</td>
+		<td class='tittab' width=10%>Etat</td>
+		<td class='tittab' width=10%></td>
 	</tr>
-	<? for ($index = 1; $index<1500; $index++) {?>
-	<tr class='tabl0' id="tr_<?=$index?>">
-		<td id="numero_<?=$index?>"><span style="color: GREEN"><?=$index?></span>
-		</td>
-		<td id="prix_vente_<?=$index?>"></td>
-		<td id="vendeur_<?=$index?>"></td>
-		<td id="etat_<?=$index?>"></td>
-	</tr>
-	<?}?>
 </table>
+<div style="overflow: scroll; height:60%">
+	<table width='100%'>
+		<? for ($index = 1; $index<1500; $index++) {?>
+		<tr class='tabl0' id="tr_<?=$index?>">
+			<td width=10% id="numero_<?=$index?>" onclick="x_return_oneFicheByCode('<?=$index?>', display_fiche)"><span
+				 style="color: GREEN"><?=$index?></span>
+			</td>
+			<td width=15% id="prix_vente_<?=$index?>"></td>
+			<td width=55% id="vendeur_<?=$index?>"></td>
+			<td width=10% id="etat_<?=$index?>"></td>
+			<td width=9% id="zoom_<?=$index?>"></td>
+		</tr>
+		<?}?>
+	</table>
+</div>

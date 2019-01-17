@@ -56,16 +56,18 @@ function action_updateClient($obj)
 {
     $tab =string2Tab($obj);
     // // TODO : test cohérence object
-    updateClient($tab);
-
-    return true;
+    try {
+        updateClient($tab);
+        return $tab;
+    } catch (Exception $e) {
+        return "ERREUR ".$e->getMessage();
+    }
 }
 
 function action_insertClient($obj)
 {
     $tab =string2Tab($obj);
-    insertClient($tab);
-    return true;
+    return insertClient($tab);
 }
 
 function makeClient(&$tabCli)

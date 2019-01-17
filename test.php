@@ -7,9 +7,9 @@
 //  echo decbin(64)."<br/>";   
 //  echo base_convert(64, 16, 6)."<br/>"; 
 //  echo crypt($fiche)."<br/>";   
-echo password_hash("Andreans44", PASSWORD_DEFAULT);
-echo "<br/>";
+setcookie("AADD", "1") or die('unable to create cookie');
 
+setcookie('NUMERO_BAV_BIS', date('Y'), time() + (86400 * 30), "/") or die('unable to create cookie');
 
 require_once "Commun/connect.php";
 require_once "config.ini";
