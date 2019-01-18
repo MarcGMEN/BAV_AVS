@@ -297,7 +297,11 @@ function action_changeEtatFiche($obj)
             $fiche['obj_date_retour']=date('y-m-d h:m:s');
         }
         //print_r($fiche);
-        updateFiche($fiche);
+        try {
+            updateFiche($fiche);
+        } catch (Exception $e) {
+            return "ERREUR ".$e->getMessage();
+        }
     }
     return $fiche;
 }
@@ -314,10 +318,11 @@ function action_vendFiche($data)
         
     $fiche['obj_id_acheteur']=$client['cli_id'];
     $fiche['obj_date_vente']=date('y-m-d h:m:s');
-    if (updateFiche($fiche)) {
+    try {
+        updateFiche($fiche);
         return $fiche;
-    } else {
-        return "Oups problème de mise a jour";
+    } catch (Exception $e) {
+        return "ERREUR ".$e->getMessage();
     }
 }
 
@@ -357,7 +362,11 @@ function return_fiches($tri, $sens, $selection)
             $tab['total_com_paye']+= $val['obj_prix_vente']*($val['cli_taux_com']/100);
         }
         if ($val['obj_etat'] == "VENDU") {
-            $tab['total_com_vendu']+= $val['obj_prix_vente']*($val['cli_taux_com']/100);
+            if ($val['obj_prix_vente'] < 1000) {
+                $tab['total_com_vendu']+= $val['obj_prix_vente']*($val['cli_taux_com']/100);
+            } else {
+                $tab['total_com_vendu']+= 100;
+            }
         }
         if ($val['obj_etat'] == "STOCK" || $val['obj_etat'] == "VENDU" || $val['obj_etat'] == "RENDU" ||
             $val['obj_etat'] == "PAYE" ) {

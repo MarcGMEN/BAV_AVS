@@ -395,6 +395,8 @@ var gNewEtat=null;
 function changeEtatFiche(newEtat = null) {
     var tabObj = recup_formulaire(document.ficheForm, 'obj');
     var tabCli = recup_formulaire(document.ficheForm, 'cli');
+    tabObj['obj_marque'] = document.ficheForm.elements.namedItem('obj_marque_' + idRamdom).value;
+    delete tabObj['obj_marque_' + idRamdom];
     
     if (newEtat) {
         etat = newEtat;
@@ -548,6 +550,13 @@ function display_infoClientAcheteur(val) {
 }
 function display_listAcheteur(val)  {
     var list = getElement("listAcheteur");
+    list.innerHTML="";;
+    for (index in val) {
+        list.appendChild(new Option(val[index], val[index]));
+    }
+}
+function display_listAcheteurBis(val)  {
+    var list = getElement("listAcheteurBis");
     list.innerHTML="";;
     for (index in val) {
         list.appendChild(new Option(val[index], val[index]));
