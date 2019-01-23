@@ -1,0 +1,9 @@
+<?php
+sajax_export(
+    "return_oneFaq",
+    "action_createFaq",
+    "action_deleteFaq",
+    "action_updateFaq",
+    "action_insertFaq",
+    "return_faqs"
+);

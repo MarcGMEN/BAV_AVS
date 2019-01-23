@@ -8,8 +8,8 @@
 <script src="JS/fiche.js" type="text/javascript"></script>
 
 <? if (!$infAppli['TABLE'] && !$infAppli['ADMIN'] && $GET_modePage == 'create') {?>
-<h4>Remplissez votre fiche en ligne ici, ou téléchargez la : 
-		<span class="link url" onclick='x_action_makePDF(new Array(), display_openPDF);' )>fiche depot</span>
+<div class='alert alert-info' style='font-size:15pt'>Remplissez la fiche en ligne ou télécharger et imprimer la pour la remplir <img class="link url" onclick='x_action_makePDF(new Array(), display_openPDF);' ) src="Images/pdf.png" height='40px' alt="téléchargement de la fiche" title="téléchargement de la fiche"> 
+</div>
 <?}?>
 <form name="ficheForm" method="POST" onsubmit="return submitForm()" action="">
 	<input type=hidden name="obj_id" />
@@ -102,10 +102,10 @@
 
 			<div class="col-sm-6 col-md-6 col-xs-12">
 				<span class="titrow col-md-2 col-sm-2 col-xs-3">Description
-					<span class="help link" onclick="inverseLayer('aide_descript')">?</span>
+					<span class="help link" onmouseover="Aff_layer('aide_descript')" onmouseout="Cache_layer('aide_descript')" >?</span>
 				</span>
 				<span class="tabInput col-md-10 col-sm-10 col-xs-9">
-					<textarea rows="5" cols=100 tabindex=<?=$tabindex++?>
+					<textarea rows="5" cols=100 tabindex=<?=$tabindex++?> style="resize:none;"
 						name="obj_description"  onkeyup="setStartSaisie(true);" 
 						placeholder="Année d'achat, prix d'achat, taille, accessoires, révision (transmission, pneus, freins..)">Taille :
 Prix d'achat : 
@@ -120,16 +120,16 @@ Année d'achat :
 			</div>
 			<div class="col-sm-6 col-md-6 col-xs-12">
 				<span class="titrow col-md-2 col-sm-2 col-xs-3">Accessoires
-					<span class="help link" onclick="inverseLayer('aide_accessoire')">?</span>
+					<span class="help link" onmouseover="Aff_layer('aide_accessoire')" onmouseout="Cache_layer('aide_accessoire')">?</span>
 				</span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
 					<textarea rows="5" cols=100 max-size=200 tabindex=<?=$tabindex++?> 
 						name="obj_accessoire"  onkeyup="setStartSaisie(true);"
-						placeholder="La liste de tous les accessoires déposés avec le vélo."></textarea>
+						placeholder="Saisissez la liste des accessoires qui ne sont pas fixé au vélo (compteur, pompe, pneu...)"></textarea>
 				</span>
 				<span class="col-md-12 col-sm-12 col-xs-12 help">
 					<div id="aide_accessoire" style="visibility: hidden;">
-						<small>La liste de tous les accessoires déposés avec le vélo.</small>
+						<small>Saisissez la liste des accessoires qui ne sont pas fixé au vélo (compteur, pompe, pneu...)</small>
 					</div>
 				</span>
 			</div>
@@ -137,7 +137,7 @@ Année d'achat :
 				<span class="titrow col-md-1 col-sm-1 col-xs-3">Prix</span>
 				<span class="tabInput col-md-2 col-sm-2 col-xs-9">
 					<input type=number name="obj_prix_depot" size=5 maxlength="10" tabindex=<?=$tabindex++?>
-					onkeyup="setStartSaisie(true);" step="0.1"
+					onkeyup="setStartSaisie(true);" step="0.1"  min="0"
 					title="Prix vente, vous pouvez le laisser vide et le renseigner le jour du dépôt."
 					placeholder="00.00"/>&#8364;
 				</span>
@@ -152,7 +152,7 @@ Année d'achat :
 					<? if ($infAppli['ADMIN'] && $GET_modePage != "create") {?>
 						<input type=number name="obj_prix_vente" size=5 maxlength="10" tabindex=<?=$tabindex++?>
 							onkeyup="setStartSaisie(true);" onchange="affectPrix();"
-							title="Prix vente" required step="0.1"
+							title="Prix vente" required step="0.1" min="0"
 							placeholder="00.00"/>&nbsp;&#8364;
 					<? } else {?>
 						<input type=hidden name="obj_prix_vente">
@@ -183,17 +183,23 @@ Année d'achat :
 				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Emel <span title="Obligatoire">*</span></span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
 					<input type=email name='cli_emel' id="cli_emel" size="50" maxlength="100" tabindex=<?=$tabindex++?>
-						placeholder="aaaa.bbbb@ccc.dd" required onkeyup="keyUpMel()"
+						placeholder="aaaa.bbbb@ccc.dd" required 
+						onkeyup="keyUpMel()"
 						onblur='x_return_oneClientByMel(this.value, display_infoClientVendeur)'
 						list='listVendeur'/>
 						<datalist id="listVendeur"></datalist>
 				</span>
 			</div>
 			<div class="col-sm-6 col-md-6 col-xs-12">
-				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Nom/prenom <span title="Obligatoire">*</span></span>
+				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Nom et prénom <span title="Obligatoire">*</span></span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
 					<input type=text name='cli_nom' tabindex=<?=$tabindex++?>
-					size="50" maxlength="100" required onkeyup="setStartSaisie(true);"/>
+					size="50" maxlength="100" required  
+					onkeyup="keyUpNom()"
+					onblur='x_return_oneClientByName(this.value, display_infoClientVendeurBis)'
+					list='listVendeurBis'/>
+					<datalist id="listVendeurBis"></datalist>
+					
 				</span>
 			</div>
 			<div class="col-sm-6 col-md-6 col-xs-12">
@@ -249,7 +255,7 @@ Année d'achat :
 
 		<div class="col-sm-3 col-md-3 col-xs-6 btnAction" id="tdBtnAction" >
 		 <!-- etat vide pour reconnaitre une action de modif simple -->
-			<button name="buttonValideFiche" tabindex=<?=$tabindex++?> disabled onclick="this.form.obj_etat_new.value=''">Enregristrer
+			<button name="buttonValideFiche" tabindex=<?=$tabindex++?> disabled onclick="this.form.obj_etat_new.value=''">Enregistrer
 			</button>
 		</div>
 <!--		<div class="col-sm-3 col-md-3 col-xs-6 btnAction" style='display:none'>

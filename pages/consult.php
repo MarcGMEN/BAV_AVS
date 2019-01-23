@@ -10,7 +10,23 @@
 	function display_fiche(val) {
         if (val instanceof Object) {
             console.log(val);
-            display_formulaire(val);
+			display_formulaire(val);
+			if (val['obj_etat'] == "STOCK") { 
+                messageVente = "<div class='alert alert-danger'><b>Votre vélo numéro " + val['obj_numero'] + " n\'a pas encore été vendu. Veuillez re-essayer ultérieurement.</b></div>";
+			}
+			else if (val['obj_etat'] == "VENDU") {
+			    messageVente = "<div class='alert alert-success'><b>Votre vélo numéro " + val['obj_numero'] + " a été vendu !</b> ";
+                messageVente += " Rendez-vous à la soucoupe dès à présent pour retirer votre chèque/argent.";
+                messageVente += "<br />Munissez-vous de : <ul>";
+                messageVente += "<li>Votre reçu vendeur</li>";
+                messageVente += "<li>La pièce d\'identité utilisée lors de l\'inscription</li>";
+                messageVente += "<li>Le montant de la commission due (10% du prix de vente)</li>";
+                messageVente += "</ul></div>";
+			}
+			console.log(messageVente);
+	        if (messageVente != "") {
+    	        alertModalInfo(messageVente);
+        	}
         }
 	}
 	

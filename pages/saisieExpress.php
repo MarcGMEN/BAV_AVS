@@ -133,7 +133,10 @@
 			var tabData = Object.assign({}, tabObj, tabCli);
 			x_action_createFicheExpress(tabToString(tabData), display_fin_create);
 		}
-		else if (tabObj['obj_etat_new'] != '') {
+		else if (tabObj['obj_etat_new'] == 'VENDU') {
+			x_get_publiHtml(tabToString(tabObj), 'modal_confirm_vendre.html', display_messageConfirmChangeEtatForm);
+		}
+        else if (tabObj['obj_etat_new'] != '') {
 			console.log("etat => "+tabObj['obj_etat_new']);
 			x_action_changeEtatFiche(tabToString(tabObj), display_fin_create);
         }
@@ -142,6 +145,31 @@
 	//	display_fiche(val);
         return false;
 	}
+
+	function display_messageConfirmChangeEtatForm(val) {
+	    alertModalConfirmForm(val);
+	}
+	/**click sur btn cofirm de modalEtatForm */
+	function confirmModalForm() {
+    	var tabAch = recup_formulaire(document.modalForm, 'ach');
+    	for (i in tabAch) {
+	        newKey = i.replace("ach_", "cli_");
+        	tabAch[newKey] = tabAch[i];
+        	delete tabAch[i];
+    	}
+    	var tabObjModal = recup_formulaire(document.modalForm, 'obj');
+
+    	var tabObj = recup_formulaire(document.ficheForm, 'obj');
+    	tabObj['obj_marque'] = document.ficheForm.elements.namedItem('obj_marque_' + idRamdom).value;
+    	delete tabObj['obj_marque_' + idRamdom];
+
+    	tabObj['obj_prix_vente'] = tabObjModal['obj_prix_vente'];
+
+	    var tabData = Object.assign({}, tabObj, tabAch);
+    	closeModal();
+	    x_action_vendFiche(tabToString(tabData), display_fin_create);
+	}
+
 
 	function display_fin_create(val) {
 		x_return_fiches_express(display_fiches);
@@ -162,7 +190,7 @@
 			<td class='tittab' width=45% colspan=4>Vendeur</td>
 			<td class='tittab' width=10%>Etat</td>
 			<td class='tittab' width=10% colspan=2>Action</td>
-			
+
 		</tr>
 		<tr>
 			<td>
@@ -175,13 +203,13 @@
 				<input type=number name="obj_prix_vente" size=5 maxlength="10" tabindex=<?=$tabindex++?>
 				title="Prix vente" required step="0.1"
 				placeholder="00.00"/>&nbsp;&#8364;</td>
-			<td> 
+			<td>
 				<input type=text name='cli_nom_<?=$idRamdom?>' tabindex=<?=$tabindex++?>
-					size="50" maxlength="100" required
-					onblur='x_return_oneClientByName(this.value, display_infoClientVendeur)'
-					list="listVendeur"
-					onkeyup='x_return_listClientByName(this.value, display_listVendeur)'>
-					<datalist id="listVendeur"></datalist>
+				size="50" maxlength="100" required
+				onblur='x_return_oneClientByName(this.value, display_infoClientVendeur)'
+				list="listVendeur"
+				onkeyup='x_return_listClientByName(this.value, display_listVendeur)'>
+				<datalist id="listVendeur"></datalist>
 			</td>
 			<td>
 				<span id="cli_id"></span>

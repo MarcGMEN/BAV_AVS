@@ -74,6 +74,7 @@ sajax_handle_client_request();
 	<script type="text/javascript" src="JS/sajax/json_parse.js"></script>
 	<script type="text/javascript" src="JS/sajax/sajax.js"></script>  -->
 	<? sajax_show_javascript();?>
+	<? //sajax_show_javascript("JS/sajax.js");?>
 
 	<script type="text/javascript">
 		var startSaisie = false;
@@ -90,20 +91,18 @@ sajax_handle_client_request();
 				history.pushState(stateObj, "", "index.php");
 			}
 		}
-
-		
 	</script>
 
 </head>
 <body class="parent" LANG="fr-FR" onload="initIndex();initEntete();initPage()" onunload="unloadPage()">
-	<form name=formNavigation method=post>
-		<input type=hidden name=page value="">
-		<input type=hidden name=modePage value="">
-		<input type=hidden name=id value="">
-		<input type=hidden name=message value="">
+	<form name="formNavigation" method="post">
+		<input type="hidden" name="page" value="">
+		<input type="hidden" name="modePage" value="">
+		<input type="hidden" name="id" value="">
+		<input type="hidden" name="message" value="">
 	</form>
 	<a name="top"></a>
-	<div cellspacing="0" cellpadding="0" class=PAGE>
+	<div cellspacing="0" cellpadding="0" class="PAGE">
 		<div class="entete">
 			<?include('genericPages/entete.php');  ?>
 		</div>
@@ -119,7 +118,7 @@ sajax_handle_client_request();
 				<!-- Modal content -->
 				<div class="modal-content" id="id-modal-content">
 					<form name="modalForm" method="POST" onsubmit="return submitFormModal()" action="">
-						<table width=100% class="BH_MODAL" id="id_bh_modal">
+						<table width="100%" class="BH_MODAL" id="id_bh_modal">
 							<tr>
 								<td width="95%" id='modalTitre'></td>
 								<td width="5%" id="modalClose"></td>

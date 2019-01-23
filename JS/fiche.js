@@ -1,4 +1,3 @@
-
 // mode de fonctionnement de la page
 // create  : creation d'une fiche CLIENT
 // modif   : modification par le client avec ID_FICHE, par la TABLE avec le numero fiche
@@ -20,9 +19,9 @@ function initPage() {
     x_return_depotsBAV(display_list_prix_depot);
 
     document.ficheForm.obj_type.focus();
-    
+
     if (TABLE || ADMIN) {
-        console.log("mode "+ADMIN+" "+TABLE);
+        console.log("mode " + ADMIN + " " + TABLE);
         // en mode create de table, le mail n'est pas obligatoire
         document.ficheForm.cli_emel.required = false;
         // pas de CGU pour la TABLE et ADMIN
@@ -36,7 +35,7 @@ function initPage() {
         getElement("divPrix").style.display = 'block';
 
         getElement("tdBtnEtat").style.display = 'block';
-        
+
     } else if (!CLIENT) {
         goTo();
     }
@@ -75,7 +74,6 @@ function pageSaisie() {
     }
 }
 
-
 /*
  * action lors du derchargement de la page
  */
@@ -92,7 +90,6 @@ function display_fiche(val) {
         display_formulaire(val, document.ficheForm);
         console.log(val);
         x_return_oneClient(val['obj_id_vendeur'], display_infoClientVendeur);
-
         getElement("trTitreFiche").style.display = 'block';
         // TODO : en fonction de l'etat, on propose les btn
         // etat INIT
@@ -101,7 +98,7 @@ function display_fiche(val) {
             document.ficheForm.buttonValideFiche.innerHTML = "Modifier";
             document.ficheForm.buttonEtatFiche.value = "Confirmer";
             document.ficheForm.obj_etat_new.value = "CONFIRME";
-            document.ficheForm.obj_prix_vente.disabled=true
+            document.ficheForm.obj_prix_vente.disabled = true
         }
         // etat CONFIRME
         if (val['obj_etat'] == "CONFIRME") {
@@ -119,8 +116,8 @@ function display_fiche(val) {
                 getElement("obj_prix_vente").innerHTML = val['obj_prix_depot'];
             }
             document.ficheForm.obj_prix_vente.value = val['obj_prix_depot'];
-            document.ficheForm.obj_prix_vente.disabled=true
-            
+            document.ficheForm.obj_prix_vente.disabled = true
+
             document.ficheForm.obj_prix_depot.required = true;
             document.ficheForm.obj_prix_depot.min = 1;
             document.ficheForm.buttonEtatFiche.value = "Mettre en stock";
@@ -146,16 +143,15 @@ function display_fiche(val) {
             document.ficheForm.obj_etat_new.value = "VENDU";
             document.ficheForm.buttonEtatFicheBis.style.display = 'inline';
             document.ficheForm.buttonEtatFicheBis.value = 'Rendre';
-            document.ficheForm.obj_prix_vente.disabled=false
-            
+            document.ficheForm.obj_prix_vente.disabled = false
+
             if (!ADMIN) {
                 disable_formulaire(document.ficheForm, "cli");
             }
-
         }
         if (val['obj_etat'] == "VENDU") {
             getElement("divPrix").style.display = 'block';
-            
+
             // pas de CGU pour la TABLE et ADMIN
             document.ficheForm.checkCGU.required = false;
             // pas la peine de voir les CGU
@@ -175,13 +171,13 @@ function display_fiche(val) {
             document.ficheForm.buttonEtatFicheBis.value = '';
 
             if (TABLE || ADMIN) {
-                document.ficheForm.obj_prix_vente.disabled=false
+                document.ficheForm.obj_prix_vente.disabled = false
 
                 getElement("tdBtnPdf").style.display = 'block';
 
                 getElement("fieldSetAcheteur").style.display = 'block';
                 x_return_oneClient(val['obj_id_acheteur'], display_infoClientAcheteurFiche);
-            }
+            } 
         }
 
         if (val['obj_etat'] == "RENDU" || val['obj_etat'] == "PAYE") {
@@ -189,8 +185,7 @@ function display_fiche(val) {
             if (TABLE || ADMIN) {
                 getElement("tdBtnPdf").style.display = 'block';
                 getElement("tdBtnSup").style.display = 'block';
-            }
-            else {
+            } else {
                 disable_formulaire(document.ficheForm, "obj");
                 disable_formulaire(document.ficheForm, "cli");
                 getElement("tdBtnAction").style.display = 'none';
@@ -202,6 +197,9 @@ function display_fiche(val) {
             getElement("tdBtnEtat").style.display = 'none';
 
         }
+
+        
+
     } else {
         goTo(null, null, null, "Fiche inconnue.");
     }
@@ -209,15 +207,23 @@ function display_fiche(val) {
 
 // recuperation des donnees de la BAV
 function setParamVal(val) {
-    
+
 }
 
 function keyUpMel() {
     setStartSaisie(true);
-    if (ADMIN || TABLE) {
+    if (ADMIN || TABLE) {
         x_return_listClientByMel(document.ficheForm.cli_emel.value, display_listVendeur);
-    }   
+    }
 }
+
+function keyUpNom() {
+    setStartSaisie(true);
+    if (ADMIN || TABLE) {
+        x_return_listClientByName(document.ficheForm.cli_nom.value, display_listVendeurBis);
+    }
+}
+
 
 function display_list_marques(val) {
     var list = getElement("listMarques");
@@ -228,7 +234,7 @@ function display_list_marques(val) {
 
 function display_list_modeles(val) {
     var list = getElement("listModeles");
-    list.innerHTML="";
+    list.innerHTML = "";
     for (index in val) {
         list.appendChild(new Option(val[index], val[index]));
     }
@@ -238,41 +244,45 @@ function display_list_modeles(val) {
  * affichage de la liste de type possible
  */
 function display_list_type(val) {
-    display_list_select(val,'obj_type',document.ficheForm);
+    display_list_select(val, 'obj_type', document.ficheForm);
 }
 /*
  * affichage de la liste de pratique possible
  */
 function display_list_pratique(val) {
-    display_list_select(val,'obj_pratique',document.ficheForm);
+    display_list_select(val, 'obj_pratique', document.ficheForm);
 }
 /*
  * affichage de la liste de public possible
  */
 function display_list_public(val) {
-    display_list_select(val,'obj_public',document.ficheForm);
+    display_list_select(val, 'obj_public', document.ficheForm);
 }
 
 function display_list_taux_com(val) {
-    display_list_select(val,'cli_taux_com',document.ficheForm);
+    display_list_select(val, 'cli_taux_com', document.ficheForm);
 }
 
 function display_list_prix_depot(val) {
-    display_list_select(val,'cli_prix_depot',document.ficheForm);
+    display_list_select(val, 'cli_prix_depot', document.ficheForm);
     affectPrix();
 }
 
 function affectPrix() {
+
+    if (document.ficheForm.cli_taux_com.value == 5) {
+        document.ficheForm.cli_prix_depot.value = '0.00';
+    }
+
     getElement("depot_calc").innerHTML = document.ficheForm.cli_prix_depot.selectedOptions[0].value;
 
     if (!document.ficheForm.obj_prix_vente.disabled) {
-    var com = Number(document.ficheForm.obj_prix_vente.value * (document.ficheForm.cli_taux_com.value / 100)).toFixed(2);
-    if (com > 100) {
-        com = 100;
-    }
-    getElement("comission_calc").innerHTML = com;
-    }
-    else {
+        var com = Number(document.ficheForm.obj_prix_vente.value * (document.ficheForm.cli_taux_com.value / 100)).toFixed(2);
+        if (com > 100) {
+            com = 100;
+        }
+        getElement("comission_calc").innerHTML = com;
+    } else {
         getElement("comission_calc").innerHTML = "****";
     }
 
@@ -286,7 +296,7 @@ function submitForm() {
         enregisterFiche();
     } else if (modePage == 'modif' && document.ficheForm.obj_etat_new.value == "") {
         modifFiche();
-    } 
+    }
     return false;
 }
 
@@ -330,8 +340,7 @@ function display_fin_create(val) {
     if (TABLE || ADMIN) {
         if (val instanceof Object) {
             goTo('fiche.php', 'modif', val['id'], val['message']);
-        }
-        else {
+        } else {
             alertModalInfo(val);
         }
     } else {
@@ -386,23 +395,26 @@ function imprimeFiche() {
     var tabObj = recup_formulaire(document.ficheForm, 'obj');
     x_action_makePDF(tabObj['obj_id'], display_openPDF);
 }
+
 function imprimeEtiquette() {
     var tabObj = recup_formulaire(document.ficheForm, 'obj');
     x_action_makePDF(tabObj['obj_id'], 'etiquette.html', display_openPDF);
 }
 
-var gNewEtat=null;
+var gNewEtat = null;
+
 function changeEtatFiche(newEtat = null) {
     var tabObj = recup_formulaire(document.ficheForm, 'obj');
     var tabCli = recup_formulaire(document.ficheForm, 'cli');
     tabObj['obj_marque'] = document.ficheForm.elements.namedItem('obj_marque_' + idRamdom).value;
     delete tabObj['obj_marque_' + idRamdom];
-    
+
+    tabObj['obj_desciption'] = nl2br(tabObj['obj_desciption']);
+
     if (newEtat) {
         etat = newEtat;
-        gNewEtat=etat;
-    }
-    else {
+        gNewEtat = etat;
+    } else {
         etat = tabObj['obj_etat_new'];
     }
 
@@ -423,7 +435,7 @@ function changeEtatFiche(newEtat = null) {
     } else if (etat == 'PAYE') {
         // => cloturé
         // TODO : confirm
-        tabObj['commission']=getElement("comission_calc").innerHTML;
+        tabObj['commission'] = getElement("comission_calc").innerHTML;
         x_get_publiHtml(tabToString(tabObj), 'modal_confirm_paye.html', display_messageConfirmChangeEtat);
     }
 
@@ -436,18 +448,18 @@ function display_messageConfirmChangeEtatForm(val) {
 /**click sur btn cofirm de modalEtatForm */
 function confirmModalForm() {
     var tabAch = recup_formulaire(document.modalForm, 'ach');
-    for(i in tabAch) {
-        newKey= i.replace("ach_", "cli_");
-        tabAch[newKey]=tabAch[i];
+    for (i in tabAch) {
+        newKey = i.replace("ach_", "cli_");
+        tabAch[newKey] = tabAch[i];
         delete tabAch[i];
     }
     var tabObjModal = recup_formulaire(document.modalForm, 'obj');
-    
+
     var tabObj = recup_formulaire(document.ficheForm, 'obj');
     tabObj['obj_marque'] = document.ficheForm.elements.namedItem('obj_marque_' + idRamdom).value;
     delete tabObj['obj_marque_' + idRamdom];
 
-    tabObj['obj_prix_vente']=tabObjModal['obj_prix_vente'];
+    tabObj['obj_prix_vente'] = tabObjModal['obj_prix_vente'];
 
     var tabData = Object.assign({}, tabObj, tabAch);
     closeModal();
@@ -462,9 +474,9 @@ function display_messageConfirmChangeEtat(val) {
 function confirmModalEtat() {
     closeModal();
     var tabObj = recup_formulaire(document.ficheForm, 'obj');
-    
+
     if (gNewEtat) {
-        tabObj['obj_etat_new']=gNewEtat;
+        tabObj['obj_etat_new'] = gNewEtat;
     }
 
     x_action_changeEtatFiche(tabToString(tabObj), display_fin_modif);
@@ -487,13 +499,27 @@ function confirmModalClose() {
 }
 
 function display_infoClientVendeur(val) {
+    display_infoClientVendeur(val, "emel");
+}
+
+function display_infoClientVendeurBis(val) {
+    display_infoClientVendeur(val, "nom");
+}
+
+function display_infoClientVendeur(val, base) {
     if (val instanceof Object) {
-        getElement('legendVendeur').title=val['cli_id_modif']
+        getElement('legendVendeur').title = val['cli_id_modif']
     } else {
         // reset des champs cli
+        // saug cli_emel pour ne pas le perdre
         val = [];
         val['cli_id'] = "";
-        val['cli_nom'] = "";
+        if (base == 'emel') {
+            val['cli_nom'] = "";
+        }
+        if (base == 'nom') {
+            val['cli_emel'] = "";
+        }
         val['cli_adresse'] = "";
         val['cli_adresse1'] = "";
         val['cli_code_postal'] = "";
@@ -502,7 +528,7 @@ function display_infoClientVendeur(val) {
         val['cli_telephone_bis'] = "";
         val['cli_taux_com'] = "";
         val['cli_prix_depot'] = "";
-        getElement('legendVendeur').title="";
+        getElement('legendVendeur').title = "";
 
         x_return_tauxBAV(display_list_taux_com);
         // chargement des depot
@@ -512,33 +538,46 @@ function display_infoClientVendeur(val) {
     affectPrix();
 }
 
-function display_infoClientAcheteurFiche(val)
-{
+function display_infoClientAcheteurFiche(val) {
     console.log(val);
     if (val instanceof Object) {
         // remplacement du trigramme cli par ach
-        for(i in val) {
-            newKey= i.replace("cli_", "ach_");
-            val[newKey]=val[i];
+        for (i in val) {
+            newKey = i.replace("cli_", "ach_");
+            val[newKey] = val[i];
             delete val[i];
         }
     }
-    display_formulaire(val,);
+    display_formulaire(val, );
 }
 
 function display_infoClientAcheteur(val) {
+    display_infoClientAcheteur(val, "emel");
+}
+
+function display_infoClientAcheteurBis(val) {
+    display_infoClientAcheteur(val, "nom");
+}
+
+function display_infoClientAcheteur(val, base) {
     if (val instanceof Object) {
         // remplacement du trigramme cli par ach
-        for(i in val) {
-            newKey= i.replace("cli_", "ach_");
-            val[newKey]=val[i];
+        for (i in val) {
+            newKey = i.replace("cli_", "ach_");
+            val[newKey] = val[i];
             delete val[i];
         }
     } else {
         // reset des champs cli
         val = [];
         val['ach_id'] = "";
-        val['ach_nom'] = "";
+        if (base == 'emel') {
+            val['ach_nom'] = "";
+        }
+        if (base == 'nom') {
+            val['ach_emel'] = "";
+        }
+
         val['ach_adresse'] = "";
         val['ach_adresse1'] = "";
         val['ach_code_postal'] = "";
@@ -548,24 +587,34 @@ function display_infoClientAcheteur(val) {
     }
     display_formulaire(val, document.modalForm);
 }
-function display_listAcheteur(val)  {
+
+function display_listAcheteur(val) {
     var list = getElement("listAcheteur");
-    list.innerHTML="";;
-    for (index in val) {
-        list.appendChild(new Option(val[index], val[index]));
-    }
-}
-function display_listAcheteurBis(val)  {
-    var list = getElement("listAcheteurBis");
-    list.innerHTML="";;
+    list.innerHTML = "";;
     for (index in val) {
         list.appendChild(new Option(val[index], val[index]));
     }
 }
 
-function display_listVendeur(val)  {
+function display_listAcheteurBis(val) {
+    var list = getElement("listAcheteurBis");
+    list.innerHTML = "";;
+    for (index in val) {
+        list.appendChild(new Option(val[index], val[index]));
+    }
+}
+
+function display_listVendeur(val) {
     var list = getElement("listVendeur");
-    list.innerHTML="";;
+    list.innerHTML = "";;
+    for (index in val) {
+        list.appendChild(new Option(val[index], val[index]));
+    }
+}
+
+function display_listVendeurBis(val) {
+    var list = getElement("listVendeurBis");
+    list.innerHTML = "";;
     for (index in val) {
         list.appendChild(new Option(val[index], val[index]));
     }

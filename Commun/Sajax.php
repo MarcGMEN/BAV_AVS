@@ -6,7 +6,7 @@ if (!isset($SAJAX_INCLUDED)) {
 	 *
 	 */ 
 	$GLOBALS['sajax_version'] = '0.12';	
-	$GLOBALS['sajax_debug_mode'] = 1;
+	$GLOBALS['sajax_debug_mode'] = 0;
 	$GLOBALS['sajax_export_list'] = array();
 	$GLOBALS['sajax_request_type'] = 'GET';
 	$GLOBALS['sajax_remote_uri'] = '';
@@ -435,7 +435,7 @@ if (!isset($SAJAX_INCLUDED)) {
 	    }
 	    else {
 	        if (!file_exists($file) || file_exists(".dev")) {
-	            echo "genere ajax.js"; 
+	            //echo "genere ajax.js"; 
     	        $fp=fopen($file,"w");
 	        
 	          fwrite($fp,$script);

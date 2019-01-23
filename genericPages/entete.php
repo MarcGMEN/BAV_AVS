@@ -2,7 +2,7 @@
 	function initEntete() {
 		console.log("CLIENT:"+CLIENT+" TABLE:"+TABLE+" ADMIN:"+ADMIN+"");
 		if (TABLE || ADMIN) {
-			getElement('connex').innerHTML=TABLE ? 'TABLE' : 'ADMIN';
+			getElement('connex').innerHTML=ADMIN ? 'ADMIN' : 'TABLE';
 			if (getElement('tabStat')) {
 				getElement('tabStat').className='tabStatShow';
 				x_return_countByEtat(display_counter);
@@ -31,7 +31,6 @@
 		getElement('inputSearch').disabled=startSaisie;
 	}
 
-
 	function hello() {
 		var input = prompt("Hello : ");
         x_whatYourName(input, displayhello);
@@ -55,12 +54,12 @@
 				</div>
 			</div>
 		</td>
-		<td width="70%" >
-			<div class="TITRE_FENETRE_PRINCIPALE" >
+		<td width="70%">
+			<div class="TITRE_FENETRE_PRINCIPALE">
 				<?=$infAppli['titre']?>
 			</div>
-			<? if ($infAppli['TABLE'] || $infAppli['ADMIN']) {
-                include "./genericPages/menuTABLE.php";
+			<?php if ($infAppli['TABLE'] || $infAppli['ADMIN']) {
+    			include "./genericPages/menuTABLE.php";
 			}?>
 		</td>
 		<td width="15%">
@@ -75,27 +74,25 @@
 					</div>
 				</div>
 			</span>-->
-			<span style="float: left" >
-				<img src="Images/logoAVS.png"  id="logoAVS" height='120pt'>
-			</span>
-			<span style="float: right; vertical-align:middle; font-size: 0.5em" 
-				onclick="hello()"
-				title="[<?=$_SERVER['REMOTE_ADDR']?>]"><?=$_COOKIE['NUMERO_BAV']?>
-				<span id="connex"></span>
-			</span>
+			<div style="float: left">
+				<img src="Images/logoAVS.png" id="logoAVS" height='120pt'>
+			</div>
+			<div style="position:absolute; float: right; vertical-align:middle; font-size: 0.5em" onclick="hello()" 
+					title="[<?=$_SERVER['REMOTE_ADDR']?>]"><?=$_COOKIE['NUMERO_BAV']?>&nbsp;<span id="connex"></span>
+			</div>
 		</td>
 	</tr>
 </table>
-<table  class="BH_CADRE" cellspacing="0" cellpadding="0">
+<table class="BH_CADRE" cellspacing="0" cellpadding="0">
 	<tr>
-		<th class="tdMenu" >
+		<th class="tdMenu">
 			<?php include "./genericPages/navigation.php"?>
 		</th>
-		<td class="tdSearch" id="tdSearch" style="display:none" >
+		<td class="tdSearch" id="tdSearch" style="display:none">
 			<form name="enteteFormFiche" action="#" onsubmit='return search(document.enteteFormFiche.inputSearch.value)'>
-			<input type="text" name="numeroFiche" size="15" maxlength="50" title="Saisisez le numéro de fiche, ou l'identifiant de la fiche"
-				placeholder="Recherche" id="inputSearch" onsubmit='search(this.value)' />
-			<i class="fas fa-search link" onclick="search(document.enteteFormFiche.inputSearch.value)"></i>
+				<input type="text" name="numeroFiche" size="15" maxlength="50" title="Saisisez le numéro de fiche, ou l'identifiant de la fiche"
+				 placeholder="Recherche" id="inputSearch" onsubmit='search(this.value)' />
+				<i class="fas fa-search link" onclick="search(document.enteteFormFiche.inputSearch.value)"></i>
 			</form>
 		</td>
 	</tr>

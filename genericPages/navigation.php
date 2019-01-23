@@ -47,7 +47,7 @@
                 'libelle' => 'Saisie Express'
             ]
         ];
-    } else if ($infAppli['TABLE']) {
+    } elseif ($infAppli['TABLE']) {
         $tabNavAdm = [
             'fiche.php'=>[
                 'libelle' => '<img src="Images/new.png" width=15pt/> Dépôt en ligne',
