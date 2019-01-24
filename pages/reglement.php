@@ -21,10 +21,10 @@
 		"<? foreach ($data as $key => $val) {echo $key."#3D".$val."#2C";}?>";
 
 	function display_reglement(val) {
-		<? if ($infAppli['ADMIN']) {?>
+		if (ADMIN) {
 			getElement('editor_reglement').innerHTML=val;
 			CKEDITOR.replace( 'editor_reglement' );
-		<?}?>
+		}
 		//getElement('reglement').innerHTML=val;
 	}
 
@@ -32,12 +32,12 @@
 
 	function affichEditor(id) {
 		getElement(id).style.display='none';
-		<? if ($infAppli['ADMIN']) {?>
+		if (ADMIN) {
 			getElement(id+"_edit").style.display='none';
 			getElement(id+"_save").style.display='inline';
 			getElement(id+"_cancel").style.display='inline';
 			getElement(id+"_maj").style.display='block';
-		<?}?>
+		}
 	}
 
 	function saveEditor(id,data) {
@@ -57,7 +57,7 @@
 		<?}?>
 	}
 </script>
-<span class="link url" onclick='x_action_makePDFFromHtml(data2PDF,"reglement.html", display_openPDF);' )>
+<span class="link url" onclick='x_action_makePDFFromHtml(data2PDF,"reglement.html", display_openPDF);' >
 	telecharger le reglement</span>
 	<? if ($infAppli['ADMIN']) {?>
 	<span>
@@ -69,7 +69,7 @@
 	<?}?>
 
 <div id="reglement" ><?=$message?></div>
-<? if ($infAppli['ADMIN']) {?>
+<? if ($infAppli['ADMIN']) { ?>
 <div id="reglement_maj"  style='display:none'>
 	<textarea style="width:100%" rows=150 id="editor_reglement" contenteditable="true"></textarea>
 </div>

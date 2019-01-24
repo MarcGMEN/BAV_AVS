@@ -20,8 +20,7 @@
 		</td>
 		<td width="<?=$tail?>%">
 			<!-- fiche etat modif prix -->
-			Modif prix : <A href="index.php?page=modif" method="POST">
-			<span id="modifPrix">...</span></A>
+			<s>Modif prix : <span id="modifPrix">...</span></A></s>
 		</td>
 			<td width="<?=$tail?>%">
 				Rendu : <span id="RENDU" class='link' onclick='goTo("stock.php","obj_etat","RENDU",null)'>...</span>

@@ -3,16 +3,16 @@
 	var idFaq = '<?=$GET_id?>';
 	// pour rendre le champ nom du client unique
 	var idRamdom = "<?=$idRamdom?>";
-	
+	CKEDITOR.replace("edit_faq");
 </script>
 
 <script src="JS/faq.js" type="text/javascript"></script>
 
-<h3>FOIRE AUX QUESTIONS</h3>
+<h3 class="titreFiche">FOIRE AUX QUESTIONS</h3>
 
-<p style="padding-bottom : 15px;"><span class="label label-success">ASTUCE AVS</span>
-	Poser votre question en utilisant le <a href="#formulaire">formulaire</a> en bas de la page. Nous vous répondrons dans
-	les meilleurs délais</p>
+<div class="alert alert-success"><span class="label label-success">ASTUCE AVS</span>
+	Poser votre question en utilisant le <a class="link navigation" href="#formulaire">formulaire</a> en bas de la page. Nous vous répondrons dans
+	les meilleurs délais</div>
 
 
 Recherche : <input type=text name='search_<?=rand(1, 100)?>' size="20"
@@ -22,13 +22,14 @@ Recherche : <input type=text name='search_<?=rand(1, 100)?>' size="20"
 <!-- SHOW Q & A -->
 <div id="faqs"></div>
 
+<? if (!$infAppli['ADMIN']) { ?>
 <!-- SHOW FORM TO SUBMIT QUESTION -->
 <fieldset class=fiche>
 	<legend class=titreFiche>Poser votre question</legend>
 	<a name="formulaire"></a>
 	<p>Utiliser le formulaire ci-dessous pour poser votre question. Nous vous répondrons dans les meilleurs délais :</p>
 
-	<form method="POST" onsubmit="return submitFAQ(this)">
+	<form method="POST" name="formFaq" onsubmit="return submitFAQ(this)">
 		<div class="row">
 			<div class="col-sm-12 col-xs-12">
 				<div class="form-group">
@@ -52,7 +53,12 @@ Recherche : <input type=text name='search_<?=rand(1, 100)?>' size="20"
 				<div class="form-group">
 					<label for="question" class="titrow  col-sm-2">*Question</label>
 					<div class="col-sm-6">
-						<textarea name="faq_question"  rows=5 cols=100 required></textarea>
+						<textarea name="faq_question" style='width:100%' rows=5 id='edit_faq' contenteditable='true' required></textarea>
+						<script>
+							CKEDITOR.replace("edit_faq");
+							CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
+							CKEDITOR.config.shiftEnterMode = CKEDITOR.ENTER_P;
+						</script>
 					</div>
 				</div>
 			</div>
@@ -71,3 +77,4 @@ Recherche : <input type=text name='search_<?=rand(1, 100)?>' size="20"
 		</div>
 	</form>
 </fieldset>
+<?}?>

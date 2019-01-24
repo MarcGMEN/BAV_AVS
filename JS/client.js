@@ -108,23 +108,23 @@ function display_fiches(val) {
 			repr += "<td width=10% align=center>";
 			repr += val[index]['obj_numero'];
 			repr += "</td>";
-			repr += "<td width=20%>";
+			repr += "<td class='maskmobile' width=20%>";
 			repr += val[index]['obj_type'];
 			repr += "</td>";
-			repr += "<td width=20% >";
+			repr += "<td class='maskmobile' width=20% >";
 			repr += val[index]['obj_public'];
 			repr += "</td>";
-			repr += "<td width=20% >";
+			repr += "<td width=30% >";
 			repr += val[index]['obj_marque'];
 			repr += "</td>";
-			repr += "<td width=15% >";
+			repr += "<td width=10% >";
 			if (val[index]['obj_prix_vente'] == 0) {
 				repr += "<span style='color:orange'>" + val[index]['obj_prix_depot'] + "</span>";
 			} else {
 				repr += val[index]['obj_prix_vente'];
 			}
 			repr += "</td>";
-			repr += "<td width=15% >";
+			repr += "<td width=10% >";
 			repr += val[index]['obj_etat'];
 			repr += "</td>";
 			repr += "</tr>";

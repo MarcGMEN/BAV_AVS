@@ -462,7 +462,6 @@ function confirmModalForm() {
     tabObj['obj_prix_vente'] = tabObjModal['obj_prix_vente'];
 
     var tabData = Object.assign({}, tabObj, tabAch);
-    closeModal();
     x_action_vendFiche(tabToString(tabData), display_fin_modif);
 }
 
@@ -472,7 +471,6 @@ function display_messageConfirmChangeEtat(val) {
 }
 /**click sur btn cofirm de modalEtat */
 function confirmModalEtat() {
-    closeModal();
     var tabObj = recup_formulaire(document.ficheForm, 'obj');
 
     if (gNewEtat) {

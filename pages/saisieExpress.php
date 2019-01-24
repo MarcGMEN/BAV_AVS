@@ -134,7 +134,8 @@
 			x_action_createFicheExpress(tabToString(tabData), display_fin_create);
 		}
 		else if (tabObj['obj_etat_new'] == 'VENDU') {
-			x_get_publiHtml(tabToString(tabObj), 'modal_confirm_vendre.html', display_messageConfirmChangeEtatForm);
+			x_return_oneFicheByCode(tabObj['obj_numero'], display_fiche_vente);
+			
 		}
         else if (tabObj['obj_etat_new'] != '') {
 			console.log("etat => "+tabObj['obj_etat_new']);
@@ -144,6 +145,10 @@
        // val['obj_numero']="";
 	//	display_fiche(val);
         return false;
+	}
+
+	function display_fiche_vente(val) {
+		x_get_publiHtml(tabToString(val), 'modal_confirm_vendre.html', display_messageConfirmChangeEtatForm);
 	}
 
 	function display_messageConfirmChangeEtatForm(val) {

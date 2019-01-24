@@ -135,21 +135,21 @@
 	</form>
 </fieldset>
 <?if ($infAppli['ADMIN']) {?>
-<table width="100%">	
+<table width="100%"  class="alert alert-info">	
 	<tr>
 		<td width=33%>
-			<h3>Nb Total de la selection : <span id=total>0</span></h3>
+			Nb Total de la selection : <span id=total>0</span>
 		</td>
 		<td width=33%>
-			<h4>Total dépôt : <b><span id=total_vente_depot>0.00</span> €</b>
-			&nbsp;Total vendu : <b><span id=total_vente_vendu>0.00</span> €</b></h4>
-			<h4>Total stock : <b><span id=total_vente_stock>0.00</span> €</b>
-			&nbsp;Total paye : <b><span id=total_vente_paye>0.00</span> €</b></h4>
+			Total dépôt : <b><span id=total_vente_depot>0.00</span> €</b>
+			&nbsp;Total vendu : <b><span id=total_vente_vendu>0.00</span> €</b><br/>
+			Total stock : <b><span id=total_vente_stock>0.00</span> €</b>
+			&nbsp;Total paye : <b><span id=total_vente_paye>0.00</span> €</b>
 		</td>
 		<td width=33%>
-			<h4>Total com en attente : <b><span id=total_com_vendu>0.00</span> €</b>
-			&nbsp;Total com recu : <b><span id=total_com_paye>0.00</span> €</b></h4>
-			<h4>Total depot : <b><span id=total_depot>0.00</span> €</b></h4>
+			Total com en attente : <b><span id=total_com_vendu>0.00</span> €</b>
+			&nbsp;Total com recu : <b><span id=total_com_paye>0.00</span> €</b><br/>
+			Total depot : <b><span id=total_depot>0.00</span> €</b>
 		</td>
 	</tr>
 </table>
@@ -159,22 +159,22 @@
 		<td class="tittab" width=10%>
 			<span id='obj_numero' onclick="triColonne('obj_numero')" class="sortable">No&nbsp;&nbsp;&nbsp;</span>
 		</td>
-		<td class="tittab" width=20%>
+		<td class="maskmobile tittab" width=20%>
 			<span id='obj_type' onclick="triColonne('obj_type')" class="sortable">Type&nbsp;&nbsp;&nbsp;</span>
 			&nbsp;
 		</td>
-		<td class="tittab" width=20%>
+		<td class="maskmobile tittab" width=20%>
 			<span id='obj_public' onclick="triColonne('obj_public')" class="sortable">Public&nbsp;&nbsp;&nbsp;</span>
 			&nbsp;
 		</td>
-		<td class="tittab" width=20%>
+		<td class="tittab" width=30%>
 			<span id='obj_marque' onclick="triColonne('obj_marque')" class="sortable">Marque&nbsp;&nbsp;&nbsp;</span>
 		</td>
-		<td class="tittab" width=15%>
+		<td class="tittab" width=10%>
 			<span class="sortable" id='obj_prix_vente' onclick="triColonne('obj_prix_vente')">
-				Prix vente&nbsp;&nbsp;&nbsp;</span>
+				Prix&nbsp;&nbsp;&nbsp;</span>
 		</td>
-		<td class="tittab" width=15%>
+		<td class="tittab" width=10%>
 			<span id='obj_etat' onclick="triColonne('obj_etat')" class="sortable">Etat&nbsp;&nbsp;&nbsp;</span>
 		</td>
 	</tr>
