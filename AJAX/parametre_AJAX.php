@@ -25,7 +25,7 @@ function return_infoAppli()
     $today=time();
     $infos['CLIENT']=0;
     $infos['TABLE']=0;
-    $infos['ADMIN']=$_COOKIE['AADD'];
+    $infos['ADMIN']=$_COOKIE['AADD'] == $GLOBALS['PASS_ADMIN'] ? 1 : 0;
     $infos['NB_MODIF']=$par['par_nb_modif'];
     //  print_r(strtotime($par['par_table_date_debut'])." < $today < ".strtotime($par['par_table_date_fin']));
     if (strtotime($par['par_client_date_debut']) < $today && $today < strtotime($par['par_client_date_fin'])) {

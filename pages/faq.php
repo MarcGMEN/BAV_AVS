@@ -3,16 +3,17 @@
 	var idFaq = '<?=$GET_id?>';
 	// pour rendre le champ nom du client unique
 	var idRamdom = "<?=$idRamdom?>";
-	CKEDITOR.replace("edit_faq");
 </script>
 
 <script src="JS/faq.js" type="text/javascript"></script>
 
 <h3 class="titreFiche">FOIRE AUX QUESTIONS</h3>
 
+<? if (!$infAppli['ADMIN']) { ?>
 <div class="alert alert-success"><span class="label label-success">ASTUCE AVS</span>
-	Poser votre question en utilisant le <a class="link navigation" href="#formulaire">formulaire</a> en bas de la page. Nous vous répondrons dans
+	Poser votre question en utilisant le <a class="link" href="#formulaire">formulaire</a> en bas de la page. Nous vous répondrons dans
 	les meilleurs délais</div>
+<? }?>
 
 
 Recherche : <input type=text name='search_<?=rand(1, 100)?>' size="20"
@@ -55,9 +56,14 @@ Recherche : <input type=text name='search_<?=rand(1, 100)?>' size="20"
 					<div class="col-sm-6">
 						<textarea name="faq_question" style='width:100%' rows=5 id='edit_faq' contenteditable='true' required></textarea>
 						<script>
-							CKEDITOR.replace("edit_faq");
-							CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
-							CKEDITOR.config.shiftEnterMode = CKEDITOR.ENTER_P;
+							CKEDITOR.config.toolbarGroups = [
+								{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+								{ name: 'paragraph',   groups: [ 'blocks', 'align' ] }
+							];
+							
+							CKEDITOR.replace("edit_faq", CKEDITOR.config);
+							
+                            
 						</script>
 					</div>
 				</div>

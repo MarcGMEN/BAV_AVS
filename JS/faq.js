@@ -61,18 +61,20 @@ function display_faqs(val) {
             else {
                 repr+="<div>"
             }
-            repr+="<dl><dt>";
-            repr+="Q.&nbsp;"+nl2br(val[index]['faq_question'])+" <i style='font-size:6pt'>("+formatDate(val[index]['faq_date'])+")</i></dt>";
+            repr+="<dl>";
+            repr+="<dt id='question_"+val[index]['faq_id']+"' >Q.&nbsp;"+val[index]['faq_question']+
+                    " <i style='font-size:6pt'>("+formatDate(val[index]['faq_date'])+")</i></dt>";
             repr+="<dd style='background-color:lightgrey' id='reponse_"+val[index]['faq_id']+"'>"+val[index]['faq_response']+"</dd></dl>";
             if (ADMIN) {
                 repr+="<div id='reponse_edit_"+val[index]['faq_id']+"'  style='display:none'>";
                 repr+="<i class='fas fa-save link' title='sauver la réponse' "+
-                    "onclick='saveEditor(CKEDITOR.instances.edit_faq_"+val[index]['faq_id']+".getData(),"+val[index]['faq_id']+")'></i>&nbsp;";
+                    "onclick='saveEditor(CKEDITOR.instances.edit_faq_Q"+val[index]['faq_id']+".getData(), CKEDITOR.instances.edit_faq_R"+val[index]['faq_id']+".getData(),"+val[index]['faq_id']+")'></i>&nbsp;";
 		        repr+="<i class='fas fa-times link' title='fermer' onclick='closeEditor("+val[index]['faq_id']+")'></i>";	
-                repr+="<textarea style='width:100%' rows=5 id='edit_faq_"+val[index]['faq_id']+"' contenteditable='true'>"+
-                val[index]['faq_response']+"</textarea>";
+                repr+="<textarea style='width:100%' rows=5 id='edit_faq_Q"+val[index]['faq_id']+"' contenteditable='true'>"+
+                    val[index]['faq_question']+"</textarea>";
+                repr+="<textarea style='width:100%' rows=5 id='edit_faq_R"+val[index]['faq_id']+"' contenteditable='true'>"+
+                    val[index]['faq_response']+"</textarea>";
                 repr+="</div>";
-                
             }
             repr+="</div><br/>";
         }
@@ -126,21 +128,23 @@ function desactiveFaq(id) {
 
 function updateFaq(id) {
     getElement('reponse_'+id).style.display='none';
+    getElement('question_'+id).style.display='none';
+    console.log(id);
     getElement('reponse_edit_'+id).style.display='block';
-    CKEDITOR.replace("edit_faq_"+id );
-    CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
-    CKEDITOR.config.shiftEnterMode = CKEDITOR.ENTER_P;
+    CKEDITOR.replace("edit_faq_R"+id );
+    CKEDITOR.replace("edit_faq_Q"+id );
 }
 
 function closeEditor(id) {
     getElement('reponse_'+id).style.display='block';
+    getElement('question_'+id).style.display='block';
     getElement('reponse_edit_'+id).style.display='none';
     
 }
 
 
-function saveEditor(reponse, id) {
-    var data={'faq_id':id, 'faq_response':reponse};
+function saveEditor(question, reponse, id) {
+    var data={'faq_id':id, 'faq_response':reponse,'faq_question':question};
     x_action_updateFaq(tabToString(data), initPage);
 }
 

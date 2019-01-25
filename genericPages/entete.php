@@ -31,9 +31,8 @@
 		getElement('inputSearch').disabled=startSaisie;
 	}
 
-	function hello() {
-		var input = prompt("Hello : ");
-        x_whatYourName(input, displayhello);
+	function confirmPass(pass) {
+		x_whatYourName(document.modalForm.pass.value, displayhello);
 	}
 
 	function displayhello(val) {
@@ -77,7 +76,7 @@
 			<div style="float: left">
 				<img src="Images/logoAVS.png" id="logoAVS" height='120pt'>
 			</div>
-			<div style="position:absolute; float: right; vertical-align:middle; font-size: 0.5em" onclick="hello()" 
+			<div class="link" style="position:absolute; float: right; vertical-align:middle; font-size: 0.5em" onclick="alertModalPass();" 
 					title="[<?=$_SERVER['REMOTE_ADDR']?>]"><?=$_COOKIE['NUMERO_BAV']?>&nbsp;<span id="connex"></span>
 			</div>
 		</td>

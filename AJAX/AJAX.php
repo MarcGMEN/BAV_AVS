@@ -23,10 +23,10 @@ foreach ($tabFile as $val) {
 
 function whatYourName($pass)
 {
-    if (password_verify($pass, '$2y$10$yoVUoKDoorP3Rvv7XMrSweQdZTFP0E4NOrye2L1R0tNmx2fgcH3dS')) {
+    if (password_verify($pass, $GLOBALS['PASS_ADMIN'])) {
         //setcookie("AADD", 1, time()+1000, '/') or die('unable to create cookie');
         //$_COOKIE['AADD']=1;
-        return 1;
+        return $GLOBALS['PASS_ADMIN'];
     } else {
         //setcookie('AADD', null, 0, "/")  or die('unable to remove cookie');
         //$_COOKIE['AADD']=0;

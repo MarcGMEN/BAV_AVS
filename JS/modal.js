@@ -65,6 +65,28 @@ function alertModalError(message) {
     
 }
 
+function alertModalPass() { 
+    // Get the <span> element that closes the modal
+    var span = getElement("closeModal");
+
+    if (span) {
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+           closeModal();
+        }
+    }
+    getElement('myModal').style.display = "block";
+
+    getElement('modalTitre').innerHTML = "Connexion";
+    getElement("modalClose").innerHTML = "<i class='fa fa-times-circle size-3 close' id=closeModal></i>";
+
+    getElement("modalText").innerHTML = "<h3>Connexion admin</h3><input type=password name=pass required>" 
+    
+    $repr = "<input type=button value=Confirmer onclick='searchStyle();confirmPass();closeModal()'>";
+    $repr += "&nbsp;&nbsp;&nbsp;&nbsp;<input type=button value=Annuler onclick='closeModal()'>";
+    getElement("modalAction").innerHTML = $repr;
+}
+
 /**
  * fenetre de confirmatio
  * @param {} message 
