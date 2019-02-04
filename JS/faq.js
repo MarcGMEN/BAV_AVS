@@ -133,6 +133,9 @@ function updateFaq(id) {
     getElement('reponse_edit_'+id).style.display='block';
     CKEDITOR.replace("edit_faq_R"+id );
     CKEDITOR.replace("edit_faq_Q"+id );
+
+    CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
+	CKEDITOR.config.shiftEnterMode = CKEDITOR.ENTER_P;
 }
 
 function closeEditor(id) {

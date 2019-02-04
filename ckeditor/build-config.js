@@ -1,6 +1,6 @@
 ﻿/**
  * @license Copyright (c) 2003-2019, CKSource - Frederico Knabben. All rights reserved.
- * For licensing, see LICENSE.md or http://ckeditor.com/license
+ * For licensing, see LICENSE.md or https://ckeditor.com/license
  */
 
 /**
@@ -10,13 +10,13 @@
  * If you would like to build CKEditor online again
  * (for example to upgrade), visit one the following links:
  *
- * (1) http://ckeditor.com/builder
+ * (1) https://ckeditor.com/cke4/builder
  *     Visit online builder to build CKEditor from scratch.
  *
- * (2) http://ckeditor.com/builder/8d783a5356c3f8b3fbafbe0a4058f3d6
+ * (2) https://ckeditor.com/cke4/builder/707b4f3a0c60b9b8684a2a3f859bec55
  *     Visit online builder to build CKEditor, starting with the same setup as before.
  *
- * (3) http://ckeditor.com/builder/download/8d783a5356c3f8b3fbafbe0a4058f3d6
+ * (3) https://ckeditor.com/cke4/builder/download/707b4f3a0c60b9b8684a2a3f859bec55
  *     Straight download link to the latest version of CKEditor (Optimized) with the same setup as before.
  *
  * NOTE:
@@ -71,7 +71,8 @@ var CKBUILDER_CONFIG = {
 		'format' : 1,
 		'horizontalrule' : 1,
 		'htmlwriter' : 1,
-		'image' : 1,
+		'image2' : 1,
+		'imageuploader' : 1,
 		'indentlist' : 1,
 		'justify' : 1,
 		'link' : 1,

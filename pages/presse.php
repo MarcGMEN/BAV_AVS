@@ -1,77 +1,68 @@
-<h3>LA BOURSE AUX VELOS DANS LA PRESSE</h3>
-
-<div id="editor1" contenteditable="true">
-<h4>Presse Océan - Octobre 2017</h4>
-<a href="Images/BAV_PO_01102017.png">
-    <img src="Images/BAV_PO_01102017.png" alt="Presse" 
-        class="img-rounded sidebar-image" width="800px">
-    </a>
-</div>
+<?$idRamdom = rand(1000, 9999);?>
 <script>
-    // Turn off automatic editor creation first.
-    CKEDITOR.disableAutoInline = true;
-    CKEDITOR.inline( 'editor1' );
+	var idFaq = '<?=$GET_id?>';
+	// pour rendre le champ nom du client unique
+	var idRamdom = "<?=$idRamdom?>";
 </script>
-<h4>Estuaire Hebdo - Octobre 2017</h4>
-<a href="<?php echo base_url(); ?>images/BAV_EH_01102017.png"><img src="<?php echo base_url(); ?>images/BAV_EH_01102017.png" alt="Presse" class="img-rounded sidebar-image" width="800px"></a>
 
+<script src="JS/presse.js" type="text/javascript"></script>
 
-<!-- 2016 -->
-<h4>Ouest France - 07/11/2016</h4>
-<a href="<?php echo base_url(); ?>images/BAV_OF_7112016.jpg"><img src="<?php echo base_url(); ?>images/BAV_OF_7112016.jpg" alt="Presse" class="img-rounded sidebar-image" width="800px"></a>
-<h4>Presse Océan - 07/11/2016</h4>
-<a href="<?php echo base_url(); ?>images/BAV_PO_7112016.jpg"><img src="<?php echo base_url(); ?>images/BAV_PO_7112016.jpg" alt="Presse" class="img-rounded sidebar-image" width="800px"></a>
-<h4>Ouest France - 06/11/2016</h4>
-<a href="<?php echo base_url(); ?>images/BAV_OF_6112016.jpg"><img src="<?php echo base_url(); ?>images/BAV_OF_6112016.jpg" alt="Presse" class="img-rounded sidebar-image" width="800px"></a>
-<h4>Ouest France - 04/11/2016</h4>
-<a href="<?php echo base_url(); ?>images/BAV_OF_4112016.jpg"><img src="<?php echo base_url(); ?>images/BAV_OF_4112016.jpg" alt="Presse" class="img-rounded sidebar-image" width="800px"></a>
-<h4>Echo de la Prequ'île - 04/11/2016</h4>
-<a href="<?php echo base_url(); ?>images/BAV_EP_04112016.jpg"><img src="<?php echo base_url(); ?>images/BAV_EP_04112016.jpg" alt="Presse" class="img-rounded sidebar-image" width="800px"></a>
-<h4>Presse Océan - 31/10/2016</h4>
-<a href="<?php echo base_url(); ?>images/BAV_PO_31102016.jpg"><img src="<?php echo base_url(); ?>images/BAV_PO_31102016.jpg" alt="Presse" class="img-rounded sidebar-image" width="800px"></a>
+<h3 class="titreFiche">LA BOURSE AUX VELOS DANS LA PRESSE</h3>
 
+Recherche : <input type=text name='search_<?=rand(1, 100)?>' size="20"
+ maxlength="100" onkeyup="search(this.value)" />
+<hr />
 
-<!-- 2015 and before -->
+<!-- SHOW Q & A -->
+<div id="actus"></div>
 
-<h4>Presse Océan - 09/11/2015</h4>
-<a href="<?php echo base_url(); ?>images/presse12.png"><img src="<?php echo base_url(); ?>images/presse12.png" alt="Presse" class="img-rounded sidebar-image" width="800px"></a>
+<? if ($infAppli['ADMIN']) { ?>
+<!-- SHOW FORM TO SUBMIT QUESTION -->
+<fieldset class=fiche>
+	<legend class=titreFiche>Deposer une article de pressse</legend>
+	<form method="POST" name="formPresse" onsubmit="return submitPresse(this)">
+        <input type=hidden name="act_numero_bav" value="<?=$_COOKIE['NUMERO_BAV']?>"/>
+		<div class="row">
+			<div class="col-sm-12 col-xs-12">
+				<div class="form-group">
+					<label for="question" class="titrow  col-sm-2">* Titre</label>
+					<div class="col-sm-6">
+						<textarea name="faq_question" style='width:100%' rows=5 id='edit_act' contenteditable='true' required></textarea>
+						<script>
+							CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
+							CKEDITOR.config.shiftEnterMode = CKEDITOR.ENTER_P;
+                            
+                            myconfig = CKEDITOR.config;
+                            myconfig.toolbarGroups = [
+								{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+								{ name: 'paragraph',   groups: [ 'blocks', 'align' ] }
+                            ];
+                            CKEDITOR.replace("edit_act",myconfig);
+						</script>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-12 col-xs-12">
+				<div class="form-group">
+					<label for="question" class="titrow  col-sm-2">* Article</label>
+					<div class="col-sm-6">
+						<textarea name="faq_question" style='width:100%' rows=5 id='edit_act_article' contenteditable='true' required></textarea>
+						<script>
+							CKEDITOR.replace("edit_act_article");
+							
+						</script>
+					</div>
+				</div>
+			</div>
 
-<h4>Presse Océan - 09/11/2015</h4>
-<a href="<?php echo base_url(); ?>images/presse11.jpg"><img src="<?php echo base_url(); ?>images/presse11.jpg" alt="Presse" class="img-rounded sidebar-image" width="800px"></a>
-
-<h4>Ouest France - 08/11/2015</h4>
-<a href="<?php echo base_url(); ?>images/presse13.jpg"><img src="<?php echo base_url(); ?>images/presse13.jpg" alt="Presse" class="img-rounded sidebar-image" width="800px"></a>
-<a href="<?php echo base_url(); ?>images/presse14.jpg"><img src="<?php echo base_url(); ?>images/presse14.jpg" alt="Presse" class="img-rounded sidebar-image" width="800px"></a>
-
-<h4>Presse Océan - 03/11/2015</h4>
-<a href="<?php echo base_url(); ?>images/presse8.jpg"><img src="<?php echo base_url(); ?>images/presse8.jpg" alt="Presse" class="img-rounded sidebar-image" width="800px"></a>
-
-<h4>Ouest France - 04/11/2015</h4>
-<a href="<?php echo base_url(); ?>images/presse9.jpg"><img src="<?php echo base_url(); ?>images/presse9.jpg" alt="Presse" class="img-rounded sidebar-image" width="800px"></a>
-
-<h4>Ouest France - 04/11/2015</h4>
-<a href="<?php echo base_url(); ?>images/presse10.jpg"><img src="<?php echo base_url(); ?>images/presse10.jpg" alt="Presse" class="img-rounded sidebar-image" width="800px"></a>
-
-<h4>Presse Océan - Décembre 2014</h4>
-<a href="<?php echo base_url(); ?>images/presse7.jpg"><img src="<?php echo base_url(); ?>images/presse7.jpg" alt="Presse" class="img-rounded sidebar-image" width="800px"></a>
-
-<h4>Ouest France - Novembre 2014</h4>
-<a href="<?php echo base_url(); ?>images/presse5.png"><img src="<?php echo base_url(); ?>images/presse5.png" alt="Presse" class="img-rounded sidebar-image" width="800px"></a>
-
-<h4>Estuaire - Novembre 2014</h4>
-<a href="<?php echo base_url(); ?>images/presse6.jpg"><img src="<?php echo base_url(); ?>images/presse6.jpg" alt="Presse" class="img-rounded sidebar-image" width="800px"></a>
-
-<h4>Presse Océan - Novembre 2014</h4>
-<a href="<?php echo base_url(); ?>images/presse8.png"><img src="<?php echo base_url(); ?>images/presse8.png" alt="Presse" class="img-rounded sidebar-image" width="800px"></a>
-
-<h4>Presse Océan</h4>
-<a href="<?php echo base_url(); ?>images/presse3.jpg"><img src="<?php echo base_url(); ?>images/presse3.jpg" alt="Presse" class="img-rounded sidebar-image" width="800px"></a>
-
-<h4>Ouest France</h4>
-<a href="<?php echo base_url(); ?>images/presse4.jpg"><img src="<?php echo base_url(); ?>images/presse4.jpg" alt="Presse" class="img-rounded sidebar-image" width="800px"></a>
-
-<h4>Ouest France 07/11/2012</h4>
-<a href="<?php echo base_url(); ?>images/presse2.jpg"><img src="<?php echo base_url(); ?>images/presse2.jpg" alt="Presse" class="img-rounded sidebar-image" width="800px"></a>
-
-<h4>Presse Océan</h4>
-<a href="<?php echo base_url(); ?>images/presse1.jpg"><img src="<?php echo base_url(); ?>images/presse1.jpg" alt="Presse" class="img-rounded sidebar-image" width="800px"></a>
+			<div class="col-sm-12 col-xs-12">
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" name="submit" value="submit" class="btn btn-success">Envoyer</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</fieldset>
+<?}?>

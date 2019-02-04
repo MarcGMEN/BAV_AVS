@@ -60,6 +60,8 @@ Recherche : <input type=text name='search_<?=rand(1, 100)?>' size="20"
 								{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
 								{ name: 'paragraph',   groups: [ 'blocks', 'align' ] }
 							];
+							CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
+							CKEDITOR.config.shiftEnterMode = CKEDITOR.ENTER_P;
 							
 							CKEDITOR.replace("edit_faq", CKEDITOR.config);
 							

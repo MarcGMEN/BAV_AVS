@@ -8,7 +8,7 @@
 
 <div class="row">
 
-  <div class="col-sm-6 col-md-4">
+  <div class="col-sm-6 col-md-4 col-xs-12">
     <div class="thumbnail">
       <a href="https://fr-fr.facebook.com/terredecycle/" target="_blank">
         <img data-src="holder.js/400x266" alt="..." src="Images/animations/terre_de_cycle_logo.png"></a>
@@ -26,7 +26,7 @@
 
 
 
-  <div class="col-sm-6 col-md-4">
+  <div class="col-sm-6 col-md-4  col-xs-12">
     <div class="thumbnail">
       <img data-src="holder.js/400x266" alt="..." src="Images/animations/velos_decoratifs_2018.jpg">
       <div class="caption">
