@@ -87,8 +87,7 @@ function unloadPage() {
 function display_fiche(val) {
     if (val instanceof Object) {
         val['obj_marque_' + idRamdom] = val['obj_marque'];
-        display_formulaire(val, document.ficheForm);
-        console.log(val);
+        //console.log(val);
         x_return_oneClient(val['obj_id_vendeur'], display_infoClientVendeur);
         getElement("trTitreFiche").style.display = 'block';
         // TODO : en fonction de l'etat, on propose les btn
@@ -98,6 +97,7 @@ function display_fiche(val) {
             document.ficheForm.buttonValideFiche.innerHTML = "Modifier";
             document.ficheForm.buttonEtatFiche.value = "Confirmer";
             document.ficheForm.obj_etat_new.value = "CONFIRME";
+            val['obj_etat_libelle'] = "Demande initié par le vendeur";
             document.ficheForm.obj_prix_vente.disabled = true
         }
         // etat CONFIRME
@@ -122,7 +122,7 @@ function display_fiche(val) {
             document.ficheForm.obj_prix_depot.min = 1;
             document.ficheForm.buttonEtatFiche.value = "Mettre en stock";
             document.ficheForm.obj_etat_new.value = "STOCK";
-
+            val['obj_etat_libelle'] = "Demande confirmée par le vendeur le ["+formatDate(val['obj_date_depot'],false)+"]";
         }
         // etat STOCK
         if (val['obj_etat'] == "STOCK") {
@@ -141,6 +141,7 @@ function display_fiche(val) {
             document.ficheForm.cli_prix_depot.disabled = true;
             document.ficheForm.buttonEtatFiche.value = "Vendre";
             document.ficheForm.obj_etat_new.value = "VENDU";
+            val['obj_etat_libelle'] = "Présent sur le parc";
             document.ficheForm.buttonEtatFicheBis.style.display = 'inline';
             document.ficheForm.buttonEtatFicheBis.value = 'Rendre';
             document.ficheForm.obj_prix_vente.disabled = false
@@ -166,6 +167,7 @@ function display_fiche(val) {
 
             document.ficheForm.buttonEtatFiche.value = "A payer";
             document.ficheForm.obj_etat_new.value = "PAYE";
+            val['obj_etat_libelle'] = "Vendu le ["+formatDate(val['obj_date_vente'])+"]";
 
             document.ficheForm.buttonEtatFicheBis.style.display = 'none';
             document.ficheForm.buttonEtatFicheBis.value = '';
@@ -196,10 +198,14 @@ function display_fiche(val) {
             getElement("tdCGU").style.display = 'none';
             getElement("tdBtnEtat").style.display = 'none';
 
+            if (val['obj_etat'] == "RENDU") {
+                val['obj_etat_libelle'] = "Rendu au vendeur le ["+formatDate(val['obj_date_retour'])+"]";
+            }
+            else {
+                val['obj_etat_libelle'] = "Payé au vendeur le ["+formatDate(val['obj_date_retour'])+"]";
+            }
         }
-
-        
-
+        display_formulaire(val, document.ficheForm);
     } else {
         goTo(null, null, null, "Fiche inconnue.");
     }

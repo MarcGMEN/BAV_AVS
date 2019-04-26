@@ -65,8 +65,8 @@
         $message = makeCorps($data, "reglement.html");
     ?>
     <script>
-        var data = "";
-        data ="<? foreach ($data as $key => $val) {echo $key."#3D".$val."#2C";}?>";
+		var data = new Object();
+		<? foreach ($data as $key => $val) {echo "data['$key']='$val';\n"; }?>
     </script>
 <?
 	$tabInfo=['LA BOURSE' => "bav_bourse",
@@ -82,8 +82,10 @@
 	<? if ($infAppli['ADMIN']) {?>
 	<span>
 		<i class="fas fa-edit" id="<?=$idText?>_edit" onclick="affichEditor('<?=$idText?>')"></i>
-		<i class="fas fa-save" id="<?=$idText?>_save" style='display:none' onclick="saveEditor('<?=$idText?>',getElement('editor_<?=$idText?>').value)"></i>	
-		<i class="fas fa-times"id="<?=$idText?>_cancel" style='display:none' onclick="cancelEditor('<?=$idText?>')"></i>	
+		<i class="fas fa-save" id="<?=$idText?>_save" style='display:none' 
+			onclick="saveEditor('<?=$idText?>',getElement('editor_<?=$idText?>').value)"></i>	
+		<i class="fas fa-times"id="<?=$idText?>_cancel" style='display:none' 
+			onclick="cancelEditor('<?=$idText?>')"></i>	
 	</span>	
 	<?}?>
 </h3>

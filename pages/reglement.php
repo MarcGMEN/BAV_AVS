@@ -9,17 +9,14 @@
 		$message = makeCorps($data, "reglement.html");
 ?>
 <script>
+	var data2PDF = new Object();
 	function initPage() {
 		x_return_html('reglement', display_reglement);
+		<? foreach ($data as $key => $val) {echo "data2PDF['$key']='$val';\n"; }?>
 	}
 
 	function unloadPage() {}
-
-
-	var data2PDF = "";
-	data2PDF =
-		"<? foreach ($data as $key => $val) {echo $key."#3D".$val."#2C";}?>";
-
+	
 	function display_reglement(val) {
 		if (ADMIN) {
 			getElement('editor_reglement').innerHTML=val;
@@ -57,7 +54,7 @@
 		<?}?>
 	}
 </script>
-<span class="link url" onclick='x_action_makePDFFromHtml(data2PDF,"reglement.html", display_openPDF);' >
+<span class="link url" onclick='x_action_makePDFFromHtml(tabToString(data2PDF),"reglement.html", display_openPDF);' >
 	telecharger le reglement</span>
 	<? if ($infAppli['ADMIN']) {?>
 	<span>

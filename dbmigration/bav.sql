@@ -31,7 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `bav_actu` (
   `act_id` int(11) NOT NULL,
   `act_titre` varchar(100) NOT NULL,
-  `act_blob` blob,
+  `act_text` blob,
   `act_lien` varchar(200) DEFAULT NULL,
   `act_titre_lien` varchar(100) DEFAULT NULL,
   `act_numero_bav` int(11) NOT NULL,

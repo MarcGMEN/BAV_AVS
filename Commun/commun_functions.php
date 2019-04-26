@@ -295,7 +295,6 @@ function makeCorps($data, $fileHTML)
         //echo "publipost de $key avec $val\n";
         $messageMail=str_replace("--$key--",nl2br($val), $messageMail);
     }
-	
     return  $messageMail;
 }
 

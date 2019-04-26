@@ -12,7 +12,7 @@ require_once "config.ini";
 
 error_reporting(E_ERROR);
 if (!isset($GET_page)) {
-	$GET_page="accueil.php";
+	$GET_page="bav.php";
 }
 
 // debut des tabIndex pour les ecrans;

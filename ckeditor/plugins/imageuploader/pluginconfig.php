@@ -157,3 +157,8 @@ $usersiteroot = substr($_SERVER["SCRIPT_FILENAME"], 0, (stripos($_SERVER["SCRIPT
 $useruploadfolder = "$browserfolder/uploads";
 $useruploadpath = $usersiteroot."$useruploadfolder/";
 $foldershistory[] = $useruploadfolder;
+
+    $useruploadfolder = "BAV/ckeditorUploads";
+    $useruploadpath = $usersiteroot."$useruploadfolder/";
+    $foldershistory[] = "BAV/ckeditorUploads";
+        

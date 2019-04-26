@@ -33,13 +33,13 @@ function getActus($selection, $approved = null, $type = "FAQ")
     $requete2 = "SELECT * from bav_actu where 1 = 1 ";
     if ($selection && $selection != "") {
         $requete2 .= " and (act_titre like '%$selection%' " ;
-        $requete2 .= " or act_blob like '%$selection%' )" ;
+        $requete2 .= " or act_text like '%$selection%' )" ;
     }
     $requete2 .= " and act_type = '$type' " ;
     if ($approved != null) {
         $requete2 .= " and act_active = $approved ";
     }
-    $requete2 .= " order by act_numero_bav desc, act_date asc";
+    $requete2 .= " order by act_numero_bav desc, act_date desc";
     
     //echo $requete2;
 

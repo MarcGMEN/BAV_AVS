@@ -4,8 +4,9 @@
 // For licensing, see LICENSE.md
 
 session_start();
-
+$_SESSION["username"] = "disabled_pw";
 if(!isset($_SESSION['username'])) {
+    echo "no user";
     exit;
 }
 
@@ -29,6 +30,7 @@ switch ($load_lang_code) {
 // Including the plugin config file, don't delete the following row!
 require(__DIR__ . '/pluginconfig.php');
 
+    
 $info = pathinfo($_FILES["upload"]["name"]);
 $ext = $info['extension'];
 $target_dir = $useruploadpath;
@@ -54,7 +56,7 @@ if (file_exists($target_file)) {
     $uploadOk = 0;
 }
 // Check file size
-if ($_FILES["upload"]["size"] > 1024000) {
+if ($_FILES["upload"]["size"] > 2024000) {
     echo "<script>alert('".$uploadimgerrors3."');</script>";
     $uploadOk = 0;
 }

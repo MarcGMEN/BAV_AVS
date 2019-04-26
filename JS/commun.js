@@ -120,7 +120,7 @@ function disable_formulaire(laForm, trigrame) {
 }
 
 function tabToString(par) {
-	var res = JSON.stringify(par);
+	var res = JSON.stringify(par);	
 	return res;
 }
 
@@ -145,7 +145,7 @@ function miseEnFormeData(id, val) {
 	return retour;
 }
 
-function formatDate(date) {
+function formatDate(date, affHeure=true) {
 	if (date) {
 		// alert(date.length );
 		exprSlash = new RegExp("^([0-9]+)([\]+)([0-9]+)([\]+)([0-9]+)$");
@@ -167,16 +167,20 @@ function formatDate(date) {
 			tst = false;
 			try {
 				nd = new Date(annee, mois - 1, jour);
-				//    				alert(nd);
+				console.log(nd);
 				tst = (annee > 1800 && annee < 2200 && annee == nd.getFullYear() &&
 					mois == (nd.getMonth() + 1) && jour == nd.getDate());
 			} catch (e) {
-
 			}
 			if (tst) {
-				return (jour + "/" + mois + "/" + annee + " " + heure);
+				if (affHeure) {
+					return (jour + "/" + mois + "/" + annee + " " + heure);
+				}
+				else {
+					return (jour + "/" + mois + "/" + annee);
+				}
 			} else {
-				return date;
+				return "";
 			}
 		} else {
 			var jour = date.substring(8, 10);
@@ -194,7 +198,7 @@ function formatDate(date) {
 			if (tst) {
 				return (jour + "/" + mois + "/" + annee);
 			} else {
-				return date;
+				return "";
 			}
 		}
 	} else {

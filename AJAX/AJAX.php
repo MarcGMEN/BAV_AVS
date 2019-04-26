@@ -63,7 +63,8 @@ function string2Tab($obj)
             echo ' - Erreur lors du contrôle des caractères';
             break;
         case JSON_ERROR_SYNTAX:
-            echo ' - Erreur de syntaxe ; JSON malformé';
+            echo ' - Erreur de syntaxe ; JSON mal formé';
+            print_r($obj);
             break;
         case JSON_ERROR_UTF8:
             $obj8 = utf8_encode2($obj);
@@ -123,7 +124,7 @@ function return_html($html)
 
 function save_html($html, $data)
 {
-     file_put_contents('../html/'.$html.'.html', $data);
+     file_put_contents('../html/'.$html.'.html', utf8_encode2($data));
      return $html;
 }
 
