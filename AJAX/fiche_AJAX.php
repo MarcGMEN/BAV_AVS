@@ -204,18 +204,20 @@ function action_makePDF($id, $html = 'fiche_depot.html')
         $client['cli_telephone']="";
         $client['cli_telephone_bis']="";
         $client['cli_taux_com']=$par['par_taux_1'];
+        $client['cli_id_modif']="";
         
         $fiche['obj_numero']="";
-        $fiche['obj_type']="";
-        $fiche['obj_public']="";
-        $fiche['obj_pratique']="";
+        $fiche['obj_type']="<br/><small>VTT-Course-VTC-Ville-BMX-Autre</small>";
+        $fiche['obj_public']="<br/><small>Homme-Femme-Mixte-Enfant</small>";
+        $fiche['obj_pratique']="Sportive-Loisir-Compétition";
         $fiche['obj_marque']="";
         $fiche['obj_modele']="";
         $fiche['obj_couleur']="";
         $fiche['obj_accessoire']="";
-        $fiche['obj_description']="Date d'achat:<br/>Prix d'achat :<br/>Taille :";
-        $fiche['obj_prix_vente'] ="<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
-        $fiche['obj_prix_depot'] ="<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
+        $fiche['obj_description']="&nbsp;<br/>&nbsp;<br/>&nbsp;";
+        $fiche['obj_prix_vente'] ="<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
+        $fiche['obj_prix_depot'] ="<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
+        $fiche['obj_id_modif']="";
     }
 
     $tabPlus['titre'] = $par['par_titre'];

@@ -37,7 +37,7 @@
 
 	function displayhello(val) {
         SetCookie("AADD", val);
-		goTo("accueil.php");
+		goTo("bav.php");
 	}
 </script>
 
@@ -90,7 +90,8 @@
 		<td class="tdSearch" id="tdSearch" style="display:none">
 			<form name="enteteFormFiche" action="#" onsubmit='return search(document.enteteFormFiche.inputSearch.value)'>
 				<input type="text" name="numeroFiche" size="15" maxlength="50" title="Saisisez le numéro de fiche, ou l'identifiant de la fiche"
-				 placeholder="Recherche" id="inputSearch" onsubmit='search(this.value)' />
+				 placeholder="Est il vendu ?" id="inputSearch" onsubmit='search(this.value)' 
+				 style='background-color:LIGHTGREEN;font-weight: bold'/>
 				<i class="fas fa-search link" onclick="search(document.enteteFormFiche.inputSearch.value)"></i>
 			</form>
 		</td>

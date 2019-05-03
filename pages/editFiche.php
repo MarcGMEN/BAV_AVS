@@ -68,6 +68,7 @@ $tabInfo=[	'FICHE DEPOT' => "fiche_depot",
 		<span id="html_file_title" ></span>
 		<i class="fas fa-save" onclick="saveEditor(idText,CKEDITOR.instances.editor_html_file.getData())"></i>	
 		<i class="fas fa-times" onclick="cancelEditor('html_file')"></i>
+		<i class="far fa-file-pdf" onclick='x_action_makePDF(new Array(), idText+".html", display_openPDF);' )></i>
 	</h2>
 <textarea style="width:100%" rows=150 id="editor_html_file" contenteditable="true"></textarea>
 <script>

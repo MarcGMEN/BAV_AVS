@@ -37,6 +37,7 @@ function initPage() {
         getElement("tdBtnEtat").style.display = 'block';
 
     } else if (!CLIENT) {
+        alertModalWarnTimeout("La saisie n'est pas encore ouverte.",2);
         goTo();
     }
 

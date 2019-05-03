@@ -29,7 +29,7 @@ function display_openPDF(val) {
     window.open(val, '_blank');
 }
 
-function goTo(page = 'accueil.php', modePage = '', id = null, message = '') {
+function goTo(page = 'bav.php', modePage = '', id = null, message = '') {
     document.formNavigation.page.value = page
     document.formNavigation.modePage.value = modePage;
     document.formNavigation.id.value = id;

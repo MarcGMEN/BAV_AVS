@@ -102,16 +102,13 @@
 			</div>
 
 			<div class="col-sm-6 col-md-6 col-xs-12">
-				<span class="titrow col-md-2 col-sm-2 col-xs-3">Description
+				<span class="titrow col-md-2 col-sm-2 col-xs-3">Description <small>(facultative)</small>
 					<span class="help link" onmouseover="Aff_layer('aide_descript')" onmouseout="Cache_layer('aide_descript')" >?</span>
 				</span>
 				<span class="tabInput col-md-10 col-sm-10 col-xs-9">
 					<textarea rows="5" cols=100 tabindex=<?=$tabindex++?> style="resize:none;"
 						name="obj_description"  onkeyup="setStartSaisie(true);" 
-						placeholder="Année d'achat, prix d'achat, taille, accessoires, révision (transmission, pneus, freins..)">Taille :
-Prix d'achat : 
-Année d'achat : 
-.....</textarea>
+						placeholder="Année d'achat, prix d'achat, taille, accessoires, révision (transmission, pneus, freins..)">Taille :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Prix d'achat : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Année d'achat : (etc...)</textarea>
 				</span>
 				<span class="col-md-12 col-sm-12 col-xs-12 help">
 					<div id="aide_descript" style="visibility: hidden;">
