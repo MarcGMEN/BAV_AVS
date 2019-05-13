@@ -175,7 +175,7 @@ function action_deleteFiche($id)
     deleteFiche($id);
 }
 
-function action_makePDF($id, $html = 'fiche_depot.html')
+function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
 {
     //echo $html;
     $infoAppli = return_infoAppli();
@@ -193,6 +193,33 @@ function action_makePDF($id, $html = 'fiche_depot.html')
     if ($id) {
         $fiche = getOneFiche($id);
         $client = getOneClient($fiche['obj_id_vendeur']);
+    } elseif ($test) {
+        $client['cli_prix_depot']=$par['par_prix_depot_1'];
+        $client['cli_nom']="TEST";
+        $client['cli_emel']="test@test.com";
+        $client['cli_adresse']="votre adresse";
+        $client['cli_adresse1']="";
+        $client['cli_code_postal']="44600";
+        $client['cli_ville']="Saint Nazaire";
+        $client['cli_telephone']="02 45 78 98 78";
+        $client['cli_telephone_bis']="";
+        $client['cli_taux_com']=$par['par_taux_1'];
+        $client['cli_id_modif']="";
+        
+        $fiche['obj_numero']="700";
+        $fiche['obj_type']="VTT";
+        $fiche['obj_public']="Homme";
+        $fiche['obj_pratique']="Sportive";
+        $fiche['obj_marque']="Décathlon";
+        $fiche['obj_modele']="RockRider";
+        $fiche['obj_couleur']="Noire";
+        $fiche['obj_accessoire']="";
+        $fiche['obj_description']="Ras";
+        $fiche['obj_prix_vente'] ="130";
+        $fiche['obj_prix_depot'] ="150";
+        $fiche['obj_id_modif']="";
+        $fiche['obj_id_acheteur']=999999;
+        
     } else {
         $client['cli_prix_depot']=$par['par_prix_depot_1'];
         $client['cli_nom']="";
@@ -229,7 +256,9 @@ function action_makePDF($id, $html = 'fiche_depot.html')
 
     $acheteur = array();
     if ($fiche['obj_id_acheteur'] != null && $fiche['obj_id_acheteur']  > 0) {
-        $acheteur = getOneClient($fiche['obj_id_acheteur']);
+        if ($fiche['obj_id_acheteur'] != 999999) {
+            $acheteur = getOneClient($fiche['obj_id_acheteur']);
+        }
         $client['cli_com']=($client['cli_taux_com']*$fiche['obj_prix_vente']/100) > 100 ? 100 :
             ($client['cli_taux_com']*$fiche['obj_prix_vente']/100);
     } else {
@@ -295,6 +324,15 @@ function action_changeEtatFiche($obj)
             $fiche['obj_date_depot']=date('y-m-d h:m:s');
         } elseif ($fiche['obj_etat'] == 'VENDU') {
             $fiche['obj_date_vente']=date('y-m-d h:m:s');
+
+            $client = getOneClient($fiche['obj_id_vendeur']);
+
+            $tabPlus['commission']=$client['cli_taux_com']*$fiche['obj_prix_vente'];
+            // TODO : envoi du mail
+            $titreMel="BAV #".$fiche['obj_numero'].", votre vélo est vendu .";
+            $message = makeMessage($titreMel, array_merge($fiche, $client, $tabPlus), "mel_vendu.html");
+            $retour = sendMail($titreMel, $client['cli_emel'], $message);
+
         } elseif ($fiche['obj_etat'] == 'RENDU' || $fiche['obj_etat'] == 'PAYE') {
             $fiche['obj_date_retour']=date('y-m-d h:m:s');
         }
