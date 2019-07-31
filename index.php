@@ -73,8 +73,8 @@ sajax_handle_client_request();
 	<!-- <script type="text/javascript" src="JS/sajax/json_stringify.js"></script>
 	<script type="text/javascript" src="JS/sajax/json_parse.js"></script>
 	<script type="text/javascript" src="JS/sajax/sajax.js"></script>  -->
-	<? sajax_show_javascript();?>
-	<? //sajax_show_javascript("JS/sajax.js");?>
+	<? //sajax_show_javascript();?>
+	<? sajax_show_javascript("JS/sajax.js");?> 
 
 	<script type="text/javascript">
 		var startSaisie = false;
@@ -95,7 +95,7 @@ sajax_handle_client_request();
 
 </head>
 <body class="parent" LANG="fr-FR" onload="initIndex();initEntete();initPage()" onunload="unloadPage()">
-	<form name="formNavigation" method="post">
+	<form name="formNavigation" method="get">
 		<input type="hidden" name="page" value="">
 		<input type="hidden" name="modePage" value="">
 		<input type="hidden" name="id" value="">

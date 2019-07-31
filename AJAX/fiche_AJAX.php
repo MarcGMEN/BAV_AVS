@@ -36,8 +36,7 @@ function return_oneFicheByCode($id)
     $row = getOneFicheByCode($id, $_COOKIE['NUMERO_BAV']);
     if ($row) {
         $row['obj_date_depot_FR'] = formateDateMYSQLtoFR($row['obj_date_depot'], true);
-    }
-    else {
+    } else {
         $row['obj_numero'] = $id;
     }
     return $row;
@@ -219,7 +218,6 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
         $fiche['obj_prix_depot'] ="150";
         $fiche['obj_id_modif']="";
         $fiche['obj_id_acheteur']=999999;
-        
     } else {
         $client['cli_prix_depot']=$par['par_prix_depot_1'];
         $client['cli_nom']="";
@@ -332,7 +330,6 @@ function action_changeEtatFiche($obj)
             $titreMel="BAV #".$fiche['obj_numero'].", votre vélo est vendu .";
             $message = makeMessage($titreMel, array_merge($fiche, $client, $tabPlus), "mel_vendu.html");
             $retour = sendMail($titreMel, $client['cli_emel'], $message);
-
         } elseif ($fiche['obj_etat'] == 'RENDU' || $fiche['obj_etat'] == 'PAYE') {
             $fiche['obj_date_retour']=date('y-m-d h:m:s');
         }

@@ -61,7 +61,7 @@ function search(value) {
 
 function display_getFicheConsult(val) {
     console.log(val);
-    if (val instanceof Object) {
+    if (val instanceof Object && val['obj_id'] != undefined) {
         if (TABLE || ADMIN) {
             console.log("fiche.php&id="+val['obj_id']);
             goTo("fiche.php","modif",val['obj_id']);

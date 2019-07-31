@@ -37,8 +37,8 @@ function initPage() {
         getElement("tdBtnEtat").style.display = 'block';
 
     } else if (!CLIENT) {
-        alertModalWarnTimeout("La saisie n'est pas encore ouverte.",2);
-        goTo();
+        alertModalInfo("La saisie n'est pas encore ouverte.");
+        setTimeout(function() {goTo()},2000);
     }
 
     if (idFiche) {
@@ -86,6 +86,7 @@ function unloadPage() {
  * 
  */
 function display_fiche(val) {
+    console.log(val);
     if (val instanceof Object) {
         val['obj_marque_' + idRamdom] = val['obj_marque'];
         //console.log(val);
@@ -208,7 +209,8 @@ function display_fiche(val) {
         }
         display_formulaire(val, document.ficheForm);
     } else {
-        goTo(null, null, null, "Fiche inconnue.");
+        console.log("Fiche inconnue.");
+        //goTo(null, null, null, "Fiche inconnue.");
     }
 }
 

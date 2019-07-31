@@ -61,12 +61,17 @@
 	}
 </script>
 <?php
-        $data = array('date1'=>8, 'date2'=>9, 'date3'=>10, 'mois'=>'novembre', 'annee'=>2019,'URL'=>$CFG_URL);
-        $message = makeCorps($data, "reglement.html");
+	$data = array(
+		'date1'=>date('d', $infAppli['date_j1']),
+		'date2'=>date('d', $infAppli['date_j2']),
+		'date3'=>date('d', $infAppli['date_j3']),
+		'mois'=>moisFrench(date('m', $infAppli['date_j2'])),
+		'annee'=>date('Y', $infAppli['date_j2']),
+		'URL'=>$CFG_URL);
     ?>
     <script>
-		var data = new Object();
-		<? foreach ($data as $key => $val) {echo "data['$key']='$val';\n"; }?>
+		var data2PDF = new Object();
+		<? foreach ($data as $key => $val) {echo "data2PDF['$key']='$val';\n"; }?>
     </script>
 <?
 	$tabInfo=['LA BOURSE' => "bav_bourse",
