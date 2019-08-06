@@ -73,7 +73,9 @@ function display_acts(val) {
                     repr+="&nbsp;<i class='link far fa-square' title='Activer' "+
                             " onclick='activeActu("+val[index]['act_id']+")'></i>&nbsp;";
                 }
-                //repr+=val[index]['act_id'];
+                if (val[index]['act_mail']) {
+                    repr+="@: <a href='https://mail.google.com/mail/?view=cm&fs=1&tf=1&from=avsvtt@gmail.com&to="+val[index]['act_mail']+"' target='_blank'>"+val[index]['act_mail']+"</A>";
+                }
             }
             repr+="<div class='alert-info '>";
             repr+="<h3 id='question_"+val[index]['act_id']+"' >"+val[index]['act_titre']+
@@ -128,6 +130,10 @@ function display_create(val) {
     }
     display_formulaire(data, formPresse);
     x_return_actus("", approved, typeACT, display_acts);
+
+    if (!ADMIN) {
+        alertModalInfo('Votre demande va être prise en compte.');
+    }
     window.location.href="#top";
 }
 

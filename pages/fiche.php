@@ -173,7 +173,7 @@
 		</div>
 	</fieldset>
 	<fieldset class=fiche>
-		<legend class=titreFiche id='legendVendeur' onclick='goTo("client.php","consult",document.ficheForm.cli_id.value,"")'>
+		<legend class="titreFiche link" id='legendVendeur' onclick='goTo("client.php","consult",document.ficheForm.cli_id.value,"")'>
 			Le vendeur
 		</legend>
 		<div class="row">

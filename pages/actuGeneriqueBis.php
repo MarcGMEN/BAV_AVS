@@ -16,7 +16,7 @@ Recherche : <input type=text name='search_<?=rand(1, 100)?>' size="20" maxlength
 <!-- SHOW FORM TO SUBMIT QUESTION -->
 <fieldset class=fiche>
 	<a name="formulaire"></a>
-	<legend class=titreFiche>Deposer une question</legend>
+	<legend class=titreFiche>Posez une question</legend>
 	<form method="POST" name="formPresse" onsubmit="return submitActu(this)">
         <input type=hidden name="act_numero_bav" value="<?=$_COOKIE['NUMERO_BAV']?>"/>
 		<div class="row">

@@ -22,7 +22,6 @@ if (!isset($_COOKIE['NUMERO_BAV'])) {
 	setcookie('NUMERO_BAV', date('Y'), time() + (86400 * 30), "/"); // 86400 = 1 day
 	$_COOKIE['NUMERO_BAV']=date('Y');
 }
-
 $infAppli = return_infoAppli();
 
 // init ajax
@@ -73,8 +72,8 @@ sajax_handle_client_request();
 	<!-- <script type="text/javascript" src="JS/sajax/json_stringify.js"></script>
 	<script type="text/javascript" src="JS/sajax/json_parse.js"></script>
 	<script type="text/javascript" src="JS/sajax/sajax.js"></script>  -->
-	<? //sajax_show_javascript();?>
-	<? sajax_show_javascript("JS/sajax.js");?> 
+	<? sajax_show_javascript();?>
+	<? //sajax_show_javascript("JS/sajax.js");?> 
 
 	<script type="text/javascript">
 		var startSaisie = false;

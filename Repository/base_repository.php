@@ -138,6 +138,10 @@ function getOne($id, $table, $cleId)
             throw new Exception("getOne' [$requete2]".mysqli_error());
         }
     }
+    else {
+        throw new Exception("getOne' Pas de connection ");
+        
+    }
     return $row;
 }
 

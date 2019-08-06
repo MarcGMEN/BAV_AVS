@@ -19,6 +19,7 @@ function return_infoAppli()
     
     $ipLu= $_SERVER['REMOTE_ADDR'];
     $numBAV=$_COOKIE['NUMERO_BAV'];
+
     $par = return_oneParametre($numBAV);
 
     $tabIpsAdmin=explode(",", $par['par_admin_id_mac']);
@@ -67,6 +68,7 @@ function return_infoAppli()
 
 function return_oneParametre($id)
 {
+    try {
     $row = getOneParemetre($id);
     if ($row) {
         $row['par_client_date_debut_FR'] = utf8Encode(formateDateMYSQLtoFR($row['par_client_date_debut'], false));
@@ -77,6 +79,10 @@ function return_oneParametre($id)
     }
     //print_r($row);
     return $row;
+    }
+    catch (Exception $e ){
+        echo "oups, pb: $e";
+    }
 }
 
 function return_allParametre()
