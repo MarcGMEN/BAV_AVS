@@ -16,7 +16,7 @@ function alertModalWarn(message) {
 
     getElement('id_bh_modal').className = "BH_MODAL_ERR";
     getElement('modalTitre').innerHTML = "Erreur";
-    getElement("modalClose").innerHTML = "<i class='fa fa-times-circle size-3 close' id=closeModal></i>";
+    getElement("modalClose").innerHTML = "<i class='fa fa-times-circle size-3 close' id=closeModal onclick='closeModal()'></i>";
 
     getElement("modalText").innerHTML = message;
 }

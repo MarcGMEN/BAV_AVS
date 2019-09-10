@@ -122,8 +122,7 @@
 		<td class="tittab" width=35% colspan="2">
 			<span id='cli_nom' onclick="triColonne('cli_nom')" class="sortable">Nom - Prenom&nbsp;&nbsp;&nbsp;</span>
 			<input type=text name='cli_nom_<?=rand(1, 100)?>' size="20" class="autocomplete"
-			 maxlength="100" onkeyup="selectColonne(this.value)" list="listClient" />
-			<datalist id="listClient"></datalist> 
+			 maxlength="100" onkeyup="selectColonne(this.value)"  />
 		</td>
 
 		<td class="tittab" width=35%>

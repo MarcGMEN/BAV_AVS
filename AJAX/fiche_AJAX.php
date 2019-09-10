@@ -257,9 +257,9 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
     if ($fiche['obj_id_acheteur'] != null && $fiche['obj_id_acheteur']  > 0) {
         if ($fiche['obj_id_acheteur'] != 999999) {
             $acheteurCli = getOneClient($fiche['obj_id_acheteur']);
-            foreach($acheteurCli as $key => $val) {
-                $newKey=str_replace("cli","ach",$key);
-                $acheteur[$newKey]=$val;
+            foreach ($acheteurCli as $key => $val) {
+                $newKey = str_replace("cli", "ach", $key);
+                $acheteur[$newKey] = $val;
             }
         }
     } else {
@@ -393,31 +393,35 @@ function action_insertFiche($obj)
 
 function return_fiches($tri, $sens, $selection)
 {
-    $tab = getFiches($tri, $sens, string2Tab($selection));
+    try {
+        $tab = getFiches($tri, $sens, string2Tab($selection));
 
-    $tab['total_com'] = 0;
-    foreach ($tab as $key => $val) {
-        $tab['total_vente_' . $val['obj_etat']] += $val['obj_prix_vente'];
+        $tab['total_com'] = 0;
+        foreach ($tab as $key => $val) {
+            $tab['total_vente_' . $val['obj_etat']] += $val['obj_prix_vente'];
 
-        if ($val['obj_etat'] == "PAYE") {
-            $tab['total_com_paye'] += $val['obj_prix_vente'] * ($val['cli_taux_com'] / 100);
-        }
-        if ($val['obj_etat'] == "VENDU") {
-            if ($val['obj_prix_vente'] < 1000) {
-                $tab['total_com_vendu'] += $val['obj_prix_vente'] * ($val['cli_taux_com'] / 100);
-            } else {
-                $tab['total_com_vendu'] += 100;
+            if ($val['obj_etat'] == "PAYE") {
+                $tab['total_com_paye'] += $val['obj_prix_vente'] * ($val['cli_taux_com'] / 100);
             }
+            if ($val['obj_etat'] == "VENDU") {
+                if ($val['obj_prix_vente'] < 1000) {
+                    $tab['total_com_vendu'] += $val['obj_prix_vente'] * ($val['cli_taux_com'] / 100);
+                } else {
+                    $tab['total_com_vendu'] += 100;
+                }
+            }
+            if (
+                $val['obj_etat'] == "STOCK" || $val['obj_etat'] == "VENDU" || $val['obj_etat'] == "RENDU" ||
+                $val['obj_etat'] == "PAYE"
+            ) {
+                $tab['total_vente_depot'] += $val['obj_prix_vente'];
+            }
+            $tab['total_depot'] += $val['cli_prix_depot'];
         }
-        if (
-            $val['obj_etat'] == "STOCK" || $val['obj_etat'] == "VENDU" || $val['obj_etat'] == "RENDU" ||
-            $val['obj_etat'] == "PAYE"
-        ) {
-            $tab['total_vente_depot'] += $val['obj_prix_vente'];
-        }
-        $tab['total_depot'] += $val['cli_prix_depot'];
+        return $tab;
+    } catch (Exception $e) {
+        return "ERREUR " . $e->getMessage();
     }
-    return $tab;
 }
 
 
