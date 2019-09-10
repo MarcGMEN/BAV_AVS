@@ -167,7 +167,6 @@ function formatDate(date, affHeure=true) {
 			tst = false;
 			try {
 				nd = new Date(annee, mois - 1, jour);
-				console.log(nd);
 				tst = (annee > 1800 && annee < 2200 && annee == nd.getFullYear() &&
 					mois == (nd.getMonth() + 1) && jour == nd.getDate());
 			} catch (e) {

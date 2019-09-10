@@ -129,7 +129,6 @@ function  closeModal() {
 }
 
 function submitFormModal() {
-    console.log('submitFormModal');
     searchStyle();
     confirmModalForm();
     return false;

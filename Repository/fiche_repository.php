@@ -137,7 +137,7 @@ function getOneFicheByCode($id, $numeroBAV)
 
 function getFiches($order, $sens, $tabSel)
 {
-    $requete2 = "SELECT bav_objet.*, ve.cli_nom vendeur_nom, ac.cli_nom acheteur_nom from bav_objet ";
+    $requete2 = "SELECT bav_objet.*, ve.*, ve.cli_nom vendeur_nom, ac.cli_nom acheteur_nom from bav_objet ";
     $requete2 .= "  left outer join bav_client as ve on obj_id_vendeur = ve.cli_id ";
     $requete2 .= "  left outer join bav_client as ac on obj_id_acheteur = ac.cli_id ";
     $requete2 .= " where obj_numero_bav = ".$_COOKIE['NUMERO_BAV'];
@@ -168,21 +168,7 @@ function getFiches($order, $sens, $tabSel)
 
 function getFichesExpress()
 {
-    $requete2 = "SELECT * from bav_objet left outer join bav_client on obj_id_vendeur = cli_id where obj_numero_bav = ".$_COOKIE['NUMERO_BAV'];
-    $requete2 .= " order by obj_numero";
-    //echo $requete2;
-    
-    if ($result = $GLOBALS['mysqli']->query($requete2)) {
-        $tab=array();
-        $index=0;
-        while ($row = $result->fetch_assoc()) {
-            $tab[$index++] = $row;
-        }
-        $result->close();
-    } else {
-        throw new Exception("getFichesExpress' [$requete2]".$GLOBALS['mysqli']->error);
-    }
-    return $tab;
+    return  getFiches('obj_numero', "asc",  []);
 }
 
 /**

@@ -329,10 +329,6 @@ function action_changeEtatFiche($obj)
             $client = getOneClient($fiche['obj_id_vendeur']);
 
             $tabPlus['commission'] = $client['cli_taux_com'] * $fiche['obj_prix_vente'];
-            // TODO : envoi du mail
-            $titreMel = "BAV #" . $fiche['obj_numero'] . ", votre vélo est vendu .";
-            $message = makeMessage($titreMel, array_merge($fiche, $client, $tabPlus), "mel_vendu.html");
-            $retour = sendMail($titreMel, $client['cli_emel'], $message);
         } elseif ($fiche['obj_etat'] == 'RENDU' || $fiche['obj_etat'] == 'PAYE') {
             $fiche['obj_date_retour'] = date('y-m-d h:m:s');
         }
@@ -361,6 +357,23 @@ function action_vendFiche($data)
         $fiche['obj_id_acheteur'] = $client['cli_id'];
         $fiche['obj_date_vente'] = date('y-m-d h:m:s');
         updateFiche($fiche);
+        
+        $theFiche= getOneFiche($fiche['obj_id']);
+        $cliVend= return_oneClient($theFiche['obj_id_vendeur']);
+
+        $tab=array();
+        if ($theFiche['obj_prix_vente'] < 1000) {
+            $tab['cli_com'] = $theFiche['obj_prix_vente'] * ($cliVend['cli_taux_com'] / 100);
+        } else {
+            $tab['cli_com'] = 100;
+        }
+        
+        if ($cliVend['cli_emel'] != "") {
+            // TODO : envoi du mail
+            $titreMel = "BAV #" . $fiche['obj_numero'] . ", votre vélo est vendu .";
+            $message = makeMessage($titreMel, array_merge($fiche, $cliVend, $tab), "mel_vendu.html");
+            sendMail($titreMel, $cliVend['cli_emel'], $message);
+        }
         return $fiche;
     } catch (Exception $e) {
         return "ERREUR " . $e->getMessage();

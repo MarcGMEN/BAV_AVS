@@ -30,6 +30,9 @@
 					getElement("prix_vente_" + val[index]['obj_numero']).innerHTML = val[index]['obj_prix_vente'];
 					getElement("vendeur_" + val[index]['obj_numero']).innerHTML =
 						val[index]['cli_nom'] + " -- " + val[index]['cli_taux_com'] + " % -- " + val[index]['cli_prix_depot'] + " €";
+					if (val[index]['acheteur_nom']) {
+						getElement("vendeur_" + val[index]['obj_numero']).innerHTML += " ====> Vendu à "+val[index]['acheteur_nom'];
+					}
 					getElement("etat_" + val[index]['obj_numero']).innerHTML = val[index]['obj_etat'];
 
 					getElement("zoom_" + val[index]['obj_numero']).innerHTML = "<i class='link fas fa-search' onclick='goTo(\"fiche.php\",\"modif\"," + val[index]['obj_id'] + ")'></i>";
@@ -172,7 +175,8 @@
 
 
 	function display_fin_create(val) {
-		if (val instanceof Object) {
+		console.log(val);
+		if (val instanceof Object || !val) {
 			x_return_fiches_express(display_fiches);
 			document.formSaisieExpress.obj_numero.focus();
 			x_return_oneFicheByCode(document.formSaisieExpress.obj_numero.value, display_fiche);

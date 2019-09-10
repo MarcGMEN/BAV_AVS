@@ -86,7 +86,6 @@ function unloadPage() {
  * 
  */
 function display_fiche(val) {
-    console.log(val);
     if (val instanceof Object) {
         val['obj_marque_' + idRamdom] = val['obj_marque'];
         //console.log(val);
@@ -371,7 +370,6 @@ function modifFiche() {
 }
 
 function display_fin_modif(val) {
-    console.log(val);
     if (val instanceof Object) {
         setStartSaisie(false);
         x_return_countByEtat(display_counter);
@@ -471,6 +469,7 @@ function confirmModalForm() {
 
     var tabData = Object.assign({}, tabObj, tabAch);
     closeModal();
+    
     x_action_vendFiche(tabToString(tabData), display_fin_modif);
 }
 
@@ -546,7 +545,6 @@ function display_infoClientVendeur(val, base) {
 }
 
 function display_infoClientAcheteurFiche(val) {
-    console.log(val);
     if (val instanceof Object) {
         // remplacement du trigramme cli par ach
         for (i in val) {
