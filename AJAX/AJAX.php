@@ -13,7 +13,7 @@ require_once "../Commun/Sajax.php";
 require_once "../Commun/mail.php";
 require_once "../Commun/html2pdf.php";
 
-ini_set('session.cookie_httponly', 1);
+//ini_set('session.cookie_httponly', 1);
     
 error_reporting(E_ERROR);
 //Creation de l'aJAX avec tout les AJAX possible _AJAX.php

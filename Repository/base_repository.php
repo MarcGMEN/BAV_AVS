@@ -88,7 +88,7 @@ function recupEnumToArray($table, $champ)
         $tab =  explode("','", preg_replace("/(enum|set)\('(.+?)'\)/", "\\2", $row['Type']));
         return $tab;
     } else {
-        throw new Exception("Pb getEnumValues ".mysqli_error());
+        throw new Exception("Pb getEnumValues ".$GLOBALS['mysqli']->error);
     }
 }
 
@@ -109,7 +109,7 @@ function listUnique($table, $champ, $sel = null)
         }
         $result->close();
     } else {
-        throw new Exception("listUnique' [$query]".mysqli_error());
+        throw new Exception("listUnique' [$query]".$GLOBALS['mysqli']->error);
     }
     return $tab;
 }
@@ -135,7 +135,7 @@ function getOne($id, $table, $cleId)
         if ($res=$GLOBALS['mysqli']->query($requete2)) {
             $row = $res->fetch_assoc();
         } else {
-            throw new Exception("getOne' [$requete2]".mysqli_error());
+            throw new Exception("getOne' [$requete2]".$GLOBALS['mysqli']->error);
         }
     }
     else {
@@ -183,7 +183,7 @@ function update($table, $obj, $cleId)
     $req .= " where $cleId = '".$obj[$cleId]."'";
     //echo $req;
     if (!$GLOBALS['mysqli']->query($req)) {
-        throw new Exception("Pb d'update' [$req]".mysqli_error());
+        throw new Exception("Pb d'update' [$req]".$GLOBALS['mysqli']->error);
     }
 }
 
@@ -216,7 +216,7 @@ function insert($table, $obj)
     //cho $req;
     
     if (!$GLOBALS['mysqli']->query($req)) {
-        throw new Exception("Pb d'insert' [$req]".error_get_last()['message']);
+        throw new Exception("Pb d'insert' [$req]".$GLOBALS['mysqli']->error);
     }
     return $GLOBALS['mysqli']->insert_id;
 }
@@ -226,7 +226,7 @@ function delete($table, $id, $cleId)
     $req = "delete from $table ";
     $req .= " where $cleId = ".$id;
     if (!$GLOBALS['mysqli']->query($req)) {
-        throw new Exception("Pb d'update' [$req]".mysqli_error());
+        throw new Exception("Pb d'update' [$req]".$GLOBALS['mysqli']->error);
     }
     return true;
 }

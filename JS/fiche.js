@@ -120,7 +120,6 @@ function display_fiche(val) {
             document.ficheForm.obj_prix_vente.value = val['obj_prix_depot'];
             document.ficheForm.obj_prix_vente.disabled = true
 
-            document.ficheForm.obj_prix_depot.required = true;
             document.ficheForm.obj_prix_depot.min = 1;
             document.ficheForm.buttonEtatFiche.value = "Mettre en stock";
             document.ficheForm.obj_etat_new.value = "STOCK";
@@ -471,6 +470,7 @@ function confirmModalForm() {
     tabObj['obj_prix_vente'] = tabObjModal['obj_prix_vente'];
 
     var tabData = Object.assign({}, tabObj, tabAch);
+    closeModal();
     x_action_vendFiche(tabToString(tabData), display_fin_modif);
 }
 

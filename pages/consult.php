@@ -12,7 +12,7 @@
             console.log(val);
 			display_formulaire(val);
 			if (val['obj_etat'] == "STOCK") { 
-                messageVente = "<div class='alert alert-danger'><b>Votre vélo numéro " + val['obj_numero'] + " n\'a pas encore été vendu. Veuillez re-essayer ultérieurement.</b></div>";
+                messageVente = "<div class='alert alert-danger'><b>Votre vélo numéro " + val['obj_numero'] + " n\'a pas encore été vendu.<br/> Veuillez re-essayer ultérieurement.</b></div>";
 			}
 			else if (val['obj_etat'] == "VENDU") {
 			    messageVente = "<div class='alert alert-success'><b>Votre vélo numéro " + val['obj_numero'] + " a été vendu !</b> ";

@@ -100,7 +100,7 @@
 		}
 		getElement(tri).className="sortable";
 
-		x_return_clients(numBav,col,sens,tabToString(selection),display_clients);
+		x_return_clients(col,sens,tabToString(selection),display_clients);
 		tri=col;
 	}
 
@@ -135,19 +135,19 @@
 		</td>
 
 		<th class="tittab" width=3%>
-			<span class="sortable" id='cli_depot' onclick="triColonne('cli_depot')">D&nbsp;&nbsp;&nbsp;</span>
+			<span  id='cli_depot'>D&nbsp;&nbsp;&nbsp;</span>
 		</th>
 
 		<th class="tittab" width=3%>
-			<span class="sortable" id='cli_vente' onclick="triColonne('cli_vente')">V&nbsp;&nbsp;&nbsp;</span>
+			<span  id='cli_vente'>V&nbsp;&nbsp;&nbsp;</span>
 		</th>
 		<th class="tittab" width=3%>
-			<span class="sortable" id='cli_rendu' onclick="triColonne('cli_rendu')">R&nbsp;&nbsp;&nbsp;</span>
+			<span  id='cli_rendu'>R&nbsp;&nbsp;&nbsp;</span>
 		</th>
 
 		
 		<th class="tittab" width=3%>
-			<span class="sortable" id='cli_achat' onclick="triColonne('cli_achat')">A&nbsp;&nbsp;&nbsp;</span>
+			<span  id='cli_achat'>A&nbsp;&nbsp;&nbsp;</span>
 		</th>
 
 	</tr>

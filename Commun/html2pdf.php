@@ -11,7 +11,6 @@ function html2pdf($data, $html, $fileOut)
         $message = makeCorps($data, $html);
         extract($GLOBALS);
         file_put_contents(dirname(__FILE__)."/../out/html/$fileOut.html", stripslashes($message));
-
         ob_start();
         echo "<page backtop='5mm' backleft='5mm' backright='5mm' backbottom='5mm'>";
         include dirname(__FILE__)."/../out/html/$fileOut.html";
@@ -24,6 +23,7 @@ function html2pdf($data, $html, $fileOut)
         $html2pdf->writeHTML($content);
         $html2pdf->output(dirname(__FILE__)."/../out/PDF/$fileOut.pdf", 'F');
     } catch (Html2PdfException $e) {
+        print_r($e);
         $html2pdf->clean();
         $formatter = new ExceptionFormatter($e);
         echo $formatter->getHtmlMessage();

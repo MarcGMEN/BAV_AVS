@@ -89,10 +89,10 @@
 		</th>
 		<td class="tdSearch" id="tdSearch" style="display:none">
 			<form name="enteteFormFiche" action="#" onsubmit='return search(document.enteteFormFiche.inputSearch.value)'>
-				<input type="text" name="numeroFiche" size="15" maxlength="50" title="Saisisez le numéro de fiche, ou l'identifiant de la fiche"
-				 placeholder="Est il vendu ?" id="inputSearch" onsubmit='search(this.value)' 
+				<input type="text" name="numeroFiche" size="8" maxlength="50" title="Saisisez le numéro de fiche, ou l'identifiant de la fiche"
+				 placeholder="Vendu ?" id="inputSearch" onsubmit='search(this.value)' 
 				 style='background-color:LIGHTGREEN;font-weight: bold'/>
-				<i class="fas fa-search link" onclick="search(document.enteteFormFiche.inputSearch.value)"></i>
+				<i id="loupe" class="fas fa-search link " onclick="search(document.enteteFormFiche.inputSearch.value)"></i>
 			</form>
 		</td>
 	</tr>

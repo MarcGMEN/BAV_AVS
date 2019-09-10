@@ -26,7 +26,7 @@ function get_modelesByMarques($marque)
             }
             $result->close();
         } else {
-            throw new Exception("get_modelesByMarques' [$requete2]".mysqli_error());
+            throw new Exception("get_modelesByMarques' [$requete2]".mysqli_error($result));
         }
     }
     return $tab;
@@ -40,11 +40,11 @@ function getAllFichesAcheteur($idAcheteur)
             $tab=array();
             $index=0;
             while ($row = $result->fetch_assoc()) {
-                $tab[$row['obj_etat']] = $row['count(*)'];
+                $tab[$row['obj_etat']]+=1;
             }
             $result->close();
         } else {
-            throw new Exception("getAllFichesAcheteur' [$requete2]".mysqli_error());
+            throw new Exception("getAllFichesAcheteur' [$requete2]".mysqli_error($result));
         }
     }
     return $tab;
@@ -63,7 +63,7 @@ function getAllFichesVendeur($idVendeur)
             }
             $result->close();
         } else {
-            throw new Exception("getAllFichesVendeur' [$requete2]".mysqli_error());
+            throw new Exception("getAllFichesVendeur' [$requete2]".mysqli_error($result));
         }
     }
     return $tab;
@@ -86,7 +86,7 @@ function countByEtat($idVendeur = null)
         }
         $result->close();
     } else {
-        throw new Exception("countByEtat' [$requete2]".mysqli_error());
+        throw new Exception("countByEtat' [$requete2]".mysqli_error($result));
     }
     return $tab;
 }
@@ -114,7 +114,7 @@ function getFicheLibre($base)
         }
         $result->close();
     } else {
-        throw new Exception("Pb getFicheLibre' [$req]".mysqli_error());
+        throw new Exception("Pb getFicheLibre' [$query]".mysqli_error($result));
     }
     return $base;
 }
@@ -137,18 +137,23 @@ function getOneFicheByCode($id, $numeroBAV)
 
 function getFiches($order, $sens, $tabSel)
 {
-    $requete2 = "SELECT * from bav_objet left outer join bav_client on obj_id_vendeur = cli_id where obj_numero_bav = ".$_COOKIE['NUMERO_BAV'];
+    $requete2 = "SELECT bav_objet.*, ve.cli_nom vendeur_nom, ac.cli_nom acheteur_nom from bav_objet ";
+    $requete2 .= "  left outer join bav_client as ve on obj_id_vendeur = ve.cli_id ";
+    $requete2 .= "  left outer join bav_client as ac on obj_id_acheteur = ac.cli_id ";
+    $requete2 .= " where obj_numero_bav = ".$_COOKIE['NUMERO_BAV'];
+    //echo $requete2;
     foreach ($tabSel as $key => $val) {
         if ($key && $val != "*") {
             $requete2 .= " and $key = '$val' ";
         }
     }
+
     if ($order != null) {
         $requete2 .= " order by $order $sens";
     }
-    //echo $requete2;
-    
-    if ($result = $GLOBALS['mysqli']->query($requete2)) {
+    $result = $GLOBALS['mysqli']->query($requete2);
+    //echo $result;
+    if ($result) {
         $tab=array();
         $index=0;
         while ($row = $result->fetch_assoc()) {
@@ -156,7 +161,7 @@ function getFiches($order, $sens, $tabSel)
         }
         $result->close();
     } else {
-        throw new Exception("getFiches' [$requete2]".mysqli_error());
+        throw new Exception("getFiches' [$requete2] ".$GLOBALS['mysqli']->error);
     }
     return $tab;
 }
@@ -175,7 +180,7 @@ function getFichesExpress()
         }
         $result->close();
     } else {
-        throw new Exception("getFichesExpress' [$requete2]".mysqli_error());
+        throw new Exception("getFichesExpress' [$requete2]".$GLOBALS['mysqli']->error);
     }
     return $tab;
 }

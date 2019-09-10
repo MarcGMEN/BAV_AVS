@@ -9,6 +9,7 @@
  * @author    Laurent MINGUET <webmaster@html2pdf.fr>
  * @copyright 2017 Laurent MINGUET
  */
+
 require_once dirname(__FILE__).'/vendor/autoload.php';
 use Spipu\Html2Pdf\Html2Pdf;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
@@ -16,7 +17,7 @@ use Spipu\Html2Pdf\Exception\ExceptionFormatter;
 
 try {
     ob_start();
-    include dirname(__FILE__).'/fiche_700.html';
+    include dirname(__FILE__).'/html/fiche_depot.html';
     // include dirname(__FILE__).'/testPDF.html';
     $content = ob_get_clean();
     $html2pdf = new Html2Pdf('P', 'A4', 'fr', true, 'UTF-8', 3);
@@ -26,7 +27,13 @@ try {
     $html2pdf->pdf->SetTitle('Fiche dépôt');
     $html2pdf->pdf->SetSubject('Fiche dépôt');
     $html2pdf->writeHTML($content);
-    $html2pdf->output('/var/www/html/BAV/testPDF.pdf');
+    /*echo "<pre>";
+    print_r($html2pdf);
+    echo "</pre>";*/
+    //$html2pdf->output('/var/www/html/BAV/testPDF.pdf');
+    $html2pdf->output('/tmp/testPDF.pdf');
+
+    echo "fin";
 } catch (Html2PdfException $e) {
     $html2pdf->clean();
     $formatter = new ExceptionFormatter($e);

@@ -121,7 +121,7 @@
 		<? if ($GET_modePage=='modif') {?>
 		<div class="row fiche" >
 			<div class="col-sm-3 col-md-3 col-xs-3 btnAction" id="tdBtnAction" >
-				<button name="buttonValideFiche" tabindex=<?=$tabindex++?> disabled >Enregristrer
+				<button name="buttonValideFiche" tabindex=<?=$tabindex++?> disabled >Enregistrer
 				</button>
 			</div>
 			<div class="col-sm-3 col-md-3 col-xs-3 btnAction"  >
@@ -179,4 +179,8 @@
 		</td>
 	</tr>
 </table>
+<h3>Ventes</h3>
 <div id=fiches></div>
+<hr/>
+<h3>Achats</h3>
+<div id=fichesA></div>

@@ -39,7 +39,11 @@ function return_clients($tri, $sens, $selection)
 
     foreach ($tab as $key => $val) {
         $tab[$key]['vente']=countByEtat($val['cli_id']);
-        $tab[$key]['achat']=sizeof(getAllFichesAcheteur($val['cli_id']));
+        $tab[$key]['achat']=0;
+        foreach (getAllFichesAcheteur($val['cli_id']) as $val) {
+            $tab[$key]['achat']+=$val;
+        }
+        
     }
     return $tab;
 }
@@ -76,8 +80,15 @@ function makeClient(&$tabCli)
        	updateClient($tabCli);
 	} else {
 		$tabCli['cli_id']=0;
-		$tabCli['cli_id_modif']=substr(hash_hmac('md5', rand(0, 10000), 'avs44'), 0, 8);
-       	$tabCli['cli_id']=insertClient($tabCli);
+        $tabCli['cli_id_modif']=substr(hash_hmac('md5', rand(0, 10000), 'avs44'), 0, 8);
+        if (!$tabCli['cli_taux_com']) {
+            $tabCli['cli_taux_com']=0;
+        }
+        if (!$tabCli['cli_prix_depot']) {
+            $tabCli['cli_prix_depot']=0;
+        }
+        $tabCli['cli_id']=insertClient($tabCli);
+           
 	}
     return $tabCli;
 }

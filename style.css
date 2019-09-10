@@ -322,6 +322,13 @@ div.MENU {
 	width: 85%;
 }
 
+#loupe, #inputSearch {
+	font-size: 1.2em ;
+}
+#inputSearch {
+	width:70%
+}
+ 
 @media screen and (max-width: 768px) {
 	.menuMobile {
 		display: block;
@@ -352,10 +359,13 @@ div.MENU {
 	.tdSearch {
 		width: 85%;
 	}
-	#inputSearch {
-		font-size: 1.1em;
+	#inputSearch, #loupe {
+		font-size: 2.5em;
 	}
-	.tdMenu {
+	.fa, .fas {
+		font-size: 2.5em;
+	}
+	.tdMenu { 
 		width: 15%;
 	}
 	div.PAGE, div.entete, div.pied  {

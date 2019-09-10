@@ -1,6 +1,7 @@
 /*
  * action lors du chargement de la page
  */
+
 function initPage() {
 	if (idClient) {
 
@@ -43,13 +44,22 @@ function display_list_prix_depot(val) {
  */
 function display_client(val) {
 	if (val instanceof Object) {
-		console.log(val);
+		display_formulaire(val, document.clientForm);
+		cli_id=val['cli_id'];
+
 		var tabSel = {
 			"obj_id_vendeur": val['cli_id']
 		};
-		display_formulaire(val, document.clientForm);
 
+		console.log("appel fiches vente");
 		x_return_fiches(tri, sens, tabToString(tabSel), display_fiches);
+
+		var tabSelA = {
+			"obj_id_acheteur": val['cli_id']
+		};
+		
+		console.log("appel fiches achat");
+		x_return_fiches(tri, sens, tabToString(tabSelA), display_fiches_achat);
 	} else {
 		goTo(null, null, null, "Client inconnue.");
 	}
@@ -172,6 +182,44 @@ function display_fiches(val) {
 
 }
 
+function display_fiches_achat(val) {
+
+	var total = 0;
+	var repr = "<table width='100%'>";
+	for (index in val) {
+		if (!isNaN(index)) {
+			repr += "<tr class='tabl0 link' onclick='goTo(\"fiche.php\",\"modif\"," + val[index]['obj_id'] + ",null)'>";
+			repr += "<td width=10% align=center>";
+			repr += val[index]['obj_numero'];
+			repr += "</td>";
+			repr += "<td class='maskmobile' width=20%>";
+			repr += val[index]['obj_type'];
+			repr += "</td>";
+			repr += "<td class='maskmobile' width=20% >";
+			repr += val[index]['obj_public'];
+			repr += "</td>";
+			repr += "<td width=30% >";
+			repr += val[index]['obj_marque'];
+			repr += "</td>";
+			repr += "<td width=10% >";
+			if (val[index]['obj_prix_vente'] == 0) {
+				repr += "<span style='color:orange'>" + val[index]['obj_prix_depot'] + "</span>";
+			} else {
+				repr += val[index]['obj_prix_vente'];
+			}
+			repr += "</td>";
+			repr += "<td width=10% >";
+			repr += val[index]['obj_etat'];
+			repr += "</td>";
+			repr += "</tr>";
+			total = total + 1;
+		}
+	}
+	repr += "</table>";
+
+	getElement('fichesA').innerHTML = repr;
+}
+
 function triColonne(col) {
 	if (col == tri) {
 		if (sens == "asc") {
@@ -184,7 +232,19 @@ function triColonne(col) {
 	}
 	getElement(tri).className = "sortable";
 
-	x_return_fiches(tri, sens, selection, idClient, display_fiches);
+	var tabSel = {
+		"obj_id_vendeur": idClient
+	};
+
+	console.log("appel fiches vente");
+	x_return_fiches(tri, sens, tabToString(tabSel), display_fiches);
+
+	var tabSelA = {
+		"obj_id_acheteur": idClient
+	};
+	
+	console.log("appel fiches achat");
+	x_return_fiches(tri, sens, tabToString(tabSelA), display_fiches_achat);
 
 	tri = col;
 }
