@@ -15,11 +15,13 @@ function getOneClientByMel($id)
     return getOne($id, "bav_client", "cli_emel");
 }
 
-function getClients($order, $sens, $tabSel)
+function getClients($order, $sens, $tabSel, $all=false)
 {
     $requete2 = "SELECT * from bav_client ";
-    $requete2 .= " where exists (select obj_id from bav_objet where (obj_id_vendeur = cli_id OR obj_id_acheteur = cli_id) ";
-    $requete2 .= " and obj_numero_bav = ".$_COOKIE['NUMERO_BAV'].") " ;
+    if (!$all) {
+        $requete2 .= " where exists (select obj_id from bav_objet where (obj_id_vendeur = cli_id OR obj_id_acheteur = cli_id) ";
+        $requete2 .= " and obj_numero_bav = ".$_COOKIE['NUMERO_BAV'].") " ;
+    }
     foreach ($tabSel as $key => $val) {
         if ($val != "*") {
             if ($key == 'cli_nom') {
@@ -42,7 +44,7 @@ function getClients($order, $sens, $tabSel)
         }
         $result->close();
     } else {
-        throw new Exception("getClients' [$requete2]".mysqli_error());
+        throw new Exception("getClients' [$requete2]".$GLOBALS['mysqli']->error);
     }
     return $tab;
 }
@@ -55,4 +57,9 @@ function updateClient($obj)
 function insertClient($obj)
 {
     return insert("bav_client", $obj);
+}
+
+function deleteClient($id)
+{
+    return delete("bav_client", $id, "cli_id");
 }

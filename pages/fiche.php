@@ -183,7 +183,7 @@
 					<input type=email name='cli_emel' id="cli_emel" size="50" maxlength="100" tabindex=<?=$tabindex++?>
 						placeholder="aaaa.bbbb@ccc.dd" required 
 						onkeyup="keyUpMel()"
-						onblur='x_return_oneClientByMel(this.value, display_infoClientVendeur)'
+						onblur='x_return_oneClientByMel(this.value, display_infoClientVendeurMel)'
 						list='listVendeur'/>
 						<datalist id="listVendeur"></datalist>
 				</span>
@@ -192,11 +192,11 @@
 				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Nom et prénom <span title="Obligatoire">*</span></span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
 					<input type=text name='cli_nom' tabindex=<?=$tabindex++?>
-					size="50" maxlength="100" required  
-					onkeyup="keyUpNom()"
-					onblur='x_return_oneClientByName(this.value, display_infoClientVendeurBis)'
+					size="50" maxlength="100" required >
+					<!--onkeyup="keyUpNom()"
+					onblur='x_return_oneClientByName(this.value, display_infoClientVendeurBis) >'
 					list='listVendeurBis'/>
-					<datalist id="listVendeurBis"></datalist>
+					<datalist id="listVendeurBis"></datalist>-->
 					
 				</span>
 			</div>

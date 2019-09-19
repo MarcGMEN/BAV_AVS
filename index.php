@@ -37,7 +37,7 @@ sajax_handle_client_request();
 <html>
 
 <head>
-	<TITLE>BAV 2019</TITLE>
+	<TITLE>Bourse aux 1000 vélos</TITLE>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="keywords" lang="fr" content="web 2.0, association">
 	<meta name="description" lang="fr" content="">

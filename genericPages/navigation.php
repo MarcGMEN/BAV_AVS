@@ -33,18 +33,22 @@
                 'mode' => 'create'
             ],
             'editFiche.php'=>[
-                'libelle' => 'Edit HTML'
+                'libelle' => 'Edit HTML',
+                'class' => 'maskMobileBlock'
             ],
             'parametre.php'=>[
-                'libelle' => 'Paramètres' ],
-            'stock.php'=>[
+                'libelle' => 'Paramètres',
+                'class' => 'maskMobileBlock'
+            ],
+            'stock.php' => [
                 'libelle' => 'Stock'
             ],
-            'clients.php'=>[
+            'clients.php' => [
                 'libelle' => 'Clients'
             ],
-            'saisieExpress.php'=>[
-                'libelle' => 'Saisie Express'
+            'saisieExpress.php' => [
+                'libelle' => 'Saisie Express',
+                'class' => 'maskMobileBlock'
             ]
         ];
     } elseif ($infAppli['TABLE']) {
@@ -60,7 +64,8 @@
                 'libelle' => 'Clients'
             ],
             'saisieExpress.php'=>[
-                'libelle' => 'Saisie Express'
+                'libelle' => 'Saisie Express',
+                'class' => 'maskMobileBlock'
             ]
         ];
     } elseif ($infAppli['CLIENT']) {
@@ -84,7 +89,7 @@
             $className="";
         }
         ?>
-    <span class="link navigation <?=$className?> "
+    <span class="link <?=$val['class']?> navigation <?=$className?> "
         onclick="goTo('<?=$key?>', '<?=$val["mode"]?>', null, null)"><?=$val['libelle']?></span>
     <?} ?>
 </div>

@@ -16,10 +16,14 @@ require_once "config.ini";
 require_once "Commun/commun_functions.php";
 require_once "Commun/mail.php";
 
-echo "test.php";
-echo sendMail("test PJ", "braillou@gmail.com", "piece jointe", "/BAV/out/PDF/Fiche_710.pdf");
+// echo "test.php";
+// echo sendMail("test PJ", "braillou@gmail.com", "piece jointe", "/BAV/out/PDF/Fiche_710.pdf");
 //echo sendMail("test ", "braillou@gmail.com", "sans piece jointe", null);
 //print_r($mysqli);
 //echo substr(hash_hmac('md5', 700, 'avs442019'), 0, 5);;
+
+//echo password_hash("BAV2019", PASSWORD_DEFAULT);
+
+echo password_verify('BAV2019', $GLOBALS['PASS_TABLE']);
 ?>
 </pre>

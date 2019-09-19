@@ -20,7 +20,8 @@ function initPage() {
 
     document.ficheForm.obj_type.focus();
 
-    if (TABLE || ADMIN) {
+    if (onblur='x_return_oneClientByName(this.value, display_infoClientVendeurBis)'
+    || ADMIN) {
         console.log("mode " + ADMIN + " " + TABLE);
         // en mode create de table, le mail n'est pas obligatoire
         document.ficheForm.cli_emel.required = false;
@@ -351,7 +352,7 @@ function display_fin_create(val) {
             alertModalInfo(val);
         }
     } else {
-        goTo('fiche.php', modePage, null, null);
+        goTo('fiche.php', modePage, null, "Merci. Vous allez recevoir un mail de confirmation.");
     }
 }
 
@@ -504,7 +505,7 @@ function confirmModalClose() {
     goTo();
 }
 
-function display_infoClientVendeur(val) {
+function display_infoClientVendeurMel(val) {
     display_infoClientVendeur(val, "emel");
 }
 
@@ -524,7 +525,7 @@ function display_infoClientVendeur(val, base) {
             val['cli_nom'] = "";
         }
         if (base == 'nom') {
-            val['cli_emel'] = "";
+            //val['cli_emel'] = "";
         }
         val['cli_adresse'] = "";
         val['cli_adresse1'] = "";

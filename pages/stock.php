@@ -67,14 +67,14 @@
 		if (val instanceof Object) {
 
 			var total = 0;
-			var repr = "<table width='100%'>";
+			var repr = "<table width='100%' border=1>";
 			for (index in val) {
 				if (!isNaN(index)) {
 					repr += "<tr class='tabl0 " + val[index]['obj_etat'] + " link' onclick='goTo(\"fiche.php\",\"modif\"," + val[index]['obj_id'] + ")'>";
 					repr += "<td width=5% align=center>";
 					repr += val[index]['obj_numero'];
 					repr += "</td>";
-					repr += "<td width=7% >";
+					repr += "<td width=10% >";
 					repr += val[index]['obj_type'];
 					repr += "</td>";
 					/*repr += "<td width=10% >";
@@ -99,7 +99,7 @@
 					repr += "<td width=10% >";
 					repr += val[index]['obj_etat'];
 					repr += "</td>";
-					repr += "<td width=10% >";
+					repr += "<td width=10% class='maskMobile' >";
 					repr += formatDate(val[index]['obj_date_depot'], false);
 					repr += "</td>";
 					repr += "<td class='maskMobile' width=10% >";
@@ -150,6 +150,9 @@
 				getElement('total_vente_paye').innerHTML = val['total_vente_PAYE'];
 				getElement('total_com_paye').innerHTML = val['total_com_paye'];
 			}
+			getElement('total_vente_rendu').innerHTML = val['total_vente_RENDU'];
+				
+
 
 		} else {
 			alertModalWarn(val);
@@ -194,28 +197,44 @@
 </script>
 <table width="100%" class="alert alert-info">
 	<tr>
-		<td width=33%>
-			Nb Total de la selection : <span id=total></span>
+		<td width=12%>
+			Nb
 		</td>
-		<td width=33%>
-			Total dépôt : <b><span id=total_vente_depot>0.00</span> €</b>
-			&nbsp;Total vendu : <b><span id=total_vente_vendu>0.00</span> €</b><br />
-			Total stock : <b><span id=total_vente_stock>0.00</span> €</b>
-			&nbsp;Total paye : <b><span id=total_vente_paye>0.00</span> €</b>
-		</td>
-		<td width=33%>
-			Total com en attente : <b><span id=total_com_vendu>0.00</span> €</b>
-			&nbsp;Total com recu : <b><span id=total_com_paye>0.00</span> €</b><br />
-			Total depot : <b><span id=total_depot>0.00</span> €</b>
-		</td>
+		<td width=22%>Dépôt</td>
+		<td width=22%>Stock</td>
+		<td width=22%>Vendu</td>
+		<td width=22%>Payé / Rendu</td>
 	</tr>
+	<tr>
+		<td >
+			<span id=total></span>		
+		</td>
+		<td ><b><span id=total_vente_depot>0.00</span> €</b></td>
+		<td ><b><span id=total_vente_stock>0.00</span> €</b></td>
+		<td ><b><span id=total_vente_vendu>0.00</span> €</b></td>
+		<td ><b><span id=total_vente_paye>0.00</span> €</b> / <b><span id=total_vente_rendu>0.00</span> €</b></td>
+	</tr>
+	<tr>
+		<td ></td><td ></td>
+		<td >Dépôt </td>
+		<td >Com</td>
+		<td >Com recu</td>
+		
+	</tr>	
+	<tr>
+		<td ></td><td ></td>
+		<td ><b><span id=total_depot>0.00</span> €</b></td>
+		<td ><b><span id=total_com_vendu>0.00</span> €</b></td>
+		<td ><b><span id=total_com_paye>0.00</span> €</b></td>
+		
+	</tr>	
 </table>
 <table width="100%">
 	<tr>
 		<td class="tittab" width=5%>
-			<span id='obj_numero' onclick="triColonne('obj_numero')" class="sortable">No&nbsp;&nbsp;&nbsp;</span></td>
-		<td class="tittab" width=7%>
-			<span id='obj_type' onclick="triColonne('obj_type')" class="sortable">Type&nbsp;&nbsp;&nbsp;</span>
+			<span id='obj_numero' onclick="triColonne('obj_numero')" class="sortable">No&nbsp;&nbsp;</span></td>
+		<td class="tittab" width=10%>
+			<span id='obj_type' onclick="triColonne('obj_type')" class="sortable">Type&nbsp;&nbsp;</span>
 			&nbsp;<select id="sel_obj_type" onchange="selectColonne('obj_type', this.value)"></select></td>
 		<!--<td class="tittab" width=10%>
 			<span id='obj_public' onclick="triColonne('obj_public')" class="sortable">Public&nbsp;&nbsp;&nbsp;</span>
@@ -224,13 +243,13 @@
 			<span id='obj_pratique' onclick="triColonne('obj_pratique')" class="sortable">Pratique&nbsp;&nbsp;&nbsp;</span>
 			&nbsp;<select id="sel_obj_pratique" onchange="selectColonne('obj_pratique', this.value)"></select></td>-->
 		<td class="tittab maskMobile" width=10%>
-			<span id='obj_marque' onclick="triColonne('obj_marque')" class="sortable">Marque&nbsp;&nbsp;&nbsp;</span>
+			<span id='obj_marque' onclick="triColonne('obj_marque')" class="sortable">Marque&nbsp;&nbsp;</span>
 			&nbsp;<select id="sel_obj_marque" onchange="selectColonne('obj_marque', this.value)"></select></td>
 		<!--<td class="tittab maskMobile" width=10%>
 			<span id='obj_marque' onclick="triColonne('obj_couleur')" class="sortable">Couleur&nbsp;&nbsp;&nbsp;</span>
 			&nbsp;<select id="sel_obj_couleur" onchange="selectColonne('obj_couleur', this.value)"></select></td>-->
 		<td class="tittab maskMobile" width=10%>
-			<span id='vendeur_nom' onclick="triColonne('vendeur_nom')" class="sortable">Vendeur&nbsp;&nbsp;&nbsp;</span>
+			<span id='vendeur_nom' onclick="triColonne('vendeur_nom')" class="sortable">Vendeur&nbsp;&nbsp;</span>
 			<!--<input type=text name='cli_nom_<?= rand(1, 100) ?>' size="20" class="autocomplete" maxlength="100" 
 				onkeyup="x_return_listClientByName(this.value, display_listVendeur);"
 				onblur="selectColonne('cli_id_vendeur', this.value)"
@@ -238,16 +257,16 @@
 			<datalist id="listVendeur"></datalist>-->
 		</td>
 		<td class="tittab" width=10%>
-			<span class="sortable" id='obj_prix_vente' onclick="triColonne('obj_prix_vente')">Prix vente&nbsp;&nbsp;&nbsp;</span></td>
+			<span class="sortable" id='obj_prix_vente' onclick="triColonne('obj_prix_vente')">Prix vente&nbsp;&nbsp;</span></td>
 		<td class="tittab" width=10%>
-			<span id='obj_etat' onclick="triColonne('obj_etat')" class="sortable">Etat&nbsp;&nbsp;&nbsp;</span>
+			<span id='obj_etat' onclick="triColonne('obj_etat')" class="sortable">Etat&nbsp;&nbsp;</span>
 			&nbsp;<select id="sel_obj_etat" onchange="selectColonne('obj_etat', this.value)"></select></td>
-		<td class="tittab" width=10%>
-			<span class="sortable" id='obj_date_depot' onclick="triColonne('obj_date_depot')">Date depot&nbsp;&nbsp;&nbsp;</span></td>
 		<td class="tittab maskMobile" width=10%>
-			<span id='acheteur_nom' onclick="triColonne('acheteur_nom')" class="sortable">Acheteur&nbsp;&nbsp;&nbsp;</span></td>
+			<span class="sortable" id='obj_date_depot' onclick="triColonne('obj_date_depot')">Date depot&nbsp;&nbsp;</span></td>
+		<td class="tittab maskMobile" width=10%>
+			<span id='acheteur_nom' onclick="triColonne('acheteur_nom')" class="sortable">Acheteur&nbsp&nbsp;</span></td>
 		<td class="tittab maskMobile" width=20%>
-			<span class="sortable" id='obj_date_vente' onclick="triColonne('obj_date_vente')">Date vente&nbsp;&nbsp;&nbsp;</span></td>
+			<span class="sortable" id='obj_date_vente' onclick="triColonne('obj_date_vente')">Date vente&nbsp;&nbsp;</span></td>
 	</tr>
 </table>
 <div id=fiches></div>

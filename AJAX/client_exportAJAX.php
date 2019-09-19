@@ -8,5 +8,6 @@ sajax_export(
     "return_listClientByMel",
     "return_listClientByName",
     "return_oneClientByName",
-    "return_clients"
+    "return_clients",
+    "action_deleteClient"
 );

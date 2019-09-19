@@ -32,18 +32,16 @@ function return_oneClientByIdModif($mid)
     return getOne($mid, "bav_client", "cli_id_modif");
 }
 
-
-function return_clients($tri, $sens, $selection)
+function return_clients($tri, $sens, $selection, $all = false)
 {
-    $tab = getClients($tri, $sens, string2Tab($selection));
+    $tab = getClients($tri, $sens, string2Tab($selection), $all);
 
     foreach ($tab as $key => $val) {
-        $tab[$key]['vente']=countByEtat($val['cli_id']);
-        $tab[$key]['achat']=0;
+        $tab[$key]['vente'] = countByEtat($val['cli_id']);
+        $tab[$key]['achat'] = 0;
         foreach (getAllFichesAcheteur($val['cli_id']) as $val) {
-            $tab[$key]['achat']+=$val;
+            $tab[$key]['achat'] += $val;
         }
-        
     }
     return $tab;
 }
@@ -51,44 +49,59 @@ function return_clients($tri, $sens, $selection)
 function return_oneClient($id)
 {
     $row = getOneClient($id);
-    if ($row) {
-    }
+    if ($row) { }
     return $row;
 }
 
 function action_updateClient($obj)
 {
-    $tab =string2Tab($obj);
+    $tab = string2Tab($obj);
     // // TODO : test cohérence object
     try {
         updateClient($tab);
         return $tab;
     } catch (Exception $e) {
-        return "ERREUR ".$e->getMessage();
+        return "ERREUR " . $e->getMessage();
     }
 }
 
 function action_insertClient($obj)
 {
-    $tab =string2Tab($obj);
+    $tab = string2Tab($obj);
     return insertClient($tab);
+}
+
+function action_deleteClient($id)
+{
+    $tabFiche = getFiches("obj_id", "asc", array("obj_id_vendeur" => $id));
+    if (sizeof($tabFiche) == 0) {
+        $tabFiche = getFiches("obj_id", "asc", array("obj_id_acheteur" => $id));
+        if (sizeof($tabFiche) == 0) {
+            return deleteClient($id);
+        }
+        else {
+            return "Suppresion impossible, il reste des fiches achats reliées à ce client.";
+        }
+    }
+    else {
+        return "Suppresion impossible, il reste des fiches ventes reliées à ce client.";
+    }
 }
 
 function makeClient(&$tabCli)
 {
     if ($tabCli['cli_id'] != null) {
-       	updateClient($tabCli);
-	} else {
-		$tabCli['cli_id']=0;
-        $tabCli['cli_id_modif']=substr(hash_hmac('md5', rand(0, 10000), 'avs44'), 0, 8);
+        updateClient($tabCli);
+    } else {
+        $tabCli['cli_id'] = 0;
+        $tabCli['cli_id_modif'] = substr(hash_hmac('md5', rand(0, 10000), 'avs44'), 0, 8);
         if (!$tabCli['cli_taux_com']) {
-            $tabCli['cli_taux_com']=0;
+            $tabCli['cli_taux_com'] = 0;
         }
         if (!$tabCli['cli_prix_depot']) {
-            $tabCli['cli_prix_depot']=0;
+            $tabCli['cli_prix_depot'] = 0;
         }
-        $tabCli['cli_id']=insertClient($tabCli);
-           
-	}
+        $tabCli['cli_id'] = insertClient($tabCli);
+    }
     return $tabCli;
 }

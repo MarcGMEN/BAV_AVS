@@ -248,3 +248,17 @@ function triColonne(col) {
 
 	tri = col;
 }
+
+
+function supprimerClient(id) {
+	console.log("Suppression du client "+id);
+	x_action_deleteClient(id, display_fin_delete);
+}
+
+function  display_fin_delete(val) {
+	if (val == 1) {
+		goTo("bav.php");
+	} else if (val) {
+		alertModalWarnTimeout(val, 2);
+	}
+}

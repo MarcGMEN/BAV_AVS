@@ -20,7 +20,10 @@
 	font-weight: bold;
 	font-style: italic, oblique;
 	src: url('font/d3euronism/D3Euronism_b_i.ttf');
+
 }
+
+
 
 body.parent, body {
 	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
@@ -580,6 +583,11 @@ tr.RENDU {
 	display: table-cell;
 }
 
+.maskMobileBlock {
+	display: inline-block;
+}
+
+
 #tabStat {
 	display: none;
 }
@@ -639,7 +647,7 @@ img.logo {
 	div.FENETRE_PRINCIPALE {
 		margin-top: 65px;
 	}
-	.maskMobile {
+	.maskMobile, .maskMobileBlock {
 		display: none;
 	}
 }

@@ -127,31 +127,45 @@
 			<div class="col-sm-3 col-md-3 col-xs-3 btnAction"  >
 				<input type=button value="Annuler" onclick="fermerCRUD()" tabindex=<?=$tabindex++?>>
 			</div>
-				<div class="col-sm-3 col-md-3 col-xs-3 btnAction" style='display:none' id="tdBtnSup">
-				<input type=button value="Supprimer" name="buttonSupprimeFiche" onclick="supprimerClient()" tabindex=<?=$tabindex++?> />
+				<div class="col-sm-3 col-md-3 col-xs-3 btnAction"  id="tdBtnSup">
+				<input type=button value="Supprimer" name="buttonSupprimeFiche" onclick="supprimerClient(this.form.cli_id.value)" tabindex=<?=$tabindex++?> />
 			</div>
 		</div>
 		<? }?>
 	</form>
 </fieldset>
 <?if ($infAppli['ADMIN']) {?>
-<table width="100%"  class="alert alert-info">	
+	<table width="100%" class="alert alert-info">
 	<tr>
-		<td width=33%>
-			Nb Total de la selection : <span id=total>0</span>
+		<td width=12%>
+			Nb
 		</td>
-		<td width=33%>
-			Total dépôt : <b><span id=total_vente_depot>0.00</span> €</b>
-			&nbsp;Total vendu : <b><span id=total_vente_vendu>0.00</span> €</b><br/>
-			Total stock : <b><span id=total_vente_stock>0.00</span> €</b>
-			&nbsp;Total paye : <b><span id=total_vente_paye>0.00</span> €</b>
-		</td>
-		<td width=33%>
-			Total com en attente : <b><span id=total_com_vendu>0.00</span> €</b>
-			&nbsp;Total com recu : <b><span id=total_com_paye>0.00</span> €</b><br/>
-			Total depot : <b><span id=total_depot>0.00</span> €</b>
-		</td>
+		<td width=22%>Dépôt</td>
+		<td width=22%>Stock</td>
+		<td width=22%>Vendu</td>
+		<td width=22%>Paye</td>
 	</tr>
+	<tr>
+		<td >
+			<span id=total></span>		
+		</td>
+		<td ><b><span id=total_vente_depot>0.00</span> €</b></td>
+		<td ><b><span id=total_vente_stock>0.00</span> €</b></td>
+		<td ><b><span id=total_vente_vendu>0.00</span> €</b></td>
+		<td ><b><span id=total_vente_paye>0.00</span> €</b></td>
+	</tr>
+	<tr>
+		<td ></td>
+		<td colspan=2>Com en attente </td>
+		<td >Com recu </td>
+		<td >Dépôt </td>
+	</tr>	
+	<tr>
+		<td ></td>
+		<td colspan=2><b><span id=total_com_vendu>0.00</span> €</b></td>
+		<td ><b><span id=total_com_paye>0.00</span> €</b></td>
+		<td ><b><span id=total_depot>0.00</span> €</b></td>
+	</tr>	
 </table>
 <?}?>
 <table width="100%">
