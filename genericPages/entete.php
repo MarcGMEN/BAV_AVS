@@ -1,4 +1,6 @@
 <script>
+	var ipLocal = "<?=$_SERVER['REMOTE_ADDR']?>";
+
 	function initEntete() {
 		console.log("CLIENT:"+CLIENT+" TABLE:"+TABLE+" ADMIN:"+ADMIN+"");
 		if (TABLE || ADMIN) {

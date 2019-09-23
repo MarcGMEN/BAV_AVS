@@ -1,22 +1,15 @@
+
 function alertModalWarnTimeout(message, timeSec) { 
     alertModalWarn(message);
     setTimeout(function() {closeModal()},timeSec*1000);
 }
 function alertModalWarn(message) { 
-    // Get the <span> element that closes the modal
-    var span = getElement("closeModal");
 
-    if (span) {
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function () {
-           closeModal();
-        }
-    }
     getElement('myModal').style.display = "block";
 
     getElement('id_bh_modal').className = "BH_MODAL_ERR";
     getElement('modalTitre').innerHTML = "Erreur";
-    getElement("modalClose").innerHTML = "<i class='fa fa-times-circle size-3 close' id=closeModal onclick='closeModal()'></i>";
+    getElement("modalClose").innerHTML = "<i class='fa fa-times-circle size-3 close' onclick='closeModal()'></i>";
 
     getElement("modalText").innerHTML = message;
 }
@@ -27,15 +20,7 @@ function alertModalInfoTimeout(message,timeSec) {
 }
 
 function alertModalInfo(message) {
-      // Get the <span> element that closes the modal
-      var span = getElement("closeModal");
 
-      if (span) {
-          // When the user clicks on <span> (x), close the modal
-          span.onclick = function () {
-             closeModal();
-          }
-      }
       getElement('myModal').style.display = "block";
   
       getElement('id_bh_modal').className = "BH_MODAL";
@@ -46,41 +31,24 @@ function alertModalInfo(message) {
 }
 
 function alertModalError(message) { 
-    // Get the <span> element that closes the modal
-    var span = getElement("closeModal");
+    getElement("modalClose").innerHTML = "<i class='fa fa-times-circle size-3 close' onclick='closeModal()'></i>";
 
-    if (span) {
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function () {
-           closeModal();
-        }
-    }
     getElement('myModal').style.display = "block";
 
     getElement('id_bh_modal').className = "BH_MODAL_ERR";
     getElement('modalTitre').innerHTML = "Erreur";
-    getElement("modalClose").innerHTML = "<i class='fa fa-times-circle size-3 close' id=closeModal></i>";
-
+    
     getElement("modalText").innerHTML = message;
     
 }
 
 function alertModalPass() { 
-    // Get the <span> element that closes the modal
-    var span = getElement("closeModal");
-
-    if (span) {
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function () {
-           closeModal();
-        }
-    }
     getElement('myModal').style.display = "block";
 
     getElement('modalTitre').innerHTML = "Connexion";
-    getElement("modalClose").innerHTML = "<i class='fa fa-times-circle size-3 close' id=closeModal></i>";
+    getElement("modalClose").innerHTML = "<i class='fa fa-times-circle size-3 close' onclick='closeModal()'></i>";
 
-    getElement("modalText").innerHTML = "<h3>Connexion admin</h3><input type=password name=pass required>" 
+    getElement("modalText").innerHTML = "<h3>Connexion admin ["+ipLocal+"]</h3><input type=password name=pass required>" 
     
     $repr = "<input type=button value=Confirmer onclick='searchStyle();confirmPass();closeModal()'>";
     $repr += "&nbsp;&nbsp;&nbsp;&nbsp;<input type=button value=Annuler onclick='closeModal()'>";
