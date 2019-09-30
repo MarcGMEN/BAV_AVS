@@ -20,8 +20,7 @@ function initPage() {
 
     document.ficheForm.obj_type.focus();
 
-    if (onblur='x_return_oneClientByName(this.value, display_infoClientVendeurBis)'
-    || ADMIN) {
+    if (TABLE || ADMIN) {
         console.log("mode " + ADMIN + " " + TABLE);
         // en mode create de table, le mail n'est pas obligatoire
         document.ficheForm.cli_emel.required = false;

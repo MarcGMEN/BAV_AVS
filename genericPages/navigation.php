@@ -43,6 +43,9 @@
             'stock.php' => [
                 'libelle' => 'Stock'
             ],
+            'stock-client.php' => [
+                'libelle' => 'Parc'
+            ],
             'clients.php' => [
                 'libelle' => 'Clients'
             ],
@@ -59,6 +62,9 @@
             ],
             'stock.php'=>[
                 'libelle' => 'Stock'
+            ],
+            'stock-client.php' => [
+                'libelle' => 'Parc'
             ],
             'clients.php'=>[
                 'libelle' => 'Clients'

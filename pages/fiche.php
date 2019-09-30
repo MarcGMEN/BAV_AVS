@@ -248,7 +248,7 @@
 	<div class="row fiche" >
 		<div class="col-sm-12 col-md-12 col-xs-12" id="tdCGU">
 			<input type="checkbox" name="checkCGU" required />Je déclare avec lu et pris connaissance des
-			<A HREF="data/CGU.pfg" target="_blanck">CGU</A>
+			<A HREF="downloads/CGU_BAV_2019.pdf" target="_blanck">CGU</A>
 		</div>
 
 		<div class="col-sm-3 col-md-3 col-xs-6 btnAction" id="tdBtnAction" >
@@ -282,7 +282,7 @@
 				</span>
 			</div>
 			<div class="col-sm-6 col-md-6 col-xs-12">
-				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Nom/prenom </span></span>
+				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Pr&excute;nom - Nom </span></span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9" id="ach_nom">
 				</span>
 			</div>
