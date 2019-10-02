@@ -64,7 +64,7 @@ if ($GET_a == "C") {
                 if ($retour == 1) {
                     $retour = "Un mel de confirmation avec votre fiche n°[".
                         $fiche['obj_numero']."] de dépôt vous a été envoyé à : " . $client['cli_emel'];
-                    $retour = "<br/>Merci pour votre dépot.";
+                    $retour = "<br/>Merci pour votre dépot. Vous allez recevoir un mel avec la fiche de dépôt à imprimer.";
                 }
             } else {
                 $retour = "Fiche déjà confirmé avec le n°[".$fiche['obj_numero']."].";

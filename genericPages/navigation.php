@@ -29,7 +29,7 @@
     if ($infAppli['ADMIN']) {
         $tabNavAdm = [
             'fiche.php'=>[
-                'libelle' => 'Dépôt en ligne',
+                'libelle' => 'Déposer',
                 'mode' => 'create'
             ],
             'editFiche.php'=>[
@@ -57,7 +57,7 @@
     } elseif ($infAppli['TABLE']) {
         $tabNavAdm = [
             'fiche.php'=>[
-                'libelle' => '<img src="Images/new.png" width=15pt/> Dépôt en ligne',
+                'libelle' => '<img src="Images/new.png" width=15pt/> Déposer',
                 'mode' => 'create'
             ],
             'stock.php'=>[
@@ -77,7 +77,7 @@
     } elseif ($infAppli['CLIENT']) {
         $tabNavAdm = [
             'fiche.php'=>[
-                'libelle' => '<img src="Images/new.png" width=15pt/> Dépôt en ligne',
+                'libelle' => '<img src="Images/new.png" width=15pt/> Déposer',
                 'mode' => 'create'
             ]
         ];

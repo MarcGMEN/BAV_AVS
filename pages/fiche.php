@@ -8,7 +8,12 @@
 <script src="JS/fiche.js" type="text/javascript"></script>
 
 <? if (!$infAppli['TABLE'] && !$infAppli['ADMIN'] && $GET_modePage == 'create') {?>
-<div class='alert alert-info' style='font-size:15pt'>Remplissez la fiche en ligne avec le formulaire ci-dessous ou téléchargez et imprimer la fiche pour la remplir en cliquant <span class="link url" onclick='x_action_makePDF(new Array(), display_openPDF);' ) >ici </span> <img class="link url" onclick='x_action_makePDF(new Array(), display_openPDF);' ) src="Images/pdf.png" height='40px' alt="téléchargement de la fiche" title="téléchargement de la fiche"> 
+<div class='alert alert-info' style='font-size:15pt'>
+<p>Avant de venir déposer votre vélo les 8, 9 ou 10 Novembre à La Soucoupe, nous vous conseillons de remplir la fiche dépôt.</p>
+<p>- Soit en saissisant votre demande avec le formulaire ci-dessous qui vous transmettra, après confirmation, la fiche dépot par mel. 
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cette fiche dépôt devra être imprimée par vous pour vous rendre à la Bourse. Une par vélo et un gain de temps sur place lors du dépôt)</p>
+<p>- Soit en téléchargeant, puis en imprimant la fiche dépôt à remplir que vous trouverez ici <img class="link url" onclick='x_action_makePDF(new Array(), display_openPDF);' ) src="Images/pdf.png" height='40px' alt="téléchargement de la fiche" title="téléchargement de la fiche">
+  <small><i>Attention aux droits d'ouvertures des popUp, en fonction de votre navigateur.</i></small></p>
 </div>
 <?}?>
 <form name="ficheForm" method="POST" onsubmit="return submitForm()" action="">

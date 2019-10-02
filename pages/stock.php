@@ -135,6 +135,7 @@
 			getElement('total_com_vendu').innerHTML = "0.00";
 			getElement('total_com_paye').innerHTML = "0.00";
 			getElement('total_depot').innerHTML = "0.00";
+			getElement('total_vente_rendu').innerHTML = "0.00";
 
 			if (val['total_vente_STOCK']) {
 				getElement('total_vente_stock').innerHTML = val['total_vente_STOCK'];
@@ -150,7 +151,9 @@
 				getElement('total_vente_paye').innerHTML = val['total_vente_PAYE'];
 				getElement('total_com_paye').innerHTML = val['total_com_paye'];
 			}
-			getElement('total_vente_rendu').innerHTML = val['total_vente_RENDU'];
+			if (val['total_vente_RENDU']) {
+				getElement('total_vente_rendu').innerHTML = val['total_vente_RENDU'];
+			}
 				
 
 
