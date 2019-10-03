@@ -122,7 +122,7 @@ function display_fiche(val) {
             document.ficheForm.obj_prix_depot.min = 1;
             document.ficheForm.buttonEtatFiche.value = "Mettre en stock";
             document.ficheForm.obj_etat_new.value = "STOCK";
-            val['obj_etat_libelle'] = "Demande confirmée par le vendeur le ["+formatDate(val['obj_date_depot'],false)+"]";
+            val['obj_etat_libelle'] = "Demande confirmée le ["+formatDate(val['obj_date_depot'],false)+"]";
         }
         // etat STOCK
         if (val['obj_etat'] == "STOCK") {
@@ -553,7 +553,7 @@ function display_infoClientAcheteurFiche(val) {
             delete val[i];
         }
     }
-    display_formulaire(val, );
+    display_formulaire(val,document.ficheForm );
 }
 
 function display_infoClientAcheteur(val) {

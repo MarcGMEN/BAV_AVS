@@ -20,6 +20,7 @@
 	<input type=hidden name="obj_id" />
 	<!--cli_id <i id=cli_id></i>-->
 	<input type=hidden name="cli_id" />
+	<input type=hidden name="ach_id" />
 	<fieldset class=fiche>
 		<legend class=titreFiche>Le depot</legend>
 		<h4>
@@ -280,7 +281,8 @@
 	</div>
 
 	<fieldset class=fiche style='display:none' id="fieldSetAcheteur">
-		<legend class=titreFiche>L'acheteur</legend>
+		<legend class="titreFiche link" onclick='goTo("client.php","consult",document.ficheForm.ach_id.value,"")'>
+		L'acheteur</legend>
 		<div class="row">
 			<div class="col-sm-6 col-md-6 col-xs-12">
 				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Emel </span>

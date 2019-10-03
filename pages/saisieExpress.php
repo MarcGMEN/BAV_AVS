@@ -53,30 +53,32 @@
 		getElement("but_action").disabled = false;
 		if (val['obj_etat']) {
 			getElement("but_action2").style.display = 'none';
-			getElement("but_action").innerHTML = "TERMINER";
-
+			getElement("but_action").innerHTML = "Mis en stock";
 			val['obj_etat_new'] = "STOCK";
+
 			if (val['obj_etat'] == "STOCK") {
-				getElement("but_action").innerHTML = "VENDU";
+				getElement("but_action").innerHTML = "Vendu";
 				getElement("but_action2").style.display = 'block';
-				getElement("but_action2").innerHTML = "RENDU";
+				getElement("but_action2").innerHTML = "Rendu";
 				val['obj_etat_new'] = "VENDU";
 				document.formSaisieExpress.cli_prix_depot.disabled = true;
 				document.formSaisieExpress.cli_taux_com.disabled = true;
 
 			} else if (val['obj_etat'] == "VENDU") {
-				getElement("but_action").innerHTML = "PAYER";
+				getElement("but_action").innerHTML = "Payé";
 				val['obj_etat_new'] = "PAYE";
 				document.formSaisieExpress.cli_prix_depot.disabled = true;
 				document.formSaisieExpress.cli_taux_com.disabled = true;
 
 			} else if (val['obj_etat'] == "PAYE") {
 				getElement("but_action").disabled = true;
+				getElement("but_action").innerHTML = "Clos";
 				document.formSaisieExpress.obj_prix_vente.disabled = true;
 				document.formSaisieExpress.elements.namedItem('cli_nom_' + idRamdom).disabled = true;
 				val['obj_etat_new'] = "";
 			} else if (val['obj_etat'] == "RENDU") {
 				getElement("but_action").disabled = true;
+				getElement("but_action").innerHTML = "Clos";
 				document.formSaisieExpress.obj_prix_vente.disabled = true;
 				document.formSaisieExpress.elements.namedItem('cli_nom_' + idRamdom).disabled = true;
 				document.formSaisieExpress.cli_prix_depot.disabled = true;
