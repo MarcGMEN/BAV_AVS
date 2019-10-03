@@ -514,3 +514,46 @@ function nl2br (str, is_xhtml) {
 	temp = temp.replace(/[ùûü]/gi,"u")
 	return temp
   }
+
+
+  function compte_ligne(texte)
+{
+	var nl="\r\n";
+	var nbligne=texte.split(nl).length;
+	return nbligne;
+}
+ 
+function limit_ligne(f,lettre,texte)
+{
+	var chaine="";
+	var nbligne_max=4;//nombre max de ligne souhaité
+	var nl="\r\n";//correspond au caractère retour chariot
+	var tableau=texte.split(nl);
+	var nbligne=compte_ligne(texte);
+
+	console.log(tableau);
+	console.log(nbligne);
+ 
+	if ((lettre==13)&&(nbligne>nbligne_max-1))
+	{
+		for(var i=0;i<nbligne_max;i++)
+		{
+			if (i<nbligne_max-1)
+			{
+				chaine+=tableau[i]+'\r\n';
+			}
+			else
+			{
+				chaine+=tableau[i];
+			}
+		}
+		f.value=chaine;
+	}
+}
+
+function MaxLengthTextarea(objettextarea,maxlength){
+	if (objettextarea.value.length >= maxlength) {
+	  objettextarea.value = objettextarea.value.substring(0, maxlength);
+	  alert('Votre texte ne doit pas dépasser '+maxlength+' caractères!');
+	 }
+  }

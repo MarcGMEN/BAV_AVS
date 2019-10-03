@@ -11,7 +11,7 @@
 <div class='alert alert-info' style='font-size:15pt'>
 <p>Avant de venir déposer votre vélo les 8, 9 ou 10 Novembre à La Soucoupe, nous vous conseillons de remplir la fiche dépôt.</p>
 <p>- Soit en saissisant votre demande avec le formulaire ci-dessous qui vous transmettra, après confirmation, la fiche dépot par mel. 
-	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cette fiche dépôt devra être imprimée par vous pour vous rendre à la Bourse. Une par vélo et un gain de temps sur place lors du dépôt)</p>
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cette fiche dépôt devra être imprimée par vous pour vous rendre à la Bourse. Une par vélo et un gain de temps sur place lors du dépôt.</p>
 <p>- Soit en téléchargeant, puis en imprimant la fiche dépôt à remplir que vous trouverez ici <img class="link url" onclick='x_action_makePDF(new Array(), display_openPDF);' ) src="Images/pdf.png" height='40px' alt="téléchargement de la fiche" title="téléchargement de la fiche">
   <small><i>Attention aux droits d'ouvertures des popUp, en fonction de votre navigateur.</i></small></p>
 </div>
@@ -111,8 +111,9 @@
 					<span class="help link" onmouseover="Aff_layer('aide_descript')" onmouseout="Cache_layer('aide_descript')" >?</span>
 				</span>
 				<span class="tabInput col-md-10 col-sm-10 col-xs-9">
-					<textarea rows="5" cols=100 tabindex=<?=$tabindex++?> style="resize:none;"
-						name="obj_description"  onkeyup="setStartSaisie(true);" 
+					<textarea rows="4" cols="100" tabindex=<?=$tabindex++?> style="resize:none;overflow: none;"
+						name="obj_description" maxlength="200" onkeyup="MaxLengthTextarea(this, 200);" 
+						onkeyup="setStartSaisie(true)"
 						placeholder="Année d'achat, prix d'achat, taille, accessoires, révision (transmission, pneus, freins..)">Taille :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Prix d'achat : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Année d'achat : (etc...)</textarea>
 				</span>
 				<span class="col-md-12 col-sm-12 col-xs-12 help">

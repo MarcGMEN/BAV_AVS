@@ -70,7 +70,7 @@ if ($GET_a == "C") {
                 $retour = "Fiche déjà confirmé avec le n°[".$fiche['obj_numero']."].";
             }
         } else {
-            $retour = "Fiche Inconnue.";
+            $retour = "Fiche déjà confirmé.";
         }
     } catch (Exception $e) {
         $retour = $e->getMessage();
