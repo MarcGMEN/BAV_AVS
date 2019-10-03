@@ -56,11 +56,11 @@ function sendMail($titre, $toMail, $messageMail, $pieceJointe = null)
     /* Pour envoyer un mail au format HTML, vous pouvez configurer le type Content-type. */
     $headers  = "MIME-Version: 1.0\r\n";
     if ($pieceJointe != null) {
-        $headers .= "Content-Type: multipart/mixed; boundary=\"$boundary\" \n";
+        $headers .= "Content-Type: multipart/mixed; boundary=\"$boundary\"\r\n";
     } else {
         $headers .= "Content-type: text/html; charset=utf-8\r\n";
     }
-    $headers .= "X-Mailer: PHP\r\n";
+    $headers .= "X-Mailer: PHP/".phpversion()."\r\n";
     //$headers .= "X-Priority: 1 \n";
     /* D'autres en-têtes */
     $headers .= "From: <bourse-aux-velos@avs44.com>\r\n";
@@ -78,14 +78,14 @@ function sendMail($titre, $toMail, $messageMail, $pieceJointe = null)
             $file_name =basename($pieceJointe);
             $typepiecejointe = filetype($_SERVER['DOCUMENT_ROOT'].$pieceJointe);
             $data = chunk_split(base64_encode(file_get_contents($_SERVER['DOCUMENT_ROOT'].$pieceJointe)));
-            $message .= "\n--$boundary \n";
-            $message .= "Content-Type: $typepiecejointe; name=\"$file_name\" \n";
+            $message .= "\r\n--$boundary\r\n";
+            $message .= "Content-Type: $typepiecejointe; name=\"$file_name\" \r\n";
             $message .= "Content-Transfer-Encoding: base64 \n";
-            $message .= "Content-Disposition: attachment; filename=\"$file_name\" \n";
-            $message .= "\n";
-            $message .= $data."\n";
-            $message .= "\n";
-            $message .= "--".$boundary."--";
+            $message .= "Content-Disposition: attachment; filename=\"$file_name\" \r\n";
+            $message .= "\r\n";
+            $message .= $data."\r\n";
+            $message .= "\r\n";
+            $message .= "--".$boundary."--\r\n";
         }
         //error_clear_last();
         if (!mail($toMail, $titre, stripslashes($message), $headers)) {

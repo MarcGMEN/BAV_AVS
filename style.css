@@ -519,6 +519,10 @@ td.tabl0 {
 	color: WHITE;
 	font-weight: bold;
 }
+tr.CONFIRME {
+	background-color: lightcoral;
+	color: BLACK;
+}
 tr.STOCK {
 	background-color: ORANGE;
 	color: BLACK;

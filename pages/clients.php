@@ -32,12 +32,17 @@
 			if (val[index]['vente']['RENDU']) {
 				totalClient+=parseInt(val[index]['vente']['RENDU']);
 			}
+			
 			if (val[index]['achat']) {
 				totalClient+=parseInt(val[index]['achat']);
 			}
 			var classPlus="";
 			if (totalClient == 0) {
 				classPlus="STOCK"
+			}
+			if (val[index]['vente']['CONFIRME']) {
+				//totalClient+=parseInt(val[index]['vente']['CONFIRME']);
+				classPlus="CONFIRME";
 			}
 			if (!isNaN(index)) {
 			repr+="<tr class='tabl0 link "+classPlus+"' onclick='goTo(\"client.php\",\"select\","+val[index]['cli_id']+")'>";
@@ -62,11 +67,19 @@
 			repr+=val[index]['cli_telephone'];
 			repr+="</td>";
 			repr+="<th width=3% style='text-align: center'>";
+			if (val[index]['vente']['CONFIRME']) {
+				repr+=val[index]['vente']['CONFIRME'];
+			}
+			else {
+				repr+="";
+			}
+			repr+="</th>";
+			repr+="<th width=3% style='text-align: center'>";
 			if (val[index]['vente']['STOCK']) {
 				repr+=val[index]['vente']['STOCK'];
 			}
 			else {
-				repr+="0";
+				repr+="";
 			}
 			repr+="</th>";
 			repr+="<th width=3% style='text-align: center'>";
@@ -77,7 +90,7 @@
 				repr+=val[index]['vente']['PAYE'];
 			}
 			else {
-				repr+="0";
+				repr+="";
 			}
 			repr+="</th>";
 			repr+="<th width=3% style='text-align: center'>";
@@ -85,11 +98,17 @@
 				repr+=val[index]['vente']['RENDU'];
 			}
 			else {
-				repr+="0";
+				repr+="";
 			}
 			repr+="</th>";
+
 			repr+="<th width=3% style='text-align: center'>";
-			repr+=val[index]['achat'];
+			if (val[index]['achat']) {
+				repr+=val[index]['achat'];
+			}
+			else {
+				repr+="";
+			}
 			repr+="</th>";
 			repr+="</tr>";
 
@@ -154,6 +173,10 @@
 		<td class="tittab maskmobile" width=15%>
 			<span id='cli_telephone' onclick="triColonne('cli_telephone')" class="sortable">Telephone&nbsp;&nbsp;&nbsp;</span>
 		</td>
+
+		<th class="tittab " width=3% >
+			<span  id='cli_depot'>C</span>
+		</th>
 
 		<th class="tittab " width=3% >
 			<span  id='cli_depot'>D</span>
