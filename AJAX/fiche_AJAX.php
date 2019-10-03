@@ -311,7 +311,6 @@ function action_changeEtatFiche($obj)
     // droit = ADMIN+TABLE+CLIENT
     $ADMIN = $infoAppli['ADMIN'];
     $TABLE = $infoAppli['TABLE'];
-    $CLIENT = $infoAppli['CLIENT'];
 
     if ($ADMIN || $TABLE) {
         $fiche = string2Tab($obj);
@@ -323,14 +322,16 @@ function action_changeEtatFiche($obj)
         } elseif ($fiche['obj_etat'] == 'STOCK') {
             $fiche['obj_prix_vente'] = $fiche['obj_prix_depot'];
             $fiche['obj_date_depot'] = date('y-m-d h:m:s');
-        } elseif ($fiche['obj_etat'] == 'VENDU') {
+        /*} elseif ($fiche['obj_etat'] == 'VENDU') {
             $fiche['obj_date_vente'] = date('y-m-d h:m:s');
-
-            $client = getOneClient($fiche['obj_id_vendeur']);
-
-            $tabPlus['commission'] = $client['cli_taux_com'] * $fiche['obj_prix_vente'];
+//            $client = getOneClient($fiche['obj_id_vendeur']);*/
         } elseif ($fiche['obj_etat'] == 'RENDU' || $fiche['obj_etat'] == 'PAYE') {
             $fiche['obj_date_retour'] = date('y-m-d h:m:s');
+        } elseif ($fiche['obj_etat'] == 'RESTOCK' ) {
+            $fiche['obj_date_retour'] = null;
+            $fiche['obj_date_vente']  = null;
+            $fiche['obj_id_acheteur'] =0;
+            $fiche['obj_etat'] = 'STOCK';
         }
         //print_r($fiche);
         try {

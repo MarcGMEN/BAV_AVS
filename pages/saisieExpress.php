@@ -53,13 +53,13 @@
 		getElement("but_action").disabled = false;
 		if (val['obj_etat']) {
 			getElement("but_action2").style.display = 'none';
-			getElement("but_action").innerHTML = "Mis en stock";
+			getElement("but_action").innerHTML = "Mettre en stock";
 			val['obj_etat_new'] = "STOCK";
 
 			if (val['obj_etat'] == "STOCK") {
-				getElement("but_action").innerHTML = "Vendu";
+				getElement("but_action").innerHTML = "Vendre";
 				getElement("but_action2").style.display = 'block';
-				getElement("but_action2").innerHTML = "Rendu";
+				getElement("but_action2").innerHTML = "Rendre";
 				val['obj_etat_new'] = "VENDU";
 				document.formSaisieExpress.cli_prix_depot.disabled = true;
 				document.formSaisieExpress.cli_taux_com.disabled = true;

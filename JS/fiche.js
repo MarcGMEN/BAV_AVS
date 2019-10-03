@@ -38,7 +38,7 @@ function initPage() {
 
     } else if (!CLIENT) {
         alertModalInfo("La saisie n'est pas encore ouverte.");
-        setTimeout(function() {goTo()},2000);
+        setTimeout(function () { goTo() }, 2000);
     }
 
     if (idFiche) {
@@ -122,7 +122,7 @@ function display_fiche(val) {
             document.ficheForm.obj_prix_depot.min = 1;
             document.ficheForm.buttonEtatFiche.value = "Mettre en stock";
             document.ficheForm.obj_etat_new.value = "STOCK";
-            val['obj_etat_libelle'] = "Demande confirmée le ["+formatDate(val['obj_date_depot'],false)+"]";
+            val['obj_etat_libelle'] = "Demande confirmée le [" + formatDate(val['obj_date_depot'], false) + "]";
         }
         // etat STOCK
         if (val['obj_etat'] == "STOCK") {
@@ -145,10 +145,12 @@ function display_fiche(val) {
             document.ficheForm.buttonEtatFicheBis.style.display = 'inline';
             document.ficheForm.buttonEtatFicheBis.value = 'Rendre';
             document.ficheForm.obj_prix_vente.disabled = false
-
+            document.ficheForm.buttonEtatFicheBis.onclick = function () { changeEtatFiche('RENDU') };
             if (!ADMIN) {
                 disable_formulaire(document.ficheForm, "cli");
             }
+
+            getElement("fieldSetAcheteur").style.display = 'none';
         }
         if (val['obj_etat'] == "VENDU") {
             getElement("divPrix").style.display = 'block';
@@ -167,10 +169,17 @@ function display_fiche(val) {
 
             document.ficheForm.buttonEtatFiche.value = "A payer";
             document.ficheForm.obj_etat_new.value = "PAYE";
-            val['obj_etat_libelle'] = "Vendu le ["+formatDate(val['obj_date_vente'])+"]";
+            val['obj_etat_libelle'] = "Vendu le [" + formatDate(val['obj_date_vente']) + "]";
+/*            if (!ADMIN) {
+                document.ficheForm.buttonEtatFicheBis.style.display = 'none';
+                document.ficheForm.buttonEtatFicheBis.value = '';
+            }
+            else {*/
+                document.ficheForm.buttonEtatFicheBis.style.display = 'inline';
+                document.ficheForm.buttonEtatFicheBis.value = 'Remettre en Stock';
 
-            document.ficheForm.buttonEtatFicheBis.style.display = 'none';
-            document.ficheForm.buttonEtatFicheBis.value = '';
+                document.ficheForm.buttonEtatFicheBis.onclick = function () { changeEtatFiche('RESTOCK') };
+            //}
 
             if (TABLE || ADMIN) {
                 document.ficheForm.obj_prix_vente.disabled = false
@@ -179,7 +188,7 @@ function display_fiche(val) {
 
                 getElement("fieldSetAcheteur").style.display = 'block';
                 x_return_oneClient(val['obj_id_acheteur'], display_infoClientAcheteurFiche);
-            } 
+            }
         }
 
         if (val['obj_etat'] == "RENDU" || val['obj_etat'] == "PAYE") {
@@ -196,13 +205,25 @@ function display_fiche(val) {
             document.ficheForm.checkCGU.required = false;
             // pas la peine de voir les CGU
             getElement("tdCGU").style.display = 'none';
-            getElement("tdBtnEtat").style.display = 'none';
+            document.ficheForm.buttonEtatFicheBis.style.display = 'none';
+            document.ficheForm.buttonEtatFicheBis.value = '';
 
             if (val['obj_etat'] == "RENDU") {
-                val['obj_etat_libelle'] = "Rendu au vendeur le ["+formatDate(val['obj_date_retour'])+"]";
+                val['obj_etat_libelle'] = "Rendu au vendeur le [" + formatDate(val['obj_date_retour']) + "]";
+                    document.ficheForm.buttonEtatFiche.value = "Remettre en stock";
+                    document.ficheForm.obj_etat_new.value = "RESTOCK";
+                
             }
             else {
-                val['obj_etat_libelle'] = "Payé au vendeur le ["+formatDate(val['obj_date_retour'])+"]";
+                val['obj_etat_libelle'] = "Payé au vendeur le [" + formatDate(val['obj_date_retour']) + "]";
+                if (ADMIN) {
+                    document.ficheForm.buttonEtatFiche.value = "Remettre en stock";
+                    document.ficheForm.obj_etat_new.value = "RESTOCK";
+                }
+                else {
+                    getElement("tdBtnEtat").style.display = 'none';
+                }
+
             }
         }
         display_formulaire(val, document.ficheForm);
@@ -422,8 +443,10 @@ function changeEtatFiche(newEtat = null) {
         gNewEtat = etat;
     } else {
         etat = tabObj['obj_etat_new'];
+        gNewEtat = '';
     }
 
+    //console.log("nw etat "+etat);
     if (etat == 'CONFIRME') {
         // => confirme
         x_action_changeEtatFiche(tabToString(tabObj), display_fin_modif);
@@ -438,6 +461,8 @@ function changeEtatFiche(newEtat = null) {
     } else if (etat == 'RENDU') {
         // => cloturé 
         x_get_publiHtml(tabToString(tabObj), 'modal_confirm_rendre.html', display_messageConfirmChangeEtat);
+    } else if (etat == 'RESTOCK') {
+        x_get_publiHtml(tabToString(tabObj), 'modal_confirm_restock.html', display_messageConfirmChangeEtat);
     } else if (etat == 'PAYE') {
         // => cloturé
         // TODO : confirm
@@ -469,7 +494,7 @@ function confirmModalForm() {
 
     var tabData = Object.assign({}, tabObj, tabAch);
     closeModal();
-    
+
     x_action_vendFiche(tabToString(tabData), display_fin_modif);
 }
 
@@ -485,6 +510,7 @@ function confirmModalEtat() {
         tabObj['obj_etat_new'] = gNewEtat;
     }
 
+    // console.log("ok pour chg etat:"+tabObj['obj_etat_new'])
     x_action_changeEtatFiche(tabToString(tabObj), display_fin_modif);
 }
 
@@ -553,7 +579,7 @@ function display_infoClientAcheteurFiche(val) {
             delete val[i];
         }
     }
-    display_formulaire(val,document.ficheForm );
+    display_formulaire(val, document.ficheForm);
 }
 
 function display_infoClientAcheteur(val) {

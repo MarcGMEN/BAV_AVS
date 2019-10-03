@@ -65,7 +65,7 @@ function alertModalConfirm(message, plus='') {
 
     getElement('modalTitre').innerHTML = "Confirmation";
 
-    console.log(message);
+    //console.log(message);
     getElement("modalText").innerHTML = message;
 
     $repr = "<input type=button value=Confirmer onclick='searchStyle();confirmModal"+plus+"();closeModal()'>";

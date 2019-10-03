@@ -40,8 +40,7 @@
 				</div>
 				<div class="col-sm-6 col-md-6 col-xs-6 tabl1" id="tdBtnEtat"  style='display: none'>
 				<input type=button name="buttonEtatFiche" tabindex=<?=$tabindex++?>	onclick='changeEtatFiche()'/>
-				<input type=button name="buttonEtatFicheBis" style="display:none" onclick="changeEtatFiche('RENDU')"
-					 tabindex=<?=$tabindex++?> />
+				<input type=button id="btnEtatFichePlus" name="buttonEtatFicheBis" style="display:none" tabindex=<?=$tabindex++?> />
 				</div>
 			</div>
 			<div class="col-sm-3 col-md-3 col-xs-3">

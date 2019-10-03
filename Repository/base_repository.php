@@ -40,6 +40,8 @@ function map_field_type_to_bind_type($field_type)
         case MYSQLI_TYPE_TIME:
         case MYSQLI_TYPE_DATETIME:
         case MYSQLI_TYPE_NEWDATE:
+            return 't';
+
         case MYSQLI_TYPE_INTERVAL:
         case MYSQLI_TYPE_SET:
         case MYSQLI_TYPE_VAR_STRING:
@@ -170,10 +172,14 @@ function update($table, $obj, $cleId)
         if ($key != $cleId) {
             if ($descTable[$key]) {
                 $guillemet="";
-                if ($descTable[$key]->type== "s" || $descTable[$key]->type == "b") {
+                if ($descTable[$key]->type== "s" || $descTable[$key]->type == "b" || $descTable[$key]->type == "t") {
                     $guillemet="'";
                 } elseif (strlen($val) == 0) {
                     $val=0;
+                }
+                if ($descTable[$key]->type== "t" && !$val) {
+                    $guillemet="";
+                    $val="null";
                 }
                 $req .= $virgule.$key." = $guillemet".addslashes($val)."$guillemet";
                 $virgule=" , ";
@@ -181,7 +187,7 @@ function update($table, $obj, $cleId)
         }
     }
     $req .= " where $cleId = '".$obj[$cleId]."'";
-    //echo $req;
+   // echo $req;
     if (!$GLOBALS['mysqli']->query($req)) {
         throw new Exception("Pb d'update' [$req]".$GLOBALS['mysqli']->error);
     }
