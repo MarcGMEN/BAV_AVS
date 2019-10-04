@@ -253,14 +253,11 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
         $fiche['obj_prix_depot'] = "<s>" . $fiche['obj_prix_depot'] . " €</s><span style='color:RED'>" . $fiche['obj_prix_vente'] . "</span>";
     }
 
-    $acheteur = array();
-    if ($fiche['obj_id_acheteur'] != null && $fiche['obj_id_acheteur']  > 0) {
-        if ($fiche['obj_id_acheteur'] != 999999) {
-            $acheteurCli = getOneClient($fiche['obj_id_acheteur']);
-            foreach ($acheteurCli as $key => $val) {
-                $newKey = str_replace("cli", "ach", $key);
-                $acheteur[$newKey] = $val;
-            }
+    if ($fiche['obj_prix_vente'] > 0) {
+        if ($fiche['obj_prix_vente'] < 1000) {
+            $client['cli_com'] = $fiche['obj_prix_vente'] * ($client['cli_taux_com'] / 100);
+        } else {
+            $client['cli_com'] = 100;
         }
     } else {
         $fiche['obj_prix_vente'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
@@ -269,7 +266,7 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
 
     //print_r(array_merge($fiche, $client, $acheteur, $tabPlus));
 
-    $filePDF = html2pdf(array_merge($fiche, $client, $acheteur, $tabPlus), $html, "Fiche_" . $fiche['obj_numero']);
+    $filePDF = html2pdf(array_merge($fiche, $client, $tabPlus), $html, "Fiche_" . $fiche['obj_numero']);
 
     return $CFG_URL . $filePDF;
 }
