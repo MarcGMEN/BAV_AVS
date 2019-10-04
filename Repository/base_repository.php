@@ -209,7 +209,7 @@ function insert($table, $obj)
     foreach ($obj as $key => $val) {
         if ($descTable[$key]) {
             $guillemet="";
-            if ($descTable[$key]->type== "s" || $descTable[$key]->type == "b") {
+            if ($descTable[$key]->type== "s" || $descTable[$key]->type == "b" || $descTable[$key]->type == "t") {
                 $guillemet="'";
             } elseif (strlen($val) == 0) {
                 $val=0;

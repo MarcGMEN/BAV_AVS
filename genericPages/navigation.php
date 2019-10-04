@@ -8,7 +8,9 @@
   }
     }
 </script>
+
 <?php
+   // print_r($infAppli);
     $tabNavAll = [
         'bav.php'=>[
             'libelle' => 'La Bourse' ],
@@ -81,6 +83,16 @@
                 'mode' => 'create'
             ]
         ];
+        $today=time();
+        //if ($today >= $infAppli['date_j1'] && $today <= $infAppli['date_j3'] && $infAppli['NB_MODIF'] == 1) {
+        if ($infAppli['NB_MODIF'] == 1) {
+            $tabClientPlus = [
+                'stock-client.php' => [
+                    'libelle' => 'Parc'
+                ]
+            ]; 
+            $tabNavAdm= array_merge($tabNavAdm, $tabClientPlus);
+        }
     }
     $tabNav = array_merge($tabNavAll, $tabNavAdm);
     ?>

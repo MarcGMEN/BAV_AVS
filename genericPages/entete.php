@@ -25,10 +25,33 @@
 					getElement(key).innerHTML=val[key];
 				}
 			}
-			var total=parseInt(val['STOCK'])+parseInt(val['VENDU'])+parseInt(val['RENDU'])+parseInt(val['PAYE']);
+			var total=0;
+			var totalVente=0
+			if (val['STOCK']) {
+				total+=parseInt(val['STOCK']);
+			}
+			if (val['VENDU']) {
+				total+=parseInt(val['VENDU']);
+				totalVente+=parseInt(val['VENDU']);
+			}
+			if (val['RENDU']) {
+				total+=parseInt(val['RENDU']);
+			}
+			if (val['PAYE']) {
+				total+=parseInt(val['PAYE']);
+				totalVente+=parseInt(val['VENDU']);
+			}
+
 			getElement('TOTAL').innerHTML=total;
-			getElement('statVendu').innerHTML=parseInt(((parseInt(val['VENDU'])+parseInt(val['PAYE']))/total)*100)+"%";
-			getElement('statRendu').innerHTML=parseInt((parseInt(val['RENDU'])/total)*100)+"%";
+			
+			getElement('statVendu').innerHTML=parseInt((totalVente/total)*100)+"%";
+			
+			if (val['RENDU']) {
+				getElement('statRendu').innerHTML=parseInt((parseInt(val['RENDU'])/total)*100)+"%";
+			}
+			else{
+				getElement('statRendu').innerHTML="";
+			}
 		}
 	}
 
