@@ -157,7 +157,7 @@ function display_fiches(val) {
 	}
 
 	if (ADMIN) {
-	getElement('total').innerHTML = total;
+		getElement('total').innerHTML = total;
 
 		getElement('total_vente_stock').innerHTML = "0.00";
 		getElement('total_vente_vendu').innerHTML = "0.00";

@@ -5,13 +5,18 @@
 	tabSel['obj_etat']='STOCK';
 
 	function initPage() {
+
+		if (NB_MODIF == 1) {
 		x_return_enum('bav_objet', 'obj_type', display_list_type);
 		x_return_enum('bav_objet', 'obj_public', display_list_public);
 		x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);
 
-
 		x_return_list_marques(display_list_marque)
 		x_return_fiches(tri, sens, tabToString(tabSel), display_fiches);
+		}
+		else {
+			goTo();
+		}
 	}
 
 	function display_list_public(val) {
