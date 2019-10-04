@@ -54,6 +54,7 @@
 			else {
 				repr+=chaine;
 			}
+			repr+=" <small>("+val[index]['cli_code_postal']+")</small>";
 			repr+="</td>";
 			repr+="<td width=15% class='maskmobile' ><small>";
 			repr+=val[index]['cli_taux_com']+" % -- "+val[index]['cli_prix_depot']+" €";

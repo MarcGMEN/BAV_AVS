@@ -53,7 +53,7 @@ function display_formulaire(val, laForm) {
 							//laForm.elements[j].className = "";
 						}
 						if (getElement(j)) {
-							getElement(j).innerHTML= miseEnFormeData(j, val[i][j]);
+							getElement(j).innerHTML = miseEnFormeData(j, val[i][j]);
 						}
 					}
 				}
@@ -77,7 +77,7 @@ function display_formulaire(val, laForm) {
 					}
 					if (getElement(i) != undefined) {
 						// console.log("ID : "+i+" = "+val[i]+" => "+miseEnFormeData(i, val[i]));
-						getElement(i).innerHTML= miseEnFormeData(i, val[i]);
+						getElement(i).innerHTML = miseEnFormeData(i, val[i]);
 					}
 				}
 			}
@@ -110,7 +110,7 @@ function disable_formulaire(laForm, trigrame) {
 			if (element) {
 				var name = element.name;
 				if (name && name.startsWith(trigrame)) {
-					laForm.elements[key].disabled=true;
+					laForm.elements[key].disabled = true;
 				}
 			}
 		}
@@ -120,7 +120,7 @@ function disable_formulaire(laForm, trigrame) {
 }
 
 function tabToString(par) {
-	var res = JSON.stringify(par);	
+	var res = JSON.stringify(par);
 	return res;
 }
 
@@ -145,7 +145,7 @@ function miseEnFormeData(id, val) {
 	return retour;
 }
 
-function formatDate(date, affHeure=true) {
+function formatDate(date, affHeure = true) {
 	if (date) {
 		// alert(date.length );
 		exprSlash = new RegExp("^([0-9]+)([\]+)([0-9]+)([\]+)([0-9]+)$");
@@ -228,14 +228,16 @@ function valideEmail(value) {
 }
 
 function display_list_select(val, champ, leForm) {
-    tabPrixDepot = val;
+	tabPrixDepot = val;
 	var select = leForm.elements[champ];
-	for (index in val) {
-        select.appendChild(new Option(val[index], val[index]));
-        if (index == 1) {
-            select.selectedIndex = val[index];
-        }
-    }
+	if (select) {
+		for (index in val) {
+			select.appendChild(new Option(val[index], val[index]));
+			if (index == 1) {
+				select.selectedIndex = val[index];
+			}
+		}
+	}
 }
 
 function basename(path, suffix) {
@@ -427,8 +429,8 @@ function AnneeBissex(nA) {
 	if (nA % 100 == 0)
 		return true;
 	else
-	if (nA % 400 == 0)
-		return true;
+		if (nA % 400 == 0)
+			return true;
 
 	return false;
 }
@@ -477,14 +479,14 @@ function Valide_heure(nHeure) {
  * @param {test si un object est vide} obj 
  */
 function objectIsEmpty(obj) {
-    for(var key in obj) {
-        if(obj.hasOwnProperty(key))
-            return false;
-    }
-    return true;
+	for (var key in obj) {
+		if (obj.hasOwnProperty(key))
+			return false;
+	}
+	return true;
 }
 
-function nl2br (str, is_xhtml) {
+function nl2br(str, is_xhtml) {
 	// http://kevin.vanzonneveld.net
 	// +   original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
 	// +   improved by: Philip Peterson
@@ -502,58 +504,52 @@ function nl2br (str, is_xhtml) {
 	// *     example 3: nl2br("\nOne\nTwo\n\nThree\n", true);
 	// *     returns 3: '<br />\nOne<br />\nTwo<br />\n<br />\nThree<br />\n'
 	var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br ' + '/>' : '<br>'; // Adjust comment to avoid issue on phpjs.org display
-  
+
 	return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
-  }
-  
-  function noAccent(chaine) {
-	temp = chaine.replace(/[àâä]/gi,"a")
-	temp = temp.replace(/[éèêë]/gi,"e")
-	temp = temp.replace(/[îï]/gi,"i")
-	temp = temp.replace(/[ôö]/gi,"o")
-	temp = temp.replace(/[ùûü]/gi,"u")
+}
+
+function noAccent(chaine) {
+	temp = chaine.replace(/[àâä]/gi, "a")
+	temp = temp.replace(/[éèêë]/gi, "e")
+	temp = temp.replace(/[îï]/gi, "i")
+	temp = temp.replace(/[ôö]/gi, "o")
+	temp = temp.replace(/[ùûü]/gi, "u")
 	return temp
-  }
+}
 
 
-  function compte_ligne(texte)
-{
-	var nl="\r\n";
-	var nbligne=texte.split(nl).length;
+function compte_ligne(texte) {
+	var nl = "\r\n";
+	var nbligne = texte.split(nl).length;
 	return nbligne;
 }
- 
-function limit_ligne(f,lettre,texte)
-{
-	var chaine="";
-	var nbligne_max=4;//nombre max de ligne souhaité
-	var nl="\r\n";//correspond au caractère retour chariot
-	var tableau=texte.split(nl);
-	var nbligne=compte_ligne(texte);
+
+function limit_ligne(f, lettre, texte) {
+	var chaine = "";
+	var nbligne_max = 4;//nombre max de ligne souhaité
+	var nl = "\r\n";//correspond au caractère retour chariot
+	var tableau = texte.split(nl);
+	var nbligne = compte_ligne(texte);
 
 	console.log(tableau);
 	console.log(nbligne);
- 
-	if ((lettre==13)&&(nbligne>nbligne_max-1))
-	{
-		for(var i=0;i<nbligne_max;i++)
-		{
-			if (i<nbligne_max-1)
-			{
-				chaine+=tableau[i]+'\r\n';
+
+	if ((lettre == 13) && (nbligne > nbligne_max - 1)) {
+		for (var i = 0; i < nbligne_max; i++) {
+			if (i < nbligne_max - 1) {
+				chaine += tableau[i] + '\r\n';
 			}
-			else
-			{
-				chaine+=tableau[i];
+			else {
+				chaine += tableau[i];
 			}
 		}
-		f.value=chaine;
+		f.value = chaine;
 	}
 }
 
-function MaxLengthTextarea(objettextarea,maxlength){
+function MaxLengthTextarea(objettextarea, maxlength) {
 	if (objettextarea.value.length >= maxlength) {
-	  objettextarea.value = objettextarea.value.substring(0, maxlength);
-	  alert('Votre texte ne doit pas dépasser '+maxlength+' caractères!');
-	 }
-  }
+		objettextarea.value = objettextarea.value.substring(0, maxlength);
+		alert('Votre texte ne doit pas dépasser ' + maxlength + ' caractères!');
+	}
+}

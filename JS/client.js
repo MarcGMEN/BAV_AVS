@@ -45,7 +45,7 @@ function display_list_prix_depot(val) {
 function display_client(val) {
 	if (val instanceof Object) {
 		display_formulaire(val, document.clientForm);
-		cli_id=val['cli_id'];
+		cli_id = val['cli_id'];
 
 		var tabSel = {
 			"obj_id_vendeur": val['cli_id']
@@ -57,7 +57,7 @@ function display_client(val) {
 		var tabSelA = {
 			"obj_id_acheteur": val['cli_id']
 		};
-		
+
 		console.log("appel fiches achat");
 		x_return_fiches(tri, sens, tabToString(tabSelA), display_fiches_achat);
 	} else {
@@ -65,7 +65,7 @@ function display_client(val) {
 	}
 }
 
-function unloadPage() {}
+function unloadPage() { }
 
 // ***********************************************************
 // ***********************************************************
@@ -155,29 +155,34 @@ function display_fiches(val) {
 	if (total == 0) {
 		getElement('tdBtnSup').style.display = "block";
 	}
+
+	if (ADMIN) {
 	getElement('total').innerHTML = total;
 
-	getElement('total_vente_stock').innerHTML = "0.00";
-	getElement('total_vente_vendu').innerHTML = "0.00";
-	getElement('total_vente_paye').innerHTML = "0.00";
-	getElement('total_vente_depot').innerHTML = "0.00";;
-	getElement('total_com_vendu').innerHTML = "0.00";
-	getElement('total_com_paye').innerHTML = "0.00";
-	getElement('total_depot').innerHTML = "0.00";
+		getElement('total_vente_stock').innerHTML = "0.00";
+		getElement('total_vente_vendu').innerHTML = "0.00";
+		getElement('total_vente_paye').innerHTML = "0.00";
+		getElement('total_vente_depot').innerHTML = "0.00";;
+		getElement('total_com_vendu').innerHTML = "0.00";
+		getElement('total_com_paye').innerHTML = "0.00";
+		getElement('total_depot').innerHTML = "0.00";
 
-	if (val['total_vente_STOCK']) {
-		getElement('total_vente_stock').innerHTML = val['total_vente_STOCK'];
-		getElement('total_vente_depot').innerHTML = val['total_vente_depot'];
-		getElement('total_depot').innerHTML = val['total_depot'];
-	}
-	if (val['total_vente_VENDU']) {
-		getElement('total_vente_vendu').innerHTML = val['total_vente_VENDU'];
-		getElement('total_com_vendu').innerHTML = val['total_com_vendu'];
-	}
+		if (val['total_vente_depot']) {
+			getElement('total_vente_depot').innerHTML = val['total_vente_depot'];
+		}
+		if (val['total_vente_STOCK']) {
+			getElement('total_vente_stock').innerHTML = val['total_vente_STOCK'];
+			getElement('total_depot').innerHTML = val['total_depot'];
+		}
+		if (val['total_vente_VENDU']) {
+			getElement('total_vente_vendu').innerHTML = val['total_vente_VENDU'];
+			getElement('total_com_vendu').innerHTML = val['total_com_vendu'];
+		}
 
-	if (val['total_vente_PAYE']) {
-		getElement('total_vente_paye').innerHTML = val['total_vente_PAYE'];
-		getElement('total_com_paye').innerHTML = val['total_com_paye'];
+		if (val['total_vente_PAYE']) {
+			getElement('total_vente_paye').innerHTML = val['total_vente_PAYE'];
+			getElement('total_com_paye').innerHTML = val['total_com_paye'];
+		}
 	}
 
 }
@@ -242,7 +247,7 @@ function triColonne(col) {
 	var tabSelA = {
 		"obj_id_acheteur": idClient
 	};
-	
+
 	console.log("appel fiches achat");
 	x_return_fiches(tri, sens, tabToString(tabSelA), display_fiches_achat);
 
@@ -251,11 +256,11 @@ function triColonne(col) {
 
 
 function supprimerClient(id) {
-	console.log("Suppression du client "+id);
+	console.log("Suppression du client " + id);
 	x_action_deleteClient(id, display_fin_delete);
 }
 
-function  display_fin_delete(val) {
+function display_fin_delete(val) {
 	if (val == 1) {
 		goTo("bav.php");
 	} else if (val) {

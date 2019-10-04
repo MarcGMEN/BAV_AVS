@@ -25,7 +25,10 @@
 					getElement(key).innerHTML=val[key];
 				}
 			}
-			//getElement("depotTOT").innerHTML=parseInt(val['STOCK'])+parseInt(val['VENDU'])+parseInt(val['RENDU']);
+			var total=parseInt(val['STOCK'])+parseInt(val['VENDU'])+parseInt(val['RENDU'])+parseInt(val['PAYE']);
+			getElement('TOTAL').innerHTML=total;
+			getElement('statVendu').innerHTML=parseInt(((parseInt(val['VENDU'])+parseInt(val['PAYE']))/total)*100)+"%";
+			getElement('statRendu').innerHTML=parseInt((parseInt(val['RENDU'])/total)*100)+"%";
 		}
 	}
 

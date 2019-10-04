@@ -156,15 +156,19 @@
 	</tr>
 	<tr>
 		<td ></td>
-		<td colspan=2>Com en attente </td>
-		<td >Com recu </td>
+		<td ></td>
 		<td >Dépôt </td>
+		<td >Com en attente </td>
+		<td >Com recu </td>
+		
 	</tr>	
 	<tr>
 		<td ></td>
-		<td colspan=2><b><span id=total_com_vendu>0.00</span> €</b></td>
-		<td ><b><span id=total_com_paye>0.00</span> €</b></td>
+		<td ></td>
 		<td ><b><span id=total_depot>0.00</span> €</b></td>
+		<td ><b><span id=total_com_vendu>0.00</span> €</b></td>
+		<td ><b><span id=total_com_paye>0.00</span> €</b></td>
+		
 	</tr>	
 </table>
 <?}?>

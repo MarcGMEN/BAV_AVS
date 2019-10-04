@@ -421,9 +421,7 @@ function return_fiches($tri, $sens, $selection)
                     $tab['total_com_vendu'] += 100;
                 }
             }
-            if (
-                $val['obj_etat'] == "STOCK" || $val['obj_etat'] == "VENDU" || $val['obj_etat'] == "RENDU" ||
-                $val['obj_etat'] == "PAYE"
+            if ($val['obj_etat'] == "STOCK" || $val['obj_etat'] == "VENDU" || $val['obj_etat'] == "RENDU" || $val['obj_etat'] == "PAYE"
             ) {
                 $tab['total_vente_depot'] += $val['obj_prix_vente'];
             }

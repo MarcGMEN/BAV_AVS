@@ -12,7 +12,7 @@
 
 		x_return_list_marques(display_list_marque)
 		x_return_list_unique("bav_objet", "obj_etat", display_list_etat)
-		x_return_list_unique("bav_objet", "obj_couleur", display_list_couleur)
+		//x_return_list_unique("bav_objet", "obj_couleur", display_list_couleur)
 		x_return_fiches(tri, sens, tabToString(tabSel), display_fiches);
 	}
 
@@ -128,35 +128,36 @@
 			}
 			getElement(tri).className = classSort;
 
-			getElement('total_vente_stock').innerHTML = "0.00";
-			getElement('total_vente_vendu').innerHTML = "0.00";
-			getElement('total_vente_paye').innerHTML = "0.00";
-			getElement('total_vente_depot').innerHTML = "0.00";;
-			getElement('total_com_vendu').innerHTML = "0.00";
-			getElement('total_com_paye').innerHTML = "0.00";
-			getElement('total_depot').innerHTML = "0.00";
-			getElement('total_vente_rendu').innerHTML = "0.00";
+			if (getElement('total_vente_stock')) {
+				getElement('total_vente_stock').innerHTML = "0.00";
+				getElement('total_vente_vendu').innerHTML = "0.00";
+				getElement('total_vente_paye').innerHTML = "0.00";
+				getElement('total_vente_depot').innerHTML = "0.00";;
+				getElement('total_com_vendu').innerHTML = "0.00";
+				getElement('total_com_paye').innerHTML = "0.00";
+				getElement('total_depot').innerHTML = "0.00";
+				//getElement('total_vente_rendu').innerHTML = "0.00";
 
-			if (val['total_vente_STOCK']) {
-				getElement('total_vente_stock').innerHTML = val['total_vente_STOCK'];
-				getElement('total_vente_depot').innerHTML = val['total_vente_depot'];
-				getElement('total_depot').innerHTML = val['total_depot'];
-			}
-			if (val['total_vente_VENDU']) {
-				getElement('total_vente_vendu').innerHTML = val['total_vente_VENDU'];
-				getElement('total_com_vendu').innerHTML = val['total_com_vendu'];
-			}
+				if (val['total_vente_depot']) {
+					getElement('total_vente_depot').innerHTML = val['total_vente_depot'];
+				}
+				if (val['total_vente_STOCK']) {
+					getElement('total_vente_stock').innerHTML = val['total_vente_STOCK'];
+					getElement('total_depot').innerHTML = val['total_depot'];
+				}
+				if (val['total_vente_VENDU']) {
+					getElement('total_vente_vendu').innerHTML = val['total_vente_VENDU'];
+					getElement('total_com_vendu').innerHTML = val['total_com_vendu'];
+				}
 
-			if (val['total_vente_PAYE']) {
-				getElement('total_vente_paye').innerHTML = val['total_vente_PAYE'];
-				getElement('total_com_paye').innerHTML = val['total_com_paye'];
+				if (val['total_vente_PAYE']) {
+					getElement('total_vente_paye').innerHTML = val['total_vente_PAYE'];
+					getElement('total_com_paye').innerHTML = val['total_com_paye'];
+				}
+				// if (val['total_vente_RENDU']) {
+				// 	getElement('total_vente_rendu').innerHTML = val['total_vente_RENDU'];
+				// }
 			}
-			if (val['total_vente_RENDU']) {
-				getElement('total_vente_rendu').innerHTML = val['total_vente_RENDU'];
-			}
-				
-
-
 		} else {
 			alertModalWarn(val);
 		}
@@ -206,31 +207,35 @@
 		<td width=22%>Dépôt</td>
 		<td width=22%>Stock</td>
 		<td width=22%>Vendu</td>
-		<td width=22%>Payé / Rendu</td>
+		<td width=22%>Payé</td>
 	</tr>
 	<tr>
-		<td >
-			<span id=total></span>		
+		<td>
+			<span id=total></span>
 		</td>
-		<td ><b><span id=total_vente_depot>0.00</span> €</b></td>
-		<td ><b><span id=total_vente_stock>0.00</span> €</b></td>
-		<td ><b><span id=total_vente_vendu>0.00</span> €</b></td>
-		<td ><b><span id=total_vente_paye>0.00</span> €</b> / <b><span id=total_vente_rendu>0.00</span> €</b></td>
+		<td><b><span id=total_vente_depot>0.00</span> €</b></td>
+		<td><b><span id=total_vente_stock>0.00</span> €</b></td>
+		<td><b><span id=total_vente_vendu>0.00</span> €</b></td>
+		<td><b><span id=total_vente_paye>0.00</span> €</b>
+			<!--/ <b><span id=total_vente_rendu>0.00</span> €</b>-->
+		</td>
 	</tr>
 	<tr>
-		<td ></td><td ></td>
-		<td >Dépôt </td>
-		<td >Com</td>
-		<td >Com recu</td>
-		
-	</tr>	
+		<td></td>
+		<td></td>
+		<td>Dépôt </td>
+		<td>Com</td>
+		<td>Com recu</td>
+
+	</tr>
 	<tr>
-		<td ></td><td ></td>
-		<td ><b><span id=total_depot>0.00</span> €</b></td>
-		<td ><b><span id=total_com_vendu>0.00</span> €</b></td>
-		<td ><b><span id=total_com_paye>0.00</span> €</b></td>
-		
-	</tr>	
+		<td></td>
+		<td></td>
+		<td><b><span id=total_depot>0.00</span> €</b></td>
+		<td><b><span id=total_com_vendu>0.00</span> €</b></td>
+		<td><b><span id=total_com_paye>0.00</span> €</b></td>
+
+	</tr>
 </table>
 <table width="100%">
 	<tr>
