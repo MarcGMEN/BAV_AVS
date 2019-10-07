@@ -86,7 +86,7 @@ function action_createFiche($data)
 
         // creation du numero
         if ($ADMIN || $TABLE) {
-            makeNumeroFiche(700, $tabObj);
+            makeNumeroFiche($FICHE_INFO, $tabObj);
             $tabObj['obj_etat'] = 'STOCK';
             $tabObj['obj_prix_vente'] = $tabObj['obj_prix_depot'];
             $tabObj['obj_date_depot'] = date('y-m-d h:m:s');
@@ -232,7 +232,7 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
         $client['cli_taux_com'] = $par['par_taux_1'];
         $client['cli_id_modif'] = "";
 
-        $fiche['obj_numero'] = "700";
+        $fiche['obj_numero'] = $FICHE_INFO;
         $fiche['obj_type'] = "VTT";
         $fiche['obj_public'] = "Homme";
         $fiche['obj_pratique'] = "Sportive";
@@ -300,20 +300,9 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
     return $CFG_URL . $filePDF;
 }
 
-function action_mail()
-{
-    /*$headers  = "MIME-Version: 1.0\r\n";
-    $headers .= "Content-type: text/html; charset=utf-8\r\n";*/
-    //$headers .= "Content-Transfer-Encoding:8bit \n";
-    /*$headers .= "From: avs.vtt@gmail.com\r\n";
-    $headers .= "Reply-To: avs.vtt@gmail.com\r\n";
-*/
-    $titreMel = "Confirmation du dépôt de la Bourse Aux Vélos";
-    echo sendMailTEST($titreMel, "marc.garces@free.fr", "coucou sendMailTéééééàààéààçàèèôöEST");
-    return sendMail($titreMel, "braillou@gmail.com", "coucou sendMail", "/BAV/out/PDF/Fiche_700.pdf");
-}
 function action_confirmeFiche($obj)
 {
+    extract($GLOBALS);
     $infoAppli = return_infoAppli();
     // droit = ADMIN+TABLE+CLIENT
     $ADMIN = $infoAppli['ADMIN'];
@@ -325,7 +314,7 @@ function action_confirmeFiche($obj)
         $fiche['obj_etat'] = $fiche['obj_etat_new'];
         unset($fiche['obj_etat_new']);
 
-        makeNumeroFiche(700, $fiche);
+        makeNumeroFiche($FICHE_INFO, $fiche);
 
         updateFiche($fiche);
     }
@@ -333,6 +322,7 @@ function action_confirmeFiche($obj)
 }
 function action_changeEtatFiche($obj)
 {
+    extract($GLOBALS);
     $infoAppli = return_infoAppli();
     // droit = ADMIN+TABLE+CLIENT
     $ADMIN = $infoAppli['ADMIN'];
@@ -344,7 +334,7 @@ function action_changeEtatFiche($obj)
         unset($fiche['obj_etat_new']);
 
         if ($fiche['obj_etat'] == 'CONFIRME') {
-            makeNumeroFiche(700, $fiche);
+            makeNumeroFiche($FICHE_INFO, $fiche);
         } elseif ($fiche['obj_etat'] == 'STOCK') {
             $fiche['obj_prix_vente'] = $fiche['obj_prix_depot'];
             $fiche['obj_date_depot'] = date('y-m-d h:m:s');

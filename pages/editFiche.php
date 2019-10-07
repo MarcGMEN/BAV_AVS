@@ -36,6 +36,7 @@
 
 	function imprimeEtiquettes(eti0, eti1) {
 		console.log("Impression de " + eti0.value + " a " + eti1.value);
+		document.body.style.cursor = 'progress';
 		x_action_makeA4Etiquette(eti0.value, eti1.value, display_openPDF);
 	}
 </script>
@@ -70,7 +71,7 @@
 			<td>
 				<? if ($title == "ETIQUETTE") { ?>
 					<form style="color:black">
-						Impression de <input type=number name=eti0 value='700' style='width:10%' size=5> a <input type=number name=eti1 size=5 style='width:10%'>
+						Impression de <input type=number name=eti0 value='<?= $FICHE_INFO ?>' style='width:10%' size=5> a <input type=number name=eti1 size=5 style='width:10%'>
 						<input type=button value='Imprimer' onclick='imprimeEtiquettes(this.form.eti0,this.form.eti1)'>
 					</form>
 				<? } ?>

@@ -26,7 +26,7 @@ if ($GET_a == "C") {
             if (trim($fiche['obj_etat']) == "INIT") {
                 $fiche['obj_etat'] = 'CONFIRME';
 
-                makeNumeroFiche(700, $fiche);
+                makeNumeroFiche($FICHE_INFO, $fiche);
 
                 //$row['obj_date_depot_FR'] = formateDateMYSQLtoFR($row['obj_date_depot'], true);
                 $tabPlus['obj_date_depot_FR_SH'] = formateDateMYSQLtoFR($fiche['obj_date_depot'], false);

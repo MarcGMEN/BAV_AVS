@@ -332,6 +332,9 @@ div.MENU {
 }
  
 @media screen and (max-width: 768px) {
+	.alert {
+		font-size: 1em;
+	}
 	.menuMobile {
 		display: block;
 		top: 0;
@@ -630,6 +633,9 @@ img.logo {
 	.BH_CADRE {
 		font-size: 0.7em;
 		width: 100%;
+	}
+	.tittab {
+		font-size: 0.6em;
 	}
 	.TITRE_FENETRE_PRINCIPALE {
 		font-size: 1.4em;
