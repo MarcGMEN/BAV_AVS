@@ -9,7 +9,12 @@
 	}
 	function display_fiche(val) {
         if (val instanceof Object) {
-            console.log(val);
+            //console.log(val);
+			if (val['obj_etat'] == "CONFIRME") { 
+				val['obj_prix_vente']=val['obj_prix_depot'];
+			}
+
+
 			display_formulaire(val);
 			if (val['obj_etat'] == "STOCK") { 
                 messageVente = "<div class='alert alert-danger'><b>Votre vélo numéro " + val['obj_numero'] + " n\'a pas encore été vendu.<br/> Veuillez re-essayer ultérieurement.</b></div>";

@@ -74,7 +74,7 @@
 					repr += "<td width=5% align=center>";
 					repr += val[index]['obj_numero'];
 					repr += "</td>";
-					repr += "<td width=10% >";
+					repr += "<td width=7% >";
 					repr += val[index]['obj_type'];
 					repr += "</td>";
 					/*repr += "<td width=10% >";
@@ -86,7 +86,7 @@
 					repr += "<td class='maskMobile' width=10% >";
 					repr += val[index]['obj_marque'];
 					repr += "</td>";
-					repr += "<td class='maskMobile' width=10% >";
+					repr += "<td class='maskMobile' width=13% >";
 					repr += val[index]['vendeur_nom'];
 					repr += "</td>";
 					repr += "<td width=10% >";
@@ -241,7 +241,7 @@
 	<tr>
 		<td class="tittab" width=5%>
 			<span id='obj_numero' onclick="triColonne('obj_numero')" class="sortable">No&nbsp;&nbsp;</span></td>
-		<td class="tittab" width=10%>
+		<td class="tittab" width=7%>
 			<span id='obj_type' onclick="triColonne('obj_type')" class="sortable">Type&nbsp;&nbsp;</span>
 			&nbsp;<select id="sel_obj_type" onchange="selectColonne('obj_type', this.value)"></select></td>
 		<!--<td class="tittab" width=10%>
@@ -256,7 +256,7 @@
 		<!--<td class="tittab maskMobile" width=10%>
 			<span id='obj_marque' onclick="triColonne('obj_couleur')" class="sortable">Couleur&nbsp;&nbsp;&nbsp;</span>
 			&nbsp;<select id="sel_obj_couleur" onchange="selectColonne('obj_couleur', this.value)"></select></td>-->
-		<td class="tittab maskMobile" width=10%>
+		<td class="tittab maskMobile" width=13%>
 			<span id='vendeur_nom' onclick="triColonne('vendeur_nom')" class="sortable">Vendeur&nbsp;&nbsp;</span>
 			<!--<input type=text name='cli_nom_<?= rand(1, 100) ?>' size="20" class="autocomplete" maxlength="100" 
 				onkeyup="x_return_listClientByName(this.value, display_listVendeur);"

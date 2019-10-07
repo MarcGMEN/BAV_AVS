@@ -102,7 +102,8 @@
 					<span class="help link" onmouseover="Aff_layer('aide_descript')" onmouseout="Cache_layer('aide_descript')">?</span>
 				</span>
 				<span class="tabInput col-md-10 col-sm-10 col-xs-9">
-					<textarea rows="4" cols="100" tabindex=<?= $tabindex++ ?> style="resize:none;overflow: none;" name="obj_description" maxlength="200" onkeyup="MaxLengthTextarea(this, 200);" onkeyup="setStartSaisie(true)" placeholder="Année d'achat, prix d'achat, taille, accessoires, révision (transmission, pneus, freins..)">Taille :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Prix d'achat : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Année d'achat : (etc...)</textarea>
+					<textarea rows="4" cols="100" tabindex=<?= $tabindex++ ?> style="resize:none;overflow: none;" name="obj_description" maxlength="250" 
+						onkeyup="MaxLengthTextarea(this, 250);" onkeyup="setStartSaisie(true)" placeholder="Année d'achat, prix d'achat, taille, accessoires, révision (transmission, pneus, freins..)">Taille :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Prix d'achat : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Année d'achat : (etc...)</textarea>
 				</span>
 				<span class="col-md-12 col-sm-12 col-xs-12 help">
 					<div id="aide_descript" style="visibility: hidden;">

@@ -104,7 +104,7 @@ function action_createFiche($data)
 
             $tabPlus['titre'] = $infoAppli['titre'];
 
-            $titreMel = "Confirmation de votre dépôt à " . $infoAppli['titre'];
+            $titreMel = "Confirmation de votre d&eacute;p&ocirc;t à " . $infoAppli['titre'];
             $message = makeMessage($titreMel, array_merge($tabObj, $tabCli, $tabPlus), "mel_enregistrement.html");
         }
 
@@ -175,6 +175,32 @@ function action_deleteFiche($id)
     deleteFiche($id);
 }
 
+// cumul des etiquettes 
+function action_makeA4Etiquette($eti0, $eti1) {
+
+    extract($GLOBALS);
+
+    $etiquettes="<hr/>";
+    for ($numFiche= $eti0; $numFiche <= $eti1; $numFiche++) {
+        $fiche = return_oneFicheByCode($numFiche);
+        if ($fiche['obj_id']) {
+            // refaire les descriptions, pas de retour chariots et limite.
+            
+            $fiche['obj_description'] = str_replace("\n", " / ", $fiche['obj_description']);
+
+            $etiquettes .= makeCorps($fiche, 'etiquette.html');
+            $etiquettes.="<hr/>";
+        }
+    }
+    $fileHTML="../html/etiquettes_".$eti0."_".$eti1.".html";
+
+    file_put_contents($fileHTML, $etiquettes);
+
+    $filePDF = html2pdf("", $fileHTML, "etiquettes_".$eti0."_".$eti1.".pdf");
+
+    return  $CFG_URL .$filePDF;
+}
+
 function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
 {
     //echo $html;
@@ -214,7 +240,7 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
         $fiche['obj_modele'] = "RockRider";
         $fiche['obj_couleur'] = "Noire";
         $fiche['obj_accessoire'] = "";
-        $fiche['obj_description'] = "Ras";
+        $fiche['obj_description'] = "ceci est un texte long pour essayer de prendre de la place sur une ligne avec un maximun de place, allez on saute une ligne<br/>une ligne<br/> et encore une<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9";
         $fiche['obj_prix_vente'] = "130";
         $fiche['obj_prix_depot'] = "150";
         $fiche['obj_id_modif'] = "";
@@ -263,6 +289,9 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
         $fiche['obj_prix_vente'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
         $client['cli_com'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>";
     }
+
+    $fiche['obj_description'] = str_replace("\n", " / ", $fiche['obj_description']);
+    $fiche['obj_description'] = str_replace("<br/>", " / ", $fiche['obj_description']);
 
     //print_r(array_merge($fiche, $client, $acheteur, $tabPlus));
 

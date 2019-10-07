@@ -43,7 +43,7 @@
                 'class' => 'maskMobileBlock'
             ],
             'stock.php' => [
-                'libelle' => 'Stock'
+                'libelle' => 'Le Stock'
             ],
             'stock-client.php' => [
                 'libelle' => 'Parc'
