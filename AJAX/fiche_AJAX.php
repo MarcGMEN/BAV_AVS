@@ -104,7 +104,7 @@ function action_createFiche($data)
 
             $tabPlus['titre'] = $infoAppli['titre'];
 
-            $titreMel = "Confirmation de votre d&eacute;p&ocirc;t à " . $infoAppli['titre'];
+            $titreMel = "Confirmation de votre dépôt à " . $infoAppli['titre'];
             $message = makeMessage($titreMel, array_merge($tabObj, $tabCli, $tabPlus), "mel_enregistrement.html");
         }
 

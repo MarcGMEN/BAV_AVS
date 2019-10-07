@@ -26,6 +26,15 @@
             'libelle' => 'Presse'],
     ];
 
+    if ($infAppli['NB_MODIF'] == 1) {
+        $tabClientPlus = [
+            'stock-client.php' => [
+                'libelle' => 'Parc'
+            ]
+        ]; 
+        $tabNavAll= array_merge($tabNavAll, $tabClientPlus);
+    }
+
     $tabNavAdm=[];
 
     if ($infAppli['ADMIN']) {
@@ -83,16 +92,6 @@
                 'mode' => 'create'
             ]
         ];
-        $today=time();
-        //if ($today >= $infAppli['date_j1'] && $today <= $infAppli['date_j3'] && $infAppli['NB_MODIF'] == 1) {
-        if ($infAppli['NB_MODIF'] == 1) {
-            $tabClientPlus = [
-                'stock-client.php' => [
-                    'libelle' => 'Parc'
-                ]
-            ]; 
-            $tabNavAdm= array_merge($tabNavAdm, $tabClientPlus);
-        }
     }
     $tabNav = array_merge($tabNavAll, $tabNavAdm);
     ?>

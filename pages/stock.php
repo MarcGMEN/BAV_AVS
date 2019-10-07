@@ -91,7 +91,7 @@
 					repr += "</td>";
 					repr += "<td width=10% >";
 					if (val[index]['obj_prix_vente'] == 0) {
-						repr += "<span style='color:orange'>" + val[index]['obj_prix_depot'] + "</span>";
+						repr += "<span style='color:RED'>" + val[index]['obj_prix_depot'] + "</span>";
 					} else {
 						repr += val[index]['obj_prix_vente'];
 					}
