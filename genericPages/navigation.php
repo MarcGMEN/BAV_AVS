@@ -63,6 +63,10 @@
             'saisieExpress.php' => [
                 'libelle' => 'Saisie Express',
                 'class' => 'maskMobileBlock'
+            ],
+            'import.php' => [
+                'libelle' => 'Import Gros Client',
+                'class' => 'maskMobileBlock'
             ]
         ];
     } elseif ($infAppli['TABLE']) {

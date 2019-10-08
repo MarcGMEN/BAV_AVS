@@ -23,10 +23,9 @@ function html2pdf($data, $html, $fileOut)
         $html2pdf->writeHTML($content);
         $html2pdf->output(dirname(__FILE__)."/../out/PDF/$fileOut.pdf", 'F');
     } catch (Html2PdfException $e) {
-        print_r($e);
         $html2pdf->clean();
         $formatter = new ExceptionFormatter($e);
-        echo $formatter->getHtmlMessage();
+        throw $formatter;
     }
     return $CFG_OUT_PDF.$fileOut.".pdf";
 }

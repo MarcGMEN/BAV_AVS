@@ -18,5 +18,6 @@ sajax_export(
     "return_countByEtat",
     "return_fiches",
     "return_fiches_express",
-    "action_makeA4Etiquette"
+    "action_makeA4Etiquettes",
+    "action_makeA4Fiches"
 );

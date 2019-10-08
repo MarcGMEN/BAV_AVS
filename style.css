@@ -111,7 +111,7 @@ input:required {
 	font-weight: bold;
 }
 
-button, input[type=button], input[type=submit] {
+button, input[type=button], input[type=submit], input[type=reset], input[type=file] {
 	font-family: Verdana, Arial, Helvetica, sans-serif !important;
 	font-weight: normal;
 	/*font-weight: bold;*/

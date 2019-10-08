@@ -119,6 +119,19 @@ function getFicheLibre($base)
     return $base;
 }
 
+function lastFiche($base) {
+    $row = null;
+    $query = " SELECT max(obj_numero) from bav_objet where obj_numero >= $base and obj_numero_bav = ".
+        $_COOKIE['NUMERO_BAV'];
+    if ($result = $GLOBALS['mysqli']->query($query)) {
+        $row = $result->fetch_assoc();
+        $result->close();
+    } else {
+        throw new Exception("Pb lastFicheInfo' [$query]".mysqli_error($result));
+    }
+    return $row;
+}
+
 
 /**
  * recherche de la fiche par code

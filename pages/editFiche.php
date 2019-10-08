@@ -35,9 +35,15 @@
 	}
 
 	function imprimeEtiquettes(eti0, eti1) {
-		console.log("Impression de " + eti0.value + " a " + eti1.value);
+		console.log("Impression des etiquettes de " + eti0.value + " a " + eti1.value);
 		document.body.style.cursor = 'progress';
-		x_action_makeA4Etiquette(eti0.value, eti1.value, display_openPDF);
+		x_action_makeA4Etiquettes(eti0.value, eti1.value, display_openPDF);
+	}
+
+	function imprimeFiches(eti0, eti1) {
+		console.log("Impression des fiches de " + eti0.value + " a " + eti1.value);
+		document.body.style.cursor = 'progress';
+		x_action_makeA4Fiches(eti0.value, eti1.value, display_openPDF);
 	}
 </script>
 <h1>Gestion des textes HTML</h1>
@@ -73,6 +79,12 @@
 					<form style="color:black">
 						Impression de <input type=number name=eti0 value='<?= $FICHE_INFO ?>' style='width:10%' size=5> a <input type=number name=eti1 size=5 style='width:10%'>
 						<input type=button value='Imprimer' onclick='imprimeEtiquettes(this.form.eti0,this.form.eti1)'>
+					</form>
+				<? } ?>
+				<? if ($title == "FICHE DEPOT") { ?>
+					<form style="color:black">
+						Impression de <input type=number name=eti0 value='<?= $FICHE_INFO ?>' style='width:10%' size=5> a <input type=number name=eti1 size=5 style='width:10%'>
+						<input type=button value='Imprimer' onclick='imprimeFiches(this.form.eti0,this.form.eti1)'>
 					</form>
 				<? } ?>
 			</td>

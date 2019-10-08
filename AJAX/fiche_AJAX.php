@@ -176,29 +176,73 @@ function action_deleteFiche($id)
 }
 
 // cumul des etiquettes 
-function action_makeA4Etiquette($eti0, $eti1) {
+function action_makeA4Etiquettes($eti0, $eti1)
+{
 
     extract($GLOBALS);
 
-    $etiquettes="<hr/>";
-    for ($numFiche= $eti0; $numFiche <= $eti1; $numFiche++) {
+    $etiquettes = "<hr/>";
+    for ($numFiche = $eti0; $numFiche <= $eti1; $numFiche++) {
         $fiche = return_oneFicheByCode($numFiche);
         if ($fiche['obj_id']) {
             // refaire les descriptions, pas de retour chariots et limite.
-            
+
             $fiche['obj_description'] = str_replace("\n", " / ", $fiche['obj_description']);
 
             $etiquettes .= makeCorps($fiche, 'etiquette.html');
-            $etiquettes.="<hr/>";
+            $etiquettes .= "<hr/>";
         }
     }
-    $fileHTML="../html/etiquettes_".$eti0."_".$eti1.".html";
+    $fileHTML = "../html/etiquettes_" . $eti0 . "_" . $eti1 . ".html";
 
     file_put_contents($fileHTML, $etiquettes);
 
-    $filePDF = html2pdf("", $fileHTML, "etiquettes_".$eti0."_".$eti1.".pdf");
+    $filePDF = html2pdf("", $fileHTML, "etiquettes_" . $eti0 . "_" . $eti1);
+    unlink($fileHTML);
 
-    return  $CFG_URL .$filePDF;
+    return  $CFG_URL . $filePDF;
+}
+
+// cumul des etiquettes 
+function action_makeA4Fiches($eti0, $eti1)
+{
+
+    extract($GLOBALS);
+    try {
+        $etiquettes = "<hr/>";
+        for ($numFiche = $eti0; $numFiche <= $eti1; $numFiche++) {
+            $fiche = return_oneFicheByCode($numFiche);
+            if ($fiche['obj_id']) {
+                // refaire les descriptions, pas de retour chariots et limite.
+                $client = getOneClient($fiche['obj_id_vendeur']);
+
+                $fiche['obj_description'] = str_replace("\n", " / ", $fiche['obj_description']);
+                $fiche['obj_description'] = str_replace("<br/>", " / ", $fiche['obj_description']);
+
+                if ($fiche['obj_prix_vente'] > 0) {
+                    if ($fiche['obj_prix_vente'] < 1000) {
+                        $client['cli_com'] = $fiche['obj_prix_vente'] * ($client['cli_taux_com'] / 100);
+                    } else {
+                        $client['cli_com'] = 100;
+                    }
+                } else {
+                    $fiche['obj_prix_vente'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
+                    $client['cli_com'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>";
+                }
+                $etiquettes .= makeCorps(array_merge($fiche, $client), 'fiche_depot.html');
+            }
+        }
+        $fileHTML = "../html/fiches_" . $eti0 . "_" . $eti1 . ".html";
+
+        file_put_contents($fileHTML, $etiquettes);
+
+        $filePDF = html2pdf("", $fileHTML, "fiches_" . $eti0 . "_" . $eti1);
+        unlink($fileHTML);
+
+        return  $CFG_URL . $filePDF;
+    } catch (Exception $e) {
+        return "ERREUR " . $e->getMessage();
+    }
 }
 
 function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
@@ -259,7 +303,7 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
         $client['cli_id_modif'] = "";
 
         $fiche['obj_numero'] = "";
-        $fiche['obj_type'] = "<br/><small>VTT-Course-VTC-Ville-BMX-Autre</small>";
+        $fiche['obj_type'] = "<br/><small>VTT-Course-VTC-Ville-BMX-Autre-VAE</small>";
         $fiche['obj_public'] = "<br/><small>Homme-Femme-Mixte-Enfant</small>";
         $fiche['obj_pratique'] = "Sportive-Loisir-Compétition";
         $fiche['obj_marque'] = "";
@@ -338,15 +382,15 @@ function action_changeEtatFiche($obj)
         } elseif ($fiche['obj_etat'] == 'STOCK') {
             $fiche['obj_prix_vente'] = $fiche['obj_prix_depot'];
             $fiche['obj_date_depot'] = date('y-m-d h:m:s');
-        /*} elseif ($fiche['obj_etat'] == 'VENDU') {
+            /*} elseif ($fiche['obj_etat'] == 'VENDU') {
             $fiche['obj_date_vente'] = date('y-m-d h:m:s');
 //            $client = getOneClient($fiche['obj_id_vendeur']);*/
         } elseif ($fiche['obj_etat'] == 'RENDU' || $fiche['obj_etat'] == 'PAYE') {
             $fiche['obj_date_retour'] = date('y-m-d h:m:s');
-        } elseif ($fiche['obj_etat'] == 'RESTOCK' ) {
+        } elseif ($fiche['obj_etat'] == 'RESTOCK') {
             $fiche['obj_date_retour'] = null;
             $fiche['obj_date_vente']  = null;
-            $fiche['obj_id_acheteur'] =0;
+            $fiche['obj_id_acheteur'] = 0;
             $fiche['obj_etat'] = 'STOCK';
         }
         //print_r($fiche);
@@ -374,17 +418,17 @@ function action_vendFiche($data)
         $fiche['obj_id_acheteur'] = $client['cli_id'];
         $fiche['obj_date_vente'] = date('y-m-d h:m:s');
         updateFiche($fiche);
-        
-        $theFiche= getOneFiche($fiche['obj_id']);
-        $cliVend= return_oneClient($theFiche['obj_id_vendeur']);
 
-        $tab=array();
+        $theFiche = getOneFiche($fiche['obj_id']);
+        $cliVend = return_oneClient($theFiche['obj_id_vendeur']);
+
+        $tab = array();
         if ($theFiche['obj_prix_vente'] < 1000) {
             $tab['cli_com'] = $theFiche['obj_prix_vente'] * ($cliVend['cli_taux_com'] / 100);
         } else {
             $tab['cli_com'] = 100;
         }
-        
+
         if ($cliVend['cli_emel'] != "") {
             // TODO : envoi du mail
             $titreMel = "BAV #" . $fiche['obj_numero'] . ", votre vélo est vendu .";
@@ -440,7 +484,8 @@ function return_fiches($tri, $sens, $selection)
                     $tab['total_com_vendu'] += 100;
                 }
             }
-            if ($val['obj_etat'] == "STOCK" || $val['obj_etat'] == "VENDU" || $val['obj_etat'] == "RENDU" || $val['obj_etat'] == "PAYE"
+            if (
+                $val['obj_etat'] == "STOCK" || $val['obj_etat'] == "VENDU" || $val['obj_etat'] == "RENDU" || $val['obj_etat'] == "PAYE"
             ) {
                 $tab['total_vente_depot'] += $val['obj_prix_vente'];
             }

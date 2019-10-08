@@ -65,12 +65,6 @@ function action_updateClient($obj)
     }
 }
 
-function action_insertClient($obj)
-{
-    $tab = string2Tab($obj);
-    return insertClient($tab);
-}
-
 function action_deleteClient($id)
 {
     $tabFiche = getFiches("obj_id", "asc", array("obj_id_vendeur" => $id));
@@ -86,6 +80,11 @@ function action_deleteClient($id)
     else {
         return "Suppresion impossible, il reste des fiches ventes reliées à ce client.";
     }
+}
+
+function action_makeClient($data) {
+    $tabCli = tabToObject(string2Tab($data), "cli");
+    return makeClient($tabCli);
 }
 
 function makeClient(&$tabCli)

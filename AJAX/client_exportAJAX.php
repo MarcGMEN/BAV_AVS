@@ -2,7 +2,7 @@
 sajax_export(
     "return_oneClient",
     "action_updateClient",
-    "action_insertClient",
+    "action_makeClient",
     "return_oneClientByMel",
     "return_oneClientByIdModif",
     "return_listClientByMel",
