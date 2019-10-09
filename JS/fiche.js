@@ -138,7 +138,9 @@ function display_fiche(val) {
 
             // TODO : blocage de la fiche, sauf admin
             document.ficheForm.obj_prix_depot.disabled = true;
-            document.ficheForm.cli_prix_depot.disabled = true;
+            if (!TABLE && !ADMIN) {
+                document.ficheForm.cli_prix_depot.disabled = true;
+            }
             document.ficheForm.buttonEtatFiche.value = "Vendre";
             document.ficheForm.obj_etat_new.value = "VENDU";
             val['obj_etat_libelle'] = "Présent sur le parc";
@@ -146,7 +148,7 @@ function display_fiche(val) {
             document.ficheForm.buttonEtatFicheBis.value = 'Rendre';
             document.ficheForm.obj_prix_vente.disabled = false
             document.ficheForm.buttonEtatFicheBis.onclick = function () { changeEtatFiche('RENDU') };
-            if (!ADMIN) {
+            if (!TABLE && !ADMIN) {
                 disable_formulaire(document.ficheForm, "cli");
             }
 
