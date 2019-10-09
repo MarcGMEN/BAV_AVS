@@ -59,7 +59,7 @@
 		getElement('inputSearch').disabled=startSaisie;
 	}
 
-	function confirmPass(pass) {
+	function confirmPass() {
 		x_whatYourName(document.modalForm.pass.value, displayhello);
 	}
 
