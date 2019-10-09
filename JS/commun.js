@@ -231,6 +231,9 @@ function display_list_select(val, champ, leForm) {
 	tabPrixDepot = val;
 	var select = leForm.elements[champ];
 	if (select) {
+		while (select.firstChild) {
+			select.removeChild(select.firstChild);
+	  	}
 		for (index in val) {
 			select.appendChild(new Option(val[index], val[index]));
 			if (index == 1) {

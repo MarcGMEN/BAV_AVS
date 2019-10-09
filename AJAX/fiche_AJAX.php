@@ -209,7 +209,6 @@ function action_makeA4Fiches($eti0, $eti1)
 
     extract($GLOBALS);
     try {
-        $etiquettes = "<hr/>";
         for ($numFiche = $eti0; $numFiche <= $eti1; $numFiche++) {
             $fiche = return_oneFicheByCode($numFiche);
             if ($fiche['obj_id']) {

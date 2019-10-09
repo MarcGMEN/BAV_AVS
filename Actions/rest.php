@@ -94,21 +94,23 @@ if ($GET_a == "I") {
                 $fiche['obj_prix_depot'] = "<s>" . $fiche['obj_prix_depot'] . " €</s><span style='color:RED'>" . $fiche['obj_prix_vente'] . "</span>";
             }
 
-           /* if ($fiche['obj_prix_vente'] > 0) {
+            if ($fiche['obj_prix_vente'] > 0) {
                 if ($fiche['obj_prix_vente'] < 1000) {
                     $client['cli_com'] = $fiche['obj_prix_vente'] * ($client['cli_taux_com'] / 100);
                 } else {
                     $client['cli_com'] = 100;
                 }
-            } else {*/
-                $fiche['obj_prix_depot'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
+            } else {
                 $fiche['obj_prix_vente'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
                 $client['cli_com'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>";
-            //}
+            }
 
             $tabPlus['titre'] = $par['titre'];
             $tabPlus['URL'] = $CFG_URL;
 
+            $fiche['obj_description'] = str_replace("\n", " / ", $fiche['obj_description']);
+            $fiche['obj_description'] = str_replace("<br/>", " / ", $fiche['obj_description']);
+            
             // convert en PDF
             $filePDF = html2pdf(array_merge($fiche, $client, $tabPlus), "fiche_depot.html", "Fiche_" . $fiche['obj_numero']);
 
