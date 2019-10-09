@@ -94,7 +94,7 @@ if ($GET_a == "I") {
                 $fiche['obj_prix_depot'] = "<s>" . $fiche['obj_prix_depot'] . " €</s><span style='color:RED'>" . $fiche['obj_prix_vente'] . "</span>";
             }
 
-            if ($fiche['obj_prix_vente'] > 0) {
+            if ($fiche['obj_prix_vente'] > 0 && ($fiche['obj_etat'] == 'VENDU' || $fiche['obj_etat'] == 'PAYE')) {
                 if ($fiche['obj_prix_vente'] < 1000) {
                     $client['cli_com'] = $fiche['obj_prix_vente'] * ($client['cli_taux_com'] / 100);
                 } else {

@@ -181,7 +181,7 @@ function action_makeA4Etiquettes($eti0, $eti1)
 
     extract($GLOBALS);
 
-    $etiquettes = "<hr/>";
+    $etiquettes = "";
     for ($numFiche = $eti0; $numFiche <= $eti1; $numFiche++) {
         $fiche = return_oneFicheByCode($numFiche);
         if ($fiche['obj_id']) {
@@ -218,7 +218,7 @@ function action_makeA4Fiches($eti0, $eti1)
                 $fiche['obj_description'] = str_replace("\n", " / ", $fiche['obj_description']);
                 $fiche['obj_description'] = str_replace("<br/>", " / ", $fiche['obj_description']);
 
-                if ($fiche['obj_prix_vente'] > 0) {
+                if ($fiche['obj_prix_vente'] > 0 && ($fiche['obj_etat'] == 'VENDU' || $fiche['obj_etat'] == 'PAYE')) {
                     if ($fiche['obj_prix_vente'] < 1000) {
                         $client['cli_com'] = $fiche['obj_prix_vente'] * ($client['cli_taux_com'] / 100);
                     } else {
@@ -275,6 +275,15 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
         $client['cli_taux_com'] = $par['par_taux_1'];
         $client['cli_id_modif'] = "";
 
+        $ach['ach_nom'] = "TEST acheteur";
+        $ach['ach_emel'] = "test.acheteur@test.com";
+        $ach['ach_adresse'] = "votre adresse";
+        $ach['ach_adresse1'] = "";
+        $ach['ach_code_postal'] = "44500";
+        $ach['ach_ville'] = "La Baule";
+        $ach['ach_telephone'] = "02 55 55 55 55 78 98 78";
+        $ach['ach_telephone_bis'] = "";
+        
         $fiche['obj_numero'] = $FICHE_INFO;
         $fiche['obj_type'] = "VTT";
         $fiche['obj_public'] = "Homme";
@@ -288,13 +297,14 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
         $fiche['obj_prix_depot'] = "150";
         $fiche['obj_id_modif'] = "";
         $fiche['obj_id_acheteur'] = 999999;
+        $fiche['obj_etat'] = "VENDU";
     } else {
         $client['cli_prix_depot'] = $par['par_prix_depot_1'];
         $client['cli_nom'] = "";
         $client['cli_emel'] = "";
         $client['cli_adresse'] = "";
         $client['cli_adresse1'] = "";
-        $client['cli_code_postal'] = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+        $client['cli_code_postal'] = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
         $client['cli_ville'] = "";
         $client['cli_telephone'] = "";
         $client['cli_telephone_bis'] = "";
@@ -309,7 +319,7 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
         $fiche['obj_modele'] = "";
         $fiche['obj_couleur'] = "";
         $fiche['obj_accessoire'] = "";
-        $fiche['obj_description'] = "&nbsp;<br/>&nbsp;<br/>&nbsp;";
+        $fiche['obj_description'] = "";
         $fiche['obj_prix_vente'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
         $fiche['obj_prix_depot'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
         $fiche['obj_id_modif'] = "";
@@ -322,7 +332,7 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
         $fiche['obj_prix_depot'] = "<s>" . $fiche['obj_prix_depot'] . " €</s><span style='color:RED'>" . $fiche['obj_prix_vente'] . "</span>";
     }
 
-    if ($fiche['obj_prix_vente'] > 0) {
+    if ($fiche['obj_prix_vente'] > 0 && ($fiche['obj_etat'] == 'VENDU' || $fiche['obj_etat'] == 'PAYE')) {
         if ($fiche['obj_prix_vente'] < 1000) {
             $client['cli_com'] = $fiche['obj_prix_vente'] * ($client['cli_taux_com'] / 100);
         } else {
@@ -487,8 +497,8 @@ function return_fiches($tri, $sens, $selection)
                 $val['obj_etat'] == "STOCK" || $val['obj_etat'] == "VENDU" || $val['obj_etat'] == "RENDU" || $val['obj_etat'] == "PAYE"
             ) {
                 $tab['total_vente_depot'] += $val['obj_prix_vente'];
+                $tab['total_depot'] += $val['cli_prix_depot'];
             }
-            $tab['total_depot'] += $val['cli_prix_depot'];
         }
         return $tab;
     } catch (Exception $e) {
