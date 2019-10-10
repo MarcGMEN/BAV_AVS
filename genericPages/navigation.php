@@ -61,7 +61,7 @@
                 'libelle' => 'Clients'
             ],
             'saisieExpress.php' => [
-                'libelle' => 'Saisie Express',
+                'libelle' => 'Création Express',
                 'class' => 'maskMobileBlock'
             ],
             'import.php' => [
@@ -85,7 +85,7 @@
                 'libelle' => 'Clients'
             ],
             'saisieExpress.php'=>[
-                'libelle' => 'Saisie Express',
+                'libelle' => 'Création Express',
                 'class' => 'maskMobileBlock'
             ]
         ];

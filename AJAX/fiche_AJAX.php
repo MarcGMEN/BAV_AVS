@@ -189,6 +189,10 @@ function action_makeA4Etiquettes($eti0, $eti1)
 
             $fiche['obj_description'] = str_replace("\n", " / ", $fiche['obj_description']);
 
+            if ($fiche['obj_prix_depot'] == 0) {
+                $fiche['obj_prix_depot']="";
+            }
+
             $etiquettes .= makeCorps($fiche, 'etiquette.html');
             $etiquettes .= "<hr/>";
         }
@@ -341,6 +345,10 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
     } else {
         $fiche['obj_prix_vente'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
         $client['cli_com'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>";
+    }
+
+    if ( $fiche['obj_prix_depot'] == 0) {
+        $fiche['obj_prix_depot']="";
     }
 
     $fiche['obj_description'] = str_replace("\n", " / ", $fiche['obj_description']);
