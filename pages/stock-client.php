@@ -2,19 +2,18 @@
 	var tri = "obj_numero";
 	var sens = "asc";
 	var tabSel = {};
-	tabSel['obj_etat']='STOCK';
+	tabSel['obj_etat'] = 'STOCK';
 
 	function initPage() {
 
-		if (NB_MODIF == 1) {
-		x_return_enum('bav_objet', 'obj_type', display_list_type);
-		x_return_enum('bav_objet', 'obj_public', display_list_public);
-		x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);
+		if (NB_MODIF == 1 || ADMIN) {
+			x_return_enum('bav_objet', 'obj_type', display_list_type);
+			x_return_enum('bav_objet', 'obj_public', display_list_public);
+			x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);
 
-		x_return_list_marques(display_list_marque)
-		x_return_fiches(tri, sens, tabToString(tabSel), display_fiches);
-		}
-		else {
+			x_return_list_marques(display_list_marque)
+			x_return_fiches(tri, sens, tabToString(tabSel), display_fiches);
+		} else {
 			goTo();
 		}
 	}
@@ -143,7 +142,7 @@
 		<td width=12%>
 			Nb <span id=total></span>
 		</td>
-	</tr>	
+	</tr>
 </table>
 <table width="100%">
 	<tr>
