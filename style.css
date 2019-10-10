@@ -30,10 +30,11 @@ body.parent, body {
 	color: BLACK;
 	margin: 0px;
 	font-size: 9pt;
-	/*background-image: url("Images/BAV.png");
-	background-repeat: repeat;
+	/*background-image: url("Images/AVS_bandeau_01.jpg");
+	background-repeat: no-repeat;
 	background-position: top left;
-	background-attachment: fixed;*/
+	background-attachment: fixed;
+	background-size: 10%;*/
 }
 
 body.popup {
@@ -407,6 +408,14 @@ div.FENETRE_PRINCIPALE {
 	/*	-moz-border-radius: 10px;
 	border-radius: 10px;
 	*/
+/*
+	background-image: url("Images/AVS_bandeau_02.jpg");
+	background-repeat: repeat;
+	background-position: top left;
+	background-attachment: fixed;
+	background-size: cover;
+	background-blend-mode: soft-light;
+*/
 }
 
 .TEXTE_FEN {

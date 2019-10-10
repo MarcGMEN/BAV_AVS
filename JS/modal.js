@@ -48,7 +48,7 @@ function alertModalPass() {
     getElement('modalTitre').innerHTML = "Connexion";
     getElement("modalClose").innerHTML = "<i class='fa fa-times-circle size-3 close' onclick='closeModal()'></i>";
 
-    getElement("modalText").innerHTML = "<h3>Connexion admin ["+ipLocal+"]</h3><input type=password name=pass required>" 
+    getElement("modalText").innerHTML = "<h3>Connexion admin ou table ["+ipLocal+"]</h3><input type=password name=pass required>" 
     
     $repr = "<input type=button value=Confirmer onclick='searchStyle();confirmPass();closeModal()'>";
     $repr += "&nbsp;&nbsp;&nbsp;&nbsp;<input type=button value=Annuler onclick='closeModal()'>";

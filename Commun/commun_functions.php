@@ -77,7 +77,7 @@ function moisFrench($num_m) {
 	switch ($num_m)
 	{
 		case 1:  $mois="janvier";break;
-		case 2:  $mois="f�vrier";break;
+		case 2:  $mois="février";break;
 		case 3:  $mois="mars";break;
 		case 4:  $mois="avril";break;
 		case 5:  $mois="mai";break;
