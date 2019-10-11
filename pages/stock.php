@@ -83,7 +83,7 @@
 					repr += "<td width=10% >";
 					repr += val[index]['obj_pratique'];
 					repr += "</td>";*/
-					repr += "<td class='maskMobile' width=10% >";
+					repr += "<td class='maskMobile' width=10% title='modèle :"+val[index]['obj_modele']+"'>";
 					repr += val[index]['obj_marque'];
 					repr += "</td>";
 					repr += "<td class='maskMobile' width=13% >";
@@ -204,7 +204,7 @@
 		<td width=12%>
 			Nb
 		</td>
-		<td width=22%>Dépôt</td>
+		<td width=22%>Total</td>
 		<td width=22%>Stock</td>
 		<td width=22%>Vendu</td>
 		<td width=22%>Payé</td>

@@ -1,6 +1,6 @@
 <? $idRamdom = rand(1000, 9999); ?>
 <script>
-	var idRamdom = "<?=$idRamdom?>";
+	var idRamdom = "<?= $idRamdom ?>";
 
 	function initPage() {
 		x_return_fiches_express(display_fiches);
@@ -31,7 +31,7 @@
 					getElement("vendeur_" + val[index]['obj_numero']).innerHTML =
 						val[index]['cli_nom'] + " -- " + val[index]['cli_taux_com'] + " % -- " + val[index]['cli_prix_depot'] + " €";
 					if (val[index]['acheteur_nom']) {
-						getElement("vendeur_" + val[index]['obj_numero']).innerHTML += " ====> Vendu à "+val[index]['acheteur_nom'];
+						getElement("vendeur_" + val[index]['obj_numero']).innerHTML += " ====> Vendu à " + val[index]['acheteur_nom'];
 					}
 					getElement("etat_" + val[index]['obj_numero']).innerHTML = val[index]['obj_etat'];
 
@@ -90,9 +90,9 @@
 			// }
 
 			document.formSaisieExpress.obj_prix_vente.disabled = true;
-		document.formSaisieExpress.cli_prix_depot.disabled = true;
-		document.formSaisieExpress.cli_taux_com.disabled = true;
-		document.formSaisieExpress.elements.namedItem('cli_nom_' + idRamdom).disabled = true;
+			document.formSaisieExpress.cli_prix_depot.disabled = true;
+			document.formSaisieExpress.cli_taux_com.disabled = true;
+			document.formSaisieExpress.elements.namedItem('cli_nom_' + idRamdom).disabled = true;
 
 			display_formulaire(val, document.formSaisieExpress);
 
@@ -146,14 +146,13 @@
 			var tabData = Object.assign({}, tabObj, tabCli);
 			console.log("demande de cration express");
 			x_action_createFicheExpress(tabToString(tabData), display_fin_create);
-		/*} else if (tabObj['obj_etat_new'] == 'VENDU') {
-			x_return_oneFicheByCode(tabObj['obj_numero'], display_fiche_vente);
+			/*} else if (tabObj['obj_etat_new'] == 'VENDU') {
+				x_return_oneFicheByCode(tabObj['obj_numero'], display_fiche_vente);
 
-		} else if (tabObj['obj_etat_new'] != '') {
-			console.log("etat => " + tabObj['obj_etat_new']);
-			x_action_changeEtatFiche(tabToString(tabObj), display_fin_create);*/
-		}
-		else {
+			} else if (tabObj['obj_etat_new'] != '') {
+				console.log("etat => " + tabObj['obj_etat_new']);
+				x_action_changeEtatFiche(tabToString(tabObj), display_fin_create);*/
+		} else {
 
 		}
 		//document.formSaisieExpress.obj_numero.value="";
@@ -196,8 +195,8 @@
 			x_return_fiches_express(display_fiches);
 			document.formSaisieExpress.obj_numero.focus();
 
-			val=[];
-			val['obj_numero']="";
+			val = [];
+			val['obj_numero'] = "";
 			val['obj_prix_vente'] = "";
 			val['obj_etat_new'] = "";
 			val['obj_etat'] = "";
@@ -290,32 +289,30 @@
 		</tr>
 		<tr>
 			<td>
-				<input type="number" name="obj_numero"
-					required onblur="x_return_oneFicheByCode(this.value, display_fiche)"
-					tabindex=<?=$tabindex++?>>
+				<input type="number" name="obj_numero" required onblur="x_return_oneFicheByCode(this.value, display_fiche)" tabindex=<?= $tabindex++ ?>>
 				<!--<span id="obj_id" ></span>-->
 				<input type="hidden" name="obj_id">
 			</td>
 			<td>
-				<input type=number name="obj_prix_vente" size=5 maxlength="10" tabindex=<?=$tabindex++?> title="Prix vente" required step="0.1" placeholder="00.00" />&nbsp;&#8364;</td>
+				<input type=number name="obj_prix_vente" size=5 maxlength="10" tabindex=<?= $tabindex++ ?> title="Prix vente" required step="0.1" placeholder="00.00" />&nbsp;&#8364;</td>
 			<td>
 				<small><small id='cli_id'></small></small>
-				<input type=text name='cli_nom_<?=$idRamdom?>' tabindex=<?=$tabindex++?> size="50" maxlength="100" required onblur='x_return_oneClientByName(this.value, display_infoClientVendeur)' list="listVendeur" onkeyup='x_return_listClientByName(this.value, display_listVendeur)'>
+				<input type=text name='cli_nom_<?= $idRamdom ?>' tabindex=<?= $tabindex++ ?> size="50" maxlength="100" required onblur='x_return_oneClientByName(this.value, display_infoClientVendeur)' list="listVendeur" onkeyup='x_return_listClientByName(this.value, display_listVendeur)'>
 				<datalist id="listVendeur"></datalist>
 				<input type="hidden" name="cli_id">
 			</td>
 			<td width='10%'>
-				<select name='cli_taux_com' tabindex=<?=$tabindex++?>></select>%
+				<select name='cli_taux_com' tabindex=<?= $tabindex++ ?>></select>%
 			</td>
 			<td width='10%'>
-				<select name='cli_prix_depot' tabindex=<?=$tabindex++?>></select>&#8364;
+				<select name='cli_prix_depot' tabindex=<?= $tabindex++ ?>></select>&#8364;
 			</td>
 			<td id="obj_etat"></td>
 			<td>
-				<button id="but_action" tabindex=<?=$tabindex++?>></button>
+				<button id="but_action" tabindex=<?= $tabindex++ ?>></button>
 			</td>
 			<td>
-				<button id="but_action2" tabindex=<?=$tabindex++?> onclick="document.formSaisieExpress.obj_etat_new.value='RENDU'"></button>
+				<button id="but_action2" tabindex=<?= $tabindex++ ?> onclick="document.formSaisieExpress.obj_etat_new.value='RENDU'"></button>
 				<input type="hidden" name="obj_etat">
 				<input type="hidden" name="obj_etat_new">
 			</td>
@@ -337,13 +334,13 @@
 <div style="overflow: scroll; height:60%">
 	<table width='100%'>
 		<? for ($index = 1; $index < 1500; $index++) { ?>
-			<tr class='tabl0' id="tr_<?=$index?>">
-				<td width=10% id="numero_<?=$index?>" onclick="x_return_oneFicheByCode('<?=$index?>', display_fiche)"><span style="color: GREEN"><?=$index?></span>
+			<tr class='tabl0' id="tr_<?= $index ?>">
+				<td width=10% id="numero_<?= $index ?>" onclick="x_return_oneFicheByCode('<?= $index ?>', display_fiche)"><span style="color: GREEN"><?= $index ?></span>
 				</td>
-				<td width=15% id="prix_vente_<?=$index?>"></td>
-				<td width=55% id="vendeur_<?=$index?>"></td>
-				<td width=10% id="etat_<?=$index?>"></td>
-				<td width=9% id="zoom_<?=$index?>"></td>
+				<td width=15% id="prix_vente_<?= $index ?>"></td>
+				<td width=55% id="vendeur_<?= $index ?>"></td>
+				<td width=10% id="etat_<?= $index ?>"></td>
+				<td width=9% id="zoom_<?= $index ?>"></td>
 			</tr>
 		<? } ?>
 	</table>

@@ -524,6 +524,10 @@ function return_fiches_express()
 function return_stat($selection)
 {
     try {
+
+        $infoAppli = return_infoAppli();
+    
+        //print_r($infoAppli);
         $tab = getFiches(null, "asc", string2Tab($selection));
         $tabCategLigne = [
             'prixMini' => 'Prix mini',
@@ -573,11 +577,11 @@ function return_stat($selection)
                 }
                 $total += $val['obj_prix_vente'];
                 $nb++;
-                if ($val['obj_date_depot'] && $val['obj_date_vente']) {
+                if ($val['obj_date_vente']) {
                     // echo dateMysqlInt($val['obj_date_vente']) . "-" . dateMysqlInt($val['obj_date_depot']);
                     // echo date('d/m/Y H:i:s', dateMysqlInt($val['obj_date_vente']));
                     // echo date('d/m/Y H:i:s', dateMysqlInt($val['obj_date_depot']));
-                    $timeSV = dateMysqlInt($val['obj_date_vente']) - dateMysqlInt($val['obj_date_depot']);
+                    $timeSV = dateMysqlInt($val['obj_date_vente']) - $infoAppli['date_j2'];
                     if ($timeSV > 0) {
                         $totalTimeSV += $timeSV;
                         $nbTimeSV++;

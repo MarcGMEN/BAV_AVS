@@ -87,7 +87,7 @@
 		'delaiMoyenSV' => 'Delai moyen Stock-Vente',
 		'delaiMinSV' => 'Delai mini Stock-Vente',
 		//'delaiMoyenVP' => 'Delai mini Vente Paye',
-		'delaiMoyenVR' => 'Delai mini Vente Rendu',
+		'delaiMoyenVR' => 'Delai moyen Vente Rendu',
 		'nbVeloVendeur' => 'Nombre moyen de velo par vendeur',
 		'nbVeloMaxiVendeur' => 'Nombre maxi de velo pour un vendeur',
 		'nbVeloAcheteur' => 'Nombre moyen de velo par acheteur',

@@ -140,7 +140,7 @@
 		<td width=12%>
 			Nb
 		</td>
-		<td width=22%>Dépôt</td>
+		<td width=22%>Total</td>
 		<td width=22%>Stock</td>
 		<td width=22%>Vendu</td>
 		<td width=22%>Paye</td>
