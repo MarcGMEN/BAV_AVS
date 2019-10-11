@@ -49,8 +49,8 @@
 <h1>Gestion des textes HTML</h1>
 <table width="100%" id="tableHTML">
 	<tr class="tittab">
-		<td width=50%>Fichier</td>
-		<td width=50% colspan="2">Actions</td>
+		<td width=40%>Fichier</td>
+		<td width=60% colspan="2">Actions</td>
 
 	</tr>
 	<?
@@ -70,11 +70,11 @@
 		?>
 		<tr class="tabl0">
 			<td><?= $title ?></td>
-			<td><span class="link url" onclick='x_action_makePDF(new Array(), "<?= $idText ?>.html", display_openPDF);' )>
+			<td width=20%><span class="link url" onclick='x_action_makePDF(new Array(), "<?= $idText ?>.html", display_openPDF);' )>
 					PDF</span>
 				<i class="fas fa-edit" onclick="x_return_html('<?= $idText ?>', display_html_file);idText='<?= $idText ?>';getElement('html_file_title').innerHTML='<?= $title ?>'" ;></i>
 			</td>
-			<td>
+			<td width=40%>
 				<? if ($title == "ETIQUETTE") { ?>
 					<form style="color:black">
 						Impression de <input type=number name=eti0 value='<?= $FICHE_INFO ?>' style='width:10%' size=5> a <input type=number name=eti1 size=5 style='width:10%'>
