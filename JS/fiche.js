@@ -28,6 +28,11 @@ function initPage() {
         document.ficheForm.checkCGU.required = false;
         // pas la peine de voir les CGU
         getElement("tdCGU").style.display = 'none';
+
+        document.ficheForm.elements.namedItem('obj_marque_' + idRamdom).required = false;
+        
+        document.ficheForm.obj_couleur.required = false;
+
         document.ficheForm.obj_prix_depot.required = true;
         document.ficheForm.obj_prix_depot.min = 1;
 
@@ -549,7 +554,7 @@ function display_infoClientVendeur(val, base) {
         val = [];
         val['cli_id'] = "";
         if (base == 'emel') {
-            val['cli_nom'] = "";
+            //val['cli_nom'] = "";
         }
         if (base == 'nom') {
             //val['cli_emel'] = "";

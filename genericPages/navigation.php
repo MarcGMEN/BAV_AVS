@@ -49,7 +49,6 @@ if ($infAppli['ADMIN']) {
             'libelle' => 'Déposer',
             'mode' => 'create'
         ],
-
         'stock.php' => [
             'libelle' => 'Le Stock'
         ],
