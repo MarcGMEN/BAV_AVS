@@ -283,7 +283,7 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
         $ach['ach_ville'] = "La Baule";
         $ach['ach_telephone'] = "02 55 55 55 55 78 98 78";
         $ach['ach_telephone_bis'] = "";
-        
+
         $fiche['obj_numero'] = $FICHE_INFO;
         $fiche['obj_type'] = "VTT";
         $fiche['obj_public'] = "Homme";
@@ -511,4 +511,134 @@ function return_fiches_express()
 {
     $tab = getFichesExpress();
     return $tab;
+}
+
+function return_stat($selection)
+{
+    try {
+        $tab = getFiches(null, "asc", string2Tab($selection));
+        $tabCategLigne = [
+            'prixMini' => 'Prix mini',
+            'prixMaxi' => 'Prix maxi',
+            'prixMoyen' => 'Prix moyen',
+            'delaiMoyenSV' => 'Delai moyen Stock-Vente',
+            'delaiMinSV' => 'Delai mini Stock-Vente',
+            // 'delaiMoyenVP' => 'Delai mini Vente Paye',
+            'delaiMoyenVR' => 'Delai mini Vente Rendu',
+            'nbVeloVendeur' => 'Nombre moyen de vélo par vendeur',
+            'nbVeloMaxiVendeur' => 'Nombre maxi de vélo pour un vendeur',
+            'nbVeloAcheteur' => 'Nombre moyen de vélo par vendeur',
+            'nbVeloMaxiAcheteur' => 'Nombre maxi de vélo pour un acheteur',
+
+        ];
+
+        foreach ($tabCategLigne as $keyL => $valL) {
+            $tabCount[$keyL] = 0;
+        }
+        $tabCount['prixMini'] = 1000000;
+        $tabCount['delaiMinSV'] = 1000000;
+
+        $total = 0;
+        $nb = 0;
+
+        $totalTimeSV = 0;
+        $nbTimeSV = 0;
+
+        $totalTimeVR = 0;
+        $nbTimeVR = 0;
+        $tabVendeur = [];
+        $tabAcheteur = [];
+
+        foreach ($tab as $key => $val) {
+            if (
+                $val['obj_etat'] == "STOCK" ||
+                $val['obj_etat'] == "VENDU" ||
+                $val['obj_etat'] == "RENDU" ||
+                $val['obj_etat'] == "PAYE"
+            ) {
+                if ($val['obj_prix_vente'] < $tabCount['prixMini']) {
+                    $tabCount['prixMini'] = $val['obj_prix_vente'];
+                }
+                // prix_maxi
+                if ($val['obj_prix_vente'] > $tabCount['prixMaxi']) {
+                    $tabCount['prixMaxi'] = $val['obj_prix_vente'];
+                }
+                $total += $val['obj_prix_vente'];
+                $nb++;
+                if ($val['obj_date_depot'] && $val['obj_date_vente']) {
+                    // echo dateMysqlInt($val['obj_date_vente']) . "-" . dateMysqlInt($val['obj_date_depot']);
+                    // echo date('d/m/Y H:i:s', dateMysqlInt($val['obj_date_vente']));
+                    // echo date('d/m/Y H:i:s', dateMysqlInt($val['obj_date_depot']));
+                    $timeSV = dateMysqlInt($val['obj_date_vente']) - dateMysqlInt($val['obj_date_depot']);
+                    if ($timeSV > 0) {
+                        $totalTimeSV += $timeSV;
+                        $nbTimeSV++;
+
+                        if ($timeSV < $tabCount['delaiMinSV']) {
+                            $tabCount['delaiMinSV'] = $timeSV;
+                        }
+                        // echo "--> " .duree2HMS($timeSV);
+
+
+                    }
+                    // echo "\n";
+                }
+                if ($val['obj_date_vente'] && $val['obj_date_retour']) {
+                    $timeVR = dateMysqlInt($val['obj_date_retour']) - dateMysqlInt($val['obj_date_vente']);
+                    if ($timeVR > 0) {
+                        $totalTimeVR += $timeVR;
+                        $nbTimeVR++;
+                    }
+                }
+
+                if (!$tabVendeur[$val['obj_id_vendeur']]) {
+                    $tabVendeur[$val['obj_id_vendeur']] = 0;
+                }
+                $tabVendeur[$val['obj_id_vendeur']]++;
+
+                if (
+                    $val['obj_etat'] == "VENDU" ||
+                    $val['obj_etat'] == "PAYE"
+                ) {
+                    if (!$tabAcheteur[$val['obj_id_acheteur']]) {
+                        $tabAcheteur[$val['obj_id_acheteur']] = 0;
+                    }
+                    $tabAcheteur[$val['obj_id_acheteur']]++;
+                }
+            }
+        }
+        if ($tabCount['prixMini'] == 1000000) {
+            $tabCount['prixMini'] = "0 &euro;";
+        } else {
+            $tabCount['prixMini'] .= " &euro;";
+        }
+        if ($tabCount['delaiMinSV'] == 1000000) {
+            $tabCount['delaiMinSV'] = "0:0:0";
+        } else {
+            $tabCount['delaiMinSV'] = duree2HMS($tabCount['delaiMinSV']);;
+        }
+
+
+        $tabCount['prixMaxi'] .= " &euro;";
+        if ($total == 0) {
+            $tabCount['prixMoyen'] = "0 &euro;";
+        } else {
+            $tabCount['prixMoyen'] = number_format($total / $nb, 2, ',', '.') . " &euro;";
+        }
+        $tabCount['delaiMoyenSV'] = duree2HMS($totalTimeSV / $nbTimeSV);
+        $tabCount['delaiMoyenVR'] = duree2HMS($totalTimeVR / $nbTimeVR);
+
+        if (sizeof($tabVendeur) > 0) {
+            $tabCount['nbVeloMaxiVendeur'] = max($tabVendeur);
+            $tabCount['nbVeloVendeur'] = number_format(array_sum($tabVendeur) / count($tabVendeur), 2, ',', '.');
+        }
+        if (sizeof($tabAcheteur) > 0) {
+            $tabCount['nbVeloMaxiAcheteur'] = max($tabAcheteur);
+            $tabCount['nbVeloAcheteur'] = number_format(array_sum($tabAcheteur) / count($tabAcheteur), 2, ',', '.');
+        }
+    } catch (Exception $e) {
+        return "ERREUR " . $e->getMessage();
+    }
+    // print_r($tabCount);
+    return $tabCount;
 }

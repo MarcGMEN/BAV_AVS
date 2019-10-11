@@ -44,7 +44,7 @@
 
 			getElement('TOTAL').innerHTML=total;
 			
-			getElement('statVendu').innerHTML=parseInt((totalVente/total)*100)+"%";
+			getElement('statVendu').innerHTML=parseInt((val['VENDU']/total)*100)+"%";
 			
 			if (val['RENDU']) {
 				getElement('statRendu').innerHTML=parseInt((parseInt(val['RENDU'])/total)*100)+"%";

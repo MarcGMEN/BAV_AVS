@@ -19,5 +19,6 @@ sajax_export(
     "return_fiches",
     "return_fiches_express",
     "action_makeA4Etiquettes",
-    "action_makeA4Fiches"
+    "action_makeA4Fiches",
+    "return_stat"
 );

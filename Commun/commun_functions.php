@@ -253,6 +253,15 @@ function diffDateMysql($d1,$d2) {
 	return $nbJour;
 } 
 
+function duree2HMS($duree) {
+	$jour=intval($duree / (3600*24));                  
+	$heures=intval($duree / 3600) %24;
+	$minutes=intval(($duree % 3600) / 60);
+	$secondes=intval((($duree % 3600) % 60));                  
+	$jourTxt=$jour>0?$jour.'j et':'';
+	return "$jourTxt $heures:$minutes:$secondes";
+}
+
 function is_date($value, $format = 'yyyy-mm-dd'){
 
 	if(strlen($value) == 10 && strlen($format) == 10){
