@@ -49,11 +49,12 @@ if ($infAppli['ADMIN']) {
             'libelle' => 'Déposer',
             'mode' => 'create'
         ],
-        'stock.php' => [
-            'libelle' => 'Le Stock'
+        'saisieExpress.php' => [
+            'libelle' => 'Création Express',
+            'class' => 'maskMobileBlock'
         ],
-        'stat.php' => [
-            'libelle' => 'Statistiques'
+        'stock.php' => [
+            'libelle' => 'Stock'
         ],
         'stock-client.php' => [
             'libelle' => 'Parc'
@@ -61,9 +62,8 @@ if ($infAppli['ADMIN']) {
         'clients.php' => [
             'libelle' => 'Clients'
         ],
-        'saisieExpress.php' => [
-            'libelle' => 'Création Express',
-            'class' => 'maskMobileBlock'
+        'stat.php' => [
+            'libelle' => 'Statistiques'
         ],
         'sousMenuAdmin' => [
             'libelle' => 'Administration',
@@ -91,19 +91,20 @@ if ($infAppli['ADMIN']) {
             'libelle' => '<img src="Images/new.png" width=15pt/> Déposer',
             'mode' => 'create'
         ],
+        'saisieExpress.php' => [
+            'libelle' => 'Création Express',
+            'class' => 'maskMobileBlock'
+        ],
         'stock.php' => [
-            'libelle' => 'Le Stock'
+            'libelle' => 'Stock'
         ],
         'stock-client.php' => [
             'libelle' => 'Parc'
         ],
         'clients.php' => [
             'libelle' => 'Clients'
-        ],
-        'saisieExpress.php' => [
-            'libelle' => 'Création Express',
-            'class' => 'maskMobileBlock'
         ]
+        
     ];
 } elseif ($infAppli['CLIENT']) {
     $tabNavAdm = [
