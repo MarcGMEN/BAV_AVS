@@ -9,16 +9,21 @@
  */
 
 function initPage() {
-    console.log(ADMIN);
-    // chargement des taux
-    x_return_tauxBAV(display_list_taux_com);
-    // chargement des depot
-    x_return_depotsBAV(display_list_prix_depot);
+    if (ADMIN) {
+      console.log(ADMIN);
+       // chargement des taux
+      x_return_tauxBAV(display_list_taux_com);
+      // chargement des depot
+      x_return_depotsBAV(display_list_prix_depot);
 
-    pageSaisie();
+      pageSaisie();
 
-    if (cli_id != '') {
-        x_return_oneClient(cli_id, display_infoClientVendeur);
+      if (cli_id != '') {
+         x_return_oneClient(cli_id, display_infoClientVendeur);
+      }
+    }
+    else {
+        goTo();
     }
 }
 

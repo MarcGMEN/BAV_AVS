@@ -280,6 +280,18 @@ div.MENU {
 	border-style: outset;
 }
 
+div.SSMENU {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	background-color: white;
+	width: 200px;
+	border: 2px;
+	border-color: #AAA;
+	border-style: outset;
+	padding: 10px 10px 10px 1px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+
 .url {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	color: black;
@@ -290,7 +302,7 @@ div.MENU {
 	padding: 1px 1px 1px 1px;
 }
 
-.navigation {
+.navigation, .ssnavigation {
 	font-family: Tahoma, Arial, Helvetica, sans-serif;
 	color: black;
 	border: 1px;
@@ -300,7 +312,12 @@ div.MENU {
 	padding: 1px 1px 1px 1px;
 } 
 
-.navigationSel {
+.ssnavigation {
+	background-color: lightblue;
+	padding: 10px 10px 10px 1px
+}
+
+.navigationSel, .ssnavigationSel {
 	color: darkblue;
 	font-style: italic;
 }

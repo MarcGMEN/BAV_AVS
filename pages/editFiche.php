@@ -1,7 +1,13 @@
 <script>
 	var idText = "";
 
-	function initPage() {}
+	function initPage() {
+		if (ADMIN) {
+					}
+		else {
+			goTo();
+		}
+	}
 
 	function unloadPage() {}
 

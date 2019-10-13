@@ -4,7 +4,13 @@
 	var selection = {"cli_nom" : "*"};
 	
 	function initPage() {
-		x_return_clients(tri,sens,tabToString(selection),display_clients);
+		if (ADMIN || TABLE) {
+			x_return_clients(tri,sens,tabToString(selection),display_clients);
+		}
+		else {
+			goTo();
+		}
+		
 	}
 
 	function unloadPage() {

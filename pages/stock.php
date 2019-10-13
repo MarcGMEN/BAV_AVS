@@ -6,7 +6,8 @@
 	tabSel[modePage] = '<?= $GET_id ?>';
 
 	function initPage() {
-		x_return_enum('bav_objet', 'obj_type', display_list_type);
+		if (ADMIN || TABLE) {
+			x_return_enum('bav_objet', 'obj_type', display_list_type);
 		//x_return_enum('bav_objet', 'obj_public', display_list_public);
 		//x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);
 
@@ -14,6 +15,11 @@
 		x_return_list_unique("bav_objet", "obj_etat", display_list_etat)
 		//x_return_list_unique("bav_objet", "obj_couleur", display_list_couleur)
 		x_return_fiches(tri, sens, tabToString(tabSel), display_fiches);
+		}
+		else {
+			goTo();
+		}
+		
 	}
 
 	function display_list_type(val) {

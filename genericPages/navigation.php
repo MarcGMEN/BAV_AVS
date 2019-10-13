@@ -50,7 +50,7 @@ if ($infAppli['ADMIN']) {
             'mode' => 'create'
         ],
         'saisieExpress.php' => [
-            'libelle' => 'Création Express',
+            'libelle' => 'Création',
             'class' => 'maskMobileBlock'
         ],
         'stock.php' => [
@@ -63,10 +63,10 @@ if ($infAppli['ADMIN']) {
             'libelle' => 'Clients'
         ],
         'stat.php' => [
-            'libelle' => 'Statistiques'
+            'libelle' => 'Stats'
         ],
         'sousMenuAdmin' => [
-            'libelle' => 'Administration',
+            'libelle' => 'Admin',
             'class' => 'maskMobileBlock',
             'sousMenu' => [
                 'import.php' => [
@@ -131,21 +131,20 @@ $tabNav = array_merge($tabNavAll, $tabNavAdm);
                 <span class="link <?= $val['class'] ?> navigation <?= $className ?>" id="lib_ss<?= $key ?>" onclick="inverseDisplay('ss<?= $key ?>')">
                     <?= $val['libelle'] ?>
                     <img src="Images/arrow.gif" />
-                    <div id="ss<?= $key ?>" class="MENU" style="display:none; position:absolute">
-                        <br />
+                    <div id="ss<?= $key ?>" class="SSMENU" style="display:none; position:absolute;width:200px">
+                       
                         <? foreach ($val['sousMenu'] as $keyS => $valS) {
                                     if ($GET_page == $keyS) {
-                                        $classNameS = "navigationSel"; ?>
+                                        $classNameS = "ssnavigationSel"; ?>
                                 <script>
                                     getElement('lib_ss<?= $key ?>').className += " navigationSel";
                                 </script>
                             <? } else {
                                             $classNameS = "";
                                         } ?>
-                            <div class="link <?= $valS['class'] ?> navigation <?= $classNameS ?> " onclick="goTo('<?= $keyS ?>', '<?= $valS["mode"] ?>', null, null)"><?= $valS['libelle'] ?></div>
-                            <br/>
+                            <div class="link <?= $valS['class'] ?> ssnavigation <?= $classNameS ?> " onclick="goTo('<?= $keyS ?>', '<?= $valS["mode"] ?>', null, null)">- <?= $valS['libelle'] ?></div>
                         <? } ?>
-                        <br />
+                        
                     </div>
                 </span>
             <? } else { ?>

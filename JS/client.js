@@ -4,7 +4,6 @@
 
 function initPage() {
 	if (idClient) {
-
 		x_return_tauxBAV(display_list_taux_com);
 		// chargement des depot
 		x_return_depotsBAV(display_list_prix_depot);

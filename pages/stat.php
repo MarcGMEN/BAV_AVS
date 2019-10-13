@@ -4,11 +4,15 @@
 	var tabSel = {};
 
 	function initPage() {
-		x_return_enum('bav_objet', 'obj_type', display_list_type);
+		if (ADMIN || TABLE) {
+			x_return_enum('bav_objet', 'obj_type', display_list_type);
 		x_return_enum('bav_objet', 'obj_public', display_list_public);
 		x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);
 
-		x_return_stat(tabToString(tabSel), display_stat)
+		x_return_stat(tabToString(tabSel), display_stat)}
+		else {
+			goTo();
+		}
 	}
 
 	function display_list_type(val) {
