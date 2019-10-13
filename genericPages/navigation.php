@@ -142,7 +142,7 @@ $tabNav = array_merge($tabNavAll, $tabNavAdm);
                             <? } else {
                                             $classNameS = "";
                                         } ?>
-                            <div class="link <?= $valS['class'] ?> ssnavigation <?= $classNameS ?> " onclick="goTo('<?= $keyS ?>', '<?= $valS["mode"] ?>', null, null)">- <?= $valS['libelle'] ?></div>
+                            <div class="col-sm-12 col-md-12 col-xs-12 link <?= $valS['class'] ?> ssnavigation <?= $classNameS ?> " onclick="goTo('<?= $keyS ?>', '<?= $valS["mode"] ?>', null, null)">- <?= $valS['libelle'] ?></div>
                         <? } ?>
                         
                     </div>
