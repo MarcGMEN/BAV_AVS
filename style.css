@@ -443,10 +443,10 @@ div.FENETRE_PRINCIPALE {
 
 .TITRE_FENETRE_PRINCIPALE {
 	font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
-	font-size: 2em;
+	font-size: 1.8em;
 	font-weight: BOLD;
 	text-align: center;
-	letter-spacing: 5px;
+	letter-spacing: 1px;
 	white-space: normal;
 }
 
@@ -638,11 +638,11 @@ img.imgBAV {
 }
 
 img #logoAVS, #cycleBAV {
-	height: 80pt;
+	height: 65pt;
 }
 
 img.logo {
-	height: 80pt;
+	height: 70pt;
 }
 
 /* responsive si < 768px md*/
@@ -665,7 +665,7 @@ img.logo {
 		font-size: 0.6em;
 	}
 	.TITRE_FENETRE_PRINCIPALE {
-		font-size: 1.4em;
+		font-size: 1.2em;
 	}
 	.titrow {
 		font-size: 0.6em;

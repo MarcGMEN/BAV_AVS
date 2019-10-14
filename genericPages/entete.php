@@ -1,5 +1,5 @@
 <script>
-	var ipLocal = "<?=$_SERVER['REMOTE_ADDR']?>";
+	var ipLocal = "<?=$_SERVER['REMOTE_ADDR']; ?>";
 
 	function initEntete() {
 		console.log("CLIENT:"+CLIENT+" TABLE:"+TABLE+" ADMIN:"+ADMIN+"");
@@ -71,7 +71,7 @@
 
 <table class="BH_CADRE" cellspacing="0" cellpadding="0">
 	<tr height="100%">
-		<td width="15%">
+		<td width="12%">
 			<div class="row">
 				<div class="col-sm-6 col-md-6 col-xs-6 menuMobile">
 					<i class="fas fa-bars" style="font-size:36px" onclick="menuSel()"></i>
@@ -81,13 +81,13 @@
 				</div>
 			</div>
 		</td>
-		<td width="70%">
+		<td width="73%">
 			<div class="TITRE_FENETRE_PRINCIPALE">
-				<?=$infAppli['titre']?>
+				<?=$infAppli['titre']; ?>
 			</div>
 			<?php if ($infAppli['TABLE'] || $infAppli['ADMIN']) {
-    			include "./genericPages/menuTABLE.php";
-			}?>
+    include './genericPages/menuTABLE.php';
+}?>
 		</td>
 		<td width="15%">
 			<!--<span style="float: left; display:none" id="theMenu">
@@ -105,7 +105,7 @@
 				<img src="Images/logoAVS.png" id="logoAVS" height='120pt'>
 			</div>
 			<div class="link" style="position:absolute; float: right; vertical-align:middle; font-size: 0.5em" onclick="alertModalPass();" 
-					title="[<?=$_SERVER['REMOTE_ADDR']?>]"><?=$_COOKIE['NUMERO_BAV']?>&nbsp;<span id="connex"></span>
+					><?=$_COOKIE['NUMERO_BAV']; ?>&nbsp;<span id="connex"></span>
 			</div>
 		</td>
 	</tr>
@@ -113,7 +113,7 @@
 <table class="BH_CADRE" cellspacing="0" cellpadding="0">
 	<tr>
 		<th class="tdMenu">
-			<?php include "./genericPages/navigation.php"?>
+			<?php include './genericPages/navigation.php'; ?>
 		</th>
 		<td class="tdSearch" id="tdSearch" style="display:none">
 			<form name="enteteFormFiche" action="#" onsubmit='return search(document.enteteFormFiche.inputSearch.value)'>
