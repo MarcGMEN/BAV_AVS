@@ -3,7 +3,7 @@
 	var sens = "asc";
 	var tabSel = {};
 
-	tabSel[modePage] = '<?= $GET_id ?>';
+	tabSel[modePage] = '<?= $GET_id; ?>';
 
 	function initPage() {
 		if (ADMIN || TABLE) {
@@ -80,7 +80,7 @@
 					repr += "<td width=5% align=center>";
 					repr += val[index]['obj_numero'];
 					repr += "</td>";
-					repr += "<td width=7% >";
+					repr += "<td width=10% >";
 					repr += val[index]['obj_type'];
 					repr += "</td>";
 					/*repr += "<td width=10% >";
@@ -89,13 +89,13 @@
 					repr += "<td width=10% >";
 					repr += val[index]['obj_pratique'];
 					repr += "</td>";*/
-					repr += "<td class='maskMobile' width=10% title='modèle :"+val[index]['obj_modele']+"'>";
+					repr += "<td class='maskMobile' width=12% title='modèle :"+val[index]['obj_modele']+"'>";
 					repr += val[index]['obj_marque'];
 					repr += "</td>";
-					repr += "<td class='maskMobile' width=13% >";
+					repr += "<td class='maskMobile' width=14% >";
 					repr += val[index]['vendeur_nom'];
 					repr += "</td>";
-					repr += "<td width=10% >";
+					repr += "<td width=7% >";
 					if (val[index]['obj_prix_vente'] == 0) {
 						repr += "<span style='color:RED'>" + val[index]['obj_prix_depot'] + "</span>";
 					} else {
@@ -105,10 +105,10 @@
 					repr += "<td width=10% >";
 					repr += val[index]['obj_etat'];
 					repr += "</td>";
-					repr += "<td width=10% class='maskMobile' >";
+					repr += "<td width=8% class='maskMobile' >";
 					repr += formatDate(val[index]['obj_date_depot'], false);
 					repr += "</td>";
-					repr += "<td class='maskMobile' width=10% >";
+					repr += "<td class='maskMobile' width=14% >";
 					repr += val[index]['acheteur_nom'];
 					repr += "</td>";
 					repr += "<td class='maskMobile' width=20% title='date vente - date retour'>";
@@ -247,7 +247,7 @@
 	<tr>
 		<td class="tittab" width=5%>
 			<span id='obj_numero' onclick="triColonne('obj_numero')" class="sortable">No&nbsp;&nbsp;</span></td>
-		<td class="tittab" width=7%>
+		<td class="tittab" width=10%>
 			<span id='obj_type' onclick="triColonne('obj_type')" class="sortable">Type&nbsp;&nbsp;</span>
 			&nbsp;<select id="sel_obj_type" onchange="selectColonne('obj_type', this.value)"></select></td>
 		<!--<td class="tittab" width=10%>
@@ -256,28 +256,28 @@
 		<td class="tittab" width=10%>
 			<span id='obj_pratique' onclick="triColonne('obj_pratique')" class="sortable">Pratique&nbsp;&nbsp;&nbsp;</span>
 			&nbsp;<select id="sel_obj_pratique" onchange="selectColonne('obj_pratique', this.value)"></select></td>-->
-		<td class="tittab maskMobile" width=10%>
+		<td class="tittab maskMobile" width=12%>
 			<span id='obj_marque' onclick="triColonne('obj_marque')" class="sortable">Marque&nbsp;&nbsp;</span>
 			&nbsp;<select id="sel_obj_marque" onchange="selectColonne('obj_marque', this.value)"></select></td>
 		<!--<td class="tittab maskMobile" width=10%>
 			<span id='obj_marque' onclick="triColonne('obj_couleur')" class="sortable">Couleur&nbsp;&nbsp;&nbsp;</span>
 			&nbsp;<select id="sel_obj_couleur" onchange="selectColonne('obj_couleur', this.value)"></select></td>-->
-		<td class="tittab maskMobile" width=13%>
+		<td class="tittab maskMobile" width=14%>
 			<span id='vendeur_nom' onclick="triColonne('vendeur_nom')" class="sortable">Vendeur&nbsp;&nbsp;</span>
-			<!--<input type=text name='cli_nom_<?= rand(1, 100) ?>' size="20" class="autocomplete" maxlength="100" 
+			<!--<input type=text name='cli_nom_<?= rand(1, 100); ?>' size="20" class="autocomplete" maxlength="100" 
 				onkeyup="x_return_listClientByName(this.value, display_listVendeur);"
 				onblur="selectColonne('cli_id_vendeur', this.value)"
 				list=listVendeur />
 			<datalist id="listVendeur"></datalist>-->
 		</td>
-		<td class="tittab" width=10%>
-			<span class="sortable" id='obj_prix_vente' onclick="triColonne('obj_prix_vente')">Prix vente&nbsp;&nbsp;</span></td>
+		<td class="tittab" width=7%>
+			<span class="sortable" id='obj_prix_vente' onclick="triColonne('obj_prix_vente')">Prix vente&nbsp;</span></td>
 		<td class="tittab" width=10%>
 			<span id='obj_etat' onclick="triColonne('obj_etat')" class="sortable">Etat&nbsp;&nbsp;</span>
 			&nbsp;<select id="sel_obj_etat" onchange="selectColonne('obj_etat', this.value)"></select></td>
-		<td class="tittab maskMobile" width=10%>
-			<span class="sortable" id='obj_date_depot' onclick="triColonne('obj_date_depot')">Date depot&nbsp;&nbsp;</span></td>
-		<td class="tittab maskMobile" width=10%>
+		<td class="tittab maskMobile" width=8%>
+			<span class="sortable" id='obj_date_depot' onclick="triColonne('obj_date_depot')">Date depot&nbsp;</span></td>
+		<td class="tittab maskMobile" width=14%>
 			<span id='acheteur_nom' onclick="triColonne('acheteur_nom')" class="sortable">Acheteur&nbsp&nbsp;</span></td>
 		<td class="tittab maskMobile" width=20%>
 			<span class="sortable" id='obj_date_vente' onclick="triColonne('obj_date_vente')">Date vente&nbsp;&nbsp;</span></td>
