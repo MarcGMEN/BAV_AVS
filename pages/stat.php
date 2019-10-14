@@ -6,11 +6,11 @@
 	function initPage() {
 		if (ADMIN || TABLE) {
 			x_return_enum('bav_objet', 'obj_type', display_list_type);
-		x_return_enum('bav_objet', 'obj_public', display_list_public);
-		x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);
+			x_return_enum('bav_objet', 'obj_public', display_list_public);
+			x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);
 
-		x_return_stat(tabToString(tabSel), display_stat)}
-		else {
+			x_return_stat(tabToString(tabSel), display_stat)
+		} else {
 			goTo();
 		}
 	}
@@ -60,8 +60,32 @@
 
 	function display_stat(val) {
 		console.log(val);
+		infoPlusObj("prixMini",val['objprixMini']);
+		infoPlusObj("prixMaxi",val['objprixMaxi']);
+		infoPlusObj("delaiMinSV",val['objdelaiMinSV']);
+		infoPlusCli("nbVeloMaxiVendeur",val['clinbVeloMaxiVendeur']);
+		infoPlusCli("nbVeloMaxiAcheteur",val['clinbVeloMaxiAcheteur']);
 
+		console.log(val);
 		display_formulaire(val, null);
+	}
+
+	function infoPlusObj(id, obj) {
+		if (obj) {
+			obj['plus'+id] = "(" + obj['obj_numero'] + ") " + obj['obj_type'] + "-" + obj['obj_public']+ " - " + obj['obj_marque']+" ["+obj['vendeur_nom']+"]"
+			getElement('plus'+id).onclick = function() {
+				goTo("fiche.php", "modif", obj['obj_id']);
+			};
+		}
+	}
+
+	function infoPlusCli(id, obj) {
+		if (obj) {
+			obj['plus'+id] = "(" + obj['cli_id_modif'] + ") " + obj['cli_nom'];
+			getElement('plus'+id).onclick = function() {
+				goTo("client.php", "modif", obj['cli_id']);
+			};
+		}
 	}
 </script>
 <table width="100%">
@@ -81,7 +105,7 @@
 <table width="100%">
 	<tr>
 		<td class="tittab" width=30%></td>
-		<td class="tittab" width=70%><span>Total</span></td>
+		<td colspan=2 class="tittab" width=70%><span>Total</span></td>
 	</tr>
 	<?
 	$tabCategLigne = [
@@ -103,9 +127,10 @@
 	];
 	foreach ($tabCategLigne as $keyL => $valL) { ?>
 		<tr class='tabl0'>
-			<td class="tittab" ><?= $valL ?></td>
+			<td class="tittab"><?= $valL ?></td>
 			<? foreach ($tabCategCol as $valC) { ?>
-				<td id='<?= $keyL ?>' style='text-align:center'><?= $keyL ?></td>
+				<td width='30%' id='<?= $keyL ?>' style='text-align:center'><?= $keyL ?></td>
+				<td width='40%' class="link" id='plus<?= $keyL ?>' style='text-align:center'></td>
 			<? } ?>
 		</tr>
 	<? }

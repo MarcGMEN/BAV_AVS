@@ -570,10 +570,12 @@ function return_stat($selection)
             ) {
                 if ($val['obj_prix_vente'] < $tabCount['prixMini']) {
                     $tabCount['prixMini'] = $val['obj_prix_vente'];
+                    $tabCount['objprixMini'] = $val;
                 }
                 // prix_maxi
                 if ($val['obj_prix_vente'] > $tabCount['prixMaxi']) {
-                    $tabCount['prixMaxi'] = $val['obj_prix_vente'];
+                    $tabCount['prixMaxi']= $val['obj_prix_vente'];
+                    $tabCount['objprixMaxi'] = $val;
                 }
                 $total += $val['obj_prix_vente'];
                 $nb++;
@@ -588,6 +590,7 @@ function return_stat($selection)
 
                         if ($timeSV < $tabCount['delaiMinSV']) {
                             $tabCount['delaiMinSV'] = $timeSV;
+                            $tabCount['objdelaiMinSV'] = $val;
                         }
                         // echo "--> " .duree2HMS($timeSV);
 
@@ -627,7 +630,7 @@ function return_stat($selection)
         if ($tabCount['delaiMinSV'] == 1000000) {
             $tabCount['delaiMinSV'] = "0:0:0";
         } else {
-            $tabCount['delaiMinSV'] = duree2HMS($tabCount['delaiMinSV']);;
+            $tabCount['delaiMinSV'] = duree2HMS($tabCount['delaiMinSV']);
         }
 
 
@@ -642,10 +645,12 @@ function return_stat($selection)
 
         if (sizeof($tabVendeur) > 0) {
             $tabCount['nbVeloMaxiVendeur'] = max($tabVendeur);
+            $tabCount['clinbVeloMaxiVendeur'] = getOneClient(array_search(max($tabVendeur),$tabVendeur));
             $tabCount['nbVeloVendeur'] = number_format(array_sum($tabVendeur) / count($tabVendeur), 2, ',', '.');
         }
         if (sizeof($tabAcheteur) > 0) {
             $tabCount['nbVeloMaxiAcheteur'] = max($tabAcheteur);
+            $tabCount['clinbVeloMaxiAcheteur'] = getOneClient(array_search(max($tabAcheteur),$tabAcheteur));
             $tabCount['nbVeloAcheteur'] = number_format(array_sum($tabAcheteur) / count($tabAcheteur), 2, ',', '.');
         }
     } catch (Exception $e) {
