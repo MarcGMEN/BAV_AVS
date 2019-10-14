@@ -79,7 +79,7 @@
 			</span>
 		</div>
 		<div class="col-sm-4 col-md-4 col-xs-12">
-			<span class="titrow  col-md-3 col-sm-3 col-xs-3">Modele</span>
+			<span class="titrow  col-md-3 col-sm-3 col-xs-3">Mod&egrave;le</span>
 			<span class="tabInput col-md-9 col-sm-9 col-xs-9">
 				<span id='obj_modele'></span>
 			</span>
