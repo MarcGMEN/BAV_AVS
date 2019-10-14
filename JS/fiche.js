@@ -103,7 +103,7 @@ function display_fiche(val) {
             document.ficheForm.buttonValideFiche.innerHTML = "Modifier";
             document.ficheForm.buttonEtatFiche.value = "Confirmer";
             document.ficheForm.obj_etat_new.value = "CONFIRME";
-            val['obj_etat_libelle'] = "Demande initié par le vendeur";
+            val['obj_etat_libelle'] = "Demande initiée par le vendeur";
             document.ficheForm.obj_prix_vente.disabled = true
         }
         // etat CONFIRME
