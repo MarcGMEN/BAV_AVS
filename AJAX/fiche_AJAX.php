@@ -125,6 +125,52 @@ function action_createFiche($data)
     return $retour;
 }
 
+function action_reMelConfirme($id)
+{
+    $infoAppli = return_infoAppli();
+    // droit = ADMIN+TABLE+CLIENT
+    $ADMIN = $infoAppli['ADMIN'];
+    $TABLE = $infoAppli['TABLE'];
+
+    extract($GLOBALS);
+    $retour = "";
+    try {
+
+        $fiche = return_oneFiche($id);
+        if ($fiche['obj_id']) {
+            $tabPlus['lien_confirm'] = $CFG_URL . "/Actions/rest.php?a=C&id=" . $fiche['obj_id_modif'];
+
+            if ($fiche['obj_prix_depot'] == "") {
+                $tabPlus['obj_prix_depot'] = 'A renseigner le jour du dépôt dernier délai';
+                $fiche['obj_prix_depot'] == 0;
+            } else {
+                $tabPlus['obj_prix_depot'] = $fiche['obj_prix_depot'] . " €";
+            }
+
+            $tabCli = getOneClient($fiche['obj_id_vendeur']);
+
+            $tabPlus['titre'] = $infoAppli['titre'];
+
+            $titreMel = "Re-confirmation de votre dépôt à " . $infoAppli['titre'];
+            $message = makeMessage($titreMel, array_merge($fiche, $tabCli, $tabPlus), "mel_enregistrement.html");
+
+            $retour = sendMail($titreMel, $tabCli['cli_emel'], $message);
+            if ($retour == 1) {
+                $retour = "Mel re-envoyé a ".$tabCli['cli_emel'];
+            }
+        }
+        else  {
+            $retour ="Pas de fiche pour $id";
+        }
+
+        
+
+    } catch (Exception $e) {
+        return "ERREUR " . $e->getMessage();
+    }
+    return $retour;
+}
+
 function action_createFicheExpress($data)
 {
     $infoAppli = return_infoAppli();
@@ -190,7 +236,7 @@ function action_makeA4Etiquettes($eti0, $eti1)
             $fiche['obj_description'] = str_replace("\n", " / ", $fiche['obj_description']);
 
             if ($fiche['obj_prix_depot'] == 0) {
-                $fiche['obj_prix_depot']="";
+                $fiche['obj_prix_depot'] = "";
             }
 
             $etiquettes .= makeCorps($fiche, 'etiquette.html');
@@ -347,8 +393,8 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
         $client['cli_com'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>";
     }
 
-    if ( $fiche['obj_prix_depot'] == 0) {
-        $fiche['obj_prix_depot']="";
+    if ($fiche['obj_prix_depot'] == 0) {
+        $fiche['obj_prix_depot'] = "";
     }
 
     $fiche['obj_description'] = str_replace("\n", " / ", $fiche['obj_description']);
@@ -526,7 +572,7 @@ function return_stat($selection)
     try {
 
         $infoAppli = return_infoAppli();
-    
+
         //print_r($infoAppli);
         $tab = getFiches(null, "asc", string2Tab($selection));
         $tabCategLigne = [
@@ -574,7 +620,7 @@ function return_stat($selection)
                 }
                 // prix_maxi
                 if ($val['obj_prix_vente'] > $tabCount['prixMaxi']) {
-                    $tabCount['prixMaxi']= $val['obj_prix_vente'];
+                    $tabCount['prixMaxi'] = $val['obj_prix_vente'];
                     $tabCount['objprixMaxi'] = $val;
                 }
                 $total += $val['obj_prix_vente'];
@@ -645,12 +691,12 @@ function return_stat($selection)
 
         if (sizeof($tabVendeur) > 0) {
             $tabCount['nbVeloMaxiVendeur'] = max($tabVendeur);
-            $tabCount['clinbVeloMaxiVendeur'] = getOneClient(array_search(max($tabVendeur),$tabVendeur));
+            $tabCount['clinbVeloMaxiVendeur'] = getOneClient(array_search(max($tabVendeur), $tabVendeur));
             $tabCount['nbVeloVendeur'] = number_format(array_sum($tabVendeur) / count($tabVendeur), 2, ',', '.');
         }
         if (sizeof($tabAcheteur) > 0) {
             $tabCount['nbVeloMaxiAcheteur'] = max($tabAcheteur);
-            $tabCount['clinbVeloMaxiAcheteur'] = getOneClient(array_search(max($tabAcheteur),$tabAcheteur));
+            $tabCount['clinbVeloMaxiAcheteur'] = getOneClient(array_search(max($tabAcheteur), $tabAcheteur));
             $tabCount['nbVeloAcheteur'] = number_format(array_sum($tabAcheteur) / count($tabAcheteur), 2, ',', '.');
         }
     } catch (Exception $e) {

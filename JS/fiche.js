@@ -30,7 +30,7 @@ function initPage() {
         getElement("tdCGU").style.display = 'none';
 
         document.ficheForm.elements.namedItem('obj_marque_' + idRamdom).required = false;
-        
+
         document.ficheForm.obj_couleur.required = false;
 
         document.ficheForm.obj_prix_depot.required = true;
@@ -105,6 +105,10 @@ function display_fiche(val) {
             document.ficheForm.obj_etat_new.value = "CONFIRME";
             val['obj_etat_libelle'] = "Demande initiée par le vendeur le [" + formatDate(val['obj_date_depot'], true) + "]";
             document.ficheForm.obj_prix_vente.disabled = true
+            
+            if (ADMIN) {
+                getElement("tdBtnEmel").style.display = 'block';
+            }
         }
         // etat CONFIRME
         if (val['obj_etat'] == "CONFIRME") {
@@ -177,15 +181,15 @@ function display_fiche(val) {
             document.ficheForm.buttonEtatFiche.value = "A payer";
             document.ficheForm.obj_etat_new.value = "PAYE";
             val['obj_etat_libelle'] = "Vendu le [" + formatDate(val['obj_date_vente']) + "]";
-/*            if (!ADMIN) {
-                document.ficheForm.buttonEtatFicheBis.style.display = 'none';
-                document.ficheForm.buttonEtatFicheBis.value = '';
-            }
-            else {*/
-                document.ficheForm.buttonEtatFicheBis.style.display = 'inline';
-                document.ficheForm.buttonEtatFicheBis.value = 'Remettre en Stock';
+            /*            if (!ADMIN) {
+                            document.ficheForm.buttonEtatFicheBis.style.display = 'none';
+                            document.ficheForm.buttonEtatFicheBis.value = '';
+                        }
+                        else {*/
+            document.ficheForm.buttonEtatFicheBis.style.display = 'inline';
+            document.ficheForm.buttonEtatFicheBis.value = 'Remettre en Stock';
 
-                document.ficheForm.buttonEtatFicheBis.onclick = function () { changeEtatFiche('RESTOCK') };
+            document.ficheForm.buttonEtatFicheBis.onclick = function () { changeEtatFiche('RESTOCK') };
             //}
 
             if (TABLE || ADMIN) {
@@ -220,9 +224,9 @@ function display_fiche(val) {
 
             if (val['obj_etat'] == "RENDU") {
                 val['obj_etat_libelle'] = "Rendu au vendeur le [" + formatDate(val['obj_date_retour']) + "]";
-                    document.ficheForm.buttonEtatFiche.value = "Remettre en stock";
-                    document.ficheForm.obj_etat_new.value = "RESTOCK";
-                
+                document.ficheForm.buttonEtatFiche.value = "Remettre en stock";
+                document.ficheForm.obj_etat_new.value = "RESTOCK";
+
             }
             else {
                 val['obj_etat_libelle'] = "Payé au vendeur le [" + formatDate(val['obj_date_retour']) + "]";
