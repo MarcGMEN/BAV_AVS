@@ -103,7 +103,7 @@ function display_fiche(val) {
             document.ficheForm.buttonValideFiche.innerHTML = "Modifier";
             document.ficheForm.buttonEtatFiche.value = "Confirmer";
             document.ficheForm.obj_etat_new.value = "CONFIRME";
-            val['obj_etat_libelle'] = "Demande initiée par le vendeur";
+            val['obj_etat_libelle'] = "Demande initiée par le vendeur le [" + formatDate(val['obj_date_depot'], true) + "]";
             document.ficheForm.obj_prix_vente.disabled = true
         }
         // etat CONFIRME
@@ -127,7 +127,7 @@ function display_fiche(val) {
             document.ficheForm.obj_prix_depot.min = 1;
             document.ficheForm.buttonEtatFiche.value = "Mettre en stock";
             document.ficheForm.obj_etat_new.value = "STOCK";
-            val['obj_etat_libelle'] = "Demande confirmée le [" + formatDate(val['obj_date_depot'], false) + "]";
+            val['obj_etat_libelle'] = "Demande confirmée le [" + formatDate(val['obj_date_depot'], true) + "]";
         }
         // etat STOCK
         if (val['obj_etat'] == "STOCK") {
@@ -200,7 +200,10 @@ function display_fiche(val) {
 
         if (val['obj_etat'] == "RENDU" || val['obj_etat'] == "PAYE") {
             getElement("divPrix").style.display = 'block';
-            if (TABLE || ADMIN) {
+            if (TABLE) {
+                getElement("tdBtnPdf").style.display = 'block';
+            }
+            else if (ADMIN) {
                 getElement("tdBtnPdf").style.display = 'block';
                 getElement("tdBtnSup").style.display = 'block';
             } else {
