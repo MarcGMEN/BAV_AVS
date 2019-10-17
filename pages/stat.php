@@ -60,11 +60,11 @@
 
 	function display_stat(val) {
 		console.log(val);
-		infoPlusObj("prixMini",val['objprixMini']);
-		infoPlusObj("prixMaxi",val['objprixMaxi']);
-		infoPlusObj("delaiMinSV",val['objdelaiMinSV']);
-		infoPlusCli("nbVeloMaxiVendeur",val['clinbVeloMaxiVendeur']);
-		infoPlusCli("nbVeloMaxiAcheteur",val['clinbVeloMaxiAcheteur']);
+		infoPlusObj("prixMini", val['objprixMini']);
+		infoPlusObj("prixMaxi", val['objprixMaxi']);
+		infoPlusObj("delaiMinSV", val['objdelaiMinSV']);
+		infoPlusCli("nbVeloMaxiVendeur", val['clinbVeloMaxiVendeur']);
+		infoPlusCli("nbVeloMaxiAcheteur", val['clinbVeloMaxiAcheteur']);
 
 		console.log(val);
 		display_formulaire(val, null);
@@ -72,8 +72,8 @@
 
 	function infoPlusObj(id, obj) {
 		if (obj) {
-			obj['plus'+id] = "(" + obj['obj_numero'] + ") " + obj['obj_type'] + "-" + obj['obj_public']+ " - " + obj['obj_marque']+" ["+obj['vendeur_nom']+"]"
-			getElement('plus'+id).onclick = function() {
+			obj['plus' + id] = "(" + obj['obj_numero'] + ") " + obj['obj_type'] + "-" + obj['obj_public'] + " - " + obj['obj_marque'] + " [" + obj['vendeur_nom'] + "]"
+			getElement('plus' + id).onclick = function() {
 				goTo("fiche.php", "modif", obj['obj_id']);
 			};
 		}
@@ -81,32 +81,28 @@
 
 	function infoPlusCli(id, obj) {
 		if (obj) {
-			obj['plus'+id] = "(" + obj['cli_id_modif'] + ") " + obj['cli_nom'];
-			getElement('plus'+id).onclick = function() {
+			obj['plus' + id] = "(" + obj['cli_id_modif'] + ") " + obj['cli_nom'];
+			getElement('plus' + id).onclick = function() {
 				goTo("client.php", "modif", obj['cli_id']);
 			};
 		}
 	}
 </script>
-<table width="100%">
-	<tr>
-		<td class="tittab" width=33%>
-			<span id='obj_type'>Type</span>
-			&nbsp;<select id="sel_obj_type" onchange="selectColonne()"></select></td>
-		<td class="tittab" width=33%>
-			<span id='obj_public'>Public</span>
-			&nbsp;<select id="sel_obj_public" onchange="selectColonne()"></select></td>
-		<td class="tittab" width=33%>
-			<span id='obj_pratique'>Pratique</span>
-			&nbsp;<select id="sel_obj_pratique" onchange="selectColonne()"></select></td>
-	</tr>
-</table>
-<br />
-<table width="100%">
-	<tr>
-		<td class="tittab" width=30%></td>
-		<td colspan=2 class="tittab" width=70%><span>Total</span></td>
-	</tr>
+<fieldset class=fiche>
+	<legend class=titreFiche>Stat diverses</legend>
+	<table width="100%">
+		<tr>
+			<td class="tittab" width=33%>
+				<span id='obj_type'>Type</span>
+				&nbsp;<select id="sel_obj_type" onchange="selectColonne()"></select></td>
+			<td class="tittab" width=33%>
+				<span id='obj_public'>Public</span>
+				&nbsp;<select id="sel_obj_public" onchange="selectColonne()"></select></td>
+			<td class="tittab" width=33%>
+				<span id='obj_pratique'>Pratique</span>
+				&nbsp;<select id="sel_obj_pratique" onchange="selectColonne()"></select></td>
+		</tr>
+	</table>
 	<?
 	$tabCategLigne = [
 		'prixMini' => 'Prix mini',
@@ -125,15 +121,57 @@
 	$tabCategCol = [
 		'total'
 	];
-	foreach ($tabCategLigne as $keyL => $valL) { ?>
-		<tr class='tabl0'>
-			<td class="tittab"><?= $valL ?></td>
-			<? foreach ($tabCategCol as $valC) { ?>
-				<td width='30%' id='<?= $keyL ?>' style='text-align:center'><?= $keyL ?></td>
-				<td width='40%' class="link" id='plus<?= $keyL ?>' style='text-align:center'></td>
-			<? } ?>
-		</tr>
-	<? }
+
+	$tabCount = [
+		'1' => '',
+		'2' => '',
+		'stock_J1' => 'Stock J1',
+		'3' => '',
+		'stock_J2-AM' => 'Stock AM J2',
+		'vente_J2-AM' => 'Vente AM J2',
+		'stock_J2-PM' => 'Stock PM J2',
+		'vente_J2-PM' => 'Vente PM J2',
+		'stock_J3-AM' => 'Stock AM J3',
+		'vente_J3-AM' => 'Vente AM J3',
+		'stock_J3-PM' => 'Stock PM J3',
+		'vente_J3-PM' => 'Vente PM J3',
+
+	];
 	?>
-</table>
-<div id=fiches></div>
+	<br />
+
+	<table width="100%">
+		<tr>
+			<td class="tittab" width=30%></td>
+			<td colspan=2 class="tittab" width=70%><span>Total</span></td>
+		</tr>
+		<?
+		foreach ($tabCategLigne as $keyL => $valL) { ?>
+			<tr class='tabl0'>
+				<td class="tittab"><?= $valL ?></td>
+				<? foreach ($tabCategCol as $valC) { ?>
+					<td width='30%' id='<?= $keyL ?>' style='text-align:center'><?= $keyL ?></td>
+					<td width='40%' class="link" id='plus<?= $keyL ?>' style='text-align:center'></td>
+				<? } ?>
+			</tr>
+		<? } ?>
+	</table>
+</fieldset>
+<br />
+<hr />
+<fieldset class=fiche>
+	<legend class=titreFiche>Stat journaliere</legend>
+	<table width="100%">
+		<tr>
+			<? $indxSaut = 0; ?>
+			<? foreach ($tabCount as $keyL => $valL) {
+				if ($indexSaut++ % 4 == 0) { ?>
+		</tr>
+		<tr class='tabl0'>
+		<? } ?>
+		<td width='15%'class="tittab"><?= $valL ?></td>
+		<td width='10%' id='<?= $keyL ?>' style='text-align:center'></td>
+	<? } ?>
+		</tr>
+	</table>
+</fieldset>

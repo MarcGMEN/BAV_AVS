@@ -607,6 +607,21 @@ function return_stat($selection)
         $tabVendeur = [];
         $tabAcheteur = [];
 
+        
+        $tabCount['vente_J2-AM']=0;
+        $tabCount['vente_J2-PM']=0;
+        $tabCount['vente_J3-AM']=0;
+        $tabCount['vente_J3-PM']=0;
+        $tabCount['stock_J1']=0;
+        $tabCount['stock_J2-AM']=0;
+        $tabCount['stock_J2-PM']=0;
+        $tabCount['stock_J3-AM']=0;
+        $tabCount['stock_J3-PM']=0;
+
+        $date["J1"]=$infoAppli['date_j1'];
+        $date["J2-MIDI"]=mktime(12,00,00,date("n",$infoAppli['date_j2']),date("j",$infoAppli['date_j2']),date("Y",$infoAppli['date_j2']));
+        $date["J3-MIDI"]=mktime(12,00,00,date("n",$infoAppli['date_j3']),date("j",$infoAppli['date_j3']),date("Y",$infoAppli['date_j3']));
+
         foreach ($tab as $key => $val) {
             if (
                 $val['obj_etat'] == "STOCK" ||
@@ -625,6 +640,25 @@ function return_stat($selection)
                 }
                 $total += $val['obj_prix_vente'];
                 $nb++;
+
+
+                $dateDepotInt= dateMysqlInt($val['obj_date_depot']);
+                if ($dateDepotInt < $infoAppli['date_j2'] ) {
+                    $tabCount['stock_J1']++;
+                }
+                if ($dateDepotInt > $infoAppli['date_j2'] && $dateDepotInt < $date["J2-MIDI"] ) {
+                    $tabCount['stock_J2-AM']++;
+                }
+                else if ($dateDepotInt >= $date["J2-MIDI"] && $dateDepotInt < $infoAppli['date_j3'] ) {
+                    $tabCount['stock_J2-PM']++;
+                }
+                else if ($dateDepotInt > $infoAppli['date_j3'] && $dateDepotInt < $date["J3-MIDI"] ) {
+                    $tabCount['stock_J3-AM']++;
+                }
+                else if ($dateDepotInt >= $date["J3-MIDI"] ) {
+                    $tabCount['stock_J3-PM']++;
+                } 
+
                 if ($val['obj_date_vente']) {
                     // echo dateMysqlInt($val['obj_date_vente']) . "-" . dateMysqlInt($val['obj_date_depot']);
                     // echo date('d/m/Y H:i:s', dateMysqlInt($val['obj_date_vente']));
@@ -639,8 +673,20 @@ function return_stat($selection)
                             $tabCount['objdelaiMinSV'] = $val;
                         }
                         // echo "--> " .duree2HMS($timeSV);
+                    }
 
-
+                    $dateVenteInt= dateMysqlInt($val['obj_date_vente']);
+                    if ($dateVenteInt > $infoAppli['date_j2'] && $dateVenteInt < $date["J2-MIDI"] ) {
+                        $tabCount['vente_J2-AM']++;
+                    }
+                    else if ($dateVenteInt >= $date["J2-MIDI"] && $dateVenteInt < $infoAppli['date_j3'] ) {
+                        $tabCount['vente_J2-PM']++;
+                    }
+                    else if ($dateVenteInt > $infoAppli['date_j3'] && $dateVenteInt < $date["J3-MIDI"] ) {
+                        $tabCount['vente_J3-AM']++;
+                    }
+                    else if ($dateVenteInt >= $date["J3-MIDI"] ) {
+                        $tabCount['vente_J3-PM']++;
                     }
                     // echo "\n";
                 }
