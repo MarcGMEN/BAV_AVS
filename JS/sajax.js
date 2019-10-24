@@ -13,6 +13,7 @@
 				sajax_asynchro['return_html']=1;
 				sajax_asynchro['save_html']=1;
 				sajax_asynchro['whatYourName']=1;
+				sajax_asynchro['return_restant']=1;
 				sajax_asynchro['return_oneFaq']=1;
 				sajax_asynchro['action_createFaq']=1;
 				sajax_asynchro['action_deleteFaq']=1;
@@ -310,6 +311,13 @@
 		function x_whatYourName() {
 			sajax_do_call("whatYourName",
 				x_whatYourName.arguments);
+		}
+		
+				
+		// wrapper for return_restant		
+		function x_return_restant() {
+			sajax_do_call("return_restant",
+				x_return_restant.arguments);
 		}
 		
 				

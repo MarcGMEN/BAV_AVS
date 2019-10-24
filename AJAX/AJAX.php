@@ -105,6 +105,23 @@ function return_list_unique($table, $champ)
     return listUnique($table, $champ);
 }
 
+function return_restant()
+{
+    $infoAppli = return_infoAppli();
+
+    $today=time();
+    
+    $dDiff = $infoAppli['date_j1']-$today;
+    
+    if ($dDiff>0) {
+    return duree2HMS($dDiff);
+    }
+    else {
+        return "";
+    }
+}
+
+
 
 function get_publiHtml($data, $html)
 {

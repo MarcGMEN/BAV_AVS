@@ -123,8 +123,8 @@
 	];
 
 	$tabCount = [
-		'1' => '',
-		'2' => '',
+		'depot_J30' => 'Depot < 15',
+		'depot_J15' => 'Depot 15 < 0',
 		'stock_J1' => 'Stock J1',
 		'3' => '',
 		'stock_J2-AM' => 'Stock AM J2',
