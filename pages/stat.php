@@ -52,8 +52,13 @@
 		tabSel['obj_type'] = getElement("sel_obj_type").value;
 		tabSel['obj_public'] = getElement("sel_obj_public").value;
 		tabSel['obj_pratique'] = getElement("sel_obj_pratique").value;
-		//tabSel[col] = mask;
 
+		var tabAff=[];
+		tabAff['Tobj_type'] = tabSel['obj_type'];
+		tabAff['Tobj_public'] = tabSel['obj_public'];
+		tabAff['Tobj_pratique'] = tabSel['obj_pratique']
+
+		display_formulaire(tabAff, null);
 		console.log(tabSel);
 		x_return_stat(tabToString(tabSel), display_stat)
 	}
@@ -143,11 +148,16 @@
 	<table width="100%">
 		<tr>
 			<td class="tittab" width=30%></td>
-			<td colspan=2 class="tittab" width=70%><span>Total</span></td>
+			<td colspan=2 class="tittab" width=70%>
+				<span>Total </span>&nbsp;
+				<span id='Tobj_type'>*</span>&nbsp;
+				<span id='Tobj_public'>*</span>&nbsp;
+				<span id='Tobj_pratique'>*</span>
+			</td>
 		</tr>
 		<?
 		foreach ($tabCategLigne as $keyL => $valL) { ?>
-			<tr class='tabl0'>
+			<tr class='tabl1'>
 				<td class="tittab"><?= $valL ?></td>
 				<? foreach ($tabCategCol as $valC) { ?>
 					<td width='30%' id='<?= $keyL ?>' style='text-align:center'><?= $keyL ?></td>
@@ -167,7 +177,7 @@
 			<? foreach ($tabCount as $keyL => $valL) {
 				if ($indexSaut++ % 4 == 0) { ?>
 		</tr>
-		<tr class='tabl0'>
+		<tr class='tabl1'>
 		<? } ?>
 		<td width='15%'class="tittab"><?= $valL ?></td>
 		<td width='10%' id='<?= $keyL ?>' style='text-align:center'></td>

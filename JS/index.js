@@ -15,6 +15,7 @@ function setParamVal(val) {
 }
 
 function display_retour_test(val) {
+    alert(val);
     console.log(val);
 }
 

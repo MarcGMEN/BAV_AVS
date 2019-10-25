@@ -549,6 +549,22 @@ td.tabl0 {
 	color: WHITE;
 	font-weight: bold;
 }
+
+.tabl1 {
+	font-family:  Verdana, Arial, Helvetica, sans-serif;
+	border: 0px;
+	padding: 2pt 2pt 2pt 2pt;
+	font-size: 0.8em;
+}
+
+td.tabl1 {
+	padding: 2pt;
+}
+
+.tabl1:hover {
+	background-color:lightblue;
+	font-weight: bold;
+}
 tr.CONFIRME {
 	background-color: lightcoral;
 	color: BLACK;
@@ -568,15 +584,6 @@ tr.PAYE {
 tr.RENDU {
 	background-color: darkorange;
 	color: WHITE;
-}
-
-.tabl1 {
-	font-family:  Verdana, Arial, Helvetica, sans-serif;
-	/*background-color: WHITE;*/
-	color: BLACK;
-	font-weight: bold;
-	padding-top: 5pt;
-	padding-bottom: 5pt;
 }
 
 .tabInput {
