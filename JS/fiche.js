@@ -34,7 +34,9 @@ function initPage() {
         document.ficheForm.obj_couleur.required = false;
 
         document.ficheForm.obj_prix_depot.required = true;
-        document.ficheForm.obj_prix_depot.min = 1;
+        if (!ADMIN) {
+            document.ficheForm.obj_prix_depot.min = 1;
+        }
 
         getElement("trTauxCom").style.display = 'block';
         getElement("divPrix").style.display = 'block';
@@ -128,7 +130,9 @@ function display_fiche(val) {
             document.ficheForm.obj_prix_vente.value = val['obj_prix_depot'];
             document.ficheForm.obj_prix_vente.disabled = true
 
-            document.ficheForm.obj_prix_depot.min = 1;
+            if (!ADMIN) {
+                document.ficheForm.obj_prix_depot.min = 1;
+            }
             document.ficheForm.buttonEtatFiche.value = "Mettre en stock";
             document.ficheForm.obj_etat_new.value = "STOCK";
             val['obj_etat_libelle'] = "Demande confirmée le [" + formatDate(val['obj_date_depot'], true) + "]";

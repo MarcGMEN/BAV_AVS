@@ -25,6 +25,8 @@
 		var minutes=parseInt((diff % 3600) / 60);
 		var secondes=parseInt(((diff % 3600) % 60));                  
 		var jourTxt=jour>0?jour+'j et':'';
+		if (secondes < 10) { secondes="0"+secondes}
+		if (minutes < 10) { minutes="0"+minutes}
 		getElement('timeRestant').innerHTML = jourTxt+" "+heures+":"+minutes+":"+secondes;
 		setTimeout('return_restant()', 1000);
 	}
@@ -89,7 +91,7 @@
 				</div>
 				<div class="col-sm-12 col-md-12 col-xs-6 maskMobile">
 					<img src="Images/cycleBAV.png" id="cycleBAV" class=link onclick="location.href='index.php'" />
-					<p id=timeRestant></p>
+					<p style="font-size:0.7em" id=timeRestant></p>
 				</div>
 			</div>
 		</td>
