@@ -10,11 +10,25 @@
 			x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);
 
 			x_return_stat(tabToString(tabSel), display_stat)
+			x_return_graphCount('type',display_countType);
+			x_return_graphCount('public',display_countPublic);
+			x_return_graphCount('marque',display_countMarque);
 		} else {
 			goTo();
 		}
 	}
 
+	function display_countType(val) {
+		getElement('type').src=val;
+	}
+	function display_countPublic(val) {
+		getElement('public').src=val;
+	}
+	
+	function display_countMarque(val) {
+		getElement('marque').src=val;
+	}
+	
 	function display_list_type(val) {
 		display_list(val, 'type');
 	}
@@ -98,13 +112,13 @@
 	<table width="100%">
 		<tr>
 			<td class="tittab" width=33%>
-				<span id='obj_type'>Type</span>
+				<span >Type</span>
 				&nbsp;<select id="sel_obj_type" onchange="selectColonne()"></select></td>
 			<td class="tittab" width=33%>
-				<span id='obj_public'>Public</span>
+				<span>Public</span>
 				&nbsp;<select id="sel_obj_public" onchange="selectColonne()"></select></td>
 			<td class="tittab" width=33%>
-				<span id='obj_pratique'>Pratique</span>
+				<span >Pratique</span>
 				&nbsp;<select id="sel_obj_pratique" onchange="selectColonne()"></select></td>
 		</tr>
 	</table>
@@ -168,6 +182,16 @@
 	</table>
 </fieldset>
 <br />
+<fieldset class=fiche>
+	<legend class=titreFiche>Repartition</legend>
+	<table width="100%">
+		<tr>
+			<? foreach (['type','public','marque'] as $valL) {?>
+			<td width='33%'><img id="<?=$valL?>" /></td>
+		<? } ?>
+		</tr>
+	</table>
+</fieldset>
 <hr />
 <fieldset class=fiche>
 	<legend class=titreFiche>Stat journaliere</legend>

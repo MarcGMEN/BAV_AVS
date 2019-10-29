@@ -30,6 +30,8 @@
 				sajax_asynchro['return_oneClientByName']=1;
 				sajax_asynchro['return_clients']=1;
 				sajax_asynchro['action_deleteClient']=1;
+				sajax_asynchro['return_stat']=1;
+				sajax_asynchro['return_graphCount']=1;
 				sajax_asynchro['return_oneActu']=1;
 				sajax_asynchro['action_createActu']=1;
 				sajax_asynchro['action_deleteActu']=1;
@@ -57,7 +59,6 @@
 				sajax_asynchro['return_fiches_express']=1;
 				sajax_asynchro['action_makeA4Etiquettes']=1;
 				sajax_asynchro['action_makeA4Fiches']=1;
-				sajax_asynchro['return_stat']=1;
 				sajax_asynchro['action_reMelConfirme']=1;
 				sajax_asynchro['return_countMailing']=1;
 				sajax_asynchro['return_countMailingAEnvoyer']=1;
@@ -433,6 +434,20 @@
 		}
 		
 				
+		// wrapper for return_stat		
+		function x_return_stat() {
+			sajax_do_call("return_stat",
+				x_return_stat.arguments);
+		}
+		
+				
+		// wrapper for return_graphCount		
+		function x_return_graphCount() {
+			sajax_do_call("return_graphCount",
+				x_return_graphCount.arguments);
+		}
+		
+				
 		// wrapper for return_oneActu		
 		function x_return_oneActu() {
 			sajax_do_call("return_oneActu",
@@ -619,13 +634,6 @@
 		function x_action_makeA4Fiches() {
 			sajax_do_call("action_makeA4Fiches",
 				x_action_makeA4Fiches.arguments);
-		}
-		
-				
-		// wrapper for return_stat		
-		function x_return_stat() {
-			sajax_do_call("return_stat",
-				x_return_stat.arguments);
 		}
 		
 				
