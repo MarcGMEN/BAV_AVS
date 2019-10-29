@@ -10,25 +10,26 @@
 			x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);
 
 			x_return_stat(tabToString(tabSel), display_stat)
-			x_return_graphCount('type',display_countType);
-			x_return_graphCount('public',display_countPublic);
-			x_return_graphCount('marque',display_countMarque);
+			x_return_graphCount('type', display_countType);
+			x_return_graphCount('public', display_countPublic);
+			x_return_graphCount('marque', display_countMarque);
 		} else {
 			goTo();
 		}
 	}
 
 	function display_countType(val) {
-		getElement('type').src=val;
+		getElement('type').src = val;
 	}
+
 	function display_countPublic(val) {
-		getElement('public').src=val;
+		getElement('public').src = val;
 	}
-	
+
 	function display_countMarque(val) {
-		getElement('marque').src=val;
+		getElement('marque').src = val;
 	}
-	
+
 	function display_list_type(val) {
 		display_list(val, 'type');
 	}
@@ -67,7 +68,7 @@
 		tabSel['obj_public'] = getElement("sel_obj_public").value;
 		tabSel['obj_pratique'] = getElement("sel_obj_pratique").value;
 
-		var tabAff=[];
+		var tabAff = [];
 		tabAff['Tobj_type'] = tabSel['obj_type'];
 		tabAff['Tobj_public'] = tabSel['obj_public'];
 		tabAff['Tobj_pratique'] = tabSel['obj_pratique']
@@ -112,13 +113,13 @@
 	<table width="100%">
 		<tr>
 			<td class="tittab" width=33%>
-				<span >Type</span>
+				<span>Type</span>
 				&nbsp;<select id="sel_obj_type" onchange="selectColonne()"></select></td>
 			<td class="tittab" width=33%>
 				<span>Public</span>
 				&nbsp;<select id="sel_obj_public" onchange="selectColonne()"></select></td>
 			<td class="tittab" width=33%>
-				<span >Pratique</span>
+				<span>Pratique</span>
 				&nbsp;<select id="sel_obj_pratique" onchange="selectColonne()"></select></td>
 		</tr>
 	</table>
@@ -145,7 +146,7 @@
 		'depot_J30' => 'Depot < 15',
 		'depot_J15' => 'Depot 15 < 0',
 		'stock_J1' => 'Stock J1',
-		'3' => '',
+		'3' => '..',
 		'stock_J2-AM' => 'Stock AM J2',
 		'vente_J2-AM' => 'Vente AM J2',
 		'stock_J2-PM' => 'Stock PM J2',
@@ -184,28 +185,23 @@
 <br />
 <fieldset class=fiche>
 	<legend class=titreFiche>Repartition</legend>
-	<table width="100%">
-		<tr>
-			<? foreach (['type','public','marque'] as $valL) {?>
-			<td width='33%'><img id="<?=$valL?>" /></td>
+	<div class="row">
+		<? foreach (['type', 'public', 'marque'] as $valL) { ?>
+			<div class="col-sm-4 col-xs-12">
+				<img id="<?= $valL ?>" />
+			</div>
 		<? } ?>
-		</tr>
-	</table>
+	</div>
 </fieldset>
 <hr />
 <fieldset class=fiche>
 	<legend class=titreFiche>Stat journaliere</legend>
-	<table width="100%">
-		<tr>
-			<? $indxSaut = 0; ?>
-			<? foreach ($tabCount as $keyL => $valL) {
-				if ($indexSaut++ % 4 == 0) { ?>
-		</tr>
-		<tr class='tabl1'>
+	<div class="row">
+		<? foreach ($tabCount as $keyL => $valL) { ?>
+			<div class="col-sm-3 col-xs-12 tabl1">
+				<div class="col-sm-8 col-xs-8 tittab"><?= $valL ?></div>
+				<div class="col-sm-4 col-xs-4" id='<?= $keyL ?>' style='text-align:center'></div>
+			</div>
 		<? } ?>
-		<td width='15%'class="tittab"><?= $valL ?></td>
-		<td width='10%' id='<?= $keyL ?>' style='text-align:center'></td>
-	<? } ?>
-		</tr>
-	</table>
+	</div>
 </fieldset>

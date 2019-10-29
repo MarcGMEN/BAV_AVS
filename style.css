@@ -531,17 +531,18 @@ table {
 	padding-bottom: 5pt;
 }
 
-.tabl0 {
+tr.tabl0 {
 	font-family:  Verdana, Arial, Helvetica, sans-serif;
 	background-color: WHITE;
 	color: #1161a2;
 	border: 0px;
 	padding: 2pt 2pt 2pt 2pt;
-	font-size: 0.8em;
+	/*font-size: 0.8em;*/
 }
 
 td.tabl0 {
 	padding: 2pt;
+	font-size: 0.8em;
 }
 
 .tabl0:hover {
@@ -550,15 +551,16 @@ td.tabl0 {
 	font-weight: bold;
 }
 
-.tabl1 {
+tr.tabl1 {
 	font-family:  Verdana, Arial, Helvetica, sans-serif;
 	border: 0px;
 	padding: 2pt 2pt 2pt 2pt;
-	font-size: 0.8em;
+	/*font-size: 0.8em;*/
 }
 
 td.tabl1 {
 	padding: 2pt;
+	font-size: 0.8em;
 }
 
 .tabl1:hover {
@@ -692,6 +694,10 @@ img.logo {
 	}
 	.maskMobile, .maskMobileBlock {
 		display: none;
+	}
+	
+	.tabl1, .tabl0 {
+		font-size: 0.8em;	
 	}
 }
 
