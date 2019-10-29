@@ -61,8 +61,9 @@ function return_stat($selection)
         $tabCount['stock_J2-PM'] = 0;
         $tabCount['stock_J3-AM'] = 0;
         $tabCount['stock_J3-PM'] = 0;
+        $tabCount["count"] = 0;
 
-        $tabTmp = ['type', 'public', 'marque'];
+        $tabTmp = ['type', 'public', 'marque', 'pratique', 'couleur'];
         foreach ($tabTmp as $key) {
             $tabCount["count_$key"] = [];
         }
@@ -86,6 +87,7 @@ function return_stat($selection)
                 $val['obj_etat'] == "RENDU" ||
                 $val['obj_etat'] == "PAYE"
             ) {
+
 
                 foreach ($tabTmp as $keyTmp) {
                     if (!isset($tabCount["count_$keyTmp"][$val['obj_' . $keyTmp]])) {
@@ -171,11 +173,13 @@ function return_stat($selection)
                     $tabAcheteur[$val['obj_id_acheteur']]++;
                 }
             }
-            $dateDepotInt = dateMysqlInt($val['obj_date_depot']);
-            if ($dateDepotInt < $date["depot_J30"]) {
-                $tabCount['depot_J30']++;
-            } else if ($dateDepotInt < $date["depot_J15"]) {
-                $tabCount['depot_J15']++;
+            if ($val['obj_etat'] != "INIT") {
+                $dateDepotInt = dateMysqlInt($val['obj_date_depot']);
+                if ($dateDepotInt < $date["depot_J30"]) {
+                    $tabCount['depot_J30']++;
+                } else if ($dateDepotInt < $date["depot_J15"]) {
+                    $tabCount['depot_J15']++;
+                }
             }
         }
         if ($tabCount['prixMini'] == 1000000) {
@@ -240,6 +244,9 @@ function return_graphCount($by)
 
     $oPie->SetValueType(PIE_VALUE_ABS);
 
+    $aColors = array('white','black','green','yellow','brown','red','blue','lightgreen');
+    $oPie->SetColor($aColors);
+
     // Format des valeurs de type entier
     $oPie->value->SetFormat('%d');
 
@@ -247,7 +254,62 @@ function return_graphCount($by)
     $graph->Add($oPie);
 
     // Provoquer l'affichage (renvoie directement l'image au navigateur)
-    $graph->Stroke("../out/img/$by.png");
+    $graph->Stroke("../out/img/secteur_$by.png");
 
-    return "./out/img/$by.png";
+    return "./out/img/secteur_$by.png";
+}
+
+function return_histoCount($by, $width=400, $height=250)
+{
+    $tabCount = return_stat(null);
+    ksort($tabCount["count_$by"]);
+    //print_r($tabCount["count_$by"]);
+    // Construction du conteneur
+    // Spécification largeur et hauteur
+    $graph = new Graph($width, $height);
+    
+    // Réprésentation linéaire
+    $graph->SetScale("textlin");
+
+    // Ajouter une ombre au conteneur
+    $graph->SetShadow();
+
+    // Fixer les marges
+    $graph->img->SetMargin(40, 30, 15, 80);
+
+    // Création du graphique histogramme
+    $bplot = new BarPlot(array_values($tabCount["count_$by"]));
+
+    // Spécification des couleurs des barres
+    $aColors = array('white','black','green','yellow','brown','red','blue','lightgreen');
+    $bplot->SetFillColor($aColors);
+
+    // Fixer l'aspect de la police
+    $bplot->value->SetFont(FF_FONT1, FS_NORMAL, 10);
+    // Modifier le rendu de chaque valeur
+    $bplot->value->SetFormat('%d');
+    // Afficher les valeurs pour chaque barre
+    $bplot->value->Show(); 
+    
+    // Ajouter les barres au conteneur
+    $graph->Add($bplot);
+    
+
+    // Le titre
+    $graph->title->Set("Repartition par $by");
+    $graph->title->SetFont(FF_FONT1, FS_BOLD);
+
+    // Titre pour l'axe horizontal(axe x) et vertical (axe y)
+    //$graph->xaxis->title->Set($by);
+    $graph->yaxis->title->Set("Nombre");
+    $graph->yaxis->title->SetFont(FF_FONT1, FS_BOLD);
+
+    // Légende pour l'axe horizontal
+    $graph->xaxis->SetTickLabels(array_keys($tabCount["count_$by"]));
+    $graph->xaxis->SetLabelAngle(45);
+    
+    // Provoquer l'affichage (renvoie directement l'image au navigateur)
+    $graph->Stroke("../out/img/histo_$by.png");
+
+    return "./out/img/histo_$by.png";
 }

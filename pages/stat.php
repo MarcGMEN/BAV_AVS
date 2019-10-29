@@ -11,8 +11,9 @@
 
 			x_return_stat(tabToString(tabSel), display_stat)
 			x_return_graphCount('type', display_countType);
+			x_return_graphCount('pratique', display_countPratique);
 			x_return_graphCount('public', display_countPublic);
-			x_return_graphCount('marque', display_countMarque);
+			x_return_histoCount('marque', 1000, 250, display_countMarque);
 		} else {
 			goTo();
 		}
@@ -26,9 +27,14 @@
 		getElement('public').src = val;
 	}
 
+	function display_countPratique(val) {
+		getElement('pratique').src = val;
+	}
 	function display_countMarque(val) {
 		getElement('marque').src = val;
 	}
+	
+
 
 	function display_list_type(val) {
 		display_list(val, 'type');
@@ -186,12 +192,15 @@
 <fieldset class=fiche>
 	<legend class=titreFiche>Repartition</legend>
 	<div class="row">
-		<? foreach (['type', 'public', 'marque'] as $valL) { ?>
+		<? foreach (['type', 'public', 'pratique'] as $valL) { ?>
 			<div class="col-sm-4 col-xs-12">
 				<img id="<?= $valL ?>" />
 			</div>
 		<? } ?>
-	</div>
+		<div class="col-sm-12 col-xs-12">
+				<center><img id="marque" /></center>
+		</div>
+		</div>
 </fieldset>
 <hr />
 <fieldset class=fiche>

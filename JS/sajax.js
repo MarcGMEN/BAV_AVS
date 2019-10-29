@@ -32,6 +32,7 @@
 				sajax_asynchro['action_deleteClient']=1;
 				sajax_asynchro['return_stat']=1;
 				sajax_asynchro['return_graphCount']=1;
+				sajax_asynchro['return_histoCount']=1;
 				sajax_asynchro['return_oneActu']=1;
 				sajax_asynchro['action_createActu']=1;
 				sajax_asynchro['action_deleteActu']=1;
@@ -445,6 +446,13 @@
 		function x_return_graphCount() {
 			sajax_do_call("return_graphCount",
 				x_return_graphCount.arguments);
+		}
+		
+				
+		// wrapper for return_histoCount		
+		function x_return_histoCount() {
+			sajax_do_call("return_histoCount",
+				x_return_histoCount.arguments);
 		}
 		
 				

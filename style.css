@@ -531,7 +531,7 @@ table {
 	padding-bottom: 5pt;
 }
 
-tr.tabl0 {
+.tabl0 {
 	font-family:  Verdana, Arial, Helvetica, sans-serif;
 	background-color: WHITE;
 	color: #1161a2;
@@ -551,7 +551,7 @@ td.tabl0 {
 	font-weight: bold;
 }
 
-tr.tabl1 {
+.tabl1 {
 	font-family:  Verdana, Arial, Helvetica, sans-serif;
 	border: 0px;
 	padding: 2pt 2pt 2pt 2pt;
