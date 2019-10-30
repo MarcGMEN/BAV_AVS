@@ -62,11 +62,14 @@ function return_stat($selection)
         $tabCount['stock_J3-AM'] = 0;
         $tabCount['stock_J3-PM'] = 0;
         $tabCount["count"] = 0;
+        $tabCount["count_tarif"]=[];
 
         $tabTmp = ['type', 'public', 'marque', 'pratique', 'couleur'];
         foreach ($tabTmp as $key) {
             $tabCount["count_$key"] = [];
         }
+
+        $tabTarif = [30,50,100,150,200,250,500,750,1000,1250,1500,1750,2000];
 
         $date["J1"] = $infoAppli['date_j1'];
         $date["J2-MIDI"] = mktime(12, 00, 00, date("n", $infoAppli['date_j2']), date("j", $infoAppli['date_j2']), date("Y", $infoAppli['date_j2']));
@@ -74,13 +77,7 @@ function return_stat($selection)
         $date["depot_J30"] = mktime(00, 00, 00, date("n", $infoAppli['date_j1']), date("j", $infoAppli['date_j1']) - 15, date("Y", $infoAppli['date_j1']));
         $date["depot_J15"] = $infoAppli['date_j1'];
 
-        foreach ($tab as $key => $val) {
-            foreach ($tabTmp as $keyTmp) {
-                if (!isset($tabCount["count_$keyTmp"][$val['obj_' . $keyTmp]])) {
-                    $tabCount["count_$keyTmp"][$val['obj_' . $keyTmp]] = 0;
-                }
-                $tabCount["count_$keyTmp"][$val['obj_' . $keyTmp]]++;
-            }
+        foreach ($tab as $key => $val) { 
             if (
                 $val['obj_etat'] == "STOCK" ||
                 $val['obj_etat'] == "VENDU" ||
@@ -88,6 +85,24 @@ function return_stat($selection)
                 $val['obj_etat'] == "PAYE"
             ) {
 
+
+                $tarifOld="0";
+                $tarifOK=false;
+                foreach ($tabTarif as $valTarif) {
+                    $keyTarif = $tarifOld." -> ".$valTarif;
+                    if (!isset($tabCount["count_tarif"][$keyTarif])) {
+                        $tabCount["count_tarif"][$keyTarif] = 0;
+                    }
+                    if ($val['obj_prix_vente'] <= $valTarif) {
+                        $tabCount["count_tarif"][$keyTarif]++;
+                        $tarifOK=true;
+                        break;
+                    }
+                    $tarifOld=$valTarif;
+                }
+                if (!$tarifOK) {
+                    $tabCount["count_tarif"]["> ".$valTarif]++;
+                }
 
                 foreach ($tabTmp as $keyTmp) {
                     if (!isset($tabCount["count_$keyTmp"][$val['obj_' . $keyTmp]])) {
@@ -173,6 +188,25 @@ function return_stat($selection)
                     $tabAcheteur[$val['obj_id_acheteur']]++;
                 }
             }
+            else  if ($val['obj_etat'] == "CONFIRME") {
+                $tarifOld="0";
+                $tarifOK=false;
+                foreach ($tabTarif as $valTarif) {
+                    $keyTarif = $tarifOld." -> ".$valTarif;
+                    if (!isset($tabCount["count_tarif"][$keyTarif])) {
+                        $tabCount["count_tarif"][$keyTarif] = 0;
+                    }
+                    if ($val['obj_prix_depot'] <= $valTarif) {
+                        $tabCount["count_tarif"][$keyTarif]++;
+                        $tarifOK=true;
+                        break;
+                    }
+                    $tarifOld=$valTarif;
+                }
+                if (!$tarifOK) {
+                    $tabCount["count_tarif"]["> ".$valTarif]++;
+                }
+            }
             if ($val['obj_etat'] != "INIT") {
                 $dateDepotInt = dateMysqlInt($val['obj_date_depot']);
                 if ($dateDepotInt < $date["depot_J30"]) {
@@ -180,6 +214,14 @@ function return_stat($selection)
                 } else if ($dateDepotInt < $date["depot_J15"]) {
                     $tabCount['depot_J15']++;
                 }
+
+                foreach ($tabTmp as $keyTmp) {
+                    if (!isset($tabCount["count_$keyTmp"][$val['obj_' . $keyTmp]])) {
+                        $tabCount["count_$keyTmp"][$val['obj_' . $keyTmp]] = 0;
+                    }
+                    $tabCount["count_$keyTmp"][$val['obj_' . $keyTmp]]++;
+                }
+                
             }
         }
         if ($tabCount['prixMini'] == 1000000) {
@@ -223,7 +265,7 @@ function return_stat($selection)
 function return_graphCount($by)
 {
     $tabCount = return_stat(null);
-
+    ksort($tabCount["count_$by"]);
     // ********************************************************************
     // PARTIE : Création du graphique 
     // ********************************************************************
@@ -259,10 +301,16 @@ function return_graphCount($by)
     return "./out/img/secteur_$by.png";
 }
 
-function return_histoCount($by, $width=400, $height=250)
+function return_histoCount($by, $width=400, $height=250, $sort=0)
 {
     $tabCount = return_stat(null);
-    ksort($tabCount["count_$by"]);
+    if ($sort == 1) {
+        arsort($tabCount["count_$by"]);
+    }
+    else if ($sort == 2) {
+        ksort($tabCount["count_$by"]);
+    }
+    
     //print_r($tabCount["count_$by"]);
     // Construction du conteneur
     // Spécification largeur et hauteur

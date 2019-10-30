@@ -13,7 +13,8 @@
 			x_return_graphCount('type', display_countType);
 			x_return_graphCount('pratique', display_countPratique);
 			x_return_graphCount('public', display_countPublic);
-			x_return_histoCount('marque', 1000, 250, display_countMarque);
+			x_return_histoCount('marque', 1000, 250, 1,display_countMarque);
+			x_return_histoCount('tarif', 500, 250, display_countTarif);
 		} else {
 			goTo();
 		}
@@ -22,19 +23,18 @@
 	function display_countType(val) {
 		getElement('type').src = val;
 	}
-
 	function display_countPublic(val) {
 		getElement('public').src = val;
 	}
-
 	function display_countPratique(val) {
 		getElement('pratique').src = val;
 	}
 	function display_countMarque(val) {
 		getElement('marque').src = val;
 	}
-	
-
+	function display_countTarif(val) {
+		getElement('tarif').src = val;
+	}
 
 	function display_list_type(val) {
 		display_list(val, 'type');
@@ -198,7 +198,10 @@
 			</div>
 		<? } ?>
 		<div class="col-sm-12 col-xs-12">
-				<center><img id="marque" /></center>
+			<center><img id="marque" /></center>
+		</div>
+		<div class="col-sm-12 col-xs-12">
+			<center><img id="tarif" /></center>
 		</div>
 		</div>
 </fieldset>
