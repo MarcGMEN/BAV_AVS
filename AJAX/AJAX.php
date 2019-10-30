@@ -14,10 +14,10 @@ require_once "../Commun/mail.php";
 require_once "../Commun/html2pdf.php";
 
 //ini_set('session.cookie_httponly', 1);
-    
+
 error_reporting(E_ERROR);
 //Creation de l'aJAX avec tout les AJAX possible _AJAX.php
-$tabFile=searchFiles("AJAX", "_AJAX.php");
+$tabFile = searchFiles("AJAX", "_AJAX.php");
 foreach ($tabFile as $val) {
     include_once $val;
 }
@@ -29,9 +29,9 @@ function whatYourName($pass)
         //$_COOKIE['AADD']=1;
         return $GLOBALS['PASS_ADMIN'];
     } else if (password_verify($pass, $GLOBALS['PASS_TABLE'])) {
-            //setcookie("AADD", 1, time()+1000, '/') or die('unable to create cookie');
-            //$_COOKIE['AADD']=1;
-            return $GLOBALS['PASS_TABLE'];
+        //setcookie("AADD", 1, time()+1000, '/') or die('unable to create cookie');
+        //$_COOKIE['AADD']=1;
+        return $GLOBALS['PASS_TABLE'];
     } else {
         //setcookie('AADD', null, 0, "/")  or die('unable to remove cookie');
         //$_COOKIE['AADD']=0;
@@ -42,8 +42,8 @@ function whatYourName($pass)
 function tabToObject($data, $trigramme)
 {
     foreach ($data as $key => $val) {
-        if (substr($key, 0, 4) == $trigramme.'_') {
-            $obj[$key]=$val;
+        if (substr($key, 0, 4) == $trigramme . '_') {
+            $obj[$key] = $val;
         }
     }
     return $obj;
@@ -51,35 +51,37 @@ function tabToObject($data, $trigramme)
 
 function string2Tab($obj)
 {
-    $obj = str_replace('%u20AC', '€', $obj);
-    $json= json_decode($obj, true);
-    switch (json_last_error()) {
-        case JSON_ERROR_NONE:
-            //echo ' - Aucune erreur';
-            break;
-        case JSON_ERROR_DEPTH:
-            echo ' - Profondeur maximale atteinte';
-            break;
-        case JSON_ERROR_STATE_MISMATCH:
-            echo ' - Inadéquation des modes ou underflow';
-            break;
-        case JSON_ERROR_CTRL_CHAR:
-            echo ' - Erreur lors du contrôle des caractères';
-            break;
-        case JSON_ERROR_SYNTAX:
-            echo ' - Erreur de syntaxe ; JSON mal formé';
-            print_r($obj);
-            break;
-        case JSON_ERROR_UTF8:
-            $obj8 = utf8_encode2($obj);
-            $obj8 = str_replace('â‚¬', '€', $obj8);
-            $json =json_decode($obj8, true);
-            break;
-        default:
-            echo ' - Erreur inconnue';
-            break;
-    }
-    /*$tabArg = explode("#2C", $obj);
+    $json="";
+    if ($obj) {
+        $obj = str_replace('%u20AC', '€', $obj);
+        $json = json_decode($obj, true);
+        switch (json_last_error()) {
+            case JSON_ERROR_NONE:
+                //echo ' - Aucune erreur';
+                break;
+            case JSON_ERROR_DEPTH:
+                echo ' - Profondeur maximale atteinte';
+                break;
+            case JSON_ERROR_STATE_MISMATCH:
+                echo ' - Inadéquation des modes ou underflow';
+                break;
+            case JSON_ERROR_CTRL_CHAR:
+                echo ' - Erreur lors du contrôle des caractères';
+                break;
+            case JSON_ERROR_SYNTAX:
+                echo ' - Erreur de syntaxe ; JSON mal formé';
+                print_r($obj);
+                break;
+            case JSON_ERROR_UTF8:
+                $obj8 = utf8_encode2($obj);
+                $obj8 = str_replace('â‚¬', '€', $obj8);
+                $json = json_decode($obj8, true);
+                break;
+            default:
+                echo ' - Erreur inconnue';
+                break;
+        }
+        /*$tabArg = explode("#2C", $obj);
     $tab=array();
     foreach ($tabArg as $val) {
         $tabTmp = explode("#3D", $val);
@@ -88,14 +90,15 @@ function string2Tab($obj)
         }
     }
     return $tab;*/
+    }
     return $json;
 }
-    
+
 function return_enum($table, $champ)
 {
     $tabEnum = recupEnumToArray($table, $champ);
     foreach ($tabEnum as $key => $val) {
-        $tabEnum[$key]=utf8Encode($val);
+        $tabEnum[$key] = utf8Encode($val);
     }
     return $tabEnum;
 }
@@ -104,6 +107,22 @@ function return_list_unique($table, $champ)
 {
     return listUnique($table, $champ);
 }
+
+function return_restant()
+{
+    $infoAppli = return_infoAppli();
+
+    $today = time();
+
+    $dDiff = $infoAppli['date_j1'] - $today;
+
+    if ($dDiff > 0) {
+        return duree2HMS($dDiff);
+    } else {
+        return "";
+    }
+}
+
 
 
 function get_publiHtml($data, $html)
@@ -114,22 +133,22 @@ function get_publiHtml($data, $html)
 function action_makePDFFromHtml($data, $html)
 {
     extract($GLOBALS);
-    $filePDF = html2pdf(string2Tab($data), "../html/$html", "reglement_" .$_COOKIE['NUMERO_BAV']);
+    $filePDF = html2pdf(string2Tab($data), "../html/$html", "reglement_" . $_COOKIE['NUMERO_BAV']);
 
-    return $CFG_URL.$filePDF;
+    return $CFG_URL . $filePDF;
 }
 
 function return_html($html)
 {
     extract($GLOBALS);
-    $data=['URL'=>$CFG_URL];
-	return makeCorps($data, '../html/'.$html.'.html');
+    $data = ['URL' => $CFG_URL];
+    return makeCorps($data, '../html/' . $html . '.html');
 }
 
 function save_html($html, $data)
 {
-     file_put_contents('../html/'.$html.'.html', utf8_encode2($data));
-     return $html;
+    file_put_contents('../html/' . $html . '.html', utf8_encode2($data));
+    return $html;
 }
 
 sajax_init("");

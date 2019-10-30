@@ -13,6 +13,7 @@
 				sajax_asynchro['return_html']=1;
 				sajax_asynchro['save_html']=1;
 				sajax_asynchro['whatYourName']=1;
+				sajax_asynchro['return_restant']=1;
 				sajax_asynchro['return_oneFaq']=1;
 				sajax_asynchro['action_createFaq']=1;
 				sajax_asynchro['action_deleteFaq']=1;
@@ -29,6 +30,9 @@
 				sajax_asynchro['return_oneClientByName']=1;
 				sajax_asynchro['return_clients']=1;
 				sajax_asynchro['action_deleteClient']=1;
+				sajax_asynchro['return_stat']=1;
+				sajax_asynchro['return_graphCount']=1;
+				sajax_asynchro['return_histoCount']=1;
 				sajax_asynchro['return_oneActu']=1;
 				sajax_asynchro['action_createActu']=1;
 				sajax_asynchro['action_deleteActu']=1;
@@ -56,7 +60,6 @@
 				sajax_asynchro['return_fiches_express']=1;
 				sajax_asynchro['action_makeA4Etiquettes']=1;
 				sajax_asynchro['action_makeA4Fiches']=1;
-				sajax_asynchro['return_stat']=1;
 				sajax_asynchro['action_reMelConfirme']=1;
 				sajax_asynchro['return_countMailing']=1;
 				sajax_asynchro['return_countMailingAEnvoyer']=1;
@@ -313,6 +316,13 @@
 		}
 		
 				
+		// wrapper for return_restant		
+		function x_return_restant() {
+			sajax_do_call("return_restant",
+				x_return_restant.arguments);
+		}
+		
+				
 		// wrapper for return_oneFaq		
 		function x_return_oneFaq() {
 			sajax_do_call("return_oneFaq",
@@ -422,6 +432,27 @@
 		function x_action_deleteClient() {
 			sajax_do_call("action_deleteClient",
 				x_action_deleteClient.arguments);
+		}
+		
+				
+		// wrapper for return_stat		
+		function x_return_stat() {
+			sajax_do_call("return_stat",
+				x_return_stat.arguments);
+		}
+		
+				
+		// wrapper for return_graphCount		
+		function x_return_graphCount() {
+			sajax_do_call("return_graphCount",
+				x_return_graphCount.arguments);
+		}
+		
+				
+		// wrapper for return_histoCount		
+		function x_return_histoCount() {
+			sajax_do_call("return_histoCount",
+				x_return_histoCount.arguments);
 		}
 		
 				
@@ -611,13 +642,6 @@
 		function x_action_makeA4Fiches() {
 			sajax_do_call("action_makeA4Fiches",
 				x_action_makeA4Fiches.arguments);
-		}
-		
-				
-		// wrapper for return_stat		
-		function x_return_stat() {
-			sajax_do_call("return_stat",
-				x_return_stat.arguments);
 		}
 		
 				

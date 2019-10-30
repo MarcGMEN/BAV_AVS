@@ -6,7 +6,8 @@ sajax_export(
     "action_makePDFFromHtml",
     "return_html",
     "save_html",
-    "whatYourName"
+    "whatYourName",
+    "return_restant"
 );
 
 //export de toutes les fonction AJAX des modules

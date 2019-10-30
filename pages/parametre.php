@@ -24,26 +24,26 @@
 		repr+="<td class='tittab' width=10% >Debut table</td>";
 		for (index in val) {
 			repr+="<tr class='tabl0 link' onclick=\"getOne(\'"+val[index]['par_numero_bav']+"\')\">";
-			repr+="<td class='tabl0' width=5% >";
+			repr+="<td  width=5% >";
 			repr+=val[index]['par_numero_bav'];
 			repr+="</td>";
-			repr+="<td class='tabl0'  width=45% >";
+			repr+="<td   width=45% >";
 			repr+=val[index]['par_titre'];
 			repr+="</td>";
-			repr+="<td class='tabl0'  width=15% >";
+			repr+="<td   width=15% >";
 			repr+=val[index]['par_taux_1']+"%<br/>"+val[index]['par_taux_2']+"%<br/>"+val[index]['par_taux_3']+"%"
 			repr+="</td>";
-			repr+="<td class='tabl0'  width=10% >";
+			repr+="<td   width=10% >";
 			repr+=val[index]['par_prix_depot_1']+"€<br/>"+val[index]['par_prix_depot_2']+"€<br/>"+val[index]['par_prix_depot_3']+"€"
 			repr+="</td>";
-			repr+="<td class='tabl0'  class='tabl0'  width=10% >";
+			repr+="<td   width=10% >";
 			repr+=val[index]['par_nb_modif'];
 			repr+="</td>";
 			
-			repr+="<td class='tabl0'  width=10% >";
+			repr+="<td   width=10% >";
 			repr+=val[index]['par_client_date_debut_FR'];
 			repr+="</td>";
-			repr+="<td class='tabl0'  width=10% >";
+			repr+="<td   width=10% >";
 			repr+=val[index]['par_table_date_debut_FR'];
 			repr+="</td>";
 			repr+="</tr>";

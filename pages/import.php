@@ -20,11 +20,6 @@
 				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Nom et prénom <span title="Obligatoire">*</span></span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
 					<input type=text name='cli_nom' tabindex=<?= $tabindex++ ?> size="50" maxlength="100" required>
-					<!--onkeyup="keyUpNom()"
-					onblur='x_return_oneClientByName(this.value, display_infoClientVendeurBis) >'
-					list='listVendeurBis'/>
-					<datalist id="listVendeurBis"></datalist>-->
-
 				</span>
 			</div>
 			<div class="col-sm-6 col-md-6 col-xs-12">
@@ -72,13 +67,14 @@
 			<input type=reset value="Reset" name="buttonResetClient" onclick='getElement("legendVendeur").innerHTML =""' tabindex=<?= $tabindex++ ?>>
 		</div>
 	</div>
-
 </form>
 
 <hr />
 <fieldset class=fiche>
 	<legend class="titreFiche">Le Fichier</legend>
-
+	<div class="alert alert-info">
+		<b>Format attendu :</b> Type | Public | Pratique | Marque | Modèle | Couleur | Description | Prix
+	</div>
 	<form action="Actions/importFile.php" method="post" enctype="multipart/form-data" name=fileForm>
 		<input type=hidden name="cli_id" required />
 		<div class="row fiche">

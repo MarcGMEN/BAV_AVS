@@ -10,9 +10,30 @@
 			x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);
 
 			x_return_stat(tabToString(tabSel), display_stat)
+			x_return_graphCount('type', display_countType);
+			x_return_graphCount('pratique', display_countPratique);
+			x_return_graphCount('public', display_countPublic);
+			x_return_histoCount('marque', 1000, 250, 1,display_countMarque);
+			x_return_histoCount('tarif', 500, 250, display_countTarif);
 		} else {
 			goTo();
 		}
+	}
+
+	function display_countType(val) {
+		getElement('type').src = val;
+	}
+	function display_countPublic(val) {
+		getElement('public').src = val;
+	}
+	function display_countPratique(val) {
+		getElement('pratique').src = val;
+	}
+	function display_countMarque(val) {
+		getElement('marque').src = val;
+	}
+	function display_countTarif(val) {
+		getElement('tarif').src = val;
 	}
 
 	function display_list_type(val) {
@@ -52,8 +73,13 @@
 		tabSel['obj_type'] = getElement("sel_obj_type").value;
 		tabSel['obj_public'] = getElement("sel_obj_public").value;
 		tabSel['obj_pratique'] = getElement("sel_obj_pratique").value;
-		//tabSel[col] = mask;
 
+		var tabAff = [];
+		tabAff['Tobj_type'] = tabSel['obj_type'];
+		tabAff['Tobj_public'] = tabSel['obj_public'];
+		tabAff['Tobj_pratique'] = tabSel['obj_pratique']
+
+		display_formulaire(tabAff, null);
 		console.log(tabSel);
 		x_return_stat(tabToString(tabSel), display_stat)
 	}
@@ -93,13 +119,13 @@
 	<table width="100%">
 		<tr>
 			<td class="tittab" width=33%>
-				<span id='obj_type'>Type</span>
+				<span>Type</span>
 				&nbsp;<select id="sel_obj_type" onchange="selectColonne()"></select></td>
 			<td class="tittab" width=33%>
-				<span id='obj_public'>Public</span>
+				<span>Public</span>
 				&nbsp;<select id="sel_obj_public" onchange="selectColonne()"></select></td>
 			<td class="tittab" width=33%>
-				<span id='obj_pratique'>Pratique</span>
+				<span>Pratique</span>
 				&nbsp;<select id="sel_obj_pratique" onchange="selectColonne()"></select></td>
 		</tr>
 	</table>
@@ -123,10 +149,10 @@
 	];
 
 	$tabCount = [
-		'1' => '',
-		'2' => '',
+		'depot_J30' => 'Depot < 15',
+		'depot_J15' => 'Depot 15 < 0',
 		'stock_J1' => 'Stock J1',
-		'3' => '',
+		'3' => '..',
 		'stock_J2-AM' => 'Stock AM J2',
 		'vente_J2-AM' => 'Vente AM J2',
 		'stock_J2-PM' => 'Stock PM J2',
@@ -143,11 +169,17 @@
 	<table width="100%">
 		<tr>
 			<td class="tittab" width=30%></td>
-			<td colspan=2 class="tittab" width=70%><span>Total</span></td>
+			<td colspan=2 class="tittab" width=70%>
+				<span>Total </span>&nbsp;
+				<span id='count'>()</span>&nbsp;
+				<span id='Tobj_type'>*</span>&nbsp;
+				<span id='Tobj_public'>*</span>&nbsp;
+				<span id='Tobj_pratique'>*</span>
+			</td>
 		</tr>
 		<?
 		foreach ($tabCategLigne as $keyL => $valL) { ?>
-			<tr class='tabl0'>
+			<tr class='tabl1'>
 				<td class="tittab"><?= $valL ?></td>
 				<? foreach ($tabCategCol as $valC) { ?>
 					<td width='30%' id='<?= $keyL ?>' style='text-align:center'><?= $keyL ?></td>
@@ -158,20 +190,31 @@
 	</table>
 </fieldset>
 <br />
+<fieldset class=fiche>
+	<legend class=titreFiche>Repartition</legend>
+	<div class="row">
+		<? foreach (['type', 'public', 'pratique'] as $valL) { ?>
+			<div class="col-sm-4 col-xs-12">
+				<img id="<?= $valL ?>" />
+			</div>
+		<? } ?>
+		<div class="col-sm-12 col-xs-12">
+			<center><img id="marque" /></center>
+		</div>
+		<div class="col-sm-12 col-xs-12">
+			<center><img id="tarif" /></center>
+		</div>
+		</div>
+</fieldset>
 <hr />
 <fieldset class=fiche>
 	<legend class=titreFiche>Stat journaliere</legend>
-	<table width="100%">
-		<tr>
-			<? $indxSaut = 0; ?>
-			<? foreach ($tabCount as $keyL => $valL) {
-				if ($indexSaut++ % 4 == 0) { ?>
-		</tr>
-		<tr class='tabl0'>
+	<div class="row">
+		<? foreach ($tabCount as $keyL => $valL) { ?>
+			<div class="col-sm-3 col-xs-12 tabl1">
+				<div class="col-sm-8 col-xs-8 tittab"><?= $valL ?></div>
+				<div class="col-sm-4 col-xs-4" id='<?= $keyL ?>' style='text-align:center'></div>
+			</div>
 		<? } ?>
-		<td width='15%'class="tittab"><?= $valL ?></td>
-		<td width='10%' id='<?= $keyL ?>' style='text-align:center'></td>
-	<? } ?>
-		</tr>
-	</table>
+	</div>
 </fieldset>
