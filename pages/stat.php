@@ -11,12 +11,12 @@
 
 			x_return_stat(tabToString(tabSel), display_stat)
 			x_return_graphCount('type', display_countType);
-			//x_return_graphCount('pratique', display_countPratique);
+			x_return_graphCount('pratique', display_countPratique);
 			x_return_graphCount('public', display_countPublic);
 			x_return_histoCount('marque', 1000, 250, 1,display_countMarque);
 			x_return_histoCount('tarif', 500, 250, display_countTarif);
 
-			x_return_graphCount('code_postal', 'client', display_countCDP);
+			x_return_histoCount('code_postal',500,250,0, 'client', display_countCDP);
 		} else {
 			goTo();
 		}
@@ -214,7 +214,7 @@
 <fieldset class=fiche>
 	<legend class=titreFiche>Repartition</legend>
 	<div class="row">
-		<?php foreach (['type', 'public', 'code_postal'] as $valL) {
+		<?php foreach (['type', 'public', 'pratique'] as $valL) {
             ?>
 			<div class="col-sm-4 col-xs-12">
 				<img id="<?= $valL; ?>" />
@@ -224,8 +224,11 @@
 		<div class="col-sm-12 col-xs-12">
 			<center><img id="marque" /></center>
 		</div>
-		<div class="col-sm-12 col-xs-12">
+		<div class="col-sm-6 col-xs-12">
 			<center><img id="tarif" /></center>
+		</div>
+		<div class="col-sm-6 col-xs-12">
+			<center><img id="code_postal" /></center>
 		</div>
 		</div>
 </fieldset>
