@@ -46,7 +46,7 @@ $tabNavAdm = [];
 if ($infAppli['ADMIN']) {
     $tabNavAdm = [
         'fiche.php' => [
-            'libelle' => 'Déposer',
+            'libelle' => 'Pré-déposer',
             'mode' => 'create',
         ],
         'saisieExpress.php' => [
@@ -87,7 +87,7 @@ if ($infAppli['ADMIN']) {
 } elseif ($infAppli['TABLE']) {
     $tabNavAdm = [
         'fiche.php' => [
-            'libelle' => '<img src="Images/new.png" width=15pt/> Déposer',
+            'libelle' => '<img src="Images/new.png" width=15pt/> pré-Déposer',
             'mode' => 'create',
         ],
         'saisieExpress.php' => [
@@ -107,7 +107,7 @@ if ($infAppli['ADMIN']) {
 } elseif ($infAppli['CLIENT']) {
     $tabNavAdm = [
         'fiche.php' => [
-            'libelle' => '<img src="Images/new.png" width=15pt/> Déposer',
+            'libelle' => '<img src="Images/new.png" width=15pt/> Pré-déposer',
             'mode' => 'create',
         ],
     ];

@@ -171,6 +171,7 @@
 			<td class="tittab" width=30%></td>
 			<td colspan=2 class="tittab" width=70%>
 				<span>Total </span>&nbsp;
+				<span id='count'>()</span>&nbsp;
 				<span id='Tobj_type'>*</span>&nbsp;
 				<span id='Tobj_public'>*</span>&nbsp;
 				<span id='Tobj_pratique'>*</span>

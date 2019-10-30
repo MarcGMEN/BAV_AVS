@@ -62,14 +62,14 @@ function return_stat($selection)
         $tabCount['stock_J3-AM'] = 0;
         $tabCount['stock_J3-PM'] = 0;
         $tabCount["count"] = 0;
-        $tabCount["count_tarif"]=[];
+        $tabCount["count_tarif"] = [];
 
         $tabTmp = ['type', 'public', 'marque', 'pratique', 'couleur'];
         foreach ($tabTmp as $key) {
             $tabCount["count_$key"] = [];
         }
 
-        $tabTarif = [30,50,100,150,200,250,500,750,1000,1250,1500,1750,2000];
+        $tabTarif = [30, 50, 100, 150, 200, 250, 500, 750, 1000, 1250, 1500, 1750, 2000];
 
         $date["J1"] = $infoAppli['date_j1'];
         $date["J2-MIDI"] = mktime(12, 00, 00, date("n", $infoAppli['date_j2']), date("j", $infoAppli['date_j2']), date("Y", $infoAppli['date_j2']));
@@ -77,49 +77,56 @@ function return_stat($selection)
         $date["depot_J30"] = mktime(00, 00, 00, date("n", $infoAppli['date_j1']), date("j", $infoAppli['date_j1']) - 15, date("Y", $infoAppli['date_j1']));
         $date["depot_J15"] = $infoAppli['date_j1'];
 
-        foreach ($tab as $key => $val) { 
+        foreach ($tab as $key => $val) {
             if (
+                $val['obj_etat'] == "CONFIRME" ||
                 $val['obj_etat'] == "STOCK" ||
                 $val['obj_etat'] == "VENDU" ||
                 $val['obj_etat'] == "RENDU" ||
                 $val['obj_etat'] == "PAYE"
             ) {
+                if ($val['obj_etat'] == "CONFIRME") {
+                    $thePrix = $val['obj_prix_depot'];
+                } else {
+                    $thePrix = $val['obj_prix_vente'];
+                }
 
-
-                $tarifOld="0";
-                $tarifOK=false;
+                $tarifOld = "0";
+                $tarifOK = false;
                 foreach ($tabTarif as $valTarif) {
-                    $keyTarif = $tarifOld." -> ".$valTarif;
+                    $keyTarif = $tarifOld . " -> " . $valTarif;
                     if (!isset($tabCount["count_tarif"][$keyTarif])) {
                         $tabCount["count_tarif"][$keyTarif] = 0;
                     }
-                    if ($val['obj_prix_vente'] <= $valTarif) {
+                    if ($thePrix <= $valTarif) {
                         $tabCount["count_tarif"][$keyTarif]++;
-                        $tarifOK=true;
+                        $tarifOK = true;
                         break;
                     }
-                    $tarifOld=$valTarif;
+                    $tarifOld = $valTarif;
                 }
                 if (!$tarifOK) {
-                    $tabCount["count_tarif"]["> ".$valTarif]++;
+                    $tabCount["count_tarif"]["> " . $valTarif]++;
                 }
 
                 foreach ($tabTmp as $keyTmp) {
-                    if (!isset($tabCount["count_$keyTmp"][$val['obj_' . $keyTmp]])) {
-                        $tabCount["count_$keyTmp"][$val['obj_' . $keyTmp]] = 0;
+                    $keyObj = rtrim(trim($val['obj_' . $keyTmp]));
+                    if (!isset($tabCount["count_$keyTmp"][$keyObj])) {
+                        $tabCount["count_$keyTmp"][$keyObj] = 0;
                     }
-                    $tabCount["count_$keyTmp"][$val['obj_' . $keyTmp]]++;
+                    $tabCount["count_$keyTmp"][$keyObj]++;
                 }
-                if ($val['obj_prix_vente'] < $tabCount['prixMini']) {
-                    $tabCount['prixMini'] = $val['obj_prix_vente'];
+
+                if ($thePrix < $tabCount['prixMini']) {
+                    $tabCount['prixMini'] = $thePrix;
                     $tabCount['objprixMini'] = $val;
                 }
                 // prix_maxi
-                if ($val['obj_prix_vente'] > $tabCount['prixMaxi']) {
-                    $tabCount['prixMaxi'] = $val['obj_prix_vente'];
+                if ($thePrix > $tabCount['prixMaxi']) {
+                    $tabCount['prixMaxi'] = $thePrix;
                     $tabCount['objprixMaxi'] = $val;
                 }
-                $total += $val['obj_prix_vente'];
+                $total += $thePrix;
                 $nb++;
 
 
@@ -187,27 +194,6 @@ function return_stat($selection)
                     }
                     $tabAcheteur[$val['obj_id_acheteur']]++;
                 }
-            }
-            else  if ($val['obj_etat'] == "CONFIRME") {
-                $tarifOld="0";
-                $tarifOK=false;
-                foreach ($tabTarif as $valTarif) {
-                    $keyTarif = $tarifOld." -> ".$valTarif;
-                    if (!isset($tabCount["count_tarif"][$keyTarif])) {
-                        $tabCount["count_tarif"][$keyTarif] = 0;
-                    }
-                    if ($val['obj_prix_depot'] <= $valTarif) {
-                        $tabCount["count_tarif"][$keyTarif]++;
-                        $tarifOK=true;
-                        break;
-                    }
-                    $tarifOld=$valTarif;
-                }
-                if (!$tarifOK) {
-                    $tabCount["count_tarif"]["> ".$valTarif]++;
-                }
-            }
-            if ($val['obj_etat'] != "INIT") {
                 $dateDepotInt = dateMysqlInt($val['obj_date_depot']);
                 if ($dateDepotInt < $date["depot_J30"]) {
                     $tabCount['depot_J30']++;
@@ -215,15 +201,12 @@ function return_stat($selection)
                     $tabCount['depot_J15']++;
                 }
 
-                foreach ($tabTmp as $keyTmp) {
-                    if (!isset($tabCount["count_$keyTmp"][$val['obj_' . $keyTmp]])) {
-                        $tabCount["count_$keyTmp"][$val['obj_' . $keyTmp]] = 0;
-                    }
-                    $tabCount["count_$keyTmp"][$val['obj_' . $keyTmp]]++;
-                }
-                
+                $tabCount["count"]++;
+
+
             }
         }
+
         if ($tabCount['prixMini'] == 1000000) {
             $tabCount['prixMini'] = "0 &euro;";
         } else {
@@ -277,6 +260,8 @@ function return_graphCount($by)
 
     // Créer un graphique secteur (classe PiePlot)
     $oPie = new PiePlot(array_values($tabCount["count_$by"]));
+    // Ajouter au graphique le graphique secteur
+    $graph->Add($oPie);
 
     // Légendes qui accompagnent chaque secteur, ici chaque année
     $oPie->SetLegends(array_keys($tabCount["count_$by"]));
@@ -286,14 +271,11 @@ function return_graphCount($by)
 
     $oPie->SetValueType(PIE_VALUE_ABS);
 
-    $aColors = array('white','black','green','yellow','brown','red','blue','lightgreen');
+    $aColors = array('white', 'black', 'green', 'yellow', 'brown', 'red', 'blue', 'lightgreen');
     $oPie->SetColor($aColors);
 
     // Format des valeurs de type entier
     $oPie->value->SetFormat('%d');
-
-    // Ajouter au graphique le graphique secteur
-    $graph->Add($oPie);
 
     // Provoquer l'affichage (renvoie directement l'image au navigateur)
     $graph->Stroke("../out/img/secteur_$by.png");
@@ -301,47 +283,55 @@ function return_graphCount($by)
     return "./out/img/secteur_$by.png";
 }
 
-function return_histoCount($by, $width=400, $height=250, $sort=0)
+function return_histoCount($by, $width = 400, $height = 250, $sort = 0)
 {
     $tabCount = return_stat(null);
     if ($sort == 1) {
         arsort($tabCount["count_$by"]);
-    }
-    else if ($sort == 2) {
+    } else if ($sort == 2) {
         ksort($tabCount["count_$by"]);
     }
-    
+    // $tabCount["count_$by"]=array(13,8,19,7,17,6);
     //print_r($tabCount["count_$by"]);
     // Construction du conteneur
     // Spécification largeur et hauteur
     $graph = new Graph($width, $height);
-    
+
     // Réprésentation linéaire
+    // Echelle lineaire ('lin') en ordonnee et pas de valeur en abscisse ('text')
+    // Valeurs min et max seront determinees automatiquement
     $graph->SetScale("textlin");
 
     // Ajouter une ombre au conteneur
     $graph->SetShadow();
 
     // Fixer les marges
-    $graph->img->SetMargin(40, 30, 15, 80);
+    $graph->img->SetMargin(40, 30, 30, 80);
 
     // Création du graphique histogramme
-    $bplot = new BarPlot(array_values($tabCount["count_$by"]));
+    $index = 0;
+    $tabData = [];
+    foreach (array_values($tabCount["count_$by"]) as $val) {
+        $tabData[$index++] = $val;
+    }
+    $tabData[$index] = "";
+    //print_r($tabData);
+    $bplot = new BarPlot($tabData);
+    // Ajouter les barres au conteneur
+    $graph->Add($bplot);
 
     // Spécification des couleurs des barres
-    $aColors = array('white','black','green','yellow','brown','red','blue','lightgreen');
-    $bplot->SetFillColor($aColors);
+    $aColors = array('white', 'black', 'green', 'yellow', 'brown', 'red', 'blue', 'lightgreen');
+    //$bplot->SetFillColor($aColors);
+    $bplot->SetFillGradient('AntiqueWhite2', 'AntiqueWhite4:0.8', GRAD_VERT);
+    $bplot->SetColor('yellow');
 
     // Fixer l'aspect de la police
-    $bplot->value->SetFont(FF_FONT1, FS_NORMAL, 10);
+    $bplot->value->SetFont(FF_FONT2, FS_NORMAL, 10);
     // Modifier le rendu de chaque valeur
     $bplot->value->SetFormat('%d');
     // Afficher les valeurs pour chaque barre
-    $bplot->value->Show(); 
-    
-    // Ajouter les barres au conteneur
-    $graph->Add($bplot);
-    
+    $bplot->value->Show();
 
     // Le titre
     $graph->title->Set("Repartition par $by");
@@ -353,9 +343,14 @@ function return_histoCount($by, $width=400, $height=250, $sort=0)
     $graph->yaxis->title->SetFont(FF_FONT1, FS_BOLD);
 
     // Légende pour l'axe horizontal
-    $graph->xaxis->SetTickLabels(array_keys($tabCount["count_$by"]));
+    $index = 0;
+    $tabTick = [];
+    foreach (array_keys($tabCount["count_$by"]) as $val) {
+        $tabTick[$index++] = $val;
+    }
+    $graph->xaxis->SetTickLabels($tabTick);
     $graph->xaxis->SetLabelAngle(45);
-    
+
     // Provoquer l'affichage (renvoie directement l'image au navigateur)
     $graph->Stroke("../out/img/histo_$by.png");
 
