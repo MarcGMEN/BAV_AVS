@@ -15,11 +15,16 @@
 			x_return_graphCount('public', display_countPublic);
 			x_return_histoCount('marque', 1000, 250, 1,display_countMarque);
 			x_return_histoCount('tarif', 500, 250, display_countTarif);
+
+			x_return_histoCount('code_postal',500,250,0, 'client', display_countCDP);
 		} else {
 			goTo();
 		}
 	}
-
+	function display_countCDP(val) {
+		console.log(val);
+		getElement('code_postal').src = val;
+	}
 	function display_countType(val) {
 		getElement('type').src = val;
 	}
@@ -80,19 +85,19 @@
 		tabAff['Tobj_pratique'] = tabSel['obj_pratique']
 
 		display_formulaire(tabAff, null);
-		console.log(tabSel);
+
 		x_return_stat(tabToString(tabSel), display_stat)
 	}
 
 	function display_stat(val) {
-		console.log(val);
+
 		infoPlusObj("prixMini", val['objprixMini']);
 		infoPlusObj("prixMaxi", val['objprixMaxi']);
 		infoPlusObj("delaiMinSV", val['objdelaiMinSV']);
 		infoPlusCli("nbVeloMaxiVendeur", val['clinbVeloMaxiVendeur']);
 		infoPlusCli("nbVeloMaxiAcheteur", val['clinbVeloMaxiAcheteur']);
 
-		console.log(val);
+
 		display_formulaire(val, null);
 	}
 
@@ -129,41 +134,39 @@
 				&nbsp;<select id="sel_obj_pratique" onchange="selectColonne()"></select></td>
 		</tr>
 	</table>
-	<?
-	$tabCategLigne = [
-		'prixMini' => 'Prix mini',
-		'prixMaxi' => 'Prix maxi',
-		'prixMoyen' => 'Prix moyen',
-		'delaiMoyenSV' => 'Delai moyen Stock-Vente',
-		'delaiMinSV' => 'Delai mini Stock-Vente',
-		//'delaiMoyenVP' => 'Delai mini Vente Paye',
-		'delaiMoyenVR' => 'Delai moyen Vente Rendu',
-		'nbVeloVendeur' => 'Nombre moyen de velo par vendeur',
-		'nbVeloMaxiVendeur' => 'Nombre maxi de velo pour un vendeur',
-		'nbVeloAcheteur' => 'Nombre moyen de velo par acheteur',
-		'nbVeloMaxiAcheteur' => 'Nombre maxi de velo pour un acheteur',
+	<?php
+    $tabCategLigne = [
+        'prixMini' => 'Prix mini',
+        'prixMaxi' => 'Prix maxi',
+        'prixMoyen' => 'Prix moyen',
+        'delaiMoyenSV' => 'Delai moyen Stock-Vente',
+        'delaiMinSV' => 'Delai mini Stock-Vente',
+        //'delaiMoyenVP' => 'Delai mini Vente Paye',
+        'delaiMoyenVR' => 'Delai moyen Vente Rendu',
+        'nbVeloVendeur' => 'Nombre moyen de velo par vendeur',
+        'nbVeloMaxiVendeur' => 'Nombre maxi de velo pour un vendeur',
+        'nbVeloAcheteur' => 'Nombre moyen de velo par acheteur',
+        'nbVeloMaxiAcheteur' => 'Nombre maxi de velo pour un acheteur',
+    ];
+    $tabCategCol = [
+        'total',
+    ];
 
-	];
-	$tabCategCol = [
-		'total'
-	];
-
-	$tabCount = [
-		'depot_J30' => 'Depot < 15',
-		'depot_J15' => 'Depot 15 < 0',
-		'stock_J1' => 'Stock J1',
-		'3' => '..',
-		'stock_J2-AM' => 'Stock AM J2',
-		'vente_J2-AM' => 'Vente AM J2',
-		'stock_J2-PM' => 'Stock PM J2',
-		'vente_J2-PM' => 'Vente PM J2',
-		'stock_J3-AM' => 'Stock AM J3',
-		'vente_J3-AM' => 'Vente AM J3',
-		'stock_J3-PM' => 'Stock PM J3',
-		'vente_J3-PM' => 'Vente PM J3',
-
-	];
-	?>
+    $tabCount = [
+        'depot_J30' => 'Depot < 15',
+        'depot_J15' => 'Depot 15 < 0',
+        'stock_J1' => 'Stock J1',
+        '3' => '..',
+        'stock_J2-AM' => 'Stock AM J2',
+        'vente_J2-AM' => 'Vente AM J2',
+        'stock_J2-PM' => 'Stock PM J2',
+        'vente_J2-PM' => 'Vente PM J2',
+        'stock_J3-AM' => 'Stock AM J3',
+        'vente_J3-AM' => 'Vente AM J3',
+        'stock_J3-PM' => 'Stock PM J3',
+        'vente_J3-PM' => 'Vente PM J3',
+    ];
+    ?>
 	<br />
 
 	<table width="100%">
@@ -177,44 +180,56 @@
 				<span id='Tobj_pratique'>*</span>
 			</td>
 		</tr>
-		<?
-		foreach ($tabCategLigne as $keyL => $valL) { ?>
+		<?php
+        foreach ($tabCategLigne as $keyL => $valL) {
+            ?>
 			<tr class='tabl1'>
-				<td class="tittab"><?= $valL ?></td>
-				<? foreach ($tabCategCol as $valC) { ?>
-					<td width='30%' id='<?= $keyL ?>' style='text-align:center'><?= $keyL ?></td>
-					<td width='40%' class="link" id='plus<?= $keyL ?>' style='text-align:center'></td>
-				<? } ?>
+				<td class="tittab"><?= $valL; ?></td>
+				<?php foreach ($tabCategCol as $valC) {
+                ?>
+					<td width='30%' id='<?= $keyL; ?>' style='text-align:center'><?= $keyL; ?></td>
+					<td width='40%' class="link" id='plus<?= $keyL; ?>' style='text-align:center'></td>
+				<?php
+            } ?>
 			</tr>
-		<? } ?>
+		<?php
+        } ?>
 	</table>
 </fieldset>
 <br />
 <fieldset class=fiche>
+	<legend class=titreFiche>Stat journaliere</legend>
+	<div class="row">
+		<?php foreach ($tabCount as $keyL => $valL) {
+            ?>
+			<div class="col-sm-3 col-xs-12 tabl1">
+				<div class="col-sm-8 col-xs-8 tittab"><?= $valL; ?></div>
+				<div class="col-sm-4 col-xs-4" id='<?= $keyL; ?>' style='text-align:center'></div>
+			</div>
+		<?php
+        } ?>
+	</div>
+</fieldset>
+<br/>
+<fieldset class=fiche>
 	<legend class=titreFiche>Repartition</legend>
 	<div class="row">
-		<? foreach (['type', 'public', 'pratique'] as $valL) { ?>
+		<?php foreach (['type', 'public', 'pratique'] as $valL) {
+            ?>
 			<div class="col-sm-4 col-xs-12">
-				<img id="<?= $valL ?>" />
+				<img id="<?= $valL; ?>" />
 			</div>
-		<? } ?>
+		<?php
+        } ?>
 		<div class="col-sm-12 col-xs-12">
 			<center><img id="marque" /></center>
 		</div>
-		<div class="col-sm-12 col-xs-12">
+		<div class="col-sm-6 col-xs-12">
 			<center><img id="tarif" /></center>
+		</div>
+		<div class="col-sm-6 col-xs-12">
+			<center><img id="code_postal" /></center>
 		</div>
 		</div>
 </fieldset>
 <hr />
-<fieldset class=fiche>
-	<legend class=titreFiche>Stat journaliere</legend>
-	<div class="row">
-		<? foreach ($tabCount as $keyL => $valL) { ?>
-			<div class="col-sm-3 col-xs-12 tabl1">
-				<div class="col-sm-8 col-xs-8 tittab"><?= $valL ?></div>
-				<div class="col-sm-4 col-xs-4" id='<?= $keyL ?>' style='text-align:center'></div>
-			</div>
-		<? } ?>
-	</div>
-</fieldset>

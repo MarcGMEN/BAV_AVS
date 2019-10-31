@@ -65,6 +65,8 @@
 			} else {
 				getElement('statRendu').innerHTML = "";
 			}
+
+			setTimeout('x_return_countByEtat(display_counter)',5*60*1000);
 		}
 	}
 

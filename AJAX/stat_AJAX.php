@@ -1,22 +1,43 @@
 <?php
-include("../jpGraph/src/jpgraph.php");
-include("../jpGraph/src/jpgraph_pie.php");
-include("../jpGraph/src/jpgraph_bar.php");
+
+include '../jpGraph/src/jpgraph.php';
+include '../jpGraph/src/jpgraph_pie.php';
+include '../jpGraph/src/jpgraph_bar.php';
 
 /**************************************/
 /**************************************/
 /* STAT */
 /**************************************/
 /**************************************/
+function return_statClient()
+{
+    try {
+        $infoAppli = return_infoAppli();
+
+        $tab = getClients(null, 'asc', null, false);
+
+        $tabCount['count_code_postal'] = [];
+        foreach ($tab as $key => $val) {
+            $keyCDP = $val['cli_code_postal'];
+            if (!isset($tabCount['count_code_postal'][$keyCDP])) {
+                $tabCount['count_code_postal'][$keyCDP] = 0;
+            }
+            ++$tabCount['count_code_postal'][$keyCDP];
+        }
+    } catch (Exception $e) {
+        return 'ERREUR '.$e->getMessage();
+    }
+    // print_r($tabCount);
+    return $tabCount;
+}
 
 function return_stat($selection)
 {
     try {
-
         $infoAppli = return_infoAppli();
 
         //print_r($infoAppli);
-        $tab = getFiches(null, "asc", string2Tab($selection));
+        $tab = getFiches(null, 'asc', string2Tab($selection));
         $tabCategLigne = [
             'prixMini' => 'Prix mini',
             'prixMaxi' => 'Prix maxi',
@@ -29,7 +50,6 @@ function return_stat($selection)
             'nbVeloMaxiVendeur' => 'Nombre maxi de vélo pour un vendeur',
             'nbVeloAcheteur' => 'Nombre moyen de vélo par vendeur',
             'nbVeloMaxiAcheteur' => 'Nombre maxi de vélo pour un acheteur',
-
         ];
 
         foreach ($tabCategLigne as $keyL => $valL) {
@@ -49,7 +69,6 @@ function return_stat($selection)
         $tabVendeur = [];
         $tabAcheteur = [];
 
-
         $tabCount['vente_J2-AM'] = 0;
         $tabCount['vente_J2-PM'] = 0;
         $tabCount['vente_J3-AM'] = 0;
@@ -61,8 +80,8 @@ function return_stat($selection)
         $tabCount['stock_J2-PM'] = 0;
         $tabCount['stock_J3-AM'] = 0;
         $tabCount['stock_J3-PM'] = 0;
-        $tabCount["count"] = 0;
-        $tabCount["count_tarif"] = [];
+        $tabCount['count'] = 0;
+        $tabCount['count_tarif'] = [];
 
         $tabTmp = ['type', 'public', 'marque', 'pratique', 'couleur'];
         foreach ($tabTmp as $key) {
@@ -71,50 +90,50 @@ function return_stat($selection)
 
         $tabTarif = [30, 50, 100, 150, 200, 250, 500, 750, 1000, 1250, 1500, 1750, 2000];
 
-        $date["J1"] = $infoAppli['date_j1'];
-        $date["J2-MIDI"] = mktime(12, 00, 00, date("n", $infoAppli['date_j2']), date("j", $infoAppli['date_j2']), date("Y", $infoAppli['date_j2']));
-        $date["J3-MIDI"] = mktime(12, 00, 00, date("n", $infoAppli['date_j3']), date("j", $infoAppli['date_j3']), date("Y", $infoAppli['date_j3']));
-        $date["depot_J30"] = mktime(00, 00, 00, date("n", $infoAppli['date_j1']), date("j", $infoAppli['date_j1']) - 15, date("Y", $infoAppli['date_j1']));
-        $date["depot_J15"] = $infoAppli['date_j1'];
+        $date['J1'] = $infoAppli['date_j1'];
+        $date['J2-MIDI'] = mktime(12, 00, 00, date('n', $infoAppli['date_j2']), date('j', $infoAppli['date_j2']), date('Y', $infoAppli['date_j2']));
+        $date['J3-MIDI'] = mktime(12, 00, 00, date('n', $infoAppli['date_j3']), date('j', $infoAppli['date_j3']), date('Y', $infoAppli['date_j3']));
+        $date['depot_J30'] = mktime(00, 00, 00, date('n', $infoAppli['date_j1']), date('j', $infoAppli['date_j1']) - 15, date('Y', $infoAppli['date_j1']));
+        $date['depot_J15'] = $infoAppli['date_j1'];
 
         foreach ($tab as $key => $val) {
             if (
-                $val['obj_etat'] == "CONFIRME" ||
-                $val['obj_etat'] == "STOCK" ||
-                $val['obj_etat'] == "VENDU" ||
-                $val['obj_etat'] == "RENDU" ||
-                $val['obj_etat'] == "PAYE"
+                $val['obj_etat'] == 'CONFIRME' ||
+                $val['obj_etat'] == 'STOCK' ||
+                $val['obj_etat'] == 'VENDU' ||
+                $val['obj_etat'] == 'RENDU' ||
+                $val['obj_etat'] == 'PAYE'
             ) {
-                if ($val['obj_etat'] == "CONFIRME") {
+                if ($val['obj_etat'] == 'CONFIRME') {
                     $thePrix = $val['obj_prix_depot'];
                 } else {
                     $thePrix = $val['obj_prix_vente'];
                 }
 
-                $tarifOld = "0";
+                $tarifOld = '0';
                 $tarifOK = false;
                 foreach ($tabTarif as $valTarif) {
-                    $keyTarif = $tarifOld . " -> " . $valTarif;
-                    if (!isset($tabCount["count_tarif"][$keyTarif])) {
-                        $tabCount["count_tarif"][$keyTarif] = 0;
+                    $keyTarif = $tarifOld.' -> '.$valTarif;
+                    if (!isset($tabCount['count_tarif'][$keyTarif])) {
+                        $tabCount['count_tarif'][$keyTarif] = 0;
                     }
                     if ($thePrix <= $valTarif) {
-                        $tabCount["count_tarif"][$keyTarif]++;
+                        ++$tabCount['count_tarif'][$keyTarif];
                         $tarifOK = true;
                         break;
                     }
                     $tarifOld = $valTarif;
                 }
                 if (!$tarifOK) {
-                    $tabCount["count_tarif"]["> " . $valTarif]++;
+                    ++$tabCount['count_tarif']['> '.$valTarif];
                 }
 
                 foreach ($tabTmp as $keyTmp) {
-                    $keyObj = rtrim(trim($val['obj_' . $keyTmp]));
+                    $keyObj = rtrim(trim($val['obj_'.$keyTmp]));
                     if (!isset($tabCount["count_$keyTmp"][$keyObj])) {
                         $tabCount["count_$keyTmp"][$keyObj] = 0;
                     }
-                    $tabCount["count_$keyTmp"][$keyObj]++;
+                    ++$tabCount["count_$keyTmp"][$keyObj];
                 }
 
                 if ($thePrix < $tabCount['prixMini']) {
@@ -127,8 +146,7 @@ function return_stat($selection)
                     $tabCount['objprixMaxi'] = $val;
                 }
                 $total += $thePrix;
-                $nb++;
-
+                ++$nb;
 
                 $dateDepotInt = dateMysqlInt($val['obj_date_depot']);
                 if ($val['obj_etat'] != "CONFIRME") {
@@ -153,7 +171,7 @@ function return_stat($selection)
                     $timeSV = dateMysqlInt($val['obj_date_vente']) - $infoAppli['date_j2'];
                     if ($timeSV > 0) {
                         $totalTimeSV += $timeSV;
-                        $nbTimeSV++;
+                        ++$nbTimeSV;
 
                         if ($timeSV < $tabCount['delaiMinSV']) {
                             $tabCount['delaiMinSV'] = $timeSV;
@@ -163,14 +181,14 @@ function return_stat($selection)
                     }
 
                     $dateVenteInt = dateMysqlInt($val['obj_date_vente']);
-                    if ($dateVenteInt > $infoAppli['date_j2'] && $dateVenteInt < $date["J2-MIDI"]) {
-                        $tabCount['vente_J2-AM']++;
-                    } else if ($dateVenteInt >= $date["J2-MIDI"] && $dateVenteInt < $infoAppli['date_j3']) {
-                        $tabCount['vente_J2-PM']++;
-                    } else if ($dateVenteInt > $infoAppli['date_j3'] && $dateVenteInt < $date["J3-MIDI"]) {
-                        $tabCount['vente_J3-AM']++;
-                    } else if ($dateVenteInt >= $date["J3-MIDI"]) {
-                        $tabCount['vente_J3-PM']++;
+                    if ($dateVenteInt > $infoAppli['date_j2'] && $dateVenteInt < $date['J2-MIDI']) {
+                        ++$tabCount['vente_J2-AM'];
+                    } elseif ($dateVenteInt >= $date['J2-MIDI'] && $dateVenteInt < $infoAppli['date_j3']) {
+                        ++$tabCount['vente_J2-PM'];
+                    } elseif ($dateVenteInt > $infoAppli['date_j3'] && $dateVenteInt < $date['J3-MIDI']) {
+                        ++$tabCount['vente_J3-AM'];
+                    } elseif ($dateVenteInt >= $date['J3-MIDI']) {
+                        ++$tabCount['vente_J3-PM'];
                     }
                     // echo "\n";
                 }
@@ -178,29 +196,29 @@ function return_stat($selection)
                     $timeVR = dateMysqlInt($val['obj_date_retour']) - dateMysqlInt($val['obj_date_vente']);
                     if ($timeVR > 0) {
                         $totalTimeVR += $timeVR;
-                        $nbTimeVR++;
+                        ++$nbTimeVR;
                     }
                 }
 
                 if (!$tabVendeur[$val['obj_id_vendeur']]) {
                     $tabVendeur[$val['obj_id_vendeur']] = 0;
                 }
-                $tabVendeur[$val['obj_id_vendeur']]++;
+                ++$tabVendeur[$val['obj_id_vendeur']];
 
                 if (
-                    $val['obj_etat'] == "VENDU" ||
-                    $val['obj_etat'] == "PAYE"
+                    $val['obj_etat'] == 'VENDU' ||
+                    $val['obj_etat'] == 'PAYE'
                 ) {
                     if (!$tabAcheteur[$val['obj_id_acheteur']]) {
                         $tabAcheteur[$val['obj_id_acheteur']] = 0;
                     }
-                    $tabAcheteur[$val['obj_id_acheteur']]++;
+                    ++$tabAcheteur[$val['obj_id_acheteur']];
                 }
                 $dateDepotInt = dateMysqlInt($val['obj_date_depot']);
-                if ($dateDepotInt < $date["depot_J30"]) {
-                    $tabCount['depot_J30']++;
-                } else if ($dateDepotInt < $date["depot_J15"]) {
-                    $tabCount['depot_J15']++;
+                if ($dateDepotInt < $date['depot_J30']) {
+                    ++$tabCount['depot_J30'];
+                } elseif ($dateDepotInt < $date['depot_J15']) {
+                    ++$tabCount['depot_J15'];
                 }
 
                 $tabCount["count"]++;
@@ -208,22 +226,21 @@ function return_stat($selection)
         }
 
         if ($tabCount['prixMini'] == 1000000) {
-            $tabCount['prixMini'] = "0 &euro;";
+            $tabCount['prixMini'] = '0 &euro;';
         } else {
-            $tabCount['prixMini'] .= " &euro;";
+            $tabCount['prixMini'] .= ' &euro;';
         }
         if ($tabCount['delaiMinSV'] == 1000000) {
-            $tabCount['delaiMinSV'] = "0:0:0";
+            $tabCount['delaiMinSV'] = '0:0:0';
         } else {
             $tabCount['delaiMinSV'] = duree2HMS($tabCount['delaiMinSV']);
         }
 
-
-        $tabCount['prixMaxi'] .= " &euro;";
+        $tabCount['prixMaxi'] .= ' &euro;';
         if ($total == 0) {
-            $tabCount['prixMoyen'] = "0 &euro;";
+            $tabCount['prixMoyen'] = '0 &euro;';
         } else {
-            $tabCount['prixMoyen'] = number_format($total / $nb, 2, ',', '.') . " &euro;";
+            $tabCount['prixMoyen'] = number_format($total / $nb, 2, ',', '.').' &euro;';
         }
         $tabCount['delaiMoyenSV'] = duree2HMS($totalTimeSV / $nbTimeSV);
         $tabCount['delaiMoyenVR'] = duree2HMS($totalTimeVR / $nbTimeVR);
@@ -239,18 +256,22 @@ function return_stat($selection)
             $tabCount['nbVeloAcheteur'] = number_format(array_sum($tabAcheteur) / count($tabAcheteur), 2, ',', '.');
         }
     } catch (Exception $e) {
-        return "ERREUR " . $e->getMessage();
+        return 'ERREUR '.$e->getMessage();
     }
     // print_r($tabCount);
     return $tabCount;
 }
 
-function return_graphCount($by)
+function return_graphCount($by, $data = '')
 {
-    $tabCount = return_stat(null);
+    if ($data == 'client') {
+        $tabCount = return_statClient();
+    } else {
+        $tabCount = return_stat(null);
+    }
     ksort($tabCount["count_$by"]);
     // ********************************************************************
-    // PARTIE : Création du graphique 
+    // PARTIE : Création du graphique
     // ********************************************************************
     // On spécifie la largeur et la hauteur du graphique conteneur&#160;
     $graph = new PieGraph(400, 300);
@@ -283,12 +304,16 @@ function return_graphCount($by)
     return "./out/img/secteur_$by.png";
 }
 
-function return_histoCount($by, $width = 400, $height = 250, $sort = 0)
+function return_histoCount($by, $width = 400, $height = 250, $sort = 0, $data = '')
 {
-    $tabCount = return_stat(null);
+    if ($data == 'client') {
+        $tabCount = return_statClient();
+    } else {
+        $tabCount = return_stat(null);
+    }
     if ($sort == 1) {
         arsort($tabCount["count_$by"]);
-    } else if ($sort == 2) {
+    } elseif ($sort == 2) {
         ksort($tabCount["count_$by"]);
     }
     // $tabCount["count_$by"]=array(13,8,19,7,17,6);
@@ -300,7 +325,7 @@ function return_histoCount($by, $width = 400, $height = 250, $sort = 0)
     // Réprésentation linéaire
     // Echelle lineaire ('lin') en ordonnee et pas de valeur en abscisse ('text')
     // Valeurs min et max seront determinees automatiquement
-    $graph->SetScale("textlin");
+    $graph->SetScale('textlin');
 
     // Ajouter une ombre au conteneur
     $graph->SetShadow();
@@ -314,7 +339,7 @@ function return_histoCount($by, $width = 400, $height = 250, $sort = 0)
     foreach (array_values($tabCount["count_$by"]) as $val) {
         $tabData[$index++] = $val;
     }
-    $tabData[$index] = "";
+    $tabData[$index] = '';
     //print_r($tabData);
     $bplot = new BarPlot($tabData);
     // Ajouter les barres au conteneur
@@ -339,7 +364,7 @@ function return_histoCount($by, $width = 400, $height = 250, $sort = 0)
 
     // Titre pour l'axe horizontal(axe x) et vertical (axe y)
     //$graph->xaxis->title->Set($by);
-    $graph->yaxis->title->Set("Nombre");
+    $graph->yaxis->title->Set('Nombre');
     $graph->yaxis->title->SetFont(FF_FONT1, FS_BOLD);
 
     // Légende pour l'axe horizontal

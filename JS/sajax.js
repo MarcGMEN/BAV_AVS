@@ -14,25 +14,18 @@
 				sajax_asynchro['save_html']=1;
 				sajax_asynchro['whatYourName']=1;
 				sajax_asynchro['return_restant']=1;
-				sajax_asynchro['return_oneFaq']=1;
-				sajax_asynchro['action_createFaq']=1;
-				sajax_asynchro['action_deleteFaq']=1;
-				sajax_asynchro['action_updateFaq']=1;
-				sajax_asynchro['action_insertFaq']=1;
-				sajax_asynchro['return_faqs']=1;
-				sajax_asynchro['return_oneClient']=1;
-				sajax_asynchro['action_updateClient']=1;
-				sajax_asynchro['action_makeClient']=1;
-				sajax_asynchro['return_oneClientByMel']=1;
-				sajax_asynchro['return_oneClientByIdModif']=1;
-				sajax_asynchro['return_listClientByMel']=1;
-				sajax_asynchro['return_listClientByName']=1;
-				sajax_asynchro['return_oneClientByName']=1;
-				sajax_asynchro['return_clients']=1;
-				sajax_asynchro['action_deleteClient']=1;
 				sajax_asynchro['return_stat']=1;
 				sajax_asynchro['return_graphCount']=1;
 				sajax_asynchro['return_histoCount']=1;
+				sajax_asynchro['return_statClient']=1;
+				sajax_asynchro['return_countMailing']=1;
+				sajax_asynchro['return_countMailingAEnvoyer']=1;
+				sajax_asynchro['return_countMailingEnvoye']=1;
+				sajax_asynchro['return_countMailingErreur']=1;
+				sajax_asynchro['initMailing']=1;
+				sajax_asynchro['actionMailing']=1;
+				sajax_asynchro['envoiMailing']=1;
+				sajax_asynchro['loadTexteMailing']=1;
 				sajax_asynchro['return_oneActu']=1;
 				sajax_asynchro['action_createActu']=1;
 				sajax_asynchro['action_deleteActu']=1;
@@ -61,14 +54,22 @@
 				sajax_asynchro['action_makeA4Etiquettes']=1;
 				sajax_asynchro['action_makeA4Fiches']=1;
 				sajax_asynchro['action_reMelConfirme']=1;
-				sajax_asynchro['return_countMailing']=1;
-				sajax_asynchro['return_countMailingAEnvoyer']=1;
-				sajax_asynchro['return_countMailingEnvoye']=1;
-				sajax_asynchro['return_countMailingErreur']=1;
-				sajax_asynchro['initMailing']=1;
-				sajax_asynchro['actionMailing']=1;
-				sajax_asynchro['envoiMailing']=1;
-				sajax_asynchro['loadTexteMailing']=1;
+				sajax_asynchro['return_oneClient']=1;
+				sajax_asynchro['action_updateClient']=1;
+				sajax_asynchro['action_makeClient']=1;
+				sajax_asynchro['return_oneClientByMel']=1;
+				sajax_asynchro['return_oneClientByIdModif']=1;
+				sajax_asynchro['return_listClientByMel']=1;
+				sajax_asynchro['return_listClientByName']=1;
+				sajax_asynchro['return_oneClientByName']=1;
+				sajax_asynchro['return_clients']=1;
+				sajax_asynchro['action_deleteClient']=1;
+				sajax_asynchro['return_oneFaq']=1;
+				sajax_asynchro['action_createFaq']=1;
+				sajax_asynchro['action_deleteFaq']=1;
+				sajax_asynchro['action_updateFaq']=1;
+				sajax_asynchro['action_insertFaq']=1;
+				sajax_asynchro['return_faqs']=1;
 				sajax_asynchro['return_oneParametre']=1;
 				sajax_asynchro['return_allParametre']=1;
 				sajax_asynchro['action_updateParametre']=1;
@@ -323,118 +324,6 @@
 		}
 		
 				
-		// wrapper for return_oneFaq		
-		function x_return_oneFaq() {
-			sajax_do_call("return_oneFaq",
-				x_return_oneFaq.arguments);
-		}
-		
-				
-		// wrapper for action_createFaq		
-		function x_action_createFaq() {
-			sajax_do_call("action_createFaq",
-				x_action_createFaq.arguments);
-		}
-		
-				
-		// wrapper for action_deleteFaq		
-		function x_action_deleteFaq() {
-			sajax_do_call("action_deleteFaq",
-				x_action_deleteFaq.arguments);
-		}
-		
-				
-		// wrapper for action_updateFaq		
-		function x_action_updateFaq() {
-			sajax_do_call("action_updateFaq",
-				x_action_updateFaq.arguments);
-		}
-		
-				
-		// wrapper for action_insertFaq		
-		function x_action_insertFaq() {
-			sajax_do_call("action_insertFaq",
-				x_action_insertFaq.arguments);
-		}
-		
-				
-		// wrapper for return_faqs		
-		function x_return_faqs() {
-			sajax_do_call("return_faqs",
-				x_return_faqs.arguments);
-		}
-		
-				
-		// wrapper for return_oneClient		
-		function x_return_oneClient() {
-			sajax_do_call("return_oneClient",
-				x_return_oneClient.arguments);
-		}
-		
-				
-		// wrapper for action_updateClient		
-		function x_action_updateClient() {
-			sajax_do_call("action_updateClient",
-				x_action_updateClient.arguments);
-		}
-		
-				
-		// wrapper for action_makeClient		
-		function x_action_makeClient() {
-			sajax_do_call("action_makeClient",
-				x_action_makeClient.arguments);
-		}
-		
-				
-		// wrapper for return_oneClientByMel		
-		function x_return_oneClientByMel() {
-			sajax_do_call("return_oneClientByMel",
-				x_return_oneClientByMel.arguments);
-		}
-		
-				
-		// wrapper for return_oneClientByIdModif		
-		function x_return_oneClientByIdModif() {
-			sajax_do_call("return_oneClientByIdModif",
-				x_return_oneClientByIdModif.arguments);
-		}
-		
-				
-		// wrapper for return_listClientByMel		
-		function x_return_listClientByMel() {
-			sajax_do_call("return_listClientByMel",
-				x_return_listClientByMel.arguments);
-		}
-		
-				
-		// wrapper for return_listClientByName		
-		function x_return_listClientByName() {
-			sajax_do_call("return_listClientByName",
-				x_return_listClientByName.arguments);
-		}
-		
-				
-		// wrapper for return_oneClientByName		
-		function x_return_oneClientByName() {
-			sajax_do_call("return_oneClientByName",
-				x_return_oneClientByName.arguments);
-		}
-		
-				
-		// wrapper for return_clients		
-		function x_return_clients() {
-			sajax_do_call("return_clients",
-				x_return_clients.arguments);
-		}
-		
-				
-		// wrapper for action_deleteClient		
-		function x_action_deleteClient() {
-			sajax_do_call("action_deleteClient",
-				x_action_deleteClient.arguments);
-		}
-		
-				
 		// wrapper for return_stat		
 		function x_return_stat() {
 			sajax_do_call("return_stat",
@@ -453,6 +342,69 @@
 		function x_return_histoCount() {
 			sajax_do_call("return_histoCount",
 				x_return_histoCount.arguments);
+		}
+		
+				
+		// wrapper for return_statClient		
+		function x_return_statClient() {
+			sajax_do_call("return_statClient",
+				x_return_statClient.arguments);
+		}
+		
+				
+		// wrapper for return_countMailing		
+		function x_return_countMailing() {
+			sajax_do_call("return_countMailing",
+				x_return_countMailing.arguments);
+		}
+		
+				
+		// wrapper for return_countMailingAEnvoyer		
+		function x_return_countMailingAEnvoyer() {
+			sajax_do_call("return_countMailingAEnvoyer",
+				x_return_countMailingAEnvoyer.arguments);
+		}
+		
+				
+		// wrapper for return_countMailingEnvoye		
+		function x_return_countMailingEnvoye() {
+			sajax_do_call("return_countMailingEnvoye",
+				x_return_countMailingEnvoye.arguments);
+		}
+		
+				
+		// wrapper for return_countMailingErreur		
+		function x_return_countMailingErreur() {
+			sajax_do_call("return_countMailingErreur",
+				x_return_countMailingErreur.arguments);
+		}
+		
+				
+		// wrapper for initMailing		
+		function x_initMailing() {
+			sajax_do_call("initMailing",
+				x_initMailing.arguments);
+		}
+		
+				
+		// wrapper for actionMailing		
+		function x_actionMailing() {
+			sajax_do_call("actionMailing",
+				x_actionMailing.arguments);
+		}
+		
+				
+		// wrapper for envoiMailing		
+		function x_envoiMailing() {
+			sajax_do_call("envoiMailing",
+				x_envoiMailing.arguments);
+		}
+		
+				
+		// wrapper for loadTexteMailing		
+		function x_loadTexteMailing() {
+			sajax_do_call("loadTexteMailing",
+				x_loadTexteMailing.arguments);
 		}
 		
 				
@@ -652,59 +604,115 @@
 		}
 		
 				
-		// wrapper for return_countMailing		
-		function x_return_countMailing() {
-			sajax_do_call("return_countMailing",
-				x_return_countMailing.arguments);
+		// wrapper for return_oneClient		
+		function x_return_oneClient() {
+			sajax_do_call("return_oneClient",
+				x_return_oneClient.arguments);
 		}
 		
 				
-		// wrapper for return_countMailingAEnvoyer		
-		function x_return_countMailingAEnvoyer() {
-			sajax_do_call("return_countMailingAEnvoyer",
-				x_return_countMailingAEnvoyer.arguments);
+		// wrapper for action_updateClient		
+		function x_action_updateClient() {
+			sajax_do_call("action_updateClient",
+				x_action_updateClient.arguments);
 		}
 		
 				
-		// wrapper for return_countMailingEnvoye		
-		function x_return_countMailingEnvoye() {
-			sajax_do_call("return_countMailingEnvoye",
-				x_return_countMailingEnvoye.arguments);
+		// wrapper for action_makeClient		
+		function x_action_makeClient() {
+			sajax_do_call("action_makeClient",
+				x_action_makeClient.arguments);
 		}
 		
 				
-		// wrapper for return_countMailingErreur		
-		function x_return_countMailingErreur() {
-			sajax_do_call("return_countMailingErreur",
-				x_return_countMailingErreur.arguments);
+		// wrapper for return_oneClientByMel		
+		function x_return_oneClientByMel() {
+			sajax_do_call("return_oneClientByMel",
+				x_return_oneClientByMel.arguments);
 		}
 		
 				
-		// wrapper for initMailing		
-		function x_initMailing() {
-			sajax_do_call("initMailing",
-				x_initMailing.arguments);
+		// wrapper for return_oneClientByIdModif		
+		function x_return_oneClientByIdModif() {
+			sajax_do_call("return_oneClientByIdModif",
+				x_return_oneClientByIdModif.arguments);
 		}
 		
 				
-		// wrapper for actionMailing		
-		function x_actionMailing() {
-			sajax_do_call("actionMailing",
-				x_actionMailing.arguments);
+		// wrapper for return_listClientByMel		
+		function x_return_listClientByMel() {
+			sajax_do_call("return_listClientByMel",
+				x_return_listClientByMel.arguments);
 		}
 		
 				
-		// wrapper for envoiMailing		
-		function x_envoiMailing() {
-			sajax_do_call("envoiMailing",
-				x_envoiMailing.arguments);
+		// wrapper for return_listClientByName		
+		function x_return_listClientByName() {
+			sajax_do_call("return_listClientByName",
+				x_return_listClientByName.arguments);
 		}
 		
 				
-		// wrapper for loadTexteMailing		
-		function x_loadTexteMailing() {
-			sajax_do_call("loadTexteMailing",
-				x_loadTexteMailing.arguments);
+		// wrapper for return_oneClientByName		
+		function x_return_oneClientByName() {
+			sajax_do_call("return_oneClientByName",
+				x_return_oneClientByName.arguments);
+		}
+		
+				
+		// wrapper for return_clients		
+		function x_return_clients() {
+			sajax_do_call("return_clients",
+				x_return_clients.arguments);
+		}
+		
+				
+		// wrapper for action_deleteClient		
+		function x_action_deleteClient() {
+			sajax_do_call("action_deleteClient",
+				x_action_deleteClient.arguments);
+		}
+		
+				
+		// wrapper for return_oneFaq		
+		function x_return_oneFaq() {
+			sajax_do_call("return_oneFaq",
+				x_return_oneFaq.arguments);
+		}
+		
+				
+		// wrapper for action_createFaq		
+		function x_action_createFaq() {
+			sajax_do_call("action_createFaq",
+				x_action_createFaq.arguments);
+		}
+		
+				
+		// wrapper for action_deleteFaq		
+		function x_action_deleteFaq() {
+			sajax_do_call("action_deleteFaq",
+				x_action_deleteFaq.arguments);
+		}
+		
+				
+		// wrapper for action_updateFaq		
+		function x_action_updateFaq() {
+			sajax_do_call("action_updateFaq",
+				x_action_updateFaq.arguments);
+		}
+		
+				
+		// wrapper for action_insertFaq		
+		function x_action_insertFaq() {
+			sajax_do_call("action_insertFaq",
+				x_action_insertFaq.arguments);
+		}
+		
+				
+		// wrapper for return_faqs		
+		function x_return_faqs() {
+			sajax_do_call("return_faqs",
+				x_return_faqs.arguments);
 		}
 		
 				
