@@ -131,17 +131,19 @@ function return_stat($selection)
 
 
                 $dateDepotInt = dateMysqlInt($val['obj_date_depot']);
-                if ($dateDepotInt < $infoAppli['date_j2']) {
-                    $tabCount['stock_J1']++;
-                }
-                if ($dateDepotInt > $infoAppli['date_j2'] && $dateDepotInt < $date["J2-MIDI"]) {
-                    $tabCount['stock_J2-AM']++;
-                } else if ($dateDepotInt >= $date["J2-MIDI"] && $dateDepotInt < $infoAppli['date_j3']) {
-                    $tabCount['stock_J2-PM']++;
-                } else if ($dateDepotInt > $infoAppli['date_j3'] && $dateDepotInt < $date["J3-MIDI"]) {
-                    $tabCount['stock_J3-AM']++;
-                } else if ($dateDepotInt >= $date["J3-MIDI"]) {
-                    $tabCount['stock_J3-PM']++;
+                if ($val['obj_etat'] != "CONFIRME") {
+                    if ($dateDepotInt < $infoAppli['date_j2']) {
+                        $tabCount['stock_J1']++;
+                    }
+                    if ($dateDepotInt > $infoAppli['date_j2'] && $dateDepotInt < $date["J2-MIDI"]) {
+                        $tabCount['stock_J2-AM']++;
+                    } else if ($dateDepotInt >= $date["J2-MIDI"] && $dateDepotInt < $infoAppli['date_j3']) {
+                        $tabCount['stock_J2-PM']++;
+                    } else if ($dateDepotInt > $infoAppli['date_j3'] && $dateDepotInt < $date["J3-MIDI"]) {
+                        $tabCount['stock_J3-AM']++;
+                    } else if ($dateDepotInt >= $date["J3-MIDI"]) {
+                        $tabCount['stock_J3-PM']++;
+                    }
                 }
 
                 if ($val['obj_date_vente']) {
@@ -202,8 +204,6 @@ function return_stat($selection)
                 }
 
                 $tabCount["count"]++;
-
-
             }
         }
 
