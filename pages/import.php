@@ -77,15 +77,15 @@
 	</div>
 	<form action="Actions/importFile.php" method="post" enctype="multipart/form-data" name=fileForm>
 		<input type=hidden name="cli_id" required />
-		<div class="row fiche">
-			<div class="col-sm-3 col-md-3 col-xs-6 btnAction">
+		<div class="row fiche ">
+			<div class="col-sm-3 col-md-3 col-xs-12 btnAction">
 				Base de numerotation
-				<input type=number name="base" style="width:10%" required max=1200 min=0 />
+				<input type=number name="base" size=10	 style="width:50%" required max=1200 min=0 />
 			</div>
-			<div class="col-sm-3 col-md-3 col-xs-6 btnAction">
+			<div class="col-sm-3 col-md-3 col-xs-12 btnAction">
 				<input type="file" id="file" name="file" accept=".csv, text/csv" required />
 			</div>
-			<div class="col-sm-3 col-md-3 col-xs-6 btnAction">
+			<div class="col-sm-3 col-md-3 col-xs-12 btnAction">
 				<button>Importer</button>
 			</div>
 		</div>
