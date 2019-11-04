@@ -5,6 +5,8 @@
 	var idRamdom = "<?=$idRamdom?>";
 </script>
 
+// test push en ssh key
+
 <script src="JS/faq.js" type="text/javascript"></script>
 
 <h3 class="titreFiche">FOIRE AUX QUESTIONS</h3>
