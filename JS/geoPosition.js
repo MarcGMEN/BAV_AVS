@@ -1,6 +1,6 @@
 // On initialise la latitude et la longitude de Paris (centre de la carte)
-var lat = 48.852969;
-var lon = 2.349903;
+var lat = 47.271469;
+var lon = -2.229505;
 var macarte = null;
 var markerClusters;
 // Servira à stocker les groupes de marqueurs
@@ -23,12 +23,12 @@ function initMap() {
         minZoom: 1,
         maxZoom: 20
     }).addTo(macarte);
-    
-    macarte.addLayer(markerClusters);
+
+    //macarte.addLayer(markerClusters);
 }
 
 
-function geoPosClient(adress, unique=true) {
+function geoPosClient(adress, unique = true, group = true) {
     var iconBase = 'Images/logoAVS.png';
     var myIcon = L.icon({
         iconUrl: iconBase,
@@ -38,32 +38,38 @@ function geoPosClient(adress, unique=true) {
     });
     var geocoder = L.Control.Geocoder.nominatim();
 
-    console.log("geoPosClient("+adress+")");
-    
-    geocoder.geocode(adress + ', france',
+    console.log("geoPosClient(" + adress + ")");
+    geocoder.geocode(adress + ', France',
         function (results) {
             console.log(results);
             var r = results[0];
             if (r) {
                 var marker1 = L.marker(r.center, { icon: myIcon })
+                    
                     .bindPopup(r.name);
-
                 markers.push(marker1);
-                markerClusters.addLayer(marker1);
-                if (unique) {
-                    macarte.setView(r.center,14 );
+                if (group) {
+                    markerClusters.addLayer(marker1);
                 }
                 else {
-                    afficheGroup();  
+                    marker1.addTo(macarte);
+                }
+                if (unique) {
+                    initMap();
+                    macarte.setView(r.center, 14);
+                }
+                else {
+                    afficheGroup();
                 }
             }
         });
+
 }
 
 
-function  afficheGroup() {
+function afficheGroup() {
     var group = new L.featureGroup(markers); // Nous créons le groupe des marqueurs pour adapter le zoom
     // Nous demandons à ce que tous les marqueurs soient visibles, 
     //et ajoutons un padding (pad(0.5)) pour que les marqueurs ne soient pas coupés
-    macarte.fitBounds(group.getBounds().pad(0.1)); 
+    macarte.fitBounds(group.getBounds().pad(0.1));
 }

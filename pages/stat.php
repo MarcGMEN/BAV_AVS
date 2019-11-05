@@ -31,7 +31,7 @@
 		initMap();
 		for (i in val['count_code_postal']) {
 			if (i) {
-				geoPosClient(i,false);
+				geoPosClient(i,false,false);
 			}
 		}
 	}

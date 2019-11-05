@@ -59,6 +59,26 @@ function display_client(val) {
 
 		console.log("appel fiches achat");
 		x_return_fiches(tri, sens, tabToString(tabSelA), display_fiches_achat);
+		adress="";
+		virgule="";
+		if (val['cli_adresse'] != "") {
+			adress+=val['cli_adresse'];
+			virgule=", ";
+		}
+		if (val['cli_adresse1'] != "") {
+			adress+=virgule+val['cli_adresse1'];
+			virgule=", ";
+		}
+		if (val['cli_code_postal'] != "") {
+			adress+=virgule+val['cli_code_postal'];
+			virgule=", ";
+		}
+		if (val['cli_ville'] != "") {
+			adress+=virgule+val['cli_ville'];
+			virgule=", ";
+		}
+
+		//geoPosClient(adress,true);
 	} else {
 		goTo(null, null, null, "Client inconnue.");
 	}
