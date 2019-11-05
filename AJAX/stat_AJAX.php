@@ -113,11 +113,11 @@ function return_stat($selection)
                 $tarifOld = '0';
                 $tarifOK = false;
                 foreach ($tabTarif as $valTarif) {
-                    $keyTarif = $tarifOld.' -> '.$valTarif;
+                    $keyTarif = $tarifOld.' -> '.($valTarif-1);
                     if (!isset($tabCount['count_tarif'][$keyTarif])) {
                         $tabCount['count_tarif'][$keyTarif] = 0;
                     }
-                    if ($thePrix <= $valTarif) {
+                    if ($thePrix < $valTarif) {
                         ++$tabCount['count_tarif'][$keyTarif];
                         $tarifOK = true;
                         break;
@@ -304,17 +304,24 @@ function return_graphCount($by, $data = '')
     return "./out/img/secteur_$by.png";
 }
 
-function return_histoCount($by, $width = 400, $height = 250, $sort = 0, $data = '')
+function return_histoCount($by, $width = 400, $height = 250, $sort = 0, $data = '', $minima=0)
 {
     if ($data == 'client') {
         $tabCount = return_statClient();
     } else {
         $tabCount = return_stat(null);
     }
+    $tabUse=[];
+    foreach ($tabCount["count_$by"] as $key => $val ) {
+        if ($val > $minima) {
+            $tabUse[$key] = $val;
+        }
+    }
+
     if ($sort == 1) {
-        arsort($tabCount["count_$by"]);
+        arsort($tabUse);
     } elseif ($sort == 2) {
-        ksort($tabCount["count_$by"]);
+        ksort($tabUse);
     }
     // $tabCount["count_$by"]=array(13,8,19,7,17,6);
     //print_r($tabCount["count_$by"]);
@@ -336,7 +343,7 @@ function return_histoCount($by, $width = 400, $height = 250, $sort = 0, $data = 
     // Création du graphique histogramme
     $index = 0;
     $tabData = [];
-    foreach (array_values($tabCount["count_$by"]) as $val) {
+    foreach (array_values($tabUse) as $val) {
         $tabData[$index++] = $val;
     }
     $tabData[$index] = '';
@@ -359,7 +366,11 @@ function return_histoCount($by, $width = 400, $height = 250, $sort = 0, $data = 
     $bplot->value->Show();
 
     // Le titre
-    $graph->title->Set("Repartition par $by");
+    $titre="Repartition par $by";
+    if ($minima > 0) {
+        $titre.=" (avec un minima > $minima)";
+    }
+    $graph->title->Set($titre);
     $graph->title->SetFont(FF_FONT1, FS_BOLD);
 
     // Titre pour l'axe horizontal(axe x) et vertical (axe y)
@@ -368,12 +379,7 @@ function return_histoCount($by, $width = 400, $height = 250, $sort = 0, $data = 
     $graph->yaxis->title->SetFont(FF_FONT1, FS_BOLD);
 
     // Légende pour l'axe horizontal
-    $index = 0;
-    $tabTick = [];
-    foreach (array_keys($tabCount["count_$by"]) as $val) {
-        $tabTick[$index++] = $val;
-    }
-    $graph->xaxis->SetTickLabels($tabTick);
+    $graph->xaxis->SetTickLabels(array_keys($tabUse));
     $graph->xaxis->SetLabelAngle(45);
 
     // Provoquer l'affichage (renvoie directement l'image au navigateur)

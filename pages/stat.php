@@ -8,35 +8,50 @@
 			x_return_enum('bav_objet', 'obj_type', display_list_type);
 			x_return_enum('bav_objet', 'obj_public', display_list_public);
 			x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);
-
+			x_return_statClient(display_statClient);
 			x_return_stat(tabToString(tabSel), display_stat)
 			x_return_graphCount('type', display_countType);
 			x_return_graphCount('pratique', display_countPratique);
 			x_return_graphCount('public', display_countPublic);
-			x_return_histoCount('marque', 1000, 250, 1,display_countMarque);
+			x_return_histoCount('marque', 1000, 250, 1, '', 1, display_countMarque);
 			x_return_histoCount('tarif', 500, 250, display_countTarif);
 
-			x_return_histoCount('code_postal',500,250,0, 'client', display_countCDP);
+			x_return_histoCount('code_postal', 500, 250, 0, 'client', 1, display_countCDP);
 		} else {
 			goTo();
 		}
 	}
+
 	function display_countCDP(val) {
-		console.log(val);
 		getElement('code_postal').src = val;
 	}
+
+	function display_statClient(val) {
+		// usage example:
+		initMap();
+		for (i in val['count_code_postal']) {
+			if (i) {
+				geoPosClient(i,false);
+			}
+		}
+	}
+
 	function display_countType(val) {
 		getElement('type').src = val;
 	}
+
 	function display_countPublic(val) {
 		getElement('public').src = val;
 	}
+
 	function display_countPratique(val) {
 		getElement('pratique').src = val;
 	}
+
 	function display_countMarque(val) {
 		getElement('marque').src = val;
 	}
+
 	function display_countTarif(val) {
 		getElement('tarif').src = val;
 	}
@@ -119,6 +134,13 @@
 		}
 	}
 </script>
+
+<style type="text/css">
+	#map {
+		/* la carte DOIT avoir une hauteur sinon elle n'apparaît pas */
+		height: 300px;
+	}
+</style>
 <fieldset class=fiche>
 	<legend class=titreFiche>Stat diverses</legend>
 	<table width="100%">
@@ -135,38 +157,38 @@
 		</tr>
 	</table>
 	<?php
-    $tabCategLigne = [
-        'prixMini' => 'Prix mini',
-        'prixMaxi' => 'Prix maxi',
-        'prixMoyen' => 'Prix moyen',
-        'delaiMoyenSV' => 'Delai moyen Stock-Vente',
-        'delaiMinSV' => 'Delai mini Stock-Vente',
-        //'delaiMoyenVP' => 'Delai mini Vente Paye',
-        'delaiMoyenVR' => 'Delai moyen Vente Rendu',
-        'nbVeloVendeur' => 'Nombre moyen de velo par vendeur',
-        'nbVeloMaxiVendeur' => 'Nombre maxi de velo pour un vendeur',
-        'nbVeloAcheteur' => 'Nombre moyen de velo par acheteur',
-        'nbVeloMaxiAcheteur' => 'Nombre maxi de velo pour un acheteur',
-    ];
-    $tabCategCol = [
-        'total',
-    ];
+	$tabCategLigne = [
+		'prixMini' => 'Prix mini',
+		'prixMaxi' => 'Prix maxi',
+		'prixMoyen' => 'Prix moyen',
+		'delaiMoyenSV' => 'Delai moyen Stock-Vente',
+		'delaiMinSV' => 'Delai mini Stock-Vente',
+		//'delaiMoyenVP' => 'Delai mini Vente Paye',
+		'delaiMoyenVR' => 'Delai moyen Vente Rendu',
+		'nbVeloVendeur' => 'Nombre moyen de velo par vendeur',
+		'nbVeloMaxiVendeur' => 'Nombre maxi de velo pour un vendeur',
+		'nbVeloAcheteur' => 'Nombre moyen de velo par acheteur',
+		'nbVeloMaxiAcheteur' => 'Nombre maxi de velo pour un acheteur',
+	];
+	$tabCategCol = [
+		'total',
+	];
 
-    $tabCount = [
-        'depot_J30' => 'Depot < 15',
-        'depot_J15' => 'Depot 15 < 0',
-        'stock_J1' => 'Stock J1',
-        '3' => '..',
-        'stock_J2-AM' => 'Stock AM J2',
-        'vente_J2-AM' => 'Vente AM J2',
-        'stock_J2-PM' => 'Stock PM J2',
-        'vente_J2-PM' => 'Vente PM J2',
-        'stock_J3-AM' => 'Stock AM J3',
-        'vente_J3-AM' => 'Vente AM J3',
-        'stock_J3-PM' => 'Stock PM J3',
-        'vente_J3-PM' => 'Vente PM J3',
-    ];
-    ?>
+	$tabCount = [
+		'depot_J30' => 'Depot < 15',
+		'depot_J15' => 'Depot 15 < 0',
+		'stock_J1' => 'Stock J1',
+		'3' => '..',
+		'stock_J2-AM' => 'Stock AM J2',
+		'vente_J2-AM' => 'Vente AM J2',
+		'stock_J2-PM' => 'Stock PM J2',
+		'vente_J2-PM' => 'Vente PM J2',
+		'stock_J3-AM' => 'Stock AM J3',
+		'vente_J3-AM' => 'Vente AM J3',
+		'stock_J3-PM' => 'Stock PM J3',
+		'vente_J3-PM' => 'Vente PM J3',
+	];
+	?>
 	<br />
 
 	<table width="100%">
@@ -181,19 +203,19 @@
 			</td>
 		</tr>
 		<?php
-        foreach ($tabCategLigne as $keyL => $valL) {
-            ?>
+		foreach ($tabCategLigne as $keyL => $valL) {
+			?>
 			<tr class='tabl1'>
 				<td class="tittab"><?= $valL; ?></td>
 				<?php foreach ($tabCategCol as $valC) {
-                ?>
+						?>
 					<td width='30%' id='<?= $keyL; ?>' style='text-align:center'><?= $keyL; ?></td>
 					<td width='40%' class="link" id='plus<?= $keyL; ?>' style='text-align:center'></td>
 				<?php
-            } ?>
+					} ?>
 			</tr>
 		<?php
-        } ?>
+		} ?>
 	</table>
 </fieldset>
 <br />
@@ -201,35 +223,38 @@
 	<legend class=titreFiche>Stat journaliere</legend>
 	<div class="row">
 		<?php foreach ($tabCount as $keyL => $valL) {
-            ?>
+			?>
 			<div class="col-sm-3 col-xs-12 tabl1">
 				<div class="col-sm-8 col-xs-8 tittab"><?= $valL; ?></div>
 				<div class="col-sm-4 col-xs-4" id='<?= $keyL; ?>' style='text-align:center'></div>
 			</div>
 		<?php
-        } ?>
+		} ?>
 	</div>
 </fieldset>
-<br/>
+<br />
 <fieldset class=fiche>
 	<legend class=titreFiche>Repartition</legend>
 	<div class="row">
 		<?php foreach (['type', 'public', 'pratique'] as $valL) {
-            ?>
+			?>
 			<div class="col-sm-4 col-xs-12">
 				<img id="<?= $valL; ?>" />
 			</div>
 		<?php
-        } ?>
+		} ?>
 		<div class="col-sm-12 col-xs-12">
 			<center><img id="marque" /></center>
 		</div>
-		<div class="col-sm-6 col-xs-12">
+		<div class="col-sm-12 col-xs-12">
 			<center><img id="tarif" /></center>
 		</div>
 		<div class="col-sm-6 col-xs-12">
 			<center><img id="code_postal" /></center>
 		</div>
+		<div class="col-sm-6 col-xs-12">
+			<div id=map></div>
 		</div>
+	</div>
 </fieldset>
 <hr />

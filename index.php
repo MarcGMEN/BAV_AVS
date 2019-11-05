@@ -12,15 +12,15 @@ require_once "config.ini";
 
 error_reporting(E_ERROR);
 if (!isset($GET_page)) {
-	$GET_page="bav.php";
+	$GET_page = "bav.php";
 }
 
 // debut des tabIndex pour les ecrans;
-$tabindex=1;
+$tabindex = 1;
 
 if (!isset($_COOKIE['NUMERO_BAV'])) {
 	setcookie('NUMERO_BAV', date('Y'), time() + (86400 * 30), "/"); // 86400 = 1 day
-	$_COOKIE['NUMERO_BAV']=date('Y');
+	$_COOKIE['NUMERO_BAV'] = date('Y');
 }
 $infAppli = return_infoAppli();
 
@@ -45,16 +45,23 @@ sajax_handle_client_request();
 	<META NAME="Author" LANG="fr" CONTENT="romael">
 	<link REL="SHORTCUT ICON" HREF="Images/BAV.png">
 
-	<LINK HREF='style.css' REL='stylesheet' TYPE='text/css' >
+	<LINK HREF='style.css' REL='stylesheet' TYPE='text/css'>
 
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
-	 crossorigin="anonymous">
-	 
+
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin="" />
+	<link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.css" />
+	<link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+
+
 	<!--  GOOGLE MAP -->
-	<!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script> -->
+	<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
+	<script type='text/javascript' src='https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js'></script>
+	<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+	<script src="JS/geoPosition.js"></script>
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	 crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<script src="JS/modal.js" type="text/javascript"></script>
 	<script src="JS/cookies.js" type="text/javascript"></script>
 	<script src="JS/fenetre.js" type="text/javascript"></script>
@@ -68,34 +75,39 @@ sajax_handle_client_request();
 	<!--  POUR le gestion des couleurs -->
 	<!-- <script type="text/javascript" src="JS/jscolor.js"></script> -->
 
-	<?php  // inclusion pour SAJAX?>
+	<?php  // inclusion pour SAJAX
+	?>
 	<!-- <script type="text/javascript" src="JS/sajax/json_stringify.js"></script>
 	<script type="text/javascript" src="JS/sajax/json_parse.js"></script>
 	<script type="text/javascript" src="JS/sajax/sajax.js"></script>  -->
-	<? //sajax_show_javascript();?>
-	<? sajax_show_javascript("JS/sajax.js");?> 
+	<? //sajax_show_javascript();
+	?>
+	<? sajax_show_javascript("JS/sajax.js"); ?>
 
 	<script type="text/javascript">
 		var startSaisie = false;
-		var TABLE = <?=$infAppli['TABLE'] ? 1 : 0?>;	
-		var ADMIN = <?=$infAppli['ADMIN'] ? 1 : 0?>;
-		var CLIENT = <?=$infAppli['CLIENT'] ? 1 : 0?>;
-		var NB_MODIF = <?=$infAppli['NB_MODIF']?>;
+		var TABLE = <?= $infAppli['TABLE'] ? 1 : 0 ?>;
+		var ADMIN = <?= $infAppli['ADMIN'] ? 1 : 0 ?>;
+		var CLIENT = <?= $infAppli['CLIENT'] ? 1 : 0 ?>;
+		var NB_MODIF = <?= $infAppli['NB_MODIF'] ?>;
 
-		var DATE_J1 = <?=$infAppli['date_j1']?>;
-		var modePage = '<?=$GET_modePage?>';
-		var id='<?=$GET_id?>';
+		var DATE_J1 = <?= $infAppli['date_j1'] ?>;
+		var modePage = '<?= $GET_modePage ?>';
+		var id = '<?= $GET_id ?>';
 
 		function initIndex() {
 			if (id != "" && modePage == 'rest') {
 				search(id);
-				var stateObj = { foo: "bar" };
+				var stateObj = {
+					foo: "bar"
+				};
 				history.pushState(stateObj, "", "index.php");
 			}
 		}
 	</script>
-
+	
 </head>
+
 <body class="parent" LANG="fr-FR" onload="initIndex();initEntete();initPage()" onunload="unloadPage()">
 	<form name="formNavigation" method="get">
 		<input type="hidden" name="page" value="">
@@ -106,14 +118,15 @@ sajax_handle_client_request();
 	<a name="top"></a>
 	<div cellspacing="0" cellpadding="0" class="PAGE">
 		<div class="entete">
-			<?include('genericPages/entete.php');  ?>
+			<? include('genericPages/entete.php');  ?>
 		</div>
 		<div class="FENETRE_PRINCIPALE">
-			<?//print_r($infAppli);?>
+			<? //print_r($infAppli);
+			?>
 			<div class="TEXTE_FEN">
-				<!--<MODE:<?=$GET_modePage?>; ID:<?=$GET_id?>;</span>
-				<?echo "go to page [".$GET_page."]";?>-->
-				<?include('pages/'.$GET_page);?>
+				<!--<MODE:<?= $GET_modePage ?>; ID:<?= $GET_id ?>;</span>
+				<? echo "go to page [" . $GET_page . "]"; ?>-->
+				<? include('pages/' . $GET_page); ?>
 				<!-- Trigger/Open The Modal -->
 			</div>
 			<div id="myModal" class="modal">
@@ -135,7 +148,7 @@ sajax_handle_client_request();
 
 		</div>
 		<div class="pied">
-			<?include('genericPages/pied.php');?>
+			<? include('genericPages/pied.php'); ?>
 		</div>
 	</div>
 </body>
@@ -143,10 +156,10 @@ sajax_handle_client_request();
 if (isset($GET_message) && trim($GET_message) != '') {
 	?>
 
-<script>
-	console.log("message <?=$GET_message?>");
-	alertModalInfo('<?=$GET_message?>');
-</script>
-<?}?>
+	<script>
+		console.log("message <?= $GET_message ?>");
+		alertModalInfo('<?= $GET_message ?>');
+	</script>
+<? } ?>
 
 </html>

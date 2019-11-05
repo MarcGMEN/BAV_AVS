@@ -181,7 +181,7 @@ function update($table, $obj, $cleId)
                     $guillemet="";
                     $val="null";
                 }
-                $req .= $virgule.$key." = $guillemet".addslashes($val)."$guillemet";
+                $req .= $virgule.$key." = $guillemet".addslashes(rtrim($val))."$guillemet";
                 $virgule=" , ";
             }
         }
@@ -214,7 +214,7 @@ function insert($table, $obj)
             } elseif (strlen($val) == 0) {
                 $val=0;
             }
-            $req .= $virgule."$guillemet".addslashes($val)."$guillemet";
+            $req .= $virgule."$guillemet".addslashes(rtrim($val))."$guillemet";
             $virgule=" , ";
         }
     }
