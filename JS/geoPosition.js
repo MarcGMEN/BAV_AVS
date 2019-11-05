@@ -28,7 +28,7 @@ function initMap() {
 }
 
 
-function geoPosClient(adress, unique = true, group = true) {
+function geoPosClient(adress, unique = true, group = true, info) {
     var iconBase = 'Images/logoAVS.png';
     var myIcon = L.icon({
         iconUrl: iconBase,
@@ -38,15 +38,19 @@ function geoPosClient(adress, unique = true, group = true) {
     });
     var geocoder = L.Control.Geocoder.nominatim();
 
-    console.log("geoPosClient(" + adress + ")");
+    console.log("geoPosClient(" + adress + ") ["+info+"]");
     geocoder.geocode(adress + ', France',
         function (results) {
-            console.log(results);
+            console.log(results);   
             var r = results[0];
             if (r) {
-                var marker1 = L.marker(r.center, { icon: myIcon })
-                    
-                    .bindPopup(r.name);
+                var marker1 = L.marker(r.center, { icon: myIcon });
+                if (info) {
+                    marker1.bindPopup('<strong>'+adress+" : "+info+'</strong>').openPopup();
+                }
+                else{
+                    marker1.bindPopup(adress).openPopup();
+                }
                 markers.push(marker1);
                 if (group) {
                     markerClusters.addLayer(marker1);
