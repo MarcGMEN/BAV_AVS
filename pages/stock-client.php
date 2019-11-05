@@ -9,7 +9,7 @@
 		if (NB_MODIF == 1 || ADMIN) {
 			x_return_enum('bav_objet', 'obj_type', display_list_type);
 			x_return_enum('bav_objet', 'obj_public', display_list_public);
-			x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);
+			//x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);
 
 			x_return_list_marques(display_list_marque)
 			x_return_fiches(tri, sens, tabToString(tabSel), display_fiches);
@@ -73,12 +73,13 @@
 					repr += "<td  width=10% >";
 					repr += val[index]['obj_public'];
 					repr += "</td>";
-					repr += "<td class='maskMobile' width=10% >";
-					repr += val[index]['obj_pratique'];
-					repr += "</td>";
-					repr += "<td class='maskMobile' width=10% >";
+					repr += "<td class='maskMobile' width=15% >";
 					repr += val[index]['obj_marque'];
 					repr += "</td>";
+					repr += "<td class='maskMobile' width=50% >";
+					repr += val[index]['obj_description'];
+					repr += "</td>";
+					
 					repr += "<td width=10% >";
 					if (val[index]['obj_prix_vente'] == 0) {
 						repr += "<span style='color:orange'>" + val[index]['obj_prix_depot'] + "</span>";
@@ -129,7 +130,7 @@
 		tabSel['obj_type'] = getElement("sel_obj_type").value;
 		tabSel['obj_marque'] = getElement("sel_obj_marque").value;
 		tabSel['obj_public'] = getElement("sel_obj_public").value;
-		tabSel['obj_pratique'] = getElement("sel_obj_pratique").value;
+		//tabSel['obj_pratique'] = getElement("sel_obj_pratique").value;
 		//tabSel[col] = mask;
 
 		console.log(col + "," + sens);
@@ -154,12 +155,15 @@
 		<td class="tittab" width=10%>
 			<span id='obj_public' onclick="triColonne('obj_public')" class="sortable">Public&nbsp;&nbsp;&nbsp;</span>
 			&nbsp;<select id="sel_obj_public" onchange="selectColonne('obj_public', this.value)"></select></td>
-		<td class="tittab maskMobile" width=10%>
+		<!--<td class="tittab maskMobile" width=10%>
 			<span id='obj_pratique' onclick="triColonne('obj_pratique')" class="sortable">Pratique&nbsp;&nbsp;&nbsp;</span>
-			&nbsp;<select id="sel_obj_pratique" onchange="selectColonne('obj_pratique', this.value)"></select></td>
-		<td class="tittab maskMobile" width=10%>
+			&nbsp;<select id="sel_obj_pratique" onchange="selectColonne('obj_pratique', this.value)"></select></td>-->
+			
+		<td class="tittab maskMobile" width=15%>
 			<span id='obj_marque' onclick="triColonne('obj_marque')" class="sortable">Marque&nbsp;&nbsp;</span>
 			&nbsp;<select id="sel_obj_marque" onchange="selectColonne('obj_marque', this.value)"></select></td>
+		<td class="tittab maskMobile" width=50%>
+			Description</td>
 		<td class="tittab" width=10%>
 			<span class="sortable" id='obj_prix_vente' onclick="triColonne('obj_prix_vente')">Prix vente&nbsp;&nbsp;</span></td>
 	</tr>
