@@ -30,10 +30,17 @@ function initMap() {
 
 function geoPosClient(adress, unique = true, group = true, info) {
     var iconBase = 'Images/logoAVS.png';
+
+    widthIcon=40;
+    heightIcon=30;
+    if  (info && Number.isInteger(info)) {
+        widthIcon+=info*2;
+        heightIcon+=info*2;
+    }
     var myIcon = L.icon({
         iconUrl: iconBase,
-        iconSize: [30, 20],
-        iconAnchor: [0, 0],
+        iconSize: [widthIcon, heightIcon],
+        iconAnchor: [widthIcon/2, heightIcon/2],
         popupAnchor: [-3, -3],
     });
     var geocoder = L.Control.Geocoder.nominatim();
