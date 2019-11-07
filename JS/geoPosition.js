@@ -33,10 +33,10 @@ function geoPosClient(adress, unique = true, group = true, info) {
 
     widthIcon=40;
     heightIcon=30;
-    if  (info && Number.isInteger(info)) {
-        widthIcon+=info*2;
-        heightIcon+=info*2;
-    }
+    // if  (info && Number.isInteger(info)) {
+    //     widthIcon+=info*2;
+    //     heightIcon+=info*2;
+    // }
     var myIcon = L.icon({
         iconUrl: iconBase,
         iconSize: [widthIcon, heightIcon],

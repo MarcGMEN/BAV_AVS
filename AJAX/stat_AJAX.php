@@ -74,7 +74,7 @@ function return_stat($selection)
         $tabCount['vente_J3-AM'] = 0;
         $tabCount['vente_J3-PM'] = 0;
         $tabCount['depot_J30'] = 0;
-        $tabCount['depot_J15'] = 0;
+        $tabCount['depot_J7'] = 0;
         $tabCount['stock_J1'] = 0;
         $tabCount['stock_J2-AM'] = 0;
         $tabCount['stock_J2-PM'] = 0;
@@ -93,8 +93,8 @@ function return_stat($selection)
         $date['J1'] = $infoAppli['date_j1'];
         $date['J2-MIDI'] = mktime(12, 00, 00, date('n', $infoAppli['date_j2']), date('j', $infoAppli['date_j2']), date('Y', $infoAppli['date_j2']));
         $date['J3-MIDI'] = mktime(12, 00, 00, date('n', $infoAppli['date_j3']), date('j', $infoAppli['date_j3']), date('Y', $infoAppli['date_j3']));
-        $date['depot_J30'] = mktime(00, 00, 00, date('n', $infoAppli['date_j1']), date('j', $infoAppli['date_j1']) - 15, date('Y', $infoAppli['date_j1']));
-        $date['depot_J15'] = $infoAppli['date_j1'];
+        $date['depot_J30'] = mktime(00, 00, 00, date('n', $infoAppli['date_j1']), date('j', $infoAppli['date_j1']) - 7, date('Y', $infoAppli['date_j1']));
+        $date['depot_J7'] = $infoAppli['date_j1'];
 
         foreach ($tab as $key => $val) {
             if (
@@ -217,8 +217,8 @@ function return_stat($selection)
                 $dateDepotInt = dateMysqlInt($val['obj_date_depot']);
                 if ($dateDepotInt < $date['depot_J30']) {
                     ++$tabCount['depot_J30'];
-                } elseif ($dateDepotInt < $date['depot_J15']) {
-                    ++$tabCount['depot_J15'];
+                } elseif ($dateDepotInt < $date['depot_J7']) {
+                    ++$tabCount['depot_J7'];
                 }
 
                 $tabCount["count"]++;
