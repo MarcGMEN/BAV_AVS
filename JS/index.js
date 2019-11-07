@@ -45,7 +45,7 @@ function search(value) {
         console.log("consult fiche");
         x_return_oneFicheByCode(value, display_getFicheConsult);
     }
-    else if (value.length == 5) {
+    else if (value.length == 5 || value.length == 6) {
         console.log("modif fiche "+value);
         x_return_oneFicheByIdModif(value, display_getFicheModif);
     }

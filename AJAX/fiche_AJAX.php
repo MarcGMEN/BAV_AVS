@@ -83,6 +83,8 @@ function action_createFiche($data)
         // TODO : insert fiche
         $tabObj['obj_id'] = 0;
 
+        $tabObj['obj_marque'] = strtoupper($tabObj['obj_marque']);
+        $tabObj['obj_modele'] = strtoupper($tabObj['obj_modele']);
         // creation du numero
         if ($ADMIN || $TABLE) {
             makeNumeroFiche($FICHE_INFO, $tabObj);
@@ -512,6 +514,10 @@ function action_updateFiche($data)
 
     $fiche['obj_id_vendeur'] = $client['cli_id'];
     try {
+
+        $fiche['obj_marque'] = strtoupper($fiche['obj_marque']);
+        $fiche['obj_modele'] = strtoupper($fiche['obj_modele']);
+
         updateFiche($fiche);
         return $fiche;
     } catch (Exception $e) {

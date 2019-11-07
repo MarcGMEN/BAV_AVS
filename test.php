@@ -18,12 +18,13 @@ require_once 'Commun/mail.php';
 
 // echo "test.php";
 // echo sendMail("test PJ", "braillou@gmail.com", "piece jointe", "/BAV/out/PDF/Fiche_710.pdf");
-echo sendMail('test ', 'braillou@gmmmmail.com', 'sans piece jointe', null);
+//echo sendMail('test ', 'braillou@gmmmmail.com', 'sans piece jointe', null);
 //print_r($mysqli);
 //echo substr(hash_hmac('md5', 700, 'avs442019'), 0, 5);;
 
 //echo password_hash("BAV2019", PASSWORD_DEFAULT);
-
+echo substr(hash_hmac('md5', 801, 'avs44'+$_COOKIE['NUMERO_BAV']), 0, 6);
+echo substr(hash_hmac('md5', 953, 'avs44'+$_COOKIE['NUMERO_BAV']), 0, 6);
 //echo password_verify('BAV2019', $GLOBALS['PASS_TABLE']);
 ?>
 </pre>

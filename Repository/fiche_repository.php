@@ -95,7 +95,7 @@ function makeNumeroFiche($base, &$objet)
 {
     $objet['obj_numero']=getFicheLibre($base);
     // creation de idmodif
-    $objet['obj_id_modif']=substr(hash_hmac('md5', $objet['obj_numero'], 'avs44'+$_COOKIE['NUMERO_BAV']), 0, 5);
+    $objet['obj_id_modif']=substr(hash_hmac('md5', $objet['obj_numero'], 'avs44'+$_COOKIE['NUMERO_BAV']), 0, 6);
 }
 
 function getFicheLibre($base)
