@@ -14,8 +14,8 @@
 			x_return_graphCount('pratique', display_countPratique);
 			x_return_graphCount('public', display_countPublic);
 			x_return_histoCount('marque', 1000, 250, 1, '', 1, display_countMarque);
-			x_return_histoCount('tarif', 500, 250,display_countTarif);
-			
+			x_return_histoCount('tarif', 500, 250, display_countTarif);
+			x_return_countByTarifSup(500, display_countByTarifSup);
 			x_return_histoCount('code_postal', 500, 250, 1, 'client', 1, display_countCDP);
 		} else {
 			goTo();
@@ -31,7 +31,7 @@
 		initMap();
 		for (i in val['count_code_postal']) {
 			if (i) {
-				geoPosClient(i,false,false, val['count_code_postal'][i]);
+				geoPosClient(i, false, false, val['count_code_postal'][i]);
 			}
 		}
 	}
@@ -43,7 +43,7 @@
 	function display_countPublic(val) {
 		getElement('public').src = val;
 	}
-	
+
 	function display_countPratique(val) {
 		getElement('pratique').src = val;
 	}
@@ -132,6 +132,10 @@
 			};
 		}
 	}
+
+	function display_countByTarifSup(val) {
+		getElement('count_range').innerHTML = val;
+	}
 </script>
 
 <style type="text/css">
@@ -167,8 +171,8 @@
 		'nbVeloVendeur' => 'Nombre moyen de velo par vendeur',
 		'nbVeloMaxiVendeur' => 'Nombre maxi de velo pour un vendeur',
 		'nbVeloAcheteur' => 'Nombre moyen de velo par acheteur',
-		'nbVeloMaxiAcheteur' => 'Nombre maxi de velo pour un acheteur',
-		'nbVeloPlus500' => 'Nombre de velo au dessus de 500E',
+		'nbVeloMaxiAcheteur' => 'Nombre maxi de velo pour un acheteur'
+		//'nbVeloPlus500' => 'Nombre de velo au dessus de 400E',
 	];
 	$tabCategCol = [
 		'total',
@@ -216,6 +220,34 @@
 			</tr>
 		<?php
 		} ?>
+	</table>
+	<hr/>
+	<table width="100%">
+		<tr class='tabl1'>
+			<td class="tittab">Nombre de velo superieur a <input type=range oninput="getElement('resultRange').innerHTML=this.value" onchange="x_return_countByTarifSup(this.value, display_countByTarifSup);" min=0 max=3000 range=50 value=500 list="tickmarks" />
+				<datalist id="tickmarks">
+					<option value="0">
+					<option value="100">
+					<option value="200">
+					<option value="300">
+					<option value="400">
+					<option value="500">
+					<option value="600">
+					<option value="700">
+					<option value="800">
+					<option value="900">
+					<option value="1000">
+					<option value="1500">
+					<option value="2000">
+					<option value="2500">
+					<option value="3000">
+					<option value="3500">
+				</datalist>
+				<div id="resultRange">500</div>
+			</td>
+			<td width='30%' id='count_range' style='text-align:center'>--</td>
+			<td width='40%'></td>
+		</tr>
 	</table>
 </fieldset>
 <br />

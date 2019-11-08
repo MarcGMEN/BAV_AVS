@@ -37,7 +37,7 @@
 				</div>
 				<div class="col-sm-6 col-md-6 col-xs-6">
 					<div class="col-sm-6 col-md-6 col-xs-6 tabl1">
-						<span class="alert-info" id="obj_etat_libelle"></span>
+						<small><span class="alert-info" id="obj_etat_libelle"></span></small>
 						<input type="hidden" name="obj_etat" />
 						<input type="hidden" name="obj_etat_new" />
 					</div>

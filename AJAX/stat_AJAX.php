@@ -31,6 +31,15 @@ function return_statClient()
     return $tabCount;
 }
 
+function return_countByTarifSup($ref) {
+    $val = countBy("obj_prix_vente", ">=" , $ref);
+    if ($val == 0) {
+        $val = countBy("obj_prix_depot", ">=" , $ref);
+    }
+    return $val;
+
+}
+
 function return_stat($selection)
 {
     try {
@@ -131,7 +140,7 @@ function return_stat($selection)
                     ++$tabCount['count_tarif']['> '.$valTarif];
                 }
 
-                if ($thePrix >= 500) {
+                if ($thePrix >= 400) {
                     ++$tabCount['nbVeloPlus500'];
                 }
 

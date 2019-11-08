@@ -91,6 +91,24 @@ function countByEtat($idVendeur = null)
     return $tab;
 }
 
+function countBy($sel, $search="=", $val)
+{
+    $requete2 = "SELECT count(*) from bav_objet where obj_numero_bav = ".$_COOKIE['NUMERO_BAV'];
+    if ($sel && $val != "*") {
+            $requete2 .= " and $sel $search '$val' ";
+    }
+    if ($result = $GLOBALS['mysqli']->query($requete2)) {
+        $tab=array();
+        $row = $result->fetch_assoc();
+        $count = $row['count(*)'];
+        $result->close();
+    } else {
+        throw new Exception("countBy' [$requete2]".mysqli_error($result));
+    }
+    return $count;
+}
+
+
 function makeNumeroFiche($base, &$objet)
 {
     $objet['obj_numero']=getFicheLibre($base);
