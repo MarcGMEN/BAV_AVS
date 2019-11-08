@@ -156,7 +156,10 @@ function getFiches($order, $sens, $tabSel)
     $requete2 .= " where obj_numero_bav = ".$_COOKIE['NUMERO_BAV'];
     //echo $requete2;
     foreach ($tabSel as $key => $val) {
-        if ($key && $val != "*") {
+        if ($key == "obj_search") {
+            $requete2 .= " and (obj_modele like '%$val%' or obj_description like '%$val%') ";
+        }
+        else if ($key && $val != "*") {
             $requete2 .= " and $key = '$val' ";
         }
     }
