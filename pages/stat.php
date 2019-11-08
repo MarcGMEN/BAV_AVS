@@ -14,9 +14,9 @@
 			x_return_graphCount('pratique', display_countPratique);
 			x_return_graphCount('public', display_countPublic);
 			x_return_histoCount('marque', 1000, 250, 1, '', 1, display_countMarque);
-			x_return_histoCount('tarif', 500, 250, display_countTarif);
-
-			x_return_histoCount('code_postal', 500, 250, 0, 'client', 1, display_countCDP);
+			x_return_histoCount('tarif', 500, 250,display_countTarif);
+			
+			x_return_histoCount('code_postal', 500, 250, 1, 'client', 1, display_countCDP);
 		} else {
 			goTo();
 		}
@@ -43,7 +43,7 @@
 	function display_countPublic(val) {
 		getElement('public').src = val;
 	}
-
+	
 	function display_countPratique(val) {
 		getElement('pratique').src = val;
 	}
@@ -112,7 +112,6 @@
 		infoPlusCli("nbVeloMaxiVendeur", val['clinbVeloMaxiVendeur']);
 		infoPlusCli("nbVeloMaxiAcheteur", val['clinbVeloMaxiAcheteur']);
 
-
 		display_formulaire(val, null);
 	}
 
@@ -138,7 +137,7 @@
 <style type="text/css">
 	#map {
 		/* la carte DOIT avoir une hauteur sinon elle n'apparaît pas */
-		height: 300px;
+		height: 400px;
 	}
 </style>
 <fieldset class=fiche>
@@ -169,6 +168,7 @@
 		'nbVeloMaxiVendeur' => 'Nombre maxi de velo pour un vendeur',
 		'nbVeloAcheteur' => 'Nombre moyen de velo par acheteur',
 		'nbVeloMaxiAcheteur' => 'Nombre maxi de velo pour un acheteur',
+		'nbVeloPlus500' => 'Nombre de velo au dessus de 500E',
 	];
 	$tabCategCol = [
 		'total',
@@ -246,13 +246,11 @@
 		<div class="col-sm-12 col-xs-12">
 			<center><img id="marque" /></center>
 		</div>
-		<div class="col-sm-12 col-xs-12">
+		<div class="col-sm-4 col-xs-12">
 			<center><img id="tarif" /></center>
-		</div>
-		<div class="col-sm-6 col-xs-12">
 			<center><img id="code_postal" /></center>
 		</div>
-		<div class="col-sm-6 col-xs-12">
+		<div class="col-sm-8 col-xs-12">
 			<div id=map></div>
 		</div>
 	</div>

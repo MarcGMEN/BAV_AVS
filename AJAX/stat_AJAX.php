@@ -50,6 +50,7 @@ function return_stat($selection)
             'nbVeloMaxiVendeur' => 'Nombre maxi de vélo pour un vendeur',
             'nbVeloAcheteur' => 'Nombre moyen de vélo par vendeur',
             'nbVeloMaxiAcheteur' => 'Nombre maxi de vélo pour un acheteur',
+            'nbVeloPlus500' => 'Nombre de vélo au dessus de 500€',
         ];
 
         foreach ($tabCategLigne as $keyL => $valL) {
@@ -81,7 +82,9 @@ function return_stat($selection)
         $tabCount['stock_J3-AM'] = 0;
         $tabCount['stock_J3-PM'] = 0;
         $tabCount['count'] = 0;
+        $tabCount['nbVeloPlus500'] = 0;
         $tabCount['count_tarif'] = [];
+        
 
         $tabTmp = ['type', 'public', 'marque', 'pratique', 'couleur'];
         foreach ($tabTmp as $key) {
@@ -126,6 +129,10 @@ function return_stat($selection)
                 }
                 if (!$tarifOK) {
                     ++$tabCount['count_tarif']['> '.$valTarif];
+                }
+
+                if ($thePrix >= 500) {
+                    ++$tabCount['nbVeloPlus500'];
                 }
 
                 foreach ($tabTmp as $keyTmp) {
