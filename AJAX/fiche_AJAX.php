@@ -443,6 +443,7 @@ function action_changeEtatFiche($obj)
 
         if ($fiche['obj_etat'] == 'CONFIRME') {
             makeNumeroFiche($FICHE_INFO, $fiche);
+            $fiche['obj_date_depot'] = date('y-m-d h:m:s');
         } elseif ($fiche['obj_etat'] == 'STOCK') {
             $fiche['obj_prix_vente'] = $fiche['obj_prix_depot'];
             $fiche['obj_date_depot'] = date('y-m-d h:m:s');

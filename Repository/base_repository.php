@@ -189,7 +189,7 @@ function update($table, $obj, $cleId)
     $req .= " where $cleId = '".$obj[$cleId]."'";
    // echo $req;
     if (!$GLOBALS['mysqli']->query($req)) {
-        throw new Exception("Pb d'update' [$req]".$GLOBALS['mysqli']->error);
+        throw new Exception("--Pb d'update' [$req]   ===> ".$GLOBALS['mysqli']->error);
     }
 }
 

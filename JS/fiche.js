@@ -413,8 +413,9 @@ function display_fin_modif(val) {
         setStartSaisie(false);
         x_return_countByEtat(display_counter);
         x_return_oneFiche(val['obj_id'], display_fiche);
+        alertModalInfoTimeout("Fiche modifié.",1);
     } else {
-        alertModalWarnTimeout(val, 2);
+        alertModalWarn(val);
     }
 }
 
