@@ -193,7 +193,7 @@ function action_createFicheExpress($data)
         $tabObj['obj_prix_depot'] = $tabObj['obj_prix_vente'];
 
         $tabObj['obj_id_vendeur'] = $tabCli['cli_id'];
-        $tabObj['obj_id_modif'] = substr(hash_hmac('md5', $tabObj['obj_numero'], 'avs44' + $_COOKIE['NUMERO_BAV']), 0, 5);
+        $tabObj['obj_id_modif'] = substr(hash_hmac('md5', $tabObj['obj_numero'], 'avs44' + $_COOKIE['NUMERO_BAV']), 0, 6);
         // TODO : insert fiche
         $tabObj['obj_id'] = 0;
 
