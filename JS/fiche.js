@@ -241,6 +241,8 @@ function display_fiche(val) {
                 else {
                     getElement("tdBtnEtat").style.display = 'none';
                 }
+                getElement("fieldSetAcheteur").style.display = 'block';
+                x_return_oneClient(val['obj_id_acheteur'], display_infoClientAcheteurFiche);
 
             }
         }
@@ -413,7 +415,7 @@ function display_fin_modif(val) {
         setStartSaisie(false);
         x_return_countByEtat(display_counter);
         x_return_oneFiche(val['obj_id'], display_fiche);
-        alertModalInfoTimeout("Fiche modifié.",1);
+        alertModalInfoTimeout("Fiche modifié.",0.1);
     } else {
         alertModalWarn(val);
     }

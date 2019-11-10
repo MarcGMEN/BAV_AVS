@@ -20,6 +20,7 @@
 	function return_restant() {
 		var diff=((DATE_J1+"000")-Date.now())/1000;
 
+		if (diff > 0 ) {
 		var jour=parseInt(diff / (3600*24));                  
 		var heures=parseInt(diff / 3600) %24;
 		var minutes=parseInt((diff % 3600) / 60);
@@ -29,6 +30,7 @@
 		if (minutes < 10) { minutes="0"+minutes}
 		getElement('timeRestant').innerHTML = jourTxt+" "+heures+":"+minutes+":"+secondes;
 		setTimeout('return_restant()', 1000);
+		}
 	}
 
 
@@ -53,13 +55,13 @@
 			}
 			if (val['PAYE']) {
 				total += parseInt(val['PAYE']);
-				totalVente += parseInt(val['VENDU']);
+				totalVente += parseInt(val['PAYE']);
 			}
 
 			getElement('TOTAL').innerHTML = total;
 
-			getElement('statVendu').innerHTML = parseInt((val['VENDU'] / total) * 100) + "%";
-
+			getElement('statVendu').innerHTML = parseInt((totalVente / total) * 100) + "%";
+			getElement('VENDU').innerHTML = totalVente;
 			if (val['RENDU']) {
 				getElement('statRendu').innerHTML = parseInt((parseInt(val['RENDU']) / total) * 100) + "%";
 			} else {

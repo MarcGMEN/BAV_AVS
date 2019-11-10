@@ -25,7 +25,7 @@
 		for (index in val) {
 
 			if (!isNaN(index)) {
-				if (val[index]['obj_numero'] < 1500) {
+				if (val[index]['obj_numero'] < 2000) {
 					getElement("numero_" + val[index]['obj_numero']).innerHTML = val[index]['obj_numero'];
 					getElement("prix_vente_" + val[index]['obj_numero']).innerHTML = val[index]['obj_prix_vente'];
 					getElement("vendeur_" + val[index]['obj_numero']).innerHTML =
@@ -202,11 +202,11 @@
 			val['obj_etat'] = "";
 			val['obj_id'] = "";
 
-			//val['cli_id']="";
+			val['cli_id']="";
 
-			if (document.formSaisieExpress.cli_id.value != '') {
-				x_return_oneClient(document.formSaisieExpress.cli_id.value, display_infoClientVendeur);
-			}
+			//if (document.formSaisieExpress.cli_id.value != '') {
+			//	x_return_oneClient(document.formSaisieExpress.cli_id.value, display_infoClientVendeur);
+			//}
 			display_formulaire(val, document.formSaisieExpress);
 			getElement("but_action2").style.display = 'none';
 			getElement("but_action").style.display = 'none';
@@ -297,7 +297,10 @@
 				<input type=number name="obj_prix_vente" size=5 maxlength="10" tabindex=<?= $tabindex++ ?> title="Prix vente" required step="0.1" placeholder="00.00" />&nbsp;&#8364;</td>
 			<td>
 				<small><small id='cli_id'></small></small>
-				<input type=text name='cli_nom_<?= $idRamdom ?>' tabindex=<?= $tabindex++ ?> size="50" maxlength="100" required onblur='x_return_oneClientByName(this.value, display_infoClientVendeur)' list="listVendeur" onkeyup='x_return_listClientByName(this.value, display_listVendeur)'>
+				<input type=text name='cli_nom_<?= $idRamdom ?>' tabindex=<?= $tabindex++ ?> size="50" maxlength="100" required onblur='x_return_oneClientByName(this.value, display_infoClientVendeur)' list="listVendeur" 
+
+				>
+				<!--onkeyup='x_return_listClientByName(this.value, display_listVendeur)'-->
 				<datalist id="listVendeur"></datalist>
 				<input type="hidden" name="cli_id">
 			</td>
@@ -333,7 +336,7 @@
 </table>
 <div style="overflow: scroll; height:60%">
 	<table width='100%'>
-		<? for ($index = 1; $index < 1500; $index++) { ?>
+		<? for ($index = 1; $index < 2000; $index++) { ?>
 			<tr class='tabl0' id="tr_<?= $index ?>">
 				<td width=10% id="numero_<?= $index ?>" onclick="x_return_oneFicheByCode('<?= $index ?>', display_fiche)"><span style="color: GREEN"><?= $index ?></span>
 				</td>

@@ -15,17 +15,19 @@ Vente de la fiche --obj_numero-- : <br />
         <td class="titrow" width="10%">Emel </td>
         <td class="tabInput" width=40%>
             <input type=email name='ach_emel' id="cli_emel" size="50" maxlength="100" tabindex=1
-              placeholder="aaaa.bbbb@ccc.dd" onblur='x_return_oneClientByMel(this.value, display_infoClientAcheteur)'
-              onkeyup='x_return_listClientByMel(this.value, display_listAcheteur)'
-              list="listAcheteur"/>
-            <datalist id="listAcheteur"></datalist>
+              placeholder="aaaa.bbbb@ccc.dd"  /> 
+              <!-- onblur='x_return_oneClientByMel(this.value, display_infoClientAcheteur)'
+                list="listAcheteur"      -->
+            
+            <!-- onkeyup='x_return_listClientByMel(this.value, display_listAcheteur)'-->
+            <!--<datalist id="listAcheteur"></datalist>-->
         <td class="titrow" width=10%>Nom/prenom <span title="Obligatoire">*<span></td>
         <td class="tabInput" width=40%>
             <input type=text name='ach_nom' tabindex=2
              size="50" maxlength="100" required 
-                onblur='x_return_oneClientByName(this.value, display_infoClientAcheteurBis)'
-			    list="listAcheteurBis"
-				onkeyup='x_return_listClientByName(this.value, display_listAcheteurBis)'>
+                onblur='x_return_oneClientByName(this.value, display_infoClientAcheteurBis)'/>
+			   <!-- list="listAcheteurBis"
+				onkeyup='x_return_listClientByName(this.value, display_listAcheteurBis)'>-->
 			<datalist id="listAcheteurBis"></datalist>
         </td>
     </tr>
