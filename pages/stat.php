@@ -10,13 +10,13 @@
 			x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);
 			x_return_statClient(display_statClient);
 			x_return_stat(tabToString(tabSel), display_stat)
-			x_return_graphCount('type', display_countType);
-			x_return_graphCount('pratique', display_countPratique);
-			x_return_graphCount('public', display_countPublic);
-			x_return_histoCount('marque', 1000, 250, 1, '', 1, display_countMarque);
+			//x_return_graphCount('type', display_countType);
+			//x_return_graphCount('pratique', display_countPratique);
+			//x_return_graphCount('public', display_countPublic);
+			//x_return_histoCount('marque', 1000, 250, 1, '', 1, display_countMarque);
 			x_return_histoCount('tarif', 500, 250, display_countTarif);
 			x_return_countByTarifSup(500, display_countByTarifSup);
-			x_return_histoCount('code_postal', 500, 250, 1, 'client', 1, display_countCDP);
+			//x_return_histoCount('code_postal', 500, 250, 1, 'client', 1, display_countCDP);
 		} else {
 			goTo();
 		}
@@ -106,10 +106,13 @@
 
 	function display_stat(val) {
 
-		infoPlusObj("prixMini", val['objprixMini']);
-		infoPlusObj("prixMaxi", val['objprixMaxi']);
+		infoPlusObj("prixMiniDepot", val['objprixMiniDepot']);
+		infoPlusObj("prixMaxiDepot", val['objprixMaxiDepot']);
+		infoPlusObj("prixMiniVente", val['objprixMiniVente']);
+		infoPlusObj("prixMaxiVente", val['objprixMaxiVente']);
 		infoPlusObj("delaiMinSV", val['objdelaiMinSV']);
-		infoPlusCli("nbVeloMaxiVendeur", val['clinbVeloMaxiVendeur']);
+		infoPlusCli("nbVeloMaxiVendeurVente", val['clinbVeloMaxiVendeurVente']);
+		infoPlusCli("nbVeloMaxiVendeurDepot", val['clinbVeloMaxiVendeurDepot']);
 		infoPlusCli("nbVeloMaxiAcheteur", val['clinbVeloMaxiAcheteur']);
 
 		display_formulaire(val, null);
@@ -161,15 +164,22 @@
 	</table>
 	<?php
 	$tabCategLigne = [
-		'prixMini' => 'Prix mini',
-		'prixMaxi' => 'Prix maxi',
-		'prixMoyen' => 'Prix moyen',
+		'prixMiniDepot' => 'Prix mini depot',
+		'prixMaxiDepot' => 'Prix maxi depot',
+		'prixMoyenDepot' => 'Prix moyen depot',
+		'prixMiniVente' => 'Prix mini vente',
+		'prixMaxiVente' => 'Prix maxi vente',
+		'prixMoyenVente' => 'Prix moyen vente',
+		'---------------------------------' => '----------------------------',
 		'delaiMoyenSV' => 'Delai moyen Stock-Vente',
 		'delaiMinSV' => 'Delai mini Stock-Vente',
 		//'delaiMoyenVP' => 'Delai mini Vente Paye',
-		'delaiMoyenVR' => 'Delai moyen Vente Rendu',
-		'nbVeloVendeur' => 'Nombre moyen de velo par vendeur',
-		'nbVeloMaxiVendeur' => 'Nombre maxi de velo pour un vendeur',
+		//'delaiMoyenVR' => 'Delai moyen Vente Rendu',
+		'----------------------------------' => '----------------------------',
+		'nbVeloVendeurDepot' => 'Nombre moyen de velo par vendeur',
+		'nbVeloMaxiVendeurDepot' => 'Nombre maxi de velo depose / vendeur',
+		'nbVeloMaxiVendeurVente' => 'Nombre maxi de vélo vendu / vendeur',
+	    '-------------------------------' => '----------------------------',
 		'nbVeloAcheteur' => 'Nombre moyen de velo par acheteur',
 		'nbVeloMaxiAcheteur' => 'Nombre maxi de velo pour un acheteur'
 		//'nbVeloPlus500' => 'Nombre de velo au dessus de 400E',

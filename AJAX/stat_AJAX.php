@@ -48,15 +48,19 @@ function return_stat($selection)
         //print_r($infoAppli);
         $tab = getFiches(null, 'asc', string2Tab($selection));
         $tabCategLigne = [
-            'prixMini' => 'Prix mini',
-            'prixMaxi' => 'Prix maxi',
-            'prixMoyen' => 'Prix moyen',
+            'prixMiniDepot' => 'Prix mini depot',
+            'prixMaxiDepot' => 'Prix maxi depot',
+            'prixMoyenDepot' => 'Prix moyen depot',
+            'prixMiniVente' => 'Prix mini vente',
+            'prixMaxiVente' => 'Prix maxi vente',
+            'prixMoyenVente' => 'Prix moyen vente',
             'delaiMoyenSV' => 'Delai moyen Stock-Vente',
             'delaiMinSV' => 'Delai mini Stock-Vente',
             // 'delaiMoyenVP' => 'Delai mini Vente Paye',
             'delaiMoyenVR' => 'Delai mini Vente Rendu',
             'nbVeloVendeur' => 'Nombre moyen de vélo par vendeur',
-            'nbVeloMaxiVendeur' => 'Nombre maxi de vélo pour un vendeur',
+            'nbVeloMaxiVendeurDepot' => 'Nombre maxi de vélo pour un vendeur',
+            'nbVeloMaxiVendeurVente' => 'Nombre maxi de vélo pour un deposeur',
             'nbVeloAcheteur' => 'Nombre moyen de vélo par vendeur',
             'nbVeloMaxiAcheteur' => 'Nombre maxi de vélo pour un acheteur',
             'nbVeloPlus500' => 'Nombre de vélo au dessus de 500€',
@@ -65,11 +69,14 @@ function return_stat($selection)
         foreach ($tabCategLigne as $keyL => $valL) {
             $tabCount[$keyL] = 0;
         }
-        $tabCount['prixMini'] = 1000000;
+        $tabCount['prixMiniDepot'] = 1000000;
+        $tabCount['prixMiniVente'] = 1000000;
         $tabCount['delaiMinSV'] = 1000000;
 
-        $total = 0;
-        $nb = 0;
+        $totalVente= 0;
+        $totalDepot=0;
+        $nbVente = 0;
+        $nbDepot = 0;
 
         $totalTimeSV = 0;
         $nbTimeSV = 0;
@@ -110,18 +117,13 @@ function return_stat($selection)
 
         foreach ($tab as $key => $val) {
             if (
-                $val['obj_etat'] == 'CONFIRME' ||
                 $val['obj_etat'] == 'STOCK' ||
                 $val['obj_etat'] == 'VENDU' ||
                 $val['obj_etat'] == 'RENDU' ||
                 $val['obj_etat'] == 'PAYE'
             ) {
-                if ($val['obj_etat'] == 'CONFIRME') {
-                    $thePrix = $val['obj_prix_depot'];
-                } else {
-                    $thePrix = $val['obj_prix_vente'];
-                }
-
+                $thePrix = $val['obj_prix_vente'];
+            
                 $tarifOld = '0';
                 $tarifOK = false;
                 foreach ($tabTarif as $valTarif) {
@@ -152,28 +154,45 @@ function return_stat($selection)
                     ++$tabCount["count_$keyTmp"][$keyObj];
                 }
 
-                if ($thePrix < $tabCount['prixMini']) {
-                    $tabCount['prixMini'] = $thePrix;
-                    $tabCount['objprixMini'] = $val;
+                if (
+                    $val['obj_etat'] == 'VENDU' ||
+                    $val['obj_etat'] == 'PAYE'
+                ) {
+                    if ($thePrix < $tabCount['prixMiniVente']) {
+                        $tabCount['prixMiniVente'] = $thePrix;
+                        $tabCount['objprixMiniVente'] = $val;
+                    }
+                    // prix_maxi
+                    if ($thePrix > $tabCount['prixMaxiVente']) {
+                        $tabCount['prixMaxiVente'] = $thePrix;
+                        $tabCount['objprixMaxiVente'] = $val;
+                    }
+                    $totalVente += $thePrix;
+                    ++$nbVente;
+                }    
+                    
+                if ($thePrix < $tabCount['prixMiniDepot']) {
+                    $tabCount['prixMiniDepot'] = $thePrix;
+                    $tabCount['objprixMiniDepot'] = $val;
                 }
                 // prix_maxi
-                if ($thePrix > $tabCount['prixMaxi']) {
-                    $tabCount['prixMaxi'] = $thePrix;
-                    $tabCount['objprixMaxi'] = $val;
+                if ($thePrix > $tabCount['prixMaxiDepot']) {
+                    $tabCount['prixMaxiDepot'] = $thePrix;
+                    $tabCount['objprixMaxiDepot'] = $val;
                 }
-                $total += $thePrix;
-                ++$nb;
+                $totalDepot += $thePrix;
+                ++$nbDepot;
 
                 $dateDepotInt = dateMysqlInt($val['obj_date_depot']);
                 if ($val['obj_etat'] != "CONFIRME") {
                     if ($dateDepotInt < $infoAppli['date_j2']) {
                         $tabCount['stock_J1']++;
                     }
-                    if ($dateDepotInt > $infoAppli['date_j2'] && $dateDepotInt < $date["J2-MIDI"]) {
+                    if ($dateDepotInt >= $infoAppli['date_j2'] && $dateDepotInt < $date["J2-MIDI"]) {
                         $tabCount['stock_J2-AM']++;
                     } else if ($dateDepotInt >= $date["J2-MIDI"] && $dateDepotInt < $infoAppli['date_j3']) {
                         $tabCount['stock_J2-PM']++;
-                    } else if ($dateDepotInt > $infoAppli['date_j3'] && $dateDepotInt < $date["J3-MIDI"]) {
+                    } else if ($dateDepotInt >= $infoAppli['date_j3'] && $dateDepotInt < $date["J3-MIDI"]) {
                         $tabCount['stock_J3-AM']++;
                     } else if ($dateDepotInt >= $date["J3-MIDI"]) {
                         $tabCount['stock_J3-PM']++;
@@ -201,7 +220,7 @@ function return_stat($selection)
                         ++$tabCount['vente_J2-AM'];
                     } elseif ($dateVenteInt >= $date['J2-MIDI'] && $dateVenteInt < $infoAppli['date_j3']) {
                         ++$tabCount['vente_J2-PM'];
-                    } elseif ($dateVenteInt > $infoAppli['date_j3'] && $dateVenteInt < $date['J3-MIDI']) {
+                    } elseif ($dateVenteInt >= $infoAppli['date_j3'] && $dateVenteInt < $date['J3-MIDI']) {
                         ++$tabCount['vente_J3-AM'];
                     } elseif ($dateVenteInt >= $date['J3-MIDI']) {
                         ++$tabCount['vente_J3-PM'];
@@ -216,15 +235,23 @@ function return_stat($selection)
                     }
                 }
 
-                if (!$tabVendeur[$val['obj_id_vendeur']]) {
-                    $tabVendeur[$val['obj_id_vendeur']] = 0;
+                if (!$tabVendeurDepot[$val['obj_id_vendeur']]) {
+                    $tabVendeurDepot[$val['obj_id_vendeur']] = 0;
                 }
-                ++$tabVendeur[$val['obj_id_vendeur']];
+                ++$tabVendeurDepot[$val['obj_id_vendeur']];
+
 
                 if (
                     $val['obj_etat'] == 'VENDU' ||
                     $val['obj_etat'] == 'PAYE'
                 ) {
+
+                    if (!$tabVendeurVente[$val['obj_id_vendeur']]) {
+                        $tabVendeurVente[$val['obj_id_vendeur']] = 0;
+                    }
+                    ++$tabVendeurVente[$val['obj_id_vendeur']];
+
+
                     if (!$tabAcheteur[$val['obj_id_acheteur']]) {
                         $tabAcheteur[$val['obj_id_acheteur']] = 0;
                     }
@@ -241,31 +268,50 @@ function return_stat($selection)
             }
         }
 
-        if ($tabCount['prixMini'] == 1000000) {
-            $tabCount['prixMini'] = '0 &euro;';
-        } else {
-            $tabCount['prixMini'] .= ' &euro;';
-        }
         if ($tabCount['delaiMinSV'] == 1000000) {
             $tabCount['delaiMinSV'] = '0:0:0';
         } else {
             $tabCount['delaiMinSV'] = duree2HMS($tabCount['delaiMinSV']);
         }
-
-        $tabCount['prixMaxi'] .= ' &euro;';
-        if ($total == 0) {
-            $tabCount['prixMoyen'] = '0 &euro;';
+        if ($tabCount['prixMiniVente'] == 1000000) {
+            $tabCount['prixMiniVente'] = '0 &euro;';
         } else {
-            $tabCount['prixMoyen'] = number_format($total / $nb, 2, ',', '.').' &euro;';
+            $tabCount['prixMiniVente'] .= ' &euro;';
         }
+        $tabCount['prixMaxiVente'] .= ' &euro;';
+        if ($totalVente == 0) {
+            $tabCount['prixMoyenVente'] = '0 &euro;';
+        } else {
+            $tabCount['prixMoyenVente'] = number_format($totalVente / $nbVente, 2, ',', '.').' &euro;';
+        }
+        
+        if ($tabCount['prixMiniDepot'] == 1000000) {
+            $tabCount['prixMiniDepot'] = '0 &euro;';
+        } else {
+            $tabCount['prixMiniDepot'] .= ' &euro;';
+        }
+        $tabCount['prixMaxiDepot'] .= ' &euro;';
+        if ($totalDepot == 0) {
+            $tabCount['prixMoyenDepot'] = '0 &euro;';
+        } else {
+            $tabCount['prixMoyenDepot'] = number_format($totalDepot / $nbDepot, 2, ',', '.').' &euro;';
+        }
+        
+        
         $tabCount['delaiMoyenSV'] = duree2HMS($totalTimeSV / $nbTimeSV);
         $tabCount['delaiMoyenVR'] = duree2HMS($totalTimeVR / $nbTimeVR);
 
-        if (sizeof($tabVendeur) > 0) {
-            $tabCount['nbVeloMaxiVendeur'] = max($tabVendeur);
-            $tabCount['clinbVeloMaxiVendeur'] = getOneClient(array_search(max($tabVendeur), $tabVendeur));
-            $tabCount['nbVeloVendeur'] = number_format(array_sum($tabVendeur) / count($tabVendeur), 2, ',', '.');
+        if (sizeof($tabVendeurVente) > 0) {
+            $tabCount['nbVeloMaxiVendeurVente'] = max($tabVendeurVente);
+            $tabCount['clinbVeloMaxiVendeurVente'] = getOneClient(array_search(max($tabVendeurVente), $tabVendeurVente));
+            $tabCount['nbVeloVendeurVente'] = number_format(array_sum($tabVendeurVente) / count($tabVendeurVente), 2, ',', '.');
         }
+        if (sizeof($tabVendeurDepot) > 0) {
+            $tabCount['nbVeloMaxiVendeurDepot'] = max($tabVendeurDepot);
+            $tabCount['clinbVeloMaxiVendeurDepot'] = getOneClient(array_search(max($tabVendeurDepot), $tabVendeurDepot));
+            $tabCount['nbVeloVendeurDepot'] = number_format(array_sum($tabVendeurDepot) / count($tabVendeurDepot), 2, ',', '.');
+        }
+        
         if (sizeof($tabAcheteur) > 0) {
             $tabCount['nbVeloMaxiAcheteur'] = max($tabAcheteur);
             $tabCount['clinbVeloMaxiAcheteur'] = getOneClient(array_search(max($tabAcheteur), $tabAcheteur));

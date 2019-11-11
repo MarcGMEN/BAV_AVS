@@ -90,7 +90,7 @@ function action_createFiche($data)
             makeNumeroFiche($FICHE_INFO, $tabObj);
             $tabObj['obj_etat'] = 'STOCK';
             $tabObj['obj_prix_vente'] = $tabObj['obj_prix_depot'];
-            $tabObj['obj_date_depot'] = date('y-m-d h:m:s');
+            $tabObj['obj_date_depot'] = date('y-m-d H:i:s');
         } else {
             $tabObj['obj_etat'] = 'INIT';
             makeNumeroFiche(5000, $tabObj);
@@ -443,15 +443,15 @@ function action_changeEtatFiche($obj)
 
         if ($fiche['obj_etat'] == 'CONFIRME') {
             makeNumeroFiche($FICHE_INFO, $fiche);
-            $fiche['obj_date_depot'] = date('y-m-d h:m:s');
+            $fiche['obj_date_depot'] = date('y-m-d H:i:s');
         } elseif ($fiche['obj_etat'] == 'STOCK') {
             $fiche['obj_prix_vente'] = $fiche['obj_prix_depot'];
-            $fiche['obj_date_depot'] = date('y-m-d h:m:s');
+            $fiche['obj_date_depot'] = date('y-m-d H:i:s');
             /*} elseif ($fiche['obj_etat'] == 'VENDU') {
-            $fiche['obj_date_vente'] = date('y-m-d h:m:s');
+            $fiche['obj_date_vente'] = date('y-m-d H:i:s');
 //            $client = getOneClient($fiche['obj_id_vendeur']);*/
         } elseif ($fiche['obj_etat'] == 'RENDU' || $fiche['obj_etat'] == 'PAYE') {
-            $fiche['obj_date_retour'] = date('y-m-d h:m:s');
+            $fiche['obj_date_retour'] = date('y-m-d H:i:s');
         } elseif ($fiche['obj_etat'] == 'RESTOCK') {
             $fiche['obj_date_retour'] = null;
             $fiche['obj_date_vente']  = null;
@@ -481,7 +481,7 @@ function action_vendFiche($data)
         unset($fiche['obj_etat_new']);
 
         $fiche['obj_id_acheteur'] = $client['cli_id'];
-        $fiche['obj_date_vente'] = date('y-m-d h:m:s');
+        $fiche['obj_date_vente'] = date('y-m-d H:i:s');
         updateFiche($fiche);
 
         $theFiche = getOneFiche($fiche['obj_id']);
