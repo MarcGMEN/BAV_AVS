@@ -2,7 +2,7 @@
 
 function getAllClient()
 {
-	return getAll("bav_client", "cli_id");
+    return getAll("bav_client", "cli_id");
 }
 
 function getOneClient($id)
@@ -15,12 +15,82 @@ function getOneClientByMel($id)
     return getOne($id, "bav_client", "cli_emel");
 }
 
-function getClients($order, $sens, $tabSel, $all=false)
+function getClientsRecap($order, $sens, $tabSel, $all = false)
+{
+    $requete2 = "select *,";
+    $requete2 .= "(select count(*) from bav_objet objC where objC.obj_id_vendeur = cli_id and objC.obj_etat in ('CONFIRME') ";
+    if (!$all) {
+        $requete2 .= " and objC.obj_numero_bav = " . $_COOKIE['NUMERO_BAV'];
+    }
+    $requete2 .= ") CONFIRME, ";
+    $requete2 .= "(select count(*) from bav_objet objS where objS.obj_id_vendeur = cli_id and objS.obj_etat in ('STOCK') ";
+    if (!$all) {
+        $requete2 .= " and objS.obj_numero_bav =" . $_COOKIE['NUMERO_BAV'];
+    }
+    $requete2 .= ") STOCK, ";
+    $requete2 .= "(select count(*) from bav_objet objV where objV.obj_id_vendeur = cli_id and objV.obj_etat in ('VENDU') ";
+    if (!$all) {
+        $requete2 .= " and objV.obj_numero_bav =" . $_COOKIE['NUMERO_BAV'];
+    }
+    $requete2 .= ") VENDU, ";
+    $requete2 .= "(select count(*) from bav_objet objR where objR.obj_id_vendeur = cli_id and objR.obj_etat in ('RENDU') ";
+    if (!$all) {
+        $requete2 .= " and objR.obj_numero_bav =" . $_COOKIE['NUMERO_BAV'];
+    }
+    $requete2 .= ") RENDU, ";
+    $requete2 .= "(select count(*) from bav_objet objP where objP.obj_id_vendeur = cli_id and objP.obj_etat in ('PAYE') ";
+    if (!$all) {
+        $requete2 .= " and objP.obj_numero_bav =" . $_COOKIE['NUMERO_BAV'];
+    }
+    $requete2 .= ") PAYE, ";
+    $requete2 .= "(select count(*) from bav_objet objA where objA.obj_id_acheteur = cli_id ";
+    if (!$all) {
+        $requete2 .= " and objA.obj_numero_bav =" . $_COOKIE['NUMERO_BAV'];
+    }
+    $requete2 .= ") ACHAT ";
+
+    $requete2 .= " FROM bav_client WHERE 1 = 1  ";
+    foreach ($tabSel as $key => $val) {
+        if ($val != "*") {
+            if ($key == 'cli_nom') {
+                $requete2 .= " and $key like '%$val%' ";
+            } else {
+                $requete2 .= " and $key = '$val' ";
+            }
+        }
+    }
+    if (!$all) {
+        $requete2 .= " and exists (select obj_id from bav_objet where (obj_id_vendeur = cli_id OR obj_id_acheteur = cli_id) ";
+        $requete2 .= " and obj_numero_bav = " . $_COOKIE['NUMERO_BAV'] . ") ";
+    }
+
+    $requete2 .= " group by cli_id";
+    if ($order != null) {
+        $requete2 .= " order by $order $sens";
+    }
+
+    //echo $requete2;
+
+    if ($result = $GLOBALS['mysqli']->query($requete2)) {
+        $tab = array();
+        $index = 0;
+        while ($row = $result->fetch_assoc()) {
+            $tab[$index++] = $row;
+        }
+        $result->close();
+    } else {
+        echo $requete2;
+        throw new Exception("getClientsRecap' [$requete2]" . $GLOBALS['mysqli']->error);
+    }
+    return $tab;
+}
+
+function getClients($order, $sens, $tabSel, $all = false)
 {
     $requete2 = "SELECT * from bav_client ";
     if (!$all) {
         $requete2 .= " where exists (select obj_id from bav_objet where (obj_id_vendeur = cli_id OR obj_id_acheteur = cli_id) ";
-        $requete2 .= " and obj_numero_bav = ".$_COOKIE['NUMERO_BAV'].") " ;
+        $requete2 .= " and obj_numero_bav = " . $_COOKIE['NUMERO_BAV'] . ") ";
     }
     foreach ($tabSel as $key => $val) {
         if ($val != "*") {
@@ -35,16 +105,16 @@ function getClients($order, $sens, $tabSel, $all=false)
         $requete2 .= " order by $order $sens";
     }
     //echo $requete2;
-    
+
     if ($result = $GLOBALS['mysqli']->query($requete2)) {
-        $tab=array();
-        $index=0;
+        $tab = array();
+        $index = 0;
         while ($row = $result->fetch_assoc()) {
             $tab[$index++] = $row;
         }
         $result->close();
     } else {
-        throw new Exception("getClients' [$requete2]".$GLOBALS['mysqli']->error);
+        throw new Exception("getClients' [$requete2]" . $GLOBALS['mysqli']->error);
     }
     return $tab;
 }

@@ -5,9 +5,10 @@
 /* CLIENT */
 /**************************************/
 /**************************************/
-function return_listClientByMel($mel)
+function return_listClientByMel($mel=null)
 {
-    return listUnique("bav_client", "cli_emel", $mel);
+    $tabRet= listUnique("bav_client", "cli_emel", $mel);
+    return $tabRet;
 }
 
 function return_listClientByName($nom)
@@ -35,16 +36,15 @@ function return_oneClientByIdModif($mid)
 function return_clients($tri, $sens, $selection, $all = false)
 {
     $tab = getClients($tri, $sens, string2Tab($selection), $all);
-
-    foreach ($tab as $key => $val) {
-        $tab[$key]['vente'] = countByEtat($val['cli_id']);
-        $tab[$key]['achat'] = 0;
-        foreach (getAllFichesAcheteur($val['cli_id']) as $val) {
-            $tab[$key]['achat'] += $val;
-        }
-    }
     return $tab;
 }
+
+function return_clientsRecap($tri, $sens, $selection, $all = false)
+{
+    $tab = getClientsRecap($tri, $sens, string2Tab($selection), $all);
+    return $tab;
+}
+
 
 function return_oneClient($id)
 {

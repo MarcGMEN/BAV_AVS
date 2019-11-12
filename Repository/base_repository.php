@@ -65,13 +65,13 @@ function map_field_type_to_bind_type($field_type)
 function infoTable($table)
 {
     $query = "SELECT * from $table";
-    $tab=array();
+    $tab = array();
     if ($result = $GLOBALS['mysqli']->query($query)) {
         /* Récupère les informations d'un champ pour toutes les colonnes */
         $finfo = $result->fetch_fields();
         foreach ($finfo as $val) {
-            $tab[$val->name]=$val;
-            $tab[$val->name]->type=map_field_type_to_bind_type($val->type);
+            $tab[$val->name] = $val;
+            $tab[$val->name]->type = map_field_type_to_bind_type($val->type);
         }
     }
     $result->close();
@@ -90,40 +90,52 @@ function recupEnumToArray($table, $champ)
         $tab =  explode("','", preg_replace("/(enum|set)\('(.+?)'\)/", "\\2", $row['Type']));
         return $tab;
     } else {
-        throw new Exception("Pb getEnumValues ".$GLOBALS['mysqli']->error);
+        throw new Exception("Pb getEnumValues " . $GLOBALS['mysqli']->error);
     }
 }
 
-function listUnique($table, $champ, $sel = null)
+function listUnique($table, $champ, $sel = null, $champPlus = null)
 {
-    $query = "SELECT $champ from $table  ";
+    $query = "SELECT $champ ";
+    if ($champPlus) {
+        $query .= " , $champPlus ";
+    }
+    $query .= "from $table  ";
     if ($sel) {
         $query .= " where $champ like '%$sel%' ";
     }
-    $query .= " group by $champ order by $champ";
-    //echo $query;
-    $tab=array();
+    $query .= " group by $champ";
+    if ($champPlus) {
+        $query .= " , $champPlus ";
+    }
+    $query .= " order by $champ";
+    
+    $tab = array();
     if ($result = $GLOBALS['mysqli']->query($query)) {
-        $tab=array();
-        $index=0;
+        $tab = array();
+        $index = 0;
         while ($row = $result->fetch_assoc()) {
-            $tab[$index++]=strtoupper($row[$champ]);
+            if ($champPlus) {
+                $tab[$row[$champ]] = strtoupper($row[$champ]." [".$row[$champPlus]."]");
+            } else {
+                $tab[$index++] = strtoupper($row[$champ]);
+            }
         }
         $result->close();
     } else {
-        throw new Exception("listUnique' [$query]".$GLOBALS['mysqli']->error);
+        throw new Exception("listUnique' [$query]" . $GLOBALS['mysqli']->error);
     }
     return $tab;
 }
 
 function recupValToArray($table, $champ, $search)
 {
-    $tabRet=array();
-    $index=1;
+    $tabRet = array();
+    $index = 1;
     $query_EnumList = "SELECT '$champ' from $table where $champ like '%$search%' group by $champ order by $champ ";
     $EnumList = mysql_query($query_EnumList) or die(mysql_error());
     while ($row_EnumList = mysql_fetch_assoc($EnumList)) {
-        $tabRet[$index++]=$row_EnumList[$champ];
+        $tabRet[$index++] = $row_EnumList[$champ];
     }
     return $tabRet;
 }
@@ -133,16 +145,14 @@ function getOne($id, $table, $cleId)
     $row = null;
     if (isset($id)) {
         $requete2 = " SELECT * from $table ";
-        $requete2 .= " where $cleId = '" . $id."'";
-        if ($res=$GLOBALS['mysqli']->query($requete2)) {
+        $requete2 .= " where $cleId = '" . $id . "'";
+        if ($res = $GLOBALS['mysqli']->query($requete2)) {
             $row = $res->fetch_assoc();
         } else {
-            throw new Exception("getOne' [$requete2]".$GLOBALS['mysqli']->error);
+            throw new Exception("getOne' [$requete2]" . $GLOBALS['mysqli']->error);
         }
-    }
-    else {
+    } else {
         throw new Exception("getOne' Pas de connection ");
-        
     }
     return $row;
 }
@@ -151,9 +161,9 @@ function getAll($table, $nameId)
 {
     $requete2 = " SELECT * from $table ";
     $resultat = $GLOBALS['mysqli']->query($requete2);
-    $tab=array();
+    $tab = array();
     while ($row = $resultat->fetch_assoc()) {
-        $tab[$row[$nameId]]=$row;
+        $tab[$row[$nameId]] = $row;
     }
     $resultat->close();
     return $tab;
@@ -162,67 +172,66 @@ function getAll($table, $nameId)
 
 function update($table, $obj, $cleId)
 {
-    $descTable=infoTable($table);
+    $descTable = infoTable($table);
     $req = "update $table set ";
     // todo : fr sur les champs sauf cleID
-    $virgule="";
-    foreach ($obj as $key => $val) {
-    }
+    $virgule = "";
+    foreach ($obj as $key => $val) { }
     foreach ($obj as $key => $val) {
         if ($key != $cleId) {
             if ($descTable[$key]) {
-                $guillemet="";
-                if ($descTable[$key]->type== "s" || $descTable[$key]->type == "b" || $descTable[$key]->type == "t") {
-                    $guillemet="'";
+                $guillemet = "";
+                if ($descTable[$key]->type == "s" || $descTable[$key]->type == "b" || $descTable[$key]->type == "t") {
+                    $guillemet = "'";
                 } elseif (strlen($val) == 0) {
-                    $val=0;
+                    $val = 0;
                 }
-                if ($descTable[$key]->type== "t" && !$val) {
-                    $guillemet="";
-                    $val="null";
+                if ($descTable[$key]->type == "t" && !$val) {
+                    $guillemet = "";
+                    $val = "null";
                 }
-                $req .= $virgule.$key." = $guillemet".addslashes(rtrim($val))."$guillemet";
-                $virgule=" , ";
+                $req .= $virgule . $key . " = $guillemet" . addslashes(rtrim($val)) . "$guillemet";
+                $virgule = " , ";
             }
         }
     }
-    $req .= " where $cleId = '".$obj[$cleId]."'";
-   // echo $req;
+    $req .= " where $cleId = '" . $obj[$cleId] . "'";
+    // echo $req;
     if (!$GLOBALS['mysqli']->query($req)) {
-        throw new Exception("--Pb d'update' [$req]   ===> ".$GLOBALS['mysqli']->error);
+        throw new Exception("--Pb d'update' [$req]   ===> " . $GLOBALS['mysqli']->error);
     }
 }
 
 function insert($table, $obj)
 {
-    $descTable=infoTable($table);
+    $descTable = infoTable($table);
     $req = "insert into $table (";
-    $virgule="";
+    $virgule = "";
     foreach ($obj as $key => $val) {
         if ($descTable[$key]) {
-            $req .= $virgule.$key;
-            $virgule=" , ";
+            $req .= $virgule . $key;
+            $virgule = " , ";
         }
     }
-    $req.=") values (";
-    $virgule="";
+    $req .= ") values (";
+    $virgule = "";
     foreach ($obj as $key => $val) {
         if ($descTable[$key]) {
-            $guillemet="";
-            if ($descTable[$key]->type== "s" || $descTable[$key]->type == "b" || $descTable[$key]->type == "t") {
-                $guillemet="'";
+            $guillemet = "";
+            if ($descTable[$key]->type == "s" || $descTable[$key]->type == "b" || $descTable[$key]->type == "t") {
+                $guillemet = "'";
             } elseif (strlen($val) == 0) {
-                $val=0;
+                $val = 0;
             }
-            $req .= $virgule."$guillemet".addslashes(rtrim($val))."$guillemet";
-            $virgule=" , ";
+            $req .= $virgule . "$guillemet" . addslashes(rtrim($val)) . "$guillemet";
+            $virgule = " , ";
         }
     }
-    $req.=")";
+    $req .= ")";
     //cho $req;
-    
+
     if (!$GLOBALS['mysqli']->query($req)) {
-        throw new Exception("Pb d'insert' [$req]".$GLOBALS['mysqli']->error);
+        throw new Exception("Pb d'insert' [$req]" . $GLOBALS['mysqli']->error);
     }
     return $GLOBALS['mysqli']->insert_id;
 }
@@ -230,9 +239,9 @@ function insert($table, $obj)
 function delete($table, $id, $cleId)
 {
     $req = "delete from $table ";
-    $req .= " where $cleId = ".$id;
+    $req .= " where $cleId = " . $id;
     if (!$GLOBALS['mysqli']->query($req)) {
-        throw new Exception("Pb d'update' [$req]".$GLOBALS['mysqli']->error);
+        throw new Exception("Pb d'update' [$req]" . $GLOBALS['mysqli']->error);
     }
     return true;
 }

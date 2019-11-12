@@ -79,7 +79,10 @@
 			<div class="col-sm-4 col-md-4 col-xs-12">
 				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Marque <span title="Obligatoire">*</span></span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
-					<input type=text list="listMarques" name="obj_marque_<?= $idRamdom ?>" size=30 maxlength="50" tabindex=<?= $tabindex++ ?> style="text-transform:uppercase" placeholder="Marque du vélo" onkeyup="setStartSaisie(true);" onblur="x_return_list_modeles(this.value,display_list_modeles)" required />
+					<input type=text list="listMarques" name="obj_marque_<?= $idRamdom ?>" size=30 maxlength="50" 
+					tabindex=<?= $tabindex++ ?> style="text-transform:uppercase" placeholder="Marque du vélo" 
+					onkeyup="setStartSaisie(true);" 
+					onblur="x_return_list_modeles(this.value,display_list_modeles)" required />
 					<datalist id="listMarques"></datalist>
 				</span>
 			</div>
@@ -166,13 +169,15 @@ Année d'achat :
 	</fieldset>
 	<fieldset class=fiche>
 		<legend class="titreFiche link" id='legendVendeur' onclick='goTo("client.php","consult",document.ficheForm.cli_id.value,"")'>
-			Le vendeur
+			Le vendeur <span id="cli_id_modif" >...</span>
 		</legend>
 		<div class="row">
 			<div class="col-sm-6 col-md-6 col-xs-12">
 				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Emel <span title="Obligatoire">*</span></span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
-					<input type=email name='cli_emel' id="cli_emel" size="50" maxlength="100" tabindex=<?= $tabindex++ ?> placeholder="aaaa.bbbb@ccc.dd" required onkeyup="keyUpMel()" onblur='x_return_oneClientByMel(this.value, display_infoClientVendeurMel)' list='listVendeur' />
+					<input type=email name='cli_emel' id="cli_emel" 
+					size="50" maxlength="100" tabindex=<?= $tabindex++ ?> placeholder="aaaa.bbbb@ccc.dd" required 
+					onblur='x_return_oneClientByMel(this.value, display_infoClientVendeurMel)' list='listVendeur' />
 					<datalist id="listVendeur"></datalist>
 				</span>
 			</div>

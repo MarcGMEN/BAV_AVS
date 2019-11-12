@@ -21,6 +21,9 @@ function initPage() {
     document.ficheForm.obj_type.focus();
 
     if (TABLE || ADMIN) {
+
+        x_return_listClientByMel(display_listVendeur);
+       
         console.log("mode " + ADMIN + " " + TABLE);
         // en mode create de table, le mail n'est pas obligatoire
         document.ficheForm.cli_emel.required = false;
@@ -560,8 +563,9 @@ function display_infoClientVendeurBis(val) {
 }
 
 function display_infoClientVendeur(val, base) {
+    console.log(val);
     if (val instanceof Object) {
-        getElement('legendVendeur').title = val['cli_id_modif']
+        //getElement('legendVendeur').title = val['cli_id_modif']
     } else {
         // reset des champs cli
         // saug cli_emel pour ne pas le perdre

@@ -5,7 +5,7 @@
 	
 	function initPage() {
 		if (ADMIN || TABLE) {
-			x_return_clients(tri,sens,tabToString(selection),display_clients);
+			x_return_clientsRecap(tri,sens,tabToString(selection),display_clients);
 		}
 		else {
 			goTo();
@@ -18,6 +18,7 @@
 	} 
 
 	function display_clients(val) {
+		console.log(val);
         var total = 0;
 		var repr="<table width='100%' border=1>";
 		if (selection.cli_nom != "*") {
@@ -26,29 +27,31 @@
 		var chaine="";
 		for (index in val) {  
 			var totalClient=0;
-			if (val[index]['vente']['STOCK']) {
-				totalClient+=parseInt(val[index]['vente']['STOCK']);
+			var classPlus="";
+			
+			if (val[index]['STOCK']>0) {
+				totalClient+=parseInt(val[index] ['STOCK']);
+				classPlus="STOCK";
 			}
-			if (val[index]['vente']['VENDU']) {
-				totalClient+=parseInt(val[index]['vente']['VENDU']);
+			if (val[index] ['VENDU']>0) {
+				totalClient+=parseInt(val[index] ['VENDU']);
+				classPlus="VENDU";
 			}
-			if (val[index]['vente']['PAYE']) {
-				totalClient+=parseInt(val[index]['vente']['VENDU']);
+			if (val[index] ['PAYE']>0) {
+				totalClient+=parseInt(val[index] ['PAYE']);
+				classPlus="PAYE";
 			}
-			if (val[index]['vente']['RENDU']) {
-				totalClient+=parseInt(val[index]['vente']['RENDU']);
+			if (val[index] ['RENDU']>0) {
+				totalClient+=parseInt(val[index] ['RENDU']);
+				classPlus="RENDU";
 			}
 			
-			if (val[index]['achat']) {
-				totalClient+=parseInt(val[index]['achat']);
+			if (val[index]['ACHAT']>0) {
+				totalClient+=parseInt(val[index]['ACHAT']);
+				classPlus="ACHAT";
 			}
-			var classPlus="";
 			if (totalClient == 0) {
-				classPlus="STOCK"
-			}
-			if (val[index]['vente']['CONFIRME']) {
-				//totalClient+=parseInt(val[index]['vente']['CONFIRME']);
-				classPlus="CONFIRME";
+				classPlus="WARN"
 			}
 			if (!isNaN(index)) {
 			repr+="<tr class='tabl0 link "+classPlus+"' onclick='goTo(\"client.php\",\"select\","+val[index]['cli_id']+")'>";
@@ -73,45 +76,51 @@
 			repr+="<td width=15% class='maskmobile'>";
 			repr+=val[index]['cli_telephone'];
 			repr+="</td>";
-			repr+="<th width=3% style='text-align: center'>";
-			if (val[index]['vente']['CONFIRME']) {
-				repr+=val[index]['vente']['CONFIRME'];
+			repr+="<th width=2% style='text-align: center'>";
+			if (val[index] ['CONFIRME'] !=0) {
+				repr+=val[index] ['CONFIRME'];
 			}
 			else {
 				repr+="";
 			}
 			repr+="</th>";
-			repr+="<th width=3% style='text-align: center'>";
-			if (val[index]['vente']['STOCK']) {
-				repr+=val[index]['vente']['STOCK'];
+			repr+="<th width=2% style='text-align: center'>";
+			if (val[index] ['STOCK'] !=0) {
+				repr+=val[index] ['STOCK'];
 			}
 			else {
 				repr+="";
 			}
 			repr+="</th>";
-			repr+="<th width=3% style='text-align: center'>";
-			if (val[index]['vente']['VENDU']) {
-				repr+=val[index]['vente']['VENDU'];
-			}
-			else if (val[index]['vente']['PAYE']) {
-				repr+=val[index]['vente']['PAYE'];
+			repr+="<th width=2% style='text-align: center'>";
+			if (val[index] ['VENDU'] !=0) {
+				repr+=val[index] ['VENDU'];
 			}
 			else {
 				repr+="";
 			}
 			repr+="</th>";
-			repr+="<th width=3% style='text-align: center'>";
-			if (val[index]['vente']['RENDU']) {
-				repr+=val[index]['vente']['RENDU'];
+			repr+="<th width=2% style='text-align: center'>";
+			if (val[index] ['PAYE'] !=0) {
+				repr+=val[index] ['PAYE'];
 			}
 			else {
 				repr+="";
 			}
 			repr+="</th>";
 
-			repr+="<th width=3% style='text-align: center'>";
-			if (val[index]['achat']) {
-				repr+=val[index]['achat'];
+			repr+="<th width=2% style='text-align: center'>";
+			if (val[index] ['RENDU'] !=0) {
+				repr+=val[index] ['RENDU'];
+			}
+			else {
+				repr+="";
+			}
+			repr+="</th>";
+
+			repr+="<th width=2% style='text-align: center'>";
+			if (val[index]['ACHAT'] !=0) {
+				repr+=val[index]['ACHAT'];
 			}
 			else {
 				repr+="";
@@ -146,7 +155,7 @@
 		}
 		getElement(tri).className="sortable";
 
-		x_return_clients(col,sens,tabToString(selection),display_clients);
+		x_return_clientsRecap(col,sens,tabToString(selection),display_clients);
 		tri=col;
 	}
 
@@ -157,7 +166,7 @@
 		else {
 			selection = {'cli_nom' : "*"};
 		}
-		x_return_clients(tri,sens,tabToString(selection),display_clients);
+		x_return_clientsRecap(tri,sens,tabToString(selection),display_clients);
 		
 	}
 	
@@ -167,7 +176,7 @@
 	<tr>
 		<td class="tittab" width=35% colspan="2">
 			<span id='cli_nom' onclick="triColonne('cli_nom')" class="sortable">Nom - Prenom&nbsp;&nbsp;&nbsp;</span>
-			Tous <input type="checkbox" value="1" name="all" onchange="x_return_clients(tri,sens,tabToString(selection),this.checked ? 1 : 0,display_clients);" />
+			Tous <input type="checkbox" value="1" name="all" onchange="x_return_clientsRecap(tri,sens,tabToString(selection),this.checked ? 1 : 0,display_clients);" />
 			<input type=text name='cli_nom_<?=rand(1, 100)?>' size="20" class="autocomplete"
 			 maxlength="100" onkeyup="selectColonne(this.value)"  />
 			
@@ -181,22 +190,26 @@
 			<span id='cli_telephone' onclick="triColonne('cli_telephone')" class="sortable">Telephone&nbsp;&nbsp;&nbsp;</span>
 		</td>
 
-		<th class="tittab " width=3% >
+		<th class="tittab " width=2% >
 			<span  id='cli_depot'>C</span>
 		</th>
 
-		<th class="tittab " width=3% >
+		<th class="tittab " width=2% >
 			<span  id='cli_depot'>D</span>
 		</th>
 
-		<th class="tittab" width=3%>
+		<th class="tittab" width=2%>
 			<span  id='cli_vente'>V</span>
 		</th>
-		<th class="tittab" width=3%>
+		<th class="tittab" width=2%>
+			<span  id='cli_vente'>P</span>
+		</th>
+		
+		<th class="tittab" width=2%>
 			<span  id='cli_rendu'>R</span>
 		</th>
 		
-		<th class="tittab" width=3%>
+		<th class="tittab" width=2%>
 			<span  id='cli_achat'>A</span>
 		</th>
 
