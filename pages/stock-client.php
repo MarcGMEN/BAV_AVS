@@ -70,8 +70,9 @@
 				if (!isNaN(index)) {
 
 					if (gSearch) {
-                		val[index]['obj_modele'] = val[index]['obj_modele'].replace(new RegExp(gSearch, 'ig'), "<b style='color:BLUE'>" + gSearch + "</b>");
-                		val[index]['obj_description'] = val[index]['obj_description'].replace(new RegExp(gSearch, 'ig'), "<b style='color:BLUE'>" + gSearch + "</b>");
+						var reg=new RegExp("("+gSearch+")", "gi");
+                		val[index]['obj_modele'] = val[index]['obj_modele'].replace(reg, "<b style='color:BLUE'>$1</b>");
+                		val[index]['obj_description'] = val[index]['obj_description'].replace(reg, "<b style='color:BLUE'>$1</b>");
             		}
 
 					repr += "<tr class='tabl0' >";
@@ -160,7 +161,7 @@
 	}
 </script>
 
-Recherche : <input type=text name='search_<?=rand(1, 100)?>' size="20" maxlength="100" onkeyup="search(this.value)" />
+Recherche : <input type=text class="autocomplete" name='search_<?=rand(1, 100)?>' size="20" maxlength="100" onkeyup="search(this.value)" />
 <hr />
 
 <table width="100%" class="alert alert-info">

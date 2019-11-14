@@ -29,7 +29,7 @@
 	}
 
 	function display_fin_save(val) {
-		alertModalInfoTimeout("save OK " + val, 1);
+		//alertModalInfoTimeout("save OK " + val, 1);
 		//location.reload();
 	}
 

@@ -24,7 +24,7 @@ function alertModalInfo(message) {
       getElement('myModal').style.display = "block";
   
       getElement('id_bh_modal').className = "BH_MODAL";
-      getElement('modalTitre').innerHTML = "Info";
+      getElement('modalTitre').innerHTML = "Information";
       getElement("modalClose").innerHTML = "<i class='fa fa-times-circle size-3 link' onclick='closeModal()'></i>";
   
       getElement("modalText").innerHTML = message;  

@@ -42,8 +42,9 @@ function display_acts(val) {
             annee = val[index]['act_numero_bav'];
 
             if (gSearch) {
-                val[index]['act_titre'] = val[index]['act_titre'].replace(new RegExp(gSearch, 'ig'), "<b style='color:BLUE'>" + gSearch + "</b>");
-                val[index]['act_text'] = val[index]['act_text'].replace(new RegExp(gSearch, 'ig'), "<b style='color:BLUE'>" + gSearch + "</b>");
+                var reg=new RegExp("("+gSearch+")", "gi");
+                val[index]['act_titre'] = val[index]['act_titre'].replace(reg, "<b style='color:BLUE'>$1</b>");
+                val[index]['act_text'] = val[index]['act_text'].replace(reg, "<b style='color:BLUE'>$1</b>");
             }
 
             if (type != "FAQ") {

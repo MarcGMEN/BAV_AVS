@@ -157,15 +157,11 @@ function action_reMelConfirme($id)
 
             $retour = sendMail($titreMel, $tabCli['cli_emel'], $message);
             if ($retour == 1) {
-                $retour = "Mel re-envoyé a ".$tabCli['cli_emel'];
+                $retour = "Mel re-envoyé a " . $tabCli['cli_emel'];
             }
+        } else {
+            $retour = "Pas de fiche pour $id";
         }
-        else  {
-            $retour ="Pas de fiche pour $id";
-        }
-
-        
-
     } catch (Exception $e) {
         return "ERREUR " . $e->getMessage();
     }
@@ -240,7 +236,9 @@ function action_makeA4Etiquettes($eti0, $eti1)
                 $fiche['obj_prix_depot'] = "";
             }
 
-            $etiquettes .= makeCorps($fiche, 'etiquette.html');
+            $tabPlus['numero_bav'] = $_COOKIE['NUMERO_BAV'];
+
+            $etiquettes .= makeCorps(array_merge($fiche, $tabPlus), 'etiquette.html');
             $etiquettes .= "<hr/>";
         }
     }
@@ -335,13 +333,13 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
         $ach['ach_telephone'] = "02 55 55 55 55 78 98 78";
         $ach['ach_telephone_bis'] = "";
 
-        $fiche['obj_numero'] = $FICHE_INFO;
+        $fiche['obj_numero'] = "1000";
         $fiche['obj_type'] = "VTT";
         $fiche['obj_public'] = "Homme";
         $fiche['obj_pratique'] = "Sportive";
         $fiche['obj_marque'] = "Décathlon";
-        $fiche['obj_modele'] = "RockRider";
-        $fiche['obj_couleur'] = "Noire";
+        $fiche['obj_modele'] = "RockRider superStar";
+        $fiche['obj_couleur'] = "Noir et rouge";
         $fiche['obj_accessoire'] = "";
         $fiche['obj_description'] = "ceci est un texte long pour essayer de prendre de la place sur une ligne avec un maximun de place, allez on saute une ligne<br/>une ligne<br/> et encore une<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9";
         $fiche['obj_prix_vente'] = "130";
@@ -363,9 +361,10 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
         $client['cli_id_modif'] = "";
 
         $fiche['obj_numero'] = "";
-        $fiche['obj_type'] = "<br/><small>VTT-Course-VTC-Ville-BMX-Autre-VAE</small>";
-        $fiche['obj_public'] = "<br/><small>Homme-Femme-Mixte-Enfant</small>";
-        $fiche['obj_pratique'] = "Sportive-Loisir-Compétition";
+        $tabTtype=return_enum('bav_objet', 'obj_type');
+        $fiche['obj_type'] = "<br/><small><small>Autre-VTT-Route-VTC-Ville-BMX-VAE</small></small>";
+        $fiche['obj_public'] = "<br/><small><small>Homme-Femme-Mixte-Enfant</small></small>";
+        $fiche['obj_pratique'] = "Sportive-Loisir-Compétition-Autre";
         $fiche['obj_marque'] = "";
         $fiche['obj_modele'] = "";
         $fiche['obj_couleur'] = "";
@@ -375,6 +374,7 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
         $fiche['obj_prix_depot'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
         $fiche['obj_id_modif'] = "";
     }
+    $tabPlus['numero_bav'] = $numBAV;
 
     $tabPlus['titre'] = $par['par_titre'];
     $tabPlus['URL'] = $CFG_URL;
@@ -403,8 +403,12 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
 
     //print_r(array_merge($fiche, $client, $acheteur, $tabPlus));
 
-    $filePDF = html2pdf(array_merge($fiche, $client, $tabPlus), $html, "Fiche_" . $fiche['obj_numero']);
-
+    try {
+        $filePDF = html2pdf(array_merge($fiche, $client, $tabPlus), $html, "Fiche_" . $fiche['obj_numero']);        
+    } catch (Exception $e) {
+        print_r($e);
+        return "ERREUR " . $e->getMessage();
+    }
     return $CFG_URL . $filePDF;
 }
 

@@ -2,8 +2,8 @@
 <?php
 
 echo date('d/m/Y e');
-// $mysqli = mysqli_connect('db2463.1and1.fr','dbo326893785','randovtt' , 'db326893785',3306);
-$mysqli = mysqli_connect('localhost','bav','AVS44b@v!' , 'BAV');
+//$mysqli = mysqli_connect('db2463.1and1.fr','dbo326893785','randovtt' , 'db326893785');
+// $mysqli = mysqli_connect('localhost','bav','AVS44b@v!' , 'BAV');
 if (mysqli_connect_errno($mysqli)) {
     echo "Echec lors de la connexion à MySQL : " . mysqli_connect_error();
 }
@@ -19,7 +19,7 @@ if ($result) {
     $tab =  explode("','", utf8_encode(preg_replace("/(enum|set)\('(.+?)'\)/", "\\2", $row['Type'])));
     print_r($tab);
 } else {
-    print_r(mysqli_error());
+    print_r(mysqli_error($result));
 }
 test();
 

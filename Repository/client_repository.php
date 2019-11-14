@@ -19,35 +19,17 @@ function getClientsRecap($order, $sens, $tabSel, $all = false)
 {
     $requete2 = "select *,";
     $requete2 .= "(select count(*) from bav_objet objC where objC.obj_id_vendeur = cli_id and objC.obj_etat in ('CONFIRME') ";
-    if (!$all) {
-        $requete2 .= " and objC.obj_numero_bav = " . $_COOKIE['NUMERO_BAV'];
-    }
-    $requete2 .= ") CONFIRME, ";
+    $requete2 .= " and objC.obj_numero_bav =" . $_COOKIE['NUMERO_BAV'] . ") CONFIRME, ";
     $requete2 .= "(select count(*) from bav_objet objS where objS.obj_id_vendeur = cli_id and objS.obj_etat in ('STOCK') ";
-    if (!$all) {
-        $requete2 .= " and objS.obj_numero_bav =" . $_COOKIE['NUMERO_BAV'];
-    }
-    $requete2 .= ") STOCK, ";
+    $requete2 .= " and objS.obj_numero_bav =" . $_COOKIE['NUMERO_BAV'] . ") STOCK, ";
     $requete2 .= "(select count(*) from bav_objet objV where objV.obj_id_vendeur = cli_id and objV.obj_etat in ('VENDU') ";
-    if (!$all) {
-        $requete2 .= " and objV.obj_numero_bav =" . $_COOKIE['NUMERO_BAV'];
-    }
-    $requete2 .= ") VENDU, ";
+    $requete2 .= " and objV.obj_numero_bav =" . $_COOKIE['NUMERO_BAV'] . ") VENDU, ";
     $requete2 .= "(select count(*) from bav_objet objR where objR.obj_id_vendeur = cli_id and objR.obj_etat in ('RENDU') ";
-    if (!$all) {
-        $requete2 .= " and objR.obj_numero_bav =" . $_COOKIE['NUMERO_BAV'];
-    }
-    $requete2 .= ") RENDU, ";
+    $requete2 .= " and objR.obj_numero_bav =" . $_COOKIE['NUMERO_BAV'] . ") RENDU, ";
     $requete2 .= "(select count(*) from bav_objet objP where objP.obj_id_vendeur = cli_id and objP.obj_etat in ('PAYE') ";
-    if (!$all) {
-        $requete2 .= " and objP.obj_numero_bav =" . $_COOKIE['NUMERO_BAV'];
-    }
-    $requete2 .= ") PAYE, ";
+    $requete2 .= " and objP.obj_numero_bav =" . $_COOKIE['NUMERO_BAV'] . ") PAYE, ";
     $requete2 .= "(select count(*) from bav_objet objA where objA.obj_id_acheteur = cli_id ";
-    if (!$all) {
-        $requete2 .= " and objA.obj_numero_bav =" . $_COOKIE['NUMERO_BAV'];
-    }
-    $requete2 .= ") ACHAT ";
+    $requete2 .= " and objA.obj_numero_bav =" . $_COOKIE['NUMERO_BAV'] . ") ACHAT ";
 
     $requete2 .= " FROM bav_client WHERE 1 = 1  ";
     foreach ($tabSel as $key => $val) {

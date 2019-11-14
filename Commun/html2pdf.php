@@ -25,6 +25,8 @@ function html2pdf($data, $html, $fileOut)
     } catch (Html2PdfException $e) {
         $html2pdf->clean();
         $formatter = new ExceptionFormatter($e);
+        print_r($message);
+        print_r($formatter);
         throw $formatter;
     }
     return $CFG_OUT_PDF.$fileOut.".pdf";
