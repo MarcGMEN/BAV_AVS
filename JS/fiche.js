@@ -1,6 +1,5 @@
 // mode de fonctionnement de la page
 // create  : creation d'une fiche CLIENT
-// modif   : modification par le client avec ID_FICHE, par la TABLE avec le numero fiche
 // consult : modification par le client avec numero de fiche
 // 
 
@@ -20,14 +19,14 @@ function initPage() {
 
     document.ficheForm.obj_type.focus();
 
-    if (TABLE || ADMIN) {
+    if (ADMIN) {
 
         x_return_listClientByMel(display_listVendeur);
        
-        console.log("mode " + ADMIN + " " + TABLE);
+        console.log("mode " + ADMIN);
         // en mode create de table, le mail n'est pas obligatoire
         document.ficheForm.cli_emel.required = false;
-        // pas de CGU pour la TABLE et ADMIN
+        // pas de CGU pour la ADMIN
         document.ficheForm.checkCGU.required = false;
         // pas la peine de voir les CGU
         getElement("tdCGU").style.display = 'none';
@@ -123,7 +122,7 @@ function display_fiche(val) {
             document.ficheForm.buttonValideFiche.innerHTML = "Modifier";
 
             document.ficheForm.cli_emel.disabled = true;
-            // pas de CGU pour la TABLE et ADMIN
+            // pas de CGU pour la ADMIN
             document.ficheForm.checkCGU.required = false;
             // pas la peine de voir les CGU
             getElement("tdCGU").style.display = 'none';
@@ -146,7 +145,7 @@ function display_fiche(val) {
             getElement("tdBtnPdf").style.display = 'block';
             document.ficheForm.buttonValideFiche.innerHTML = "Modifier";
 
-            // pas de CGU pour la TABLE et ADMIN
+            // pas de CGU pour la ADMIN
             document.ficheForm.checkCGU.required = false;
             // pas la peine de voir les CGU
             getElement("tdCGU").style.display = 'none';
@@ -154,7 +153,7 @@ function display_fiche(val) {
 
             // TODO : blocage de la fiche, sauf admin
             document.ficheForm.obj_prix_depot.disabled = true;
-            if (!TABLE && !ADMIN) {
+            if (!ADMIN) {
                 document.ficheForm.cli_prix_depot.disabled = true;
             }
             document.ficheForm.buttonEtatFiche.value = "Vendre";
@@ -164,7 +163,7 @@ function display_fiche(val) {
             document.ficheForm.buttonEtatFicheBis.value = 'Rendre';
             document.ficheForm.obj_prix_vente.disabled = false
             document.ficheForm.buttonEtatFicheBis.onclick = function () { changeEtatFiche('RENDU') };
-            if (!TABLE && !ADMIN) {
+            if (!ADMIN) {
                 disable_formulaire(document.ficheForm, "cli");
             }
 
@@ -173,7 +172,7 @@ function display_fiche(val) {
         if (val['obj_etat'] == "VENDU") {
             getElement("divPrix").style.display = 'block';
 
-            // pas de CGU pour la TABLE et ADMIN
+            // pas de CGU pour la ADMIN
             document.ficheForm.checkCGU.required = false;
             // pas la peine de voir les CGU
             getElement("tdCGU").style.display = 'none';
@@ -199,7 +198,7 @@ function display_fiche(val) {
             document.ficheForm.buttonEtatFicheBis.onclick = function () { changeEtatFiche('RESTOCK') };
             //}
 
-            if (TABLE || ADMIN) {
+            if (ADMIN) {
                 document.ficheForm.obj_prix_vente.disabled = false
 
                 getElement("tdBtnPdf").style.display = 'block';
@@ -263,14 +262,14 @@ function setParamVal(val) {
 
 function keyUpMel() {
     setStartSaisie(true);
-    if (ADMIN || TABLE) {
+    if (ADMIN) {
         x_return_listClientByMel(document.ficheForm.cli_emel.value, display_listVendeur);
     }
 }
 
 function keyUpNom() {
     setStartSaisie(true);
-    if (ADMIN || TABLE) {
+    if (ADMIN) {
         x_return_listClientByName(document.ficheForm.cli_nom.value, display_listVendeurBis);
     }
 }
@@ -388,7 +387,7 @@ function confirmModalFiche() {
 function display_fin_create(val) {
     // retour sur la fiche en mode Page actuel
     setStartSaisie(false);
-    if (TABLE || ADMIN) {
+    if (ADMIN) {
         if (val instanceof Object) {
             goTo('fiche.php', 'modif', val['id'], val['message']);
         } else {

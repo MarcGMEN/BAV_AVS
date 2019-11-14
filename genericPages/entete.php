@@ -2,9 +2,9 @@
 	var ipLocal = "<?= $_SERVER['REMOTE_ADDR']; ?>";
 
 	function initEntete() {
-		console.log("CLIENT:" + CLIENT + " TABLE:" + TABLE + " ADMIN:" + ADMIN + "");
-		if (TABLE || ADMIN) {
-			getElement('connex').innerHTML = ADMIN ? 'ADMIN' : 'TABLE';
+		console.log("CLIENT:" + CLIENT + " ADMIN:" + ADMIN + "");
+		if (ADMIN) {
+			getElement('connex').innerHTML = 'ADMIN';
 			if (getElement('tabStat')) {
 				getElement('tabStat').className = 'tabStatShow';
 				x_return_countByEtat(display_counter);
@@ -103,7 +103,7 @@
 			<div class="TITRE_FENETRE_PRINCIPALE">
 				<?= $infAppli['titre']; ?>
 			</div>
-			<?php if ($infAppli['TABLE'] || $infAppli['ADMIN']) {
+			<?php if ($infAppli['ADMIN']) {
 				include './genericPages/menuTABLE.php';
 			} ?>
 		</td>

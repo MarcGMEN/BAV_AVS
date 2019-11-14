@@ -28,10 +28,6 @@ function whatYourName($pass)
         //setcookie("AADD", 1, time()+1000, '/') or die('unable to create cookie');
         //$_COOKIE['AADD']=1;
         return $GLOBALS['PASS_ADMIN'];
-    } else if (password_verify($pass, $GLOBALS['PASS_TABLE'])) {
-        //setcookie("AADD", 1, time()+1000, '/') or die('unable to create cookie');
-        //$_COOKIE['AADD']=1;
-        return $GLOBALS['PASS_TABLE'];
     } else {
         //setcookie('AADD', null, 0, "/")  or die('unable to remove cookie');
         //$_COOKIE['AADD']=0;

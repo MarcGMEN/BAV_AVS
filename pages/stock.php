@@ -6,7 +6,7 @@
 	tabSel[modePage] = '<?= $GET_id; ?>';
 
 	function initPage() {
-		if (ADMIN || TABLE) {
+		if (ADMIN) {
 			x_return_enum('bav_objet', 'obj_type', display_list_type);
 		//x_return_enum('bav_objet', 'obj_public', display_list_public);
 		//x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);
@@ -64,7 +64,7 @@
 	// recuperation des donnees de la BAV
 	function setParamVal(val) {
 		setParamValIndex(val);
-		if (TABLE || ADMIN) {} else {
+		if (ADMIN) {} else {
 			goTo();
 		}
 	}

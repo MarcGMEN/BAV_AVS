@@ -1,6 +1,6 @@
 // mode de fonctionnement de la page
 // create  : creation d'une fiche CLIENT
-// modif   : modification par le client avec ID_FICHE, par la TABLE avec le numero fiche
+// modif   : modification par le client avec ID_FICHE,
 // consult : modification par le client avec numero de fiche
 // 
 

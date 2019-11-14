@@ -6,7 +6,7 @@ function setStartSaisie(cStartSaisie) {
 
 // recuperation des donnees de la BAV
 function setParamValIndex(val) {
-    getElement("mode").innerHTML = modePage + "-" + CLIENT + "-" + TABLE + "-" + ADMIN +
+    getElement("mode").innerHTML = modePage + "-" + CLIENT + "-" + ADMIN +
         "; id=<?=$GET_id?>";
 }
 
@@ -65,7 +65,7 @@ function search(value) {
 function display_getFicheConsult(val) {
     console.log(val);
     if (val instanceof Object && val['obj_id'] != undefined) {
-        if (TABLE || ADMIN) {
+        if (ADMIN) {
             console.log("fiche.php&id="+val['obj_id']);
             goTo("fiche.php","modif",val['obj_id']);
         }

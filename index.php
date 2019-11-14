@@ -86,7 +86,6 @@ sajax_handle_client_request();
 
 	<script type="text/javascript">
 		var startSaisie = false;
-		var TABLE = <?= $infAppli['TABLE'] ? 1 : 0 ?>;
 		var ADMIN = <?= $infAppli['ADMIN'] ? 1 : 0 ?>;
 		var CLIENT = <?= $infAppli['CLIENT'] ? 1 : 0 ?>;
 		var NB_MODIF = <?= $infAppli['NB_MODIF'] ?>;

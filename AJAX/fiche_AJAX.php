@@ -65,9 +65,8 @@ function return_oneFiche($id)
 function action_createFiche($data)
 {
     $infoAppli = return_infoAppli();
-    // droit = ADMIN+TABLE+CLIENT
+    // droit = ADMIN+CLIENT
     $ADMIN = $infoAppli['ADMIN'];
-    $TABLE = $infoAppli['TABLE'];
     $CLIENT = $infoAppli['CLIENT'];
 
     extract($GLOBALS);
@@ -86,7 +85,7 @@ function action_createFiche($data)
         $tabObj['obj_marque'] = strtoupper($tabObj['obj_marque']);
         $tabObj['obj_modele'] = strtoupper($tabObj['obj_modele']);
         // creation du numero
-        if ($ADMIN || $TABLE) {
+        if ($ADMIN) {
             makeNumeroFiche($FICHE_INFO, $tabObj);
             $tabObj['obj_etat'] = 'STOCK';
             $tabObj['obj_prix_vente'] = $tabObj['obj_prix_depot'];
@@ -113,7 +112,7 @@ function action_createFiche($data)
         //        print_r($tabObj);
         $tabObj['obj_id'] = insertFiche($tabObj);
 
-        if ($ADMIN || $TABLE) {
+        if ($ADMIN) {
             $retour = array();
             //$retour['message'] = "OK pour creation de ".$tabObj['obj_numero'];
             $retour['id'] = $tabObj['obj_id'];
@@ -129,9 +128,8 @@ function action_createFiche($data)
 function action_reMelConfirme($id)
 {
     $infoAppli = return_infoAppli();
-    // droit = ADMIN+TABLE+CLIENT
+    // droit = ADMINCLIENT
     $ADMIN = $infoAppli['ADMIN'];
-    $TABLE = $infoAppli['TABLE'];
 
     extract($GLOBALS);
     $retour = "";
@@ -171,9 +169,8 @@ function action_reMelConfirme($id)
 function action_createFicheExpress($data)
 {
     $infoAppli = return_infoAppli();
-    // droit = ADMIN+TABLE+CLIENT
+    // droit = ADMIN+CLIENT
     $ADMIN = $infoAppli['ADMIN'];
-    $TABLE = $infoAppli['TABLE'];
     $CLIENT = $infoAppli['CLIENT'];
 
     extract($GLOBALS);
@@ -208,9 +205,8 @@ function action_createFicheExpress($data)
 function action_deleteFiche($id)
 {
     $infoAppli = return_infoAppli();
-    // droit = ADMIN+TABLE+CLIENT
+    // droit = ADMIN+CLIENT
     $ADMIN = $infoAppli['ADMIN'];
-    $TABLE = $infoAppli['TABLE'];
     $CLIENT = $infoAppli['CLIENT'];
 
     extract($GLOBALS);
@@ -297,9 +293,8 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
 {
     //echo $html;
     $infoAppli = return_infoAppli();
-    // droit = ADMIN+TABLE+CLIENT
+    // droit = ADMIN+CLIENT
     $ADMIN = $infoAppli['ADMIN'];
-    $TABLE = $infoAppli['TABLE'];
     $CLIENT = $infoAppli['CLIENT'];
 
     extract($GLOBALS);
@@ -415,12 +410,11 @@ function action_confirmeFiche($obj)
 {
     extract($GLOBALS);
     $infoAppli = return_infoAppli();
-    // droit = ADMIN+TABLE+CLIENT
+    // droit = ADMIN+CLIENT
     $ADMIN = $infoAppli['ADMIN'];
-    $TABLE = $infoAppli['TABLE'];
     $CLIENT = $infoAppli['CLIENT'];
 
-    if ($ADMIN || $TABLE) {
+    if ($ADMIN ) {
         $fiche = string2Tab($obj);
         $fiche['obj_etat'] = $fiche['obj_etat_new'];
         unset($fiche['obj_etat_new']);
@@ -435,11 +429,10 @@ function action_changeEtatFiche($obj)
 {
     extract($GLOBALS);
     $infoAppli = return_infoAppli();
-    // droit = ADMIN+TABLE+CLIENT
+    // droit = ADMIN+CLIENT
     $ADMIN = $infoAppli['ADMIN'];
-    $TABLE = $infoAppli['TABLE'];
 
-    if ($ADMIN || $TABLE) {
+    if ($ADMIN) {
         $fiche = string2Tab($obj);
         $fiche['obj_etat'] = $fiche['obj_etat_new'];
         unset($fiche['obj_etat_new']);

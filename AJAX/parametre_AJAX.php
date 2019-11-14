@@ -10,7 +10,7 @@
 /**
  * return des infos de la BAV
  * titre : titre de la BAV
- * TABLE, ADMIN pour les droits
+ * ,ADMIN pour les droits
  * message : message d'information
  */
 function return_infoAppli()
@@ -25,23 +25,11 @@ function return_infoAppli()
     $tabIpsAdmin=explode(",", $par['par_admin_id_mac']);
     $today=time();
     $infos['CLIENT']=0;
-    $infos['TABLE']=$_COOKIE['AADD'] == $GLOBALS['PASS_TABLE'] ? 1 : 0;
     $infos['ADMIN']=$_COOKIE['AADD'] == $GLOBALS['PASS_ADMIN'] ? 1 : 0;
     $infos['NB_MODIF']=$par['par_nb_modif'];
     //  print_r(strtotime($par['par_table_date_debut'])." < $today < ".strtotime($par['par_table_date_fin']));
     if (strtotime($par['par_client_date_debut']) < $today && $today < strtotime($par['par_client_date_fin'])) {
         $infos['CLIENT']=1;
-    }
-    if (strtotime($par['par_table_date_debut']) < $today && $today < strtotime($par['par_table_date_fin'])) {
-        $tabIps=explode(",", $par['par_table_id_mac']);
-        foreach ($tabIps as $ipOk) {
-            //        print_r(trim($ipOk)." == ".trim($ipLu));
-            if (trim($ipOk) == trim($ipLu)) {
-                $infos['TABLE']=1;
-                break;
-            }
-        }
-        $infos['message']="Cloture le ".$par['par_table_date_fin_FR'];
     } else {
         $infos['message']="Session pas encore ouverte";
     }

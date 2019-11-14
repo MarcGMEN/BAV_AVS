@@ -4,7 +4,7 @@
 	var selection = {"cli_nom" : "*"};
 	
 	function initPage() {
-		if (ADMIN || TABLE) {
+		if (ADMIN) {
 			x_return_clientsRecap(tri,sens,tabToString(selection),display_clients);
 		}
 		else {

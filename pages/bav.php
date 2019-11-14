@@ -1,10 +1,11 @@
 <script>
 	function initPage() {
+		x_return_html('bav_actu', display_bav_actu);
 		x_return_html('bav_bourse', display_bav_bourse);
 		x_return_html('bav_statistique', display_bav_statistique);
 		x_return_html('bav_programme', display_bav_programme);
 		x_return_html('bav_vendre', display_bav_vendre);
-		x_return_html('bav_principe', display_bav_principe);
+	//	x_return_html('bav_principe', display_bav_principe);
 	}
 
 	function display_bav_bourse(val) {
@@ -13,6 +14,13 @@
 		<?}?>
 		getElement('bav_bourse').innerHTML=val;
 	}
+	function display_bav_actu(val) {
+		<? if ($infAppli['ADMIN']) {?>
+		getElement('editor_bav_actu').innerHTML=val;
+		<?}?>
+		getElement('bav_actu').innerHTML=val;
+	}
+	
 	function display_bav_statistique(val) {<? if ($infAppli['ADMIN']) {?>
 		getElement('editor_bav_statistique').innerHTML=val;<?}?>
 		getElement('bav_statistique').innerHTML=val;
@@ -40,7 +48,6 @@
 		getElement(id+"_cancel").style.display='inline';
 		getElement(id+"_maj").style.display='block';
 		<?}?>
-		
 	}
 
 	function saveEditor(id,data) {
@@ -74,14 +81,16 @@
 		<? foreach ($data as $key => $val) {echo "data2PDF['$key']='$val';\n"; }?>
     </script>
 <?
-	$tabInfo=['LA BOURSE' => "bav_bourse",
-			 'NOS STATISTIQUES]' => "bav_statistique",
-			 "QUOI VENDRE ?" => "bav_vendre",
-			'PROGRAMME' => "bav_programme",
-			"PRINCIPES" => 'bav_principe'
+	$tabInfo=['News' => "bav_actu",
+			  'LA BOURSE' => "bav_bourse",
+			  "QUOI VENDRE ?" => "bav_vendre",
+			 // "PRINCIPES" => 'bav_principe',
+			  'NOS STATISTIQUES' => "bav_statistique",
+		      'PROGRAMME' => "bav_programme"
 	];
 	foreach ($tabInfo as $title => $idText) {
 ?>
+<div id="tag<?=$idText?>" ></div>
 <h3 class="titreFiche">
 	<span ><?=$title?><span>
 	<? if ($infAppli['ADMIN']) {?>

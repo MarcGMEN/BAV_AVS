@@ -56,7 +56,7 @@
 	// recuperation des donnees de la BAV
 	function setParamVal(val) {
 		setParamValIndex(val);
-		if (TABLE || ADMIN) {} else {
+		if (ADMIN) {} else {
 			goTo();
 		}
 	}

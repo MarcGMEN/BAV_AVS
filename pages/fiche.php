@@ -7,7 +7,7 @@
 
 <script src="JS/fiche.js" type="text/javascript"></script>
 
-<? if (!$infAppli['TABLE'] && !$infAppli['ADMIN'] && $GET_modePage == 'create') { ?>
+<? if (!$infAppli['ADMIN'] && $GET_modePage == 'create') { ?>
 	<div class='alert alert-info'>
 		<p>Avant de venir déposer votre vélo les 8, 9 ou 10 Novembre à La Soucoupe, nous vous conseillons de remplir la fiche dépôt.</p>
 		<p>- Soit en saissisant votre demande avec le formulaire ci-dessous qui vous transmettra, après confirmation, la fiche dépot par mel.
@@ -145,7 +145,7 @@ Année d'achat :
 			<div class="col-sm-4 col-md-4 col-xs-4">
 				<span class="titrow col-md-6 col-sm-6  col-xs-12">PRIX :</span>
 				<span class="tabl1 col-md-6 col-sm-6 col-xs-12">
-					<? if (($infAppli['TABLE'] || $infAppli['ADMIN']) && $GET_modePage != "create") { ?>
+					<? if (($infAppli['ADMIN']) && $GET_modePage != "create") { ?>
 						<input type=number name="obj_prix_vente" size=5 maxlength="10" tabindex=<?= $tabindex++ ?> onkeyup="setStartSaisie(true);" onchange="affectPrix();" title="Prix vente" required step="0.1" min="0" placeholder="00.00" />&nbsp;&#8364;
 					<? } else { ?>
 						<input type=hidden name="obj_prix_vente">
@@ -212,7 +212,6 @@ Année d'achat :
 			</div>
 		</div>
 		<div class="row" id=trTauxCom style='display:none'>
-			<!-- TODO : juste TABLE -->
 			<div class="col-sm-6 col-md-6 col-xs-12">
 				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Taux commission</span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
@@ -243,7 +242,7 @@ Année d'achat :
 		</div>-->
 		<div class="col-sm-3 col-md-3 col-xs-6 btnAction" style='display:none' id="tdBtnPdf">
 			<input type=button value="Impression Fiche" onclick="imprimeFiche()" name="buttonPDFFiche" tabindex=<?= $tabindex++ ?>>
-			<? if ($infAppli['TABLE'] || $infAppli['ADMIN']) { ?>
+			<? if ($infAppli['ADMIN']) { ?>
 				<input type=button value="Impression Etiquette" onclick="imprimeEtiquette()" name="buttonPDFEtiquette" tabindex=<?= $tabindex++ ?>>
 			<? } ?>
 		</div>
