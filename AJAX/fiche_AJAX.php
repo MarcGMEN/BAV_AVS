@@ -361,9 +361,8 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
         $client['cli_id_modif'] = "";
 
         $fiche['obj_numero'] = "";
-        $tabTtype=return_enum('bav_objet', 'obj_type');
-        $fiche['obj_type'] = "<br/><small><small>Autre-VTT-Route-VTC-Ville-BMX-VAE</small></small>";
-        $fiche['obj_public'] = "<br/><small><small>Homme-Femme-Mixte-Enfant</small></small>";
+        $fiche['obj_type'] = "<span style='font-size:9px'>Autre VTT Route VTC Ville VAE</span>";
+        $fiche['obj_public'] = "<span style='font-size:9px'>Mixte Homme Femme Enfant</span>";
         $fiche['obj_pratique'] = "Sportive-Loisir-Compétition-Autre";
         $fiche['obj_marque'] = "";
         $fiche['obj_modele'] = "";
