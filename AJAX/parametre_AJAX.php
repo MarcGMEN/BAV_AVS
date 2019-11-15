@@ -15,6 +15,9 @@ function return_oneParametre($id)
     }
 }
 
+/**
+ * retourne toutes les BAV avec la tradcution des date en FR
+ */
 function return_allParametre()
 {
     if (!function_exists('getAllParametre')) {
@@ -41,6 +44,11 @@ function action_updateParametre($obj)
     return true;
 }
 
+/**
+ * suppression de la BAV avec des regles
+ * impossble si active
+ * impossible si c'est la derniere
+ */
 function action_supprimeParametre($obj)
 {
     $par = getOneParemetre($obj);

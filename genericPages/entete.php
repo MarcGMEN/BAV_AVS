@@ -1,93 +1,4 @@
-<script>
-	var ipLocal = "<?= $_SERVER['REMOTE_ADDR']; ?>";
-
-	function initEntete() {
-		console.log("CLIENT:" + CLIENT + " ADMIN:" + ADMIN + "");
-		if (ADMIN) {
-			getElement('connex').innerHTML = 'ADMIN';
-			if (getElement('tabStat')) {
-				getElement('tabStat').className = 'tabStatShow';
-				x_return_countByEtat(display_counter);
-			}
-			getElement('tdSearch').style.display = "table-cell";
-
-		} else if (CLIENT) {
-			getElement('tdSearch').style.display = "table-cell";
-		}
-			return_restant();
-	}
-
-	function return_restant() {
-		var diff=((DATE_J1+"000")-Date.now())/1000;
-
-		if (diff > 0 ) {
-		var jour=parseInt(diff / (3600*24));                  
-		var heures=parseInt(diff / 3600) %24;
-		var minutes=parseInt((diff % 3600) / 60);
-		var secondes=parseInt(((diff % 3600) % 60));                  
-		var jourTxt=jour>0?jour+'j et':'';
-		if (secondes < 10) { secondes="0"+secondes}
-		if (minutes < 10) { minutes="0"+minutes}
-		getElement('timeRestant').innerHTML = jourTxt+" "+heures+":"+minutes+":"+secondes;
-		setTimeout('return_restant()', 1000);
-		}
-		else {
-			getElement('timeRestant').innerHTML = "";
-		}
-	}
-
-
-	function display_counter(val) {
-		if (val instanceof Object) {
-			for (key in val) {
-				if (getElement(key)) {
-					getElement(key).innerHTML = val[key];
-				}
-			}
-			var total = 0;
-			var totalVente = 0
-			if (val['STOCK']) {
-				total += parseInt(val['STOCK']);
-			}
-			if (val['VENDU']) {
-				total += parseInt(val['VENDU']);
-				totalVente += parseInt(val['VENDU']);
-			}
-			if (val['RENDU']) {
-				total += parseInt(val['RENDU']);
-			}
-			if (val['PAYE']) {
-				total += parseInt(val['PAYE']);
-				totalVente += parseInt(val['PAYE']);
-			}
-
-			getElement('TOTAL').innerHTML = total;
-
-			getElement('statVendu').innerHTML = parseInt((totalVente / total) * 100) + "%";
-			getElement('VENDU').innerHTML = totalVente;
-			if (val['RENDU']) {
-				getElement('statRendu').innerHTML = parseInt((parseInt(val['RENDU']) / total) * 100) + "%";
-			} else {
-				getElement('statRendu').innerHTML = "";
-			}
-
-			setTimeout('x_return_countByEtat(display_counter)',5*60*1000);
-		}
-	}
-
-	function enteteSaisie() {
-		getElement('inputSearch').disabled = startSaisie;
-	}
-
-	function confirmPass() {
-		x_whatYourName(document.modalForm.pass.value, displayhello);
-	}
-
-	function displayhello(val) {
-		SetCookie("AADD", val);
-		goTo("bav.php");
-	}
-</script>
+<script src="JS/entete.js" type="text/javascript"></script>
 
 <table class="BH_CADRE" cellspacing="0" cellpadding="0">
 	<tr height="100%">
@@ -137,7 +48,7 @@
 		</th>
 		<td class="tdSearch" id="tdSearch" style="display:none">
 			<form name="enteteFormFiche" action="#" onsubmit='return search(document.enteteFormFiche.inputSearch.value)'>
-				<input type="text" name="numeroFiche" size="8" maxlength="50" title="Saisisez le numéro de fiche, ou l'identifiant de la fiche" placeholder="Vendu ?" id="inputSearch" onsubmit='search(this.value)' style='background-color:LIGHTGREEN;font-weight: bold' />
+				<input type="text" name="numeroFiche" size="8" maxlength="50" title="Saisisez le numéro de fiche" placeholder="N° fiche" id="inputSearch" onsubmit='search(this.value)' style='background-color:LIGHTGREEN;font-weight: bold' />
 				<i id="loupe" class="fas fa-search link " onclick="search(document.enteteFormFiche.inputSearch.value)"></i>
 			</form>
 		</td>

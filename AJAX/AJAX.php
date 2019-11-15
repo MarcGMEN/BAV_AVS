@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ERROR);
+
 
 require_once "../Commun/commun_functions.php";
 require_once "../Commun/connect.php";
@@ -13,13 +15,9 @@ require_once "../Commun/Sajax.php";
 require_once "../Commun/mail.php";
 require_once "../Commun/html2pdf.php";
 
-//ini_set('session.cookie_httponly', 1);
-
-
 // export en GLOBALS des parametres de l'application
 $INFO_APPLI = return_infoAppli();
 
-error_reporting(E_ERROR);
 //Creation de l'aJAX avec tout les AJAX possible _AJAX.php
 $tabFile = searchFiles("AJAX", "_AJAX.php");
 foreach ($tabFile as $val) {

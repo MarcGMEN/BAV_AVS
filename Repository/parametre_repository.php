@@ -42,7 +42,7 @@ function return_infoAppli()
             break;
         }
     }
-    $infos['numero_bav'] = $par['par_numero_BAV'];
+    $infos['numero_bav'] = $par['par_numero_bav'];
     $infos['titre'] = $par['par_titre'];
 
     $infos['par_date_debut_depot_FR'] = utf8Encode(formateDateMYSQLtoFR($par['par_date_debut_depot'], true));

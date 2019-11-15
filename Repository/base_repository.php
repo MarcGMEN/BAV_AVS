@@ -202,6 +202,9 @@ function update($table, $obj, $cleId)
     }
 }
 
+/**
+ * insertion generique
+ */
 function insert($table, $obj)
 {
     $descTable = infoTable($table);
@@ -236,6 +239,9 @@ function insert($table, $obj)
     return $GLOBALS['mysqli']->insert_id;
 }
 
+/**
+ * suppression via un id et une clef
+ */
 function delete($table, $id, $cleId)
 {
     $req = "delete from $table ";

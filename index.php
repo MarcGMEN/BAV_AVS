@@ -82,10 +82,13 @@ sajax_handle_client_request();
 
 	<script type="text/javascript">
 		var startSaisie = false;
+
 		var ADMIN = <?= $infAppli['ADMIN'] ? 1 : 0 ?>;
 		var CLIENT = <?= $infAppli['CLIENT'] ? 1 : 0 ?>;
 		
+		// date d'ouverture du depot
 		var DATE_J1 = <?= $infAppli['date_j1'] ?>;
+		
 		var modePage = '<?= $GET_modePage ?>';
 		var id = '<?= $GET_id ?>';
 

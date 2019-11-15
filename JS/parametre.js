@@ -152,7 +152,6 @@ function valider(laForm) {
     // creation d'un tableau de style object javacript
     par = recup_formulaire(laForm, 'par');
 
-    console.log(par);
     if (modePage == 'modification') {
         x_action_updateParametre(tabToString(par), display_update);
     }
@@ -163,6 +162,9 @@ function valider(laForm) {
     return false;
 }
 
+/**
+ * retour pour update et delete
+ */
 function display_update(val) {
     if (val == 1) {
         x_return_allParametre(display_parametres);
@@ -173,7 +175,11 @@ function display_update(val) {
     }
 }
 
+/**
+ * suppresion d'un BAV, avec retour dans le display_update
+ */
 function supprimer() {
+    if (document.parametreForm.par_actif.checked)
     if (confirm('Suppression de parametre')) {
         x_action_supprimeParametre(document.parametreForm.par_numero_bav.value, display_update);
     }

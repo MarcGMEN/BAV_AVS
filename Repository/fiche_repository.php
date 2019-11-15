@@ -34,7 +34,7 @@ function get_modelesByMarques($marque)
 function getAllFichesAcheteur($idAcheteur)
 {
     if ($idAcheteur) {
-        $requete2 = "SELECT * from bav_objet where obj_numero_bav = ".$_COOKIE['NUMERO_BAV'];
+        $requete2 = "SELECT * from bav_objet where obj_numero_bav = ".$GLOBALS['INFO_APPLI']['numero_bav'];
         $requete2 .= " and obj_id_acheteur = $idAcheteur ";
         if ($result = $GLOBALS['mysqli']->query($requete2)) {
             $tab=array();
@@ -52,8 +52,9 @@ function getAllFichesAcheteur($idAcheteur)
 
 function getAllFichesVendeur($idVendeur)
 {
+    
     if ($idVendeur) {
-        $requete2 = "SELECT * from bav_objet where obj_numero_bav = ".$_COOKIE['NUMERO_BAV'];
+        $requete2 = "SELECT * from bav_objet where obj_numero_bav = ".$GLOBALS['INFO_APPLI']['numero_bav'];
         $requete2 .= " and obj_id_vendeur = $idVendeur ";
         if ($result = $GLOBALS['mysqli']->query($requete2)) {
             $tab=array();
@@ -72,8 +73,7 @@ function getAllFichesVendeur($idVendeur)
 
 function countByEtat($idVendeur = null)
 {
-    $requete2 = "SELECT count(*), obj_etat from bav_objet where obj_numero_bav = ".
-        $_COOKIE['NUMERO_BAV'];
+    $requete2 = "SELECT count(*), obj_etat from bav_objet where obj_numero_bav = ".$GLOBALS['INFO_APPLI']['numero_bav'];
     if ($idVendeur) {
         $requete2 .= " and obj_id_vendeur = $idVendeur";
     }
@@ -93,7 +93,7 @@ function countByEtat($idVendeur = null)
 
 function countBy($sel, $search="=", $val)
 {
-    $requete2 = "SELECT count(*) from bav_objet where obj_numero_bav = ".$_COOKIE['NUMERO_BAV'];
+    $requete2 = "SELECT count(*) from bav_objet where obj_numero_bav = ".$GLOBALS['INFO_APPLI']['numero_bav'];
     if ($sel && $val != "*") {
             $requete2 .= " and $sel $search '$val' ";
     }
@@ -113,14 +113,14 @@ function makeNumeroFiche($base, &$objet)
 {
     $objet['obj_numero']=getFicheLibre($base);
     // creation de idmodif
-    $objet['obj_id_modif']=substr(hash_hmac('md5', $objet['obj_numero'], 'avs44'+$_COOKIE['NUMERO_BAV']), 0, 6);
+    $objet['obj_id_modif']=substr(hash_hmac('md5', $objet['obj_numero'], 'avs44'+$GLOBALS['INFO_APPLI']['numero_bav']), 0, 6);
 }
 
 function getFicheLibre($base)
 {
     $row = null;
     $query = " SELECT obj_numero from bav_objet where obj_numero >= $base and obj_numero_bav = ".
-        $_COOKIE['NUMERO_BAV']." order by obj_numero";
+        $GLOBALS['INFO_APPLI']['numero_bav']." order by obj_numero";
     if ($result = $GLOBALS['mysqli']->query($query)) {
         $tab=array();
         $index=0;
@@ -140,7 +140,7 @@ function getFicheLibre($base)
 function lastFiche($base) {
     $row = null;
     $query = " SELECT max(obj_numero) from bav_objet where obj_numero >= $base and obj_numero_bav = ".
-        $_COOKIE['NUMERO_BAV'];
+        $GLOBALS['INFO_APPLI']['numero_bav'];
     if ($result = $GLOBALS['mysqli']->query($query)) {
         $row = $result->fetch_assoc();
         $result->close();
@@ -171,7 +171,7 @@ function getFiches($order, $sens, $tabSel)
     $requete2 = "SELECT bav_objet.*, ve.*, ve.cli_nom vendeur_nom, ac.cli_nom acheteur_nom from bav_objet ";
     $requete2 .= "  left outer join bav_client as ve on obj_id_vendeur = ve.cli_id ";
     $requete2 .= "  left outer join bav_client as ac on obj_id_acheteur = ac.cli_id ";
-    $requete2 .= " where obj_numero_bav = ".$_COOKIE['NUMERO_BAV'];
+    $requete2 .= " where obj_numero_bav = ".$GLOBALS['INFO_APPLI']['numero_bav'];
     //echo $requete2;
     foreach ($tabSel as $key => $val) {
         if ($key == "obj_search") {
