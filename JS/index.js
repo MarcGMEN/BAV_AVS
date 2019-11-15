@@ -6,8 +6,7 @@ function setStartSaisie(cStartSaisie) {
 
 // recuperation des donnees de la BAV
 function setParamValIndex(val) {
-    getElement("mode").innerHTML = modePage + "-" + CLIENT + "-" + ADMIN +
-        "; id=<?=$GET_id?>";
+    getElement("mode").innerHTML = modePage + "-" + CLIENT + "-" + ADMIN +"; id=<?=$GET_id?>";
 }
 
 function setParamVal(val) {

@@ -31,6 +31,9 @@
 		getElement('timeRestant').innerHTML = jourTxt+" "+heures+":"+minutes+":"+secondes;
 		setTimeout('return_restant()', 1000);
 		}
+		else {
+			getElement('timeRestant').innerHTML = "";
+		}
 	}
 
 

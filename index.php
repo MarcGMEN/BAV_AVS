@@ -18,10 +18,6 @@ if (!isset($GET_page)) {
 // debut des tabIndex pour les ecrans;
 $tabindex = 1;
 
-if (!isset($_COOKIE['NUMERO_BAV'])) {
-	setcookie('NUMERO_BAV', date('Y'), time() + (86400 * 30), "/"); // 86400 = 1 day
-	$_COOKIE['NUMERO_BAV'] = date('Y');
-}
 $infAppli = return_infoAppli();
 
 // init ajax
@@ -88,8 +84,7 @@ sajax_handle_client_request();
 		var startSaisie = false;
 		var ADMIN = <?= $infAppli['ADMIN'] ? 1 : 0 ?>;
 		var CLIENT = <?= $infAppli['CLIENT'] ? 1 : 0 ?>;
-		var NB_MODIF = <?= $infAppli['NB_MODIF'] ?>;
-
+		
 		var DATE_J1 = <?= $infAppli['date_j1'] ?>;
 		var modePage = '<?= $GET_modePage ?>';
 		var id = '<?= $GET_id ?>';

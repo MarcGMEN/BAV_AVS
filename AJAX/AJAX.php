@@ -15,6 +15,10 @@ require_once "../Commun/html2pdf.php";
 
 //ini_set('session.cookie_httponly', 1);
 
+
+// export en GLOBALS des parametres de l'application
+$INFO_APPLI = return_infoAppli();
+
 error_reporting(E_ERROR);
 //Creation de l'aJAX avec tout les AJAX possible _AJAX.php
 $tabFile = searchFiles("AJAX", "_AJAX.php");
@@ -22,19 +26,21 @@ foreach ($tabFile as $val) {
     include_once $val;
 }
 
+/**
+ * Fonction de confirmation de la connexion
+ */
 function whatYourName($pass)
 {
     if (password_verify($pass, $GLOBALS['PASS_ADMIN'])) {
-        //setcookie("AADD", 1, time()+1000, '/') or die('unable to create cookie');
-        //$_COOKIE['AADD']=1;
         return $GLOBALS['PASS_ADMIN'];
     } else {
-        //setcookie('AADD', null, 0, "/")  or die('unable to remove cookie');
-        //$_COOKIE['AADD']=0;
         return null;
     }
 }
 
+/**
+ * tranformation d'un tableau en object PHP
+ */
 function tabToObject($data, $trigramme)
 {
     foreach ($data as $key => $val) {
@@ -45,9 +51,12 @@ function tabToObject($data, $trigramme)
     return $obj;
 }
 
+/**
+ * Transformation d'un string JSON en tableau
+ */
 function string2Tab($obj)
 {
-    $json="";
+    $json = "";
     if ($obj) {
         $obj = str_replace('%u20AC', '€', $obj);
         $json = json_decode($obj, true);
@@ -77,19 +86,13 @@ function string2Tab($obj)
                 echo ' - Erreur inconnue';
                 break;
         }
-        /*$tabArg = explode("#2C", $obj);
-    $tab=array();
-    foreach ($tabArg as $val) {
-        $tabTmp = explode("#3D", $val);
-        if ($tabTmp[0]) {
-            $tab[$tabTmp[0]]=$tabTmp[1];
-        }
-    }
-    return $tab;*/
     }
     return $json;
 }
 
+/**
+ * retourne les champs d'un enum de la base de donnée
+ */
 function return_enum($table, $champ)
 {
     $tabEnum = recupEnumToArray($table, $champ);
@@ -99,48 +102,51 @@ function return_enum($table, $champ)
     return $tabEnum;
 }
 
+/**
+ * Appel ajax pour un retour d'une liste unique de valeur dans une table/champ
+ */
 function return_list_unique($table, $champ)
 {
     return listUnique($table, $champ);
 }
 
-function return_restant()
-{
-    $infoAppli = return_infoAppli();
-
-    $today = time();
-
-    $dDiff = $infoAppli['date_j1'] - $today;
-
-    if ($dDiff > 0) {
-        return duree2HMS($dDiff);
-    } else {
-        return "";
-    }
-}
-
-
-
+/**
+ * Appel Ajax pour meetre jour une page HTML avec des datas
+ * date  au format --data-- dans le html
+ */
 function get_publiHtml($data, $html)
 {
     return makeCorps(string2Tab($data), $html);
 }
 
+/**
+ * Creation d'un PDF a partir d'un html avec en nom le fichier html sans l'extension
+ */
 function action_makePDFFromHtml($data, $html)
 {
     extract($GLOBALS);
-    $filePDF = html2pdf(string2Tab($data), "../html/$html", "reglement_" . $_COOKIE['NUMERO_BAV']);
+    $tabSplit = split(".", $html);
+    $ext = tabSplit[sizeof($tabSplit) - 1];
+    $nameBase = str_replace("." . $ext, "", $html);
+    $filePDF = html2pdf(string2Tab($data), "../html/$html", $nameBase);
 
     return $CFG_URL . $filePDF;
 }
 
+/**
+ * cherche un fichier HTML dans le repertoire html, en modifiant au moins le champ URL
+ */
 function return_html($html)
 {
     extract($GLOBALS);
     $data = ['URL' => $CFG_URL];
     return makeCorps($data, '../html/' . $html . '.html');
+    return "";
 }
 
+/**
+ * sauvegarde d'un fichier HTML
+ */
 function save_html($html, $data)
 {
     file_put_contents('../html/' . $html . '.html', utf8_encode2($data));

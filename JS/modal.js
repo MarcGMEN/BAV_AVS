@@ -68,7 +68,9 @@ function alertModalConfirm(message, plus='') {
     //console.log(message);
     getElement("modalText").innerHTML = message;
 
-    $repr = "<input type=button value=Confirmer onclick='searchStyle();confirmModal"+plus+"();closeModal()'>";
+    document.modalForm.onSubmit= "searchStyle();confirmModal"+plus+"();closeModal(); return false;";
+    
+    $repr = "<input type=submit value=Confirmer>";
     $repr += "&nbsp;&nbsp;&nbsp;&nbsp;<input type=button value=Annuler onclick='closeModal()'>";
     getElement("modalAction").innerHTML = $repr;
 }

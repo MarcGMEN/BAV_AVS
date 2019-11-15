@@ -1,6 +1,7 @@
 <?php
 sajax_export(
     "return_oneParametre",
+    "action_supprimeParametre",
     "return_allParametre",
     "action_updateParametre",
     "action_insertParametre",

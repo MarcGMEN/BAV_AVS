@@ -239,7 +239,7 @@ function insert($table, $obj)
 function delete($table, $id, $cleId)
 {
     $req = "delete from $table ";
-    $req .= " where $cleId = " . $id;
+    $req .= " where $cleId = '$id'";
     if (!$GLOBALS['mysqli']->query($req)) {
         throw new Exception("Pb d'update' [$req]" . $GLOBALS['mysqli']->error);
     }

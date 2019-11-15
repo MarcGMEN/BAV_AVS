@@ -93,7 +93,18 @@ function recup_formulaire(laForm, trigrame) {
 			if (element) {
 				var name = element.name;
 				if (name && name.startsWith(trigrame)) {
-					obj[name] = element.value;
+					if (element.type=='checkbox') {
+						if (element.checked) {
+							console.log("chekced");
+							obj[name]=element.value;
+						}
+						else {
+							obj[name]="";
+						}
+					}
+					else {
+						obj[name] = element.value;
+					}
 				}
 			}
 		}
