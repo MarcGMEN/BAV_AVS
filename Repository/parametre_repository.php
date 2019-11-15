@@ -42,6 +42,8 @@ function return_infoAppli()
             break;
         }
     }
+    $infos['base_info'] = $par['par_numero_base_info'];
+    
     $infos['numero_bav'] = $par['par_numero_bav'];
     $infos['titre'] = $par['par_titre'];
 

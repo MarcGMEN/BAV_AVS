@@ -1,18 +1,9 @@
 <?php
+
 /**
- * retourne les marques dans la liste des object
+ * retourne toutes les marques connues
+ * sans limite de numero de BAV
  */
-
-function getAllFiche()
-{
-    return getAll("bav_objet", "obj_id");
-}
-
-function getOneFiche($id)
-{
-    return getOne($id, "bav_objet", "obj_id");
-}
-
 function get_modelesByMarques($marque)
 {
     $tab=array();
@@ -31,49 +22,13 @@ function get_modelesByMarques($marque)
     }
     return $tab;
 }
-function getAllFichesAcheteur($idAcheteur)
-{
-    if ($idAcheteur) {
-        $requete2 = "SELECT * from bav_objet where obj_numero_bav = ".$GLOBALS['INFO_APPLI']['numero_bav'];
-        $requete2 .= " and obj_id_acheteur = $idAcheteur ";
-        if ($result = $GLOBALS['mysqli']->query($requete2)) {
-            $tab=array();
-            $index=0;
-            while ($row = $result->fetch_assoc()) {
-                $tab[$row['obj_etat']]+=1;
-            }
-            $result->close();
-        } else {
-            throw new Exception("getAllFichesAcheteur' [$requete2]".mysqli_error($result));
-        }
-    }
-    return $tab;
-}
 
-function getAllFichesVendeur($idVendeur)
-{
-    
-    if ($idVendeur) {
-        $requete2 = "SELECT * from bav_objet where obj_numero_bav = ".$GLOBALS['INFO_APPLI']['numero_bav'];
-        $requete2 .= " and obj_id_vendeur = $idVendeur ";
-        if ($result = $GLOBALS['mysqli']->query($requete2)) {
-            $tab=array();
-            $index=0;
-            while ($row = $result->fetch_assoc()) {
-                $tab[$row['obj_etat']] = $row['count(*)'];
-            }
-            $result->close();
-        } else {
-            throw new Exception("getAllFichesVendeur' [$requete2]".mysqli_error($result));
-        }
-    }
-    return $tab;
-}
-
-
+/**
+ * comptage des fiches d'un BAV par etat
+ */
 function countByEtat($idVendeur = null)
 {
-    $requete2 = "SELECT count(*), obj_etat from bav_objet where obj_numero_bav = ".$GLOBALS['INFO_APPLI']['numero_bav'];
+    $requete2 = "SELECT count(*), obj_etat from bav_objet where obj_numero_bav = '".$GLOBALS['INFO_APPLI']['numero_bav']."'";
     if ($idVendeur) {
         $requete2 .= " and obj_id_vendeur = $idVendeur";
     }
@@ -91,11 +46,14 @@ function countByEtat($idVendeur = null)
     return $tab;
 }
 
+/**
+ * comptage des fiches d'une BAV en fonction d'un critere
+ */
 function countBy($sel, $search="=", $val)
 {
-    $requete2 = "SELECT count(*) from bav_objet where obj_numero_bav = ".$GLOBALS['INFO_APPLI']['numero_bav'];
+    $requete2 = "SELECT count(*) from bav_objet where obj_numero_bav = '".$GLOBALS['INFO_APPLI']['numero_bav']."'";
     if ($sel && $val != "*") {
-            $requete2 .= " and $sel $search '$val' ";
+        $requete2 .= " and $sel $search '$val' ";
     }
     if ($result = $GLOBALS['mysqli']->query($requete2)) {
         $tab=array();
@@ -108,19 +66,35 @@ function countBy($sel, $search="=", $val)
     return $count;
 }
 
-
+/**
+ * creation d'un numero de fiche
+ * recherche de la place libre
+ * creation d'une clef md5 pour les appels REST
+ */
 function makeNumeroFiche($base, &$objet)
 {
     $objet['obj_numero']=getFicheLibre($base);
     // creation de idmodif
-    $objet['obj_id_modif']=substr(hash_hmac('md5', $objet['obj_numero'], 'avs44'+$GLOBALS['INFO_APPLI']['numero_bav']), 0, 6);
+    $objet['obj_id_modif']=hash_hmac(
+        'md5',
+        $objet['obj_numero'],
+        'avs44'.$GLOBALS['INFO_APPLI']['numero_bav']
+    );
 }
 
+/**
+ * retourne la commission pour une fiche
+ */
+
+
+/**
+ * recherche des fiches libres pour une BAV a partri d'une base
+ */
 function getFicheLibre($base)
 {
     $row = null;
-    $query = " SELECT obj_numero from bav_objet where obj_numero >= $base and obj_numero_bav = ".
-        $GLOBALS['INFO_APPLI']['numero_bav']." order by obj_numero";
+    $query = " SELECT obj_numero from bav_objet where obj_numero >= $base and obj_numero_bav = '".
+        $GLOBALS['INFO_APPLI']['numero_bav']."' order by obj_numero";
     if ($result = $GLOBALS['mysqli']->query($query)) {
         $tab=array();
         $index=0;
@@ -137,51 +111,42 @@ function getFicheLibre($base)
     return $base;
 }
 
-function lastFiche($base) {
-    $row = null;
-    $query = " SELECT max(obj_numero) from bav_objet where obj_numero >= $base and obj_numero_bav = ".
-        $GLOBALS['INFO_APPLI']['numero_bav'];
-    if ($result = $GLOBALS['mysqli']->query($query)) {
-        $row = $result->fetch_assoc();
-        $result->close();
-    } else {
-        throw new Exception("Pb lastFicheInfo' [$query]".mysqli_error($result));
-    }
-    return $row;
-}
-
-
 /**
- * recherche de la fiche par code
+ * recherche de la fiche par numero pour une BAV
  */
-function getOneFicheByCode($id, $numeroBAV)
+function getOneFicheByCode($id)
 {
     $row = null;
     if (isset($id)) {
         $requete2 = " SELECT * from bav_objet ";
         $requete2 .= " where obj_numero = '" . $id."'";
-        $requete2 .= " and  obj_numero_bav = '" . $numeroBAV."'";
+        $requete2 .= " and  obj_numero_bav = '".$GLOBALS['INFO_APPLI']['numero_bav']."'";
         $row=$GLOBALS['mysqli']->query($requete2)->fetch_assoc();
     }
     return $row;
 }
 
+/**
+ * recherche des fiches pour une selection et un ordre
+ * avec un lien outer sur le vendeur et l'acheteur
+ * on retourne que le nom de l'acheteur
+ *
+ * si "obj_search" dans le tableau de selection, alors recherche en like sur modele et desciription
+ */
 function getFiches($order, $sens, $tabSel)
 {
     $requete2 = "SELECT bav_objet.*, ve.*, ve.cli_nom vendeur_nom, ac.cli_nom acheteur_nom from bav_objet ";
     $requete2 .= "  left outer join bav_client as ve on obj_id_vendeur = ve.cli_id ";
     $requete2 .= "  left outer join bav_client as ac on obj_id_acheteur = ac.cli_id ";
-    $requete2 .= " where obj_numero_bav = ".$GLOBALS['INFO_APPLI']['numero_bav'];
+    $requete2 .= " where obj_numero_bav = '".$GLOBALS['INFO_APPLI']['numero_bav']."'";
     //echo $requete2;
     foreach ($tabSel as $key => $val) {
         if ($key == "obj_search") {
             $requete2 .= " and (obj_modele like '%$val%' or obj_description like '%$val%') ";
-        }
-        else if ($key && $val != "*") {
+        } elseif ($key && $val != "*") {
             $requete2 .= " and $key = '$val' ";
         }
     }
-
     if ($order != null) {
         $requete2 .= " order by $order $sens";
     }
@@ -200,30 +165,50 @@ function getFiches($order, $sens, $tabSel)
     return $tab;
 }
 
-function getFichesExpress()
-{
-    return  getFiches('obj_numero', "asc",  []);
-}
-
 /**
- * recherche de la fiche par code
+ * recherche de la fiche par clef hash, utilisé pour les acces REST
  */
 function getOneFicheByIdModif($id)
 {
     return getOne($id, "bav_objet", "obj_id_modif");
 }
 
+/**
+ * retourne les marques dans la liste des object
+ */
+function getAllFiche()
+{
+    return getAll("bav_objet", "obj_id");
+}
 
+/**
+ * recherche un fiche avec son ID
+*/
+function getOneFiche($id)
+{
+    return getOne($id, "bav_objet", "obj_id");
+}
+
+
+/**
+ * mise a jour d'une fiche
+ */
 function updateFiche($obj)
 {
     return update('bav_objet', $obj, "obj_id");
 }
 
+/**
+ * insertion d'une fiche
+ */
 function insertFiche($obj)
 {
     return insert('bav_objet', $obj);
 }
 
+/**
+ * suppression d'une fiche
+ */
 function deleteFiche($id)
 {
     return delete('bav_objet', $id, "obj_id");

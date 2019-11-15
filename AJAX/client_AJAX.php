@@ -49,7 +49,8 @@ function return_clientsRecap($tri, $sens, $selection, $all = false)
 function return_oneClient($id)
 {
     $row = getOneClient($id);
-    if ($row) { }
+    if ($row) {
+    }
     return $row;
 }
 
@@ -72,25 +73,26 @@ function action_deleteClient($id)
         $tabFiche = getFiches("obj_id", "asc", array("obj_id_acheteur" => $id));
         if (sizeof($tabFiche) == 0) {
             return deleteClient($id);
-        }
-        else {
+        } else {
             return "Suppresion impossible, il reste des fiches achats reliées à ce client.";
         }
-    }
-    else {
+    } else {
         return "Suppresion impossible, il reste des fiches ventes reliées à ce client.";
     }
 }
 
-function action_makeClient($data) {
+function action_makeClient($data)
+{
     $tabCli = tabToObject(string2Tab($data), "cli");
     return makeClient($tabCli);
 }
 
-function makeClient(&$tabCli)
+function makeClient(&$tabCli, $update=true)
 {
     if ($tabCli['cli_id'] != null) {
-        updateClient($tabCli);
+        if ($update) {
+            updateClient($tabCli);
+        }
     } else {
         $tabCli['cli_id'] = 0;
         $tabCli['cli_id_modif'] = substr(hash_hmac('md5', rand(0, 10000), 'avs44'), 0, 8);

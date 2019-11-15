@@ -6,11 +6,18 @@
 /**************************************/
 /**************************************/
 
+/**
+ * appel AJAX pour le comptage par etat
+ */
 function return_countByEtat()
 {
     return countByEtat();
 }
 
+/**
+ * retourne la liste des marques connue pour la BAV, avec une base
+ * triée par ordre alpha
+ */
 function return_list_marques()
 {
     $tabMarques = [
@@ -24,17 +31,23 @@ function return_list_marques()
     return $tabRetour;
 }
 
+/**
+ * retourne la liste des modeles connus pour une marque donnée
+ */
 function return_list_modeles($marque)
 {
     $tabRetour = get_modelesByMarques(strtoupper($marque));
-    //print_r($tabRetour);
     sort($tabRetour);
     return $tabRetour;
 }
 
+/**
+ * appel AJAX pour la recherche d'une fiche avec son numero
+ * si par trouvé, on initialise l'objet fiche avec le numero saisie
+ */
 function return_oneFicheByCode($id)
 {
-    $row = getOneFicheByCode($id, $_COOKIE['NUMERO_BAV']);
+    $row = getOneFicheByCode($id);
     if ($row) {
         $row['obj_date_depot_FR'] = formateDateMYSQLtoFR($row['obj_date_depot'], true);
     } else {
@@ -43,6 +56,11 @@ function return_oneFicheByCode($id)
     return $row;
 }
 
+/**
+ * recherche de la fiche avec son id_modif
+ * utilisé pour les acces en REST
+ * A priori inutile el AJAX
+ */
 function return_oneFicheByIdModif($id)
 {
     $row = getOneFicheByIdModif($id);
@@ -52,6 +70,9 @@ function return_oneFicheByIdModif($id)
     return $row;
 }
 
+/**
+ * Recherche d'une fiche avec son ID
+ */
 function return_oneFiche($id)
 {
     $row = getOneFiche($id);
@@ -61,40 +82,50 @@ function return_oneFiche($id)
     return $row;
 }
 
-
+/**
+ * creation d'une fiche, complete
+ * on doit retrouve le client et la fiche
+ * en mode ADMIN :  creation directe et mise en STOCK
+ * en mode CLIENT : creation en INIT avec un numero dans le 5000 et envoi d'un mail pour confirmer la creation
+ */
 function action_createFiche($data)
 {
-    $infoAppli = return_infoAppli();
-    // droit = ADMIN+CLIENT
-    $ADMIN = $infoAppli['ADMIN'];
-    $CLIENT = $infoAppli['CLIENT'];
-
     extract($GLOBALS);
+    $ADMIN = $INFO_APPLI['ADMIN'];
+
     $retour = "";
     try {
-        // creation du client, avec test si pas deja connu
         $tabObj = tabToObject(string2Tab($data), "obj");
         $tabCli = tabToObject(string2Tab($data), "cli");
+        
+        // creation du client, avec test si pas deja connu
         makeClient($tabCli);
 
         $tabObj['obj_id_vendeur'] = $tabCli['cli_id'];
 
-        // TODO : insert fiche
         $tabObj['obj_id'] = 0;
 
+        // on pousse la marque et le modele en capitale
         $tabObj['obj_marque'] = strtoupper($tabObj['obj_marque']);
         $tabObj['obj_modele'] = strtoupper($tabObj['obj_modele']);
-        // creation du numero
+        
         if ($ADMIN) {
-            makeNumeroFiche($FICHE_INFO, $tabObj);
+            // creation du numero a partir de la base parametre pour la BAV
+            makeNumeroFiche($INFO_APPLI['base_info'], $tabObj);
+            // on passe en STOCK
             $tabObj['obj_etat'] = 'STOCK';
+            // on valide le prix de vente
             $tabObj['obj_prix_vente'] = $tabObj['obj_prix_depot'];
+            // date de creation
             $tabObj['obj_date_depot'] = date('y-m-d H:i:s');
         } else {
             $tabObj['obj_etat'] = 'INIT';
             makeNumeroFiche(5000, $tabObj);
+
+            // creation du lien REST pour confirmer le depot
             $tabPlus['lien_confirm'] = $CFG_URL . "/Actions/rest.php?a=C&id=" . $tabObj['obj_id_modif'];
 
+            // si pas de pri de depot, alors phrase de rappel
             if ($tabObj['obj_prix_depot'] == "") {
                 $tabPlus['obj_prix_depot'] = 'A renseigner le jour du dépôt dernier délai';
                 $tabObj['obj_prix_depot'] == 0;
@@ -102,21 +133,28 @@ function action_createFiche($data)
                 $tabPlus['obj_prix_depot'] = $tabObj['obj_prix_depot'] . " €";
             }
 
-            $tabPlus['titre'] = $infoAppli['titre'];
+            $tabPlus['titre'] = $INFO_APPLI['titre'];
 
-            $titreMel = "Confirmation de votre dépôt à " . $infoAppli['titre'];
+            // titre du mel
+            $titreMel = "Confirmation de votre dépôt à " . $INFO_APPLI['titre'];
+
+            // creation du message du mel
+            // template : html/mel_enregristrement.html
             $message = makeMessage($titreMel, array_merge($tabObj, $tabCli, $tabPlus), "mel_enregistrement.html");
         }
 
-        $tabObj['obj_numero_bav'] = $_COOKIE['NUMERO_BAV'];
+        $tabObj['obj_numero_bav'] = $INFO_APPLI['numero_bav'];
         //        print_r($tabObj);
+        // creation de la fiche
         $tabObj['obj_id'] = insertFiche($tabObj);
 
         if ($ADMIN) {
+            // si admin, on revient sur la fiche
             $retour = array();
             //$retour['message'] = "OK pour creation de ".$tabObj['obj_numero'];
             $retour['id'] = $tabObj['obj_id'];
         } else {
+            // sinon on envoi le mel
             $retour = sendMail($titreMel, $tabCli['cli_emel'], $message);
         }
     } catch (Exception $e) {
@@ -125,18 +163,22 @@ function action_createFiche($data)
     return $retour;
 }
 
+/**
+ * renvoi d'un mel de confirmation
+ * cas ou on voit ou recoit une fausse adresse mel, et pour relancer
+ */
 function action_reMelConfirme($id)
 {
-    $infoAppli = return_infoAppli();
-    // droit = ADMINCLIENT
-    $ADMIN = $infoAppli['ADMIN'];
-
     extract($GLOBALS);
+    $ADMIN = $INFO_APPLI['ADMIN'];
+
     $retour = "";
     try {
-
+        // recherche de la fiche
         $fiche = return_oneFiche($id);
         if ($fiche['obj_id']) {
+
+            // creation du lien de REST
             $tabPlus['lien_confirm'] = $CFG_URL . "/Actions/rest.php?a=C&id=" . $fiche['obj_id_modif'];
 
             if ($fiche['obj_prix_depot'] == "") {
@@ -146,13 +188,17 @@ function action_reMelConfirme($id)
                 $tabPlus['obj_prix_depot'] = $fiche['obj_prix_depot'] . " €";
             }
 
+            // recherche du client
             $tabCli = getOneClient($fiche['obj_id_vendeur']);
 
-            $tabPlus['titre'] = $infoAppli['titre'];
+            $tabPlus['titre'] = $INFO_APPLI['titre'];
 
-            $titreMel = "Re-confirmation de votre dépôt à " . $infoAppli['titre'];
+            $titreMel = "Re-confirmation de votre dépôt à " . $INFO_APPLI['titre'];
+            // creation du message avec comme template
+            // html/mel_enregistrement.html
             $message = makeMessage($titreMel, array_merge($fiche, $tabCli, $tabPlus), "mel_enregistrement.html");
 
+            // envoi du mel
             $retour = sendMail($titreMel, $tabCli['cli_emel'], $message);
             if ($retour == 1) {
                 $retour = "Mel re-envoyé a " . $tabCli['cli_emel'];
@@ -166,32 +212,36 @@ function action_reMelConfirme($id)
     return $retour;
 }
 
+/**
+ * creation expres
+ */
 function action_createFicheExpress($data)
 {
-    $infoAppli = return_infoAppli();
-    // droit = ADMIN+CLIENT
-    $ADMIN = $infoAppli['ADMIN'];
-    $CLIENT = $infoAppli['CLIENT'];
-
     extract($GLOBALS);
+    $ADMIN = $INFO_APPLI['ADMIN'];
+
     $retour = "";
     try {
-        // creation du client, avec test si pas deja connu
         $tabObj = tabToObject(string2Tab($data), "obj");
         $tabCli = tabToObject(string2Tab($data), "cli");
-        //print_r($tabCli);
 
-        makeClient($tabCli);
-
+        // creation mais pas modification
+        // todo, revoir ici, in refait la recherche avec mel et/ou nom pour assurer
+        makeClient($tabCli, false);
+        
         $tabObj['obj_prix_depot'] = $tabObj['obj_prix_vente'];
 
         $tabObj['obj_id_vendeur'] = $tabCli['cli_id'];
-        $tabObj['obj_id_modif'] = substr(hash_hmac('md5', $tabObj['obj_numero'], 'avs44' + $_COOKIE['NUMERO_BAV']), 0, 6);
-        // TODO : insert fiche
+        // creation de la clef unique REST
+        $tabObj['obj_id_modif'] = hash_hmac('md5', $tabObj['obj_numero'], 'avs44' . $INFO_APPLI['numero_bav']);
         $tabObj['obj_id'] = 0;
 
-        $tabObj['obj_numero_bav'] = $_COOKIE['NUMERO_BAV'];
-        if (insertFiche($tabObj)) { } else {
+        // affectationa la BAV
+        $tabObj['obj_numero_bav'] = $INFO_APPLI['numero_bav'];
+
+        // insertion dans la base
+        if (insertFiche($tabObj)) {
+        } else {
             print_r($tabObj);
             return "Oups problème de mise a jour";
         }
@@ -201,26 +251,31 @@ function action_createFicheExpress($data)
     return $retour;
 }
 
-
+/**
+ * supresion d'une fiche
+ */
 function action_deleteFiche($id)
 {
-    $infoAppli = return_infoAppli();
-    // droit = ADMIN+CLIENT
-    $ADMIN = $infoAppli['ADMIN'];
-    $CLIENT = $infoAppli['CLIENT'];
-
     extract($GLOBALS);
+    $ADMIN = $INFO_APPLI['ADMIN'];
 
-    deleteFiche($id);
+    if ($ADMIN) {
+        deleteFiche($id);
+    }
 }
 
-// cumul des etiquettes 
-function action_makeA4Etiquettes($eti0, $eti1)
+/**
+ * creation des etiquetes sur une feuille A4
+ * parametre : le numero de depart, la mise a jour de l'impression, le nombre de page
+ */
+function action_makeA4Etiquettes($eti0, $update=false, $nbPage=1)
 {
-
     extract($GLOBALS);
 
     $etiquettes = "";
+    // TODO : recherche des fiches a imprimer en fonction de la table bav_etiquette.
+    // avec une base eti0
+
     for ($numFiche = $eti0; $numFiche <= $eti1; $numFiche++) {
         $fiche = return_oneFicheByCode($numFiche);
         if ($fiche['obj_id']) {
@@ -248,10 +303,11 @@ function action_makeA4Etiquettes($eti0, $eti1)
     return  $CFG_URL . $filePDF;
 }
 
-// cumul des etiquettes 
+/**
+ * accumulation des fiches dans un seul fichiers pour impression rapide
+ */
 function action_makeA4Fiches($eti0, $eti1)
 {
-
     extract($GLOBALS);
     try {
         for ($numFiche = $eti0; $numFiche <= $eti1; $numFiche++) {
@@ -260,27 +316,45 @@ function action_makeA4Fiches($eti0, $eti1)
                 // refaire les descriptions, pas de retour chariots et limite.
                 $client = getOneClient($fiche['obj_id_vendeur']);
 
-                $fiche['obj_description'] = str_replace("\n", " / ", $fiche['obj_description']);
-                $fiche['obj_description'] = str_replace("<br/>", " / ", $fiche['obj_description']);
+                // MISE EN FORME DE LA FICHE
+                // MISE EN FORME DE LA FICHE
+                // regroupement de la description
+                $fiche['obj_description'] = concatDescription($fiche['obj_description']);
 
-                if ($fiche['obj_prix_vente'] > 0 && ($fiche['obj_etat'] == 'VENDU' || $fiche['obj_etat'] == 'PAYE')) {
-                    if ($fiche['obj_prix_vente'] < 1000) {
-                        $client['cli_com'] = $fiche['obj_prix_vente'] * ($client['cli_taux_com'] / 100);
-                    } else {
-                        $client['cli_com'] = 100;
-                    }
+                if ($fiche['obj_prix_vente'] > 0 &&
+                    ($fiche['obj_etat'] == 'VENDU' || $fiche['obj_etat'] == 'PAYE')) {
+                    $client['cli_com'] = getCommission($fiche['obj_id']);
                 } else {
                     $fiche['obj_prix_vente'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
                     $client['cli_com'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>";
                 }
+
+                if ($fiche['obj_prix_vente'] != $fiche['obj_prix_depot'] && $fiche['obj_prix_vente'] > 0) {
+                    $fiche['obj_prix_depot'] = "<s>" . $fiche['obj_prix_depot'] . " €</s><span style='color:RED'>" . $fiche['obj_prix_vente'] . "</span>";
+                }
+
+                if ($fiche['obj_prix_depot'] == 0) {
+                    $fiche['obj_prix_depot'] = "";
+                }
+                // MISE EN FORME DE LA FICHE
+                // MISE EN FORME DE LA FICHE
+ 
+                // creation du html avec comme template
+                // html/fiche_depot.html
                 $etiquettes .= makeCorps(array_merge($fiche, $client), 'fiche_depot.html');
             }
         }
+
+        // fichier HTML resultant
         $fileHTML = "../html/fiches_" . $eti0 . "_" . $eti1 . ".html";
 
+        // enregistrement du fichier html
         file_put_contents($fileHTML, $etiquettes);
 
+        // generation du PDF
         $filePDF = html2pdf("", $fileHTML, "fiches_" . $eti0 . "_" . $eti1);
+
+        //suppression du fichier HTML
         unlink($fileHTML);
 
         return  $CFG_URL . $filePDF;
@@ -289,17 +363,49 @@ function action_makeA4Fiches($eti0, $eti1)
     }
 }
 
+/**
+ * calcul de la commission
+ */
+function getCommission($id)
+{
+    $fiche=getOneFiche($id);
+    $client = getOneClient($fiche['obj_id_vendeur']);
+    if ($fiche != null && $fiche['obj_prix_vente']) {
+        if ($fiche['obj_prix_vente'] < 1000) {
+            $commission = $fiche['obj_prix_vente'] * ($client['cli_taux_com'] / 100);
+        } else {
+            // TODO : parametre en fonction du taux
+            if ($client['cli_taux_com']==5) {
+                $commission = 80;
+            } else {
+                $commission = 100;
+            }
+        }
+    } else {
+        $commission=0;
+    }
+    return $commission;
+}
+
+/**
+ * concatenation de la description
+ */
+function concatDescription($desc)
+{
+    // regroupement de la description
+    $desc = str_replace("\n", " / ", $desc);
+    $desc = str_replace("<br/>", " / ", $desc);
+}
+
+/**
+ * creation d'une fiche en PDF
+ */
 function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
 {
-    //echo $html;
-    $infoAppli = return_infoAppli();
-    // droit = ADMIN+CLIENT
-    $ADMIN = $infoAppli['ADMIN'];
-    $CLIENT = $infoAppli['CLIENT'];
-
     extract($GLOBALS);
+    $ADMIN = $INFO_APPLI['ADMIN'];
 
-    $numBAV = $_COOKIE['NUMERO_BAV'];
+    $numBAV = $INFO_APPLI['numero_bav'];
     $par = return_oneParametre($numBAV);
 
     // pas de data, on fait un objet vide
@@ -373,32 +479,31 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
     $tabPlus['titre'] = $par['par_titre'];
     $tabPlus['URL'] = $CFG_URL;
 
-    if ($fiche['obj_prix_vente'] != $fiche['obj_prix_depot'] && $fiche['obj_prix_vente'] > 0) {
-        $fiche['obj_prix_depot'] = "<s>" . $fiche['obj_prix_depot'] . " €</s><span style='color:RED'>" . $fiche['obj_prix_vente'] . "</span>";
-    }
+    // MISE EN FORME DE LA FICHE
+    // MISE EN FORME DE LA FICHE
+    // regroupement de la description
+    $fiche['obj_description'] = concatDescription($fiche['obj_description']);
 
-    if ($fiche['obj_prix_vente'] > 0 && ($fiche['obj_etat'] == 'VENDU' || $fiche['obj_etat'] == 'PAYE')) {
-        if ($fiche['obj_prix_vente'] < 1000) {
-            $client['cli_com'] = $fiche['obj_prix_vente'] * ($client['cli_taux_com'] / 100);
-        } else {
-            $client['cli_com'] = 100;
-        }
+    if ($fiche['obj_prix_vente'] > 0 &&
+                    ($fiche['obj_etat'] == 'VENDU' || $fiche['obj_etat'] == 'PAYE')) {
+        $client['cli_com'] = getCommission($fiche['obj_id']);
     } else {
         $fiche['obj_prix_vente'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
         $client['cli_com'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>";
     }
 
+    if ($fiche['obj_prix_vente'] != $fiche['obj_prix_depot'] && $fiche['obj_prix_vente'] > 0) {
+        $fiche['obj_prix_depot'] = "<s>" . $fiche['obj_prix_depot'] . " €</s><span style='color:RED'>" . $fiche['obj_prix_vente'] . "</span>";
+    }
+
     if ($fiche['obj_prix_depot'] == 0) {
         $fiche['obj_prix_depot'] = "";
     }
-
-    $fiche['obj_description'] = str_replace("\n", " / ", $fiche['obj_description']);
-    $fiche['obj_description'] = str_replace("<br/>", " / ", $fiche['obj_description']);
-
-    //print_r(array_merge($fiche, $client, $acheteur, $tabPlus));
-
+    // MISE EN FORME DE LA FICHE
+    // MISE EN FORME DE LA FICHE
+    
     try {
-        $filePDF = html2pdf(array_merge($fiche, $client, $tabPlus), $html, "Fiche_" . $fiche['obj_numero']);        
+        $filePDF = html2pdf(array_merge($fiche, $client, $tabPlus), $html, "Fiche_" . $fiche['obj_numero']);
     } catch (Exception $e) {
         print_r($e);
         return "ERREUR " . $e->getMessage();
@@ -406,55 +511,58 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
     return $CFG_URL . $filePDF;
 }
 
-function action_confirmeFiche($obj)
-{
-    extract($GLOBALS);
-    $infoAppli = return_infoAppli();
-    // droit = ADMIN+CLIENT
-    $ADMIN = $infoAppli['ADMIN'];
-    $CLIENT = $infoAppli['CLIENT'];
-
-    if ($ADMIN ) {
-        $fiche = string2Tab($obj);
-        $fiche['obj_etat'] = $fiche['obj_etat_new'];
-        unset($fiche['obj_etat_new']);
-
-        makeNumeroFiche($FICHE_INFO, $fiche);
-
-        updateFiche($fiche);
-    }
-    return $fiche;
-}
+/**
+ * modification de l'etat de la fiche
+ */
 function action_changeEtatFiche($obj)
 {
     extract($GLOBALS);
-    $infoAppli = return_infoAppli();
-    // droit = ADMIN+CLIENT
-    $ADMIN = $infoAppli['ADMIN'];
+    $ADMIN = $INFO_APPLI['ADMIN'];
 
     if ($ADMIN) {
         $fiche = string2Tab($obj);
+        // on bascule la fiche au nouvel ETAT
         $fiche['obj_etat'] = $fiche['obj_etat_new'];
         unset($fiche['obj_etat_new']);
 
+        // si la fiche pass a confirme
         if ($fiche['obj_etat'] == 'CONFIRME') {
-            makeNumeroFiche($FICHE_INFO, $fiche);
+            // creation de la fiche avec le numero info
+            makeNumeroFiche($INFO_APPLI['base_info'], $fiche);
+
+            // mise a jour de la date
             $fiche['obj_date_depot'] = date('y-m-d H:i:s');
         } elseif ($fiche['obj_etat'] == 'STOCK') {
+            // passage en stock
+            // on valide le prix
             $fiche['obj_prix_vente'] = $fiche['obj_prix_depot'];
+            // mise a jour de la date
             $fiche['obj_date_depot'] = date('y-m-d H:i:s');
-            /*} elseif ($fiche['obj_etat'] == 'VENDU') {
-            $fiche['obj_date_vente'] = date('y-m-d H:i:s');
-//            $client = getOneClient($fiche['obj_id_vendeur']);*/
+        } elseif ($fiche['obj_etat'] == 'DESTOCK') {
+            // on remet en CONFIRME
+            $fiche['obj_etat'] = 'CONFIRME';
         } elseif ($fiche['obj_etat'] == 'RENDU' || $fiche['obj_etat'] == 'PAYE') {
+            // action RENDU et PAYE
+            // on valide la date de fin
             $fiche['obj_date_retour'] = date('y-m-d H:i:s');
         } elseif ($fiche['obj_etat'] == 'RESTOCK') {
+            // on remet en STOCK
+            // annulation date de retour RENDU
             $fiche['obj_date_retour'] = null;
-            $fiche['obj_date_vente']  = null;
-            $fiche['obj_id_acheteur'] = 0;
             $fiche['obj_etat'] = 'STOCK';
+        } elseif ($fiche['obj_etat'] == 'DEVENDRE') {
+            // on remet en STOCK
+            $fiche['obj_date_vente'] = null;
+            $fiche['obj_etat'] = 'STOCK';
+            $fiche['obj_id_acheteur'] = null;
+
+        // TODO : mel d'erreur d'envoi ????
+        } elseif ($fiche['obj_etat'] == 'DEPAYE') {
+            // on remet en VENDU
+            $fiche['obj_date_retour'] = null;
+            $fiche['obj_etat'] = 'VENDU';
         }
-        //print_r($fiche);
+
         try {
             updateFiche($fiche);
         } catch (Exception $e) {
@@ -464,36 +572,52 @@ function action_changeEtatFiche($obj)
     return $fiche;
 }
 
+/**
+ * mise en vente
+ */
 function action_vendFiche($data)
 {
     try {
-
         $fiche = tabToObject(string2Tab($data), "obj");
         $client = tabToObject(string2Tab($data), "cli");
 
+        // creation de l'acheteur (ATTENTION : on re recherche l'agent)
         makeClient($client);
 
+        // on recoit l'etat VENDU
         $fiche['obj_etat'] = $fiche['obj_etat_new'];
         unset($fiche['obj_etat_new']);
 
+        // on affecte le nouveau acheteur
         $fiche['obj_id_acheteur'] = $client['cli_id'];
+
+        // la date de vente
         $fiche['obj_date_vente'] = date('y-m-d H:i:s');
+
+        // mise a jour de la fiche
         updateFiche($fiche);
 
+        // on recherche la fiche
         $theFiche = getOneFiche($fiche['obj_id']);
+
+        // on recherche le vendeur
         $cliVend = return_oneClient($theFiche['obj_id_vendeur']);
 
-        $tab = array();
-        if ($theFiche['obj_prix_vente'] < 1000) {
-            $tab['cli_com'] = $theFiche['obj_prix_vente'] * ($cliVend['cli_taux_com'] / 100);
-        } else {
-            $tab['cli_com'] = 100;
-        }
-
+        
+        // si le client a un mel on envoi un mel
         if ($cliVend['cli_emel'] != "") {
+            $tab = array();
+            // calcul de la commission
+            $tab['cli_com'] = getCommission($fiche['obj_id']);
+
             // TODO : envoi du mail
             $titreMel = "BAV #" . $fiche['obj_numero'] . ", votre vélo est vendu .";
+
+            // creation du message avec le template
+            // html/mel_vendu.html
             $message = makeMessage($titreMel, array_merge($fiche, $cliVend, $tab), "mel_vendu.html");
+
+            // envoi du mel
             sendMail($titreMel, $cliVend['cli_emel'], $message);
         }
         return $fiche;
@@ -502,16 +626,21 @@ function action_vendFiche($data)
     }
 }
 
+
+/**
+ * mise a jour de la fiche
+ */
 function action_updateFiche($data)
 {
     $fiche = tabToObject(string2Tab($data), "obj");
     $client = tabToObject(string2Tab($data), "cli");
 
+
+    // attentin au duoblon
     makeClient($client);
 
     $fiche['obj_id_vendeur'] = $client['cli_id'];
     try {
-
         $fiche['obj_marque'] = strtoupper($fiche['obj_marque']);
         $fiche['obj_modele'] = strtoupper($fiche['obj_modele']);
 
@@ -522,14 +651,9 @@ function action_updateFiche($data)
     }
 }
 
-function action_insertFiche($obj)
-{
-    $tab = string2Tab($obj);
-    insertFiche($tab);
-    return true;
-}
-
-
+/**
+ * recherche des fiches
+ */
 function return_fiches($tri, $sens, $selection)
 {
     try {
@@ -540,14 +664,10 @@ function return_fiches($tri, $sens, $selection)
             $tab['total_vente_' . $val['obj_etat']] += $val['obj_prix_vente'];
 
             if ($val['obj_etat'] == "PAYE") {
-                $tab['total_com_paye'] += $val['obj_prix_vente'] * ($val['cli_taux_com'] / 100);
+                $tab['total_com_paye'] +=getCommission($val);
             }
-            if ($val['obj_etat'] == "VENDU") {
-                if ($val['obj_prix_vente'] < 1000) {
-                    $tab['total_com_vendu'] += $val['obj_prix_vente'] * ($val['cli_taux_com'] / 100);
-                } else {
-                    $tab['total_com_vendu'] += 100;
-                }
+            elseif ($val['obj_etat'] == "VENDU") {
+                $tab['total_com_vendu'] +=getCommission($val);
             }
             if (
                 $val['obj_etat'] == "STOCK" || $val['obj_etat'] == "VENDU" || $val['obj_etat'] == "RENDU" || $val['obj_etat'] == "PAYE"
@@ -562,9 +682,10 @@ function return_fiches($tri, $sens, $selection)
     }
 }
 
-
+/**
+ * retou de toutes les fiches
+ */
 function return_fiches_express()
 {
-    $tab = getFichesExpress();
-    return $tab;
+    return  getFiches('obj_numero', "asc", []);
 }
