@@ -169,8 +169,10 @@ Année d'achat :
 	</fieldset>
 	<fieldset class=fiche>
 		<legend class="titreFiche link" id='legendVendeur' onclick='goTo("client.php","consult",document.ficheForm.cli_id.value,"")'>
-			Le vendeur <span id="cli_id_modif" >...</span>
-		</legend>
+			Le vendeur <span id="cli_id" >...</span>
+			&nbsp;<img src="Images/b_drop.png"  
+			title="reinit le client" onclick="removeClient()" id=changeClient/>
+ 		</legend>
 		<div class="row">
 			<div class="col-sm-6 col-md-6 col-xs-12">
 				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Emel <span title="Obligatoire">*</span></span>
@@ -184,12 +186,10 @@ Année d'achat :
 			<div class="col-sm-6 col-md-6 col-xs-12">
 				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Nom et prénom <span title="Obligatoire">*</span></span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
-					<input type=text name='cli_nom' tabindex=<?= $tabindex++ ?> size="50" maxlength="100" required>
-					<!--onkeyup="keyUpNom()"
-					onblur='x_return_oneClientByName(this.value, display_infoClientVendeurBis) >'
+					<input type=text name='cli_nom' tabindex=<?= $tabindex++ ?> size="50" maxlength="100" required
+					onblur='searchByName(this.value) >'
 					list='listVendeurBis'/>
-					<datalist id="listVendeurBis"></datalist>-->
-
+					<datalist id="listVendeurBis"></datalist>
 				</span>
 			</div>
 			<div class="col-sm-6 col-md-6 col-xs-12">

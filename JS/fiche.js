@@ -20,8 +20,8 @@ function initPage() {
     document.ficheForm.obj_type.focus();
 
     if (ADMIN) {
-
         x_return_listClientByMel(display_listVendeur);
+        x_return_listClientByNom(display_listVendeurBis);
        
         console.log("mode " + ADMIN);
         // en mode create de table, le mail n'est pas obligatoire
@@ -58,6 +58,20 @@ function initPage() {
             goTo();
         }
         document.ficheForm.obj_etat_new.value = "INIT";
+    }
+}
+
+function removeClient() {
+    display_infoClientVendeur(null, null);
+}
+
+/**
+ * recherche par nim si pas encore trouve
+ * @param {} value 
+ */
+function searchByName(value) {
+    if (document.ficheForm.cli_id == null) {
+        x_return_oneClientByNom(value, display_infoClientVendeurBis);
     }
 }
 
@@ -571,10 +585,14 @@ function display_infoClientVendeur(val, base) {
         val = [];
         val['cli_id'] = "";
         if (base == 'emel') {
-            //val['cli_nom'] = "";
+            val['cli_nom'] = "";
         }
-        if (base == 'nom') {
+        else if (base == 'nom') {
             //val['cli_emel'] = "";
+        }
+        else {
+            val['cli_nom'] = "";
+            val['cli_mel'] = "";
         }
         val['cli_adresse'] = "";
         val['cli_adresse1'] = "";

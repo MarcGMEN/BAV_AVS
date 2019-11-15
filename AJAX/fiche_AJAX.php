@@ -98,7 +98,9 @@ function action_createFiche($data)
         $tabObj = tabToObject(string2Tab($data), "obj");
         $tabCli = tabToObject(string2Tab($data), "cli");
         
-        // creation du client, avec test si pas deja connu
+        // creation du client, si mel ou nom OK, on le recupere
+        // on en normalement avec le mel uniquement
+        // on a pas de cli_id
         makeClient($tabCli);
 
         $tabObj['obj_id_vendeur'] = $tabCli['cli_id'];
@@ -226,8 +228,10 @@ function action_createFicheExpress($data)
         $tabCli = tabToObject(string2Tab($data), "cli");
 
         // creation mais pas modification
-        // todo, revoir ici, in refait la recherche avec mel et/ou nom pour assurer
-        makeClient($tabCli, false);
+        // on recoit un mel et ou un nom
+        // en cas de mel, on ignore le nom
+        // en cas de nom, pas de mel a priori 
+        makeClient($tabCli,true);
         
         $tabObj['obj_prix_depot'] = $tabObj['obj_prix_vente'];
 
@@ -582,7 +586,10 @@ function action_vendFiche($data)
         $client = tabToObject(string2Tab($data), "cli");
 
         // creation de l'acheteur (ATTENTION : on re recherche l'agent)
-        makeClient($client);
+        // on recoit un mel et ou un nom
+        // en cas de mel, on ignore le nom
+        // en cas de nom, pas de mel a priori 
+        makeClient($client, true);
 
         // on recoit l'etat VENDU
         $fiche['obj_etat'] = $fiche['obj_etat_new'];
@@ -635,16 +642,28 @@ function action_updateFiche($data)
     $fiche = tabToObject(string2Tab($data), "obj");
     $client = tabToObject(string2Tab($data), "cli");
 
-
-    // attentin au duoblon
-    makeClient($client);
-
+    // attention au doublon
+    // en cas de modification du nom, on considère que c'est un chagement de nom
+    if ($client['cli_mel'] != null)  {
+        // si on a saisit un mel, on cherche s'il existe
+        // si oui, on considère qu'on a raison et on modifi les données.
+        // sinon on en crée un nouveau et on le modifie pour la forme
+        makeClient($client);
+    }
+    else {
+        // pas de mel, on a donc un nom qu'on modifie avec le client actuel
+    }
+    
     $fiche['obj_id_vendeur'] = $client['cli_id'];
+    
     try {
         $fiche['obj_marque'] = strtoupper($fiche['obj_marque']);
         $fiche['obj_modele'] = strtoupper($fiche['obj_modele']);
 
         updateFiche($fiche);
+
+        updateClient($client);
+
         return $fiche;
     } catch (Exception $e) {
         return "ERREUR " . $e->getMessage();

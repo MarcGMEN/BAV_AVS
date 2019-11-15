@@ -176,7 +176,6 @@ function update($table, $obj, $cleId)
     $req = "update $table set ";
     // todo : fr sur les champs sauf cleID
     $virgule = "";
-    foreach ($obj as $key => $val) { }
     foreach ($obj as $key => $val) {
         if ($key != $cleId) {
             if ($descTable[$key]) {
