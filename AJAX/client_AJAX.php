@@ -130,12 +130,12 @@ function action_makeClient($data)
  * Si presence d'un nom => recherche => si OK on retourne l'id
  * Sinon on crée...  
  */
-function makeClient(&$tabCli, $withNom=true)
+function makeClient(&$tabCli)
 {
-    if ($tabCli['cli_mel'] != null ) {
-        $tabCli =  getOne($tabCli['cli_mel'], "bav_client", "cli_mel");
+    if ($tabCli['cli_emel'] != null ) {
+        $tabCli =  getOne($tabCli['cli_emel'], "bav_client", "cli_emel");
     }
-    else if ($withNom && $tabCli['cli_nom'] != null ) {
+    else if ($tabCli['cli_nom'] != null ) {
         $tabCli =  getOne($tabCli['cli_nom'], "bav_client", "cli_nom");
     }
     else {

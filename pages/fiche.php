@@ -170,8 +170,6 @@ Année d'achat :
 	<fieldset class=fiche>
 		<legend class="titreFiche link" id='legendVendeur' onclick='goTo("client.php","consult",document.ficheForm.cli_id.value,"")'>
 			Le vendeur <span id="cli_id" >...</span>
-			&nbsp;<img src="Images/b_drop.png"  
-			title="reinit le client" onclick="removeClient()" id=changeClient/>
  		</legend>
 		<div class="row">
 			<div class="col-sm-6 col-md-6 col-xs-12">
@@ -257,6 +255,7 @@ Année d'achat :
 		</div>
 	</div>
 
+<!-- TODO :  possibilité de modifier l'acheteur -->
 	<fieldset class=fiche style='display:none' id="fieldSetAcheteur">
 		<legend class="titreFiche link" onclick='goTo("client.php","consult",document.ficheForm.ach_id.value,"")'>
 			L'acheteur</legend>
@@ -274,17 +273,7 @@ Année d'achat :
 			<div class="col-sm-6 col-md-6 col-xs-12">
 				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Adresse</span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
-					<div id='ach_adresse'></div>
-					<div id='ach_adresse1'></div>
 					<div id='ach_code_postal'></div>
-					<div id='ach_ville'></div>
-				</span>
-			</div>
-			<div class="col-sm-6 col-md-6 col-xs-12">
-				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Telephone</span>
-				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
-					<div id='ach_telephone'></div>
-					<div id='ach_telephone_bis'></div>
 				</span>
 			</div>
 		</div>

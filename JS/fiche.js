@@ -60,17 +60,12 @@ function initPage() {
         document.ficheForm.obj_etat_new.value = "INIT";
     }
 }
-
-function removeClient() {
-    display_infoClientVendeur(null, null);
-}
-
 /**
  * recherche par nim si pas encore trouve
  * @param {} value 
  */
 function searchByName(value) {
-    if (document.ficheForm.cli_id == null) {
+    if (document.ficheForm.cli_id == null && document.ficheForm.cli_emel == null) {
         x_return_oneClientByNom(value, display_infoClientVendeurBis);
     }
 }
@@ -592,7 +587,7 @@ function display_infoClientVendeur(val, base) {
         }
         else {
             val['cli_nom'] = "";
-            val['cli_mel'] = "";
+            val['cli_emel'] = "";
         }
         val['cli_adresse'] = "";
         val['cli_adresse1'] = "";

@@ -231,7 +231,7 @@ function action_createFicheExpress($data)
         // on recoit un mel et ou un nom
         // en cas de mel, on ignore le nom
         // en cas de nom, pas de mel a priori 
-        makeClient($tabCli,true);
+        makeClient($tabCli);
         
         $tabObj['obj_prix_depot'] = $tabObj['obj_prix_vente'];
 
@@ -589,7 +589,7 @@ function action_vendFiche($data)
         // on recoit un mel et ou un nom
         // en cas de mel, on ignore le nom
         // en cas de nom, pas de mel a priori 
-        makeClient($client, true);
+        makeClient($client);
 
         // on recoit l'etat VENDU
         $fiche['obj_etat'] = $fiche['obj_etat_new'];
@@ -643,16 +643,11 @@ function action_updateFiche($data)
     $client = tabToObject(string2Tab($data), "cli");
 
     // attention au doublon
-    // en cas de modification du nom, on considère que c'est un chagement de nom
-    if ($client['cli_mel'] != null)  {
-        // si on a saisit un mel, on cherche s'il existe
-        // si oui, on considère qu'on a raison et on modifi les données.
-        // sinon on en crée un nouveau et on le modifie pour la forme
-        makeClient($client);
-    }
-    else {
-        // pas de mel, on a donc un nom qu'on modifie avec le client actuel
-    }
+    // un mel, on cherche si OK, si oui on modifie les données
+    // si pas de mel, on cherche le nom si OK, on recupere et modifis les données
+    // attention au homonyne..
+    // si rien trouvé on le crée.
+    makeClient($client);
     
     $fiche['obj_id_vendeur'] = $client['cli_id'];
     
