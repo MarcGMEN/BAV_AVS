@@ -44,7 +44,7 @@ function return_countByTarifSup($ref, $type="depot")
 
 /**
  * retourne les stats pour une selection données
- * deux notions : depot-stock et vente-paye
+ * deux notions : depot (confirme-stock) et vente (vendu-paye)
  */
 function return_statByType($selection, $type='depot')
 {
@@ -266,6 +266,9 @@ function return_statDelais()
     return $tabCount;
 }
 
+/**
+ * stat de la repartion des depots et ventes sur le 3 jours
+ */
 function return_statRepartion()
 {
     try {
@@ -334,13 +337,22 @@ function return_statRepartion()
     return $tabCount;
 }
 
+/**
+ * creation d'un fromage 
+ * by : choix du champ
+ * data : client ou objetVente ou objetDepot
+ * trie par defaut par la clef
+ */
 function return_graphCount($by, $data = '')
 {
     if ($data == 'client') {
         $tabCount = return_statClient();
-    } else {
-        $tabCount = return_stat(null);
+    } else if ($data == 'depotVente') {
+        $tabCount = return_statByType(null,"vente");
+    }else {
+        $tabCount = return_statByType(null,"depot");
     }
+
     ksort($tabCount["count_$by"]);
     // ********************************************************************
     // PARTIE : Création du graphique
@@ -376,13 +388,25 @@ function return_graphCount($by, $data = '')
     return "./out/img/secteur_$by.png";
 }
 
+/**
+ * creation d'une image hostogramme
+ * by : choix du champ
+ * width, height : taille 
+ * sort : tri 0 rien, 1 données triées par ordre decroissant,  2 clef ordre croissant
+ * data : client ou objetVente ou objetDepot
+ * minima : valeur mininale a afficher, pour retire les 1 par ex
+ */
 function return_histoCount($by, $width = 400, $height = 250, $sort = 0, $data = '', $minima=0)
 {
     if ($data == 'client') {
         $tabCount = return_statClient();
-    } else {
-        $tabCount = return_stat(null);
+    } else if ($data == 'depotVente') {
+        $tabCount = return_statByType(null,"vente");
+    }else {
+        $tabCount = return_statByType(null,"depot");
     }
+
+
     $tabUse=[];
     foreach ($tabCount["count_$by"] as $key => $val) {
         if ($val > $minima) {
@@ -395,8 +419,6 @@ function return_histoCount($by, $width = 400, $height = 250, $sort = 0, $data = 
     } elseif ($sort == 2) {
         ksort($tabUse);
     }
-    // $tabCount["count_$by"]=array(13,8,19,7,17,6);
-    //print_r($tabCount["count_$by"]);
     // Construction du conteneur
     // Spécification largeur et hauteur
     $graph = new Graph($width, $height);
