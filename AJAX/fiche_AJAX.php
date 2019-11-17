@@ -103,6 +103,11 @@ function action_createFiche($data)
         // on a pas de cli_id
         makeClient($tabCli);
 
+        // en cas de creation, on reforce un update
+        // en cas de client trouve par mel ou nom on prend compte les modifs possible
+        // adresse ou nom si mel ok.
+        updateClient($tabCli);
+
         $tabObj['obj_id_vendeur'] = $tabCli['cli_id'];
 
         $tabObj['obj_id'] = 0;

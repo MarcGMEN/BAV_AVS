@@ -10,13 +10,8 @@
 			x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);
 			x_return_statClient(display_statClient);
 			x_return_stat(tabToString(tabSel), display_stat)
-			//x_return_graphCount('type', display_countType);
-			//x_return_graphCount('pratique', display_countPratique);
-			//x_return_graphCount('public', display_countPublic);
-			//x_return_histoCount('marque', 1000, 250, 1, '', 1, display_countMarque);
 			x_return_histoCount('tarif', 500, 250, display_countTarif);
 			x_return_countByTarifSup(500, display_countByTarifSup);
-			//x_return_histoCount('code_postal', 500, 250, 1, 'client', 1, display_countCDP);
 		} else {
 			goTo();
 		}
