@@ -9,16 +9,16 @@
 /**
  * retourne la liste des mels des clienrts pour une selection
  */
-function return_listClientByMel($mel=null)
+function return_listClientByMel($mel = null)
 {
-    $tabRet= listUnique("bav_client", "cli_emel", $mel);
+    $tabRet = listUnique("bav_client", "cli_emel", $mel);
     return $tabRet;
 }
 
 /**
  * retourne la liste de nom des clients
  */
-function return_listClientByName($nom)
+function return_listClientByName($nom = null)
 {
     return listUnique("bav_client", "cli_nom", utf8_encode($nom));
 }
@@ -75,8 +75,7 @@ function return_clientsRecap($tri, $sens, $selection, $all = false)
 function return_oneClient($id)
 {
     $row = getOneClient($id);
-    if ($row) {
-    }
+    if ($row) { }
     return $row;
 }
 
@@ -88,6 +87,19 @@ function action_updateClient($obj)
     $tab = string2Tab($obj);
     // // TODO : test cohérence object
     try {
+        // on verifie que le mel n'est pas utilisé
+        if ($tab['cli_emel']) {
+            $climel = getOneClientByMel($tab['cli_emel']);
+            if ($climel['cli_id'] != $tab['cli_id']) {
+                return "Mel déja utilisé pour " . $climel['cli_nom'];
+            }
+        }
+        else {
+            $climel = getOneClientByName($tab['cli_nom']);
+            if ($climel['cli_id'] != $tab['cli_id']) {
+                return "Nom déja utilisé pour " . $climel['cli_id_modif'];
+            }
+        }
         updateClient($tab);
         return $tab;
     } catch (Exception $e) {
@@ -132,13 +144,11 @@ function action_makeClient($data)
  */
 function makeClient(&$tabCli)
 {
-    if ($tabCli['cli_emel'] != null ) {
+    if ($tabCli['cli_emel'] != null) {
         $tabCli =  getOne($tabCli['cli_emel'], "bav_client", "cli_emel");
-    }
-    else if ($tabCli['cli_nom'] != null ) {
+    } else if ($tabCli['cli_nom'] != null) {
         $tabCli =  getOne($tabCli['cli_nom'], "bav_client", "cli_nom");
-    }
-    else {
+    } else {
         $tabCli['cli_id'] = 0;
         $tabCli['cli_id_modif'] = hash_hmac('md5', rand(0, 200000), 'avs44');
         if (!$tabCli['cli_taux_com']) {

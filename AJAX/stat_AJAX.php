@@ -39,7 +39,8 @@ function return_statClient()
  */
 function return_countByTarifSup($ref, $type="depot")
 {
-    return countBy("obj_prix_$type", ">=", $ref);
+    $etats = $type == "depot" ? "'STOCK','RENDU'" :  "'PAYE','VENDU'";
+    return countBy("obj_prix_$type", ">=", $ref,$etats);
 }
 
 /**
@@ -55,7 +56,7 @@ function return_statByType($selection, $type='depot')
             "prixMini$type" => 'Prix mini depot',
             "prixMaxi$type" => 'Prix maxi depot',
             "prixMoyen$type" => 'Prix moyen depot',
-            "nbVelo$type" => 'Nombre moyen de vélo par vendeur',
+            "nbVeloVendeur$type" => 'Nombre moyen de vélo par vendeur',
             "nbVeloMaxiVendeur$type" => 'Nombre maxi de vélo pour un vendeur'
         ];
         
@@ -78,7 +79,9 @@ function return_statByType($selection, $type='depot')
         $tabCount['count_tarif'] = [];
 
         $tabCount['count'] = 0;
-        
+        $tabVendeur=[];
+        $tabAcheteur=[];
+
         // initi du total
         $total= 0;
         // le nombre
@@ -102,7 +105,6 @@ function return_statByType($selection, $type='depot')
              
                 // recherche du prix a travailler
                 $thePrix = $val[$champPrix];
-            
 
                 // creation du tableau pour la repartition des prix
                 $tarifOld = '0';
@@ -269,7 +271,7 @@ function return_statDelais()
 /**
  * stat de la repartion des depots et ventes sur le 3 jours
  */
-function return_statRepartion()
+function return_statRepartition()
 {
     try {
         $tab = getFiches(null, 'asc', null);

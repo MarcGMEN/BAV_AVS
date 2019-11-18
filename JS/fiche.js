@@ -426,7 +426,7 @@ function display_fin_modif(val) {
         setStartSaisie(false);
         x_return_countByEtat(display_counter);
         x_return_oneFiche(val['obj_id'], display_fiche);
-        alertModalInfoTimeout("Fiche modifié.",0.1);
+        alertModalInfoTimeout("Fiche modifié.",0.5);
     } else {
         alertModalWarn(val);
     }

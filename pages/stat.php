@@ -20,16 +20,16 @@
 			x_return_statRepartition(display_formulaire);
 
 			// visu de la stat de depot
-			x_return_return_statByType(tabToString(tabSel),"depot", display_statDepot);
+			x_return_statByType(tabToString(tabSel),"depot", display_statDepot);
 
 			// affichage d'un histo des tarifs de depot
 			x_return_histoCount('tarif', 500, 250, 0, 'objet-Vente', display_countTarifDepot);
 
 			// retour du nombre d'objet vendu supérieur a 500 
-			x_return_countByTarifSup(500, "vente", display_countByTarifSupDepot);
+			x_return_countByTarifSup(500, "depot", display_countByTarifSupDepot);
 
 			// visu de la stat de vente
-			x_return_return_statByType(tabToString(tabSel),"vente", display_statVente);
+			x_return_statByType(tabToString(tabSel),"vente", display_statVente);
 
 			// affichage d'un histo des tarifs de vente
 			x_return_histoCount('tarif', 500, 250, 0, 'objet-Vente', display_countTarifVente);
@@ -96,9 +96,9 @@
 		display_formulaire(tabAff, null);
 
 		// visu de la stat de depot
-		x_return_return_statByType(tabToString(tabSel),"depot", display_statDepot);
+		x_return_statByType(tabToString(tabSel),"depot", display_statDepot);
 		// visu de la stat de vente
-		x_return_return_statByType(tabToString(tabSel),"vente", display_statVente);
+		x_return_statByType(tabToString(tabSel),"vente", display_statVente);
 	}
 
 	function display_statDepot(val) {
@@ -175,8 +175,8 @@
         'prixMinidepot' => 'Prix mini depot',
         'prixMaxidepot' => 'Prix maxi depot',
 		'prixMoyendepot' => 'Prix moyen depot',
-		'nbVeloVendeurDepot' => 'Nombre moyen de velo vendu / vendu',
-		'nbVeloMaxiVendeurDepot' => 'Nombre maxi de velo vendu / vendeur',
+		'nbVeloVendeurdepot' => 'Nombre moyen de velo vendu / vendu',
+		'nbVeloMaxiVendeurdepot' => 'Nombre maxi de velo vendu / vendeur',
 	];
 	$tabCategLigneVente = [
         'prixMinivente' => 'Prix mini vente',
@@ -239,7 +239,10 @@
 	<hr/>
 	<table width="100%">
 		<tr class='tabl1'>
-			<td class="tittab">Nombre de velo superieur a <input type=range oninput="getElement('resultRangeVente').innerHTML=this.value" onchange="x_return_countByTarifSupDepot(this.value, display_countByTarifSupDepot);" min=0 max=3000 range=50 value=500 list="tickmarksDepot" />
+			<td class="tittab">Nombre de velo superieur a 
+				<input type=range oninput="getElement('resultRangeDepot').innerHTML=this.value" 
+					onchange="x_return_countByTarifSup(this.value,'depot', display_countByTarifSupDepot);" 
+					min=0 max=3000 range=50 value=500 list="tickmarksDepot" />
 				<datalist id="tickmarksDepot">
 					<option value="0">
 					<option value="100">
@@ -294,7 +297,9 @@
 	<hr/>
 	<table width="100%">
 		<tr class='tabl1'>
-			<td class="tittab">Nombre de velo superieur a <input type=range oninput="getElement('resultRangeVente').innerHTML=this.value" onchange="x_return_countByTarifSupVente(this.value, display_countByTarifSupVente);" min=0 max=3000 range=50 value=500 list="tickmarksVente" />
+			<td class="tittab">Nombre de velo superieur a <input type=range oninput="getElement('resultRangeVente').innerHTML=this.value" 
+				onchange="x_return_countByTarifSup(this.value, 'vente', display_countByTarifSupVente);" 
+				min=0 max=3000 range=50 value=500 list="tickmarksVente" />
 				<datalist id="tickmarksVente">
 					<option value="0">
 					<option value="100">

@@ -38,8 +38,10 @@
 					<? if ($GET_modePage != 'modif') { ?>
 						<span id='cli_emel'></span>
 					<? } else { ?>
-						<input type=email name='cli_emel' id="cli_emel" size="50" maxlength="100" tabindex=<?= $tabindex++ ?> placeholder="aaaa.bbbb@ccc.dd" onkeyup="keyUpMel()" onblur='x_return_oneClientByMel(this.value, display_infoClientVendeur)' list='listVendeur' />
-						<datalist id="listVendeur"></datalist>
+						<input type=email name='cli_emel' id="cli_emel" size="50" maxlength="100" 
+							tabindex=<?= $tabindex++ ?> placeholder="aaaa.bbbb@ccc.dd" 
+							onkeyup="setStartSaisie(true);" 
+							onblur='searchByMel(this.value)' />
 					<? } ?>
 				</span>
 			</div>
@@ -49,7 +51,9 @@
 					<? if ($GET_modePage != 'modif') { ?>
 						<span id='cli_nom'></span>
 					<? } else { ?>
-						<input type=text name='cli_nom' tabindex=<?= $tabindex++ ?> size="50" maxlength="100" required onkeyup="setStartSaisie(true);" />
+						<input type=text name='cli_nom' tabindex=<?= $tabindex++ ?> size="50" maxlength="100" required 
+						onkeyup="setStartSaisie(true);" 
+						onblur='searchByName(this.value)' />
 					<? } ?>
 				</span>
 			</div>
@@ -144,7 +148,7 @@
 		</tr>
 		<tr>
 			<td>
-				<span id=total></span>
+				<span id=totalfiches></span>
 			</td>
 			<td><b><span id=total_vente_depot>0.00</span> €</b></td>
 			<td><b><span id=total_vente_stock>0.00</span> €</b></td>
@@ -197,5 +201,5 @@
 <h3>Ventes</h3>
 <div id=fiches></div>
 <hr />
-<h3>Achats</h3>
+<h3>Achats [nb : <span id=totalfichesA></span>]</h3>
 <div id=fichesA></div>

@@ -18,8 +18,7 @@
 	} 
 
 	function display_clients(val) {
-		console.log(val);
-        var total = 0;
+		var total = 0;
 		var repr="<table width='100%' border=1>";
 		if (selection.cli_nom != "*") {
 			var reg=new RegExp("("+selection.cli_nom+")", "gi");

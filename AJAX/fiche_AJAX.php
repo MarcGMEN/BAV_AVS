@@ -678,9 +678,9 @@ function return_fiches($tri, $sens, $selection)
     try {
         $tab = getFiches($tri, $sens, string2Tab($selection));
 
-        $tab['total_com'] = 0;
         foreach ($tab as $key => $val) {
             $tab['total_vente_' . $val['obj_etat']] += $val['obj_prix_vente'];
+            $tab['total_nb_' . $val['obj_etat']]++;
 
             if ($val['obj_etat'] == "PAYE") {
                 $tab['total_com_paye'] +=getCommission($val);
