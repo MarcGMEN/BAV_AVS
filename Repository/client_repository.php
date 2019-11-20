@@ -21,7 +21,7 @@ function getOneClientByMel($id)
  */
 function getOneClientByName($id)
 {
-    return getOne($id, "bav_client", "cli_nom");
+    return getOne($id, "bav_client", "cli_nom", "cli_emel");
 }
 
 /**
@@ -90,8 +90,9 @@ function getClientsRecap($order, $sens, $tabSel, $all = false)
 function getClients($order, $sens, $tabSel, $all = false)
 {
     $requete2 = "SELECT * from bav_client ";
+    $requete2 .= " where 1 = 1 ";
     if (!$all) {
-        $requete2 .= " where exists (select obj_id from bav_objet where (obj_id_vendeur = cli_id OR obj_id_acheteur = cli_id) ";
+        $requete2 .= " and exists (select obj_id from bav_objet where (obj_id_vendeur = cli_id OR obj_id_acheteur = cli_id) ";
         $requete2 .= " and obj_numero_bav = " . $GLOBALS['INFO_APPLI']['numero_bav'] . ") ";
     }
     foreach ($tabSel as $key => $val) {
@@ -126,8 +127,11 @@ function getClients($order, $sens, $tabSel, $all = false)
  */
 function updateClient($obj)
 {
-    
-    return update("bav_client", $obj, "cli_id");
+    if ($obj == "") { 
+        return "update impossible sans id";
+    } else {
+        return update("bav_client", $obj, "cli_id");
+    }
 }
 
 /**
@@ -143,5 +147,9 @@ function insertClient($obj)
  */
 function deleteClient($id)
 {
-    return delete("bav_client", $id, "cli_id");
+    if ($id == "") {
+        return "Suppression impossible sans id";
+    } else {
+        return delete("bav_client", $id, "cli_id");
+    }
 }

@@ -27,6 +27,7 @@ function confirmModalTest() {
 
 function display_openPDF(val) {
     console.log(val);
+    closeModal();
     document.body.style.cursor = 'default';
     window.open(val, '_blank');
 }

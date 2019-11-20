@@ -109,16 +109,16 @@ function listUnique($table, $champ, $sel = null, $champPlus = null)
         $query .= " , $champPlus ";
     }
     $query .= " order by $champ";
-    
+    error_log("listUnique ".$query);
     $tab = array();
     if ($result = $GLOBALS['mysqli']->query($query)) {
         $tab = array();
         $index = 0;
         while ($row = $result->fetch_assoc()) {
             if ($champPlus) {
-                $tab[$row[$champ]] = strtoupper($row[$champ]." [".$row[$champPlus]."]");
+                $tab[$row[$champ] . " [" . $row[$champPlus] . "]"] = $row[$champ];
             } else {
-                $tab[$index++] = strtoupper($row[$champ]);
+                $tab[$index++] = $row[$champ];
             }
         }
         $result->close();
@@ -243,10 +243,14 @@ function insert($table, $obj)
  */
 function delete($table, $id, $cleId)
 {
-    $req = "delete from $table ";
-    $req .= " where $cleId = '$id'";
-    if (!$GLOBALS['mysqli']->query($req)) {
-        throw new Exception("Pb d'update' [$req]" . $GLOBALS['mysqli']->error);
+    if ($id == "") {
+        return false;
+    } else {
+        $req = "delete from $table ";
+        $req .= " where $cleId = '$id'";
+        if (!$GLOBALS['mysqli']->query($req)) {
+            throw new Exception("Pb d'update' [$req]" . $GLOBALS['mysqli']->error);
+        }
+        return true;
     }
-    return true;
 }

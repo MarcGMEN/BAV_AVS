@@ -6,18 +6,18 @@
  */
 function get_modelesByMarques($marque)
 {
-    $tab=array();
-            
+    $tab = array();
+
     if ($marque) {
-        $requete2 = "SELECT distinct(obj_modele) modele from bav_objet where obj_marque = '".$marque."'";
+        $requete2 = "SELECT distinct(obj_modele) modele from bav_objet where obj_marque = '" . $marque . "'";
         if ($result = $GLOBALS['mysqli']->query($requete2)) {
-            $index=0;
+            $index = 0;
             while ($row = $result->fetch_assoc()) {
                 $tab[$index++] = $row['modele'];
             }
             $result->close();
         } else {
-            throw new Exception("get_modelesByMarques' [$requete2]".mysqli_error($result));
+            throw new Exception("get_modelesByMarques' [$requete2]" . mysqli_error($result));
         }
     }
     return $tab;
@@ -28,20 +28,20 @@ function get_modelesByMarques($marque)
  */
 function countByEtat($idVendeur = null)
 {
-    $requete2 = "SELECT count(*), obj_etat from bav_objet where obj_numero_bav = '".$GLOBALS['INFO_APPLI']['numero_bav']."'";
+    $requete2 = "SELECT count(*), obj_etat from bav_objet where obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "'";
     if ($idVendeur) {
         $requete2 .= " and obj_id_vendeur = $idVendeur";
     }
     $requete2 .= " group by obj_etat ";
     if ($result = $GLOBALS['mysqli']->query($requete2)) {
-        $tab=array();
-        $index=0;
+        $tab = array();
+        $index = 0;
         while ($row = $result->fetch_assoc()) {
             $tab[$row['obj_etat']] = $row['count(*)'];
         }
         $result->close();
     } else {
-        throw new Exception("countByEtat' [$requete2]".mysqli_error($result));
+        throw new Exception("countByEtat' [$requete2]" . mysqli_error($result));
     }
     return $tab;
 }
@@ -49,21 +49,21 @@ function countByEtat($idVendeur = null)
 /**
  * comptage des fiches d'une BAV en fonction d'un critere
  */
-function countBy($sel, $search="=", $val, $etats="'STOCK','RENDU'")
+function countBy($sel, $search = "=", $val, $etats = "'STOCK','RENDU'")
 {
     $requete2 = "SELECT count(*) from bav_objet ";
-    $requete2 .= "where obj_numero_bav = '".$GLOBALS['INFO_APPLI']['numero_bav']."'";
+    $requete2 .= "where obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "'";
     $requete2 .= " and obj_etat in ($etats)";
     if ($sel && $val != "*") {
         $requete2 .= " and $sel $search '$val' ";
     }
     if ($result = $GLOBALS['mysqli']->query($requete2)) {
-        $tab=array();
+        $tab = array();
         $row = $result->fetch_assoc();
         $count = $row['count(*)'];
         $result->close();
     } else {
-        throw new Exception("countBy' [$requete2]".mysqli_error($result));
+        throw new Exception("countBy' [$requete2]" . mysqli_error($result));
     }
     return $count;
 }
@@ -75,12 +75,12 @@ function countBy($sel, $search="=", $val, $etats="'STOCK','RENDU'")
  */
 function makeNumeroFiche($base, &$objet)
 {
-    $objet['obj_numero']=getFicheLibre($base);
+    $objet['obj_numero'] = getFicheLibre($base);
     // creation de idmodif
-    $objet['obj_id_modif']=hash_hmac(
+    $objet['obj_id_modif'] = hash_hmac(
         'md5',
         $objet['obj_numero'],
-        'avs44'.$GLOBALS['INFO_APPLI']['numero_bav']
+        'avs44' . $GLOBALS['INFO_APPLI']['numero_bav']
     );
 }
 
@@ -95,11 +95,11 @@ function makeNumeroFiche($base, &$objet)
 function getFicheLibre($base)
 {
     $row = null;
-    $query = " SELECT obj_numero from bav_objet where obj_numero >= $base and obj_numero_bav = '".
-        $GLOBALS['INFO_APPLI']['numero_bav']."' order by obj_numero";
+    $query = " SELECT obj_numero from bav_objet where obj_numero >= $base and obj_numero_bav = '" .
+        $GLOBALS['INFO_APPLI']['numero_bav'] . "' order by obj_numero";
     if ($result = $GLOBALS['mysqli']->query($query)) {
-        $tab=array();
-        $index=0;
+        $tab = array();
+        $index = 0;
         while ($row = $result->fetch_assoc()) {
             if ($row['obj_numero'] != $base) {
                 break;
@@ -108,7 +108,7 @@ function getFicheLibre($base)
         }
         $result->close();
     } else {
-        throw new Exception("Pb getFicheLibre' [$query]".mysqli_error($result));
+        throw new Exception("Pb getFicheLibre' [$query]" . mysqli_error($result));
     }
     return $base;
 }
@@ -121,9 +121,9 @@ function getOneFicheByCode($id)
     $row = null;
     if (isset($id)) {
         $requete2 = " SELECT * from bav_objet ";
-        $requete2 .= " where obj_numero = '" . $id."'";
-        $requete2 .= " and  obj_numero_bav = '".$GLOBALS['INFO_APPLI']['numero_bav']."'";
-        $row=$GLOBALS['mysqli']->query($requete2)->fetch_assoc();
+        $requete2 .= " where obj_numero = '" . $id . "'";
+        $requete2 .= " and  obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "'";
+        $row = $GLOBALS['mysqli']->query($requete2)->fetch_assoc();
     }
     return $row;
 }
@@ -140,7 +140,7 @@ function getFiches($order, $sens, $tabSel)
     $requete2 = "SELECT bav_objet.*, ve.*, ve.cli_nom vendeur_nom, ac.cli_nom acheteur_nom from bav_objet ";
     $requete2 .= "  left outer join bav_client as ve on obj_id_vendeur = ve.cli_id ";
     $requete2 .= "  left outer join bav_client as ac on obj_id_acheteur = ac.cli_id ";
-    $requete2 .= " where obj_numero_bav = '".$GLOBALS['INFO_APPLI']['numero_bav']."'";
+    $requete2 .= " where obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "'";
     //echo $requete2;
     foreach ($tabSel as $key => $val) {
         if ($key == "obj_search") {
@@ -155,14 +155,14 @@ function getFiches($order, $sens, $tabSel)
     $result = $GLOBALS['mysqli']->query($requete2);
     //echo $result;
     if ($result) {
-        $tab=array();
-        $index=0;
+        $tab = array();
+        $index = 0;
         while ($row = $result->fetch_assoc()) {
             $tab[$index++] = $row;
         }
         $result->close();
     } else {
-        throw new Exception("getFiches' [$requete2] ".$GLOBALS['mysqli']->error);
+        throw new Exception("getFiches' [$requete2] " . $GLOBALS['mysqli']->error);
     }
     return $tab;
 }
@@ -185,7 +185,7 @@ function getAllFiche()
 
 /**
  * recherche un fiche avec son ID
-*/
+ */
 function getOneFiche($id)
 {
     return getOne($id, "bav_objet", "obj_id");
@@ -197,7 +197,11 @@ function getOneFiche($id)
  */
 function updateFiche($obj)
 {
-    return update('bav_objet', $obj, "obj_id");
+    if ($obj == "") {
+        return "update impossible sans id";
+    } else {
+        return update('bav_objet', $obj, "obj_id");
+    }
 }
 
 /**
@@ -213,5 +217,9 @@ function insertFiche($obj)
  */
 function deleteFiche($id)
 {
-    return delete('bav_objet', $id, "obj_id");
+    if ($id == "") {
+        return "delete impossible sans id";
+    } else {
+        return delete('bav_objet', $id, "obj_id");
+    }
 }

@@ -20,7 +20,8 @@ function return_listClientByMel($mel = null)
  */
 function return_listClientByName($nom = null)
 {
-    return listUnique("bav_client", "cli_nom", utf8_encode($nom));
+    //return listUnique("bav_client", "cli_nom", utf8_encode($nom),"cli_emel");
+    return getClients("cli_nom", "asc", ['cli_nom'=>$nom], true);
 }
 
 /**
@@ -90,13 +91,13 @@ function action_updateClient($obj)
         // on verifie que le mel n'est pas utilisé
         if ($tab['cli_emel']) {
             $climel = getOneClientByMel($tab['cli_emel']);
-            if ($climel['cli_id'] != $tab['cli_id']) {
+            if ($climel['cli_id'] &&  $climel['cli_id'] != $tab['cli_id']) {
                 return "Mel déja utilisé pour " . $climel['cli_nom'];
             }
         }
         else {
             $climel = getOneClientByName($tab['cli_nom']);
-            if ($climel['cli_id'] != $tab['cli_id']) {
+            if ($climel['cli_id'] && $climel['cli_id'] != $tab['cli_id']) {
                 return "Nom déja utilisé pour " . $climel['cli_id_modif'];
             }
         }
@@ -145,10 +146,17 @@ function action_makeClient($data)
 function makeClient(&$tabCli)
 {
     if ($tabCli['cli_emel'] != null) {
-        $tabCli =  getOne($tabCli['cli_emel'], "bav_client", "cli_emel");
-    } else if ($tabCli['cli_nom'] != null) {
-        $tabCli =  getOne($tabCli['cli_nom'], "bav_client", "cli_nom");
-    } else {
+        //echo "makeClient => recherche par mel";
+        $clientSearch =  getOne($tabCli['cli_emel'], "bav_client", "cli_emel");
+        
+    }
+    if ($clientSearch==null && $tabCli['cli_nom'] != null) {
+        //echo "makeClient => recherche par nom";
+        $clientSearch =  getOne($tabCli['cli_nom'], "bav_client", "cli_nom");
+    }
+
+    if ($clientSearch==null) {
+        //echo "makeClient => inconnu, alors creation";
         $tabCli['cli_id'] = 0;
         $tabCli['cli_id_modif'] = hash_hmac('md5', rand(0, 200000), 'avs44');
         if (!$tabCli['cli_taux_com']) {
@@ -158,6 +166,9 @@ function makeClient(&$tabCli)
             $tabCli['cli_prix_depot'] = 5;
         }
         $tabCli['cli_id'] = insertClient($tabCli);
+
+        $clientSearch = $tabCli;
     }
-    return $tabCli;
+    
+    return $clientSearch;
 }

@@ -567,23 +567,23 @@ td.tabl1 {
 	background-color:lightblue;
 	font-weight: bold;
 }
-tr.CONFIRME {
+tr.CONFIRME, span.CONFIRME  {
 	background-color: lightcoral;
 	color: BLACK;
 }
-tr.STOCK {
+tr.STOCK, span.STOCK {
 	background-color: ORANGE;
 	color: BLACK;
 }
-tr.VENDU {
+tr.VENDU, span.VENDU {
 	background-color: GREEN;
 	color: BLACK;
 }
-tr.PAYE {
+tr.PAYE, span.PAYE {
 	background-color: DARKGREEN;
 	color: WHITE;
 }
-tr.RENDU {
+tr.RENDU, span.RENDU {
 	background-color: darkorange;
 	color: WHITE;
 }

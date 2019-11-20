@@ -27,30 +27,13 @@
 	<fieldset class=fiche>
 		<legend class=titreFiche>Le depot</legend>
 		<h4>
-			<div class="row tittab" id='trTitreFiche' style='display: none'>
-				<div class="col-sm-3 col-md-3 col-xs-3">
-					<span class="titrow col-md-3 col-sm-3 col-xs-3" width=20%>No</span>
-					<span class="tabl1 col-md-9 col-sm-9 col-xs-9">
+			<div class="row tittab" id='trTitreFiche' style='display: none;vertical-align: middle;'>
+				<div class="col-sm-6 col-md-6 col-xs-6" >
 						<input type="hidden" name="obj_numero" />
-						<span id='obj_numero'></span>
-					</span>
+						No&nbsp;:&nbsp;<span style="font-size: 1.5em" id='obj_numero'></span>
 				</div>
-				<div class="col-sm-6 col-md-6 col-xs-6">
-					<div class="col-sm-6 col-md-6 col-xs-6 tabl1">
-						<small><span class="alert-info" id="obj_etat_libelle"></span></small>
-						<input type="hidden" name="obj_etat" />
-						<input type="hidden" name="obj_etat_new" />
-					</div>
-					<div class="col-sm-6 col-md-6 col-xs-6 tabl1" id="tdBtnEtat" style='display: none'>
-						<input type=button name="buttonEtatFiche" tabindex=<?= $tabindex++ ?> onclick='changeEtatFiche()' />
-						<input type=button id="btnEtatFichePlus" name="buttonEtatFicheBis" style="display:none" tabindex=<?= $tabindex++ ?> />
-					</div>
-				</div>
-				<div class="col-sm-3 col-md-3 col-xs-3">
-					<span class="titrow col-md-3 col-sm-3 col-xs-3" width=20%>ID</span>
-					<span class="tabl1 col-md-9 col-sm-9 col-xs-9">
-						<span id='obj_id_modif'></span>
-					</span>
+				<div class="col-sm-6 col-md-6 col-xs-6 tabl1">
+					<span class="alert-info" id="obj_etat_libelle"></span>
 				</div>
 			</div>
 		</h4>
@@ -106,10 +89,7 @@
 				</span>
 				<span class="tabInput col-md-10 col-sm-10 col-xs-9">
 					<textarea rows="4" cols="100" tabindex=<?= $tabindex++ ?> style="resize:none;overflow: none;" name="obj_description" maxlength="250" 
-						onkeyup="MaxLengthTextarea(this, 250);setStartSaisie(true)" placeholder="Année d'achat, prix d'achat, taille, accessoires, révision (transmission, pneus, freins..)">Taille : 
-Prix d'achat : 
-Année d'achat : 
-....</textarea>
+						onkeyup="MaxLengthTextarea(this, 250);setStartSaisie(true)" placeholder="Année d'achat, prix d'achat, taille, accessoires, révision (transmission, pneus, freins..)"></textarea>
 				</span>
 				<span class="col-md-12 col-sm-12 col-xs-12 help">
 					<div id="aide_descript" style="visibility: hidden;">
@@ -168,8 +148,10 @@ Année d'achat :
 		</div>
 	</fieldset>
 	<fieldset class=fiche>
-		<legend class="titreFiche link" id='legendVendeur' onclick='goTo("client.php","consult",document.ficheForm.cli_id.value,"")'>
-			Le vendeur <span id="cli_id" >...</span>
+		<legend class="titreFiche link" id='legendVendeur' 
+			onclick='goTo("client.php","consult",document.ficheForm.cli_id.value,"")'
+			title="Accès au vendeur">
+			Le vendeur <span style="font-size: 0.8em" id="cli_id" >...</span>
  		</legend>
 		<div class="row">
 			<div class="col-sm-6 col-md-6 col-xs-12">
@@ -177,7 +159,7 @@ Année d'achat :
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
 					<input type=email name='cli_emel' id="cli_emel" 
 					size="50" maxlength="100" tabindex=<?= $tabindex++ ?> placeholder="aaaa.bbbb@ccc.dd" required 
-					onblur='x_return_oneClientByMel(this.value, display_infoClientVendeurMel)' list='listVendeur' />
+					onblur='searchByMel(this.value)' list='listVendeur' />
 					<datalist id="listVendeur"></datalist>
 				</span>
 			</div>
@@ -185,9 +167,8 @@ Année d'achat :
 				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Nom et prénom <span title="Obligatoire">*</span></span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
 					<input type=text name='cli_nom' tabindex=<?= $tabindex++ ?> size="50" maxlength="100" required
-					onblur='searchByName(this.value) >'
-					list='listVendeurBis'/>
-					<datalist id="listVendeurBis"></datalist>
+					onblur='searchByName(this.value)' list='listVendeurName'/>
+					<datalist id="listVendeurName"></datalist>
 				</span>
 			</div>
 			<div class="col-sm-6 col-md-6 col-xs-12">
@@ -232,12 +213,9 @@ Année d'achat :
 
 		<div class="col-sm-3 col-md-3 col-xs-6 btnAction" id="tdBtnAction">
 			<!-- etat vide pour reconnaitre une action de modif simple -->
-			<button name="buttonValideFiche" tabindex=<?= $tabindex++ ?> disabled onclick="this.form.obj_etat_new.value=''">Enregistrer
+			<button name="buttonValideFiche" tabindex=<?= $tabindex++ ?> disabled >Enregistrer
 			</button>
 		</div>
-		<!--		<div class="col-sm-3 col-md-3 col-xs-6 btnAction" style='display:none'>
-			<button name="buttonValideBisFiche" tabindex=<?= $tabindex++ ?>>???????</button>
-		</div>-->
 		<div class="col-sm-3 col-md-3 col-xs-6 btnAction" style='display:none' id="tdBtnPdf">
 			<input type=button value="Impression Fiche" onclick="imprimeFiche()" name="buttonPDFFiche" tabindex=<?= $tabindex++ ?>>
 			<? if ($infAppli['ADMIN']) { ?>
@@ -258,7 +236,7 @@ Année d'achat :
 <!-- TODO :  possibilité de modifier l'acheteur -->
 	<fieldset class=fiche style='display:none' id="fieldSetAcheteur">
 		<legend class="titreFiche link" onclick='goTo("client.php","consult",document.ficheForm.ach_id.value,"")'>
-			L'acheteur</legend>
+			L'acheteur <span id="ach_id" >...</span></legend>
 		<div class="row">
 			<div class="col-sm-6 col-md-6 col-xs-12">
 				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Emel </span>

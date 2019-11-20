@@ -653,7 +653,7 @@ function action_updateFiche($data)
     // attention au homonyne..
     // si rien trouvé on le crée.
     makeClient($client);
-    
+
     $fiche['obj_id_vendeur'] = $client['cli_id'];
     
     try {

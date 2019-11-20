@@ -143,16 +143,19 @@ function display_infoClientVendeur(val) {
  * @param {} value 
  */
 function searchByName(value) {
+	console.log("searchByName "+value);
 	if (document.clientForm.cli_emel.value == "") {
-		x_return_oneClientByName(value, display_infoClientVendeurBis);
+		x_return_oneClientByName(value, display_infoClientVendeurName);
 	}
 }
 /**
  * retour verification, si id !=, message erreur et recharge de la fiche d'origine
  * @param  val 
  */
-function display_infoClientVendeurBis(val) {
-	if (val['cli_id'] != document.clientForm.cli_id.value) {
+function display_infoClientVendeurName(val) {
+	console.log("display_infoClientVendeurName ");
+	console.log(val);
+	if (val['cli_id'] && val['cli_id'] != document.clientForm.cli_id.value) {
 		alertModalWarn("Nom deja connu [" + val['cli_id_modif'] + "].");
 		x_return_oneClient(document.clientForm.cli_id.value, display_client);
 	}
@@ -234,7 +237,9 @@ function display_fiches(val, idElement) {
 	var repr = "<table width='100%'>";
 	for (index in val) {
 		if (!isNaN(index)) {
-			repr += "<tr class='tabl0 link' onclick='goTo(\"fiche.php\",\"modif\"," + val[index]['obj_id'] + ",null)'>";
+			repr += "<tr class='tabl0 link' ";
+			repr += " title='accès à la fiche "+val[index]['obj_numero']+"' ";
+			repr += " onclick='goTo(\"fiche.php\",\"modif\"," + val[index]['obj_id'] + ",null)'>";
 			repr += "<td width=10% align=center>";
 			repr += val[index]['obj_numero'];
 			repr += "</td>";

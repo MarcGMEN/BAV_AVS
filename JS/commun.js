@@ -238,6 +238,12 @@ function valideEmail(value) {
 
 }
 
+/**
+ * fonction commnue de creation d'un select
+ * @param {} val 
+ * @param {*} champ 
+ * @param {*} leForm 
+ */
 function display_list_select(val, champ, leForm) {
 	tabPrixDepot = val;
 	var select = leForm.elements[champ];
@@ -248,6 +254,7 @@ function display_list_select(val, champ, leForm) {
 		for (index in val) {
 			select.appendChild(new Option(val[index], val[index]));
 			if (index == 1) {
+				//console.log("display_list_select => selectedIndex : "+val[index])
 				select.selectedIndex = val[index];
 			}
 		}
