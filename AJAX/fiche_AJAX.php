@@ -711,9 +711,9 @@ function return_fiches($tri, $sens, $selection)
             $tab['total_nb_' . $val['obj_etat']]++;
 
             if ($val['obj_etat'] == "PAYE") {
-                $tab['total_com_paye'] += getCommission($val);
+                $tab['total_com_paye'] += getCommission($val['obj_id']);
             } elseif ($val['obj_etat'] == "VENDU") {
-                $tab['total_com_vendu'] += getCommission($val);
+                $tab['total_com_vendu'] += getCommission($val['obj_id']);
             }
             if (
                 $val['obj_etat'] == "STOCK" || $val['obj_etat'] == "VENDU" || $val['obj_etat'] == "RENDU" || $val['obj_etat'] == "PAYE"

@@ -14,6 +14,8 @@
 			<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cette fiche dépôt devra être imprimée par vous pour vous rendre à la Bourse. Une par vélo et un gain de temps sur place lors du dépôt.</p>
 		<p>- Soit en téléchargeant, puis en imprimant la fiche dépôt à remplir que vous trouverez ici <img class="link url" onclick='x_action_makePDF(new Array(), display_openPDF);' ) src="Images/pdf.png" height='40px' alt="téléchargement de la fiche" title="téléchargement de la fiche">
 			<small><i>Attention aux droits d'ouvertures des popUp, en fonction de votre navigateur.</i></small></p>
+		<p>- Si vous souhaitez déposer plus de 15 vélos, contactez nous pour mettre en place un procédure spéciale.
+			<a href="mailto:bourse1000velos@avs44.com">bourse1000velos@avs44.com</a> </p>
 	</div>
 	<div class='alert alert-warning'>
 		En cas de non réception des mails, n'hésitez pas a nous contacter <a href='mailto:bourse1000velos@avs44.com' class="url">bourse1000velos@avs44.com</a>
@@ -34,6 +36,9 @@
 				</div>
 				<div class="col-sm-6 col-md-6 col-xs-6 tabl1">
 					<span class="alert-info" id="obj_etat_libelle"></span>
+					<input type=button onclick="goTo('saisieExpress.php', '',idFiche,null);" 
+						id=BtnSaisieExpress value="Gestion Fiche" 
+						style='display: none'/>
 				</div>
 			</div>
 		</h4>

@@ -70,6 +70,7 @@
 	}
 
 	function display_fiches(val) {
+		console.log(val);
 		if (val instanceof Object) {
 
 			var total = 0;

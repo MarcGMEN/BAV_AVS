@@ -272,6 +272,8 @@ function display_fiche(val) {
     if (val instanceof Object) {
         if (ADMIN) {
             getElement('obj_etat_libelle').className = val['obj_etat'];
+            getElement('BtnSaisieExpress').style.display = 'inline';
+
         }
 
         val['obj_marque_' + idRamdom] = val['obj_marque'];
@@ -283,7 +285,6 @@ function display_fiche(val) {
         if (val['obj_etat'] == "INIT") {
             getElement("tdBtnSup").style.display = 'block';
             document.ficheForm.buttonValideFiche.innerHTML = "Modifier";
-            document.ficheForm.buttonEtatFiche.value = "Confirmer";
             val['obj_etat_libelle'] = "Demande initiée par le vendeur le [" + formatDate(val['obj_date_depot'], true) + "]";
             document.ficheForm.obj_prix_vente.disabled = true
 
