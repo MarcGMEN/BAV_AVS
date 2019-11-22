@@ -3,7 +3,7 @@
 // consult : modification par le client avec numero de fiche
 // 
 
-texteDescription="Taille :\nPrix d'achat :\nAnnée d'achat :\n";
+texteDescription = "Taille :\nPrix d'achat :\nAnnée d'achat :\n";
 
 /*
  * action lors du chargement de la page
@@ -23,7 +23,7 @@ function initPage() {
     document.ficheForm.obj_type.focus();
 
 
-    document.ficheForm.obj_description.value =texteDescription;
+    document.ficheForm.obj_description.value = texteDescription;
 
     if (ADMIN) {
         // chargement de la liste des client par mel
@@ -61,7 +61,7 @@ function initPage() {
         // sinon si pas de CLIENT possible
     } else if (!CLIENT) {
         alertModalInfo("La saisie n'est pas encore ouverte.");
-        setTimeout(function () { goTo() }, 2000);
+        setTimeout(function() { goTo() }, 2000);
     }
 
     // si on passe un d de fiche alors pn affiche
@@ -176,7 +176,7 @@ function display_listVendeurName(val) {
     var list = getElement("listVendeurName");
     list.innerHTML = "";
     for (index in val) {
-        list.appendChild(new Option(val[index]['cli_emel']+" - "+val[index]['cli_code_postal'], val[index]['cli_nom']));
+        list.appendChild(new Option(val[index]['cli_emel'] + " - " + val[index]['cli_code_postal'], val[index]['cli_nom']));
     }
 }
 
@@ -194,7 +194,7 @@ function display_listVendeurName(val) {
  * @param {} value 
  */
 function searchByName(value) {
-    console.log("searchByName "+value);
+    console.log("searchByName " + value);
     if (value != "" && document.ficheForm.cli_emel.value == "") {
         //console.log("recherche par nom");
         x_return_oneClientByName(value, display_infoClientVendeurName);
@@ -206,8 +206,7 @@ function searchByMel(value) {
         x_return_oneClientByMel(value, display_infoClientVendeurMel);
         var list = getElement("listVendeurName");
         list.innerHTML = "";
-    }
-    else if (ADMIN) {
+    } else if (ADMIN) {
         // chargement de la liste des client par nom
         x_return_listClientByName(display_listVendeurName);
     }
@@ -227,8 +226,7 @@ function display_infoClientVendeur(val, base) {
         if (val['cli_emel'] != "") {
             var list = getElement("listVendeurName");
             list.innerHTML = "";
-        }
-        else {
+        } else {
             // chargement de la liste des client par mel
             x_return_listClientByName(display_listVendeurName);
         }
@@ -243,11 +241,9 @@ function display_infoClientVendeur(val, base) {
         val['cli_id'] = "";
         if (base == 'emel') {
             val['cli_nom'] = "";
-        }
-        else if (base == 'nom') {
+        } else if (base == 'nom') {
             //val['cli_emel'] = "";
-        }
-        else {
+        } else {
             val['cli_nom'] = "";
             val['cli_emel'] = "";
         }
@@ -335,8 +331,7 @@ function display_fiche(val) {
             document.ficheForm.obj_prix_depot.disabled = true;
             if (!ADMIN) {
                 document.ficheForm.cli_prix_depot.disabled = true;
-            }
-            else {
+            } else {
                 document.ficheForm.obj_prix_depot.disabled = false;
             }
 
@@ -380,10 +375,7 @@ function display_fiche(val) {
 
         if (val['obj_etat'] == "RENDU" || val['obj_etat'] == "PAYE") {
             getElement("divPrix").style.display = 'block';
-            if (TABLE) {
-                getElement("tdBtnPdf").style.display = 'block';
-            }
-            else if (ADMIN) {
+            if (ADMIN) {
                 getElement("tdBtnPdf").style.display = 'block';
                 getElement("tdBtnSup").style.display = 'block';
             } else {
@@ -395,19 +387,13 @@ function display_fiche(val) {
             document.ficheForm.checkCGU.required = false;
             // pas la peine de voir les CGU
             getElement("tdCGU").style.display = 'none';
-            document.ficheForm.buttonEtatFicheBis.style.display = 'none';
-            document.ficheForm.buttonEtatFicheBis.value = '';
+
 
             if (val['obj_etat'] == "RENDU") {
                 val['obj_etat_libelle'] = "Rendu au vendeur le [" + formatDate(val['obj_date_retour']) + "]";
-            }
-            else {
+            } else {
                 val['obj_etat_libelle'] = "Payé au vendeur le [" + formatDate(val['obj_date_retour']) + "]";
-                if (ADMIN) {
-                }
-                else {
-                    getElement("tdBtnEtat").style.display = 'none';
-                }
+
                 getElement("fieldSetAcheteur").style.display = 'block';
 
                 // chargement de la liste des client par mel
@@ -473,7 +459,7 @@ function enregisterFiche() {
     }
 
     if (tabObj['obj_description'] == texteDescription) {
-        tabObj['obj_description']="";
+        tabObj['obj_description'] = "";
     }
 
     var tabData = Object.assign({}, tabObj, tabCli);
@@ -495,19 +481,17 @@ function confirmModal(plus) {
 
         var tabData = Object.assign({}, tabObj, tabCli);
         x_action_createFiche(tabToString(tabData), display_fin_create);
-    }
-    else if (plus == "Close") {
+    } else if (plus == "Close") {
         closeModal();
         goTo();
-    }
-    else if (plus == "Supp") {
+    } else if (plus == "Supp") {
         var tabObj = recup_formulaire(document.ficheForm, 'obj');
         x_action_deleteFiche(tabObj['obj_id'], display_fin_supp);
     }
 }
 
 function display_fin_create(val) {
-    
+
     setStartSaisie(false);
     if (ADMIN) {
         if (val instanceof Object) {
@@ -574,13 +558,13 @@ function display_messageConfirmSupp(mess) {
 
 function imprimeFiche() {
     var tabObj = recup_formulaire(document.ficheForm, 'obj');
-    alertModalInfo("Génération de la fiche "+tabObj['obj_numero']+" au format PDF <img src='Images/spinner_white_tiny.gif' />");
+    alertModalInfo("Génération de la fiche " + tabObj['obj_numero'] + " au format PDF <img src='Images/spinner_white_tiny.gif' />");
     x_action_makePDF(tabObj['obj_id'], display_openPDF);
 }
 
 function imprimeEtiquette() {
     var tabObj = recup_formulaire(document.ficheForm, 'obj');
-    alertModalInfo("Génération de la l'étiquette "+tabObj['obj_numero']+" au format PDF <img src='Images/spinner_white_tiny.gif' />");
+    alertModalInfo("Génération de la l'étiquette " + tabObj['obj_numero'] + " au format PDF <img src='Images/spinner_white_tiny.gif' />");
     x_action_makePDF(tabObj['obj_id'], 'etiquette.html', display_openPDF);
 }
 
@@ -599,7 +583,7 @@ function fermerCRUD(LaForm) {
  * @param {} value 
  */
 function searchAchByName(value) {
-    console.log("searchByName "+value);
+    console.log("searchByName " + value);
     if (value != "" && document.ficheForm.ach_emel.value == "") {
         //console.log("recherche par nom");
         x_return_oneClientByName(value, display_infoClientAcheteurName);
@@ -612,13 +596,12 @@ function searchAchByName(value) {
  */
 function searchAchByMel(value) {
     if (value != "") {
-		x_return_oneClientByMel(value, display_infoClientAcheteur); 
+        x_return_oneClientByMel(value, display_infoClientAcheteur);
 
-		// si le trouve ou pas on interdit la recherche par nom
-		var list = getElement("listAcheteurName");
-		list.innerHTML = "";
-    }
-    else {
+        // si le trouve ou pas on interdit la recherche par nom
+        var list = getElement("listAcheteurName");
+        list.innerHTML = "";
+    } else {
         // chargement de la liste des client par nom
         x_return_listClientByName(display_listAcheteurName);
     }
@@ -626,59 +609,58 @@ function searchAchByMel(value) {
 
 
 function display_infoClientAcheteur(val) {
-	display_infoClientAcheteur(val, "emel");
+    display_infoClientAcheteur(val, "emel");
 }
 
 function display_infoClientAcheteurName(val) {
-	display_infoClientAcheteur(val, "nom");
+    display_infoClientAcheteur(val, "nom");
 }
 
 function display_infoClientAcheteur(val, base) {
-	if (val instanceof Object) {
-		// remplacement du trigramme cli par ach
-		for (i in val) {
-			newKey = i.replace("cli_", "ach_");
-			val[newKey] = val[i];
-			delete val[i];
-		}
+    if (val instanceof Object) {
+        // remplacement du trigramme cli par ach
+        for (i in val) {
+            newKey = i.replace("cli_", "ach_");
+            val[newKey] = val[i];
+            delete val[i];
+        }
 
-		// si mel on force la liste des vendeur Name a vide
+        // si mel on force la liste des vendeur Name a vide
         if (val['ach_emel'] != "") {
             var list = getElement("listAcheteurName");
             list.innerHTML = "";
-        }
-        else {
+        } else {
             // chargement de la liste des client par mel
             x_return_listClientByName(display_listAcheteurName);
         }
         display_formulaire(val, document.ficheForm);
-	} else {
-		// reset des champs cli
-		val = [];
-		val['ach_id'] = "";
-		if (base == 'emel') {
-			val['ach_nom'] = "";
-		}
-		if (base == 'nom') {
-			//val['ach_emel'] = "";
-		}
-		val['ach_code_postal'] = "";
-	}
-	display_formulaire(val, document.ficheForm);
+    } else {
+        // reset des champs cli
+        val = [];
+        val['ach_id'] = "";
+        if (base == 'emel') {
+            val['ach_nom'] = "";
+        }
+        if (base == 'nom') {
+            //val['ach_emel'] = "";
+        }
+        val['ach_code_postal'] = "";
+    }
+    display_formulaire(val, document.ficheForm);
 }
 
 function display_listAcheteur(val) {
-	var list = getElement("listAcheteur");
-	list.innerHTML = "";;
-	for (index in val) {
-		list.appendChild(new Option(val[index], val[index]));
-	}
+    var list = getElement("listAcheteur");
+    list.innerHTML = "";;
+    for (index in val) {
+        list.appendChild(new Option(val[index], val[index]));
+    }
 }
 
 function display_listAcheteurName(val) {
-	var list = getElement("listAcheteurName");
-	list.innerHTML = "";
-	for (index in val) {
-		list.appendChild(new Option(val[index]['cli_emel'] + " - " + val[index]['cli_code_postal'], val[index]['cli_nom']));
-	}
+    var list = getElement("listAcheteurName");
+    list.innerHTML = "";
+    for (index in val) {
+        list.appendChild(new Option(val[index]['cli_emel'] + " - " + val[index]['cli_code_postal'], val[index]['cli_nom']));
+    }
 }

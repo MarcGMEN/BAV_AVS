@@ -89,6 +89,7 @@ sajax_handle_client_request();
 		// date d'ouverture du depot
 		var DATE_J1 = <?= $infAppli['date_j1'] ?>;
 		
+		var NB_MODIF = <?= $infAppli['NB_MODIF'] ?>;
 		var modePage = '<?= $GET_modePage ?>';
 		var id = '<?= $GET_id ?>';
 
@@ -142,7 +143,6 @@ sajax_handle_client_request();
 					</form>
 				</div>
 			</div>
-
 		</div>
 		<div class="pied">
 			<? include('genericPages/pied.php'); ?>

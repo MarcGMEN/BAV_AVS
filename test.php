@@ -23,8 +23,10 @@ require_once 'Commun/mail.php';
 //echo substr(hash_hmac('md5', 700, 'avs442019'), 0, 5);;
 
 //echo password_hash("BAV2019", PASSWORD_DEFAULT);
-echo substr(hash_hmac('md5', 801, 'avs44'+$_COOKIE['NUMERO_BAV']), 0, 6);
-echo substr(hash_hmac('md5', 953, 'avs44'+$_COOKIE['NUMERO_BAV']), 0, 6);
+echo "412 => ".hash_hmac('md5', 412, 'avs44'.$_COOKIE['NUMERO_BAV']);
+echo "<br/>";
+
+echo "577 => ".hash_hmac('md5', 577, 'avs44'.$_COOKIE['NUMERO_BAV']);
 //echo password_verify('BAV2019', $GLOBALS['PASS_TABLE']);
 ?>
 </pre>
