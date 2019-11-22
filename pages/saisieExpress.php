@@ -5,7 +5,9 @@
 <script src="JS/saisieExpress.js" type="text/javascript"></script>
 
 <form action="#" name="searchFormFiche" onsubmit='x_return_oneFicheByCode(this.numeroFiche.value, display_fiche); return false'>
-	<input type="text" name="numeroFiche" size="8" maxlength="50" title="Saisisez le numéro de fiche" placeholder="N° fiche" id="inputSearch" style='background-color:LIGHTGREEN;font-weight: bold;width=10%' tabindex=<?= $tabindex++ ?> />
+	<input type="text" name="numeroFiche" size="8" maxlength="50" title="Saisisez le numéro de fiche" 
+	placeholder="N° fiche" id="inputSearch" style='background-color:LIGHTGREEN;font-weight: bold;width:10%' 
+	tabindex=<?= $tabindex++ ?> />
 	<i id="loupe" class="fas fa-search link " onclick="x_return_oneFicheByCode(this.form.numeroFiche.value, display_fiche)"></i>
 </form>
 
@@ -23,9 +25,9 @@
 		<tr>
 			<td class="tittab">
 				<span id="obj_numero"></span>
-				<input type="text" name="obj_numero">
-				<input type="text" name="obj_id">
-				<input type="text" name="cli_id">
+				<input type="hidden" name="obj_numero">
+				<input type="hidden" name="obj_id">
+				<input type="hidden" name="cli_id">
 			</td>
 			<td>
 			<select name='obj_type' tabindex=<?= $tabindex++ ?> disabled required >
@@ -79,7 +81,7 @@
 	</tr>
 </table>
 <div style="overflow: scroll; height:50%">
-	<table width='100%'>
+	<table width='100%' id='tableFiches'>
 		<? for ($index = 1; $index < 2000; $index++) { ?>
 			<tr class='tabl0' id="tr_<?= $index ?>">
 				<td width=10% id="numero_<?= $index ?>" onclick="x_return_oneFicheByCode('<?= $index ?>', display_fiche)"><span style="color: GREEN"><?= $index ?></span>

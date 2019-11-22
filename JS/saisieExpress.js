@@ -85,8 +85,10 @@ function display_fiche(val) {
 
 	// on revient sur le numero de fiche en focus
 	document.searchFormFiche.numeroFiche.value="";
-	console.log("#tr_"+val['obj_numero']);
-	document.location="#tr_"+val['obj_numero'];
+	//console.log("#tr_"+val['obj_numero']);
+	//getElement("tableFiches").location="#tr_"+val['obj_numero'];
+	//console.log(window.find("#tr_"+val['obj_numero']));
+	//document.location="#tr_"+val['obj_numero'];
 	if (val['obj_etat']) {
 		document.formSaisieExpress.obj_type.disabled = true;
 		document.formSaisieExpress.obj_prix_vente.disabled = true;
@@ -99,7 +101,7 @@ function display_fiche(val) {
 
 		getElement("but_action").style.display = 'block';
 
-		
+		getElement("but_action").focus();
 		if (val['obj_etat'] == "CONFIRME") {
 			getElement("but_action").innerHTML = "Mettre en stock";
 			val['obj_etat_new'] = "STOCK";
@@ -310,13 +312,11 @@ function confirmModal() {
 
 	var tabData = Object.assign({}, tabObj, tabAch);
 	closeModal();
-	console.log(tabData);
 	x_action_vendFiche(tabToString(tabData), display_fin_create);
 }
 
 
 function display_fin_create(val) {
-
 	if (val instanceof Object) {
 		x_return_fiches_express(display_fiches);
 
@@ -326,8 +326,6 @@ function display_fin_create(val) {
 		getElement("but_action2").style.display = 'none';
 		getElement("but_action").style.display = 'none';
 		getElement("but_action").innerHTML = "";
-		console.log("reinit after create");
-
 		// recharge de la fiche dans le bloc de saisie
 		x_return_oneFiche(val['obj_id'], display_fiche);
 

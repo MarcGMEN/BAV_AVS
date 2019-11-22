@@ -372,7 +372,9 @@ function display_fiche(val) {
                 getElement("tdBtnPdf").style.display = 'block';
 
                 getElement("fieldSetAcheteur").style.display = 'block';
-                x_return_oneClient(val['obj_id_acheteur'], display_infoClientAcheteurFiche);
+                document.ficheForm.ach_nom.required = false;
+                x_return_listClientByMel(display_listAcheteur);
+                x_return_oneClient(val['obj_id_acheteur'], display_infoClientAcheteur);
             }
         }
 
@@ -407,7 +409,11 @@ function display_fiche(val) {
                     getElement("tdBtnEtat").style.display = 'none';
                 }
                 getElement("fieldSetAcheteur").style.display = 'block';
-                x_return_oneClient(val['obj_id_acheteur'], display_infoClientAcheteurFiche);
+
+                // chargement de la liste des client par mel
+                x_return_listClientByMel(display_listAcheteur);
+                document.ficheForm.ach_nom.required = false;
+                x_return_oneClient(val['obj_id_acheteur'], display_infoClientAcheteur);
 
             }
         }
@@ -496,9 +502,8 @@ function confirmModal(plus) {
     }
     else if (plus == "Supp") {
         var tabObj = recup_formulaire(document.ficheForm, 'obj');
-        x_action_deleteFiche(tabObj['obj_id'], goTo);
+        x_action_deleteFiche(tabObj['obj_id'], display_fin_supp);
     }
-    
 }
 
 function display_fin_create(val) {
@@ -517,14 +522,22 @@ function display_fin_create(val) {
     }
 }
 
+function display_fin_supp(val) {
+    goTo();
+}
+
 // validation de la fiche en creation
 function modifFiche() {
     var tabObj = recup_formulaire(document.ficheForm, 'obj');
     var tabCli = recup_formulaire(document.ficheForm, 'cli');
+    var tabAch;
+    if (getElement("fieldSetAcheteur").style.display == 'block') {
+        tabAch = recup_formulaire(document.ficheForm, 'ach');
+    }
     tabObj['obj_marque'] = document.ficheForm.elements.namedItem('obj_marque_' + idRamdom).value;
     delete tabObj['obj_marque_' + idRamdom];
 
-    var tabData = Object.assign({}, tabObj, tabCli);
+    var tabData = Object.assign({}, tabObj, tabCli, tabAch);
     x_action_updateFiche(tabToString(tabData), display_fin_modif);
     return false;
 
@@ -581,68 +594,91 @@ function fermerCRUD(LaForm) {
     }
 }
 
-function display_infoClientAcheteurFiche(val) {
-    if (val instanceof Object) {
-        // remplacement du trigramme cli par ach
-        for (i in val) {
-            newKey = i.replace("cli_", "ach_");
-            val[newKey] = val[i];
-            delete val[i];
-        }
+/**
+ * recherche par nim si pas encore trouve
+ * @param {} value 
+ */
+function searchAchByName(value) {
+    console.log("searchByName "+value);
+    if (value != "" && document.ficheForm.ach_emel.value == "") {
+        //console.log("recherche par nom");
+        x_return_oneClientByName(value, display_infoClientAcheteurName);
     }
-    display_formulaire(val, document.ficheForm);
 }
+
+/**
+ * recherche par mail
+ * @param {} value 
+ */
+function searchAchByMel(value) {
+    if (value != "") {
+		x_return_oneClientByMel(value, display_infoClientAcheteur); 
+
+		// si le trouve ou pas on interdit la recherche par nom
+		var list = getElement("listAcheteurName");
+		list.innerHTML = "";
+    }
+    else {
+        // chargement de la liste des client par nom
+        x_return_listClientByName(display_listAcheteurName);
+    }
+}
+
 
 function display_infoClientAcheteur(val) {
-    display_infoClientAcheteur(val, "emel");
+	display_infoClientAcheteur(val, "emel");
 }
 
-function display_infoClientAcheteurBis(val) {
-    display_infoClientAcheteur(val, "nom");
+function display_infoClientAcheteurName(val) {
+	display_infoClientAcheteur(val, "nom");
 }
 
 function display_infoClientAcheteur(val, base) {
-    if (val instanceof Object) {
-        // remplacement du trigramme cli par ach
-        for (i in val) {
-            newKey = i.replace("cli_", "ach_");
-            val[newKey] = val[i];
-            delete val[i];
-        }
-    } else {
-        // reset des champs cli
-        val = [];
-        val['ach_id'] = "";
-        if (base == 'emel') {
-            val['ach_nom'] = "";
-        }
-        if (base == 'nom') {
-            val['ach_emel'] = "";
-        }
+	if (val instanceof Object) {
+		// remplacement du trigramme cli par ach
+		for (i in val) {
+			newKey = i.replace("cli_", "ach_");
+			val[newKey] = val[i];
+			delete val[i];
+		}
 
-        val['ach_adresse'] = "";
-        val['ach_adresse1'] = "";
-        val['ach_code_postal'] = "";
-        val['ach_ville'] = "";
-        val['ach_telephone'] = "";
-        val['ach_telephone_bis'] = "";
-    }
-    display_formulaire(val, document.modalForm);
+		// si mel on force la liste des vendeur Name a vide
+        if (val['ach_emel'] != "") {
+            var list = getElement("listAcheteurName");
+            list.innerHTML = "";
+        }
+        else {
+            // chargement de la liste des client par mel
+            x_return_listClientByName(display_listAcheteurName);
+        }
+        display_formulaire(val, document.ficheForm);
+	} else {
+		// reset des champs cli
+		val = [];
+		val['ach_id'] = "";
+		if (base == 'emel') {
+			val['ach_nom'] = "";
+		}
+		if (base == 'nom') {
+			//val['ach_emel'] = "";
+		}
+		val['ach_code_postal'] = "";
+	}
+	display_formulaire(val, document.ficheForm);
 }
 
 function display_listAcheteur(val) {
-    var list = getElement("listAcheteur");
-    list.innerHTML = "";;
-    for (index in val) {
-        list.appendChild(new Option(val[index], val[index]));
-    }
+	var list = getElement("listAcheteur");
+	list.innerHTML = "";;
+	for (index in val) {
+		list.appendChild(new Option(val[index], val[index]));
+	}
 }
 
-function display_listAcheteurBis(val) {
-    var list = getElement("listAcheteurBis");
-    list.innerHTML = "";;
-    for (index in val) {
-        list.appendChild(new Option(val[index], val[index]));
-    }
+function display_listAcheteurName(val) {
+	var list = getElement("listAcheteurName");
+	list.innerHTML = "";
+	for (index in val) {
+		list.appendChild(new Option(val[index]['cli_emel'] + " - " + val[index]['cli_code_postal'], val[index]['cli_nom']));
+	}
 }
-

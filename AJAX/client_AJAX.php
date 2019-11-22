@@ -163,7 +163,7 @@ function makeClient(&$tabCli)
             $tabCli['cli_taux_com'] = 10;
         }
         if (!$tabCli['cli_prix_depot']) {
-            $tabCli['cli_prix_depot'] = 5;
+            $tabCli['cli_prix_depot'] = 3;
         }
         $tabCli['cli_id'] = insertClient($tabCli);
 

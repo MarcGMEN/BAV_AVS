@@ -657,6 +657,19 @@ function action_updateFiche($data)
 {
     $fiche = tabToObject(string2Tab($data), "obj");
     $client = tabToObject(string2Tab($data), "cli");
+    $acheteur = tabToObject(string2Tab($data), "ach");
+    
+    
+    if ($acheteur) {
+        $clientAcheteur=[];
+        foreach ($acheteur as $key => $val) {
+            $newKey = str_ireplace("ach_", "cli_", $key);
+            $clientAcheteur[$newKey] = $val;
+        }
+        makeClient($clientAcheteur);
+        
+       $fiche['obj_id_acheteur'] = $clientAcheteur['cli_id'];
+    }
 
     // attention au doublon
     // un mel, on cherche si OK, si oui on modifie les données
@@ -674,6 +687,10 @@ function action_updateFiche($data)
         updateFiche($fiche);
 
         updateClient($client);
+
+        if ($fiche['obj_id_acheteur']) {
+            updateClient($clientAcheteur);
+        }
 
         return $fiche;
     } catch (Exception $e) {

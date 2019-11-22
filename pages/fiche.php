@@ -28,9 +28,9 @@
 		<legend class=titreFiche>Le depot</legend>
 		<h4>
 			<div class="row tittab" id='trTitreFiche' style='display: none;vertical-align: middle;'>
-				<div class="col-sm-6 col-md-6 col-xs-6" >
-						<input type="hidden" name="obj_numero" />
-						No&nbsp;:&nbsp;<span style="font-size: 1.5em" id='obj_numero'></span>
+				<div class="col-sm-6 col-md-6 col-xs-6">
+					<input type="hidden" name="obj_numero" />
+					No&nbsp;:&nbsp;<span style="font-size: 1.5em" id='obj_numero'></span>
 				</div>
 				<div class="col-sm-6 col-md-6 col-xs-6 tabl1">
 					<span class="alert-info" id="obj_etat_libelle"></span>
@@ -62,10 +62,7 @@
 			<div class="col-sm-4 col-md-4 col-xs-12">
 				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Marque <span title="Obligatoire">*</span></span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
-					<input type=text list="listMarques" name="obj_marque_<?= $idRamdom ?>" size=30 maxlength="50" 
-					tabindex=<?= $tabindex++ ?> style="text-transform:uppercase" placeholder="Marque du vélo" 
-					onkeyup="setStartSaisie(true);" 
-					onblur="x_return_list_modeles(this.value,display_list_modeles)" required />
+					<input type=text list="listMarques" name="obj_marque_<?= $idRamdom ?>" size=30 maxlength="50" tabindex=<?= $tabindex++ ?> style="text-transform:uppercase" placeholder="Marque du vélo" onkeyup="setStartSaisie(true);" onblur="x_return_list_modeles(this.value,display_list_modeles)" required />
 					<datalist id="listMarques"></datalist>
 				</span>
 			</div>
@@ -88,8 +85,7 @@
 					<span class="help link" onmouseover="Aff_layer('aide_descript')" onmouseout="Cache_layer('aide_descript')">?</span>
 				</span>
 				<span class="tabInput col-md-10 col-sm-10 col-xs-9">
-					<textarea rows="4" cols="100" tabindex=<?= $tabindex++ ?> style="resize:none;overflow: none;" name="obj_description" maxlength="250" 
-						onkeyup="MaxLengthTextarea(this, 250);setStartSaisie(true)" placeholder="Année d'achat, prix d'achat, taille, accessoires, révision (transmission, pneus, freins..)"></textarea>
+					<textarea rows="4" cols="100" tabindex=<?= $tabindex++ ?> style="resize:none;overflow: none;" name="obj_description" maxlength="250" onkeyup="MaxLengthTextarea(this, 250);setStartSaisie(true)" placeholder="Année d'achat, prix d'achat, taille, accessoires, révision (transmission, pneus, freins..)"></textarea>
 				</span>
 				<span class="col-md-12 col-sm-12 col-xs-12 help">
 					<div id="aide_descript" style="visibility: hidden;">
@@ -139,7 +135,7 @@
 					&nbsp&nbsp<span id="depot_calc">...</span>&nbsp;&#8364;
 				</span>
 			</div>
-			<div class="col-sm-4 col-md-4 col-xs-4" >
+			<div class="col-sm-4 col-md-4 col-xs-4">
 				<span class="titrow  col-md-6 col-sm-6 col-xs-12">Commission :</span>
 				<span class="tabl1 col-md-6 col-sm-6 col-xs-12">
 					&nbsp&nbsp<span id="comission_calc">...</span>&nbsp;&#8364;
@@ -148,26 +144,21 @@
 		</div>
 	</fieldset>
 	<fieldset class=fiche>
-		<legend class="titreFiche link" id='legendVendeur' 
-			onclick='goTo("client.php","consult",document.ficheForm.cli_id.value,"")'
-			title="Accès au vendeur">
-			Le vendeur <span style="font-size: 0.8em" id="cli_id" >...</span>
- 		</legend>
+		<legend class="titreFiche link" id='legendVendeur' onclick='goTo("client.php","consult",document.ficheForm.cli_id.value,"")' title="Accès au vendeur">
+			Le vendeur <span style="font-size: 0.8em" id="cli_id">...</span>
+		</legend>
 		<div class="row">
 			<div class="col-sm-6 col-md-6 col-xs-12">
 				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Emel <span title="Obligatoire">*</span></span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
-					<input type=email name='cli_emel' id="cli_emel" 
-					size="50" maxlength="100" tabindex=<?= $tabindex++ ?> placeholder="aaaa.bbbb@ccc.dd" required 
-					onblur='searchByMel(this.value)' list='listVendeur' />
+					<input type=email name='cli_emel' id="cli_emel" size="50" maxlength="100" tabindex=<?= $tabindex++ ?> placeholder="aaaa.bbbb@ccc.dd" required onblur='searchByMel(this.value)' list='listVendeur' />
 					<datalist id="listVendeur"></datalist>
 				</span>
 			</div>
 			<div class="col-sm-6 col-md-6 col-xs-12">
 				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Nom et prénom <span title="Obligatoire">*</span></span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
-					<input type=text name='cli_nom' tabindex=<?= $tabindex++ ?> size="50" maxlength="100" required
-					onblur='searchByName(this.value)' list='listVendeurName'/>
+					<input type=text name='cli_nom' tabindex=<?= $tabindex++ ?> size="50" maxlength="100" required onblur='searchByName(this.value)' list='listVendeurName' />
 					<datalist id="listVendeurName"></datalist>
 				</span>
 			</div>
@@ -213,7 +204,7 @@
 
 		<div class="col-sm-3 col-md-3 col-xs-6 btnAction" id="tdBtnAction">
 			<!-- etat vide pour reconnaitre une action de modif simple -->
-			<button name="buttonValideFiche" tabindex=<?= $tabindex++ ?> disabled >Enregistrer
+			<button name="buttonValideFiche" tabindex=<?= $tabindex++ ?> disabled>Enregistrer
 			</button>
 		</div>
 		<div class="col-sm-3 col-md-3 col-xs-6 btnAction" style='display:none' id="tdBtnPdf">
@@ -233,25 +224,32 @@
 		</div>
 	</div>
 
-<!-- TODO :  possibilité de modifier l'acheteur -->
+	<!-- TODO :  possibilité de modifier l'acheteur -->
 	<fieldset class=fiche style='display:none' id="fieldSetAcheteur">
 		<legend class="titreFiche link" onclick='goTo("client.php","consult",document.ficheForm.ach_id.value,"")'>
-			L'acheteur <span id="ach_id" >...</span></legend>
+			L'acheteur <span id="ach_id">...</span></legend>
 		<div class="row">
 			<div class="col-sm-6 col-md-6 col-xs-12">
-				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Emel </span>
-				<span class="tabInput col-md-9 col-sm-9 col-xs-9" id="ach_emel">
+				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Emel </span></span>
+				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
+					<input type=email name='ach_emel' id="ach_emel" 
+						size="50" maxlength="100" tabindex=<?= $tabindex++ ?> placeholder="aaaa.bbbb@ccc.dd" 
+						onblur='searchAchByMel(this.value)' list='listAcheteur' />
+					<datalist id="listAcheteur"></datalist>
 				</span>
 			</div>
 			<div class="col-sm-6 col-md-6 col-xs-12">
-				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Pr&excute;nom - Nom </span></span>
-				<span class="tabInput col-md-9 col-sm-9 col-xs-9" id="ach_nom">
+				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Nom et prénom <span title="Obligatoire">*</span></span>
+				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
+					<input type=text name='ach_nom' tabindex=<?= $tabindex++ ?> size="50" maxlength="100" 
+					onblur='searchAchByName(this.value)' list='listAcheteurName' />
+					<datalist id="listAcheteurName"></datalist>
 				</span>
 			</div>
 			<div class="col-sm-6 col-md-6 col-xs-12">
 				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Adresse</span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
-					<div id='ach_code_postal'></div>
+					<input type=text name="ach_code_postal" size=5 maxlength='10' tabindex=<?= $tabindex++ ?> placeholder="Code postal" onkeyup="setStartSaisie(true);" />
 				</span>
 			</div>
 		</div>
