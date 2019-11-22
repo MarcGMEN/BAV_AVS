@@ -158,7 +158,7 @@ function makeClient(&$tabCli)
     if ($clientSearch==null) {
         //echo "makeClient => inconnu, alors creation";
         $tabCli['cli_id'] = 0;
-        $tabCli['cli_id_modif'] = hash_hmac('md5', rand(0, 200000), 'avs44');
+        $tabCli['cli_id_modif'] = hash_hmac('md5', $tabCli['cli_nom'].rand(0, 200000), 'avs44');
         if (!$tabCli['cli_taux_com']) {
             $tabCli['cli_taux_com'] = 10;
         }

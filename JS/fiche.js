@@ -150,7 +150,6 @@ function display_list_marques(val) {
 }
 
 function display_list_modeles(val) {
-    var list = getElement("listModeles");
     list.innerHTML = "";
     for (index in val) {
         list.appendChild(new Option(val[index], val[index]));

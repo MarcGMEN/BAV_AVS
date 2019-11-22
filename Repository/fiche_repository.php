@@ -79,8 +79,8 @@ function makeNumeroFiche($base, &$objet)
     // creation de idmodif
     $objet['obj_id_modif'] = hash_hmac(
         'md5',
-        $objet['obj_numero'],
-        'avs44' . $GLOBALS['INFO_APPLI']['numero_bav']
+        $objet['obj_numero'].$GLOBALS['INFO_APPLI']['numero_bav'],
+        'avs44'
     );
 }
 
@@ -153,7 +153,6 @@ function getFiches($order, $sens, $tabSel)
         $requete2 .= " order by $order $sens";
     }
     $result = $GLOBALS['mysqli']->query($requete2);
-    //echo $result;
     if ($result) {
         $tab = array();
         $index = 0;

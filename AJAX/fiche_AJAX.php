@@ -97,7 +97,7 @@ function action_createFiche($data)
     try {
         $tabObj = tabToObject(string2Tab($data), "obj");
         $tabCli = tabToObject(string2Tab($data), "cli");
-        
+
         // creation du client, si mel ou nom OK, on le recupere
         // on en normalement avec le mel uniquement
         // on a pas de cli_id
@@ -115,7 +115,7 @@ function action_createFiche($data)
         // on pousse la marque et le modele en capitale
         $tabObj['obj_marque'] = strtoupper($tabObj['obj_marque']);
         $tabObj['obj_modele'] = strtoupper($tabObj['obj_modele']);
-        
+
         if ($ADMIN) {
             // creation du numero a partir de la base parametre pour la BAV
             makeNumeroFiche($INFO_APPLI['base_info'], $tabObj);
@@ -225,7 +225,6 @@ function action_reMelConfirme($id)
 function action_createFicheExpress($data)
 {
     extract($GLOBALS);
-    $ADMIN = $INFO_APPLI['ADMIN'];
 
     $retour = "";
     try {
@@ -237,19 +236,26 @@ function action_createFicheExpress($data)
         // en cas de mel, on ignore le nom
         // en cas de nom, pas de mel a priori 
         makeClient($tabCli);
-        
+
         $tabObj['obj_prix_depot'] = $tabObj['obj_prix_vente'];
 
         $tabObj['obj_id_vendeur'] = $tabCli['cli_id'];
         // creation de la clef unique REST
-        $tabObj['obj_id_modif'] = hash_hmac('md5', $tabObj['obj_numero'], 'avs44' . $INFO_APPLI['numero_bav']);
+        $tabObj['obj_id_modif'] = hash_hmac(
+            'md5',
+            $tabObj['obj_numero'] . $GLOBALS['INFO_APPLI']['numero_bav'],
+            'avs44'
+        );
+        error_log($tabObj['obj_numero'] . $GLOBALS['INFO_APPLI']['numero_bav']);
         $tabObj['obj_id'] = 0;
 
         // affectationa la BAV
         $tabObj['obj_numero_bav'] = $INFO_APPLI['numero_bav'];
 
         // insertion dans la base
-        if (insertFiche($tabObj)) {
+        if ($id  = insertFiche($tabObj)) {
+            $retour = $tabObj;
+            $retour['obj_id'] = $id;
         } else {
             print_r($tabObj);
             return "Oups problème de mise a jour";
@@ -277,7 +283,7 @@ function action_deleteFiche($id)
  * creation des etiquetes sur une feuille A4
  * parametre : le numero de depart, la mise a jour de l'impression, le nombre de page
  */
-function action_makeA4Etiquettes($eti0, $update=false, $nbPage=1)
+function action_makeA4Etiquettes($eti0, $update = false, $nbPage = 1)
 {
     extract($GLOBALS);
 
@@ -330,8 +336,9 @@ function action_makeA4Fiches($eti0, $eti1)
                 // regroupement de la description
                 $fiche['obj_description'] = concatDescription($fiche['obj_description']);
 
-                if ($fiche['obj_prix_vente'] > 0 &&
-                    ($fiche['obj_etat'] == 'VENDU' || $fiche['obj_etat'] == 'PAYE')) {
+                if (
+                    $fiche['obj_prix_vente'] > 0 && ($fiche['obj_etat'] == 'VENDU' || $fiche['obj_etat'] == 'PAYE')
+                ) {
                     $client['cli_com'] = getCommission($fiche['obj_id']);
                 } else {
                     $fiche['obj_prix_vente'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
@@ -347,7 +354,7 @@ function action_makeA4Fiches($eti0, $eti1)
                 }
                 // MISE EN FORME DE LA FICHE
                 // MISE EN FORME DE LA FICHE
- 
+
                 // creation du html avec comme template
                 // html/fiche_depot.html
                 $etiquettes .= makeCorps(array_merge($fiche, $client), 'fiche_depot.html');
@@ -377,21 +384,25 @@ function action_makeA4Fiches($eti0, $eti1)
  */
 function getCommission($id)
 {
-    $fiche=getOneFiche($id);
-    $client = getOneClient($fiche['obj_id_vendeur']);
-    if ($fiche != null && $fiche['obj_prix_vente']) {
-        if ($fiche['obj_prix_vente'] < 1000) {
-            $commission = $fiche['obj_prix_vente'] * ($client['cli_taux_com'] / 100);
-        } else {
-            // TODO : parametre en fonction du taux
-            if ($client['cli_taux_com']==5) {
-                $commission = 80;
+    $fiche = getOneFiche($id);
+    if ($fiche['obj_id_vendeur']) {
+        $client = getOneClient($fiche['obj_id_vendeur']);
+        if ($fiche != null && $fiche['obj_prix_vente']) {
+            if ($fiche['obj_prix_vente'] < 1000) {
+                $commission = $fiche['obj_prix_vente'] * ($client['cli_taux_com'] / 100);
             } else {
-                $commission = 100;
+                // TODO : parametre en fonction du taux
+                if ($client['cli_taux_com'] == 5) {
+                    $commission = 80;
+                } else {
+                    $commission = 100;
+                }
             }
+        } else {
+            $commission = 0;
         }
     } else {
-        $commission=0;
+        $commission = 0;
     }
     return $commission;
 }
@@ -493,8 +504,9 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
     // regroupement de la description
     $fiche['obj_description'] = concatDescription($fiche['obj_description']);
 
-    if ($fiche['obj_prix_vente'] > 0 &&
-                    ($fiche['obj_etat'] == 'VENDU' || $fiche['obj_etat'] == 'PAYE')) {
+    if (
+        $fiche['obj_prix_vente'] > 0 && ($fiche['obj_etat'] == 'VENDU' || $fiche['obj_etat'] == 'PAYE')
+    ) {
         $client['cli_com'] = getCommission($fiche['obj_id']);
     } else {
         $fiche['obj_prix_vente'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
@@ -510,7 +522,7 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
     }
     // MISE EN FORME DE LA FICHE
     // MISE EN FORME DE LA FICHE
-    
+
     try {
         $filePDF = html2pdf(array_merge($fiche, $client, $tabPlus), $html, "Fiche_" . $fiche['obj_numero']);
     } catch (Exception $e) {
@@ -538,7 +550,6 @@ function action_changeEtatFiche($obj)
         if ($fiche['obj_etat'] == 'CONFIRME') {
             // creation de la fiche avec le numero info
             makeNumeroFiche($INFO_APPLI['base_info'], $fiche);
-
             // mise a jour de la date
             $fiche['obj_date_depot'] = date('y-m-d H:i:s');
         } elseif ($fiche['obj_etat'] == 'STOCK') {
@@ -554,7 +565,7 @@ function action_changeEtatFiche($obj)
             // action RENDU et PAYE
             // on valide la date de fin
             $fiche['obj_date_retour'] = date('y-m-d H:i:s');
-        } elseif ($fiche['obj_etat'] == 'RESTOCK') {
+        } elseif ($fiche['obj_etat'] == 'DERENDRE') {
             // on remet en STOCK
             // annulation date de retour RENDU
             $fiche['obj_date_retour'] = null;
@@ -565,8 +576,8 @@ function action_changeEtatFiche($obj)
             $fiche['obj_etat'] = 'STOCK';
             $fiche['obj_id_acheteur'] = null;
 
-        // TODO : mel d'erreur d'envoi ????
-        } elseif ($fiche['obj_etat'] == 'DEPAYE') {
+            // TODO : mel d'erreur d'envoi ????
+        } elseif ($fiche['obj_etat'] == 'DEPAYER') {
             // on remet en VENDU
             $fiche['obj_date_retour'] = null;
             $fiche['obj_etat'] = 'VENDU';
@@ -615,7 +626,7 @@ function action_vendFiche($data)
         // on recherche le vendeur
         $cliVend = return_oneClient($theFiche['obj_id_vendeur']);
 
-        
+
         // si le client a un mel on envoi un mel
         if ($cliVend['cli_emel'] != "") {
             $tab = array();
@@ -655,7 +666,7 @@ function action_updateFiche($data)
     makeClient($client);
 
     $fiche['obj_id_vendeur'] = $client['cli_id'];
-    
+
     try {
         $fiche['obj_marque'] = strtoupper($fiche['obj_marque']);
         $fiche['obj_modele'] = strtoupper($fiche['obj_modele']);
@@ -683,10 +694,9 @@ function return_fiches($tri, $sens, $selection)
             $tab['total_nb_' . $val['obj_etat']]++;
 
             if ($val['obj_etat'] == "PAYE") {
-                $tab['total_com_paye'] +=getCommission($val);
-            }
-            elseif ($val['obj_etat'] == "VENDU") {
-                $tab['total_com_vendu'] +=getCommission($val);
+                $tab['total_com_paye'] += getCommission($val);
+            } elseif ($val['obj_etat'] == "VENDU") {
+                $tab['total_com_vendu'] += getCommission($val);
             }
             if (
                 $val['obj_etat'] == "STOCK" || $val['obj_etat'] == "VENDU" || $val['obj_etat'] == "RENDU" || $val['obj_etat'] == "PAYE"

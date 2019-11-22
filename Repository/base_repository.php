@@ -149,10 +149,10 @@ function getOne($id, $table, $cleId)
         if ($res = $GLOBALS['mysqli']->query($requete2)) {
             $row = $res->fetch_assoc();
         } else {
-            throw new Exception("getOne' [$requete2]" . $GLOBALS['mysqli']->error);
+            throw new Exception("getOne  [$requete2]" . $GLOBALS['mysqli']->error);
         }
     } else {
-        throw new Exception("getOne' Pas de connection ");
+        throw new Exception("getOne $table $cleId $id Pas de connection ");
     }
     return $row;
 }
@@ -195,7 +195,7 @@ function update($table, $obj, $cleId)
         }
     }
     $req .= " where $cleId = '" . $obj[$cleId] . "'";
-    // echo $req;
+    error_log($req);
     if (!$GLOBALS['mysqli']->query($req)) {
         throw new Exception("--Pb d'update' [$req]   ===> " . $GLOBALS['mysqli']->error);
     }

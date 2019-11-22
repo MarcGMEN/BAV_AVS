@@ -50,7 +50,7 @@ if ($infAppli['ADMIN']) {
             'mode' => 'create',
         ],
         'saisieExpress.php' => [
-            'libelle' => 'Création',
+            'libelle' => 'Gestion fiches',
             'class' => 'maskMobileBlock',
         ],
         'stock.php' => [

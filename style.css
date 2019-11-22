@@ -165,8 +165,12 @@ input.button:disabled, input.submit:disabled, input:disabled, textarea:disabled,
 	color: #fff200;
 }
 
-input:focus, textarea:focus, select:focus {
+button:focus, input.button:focus, textarea:focus, select:focus {
 	background-color: lavender;
+}
+
+button:focus {
+	color: darkblue;
 }
 
 input:invalid, textarea:invalid, select:invalid {
