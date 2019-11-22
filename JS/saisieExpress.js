@@ -102,7 +102,11 @@ function display_fiche(val) {
 		getElement("but_action").style.display = 'block';
 
 		getElement("but_action").focus();
-		if (val['obj_etat'] == "CONFIRME") {
+		if (val['obj_etat'] == "INIT") {
+			getElement("but_action").innerHTML = "Confirmer";
+			val['obj_etat_new'] = "CONFIRME";
+		}
+		else if (val['obj_etat'] == "CONFIRME") {
 			getElement("but_action").innerHTML = "Mettre en stock";
 			val['obj_etat_new'] = "STOCK";
 			document.formSaisieExpress.obj_prix_vente.disabled = false;
@@ -263,8 +267,8 @@ function submitForm() {
 	delete tabObj['obj_etat_new2'];
 	delete tabObj['obj_etat_newAno'];
 	console.log(tabObj);
-	if (tabObj['obj_etat'] == 'INIT') {
-		tabObj['obj_etat'] = "STOCK";
+	if (tabObj['obj_etat'] == 'INIT' && tabObj['obj_etat_new'] == "STOCK") {
+		tabObj['obj_etat'] = 'STOCK'
 		var tabData = Object.assign({}, tabObj, tabCli);
 		console.log("demande de cration express");
 		x_action_createFicheExpress(tabToString(tabData), display_fin_create);

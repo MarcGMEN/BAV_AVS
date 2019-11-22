@@ -12,11 +12,6 @@ require_once "../Commun/Sajax.php";
 require_once "../Commun/mail.php";
 require_once "../Commun/html2pdf.php";
 
-if (!isset($_COOKIE['NUMERO_BAV'])) {
-    setcookie('NUMERO_BAV', date('Y'), time() + (86400 * 30), "/"); // 86400 = 1 day
-    $_COOKIE['NUMERO_BAV'] = date('Y');
-}
-
 $par = return_infoAppli();
 // demande de confirmation de la fiche;
 if ($GET_a == "C") {
@@ -26,7 +21,7 @@ if ($GET_a == "C") {
             if (trim($fiche['obj_etat']) == "INIT") {
                 $fiche['obj_etat'] = 'CONFIRME';
 
-                makeNumeroFiche($FICHE_INFO, $fiche);
+                makeNumeroFiche($par['base_info'], $fiche);
 
                 //$row['obj_date_depot_FR'] = formateDateMYSQLtoFR($row['obj_date_depot'], true);
                 $tabPlus['obj_date_depot_FR_SH'] = formateDateMYSQLtoFR($fiche['obj_date_depot'], false);
@@ -129,4 +124,5 @@ if ($GET_a == "I") {
     $page_src .= "?message=$retour";
 }
 
+error_log("REST : Go to ".$page_src);
 header($page_src);

@@ -77,6 +77,7 @@ function makeNumeroFiche($base, &$objet)
 {
     $objet['obj_numero'] = getFicheLibre($base);
     // creation de idmodif
+    error_log("creation de "+$objet['obj_numero']);
     $objet['obj_id_modif'] = hash_hmac(
         'md5',
         $objet['obj_numero'].$GLOBALS['INFO_APPLI']['numero_bav'],
