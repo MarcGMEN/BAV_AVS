@@ -26,6 +26,7 @@
 	<!--cli_id <i id=cli_id></i>-->
 	<input type=hidden name="cli_id" />
 	<input type=hidden name="ach_id" />
+	<input type=hidden name="obj_etat" />
 	<fieldset class=fiche>
 		<legend class=titreFiche>Le depot</legend>
 		<h4>
@@ -33,6 +34,7 @@
 				<div class="col-sm-6 col-md-6 col-xs-6">
 					<input type="hidden" name="obj_numero" />
 					No&nbsp;:&nbsp;<span style="font-size: 1.5em" id='obj_numero'></span>
+					[<span id="obj_modif_data"></span>-<span id="obj_modif_vendeur"></span>]
 				</div>
 				<div class="col-sm-6 col-md-6 col-xs-6 tabl1">
 					<span class="alert-info" id="obj_etat_libelle"></span>
@@ -215,7 +217,8 @@
 		<div class="col-sm-3 col-md-3 col-xs-6 btnAction" style='display:none' id="tdBtnPdf">
 			<input type=button value="Impression Fiche" onclick="imprimeFiche()" name="buttonPDFFiche" tabindex=<?= $tabindex++ ?>>
 			<? if ($infAppli['ADMIN']) { ?>
-				<input type=button value="Impression Etiquette" onclick="imprimeEtiquette()" name="buttonPDFEtiquette" tabindex=<?= $tabindex++ ?>>
+				<input type=button value="Impression Etiquette" onclick="imprimeEtiquette()" 
+					name="buttonPDFEtiquette" tabindex=<?= $tabindex++ ?> style="display:none">
 			<? } ?>
 		</div>
 		<div class="col-sm-3 col-md-3 col-xs-6 btnAction" style='display:none' id="tdBtnSup">

@@ -1,96 +1,64 @@
 <script>
-	var idText = "";
-
-	function initPage() {
-		if (ADMIN) {
-					}
-		else {
-			goTo();
-		}
-	}
-
-	function unloadPage() {}
-
-	function display_html_file(val) {
-		CKEDITOR.replace('editor_html_file');
-		CKEDITOR.instances.editor_html_file.setData(val);
-		getElement('edition').style.display = 'block';
-		getElement('tableHTML').style.display = 'none';
-	}
-
-	function unloadPage() {}
-
-
-	function saveEditor(id, data) {
-		console.log(data);
-		alertModalInfo(data);
-		x_save_html(id, data, display_fin_save);
-		//cancelEditor(id);
-	}
-
-	function display_fin_save(val) {
-		//alertModalInfoTimeout("save OK " + val, 1);
-		//location.reload();
-	}
-
-	function cancelEditor(id) {
-		getElement('edition').style.display = 'none';
-		CKEDITOR.instances.editor_html_file.destroy();
-		getElement('tableHTML').style.display = 'table';
-
-	}
-
-	function imprimeEtiquettes(eti0, eti1) {
-		console.log("Impression des etiquettes de " + eti0.value + " a " + eti1.value);
-		document.body.style.cursor = 'progress';
-		x_action_makeA4Etiquettes(eti0.value, eti1.value, display_openPDF);
-	}
-
-	function imprimeFiches(eti0, eti1) {
-		console.log("Impression des fiches de " + eti0.value + " a " + eti1.value);
-		document.body.style.cursor = 'progress';
-		x_action_makeA4Fiches(eti0.value, eti1.value, display_openPDF);
-	}
+  var nb_eti_page = '<?=$infAppli['nb_eti_page']?>';
+  var nb_coupon_page = '<?=$infAppli['nb_coupon_page']?>';
 </script>
+
+<script src="JS/editFiche.js" ></script>
 <h1>Gestion des textes HTML</h1>
-<table width="100%" id="tableHTML">
+<table width="100%" id="tableHTML" style="padding:2; spacing:2">
 	<tr class="tittab">
-		<td width=40%>Fichier</td>
-		<td width=60% colspan="2">Actions</td>
+		<td width=20%>Fichier</td>
+		<td width=80% colspan="2">Actions</td>
 
 	</tr>
 	<?
 	$tabInfo = [
 		'FICHE DEPOT' => "fiche_depot",
 		'ETIQUETTE' => "etiquette",
+		'COUPON VENDEUR' => "coupon_vendeur",
 		'CREATE MODAL' => "modal_confirm_create",
 		'CONFIRME MODAL' => "modal_confirm_confirme",
 		'PAYE MODAL' => "modal_confirm_paye",
-		'RENDRE MODAL' => "modal_confirm_rendre",
-		'RESTOCK MODAL' => "modal_confirm_restock",
+		// 'RENDRE MODAL' => "modal_confirm_rendre",
+		// 'RESTOCK MODAL' => "modal_confirm_restock",
 		'MAIL ENREGISTREMENT' => "mel_enregistrement",
 		'MAIL CONFIRME' => "mel_confirme",
 		'MAIL VENDU' => "mel_vendu"
 	];
 	foreach ($tabInfo as $title => $idText) {
 		?>
-		<tr class="tabl0">
+		<tr class="tabl0" style="border-bottom:1px solid grey">
 			<td><?= $title ?></td>
-			<td width=20%><span class="link url" onclick='x_action_makePDF(new Array(), "<?= $idText ?>.html", display_openPDF);' )>
+			<td width=10%><span class="link url" onclick='x_action_makePDF(new Array(), "<?= $idText ?>.html", display_openPDF);' )>
 					PDF</span>
 				<i class="fas fa-edit" onclick="x_return_html('<?= $idText ?>', display_html_file);idText='<?= $idText ?>';getElement('html_file_title').innerHTML='<?= $title ?>'" ;></i>
 			</td>
-			<td width=40%>
+			<td width=70%>
 				<? if ($title == "ETIQUETTE") { ?>
 					<form style="color:black">
-						Impression de <input type=number name=eti0 value='<?= $FICHE_INFO ?>' style='width:10%' size=5> a <input type=number name=eti1 size=5 style='width:10%'>
+						Impression de <input type=number name=eti0 value='<?= $infAppli['base_info'] ?>' style='width:10%' size=5> a <input type=number name=eti1 size=5 style='width:10%'>
 						<input type=button value='Imprimer' onclick='imprimeEtiquettes(this.form.eti0,this.form.eti1)'>
+						<br/><b>OU</b><br/> 
+						Impression des modifs <span id="nbAImprimer"></span> (<?=$infAppli['nb_eti_page']?>/page) : <span id="nb_fiche_eti"></span> 
+							[C:<span id="nb_fiche_new"></span>; M:<span id="nb_fiche_modif"></span>]
+						<input type=button value='Imprimer' disabled id="btnImprimeEtiquettesPage" onclick='imprimeEtiquettesPage()'>
 					</form>
 				<? } ?>
 				<? if ($title == "FICHE DEPOT") { ?>
 					<form style="color:black">
-						Impression de <input type=number name=eti0 value='<?= $FICHE_INFO ?>' style='width:10%' size=5> a <input type=number name=eti1 size=5 style='width:10%'>
+						Impression de <input type=number name=eti0 value='<?= $infAppli['base_info'] ?>' style='width:10%' size=5> a <input type=number name=eti1 size=5 style='width:10%'>
 						<input type=button value='Imprimer' onclick='imprimeFiches(this.form.eti0,this.form.eti1)'>
+						
+					</form>
+				<? } ?>
+				<? if ($title == "COUPON VENDEUR") { ?>
+					<form style="color:black">
+						Impression de <input type=number name=eti0 value='<?= $infAppli['base_info'] ?>' style='width:10%' size=5> a <input type=number name=eti1 size=5 style='width:10%'>
+						<input type=button value='Imprimer' onclick='imprimeFiches(this.form.eti0,this.form.eti1)'>
+						<br/><b>OU</b><br/> 
+						Impression des modifs <span id="nbCouponAImprimer"></span> (<?=$infAppli['nb_coupon_page']?>/page) : <span id="nb_fiche_coupon"></span> 
+							[C:<span id="nb_fiche_new_coupon"></span>; M:<span id="nb_fiche_modif_coupon"></span>]
+						<input type=button value='Imprimer' disabled id="btnImprimeCouponsPage" onclick='imprimeCouponsPage()'>
 					</form>
 				<? } ?>
 			</td>

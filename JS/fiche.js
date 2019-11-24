@@ -30,7 +30,7 @@ function initPage() {
         x_return_listClientByMel(display_listVendeur);
 
         // chargement de la liste des client par mel
-        x_return_listClientByName(display_listVendeurName);
+        // x_return_listClientByName(display_listVendeurName);
 
         console.log("mode " + ADMIN);
         // en mode create de table, le mail n'est pas obligatoire
@@ -227,8 +227,10 @@ function display_infoClientVendeur(val, base) {
             var list = getElement("listVendeurName");
             list.innerHTML = "";
         } else {
-            // chargement de la liste des client par mel
-            x_return_listClientByName(display_listVendeurName);
+            if (ADMIN) {
+                // chargement de la liste des client par mel
+                x_return_listClientByName(display_listVendeurName);
+            }
         }
         display_formulaire(val, document.ficheForm);
         if (ADMIN) {
@@ -273,7 +275,6 @@ function display_fiche(val) {
         if (ADMIN) {
             getElement('obj_etat_libelle').className = val['obj_etat'];
             getElement('BtnSaisieExpress').style.display = 'inline';
-
         }
 
         val['obj_marque_' + idRamdom] = val['obj_marque'];
@@ -299,7 +300,9 @@ function display_fiche(val) {
             getElement("divPrix").style.display = 'block';
             document.ficheForm.buttonValideFiche.innerHTML = "Modifier";
 
-            document.ficheForm.cli_emel.disabled = true;
+            if (!ADMIN) {
+                document.ficheForm.cli_emel.disabled = true;
+            }
             // pas de CGU pour la ADMIN
             document.ficheForm.checkCGU.required = false;
             // pas la peine de voir les CGU
@@ -315,6 +318,18 @@ function display_fiche(val) {
 
             val['obj_etat_libelle'] = "Demande confirmée le [" + formatDate(val['obj_date_depot'], true) + "]";
 
+            if (ADMIN) {
+                if (val['obj_modif_data'] != 0) {
+                    document.ficheForm.buttonPDFEtiquette.style.display = "inline";
+                    if (val['obj_modif_data'] == 1) {
+                        document.ficheForm.buttonPDFEtiquette.value = "Impression Etiquette";
+                    }
+                    if (val['obj_modif_data'] == 2) {
+                        document.ficheForm.buttonPDFEtiquette.value = "Re-Impression Etiquette";
+                    }
+
+                }
+            }
         }
         // etat STOCK
         if (val['obj_etat'] == "STOCK") {
@@ -565,7 +580,7 @@ function imprimeFiche() {
 
 function imprimeEtiquette() {
     var tabObj = recup_formulaire(document.ficheForm, 'obj');
-    alertModalInfo("Génération de la l'étiquette " + tabObj['obj_numero'] + " au format PDF <img src='Images/spinner_white_tiny.gif' />");
+    alertModalInfo("Génération de l'étiquette " + tabObj['obj_numero'] + " au format PDF <img src='Images/spinner_white_tiny.gif' />");
     x_action_makePDF(tabObj['obj_id'], 'etiquette.html', display_openPDF);
 }
 

@@ -43,6 +43,8 @@ function return_infoAppli()
         }
     }
     $infos['base_info'] = $par['par_numero_base_info'];
+
+    $infos['nb_eti_page'] = $par['par_nb_eti_page'];
     
     $infos['numero_bav'] = $par['par_numero_bav'];
     $infos['titre'] = $par['par_titre'];

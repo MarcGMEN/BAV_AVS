@@ -167,6 +167,26 @@ function getFiches($order, $sens, $tabSel)
     return $tab;
 }
 
+function getFichesModif($type="data")
+{
+    $requete2 = "SELECT bav_objet.* from bav_objet ";
+    $requete2 .= " where obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "'";
+    $requete2 .= " and obj_modif_$type != 0";
+    
+    $result = $GLOBALS['mysqli']->query($requete2);
+    if ($result) {
+        $tab = array();
+        $index = 0;
+        while ($row = $result->fetch_assoc()) {
+            $tab[$index++] = $row;
+        }
+        $result->close();
+    } else {
+        throw new Exception("getFichesModif' [$requete2] " . $GLOBALS['mysqli']->error);
+    }
+    return $tab;
+}
+
 /**
  * recherche de la fiche par clef hash, utilisé pour les acces REST
  */

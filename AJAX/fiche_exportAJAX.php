@@ -18,5 +18,6 @@ sajax_export(
     "return_fiches_express",
     "action_makeA4Etiquettes",
     "action_makeA4Fiches",
-    "action_reMelConfirme"
+    "action_reMelConfirme",
+    "return_fichesModif"
 );
