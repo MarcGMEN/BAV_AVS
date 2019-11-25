@@ -288,6 +288,18 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
 {
     extract($GLOBALS);
 
+    $data = array(
+        'date1'=>date('d', $INFO_APPLI['date_j1']),
+        'date2'=>date('d', $INFO_APPLI['date_j2']),
+        'date3'=>date('d', $INFO_APPLI['date_j3']),
+        'mois'=>date('M', $INFO_APPLI['date_j2']),
+        'annee'=>date('Y', $INFO_APPLI['date_j2']),
+        'titre'=> $INFO_APPLI['titre'],
+        'URL' => $CFG_URL,
+        'numero_bav' =>$INFO_APPLI['numero_bav']
+    );
+
+
     $etiquettes = "";
     // TODO : recherche des fiches a imprimer en fonction de la table bav_etiquette.
     // avec une base eti0
@@ -361,7 +373,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
 
         if (sizeof($fiche) > 0) {
             $tabPlus['numero_bav'] = $_COOKIE['NUMERO_BAV'];
-            $etiquettes .= makeCorps(array_merge($fiche, $client, $tabPlus), 'etiquette.html');
+            $etiquettes .= makeCorps(array_merge($fiche, $client, $data), 'etiquette.html');
             $etiquettes .= "<hr/>";
         }
     }
@@ -389,6 +401,17 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
 function action_makeA4Coupons($eti0, $eti1, $test = true)
 {
     extract($GLOBALS);
+
+    $data = array(
+        'date1'=>date('d', $INFO_APPLI['date_j1']),
+        'date2'=>date('d', $INFO_APPLI['date_j2']),
+        'date3'=>date('d', $INFO_APPLI['date_j3']),
+        'mois'=>date('M', $INFO_APPLI['date_j2']),
+        'annee'=>date('Y', $INFO_APPLI['date_j2']),
+        'titre'=> $INFO_APPLI['titre'],
+        'URL' => $CFG_URL,
+        'numero_bav' =>$INFO_APPLI['numero_bav']
+    );
 
     $etiquettes = "";
     // TODO : recherche des fiches a imprimer en fonction de la table bav_etiquette.
@@ -454,8 +477,8 @@ function action_makeA4Coupons($eti0, $eti1, $test = true)
             $fiche['obj_id_modif'] = "";
         }
 
-        $tabPlus['numero_bav'] = $_COOKIE['NUMERO_BAV'];
-        $etiquettes .= makeCorps(array_merge($fiche, $client, $tabPlus), 'coupon_vendeur.html');
+
+        $etiquettes .= makeCorps(array_merge($fiche, $client, $data), 'coupon_vendeur.html');
         $etiquettes .= "<hr/>";
     }
     $fileHTML = "../html/coupon_vendeur_" . $eti0 . "_" . $eti1 . ".html";
@@ -475,6 +498,16 @@ function action_makeA4Coupons($eti0, $eti1, $test = true)
 function action_makeA4Fiches($eti0, $eti1)
 {
     extract($GLOBALS);
+    $data = array(
+        'date1'=>date('d', $INFO_APPLI['date_j1']),
+        'date2'=>date('d', $INFO_APPLI['date_j2']),
+        'date3'=>date('d', $INFO_APPLI['date_j3']),
+        'mois'=>date('M', $INFO_APPLI['date_j2']),
+        'annee'=>date('Y', $INFO_APPLI['date_j2']),
+        'titre'=> $INFO_APPLI['titre'],
+        'URL' => $CFG_URL,
+        'numero_bav' =>$INFO_APPLI['numero_bav']
+    );
     try {
         for ($numFiche = $eti0; $numFiche <= $eti1; $numFiche++) {
             $fiche = return_oneFicheByCode($numFiche);
@@ -508,7 +541,7 @@ function action_makeA4Fiches($eti0, $eti1)
 
                 // creation du html avec comme template
                 // html/fiche_depot.html
-                $etiquettes .= makeCorps(array_merge($fiche, $client), 'fiche_depot.html');
+                $etiquettes .= makeCorps(array_merge($fiche, $client,$data), 'fiche_depot.html');
             }
         }
 
@@ -649,10 +682,18 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false, $format 
         $fiche['obj_prix_depot'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
         $fiche['obj_id_modif'] = "";
     }
-    $tabPlus['numero_bav'] = $numBAV;
 
-    $tabPlus['titre'] = $par['par_titre'];
-    $tabPlus['URL'] = $CFG_URL;
+    $data = array(
+		'date1'=>date('d', $INFO_APPLI['date_j1']),
+		'date2'=>date('d', $INFO_APPLI['date_j2']),
+		'date3'=>date('d', $INFO_APPLI['date_j3']),
+		'mois'=>date('M', $INFO_APPLI['date_j2']),
+		'annee'=>date('Y', $INFO_APPLI['date_j2']),
+        'titre'=> $INFO_APPLI['titre'],
+        'URL' => $CFG_URL,
+        'numero_bav' =>$numBAV
+    );
+
 
     // MISE EN FORME DE LA FICHE
     // MISE EN FORME DE LA FICHE
@@ -680,7 +721,7 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false, $format 
 
     try {
 
-        $filePDF = html2pdf(array_merge($fiche, $client, $tabPlus), $html, basename($html, ".html") . "_" . $fiche['obj_numero'], $format);
+        $filePDF = html2pdf(array_merge($fiche, $client, $data), $html, basename($html, ".html") . "_" . $fiche['obj_numero'], $format);
     } catch (Exception $e) {
         print_r($e);
         return "ERREUR " . $e->getMessage();
