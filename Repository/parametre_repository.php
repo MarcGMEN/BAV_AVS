@@ -45,13 +45,14 @@ function return_infoAppli()
     $infos['base_info'] = $par['par_numero_base_info'];
 
     $infos['nb_eti_page'] = $par['par_nb_eti_page'];
+    $infos['nb_coupon_page'] = $par['par_nb_coupon_page'];
     
     $infos['numero_bav'] = $par['par_numero_bav'];
     $infos['titre'] = $par['par_titre'];
 
-    $infos['par_date_debut_depot_FR'] = utf8Encode(formateDateMYSQLtoFR($par['par_date_debut_depot'], true));
-    $infos['par_date_debut_vente_FR'] = utf8Encode(formateDateMYSQLtoFR($par['par_date_debut_vente'], true));
-    $infos['par_date_fin_bav_FR'] = utf8Encode(formateDateMYSQLtoFR($par['par_date_fin_bav'], true));
+    $infos['par_date_debut_depot_FR'] =  formateDateMYSQLtoFR($par['par_date_debut_depot'], true);
+    $infos['par_date_debut_vente_FR'] =  formateDateMYSQLtoFR($par['par_date_debut_vente'], true);
+    $infos['par_date_fin_bav_FR'] =  formateDateMYSQLtoFR($par['par_date_fin_bav'], true);
     
     $infos['date_j1'] = strtotime($par['par_date_debut_depot']);
     $infos['date_j2'] = strtotime($par['par_date_debut_vente']);
@@ -65,15 +66,15 @@ function return_parametreActif()
     try {
         $row = getParemetreActif();
         if ($row) {
-            $row['par_client_date_debut_FR'] = utf8Encode(formateDateMYSQLtoFR($row['par_client_date_debut'], false));
-            $row['par_client_date_fin_FR'] = utf8Encode(formateDateMYSQLtoFR($row['par_client_date_fin'], false));
+            $row['par_client_date_debut_FR'] =  formateDateMYSQLtoFR($row['par_client_date_debut'], false);
+            $row['par_client_date_fin_FR'] =  formateDateMYSQLtoFR($row['par_client_date_fin'], false);
 
-            $row['par_table_date_debut_FR'] = utf8Encode(formateDateMYSQLtoFR($row['par_table_date_debut'], false));
-            $row['par_table_date_fin_FR'] = utf8Encode(formateDateMYSQLtoFR($row['par_table_date_fin'], false));
+            $row['par_table_date_debut_FR'] =  formateDateMYSQLtoFR($row['par_table_date_debut'], false);
+            $row['par_table_date_fin_FR'] =  formateDateMYSQLtoFR($row['par_table_date_fin'], false);
 
-            $row['par_date_debut_depot_FR'] = utf8Encode(formateDateMYSQLtoFR($row['par_date_debut_depot'], true));
-            $row['par_date_debut_vente_FR'] = utf8Encode(formateDateMYSQLtoFR($row['par_date_debut_vente'], true));
-            $row['par_date_fin_bav_FR'] = utf8Encode(formateDateMYSQLtoFR($row['par_date_fin_bav'], true));
+            $row['par_date_debut_depot_FR'] =  formateDateMYSQLtoFR($row['par_date_debut_depot'], true);
+            $row['par_date_debut_vente_FR'] =  formateDateMYSQLtoFR($row['par_date_debut_vente'], true);
+            $row['par_date_fin_bav_FR'] =  formateDateMYSQLtoFR($row['par_date_fin_bav'], true);
         }
         return $row;
     } catch (Exception $e) {

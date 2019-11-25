@@ -10,7 +10,7 @@ function initPage() {
     }
 }
 
-function unloadPage() {}
+function unloadPage() { }
 
 function display_modifData(val) {
 
@@ -64,21 +64,29 @@ function display_modifVendeur(val) {
 function display_html_file(val) {
     CKEDITOR.replace('editor_html_file');
     CKEDITOR.instances.editor_html_file.setData(val);
+    //getElement('editor_html_file').innerHTML = val;
     getElement('edition').style.display = 'block';
     getElement('tableHTML').style.display = 'none';
 }
 
-function unloadPage() {}
+function unloadPage() { }
 
-
+var idTextSAved=""
 function saveEditor(id, data) {
     console.log(data);
-    alertModalInfo(data);
+    alertModalInfoTimeout(data,1);
+    idTextSAved=id;
     x_save_html(id, data, display_fin_save);
+    CKEDITOR.instances.editor_html_file.destroy();
     //cancelEditor(id);
 }
 
+function viewOnPdf(idText, format) {
+    alertModalInfo("Génération de "+idText+" au format PDF <img src='Images/spinner_white_tiny.gif' />");
+    x_action_makePDF(new Array(), idText + ".html", true, format, display_openPDF);
+}
 function display_fin_save(val) {
+    x_return_html(idTextSAved, display_html_file);
     //alertModalInfoTimeout("save OK " + val, 1);
     //location.reload();
 }
@@ -91,13 +99,27 @@ function cancelEditor(id) {
 }
 
 function imprimeEtiquettes(eti0, eti1) {
-    console.log("Impression des etiquettes de " + eti0.value + " a " + eti1.value);
-    document.body.style.cursor = 'progress';
-    x_action_makeA4Etiquettes(eti0.value, eti1.value, display_openPDF);
+    alertModalInfo("Génération des étiquettes de " + eti0 + " a " + eti1 + " au format PDF <img src='Images/spinner_white_tiny.gif' />");
+    x_action_makeA4Etiquettes(eti0, eti1, display_openPDF);
 }
 
+function imprimeEtiquettesPage(force) {
+    alertModalInfo("Génération des étiquettes par page [" + force + "] au format PDF <img src='Images/spinner_white_tiny.gif' />");
+    x_action_makeA4Etiquettes(0, force, display_openPDF);
+}
+
+function imprimeCoupons(eti0, eti1) {
+    alertModalInfo("Génération des coupons de " + eti0 + " a " + eti1 + " au format PDF <img src='Images/spinner_white_tiny.gif' />");
+    x_action_makeA4Coupons(eti0, eti1, display_openPDF);
+}
+
+function imprimeCouponsPage(force) {
+    alertModalInfo("Génération des coupons par page [" + force + "] au format PDF <img src='Images/spinner_white_tiny.gif' />");
+    x_action_makeA4Coupons(0, force, display_openPDF);
+}
+imprimeCouponsPage
+
 function imprimeFiches(eti0, eti1) {
-    console.log("Impression des fiches de " + eti0.value + " a " + eti1.value);
-    document.body.style.cursor = 'progress';
+    alertModalInfo("Génération des fiches de " + eti0.value + " a " + eti1.value + " au format PDF <img src='Images/spinner_white_tiny.gif' />");
     x_action_makeA4Fiches(eti0.value, eti1.value, display_openPDF);
 }

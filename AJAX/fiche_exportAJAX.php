@@ -17,6 +17,7 @@ sajax_export(
     "return_fiches",
     "return_fiches_express",
     "action_makeA4Etiquettes",
+    "action_makeA4Coupons",
     "action_makeA4Fiches",
     "action_reMelConfirme",
     "return_fichesModif"

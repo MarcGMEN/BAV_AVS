@@ -20,7 +20,6 @@ function return_listClientByMel($mel = null)
  */
 function return_listClientByName($nom = null)
 {
-    //return listUnique("bav_client", "cli_nom", utf8_encode($nom),"cli_emel");
     return getClients("cli_nom", "asc", ['cli_nom'=>$nom], true);
 }
 
@@ -40,7 +39,7 @@ function return_oneClientByMel($mel)
 function return_oneClientByName($mel)
 {
     if (strlen($mel) > 0) {
-        return getOne(utf8_encode($mel), "bav_client", "cli_nom");
+        return getOne($mel, "bav_client", "cli_nom");
     }
 }
 

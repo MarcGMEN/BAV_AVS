@@ -108,6 +108,12 @@
 					</td>
 				</tr>
 				<tr>
+					<td class="titrow">Nb coupon par page A4 </td>
+					<td class="tabInput">
+						<input type=number name="par_nb_coupon_page" tabindex=<?= $tabindex++ ?> placeholder="entre 1 et 20" onkeyup="setStartSaisie(true);" min=1 max=20 size=2 value="5" />
+					</td>
+				</tr>
+				<tr>
 					<td class="titrow">Numéro de base pour les fiches infos</td>
 					<td class="tabInput">
 						<input type=number name="par_numero_base_info" tabindex=<?= $tabindex++ ?> placeholder="entre 1 et 2000" onkeyup="setStartSaisie(true);" min=1 max=2000 size=4 value="700" />

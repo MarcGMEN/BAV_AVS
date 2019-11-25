@@ -5,7 +5,7 @@ use Spipu\Html2Pdf\Html2Pdf;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Spipu\Html2Pdf\Exception\ExceptionFormatter;
 
-function html2pdf($data, $html, $fileOut)
+function html2pdf($data, $html, $fileOut, $format="P")
 {
     try {
         $message = makeCorps($data, $html);
@@ -16,7 +16,7 @@ function html2pdf($data, $html, $fileOut)
         include dirname(__FILE__)."/../out/html/$fileOut.html";
         echo "</page>";
         $content = ob_get_clean();
-        $html2pdf = new Html2Pdf('P', 'A4', 'fr', true, 'UTF-8', 3);
+        $html2pdf = new Html2Pdf($format, 'A4', 'fr', true, 'UTF-8', 3);
         //$html2pdf->setDefaultFont('Arial');
         $html2pdf->pdf->SetDisplayMode('fullpage');
         $html2pdf->pdf->SetAuthor('AVS44');

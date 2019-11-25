@@ -54,5 +54,5 @@ function initMailing()
 }
 function loadTexteMailing()
 {
-    return utf8_encode(file_get_contents("../html/texteBAV.html"));
+    return file_get_contents("../html/texteBAV.html");
 }

@@ -28,6 +28,10 @@ if (mysqli_connect_errno($mysqli)) {
 	print_r($mysqli);
     echo "Echec lors de la connexion à MySQL : " . mysqli_connect_error();
 }
+if (!$mysqli->set_charset("utf8")) {
+    printf("Erreur lors du chargement du jeu de caractères utf8 : %s\n", $mysqli->error);
+}
+
 
 /*********************************************************************************/
 /*********************************************************************************/

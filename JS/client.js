@@ -44,6 +44,7 @@ function display_list_prix_depot(val) {
  * 
  */
 function display_client(val) {
+	console.log(val);
 	if (val instanceof Object) {
 
 		display_formulaire(val, document.clientForm);

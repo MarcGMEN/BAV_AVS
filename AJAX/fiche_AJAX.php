@@ -79,6 +79,7 @@ function return_oneFiche($id)
     if ($row) {
         $row['obj_date_depot_FR'] = formateDateMYSQLtoFR($row['obj_date_depot'], true);
     }
+    error_log($row['obj_description']);
     return $row;
 }
 
@@ -283,39 +284,189 @@ function action_deleteFiche($id)
  * creation des etiquetes sur une feuille A4
  * parametre : le numero de depart, la mise a jour de l'impression, le nombre de page
  */
-function action_makeA4Etiquettes($eti0, $update = false, $nbPage = 1)
+function action_makeA4Etiquettes($eti0, $eti1, $test = true)
 {
     extract($GLOBALS);
 
     $etiquettes = "";
     // TODO : recherche des fiches a imprimer en fonction de la table bav_etiquette.
     // avec une base eti0
-
-    for ($numFiche = $eti0; $numFiche <= $eti1; $numFiche++) {
-        $fiche = return_oneFicheByCode($numFiche);
-        if ($fiche['obj_id']) {
-            // refaire les descriptions, pas de retour chariots et limite.
-
-            $fiche['obj_description'] = str_replace("\n", " / ", $fiche['obj_description']);
-
-            if ($fiche['obj_prix_depot'] == 0) {
-                $fiche['obj_prix_depot'] = "";
+    $tabFiche = [];
+    $index = 1;
+    if ($eti0 == 0) {
+        //recherche des fiches modifié ou crée, regroupé par page
+        // $eti1 => 1 force ; 0 : normal
+        $fiches = getFichesModif('data');
+        $nbEtiq = 10000;
+        if ($eti1 == "false") {
+            //limite le tableau au modulo par page            
+            $nbEtiq = ((int) (sizeof($fiches) / $INFO_APPLI['nb_eti_page'])) * $INFO_APPLI['nb_eti_page'];
+        }
+        if ($nbEtiq > 0) {
+            foreach ($fiches as $fiche) {
+                $tabFiche[$index++] = $fiche['obj_numero'];
+                if ($index > $nbEtiq) {
+                    break;
+                }
             }
+        }
+    } else if ($eti0 >=  $INFO_APPLI['base_info']) {
+        for ($numFiche = $eti0; $numFiche <= $eti1; $numFiche++) {
+            $tabFiche[$index++] = $numFiche;
+        }
+    } else if ($eti0 == 1) {
+        for ($numFiche = 1; $numFiche < $INFO_APPLI['base_info']; $numFiche++) {
+            $tabFiche[$index++] = $numFiche;
+        }
+    }
+    foreach ($tabFiche as $numFiche) {
+        $fiche = [];
+        if ($eti0 >=  $INFO_APPLI['base_info']) {
+            $fiche = getOneFicheByCode($numFiche);
+            if ($fiche['obj_id']) {
+                // refaire les descriptions, pas de retour chariots et limite.
+                $client = [];
+                $fiche['obj_description'] = str_replace("\n", " / ", $fiche['obj_description']);
 
+                if ($fiche['obj_prix_depot'] == 0) {
+                    $fiche['obj_prix_depot'] = "";
+                }
+            }
+        } else {
+            $client['cli_prix_depot'] = "";
+            $client['cli_nom'] = "";
+            $client['cli_emel'] = "";
+            $client['cli_adresse'] = "";
+            $client['cli_adresse1'] = "";
+            $client['cli_code_postal'] = "";
+            $client['cli_ville'] = "";
+            $client['cli_telephone'] = "";
+            $client['cli_telephone_bis'] = "";
+            $client['cli_taux_com'] = "";
+            $client['cli_id_modif'] = "";
+
+            $fiche['obj_numero'] = $numFiche;
+            $fiche['obj_type'] = "<span style='font-size:9px'>Autre VTT Route VTC Ville VAE</span>";
+            $fiche['obj_public'] = "<span style='font-size:9px'>Mixte Homme Femme Enfant</span>";
+            $fiche['obj_pratique'] = "Sportive-Loisir-Compétition-Autre";
+            $fiche['obj_marque'] = "";
+            $fiche['obj_modele'] = "";
+            $fiche['obj_couleur'] = "";
+            $fiche['obj_accessoire'] = "";
+            $fiche['obj_description'] = "";
+            $fiche['obj_prix_vente'] = "";
+            $fiche['obj_prix_depot'] = "";
+            $fiche['obj_id_modif'] = "";
+        }
+
+        if (sizeof($fiche) > 0) {
             $tabPlus['numero_bav'] = $_COOKIE['NUMERO_BAV'];
-
-            $etiquettes .= makeCorps(array_merge($fiche, $tabPlus), 'etiquette.html');
+            $etiquettes .= makeCorps(array_merge($fiche, $client, $tabPlus), 'etiquette.html');
             $etiquettes .= "<hr/>";
         }
     }
+
     $fileHTML = "../html/etiquettes_" . $eti0 . "_" . $eti1 . ".html";
 
-    file_put_contents($fileHTML, $etiquettes);
+    file_put_contents($fileHTML, utf8_decode($etiquettes));
 
-    $filePDF = html2pdf("", $fileHTML, "etiquettes_" . $eti0 . "_" . $eti1);
-    unlink($fileHTML);
+    // if ($eti0 != 1) {
+    //     $filePDF = html2pdf("", $fileHTML, "etiquettes_" . $eti0 . "_" . $eti1);
+    //     unlink($fileHTML);
+    //     return  $CFG_URL . $filePDF;
+    // }
+    // else {
+    return  $CFG_URL . "/html/etiquettes_" . $eti0 . "_" . $eti1 . ".html";
+    // }
 
-    return  $CFG_URL . $filePDF;
+
+}
+
+/**
+ * creation des etiquetes sur une feuille A4
+ * parametre : le numero de depart, la mise a jour de l'impression, le nombre de page
+ */
+function action_makeA4Coupons($eti0, $eti1, $test = true)
+{
+    extract($GLOBALS);
+
+    $etiquettes = "";
+    // TODO : recherche des fiches a imprimer en fonction de la table bav_etiquette.
+    // avec une base eti0
+    $tabFiche = [];
+    $index = 1;
+    if ($eti0 == 0) {
+        //recherche des fiches modifié ou crée, regroupé par page
+        // $eti1 => 1 force ; 0 : normal
+        $fiches = getFichesModif('vendeur');
+        $nbEtiq = 10000;
+        if ($eti1 == "false") {
+            //limite le tableau au modulo par page            
+            $nbEtiq = ((int) (sizeof($fiches) / $INFO_APPLI['nb_coupon_page'])) * $INFO_APPLI['nb_coupon_page'];
+        }
+        if ($nbEtiq > 0) {
+            foreach ($fiches as $fiche) {
+                $tabFiche[$index++] = $fiche['obj_numero'];
+                if ($index > $nbEtiq) {
+                    break;
+                }
+            }
+        }
+    } else if ($eti0 >=  $INFO_APPLI['base_info']) {
+        for ($numFiche = $eti0; $numFiche <= $eti1; $numFiche++) {
+            $tabFiche[$index++] = $numFiche;
+        }
+    } else if ($eti0 == 1) {
+        for ($numFiche = 1; $numFiche < $INFO_APPLI['base_info']; $numFiche++) {
+            $tabFiche[$index++] = $numFiche;
+        }
+    }
+    foreach ($tabFiche as $numFiche) {
+        if ($eti0 >=  $INFO_APPLI['base_info']) {
+            $fiche = getOneFicheByCode($numFiche);
+            if ($fiche['obj_id']) {
+                $client = getOneClient($fiche['obj_id_vendeur']);
+            }
+        } else {
+            $client['cli_prix_depot'] = "";
+            $client['cli_nom'] = "";
+            $client['cli_emel'] = "";
+            $client['cli_adresse'] = "";
+            $client['cli_adresse1'] = "";
+            $client['cli_code_postal'] = "";
+            $client['cli_ville'] = "";
+            $client['cli_telephone'] = "";
+            $client['cli_telephone_bis'] = "";
+            $client['cli_taux_com'] = "";
+            $client['cli_id_modif'] = "";
+
+            $fiche['obj_numero'] = $numFiche;
+            $fiche['obj_type'] = "<span style='font-size:9px'>Autre VTT Route VTC Ville VAE</span>";
+            $fiche['obj_public'] = "<span style='font-size:9px'>Mixte Homme Femme Enfant</span>";
+            $fiche['obj_pratique'] = "Sportive-Loisir-Compétition-Autre";
+            $fiche['obj_marque'] = "";
+            $fiche['obj_modele'] = "";
+            $fiche['obj_couleur'] = "";
+            $fiche['obj_accessoire'] = "";
+            $fiche['obj_description'] = "";
+            $fiche['obj_prix_vente'] = "";
+            $fiche['obj_prix_depot'] = "";
+            $fiche['obj_id_modif'] = "";
+        }
+
+        $tabPlus['numero_bav'] = $_COOKIE['NUMERO_BAV'];
+        $etiquettes .= makeCorps(array_merge($fiche, $client, $tabPlus), 'coupon_vendeur.html');
+        $etiquettes .= "<hr/>";
+    }
+    $fileHTML = "../html/coupon_vendeur_" . $eti0 . "_" . $eti1 . ".html";
+
+    file_put_contents($fileHTML, utf8_decode($etiquettes));
+
+    return  $CFG_URL . "/html/coupon_vendeur_" . $eti0 . "_" . $eti1 . ".html";
+    // $filePDF = html2pdf("", $fileHTML, "coupon_vendeur_" . $eti0 . "_" . $eti1, "L");
+    // unlink($fileHTML);
+
+    // return  $CFG_URL . $filePDF;
 }
 
 /**
@@ -365,15 +516,17 @@ function action_makeA4Fiches($eti0, $eti1)
         $fileHTML = "../html/fiches_" . $eti0 . "_" . $eti1 . ".html";
 
         // enregistrement du fichier html
-        file_put_contents($fileHTML, $etiquettes);
+        file_put_contents($fileHTML,  utf8_decode($etiquettes));
 
-        // generation du PDF
-        $filePDF = html2pdf("", $fileHTML, "fiches_" . $eti0 . "_" . $eti1);
+        // // generation du PDF
+        // $filePDF = html2pdf("", $fileHTML, "fiches_" . $eti0 . "_" . $eti1);
 
-        //suppression du fichier HTML
-        unlink($fileHTML);
+        // //suppression du fichier HTML
+        // unlink($fileHTML);
 
-        return  $CFG_URL . $filePDF;
+        // return  $CFG_URL . $filePDF;
+
+        return  $CFG_URL . "/html/fiches_" . $eti0 . "_" . $eti1 . ".html";
     } catch (Exception $e) {
         return "ERREUR " . $e->getMessage();
     }
@@ -420,7 +573,7 @@ function concatDescription($desc)
 /**
  * creation d'une fiche en PDF
  */
-function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
+function action_makePDF($id, $html = 'fiche_depot.html', $test = false, $format = "P")
 {
     extract($GLOBALS);
     $ADMIN = $INFO_APPLI['ADMIN'];
@@ -435,6 +588,7 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
     } elseif ($test) {
         $client['cli_prix_depot'] = $par['par_prix_depot_1'];
         $client['cli_nom'] = "TEST";
+        $client['cli_id_modif'] = "be49226b2150c567adf4f090c21be17f";
         $client['cli_emel'] = "test@test.com";
         $client['cli_adresse'] = "votre adresse";
         $client['cli_adresse1'] = "";
@@ -446,6 +600,7 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
         $client['cli_id_modif'] = "";
 
         $ach['ach_nom'] = "TEST acheteur";
+        $ach['ach_id_modif'] = "be49226b2150c567adf4f090c21be17f";
         $ach['ach_emel'] = "test.acheteur@test.com";
         $ach['ach_adresse'] = "votre adresse";
         $ach['ach_adresse1'] = "";
@@ -455,6 +610,7 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
         $ach['ach_telephone_bis'] = "";
 
         $fiche['obj_numero'] = "1000";
+        $fiche['obj_id_modif'] = "be49226b2150c567adf4f090c21be17f";
         $fiche['obj_type'] = "VTT";
         $fiche['obj_public'] = "Homme";
         $fiche['obj_pratique'] = "Sportive";
@@ -465,7 +621,6 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
         $fiche['obj_description'] = "ceci est un texte long pour essayer de prendre de la place sur une ligne avec un maximun de place, allez on saute une ligne<br/>une ligne<br/> et encore une<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9";
         $fiche['obj_prix_vente'] = "130";
         $fiche['obj_prix_depot'] = "150";
-        $fiche['obj_id_modif'] = "";
         $fiche['obj_id_acheteur'] = 999999;
         $fiche['obj_etat'] = "VENDU";
     } else {
@@ -524,7 +679,8 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false)
     // MISE EN FORME DE LA FICHE
 
     try {
-        $filePDF = html2pdf(array_merge($fiche, $client, $tabPlus), $html, "Fiche_" . $fiche['obj_numero']);
+
+        $filePDF = html2pdf(array_merge($fiche, $client, $tabPlus), $html, basename($html, ".html") . "_" . $fiche['obj_numero'], $format);
     } catch (Exception $e) {
         print_r($e);
         return "ERREUR " . $e->getMessage();
@@ -578,7 +734,7 @@ function action_changeEtatFiche($obj)
             $fiche['obj_etat'] = 'STOCK';
             $fiche['obj_id_acheteur'] = null;
 
-        // TODO : mel d'erreur d'envoi ????
+            // TODO : mel d'erreur d'envoi ????
         } elseif ($fiche['obj_etat'] == 'DEPAYER') {
             // on remet en VENDU
             $fiche['obj_date_retour'] = null;
@@ -660,22 +816,22 @@ function action_updateFiche($data)
     $fiche = tabToObject(string2Tab($data), "obj");
     $client = tabToObject(string2Tab($data), "cli");
     $acheteur = tabToObject(string2Tab($data), "ach");
-    
-    
+
+
     if ($acheteur) {
-        $clientAcheteur=[];
+        $clientAcheteur = [];
         foreach ($acheteur as $key => $val) {
             $newKey = str_ireplace("ach_", "cli_", $key);
             $clientAcheteur[$newKey] = $val;
         }
         makeClient($clientAcheteur);
-        
+
         $fiche['obj_id_acheteur'] = $clientAcheteur['cli_id'];
     }
 
     $ficheOld = getOneFiche($fiche['obj_id']);
 
-    
+
 
     // attention au doublon
     // un mel, on cherche si OK, si oui on modifie les données
@@ -689,20 +845,21 @@ function action_updateFiche($data)
     // on recherche le vendeur
     $cliOld = return_oneClient($fiche['obj_id_vendeur']);
     if ($fiche['obj_etat'] == "CONFIRME") {
-        error_log("test cli_nom  ".strtoupper($client['cli_nom'])." != ".strtoupper($cliOld['cli_nom']));
+        error_log("test cli_nom  " . strtoupper($client['cli_nom']) . " != " . strtoupper($cliOld['cli_nom']));
         // si modification de client de la fiche
-        if (strtoupper($client['cli_nom']) != strtoupper($cliOld['cli_nom'])) {
+        if ($ficheOld['obj_modif_vendeur'] == 0 && strtoupper($client['cli_nom']) != strtoupper($cliOld['cli_nom'])) {
             $fiche['obj_modif_vendeur'] = 2;
         }
 
         // si modification de datas de la fiche
-        if (strtoupper($fiche['obj_modele']) != strtoupper($ficheOld['obj_modele']) ||
-        strtoupper($fiche['obj_type']) != strtoupper($ficheOld['obj_type']) ||
-        strtoupper($fiche['obj_public']) != strtoupper($ficheOld['obj_public']) ||
-        strtoupper($fiche['obj_marque']) != strtoupper($ficheOld['obj_marque']) ||
-        strtoupper($fiche['obj_couleur']) != strtoupper($ficheOld['obj_couleur']) ||
-        strtoupper($fiche['obj_description']) != strtoupper($ficheOld['obj_description']) ||
-        strtoupper($fiche['obj_prix_depot']) != strtoupper($ficheOld['obj_prix_depot'])
+        if (
+            $ficheOld['obj_modif_data'] == 0 && (strtoupper($fiche['obj_modele']) != strtoupper($ficheOld['obj_modele']) ||
+                strtoupper($fiche['obj_type']) != strtoupper($ficheOld['obj_type']) ||
+                strtoupper($fiche['obj_public']) != strtoupper($ficheOld['obj_public']) ||
+                strtoupper($fiche['obj_marque']) != strtoupper($ficheOld['obj_marque']) ||
+                strtoupper($fiche['obj_couleur']) != strtoupper($ficheOld['obj_couleur']) ||
+                strtoupper($fiche['obj_description']) != strtoupper($ficheOld['obj_description']) ||
+                strtoupper($fiche['obj_prix_depot']) != strtoupper($ficheOld['obj_prix_depot']))
         ) {
             $fiche['obj_modif_data'] = 2;
         }
@@ -726,7 +883,8 @@ function action_updateFiche($data)
     }
 }
 
-function return_fichesModif($type='data') {
+function return_fichesModif($type = 'data')
+{
     try {
         $par = return_parametreActif();
         $tab = getFichesModif($type);

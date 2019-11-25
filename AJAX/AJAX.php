@@ -76,8 +76,8 @@ function string2Tab($obj)
                 print_r($obj);
                 break;
             case JSON_ERROR_UTF8:
-                $obj8 = utf8_encode2($obj);
-                $obj8 = str_replace('â‚¬', '€', $obj8);
+                $obj8 = utf8_encode($obj);
+                // $obj8 = str_replace('â‚¬', '€', $obj8);
                 $json = json_decode($obj8, true);
                 break;
             default:
@@ -95,7 +95,7 @@ function return_enum($table, $champ)
 {
     $tabEnum = recupEnumToArray($table, $champ);
     foreach ($tabEnum as $key => $val) {
-        $tabEnum[$key] = utf8Encode($val);
+        $tabEnum[$key] = $val;
     }
     return $tabEnum;
 }
@@ -147,7 +147,7 @@ function return_html($html)
  */
 function save_html($html, $data)
 {
-    file_put_contents('../html/' . $html . '.html', utf8_encode2($data));
+    file_put_contents('../html/' . $html . '.html', utf8_encode($data));
     return $html;
 }
 

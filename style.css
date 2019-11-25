@@ -134,6 +134,8 @@ button:hover, input[type=button]:hover {
 	border-style: inset;
 }
 
+
+
 input[type=date], input[type=email], input[type=number], input[type=text], select {
 	font-family: Verdana, Arial, Helvetica, sans-serif !important;
 	border-bottom: 1px solid;
@@ -163,6 +165,11 @@ input.button:disabled, input.submit:disabled, input:disabled, textarea:disabled,
 	background: lightslategray;
 	cursor: default;
 	color: #fff200;
+}
+
+input:disabled:hover {
+	background: lightslategray;
+	cursor: default;
 }
 
 button:focus, input.button:focus, textarea:focus, select:focus {
@@ -535,7 +542,7 @@ table {
 	padding-bottom: 5pt;
 }
 
-.tabl0 {
+.tabl0, tabAction {
 	font-family:  Verdana, Arial, Helvetica, sans-serif;
 	background-color: WHITE;
 	color: #1161a2;
@@ -549,6 +556,10 @@ td.tabl0 {
 	font-size: 0.8em;
 }
 
+.tabAction:hover {
+		background-color: #1161a2;
+		color: WHITE;
+}
 .tabl0:hover {
 	background-color: #1161a2;
 	color: WHITE;

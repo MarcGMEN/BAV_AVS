@@ -25,15 +25,15 @@ function return_allParametre()
     }
     $tab = getAllParametre();
     foreach ($tab as $key => $row) {
-        $tab[$key]['par_client_date_debut_FR'] = utf8Encode(formateDateMYSQLtoFR($row['par_client_date_debut'], true));
-        $tab[$key]['par_client_date_fin_FR'] = utf8Encode(formateDateMYSQLtoFR($row['par_client_date_fin'], true));
+        $tab[$key]['par_client_date_debut_FR'] = formateDateMYSQLtoFR($row['par_client_date_debut'], true);
+        $tab[$key]['par_client_date_fin_FR'] =formateDateMYSQLtoFR($row['par_client_date_fin'], true);
 
-        $tab[$key]['par_client_date_debut_FR'] = utf8Encode(formateDateMYSQLtoFR($row['par_client_date_debut'], false));
-        $tab[$key]['par_client_date_fin_FR'] = utf8Encode(formateDateMYSQLtoFR($row['par_client_date_fin'], false));
+        $tab[$key]['par_client_date_debut_FR'] = formateDateMYSQLtoFR($row['par_client_date_debut'], false);
+        $tab[$key]['par_client_date_fin_FR'] = formateDateMYSQLtoFR($row['par_client_date_fin'], false);
 
-        $tab[$key]['par_date_debut_depot_FR'] = utf8Encode(formateDateMYSQLtoFR($row['par_date_debut_depot'], true));
-        $tab[$key]['par_date_debut_vente_FR'] = utf8Encode(formateDateMYSQLtoFR($row['par_date_debut_vente'], true));
-        $tab[$key]['par_date_fin_bav_FR'] = utf8Encode(formateDateMYSQLtoFR($row['par_date_fin_bav'], true));
+        $tab[$key]['par_date_debut_depot_FR'] = formateDateMYSQLtoFR($row['par_date_debut_depot'], true);
+        $tab[$key]['par_date_debut_vente_FR'] =formateDateMYSQLtoFR($row['par_date_debut_vente'], true);
+        $tab[$key]['par_date_fin_bav_FR'] = formateDateMYSQLtoFR($row['par_date_fin_bav'], true);
     }   
     return $tab;
 }

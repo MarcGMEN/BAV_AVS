@@ -152,7 +152,7 @@ function getOne($id, $table, $cleId)
             throw new Exception("getOne  [$requete2]" . $GLOBALS['mysqli']->error);
         }
     } else {
-        throw new Exception("getOne $table $cleId $id Pas de connection ");
+        throw new Exception("getOne $table $cleId pas d'ID");
     }
     return $row;
 }
