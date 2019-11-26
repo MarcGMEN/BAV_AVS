@@ -77,12 +77,13 @@ function makeNumeroFiche($base, &$objet)
 {
     $objet['obj_numero'] = getFicheLibre($base);
     // creation de idmodif
-    error_log("creation de "+$objet['obj_numero']);
+    
     $objet['obj_id_modif'] = hash_hmac(
         'md5',
         $objet['obj_numero'].$GLOBALS['INFO_APPLI']['numero_bav'],
         'avs44'
     );
+    error_log("creation de ".$objet['obj_numero']." => ".$objet['obj_id_modif']);
 }
 
 /**
@@ -98,9 +99,8 @@ function getFicheLibre($base)
     $row = null;
     $query = " SELECT obj_numero from bav_objet where obj_numero >= $base and obj_numero_bav = '" .
         $GLOBALS['INFO_APPLI']['numero_bav'] . "' order by obj_numero";
+    error_log($query);
     if ($result = $GLOBALS['mysqli']->query($query)) {
-        $tab = array();
-        $index = 0;
         while ($row = $result->fetch_assoc()) {
             if ($row['obj_numero'] != $base) {
                 break;

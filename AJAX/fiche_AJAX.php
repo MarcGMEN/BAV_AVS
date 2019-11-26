@@ -79,7 +79,6 @@ function return_oneFiche($id)
     if ($row) {
         $row['obj_date_depot_FR'] = formateDateMYSQLtoFR($row['obj_date_depot'], true);
     }
-    error_log($row['obj_description']);
     return $row;
 }
 
@@ -247,7 +246,6 @@ function action_createFicheExpress($data)
             $tabObj['obj_numero'] . $GLOBALS['INFO_APPLI']['numero_bav'],
             'avs44'
         );
-        error_log($tabObj['obj_numero'] . $GLOBALS['INFO_APPLI']['numero_bav']);
         $tabObj['obj_id'] = 0;
 
         // affectationa la BAV
@@ -289,14 +287,14 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
     extract($GLOBALS);
 
     $data = array(
-        'date1'=>date('d', $INFO_APPLI['date_j1']),
-        'date2'=>date('d', $INFO_APPLI['date_j2']),
-        'date3'=>date('d', $INFO_APPLI['date_j3']),
-        'mois'=>date('M', $INFO_APPLI['date_j2']),
-        'annee'=>date('Y', $INFO_APPLI['date_j2']),
-        'titre'=> $INFO_APPLI['titre'],
+        'date1' => date('d', $INFO_APPLI['date_j1']),
+        'date2' => date('d', $INFO_APPLI['date_j2']),
+        'date3' => date('d', $INFO_APPLI['date_j3']),
+        'mois' => date('M', $INFO_APPLI['date_j2']),
+        'annee' => date('Y', $INFO_APPLI['date_j2']),
+        'titre' => $INFO_APPLI['titre'],
         'URL' => $CFG_URL,
-        'numero_bav' =>$INFO_APPLI['numero_bav']
+        'numero_bav' => $INFO_APPLI['numero_bav']
     );
 
 
@@ -402,14 +400,14 @@ function action_makeA4Coupons($eti0, $eti1, $test = true)
     extract($GLOBALS);
 
     $data = array(
-        'date1'=>date('d', $INFO_APPLI['date_j1']),
-        'date2'=>date('d', $INFO_APPLI['date_j2']),
-        'date3'=>date('d', $INFO_APPLI['date_j3']),
-        'mois'=>date('M', $INFO_APPLI['date_j2']),
-        'annee'=>date('Y', $INFO_APPLI['date_j2']),
-        'titre'=> $INFO_APPLI['titre'],
+        'date1' => date('d', $INFO_APPLI['date_j1']),
+        'date2' => date('d', $INFO_APPLI['date_j2']),
+        'date3' => date('d', $INFO_APPLI['date_j3']),
+        'mois' => date('M', $INFO_APPLI['date_j2']),
+        'annee' => date('Y', $INFO_APPLI['date_j2']),
+        'titre' => $INFO_APPLI['titre'],
         'URL' => $CFG_URL,
-        'numero_bav' =>$INFO_APPLI['numero_bav']
+        'numero_bav' => $INFO_APPLI['numero_bav']
     );
 
     $etiquettes = "";
@@ -443,23 +441,37 @@ function action_makeA4Coupons($eti0, $eti1, $test = true)
             $tabFiche[$index++] = $numFiche;
         }
     }
+    $espace75="";
+    for($i=0;$i<=70;$i++) {
+        $espace75.="&nbsp;";
+    }
+    $espace50="";
+    for($i=0;$i<=45;$i++) {
+        $espace50.="&nbsp;";
+    }
+
+    
     foreach ($tabFiche as $numFiche) {
         if ($eti0 >=  $INFO_APPLI['base_info'] || $eti0 == 0) {
             $fiche = getOneFicheByCode($numFiche);
             if ($fiche['obj_id']) {
                 $client = getOneClient($fiche['obj_id_vendeur']);
             }
+            $client['cli_prenom'] = "";
+            $client['cli_nom1'] = $client['cli_nom'] ;
         } else {
             $client['cli_prix_depot'] = "";
-            $client['cli_nom'] = "";
-            $client['cli_emel'] = "";
+            $client['cli_nom1'] = "<u>$espace50</u>";
+            $client['cli_nom'] = "<u>$espace75</u>";;
+            $client['cli_prenom'] = "<u>$espace75</u>";
+            $client['cli_emel'] = "<u>$espace75</u>";
             $client['cli_adresse'] = "";
             $client['cli_adresse1'] = "";
             $client['cli_code_postal'] = "";
-            $client['cli_ville'] = "";
-            $client['cli_telephone'] = "";
+            $client['cli_ville'] = "<u>$espace75</u>";;
+            $client['cli_telephone'] = "<u>$espace75</u>";;
             $client['cli_telephone_bis'] = "";
-            $client['cli_taux_com'] = "";
+            $client['cli_taux_com'] = "10";
             $client['cli_id_modif'] = "";
 
             $fiche['obj_numero'] = $numFiche;
@@ -476,9 +488,10 @@ function action_makeA4Coupons($eti0, $eti1, $test = true)
             $fiche['obj_id_modif'] = "";
         }
 
-
-        $etiquettes .= makeCorps(array_merge($fiche, $client, $data), 'coupon_vendeur.html');
-        $etiquettes .= "<hr/>";
+        if (sizeof($fiche) > 0) {
+            $etiquettes .= makeCorps(array_merge($fiche, $client, $data), 'coupon_vendeur.html');
+            $etiquettes .= "<hr/>";
+        }
     }
     $fileHTML = "../out/html/coupon_vendeur_" . $eti0 . "_" . $eti1 . ".html";
 
@@ -498,14 +511,14 @@ function action_makeA4Fiches($eti0, $eti1)
 {
     extract($GLOBALS);
     $data = array(
-        'date1'=>date('d', $INFO_APPLI['date_j1']),
-        'date2'=>date('d', $INFO_APPLI['date_j2']),
-        'date3'=>date('d', $INFO_APPLI['date_j3']),
-        'mois'=>date('M', $INFO_APPLI['date_j2']),
-        'annee'=>date('Y', $INFO_APPLI['date_j2']),
-        'titre'=> $INFO_APPLI['titre'],
+        'date1' => date('d', $INFO_APPLI['date_j1']),
+        'date2' => date('d', $INFO_APPLI['date_j2']),
+        'date3' => date('d', $INFO_APPLI['date_j3']),
+        'mois' => date('M', $INFO_APPLI['date_j2']),
+        'annee' => date('Y', $INFO_APPLI['date_j2']),
+        'titre' => $INFO_APPLI['titre'],
         'URL' => $CFG_URL,
-        'numero_bav' =>$INFO_APPLI['numero_bav']
+        'numero_bav' => $INFO_APPLI['numero_bav']
     );
     try {
         for ($numFiche = $eti0; $numFiche <= $eti1; $numFiche++) {
@@ -540,7 +553,7 @@ function action_makeA4Fiches($eti0, $eti1)
 
                 // creation du html avec comme template
                 // html/fiche_depot.html
-                $etiquettes .= makeCorps(array_merge($fiche, $client,$data), 'fiche_depot.html');
+                $etiquettes .= makeCorps(array_merge($fiche, $client, $data), 'fiche_depot.html');
             }
         }
 
@@ -683,14 +696,14 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false, $format 
     }
 
     $data = array(
-		'date1'=>date('d', $INFO_APPLI['date_j1']),
-		'date2'=>date('d', $INFO_APPLI['date_j2']),
-		'date3'=>date('d', $INFO_APPLI['date_j3']),
-		'mois'=>date('M', $INFO_APPLI['date_j2']),
-		'annee'=>date('Y', $INFO_APPLI['date_j2']),
-        'titre'=> $INFO_APPLI['titre'],
+        'date1' => date('d', $INFO_APPLI['date_j1']),
+        'date2' => date('d', $INFO_APPLI['date_j2']),
+        'date3' => date('d', $INFO_APPLI['date_j3']),
+        'mois' => date('M', $INFO_APPLI['date_j2']),
+        'annee' => date('Y', $INFO_APPLI['date_j2']),
+        'titre' => $INFO_APPLI['titre'],
         'URL' => $CFG_URL,
-        'numero_bav' =>$numBAV
+        'numero_bav' => $numBAV
     );
 
 
@@ -885,7 +898,7 @@ function action_updateFiche($data)
     // on recherche le vendeur
     $cliOld = return_oneClient($fiche['obj_id_vendeur']);
     if ($fiche['obj_etat'] == "CONFIRME") {
-        error_log("test cli_nom  " . strtoupper($client['cli_nom']) . " != " . strtoupper($cliOld['cli_nom']));
+        // error_log("test cli_nom  " . strtoupper($client['cli_nom']) . " != " . strtoupper($cliOld['cli_nom']));
         // si modification de client de la fiche
         if ($ficheOld['obj_modif_vendeur'] == 0 && strtoupper($client['cli_nom']) != strtoupper($cliOld['cli_nom'])) {
             $fiche['obj_modif_vendeur'] = 2;

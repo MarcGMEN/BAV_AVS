@@ -94,8 +94,9 @@ sajax_handle_client_request();
 		var id = '<?= $GET_id ?>';
 
 		function initIndex() {
-			if (id != "" && modePage == 'rest') {
-				search(id);
+			if (id != "" && (modePage == 'restF' || modePage == 'restC')) {
+				alert(modePage);
+				search(id, modePage);
 				var stateObj = {
 					foo: "bar"
 				};

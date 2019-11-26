@@ -6,13 +6,14 @@ require_once "../config.ini";
 require_once "../Repository/base_repository.php";
 require_once "../Repository/parametre_repository.php";
 require_once "../AJAX/parametre_AJAX.php";
+require_once "../AJAX/fiche_AJAX.php";
 require_once "../Repository/fiche_repository.php";
 require_once "../Repository/client_repository.php";
 require_once "../Commun/Sajax.php";
 require_once "../Commun/mail.php";
 require_once "../Commun/html2pdf.php";
 
-$par = return_infoAppli();
+$INFO_APPLI = return_infoAppli();
 // demande de confirmation de la fiche;
 if ($GET_a == "C") {
     try {
@@ -21,14 +22,17 @@ if ($GET_a == "C") {
             if (trim($fiche['obj_etat']) == "INIT") {
                 $fiche['obj_etat'] = 'CONFIRME';
 
-                makeNumeroFiche($par['base_info'], $fiche);
+                makeNumeroFiche($INFO_APPLI['base_info'], $fiche);
+
+                $fiche['obj_modif_data'] = 1;
+                $fiche['obj_modif_vendeur'] = 1;
 
                 //$row['obj_date_depot_FR'] = formateDateMYSQLtoFR($row['obj_date_depot'], true);
                 $tabPlus['obj_date_depot_FR_SH'] = formateDateMYSQLtoFR($fiche['obj_date_depot'], false);
 
                 $client = getOneClient($fiche['obj_id_vendeur']);
 
-                $tabPlus['titre'] = $par['titre'];
+                $tabPlus['titre'] = $INFO_APPLI['titre'];
                 $tabPlus['URL'] = $CFG_URL;
 
                 // convert en PDF
@@ -37,8 +41,8 @@ if ($GET_a == "C") {
                 //updateFiche($fiche);
                 updateFiche($fiche);
 
-                $tabPlus['lien_update_fiche'] = $CFG_URL . "/index.php?modePage=rest&id=" . $fiche['obj_id_modif'];
-                $tabPlus['lien_vue-client'] = $CFG_URL . "/index.php?modePage=rest&id=" . $client['cli_id_modif'];
+                $tabPlus['lien_update_fiche'] = $CFG_URL . "/index.php?modePage=restF&id=" . $fiche['obj_id_modif'];
+                $tabPlus['lien_vue-client'] = $CFG_URL . "/index.php?modePage=restC&id=" . $client['cli_id_modif'];
                 $tabPlus['lien_print_fiche'] = $CFG_URL . "/Actions/rest.php?a=I&id=" . $fiche['obj_id_modif'];
 
                 if ($fiche['obj_prix_depot'] == 0) {
@@ -90,17 +94,17 @@ if ($GET_a == "I") {
             }
 
             if ($fiche['obj_prix_vente'] > 0 && ($fiche['obj_etat'] == 'VENDU' || $fiche['obj_etat'] == 'PAYE')) {
-                if ($fiche['obj_prix_vente'] < 1000) {
-                    $client['cli_com'] = $fiche['obj_prix_vente'] * ($client['cli_taux_com'] / 100);
-                } else {
-                    $client['cli_com'] = 100;
-                }
+                $client['cli_com'] = getCommission($fiche);
             } else {
                 $fiche['obj_prix_vente'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
                 $client['cli_com'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>";
             }
 
-            $tabPlus['titre'] = $par['titre'];
+            if ($fiche['obj_prix_depot'] == 0) {
+                $fiche['obj_prix_depot'] = "";
+            }
+
+            $tabPlus['titre'] = $INFO_APPLI['titre'];
             $tabPlus['URL'] = $CFG_URL;
 
             $fiche['obj_description'] = str_replace("\n", " / ", $fiche['obj_description']);

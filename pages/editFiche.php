@@ -51,7 +51,8 @@ $tabInfo = [
 							<tr >
 								<td rowspan=3 width=15%><i>Impression en test <input type='checkbox' name="testEtiq" checked></i></td>
 								<td width=50%>
-									- Impression de <input type=number min='<?= $infAppli['base_info'] ?>' name=eti0 value='<?= $infAppli['base_info'] ?>' style='width:10%' size=5> a <input type=number name=eti1 size=5 style='width:10%'>
+									- Impression de <input type=number min='<?= $infAppli['base_info'] ?>' name=eti0 value='<?= $infAppli['base_info'] ?>' style='width:10%' size=5> 
+									a <input type=number name=eti1 size=5 style='width:10%' min='<?= $infAppli['base_info'] ?>'>
 								</td>
 								<td width=15%>
 									<input type=button value='Imprimer' onclick='imprimeEtiquettes(this.form.eti0.value,this.form.eti1.value)'>
@@ -84,10 +85,11 @@ $tabInfo = [
 							<tr>
 								<td rowspan=3 width=15%></td>
 								<td width=50%>
-									- Impression de <input type=number  min='<?= $infAppli['base_info'] ?>' name=eti0 value='<?= $infAppli['base_info'] ?>' style='width:10%' size=5> a <input type=number name=eti1 size=5 style='width:10%'>
+									- Impression de <input type=number  min='<?= $infAppli['base_info'] ?>' name=eti0 value='<?= $infAppli['base_info'] ?>' style='width:10%' size=5> 
+									a <input type=number name=eti1 size=5 style='width:10%' min='<?= $infAppli['base_info'] ?>'>
 								</td>
 								<td width=15%>
-									<input type=button value='Imprimer' onclick='imprimeFiches(this.form.eti0,this.form.eti1)'>
+									<input type=button value='Imprimer' onclick='imprimeFiches(this.form.eti0.value,this.form.eti1.value)'>
 								</td>
 								<td rowspan=3 width=20%>Param PDF: <br/>marge HB: 10pt, GD:10pt<br/>Zoom 79%</td>
 							</tr>
@@ -101,12 +103,12 @@ $tabInfo = [
 							<tr>
 								<td rowspan=3 width=15%><i>Impression en test <input type='checkbox' name="testCoupon" checked /></i></td>
 								<td width=50%>- Impression de <input type=number min='<?= $infAppli['base_info'] ?>' name=eti0 value='<?= $infAppli['base_info'] ?>' style='width:10%' size=5>
-									à <input type=number name=eti1 size=5 style='width:10%'>
+									à <input type=number name=eti1 size=5 style='width:10%' min='<?= $infAppli['base_info'] ?>'>
 								</td>
 								<td width=15%>
 									<input type=button value='Imprimer' onclick='imprimeCoupons(this.form.eti0.value,this.form.eti1.value)'>
 								</td>
-								<td rowspan=3 width=20%>Param PDF (Paysage): <br/>marge HB: 15pt, GD:10pt<br/>Zoom 102%</td>
+								<td rowspan=3 width=20%>Param PDF (Paysage): <br/>marge par defaut<br/>Zoom 98%</td>
 							</tr>
 							<tr>
 							<td >

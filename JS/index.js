@@ -40,18 +40,21 @@ function goTo(page = 'bav.php', modePage = '', id = null, message = '') {
     document.formNavigation.submit();
 }
 
-function search(value) {
-    if (!isNaN(Number(value)) && value < 9999) {
-        console.log("consult fiche");
-        x_return_oneFicheByCode(value, display_getFicheConsult);
-    } else if (value.length == 5 || value.length == 6) {
+function search(value, type="") {
+
+    if (type=="restF") {
         console.log("modif fiche " + value);
         x_return_oneFicheByIdModif(value, display_getFicheModif);
-    } else if (value.length == 8) {
+    }
+    else if (type=="restC") {
         console.log("consule client " + value);
         x_return_oneClientByIdModif(value, display_getClient);
+    }
+    else if (!isNaN(Number(value)) && value < 9999) {
+        console.log("consult fiche");
+        x_return_oneFicheByCode(value, display_getFicheConsult);
     } else {
-        alertModalWarnTimeout("Format incorrect (N° fiche, code fiche, code client)", 2);
+        alertModalWarnTimeout("Demande incorrecte", 2);
     }
     return false;
     // si numerique < 10000 alors fiche en consult

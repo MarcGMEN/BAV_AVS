@@ -109,7 +109,7 @@ function listUnique($table, $champ, $sel = null, $champPlus = null)
         $query .= " , $champPlus ";
     }
     $query .= " order by $champ";
-    error_log("listUnique ".$query);
+    //error_log("listUnique ".$query);
     $tab = array();
     if ($result = $GLOBALS['mysqli']->query($query)) {
         $tab = array();
@@ -230,9 +230,10 @@ function insert($table, $obj)
         }
     }
     $req .= ")";
-    //cho $req;
+    error_log($req);
 
     if (!$GLOBALS['mysqli']->query($req)) {
+        error_log("Pb d'insert' [$req]" . $GLOBALS['mysqli']->error);
         throw new Exception("Pb d'insert' [$req]" . $GLOBALS['mysqli']->error);
     }
     return $GLOBALS['mysqli']->insert_id;

@@ -34,7 +34,10 @@
 				<div class="col-sm-6 col-md-6 col-xs-6">
 					<input type="hidden" name="obj_numero" />
 					No&nbsp;:&nbsp;<span style="font-size: 1.5em" id='obj_numero'></span>
-					[<span id="obj_modif_data"></span>-<span id="obj_modif_vendeur"></span>]
+					<?if ($infAppli['ADMIN']) {?>
+						[<span id="obj_modif_data"></span>-<span id="obj_modif_vendeur"></span>]
+						--<span id="obj_id_modif" ></span>--
+					<?}?>
 				</div>
 				<div class="col-sm-6 col-md-6 col-xs-6 tabl1">
 					<span class="alert-info" id="obj_etat_libelle"></span>
@@ -152,7 +155,10 @@
 	</fieldset>
 	<fieldset class=fiche>
 		<legend class="titreFiche link" id='legendVendeur' onclick='goTo("client.php","consult",document.ficheForm.cli_id.value,"")' title="Accès au vendeur">
-			Le vendeur <span style="font-size: 0.8em" id="cli_id">...</span>
+			Le vendeur 
+			<?if ($infAppli['ADMIN']) {?>
+				<span style="font-size: 0.8em" id="cli_id">...</span>
+			<?}?>
 		</legend>
 		<div class="row">
 			<div class="col-sm-6 col-md-6 col-xs-12">
@@ -235,7 +241,8 @@
 	<!-- TODO :  possibilité de modifier l'acheteur -->
 	<fieldset class=fiche style='display:none' id="fieldSetAcheteur">
 		<legend class="titreFiche link" onclick='goTo("client.php","consult",document.ficheForm.ach_id.value,"")'>
-			L'acheteur <span id="ach_id">...</span></legend>
+			L'acheteur 
+			<span id="ach_id">...</span></legend>
 		<div class="row">
 			<div class="col-sm-6 col-md-6 col-xs-12">
 				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Emel </span></span>

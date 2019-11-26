@@ -71,18 +71,18 @@ function display_html_file(val) {
 
 function unloadPage() { }
 
-var idTextSAved=""
+var idTextSAved = ""
 function saveEditor(id, data) {
     console.log(data);
-    alertModalInfoTimeout(data,1);
-    idTextSAved=id;
+    alertModalInfoTimeout(data, 1);
+    idTextSAved = id;
     x_save_html(id, data, display_fin_save);
     CKEDITOR.instances.editor_html_file.destroy();
     //cancelEditor(id);
 }
 
 function viewOnPdf(idText, format) {
-    alertModalInfo("Génération de "+idText+" au format PDF <img src='Images/spinner_white_tiny.gif' />");
+    alertModalInfo("Génération de " + idText + " au format PDF <img src='Images/spinner_white_tiny.gif' />");
     x_action_makePDF(new Array(), idText + ".html", true, format, display_openPDF);
 }
 function display_fin_save(val) {
@@ -99,8 +99,13 @@ function cancelEditor(id) {
 }
 
 function imprimeEtiquettes(eti0, eti1) {
-    alertModalInfo("Génération des étiquettes de " + eti0 + " a " + eti1 + " au format PDF <img src='Images/spinner_white_tiny.gif' />");
-    x_action_makeA4Etiquettes(eti0, eti1, display_openPDF);
+    if (eti0 != "" && eti1 != "") {
+        alertModalInfo("Génération des étiquettes de " + eti0 + " a " + eti1 + " au format PDF <img src='Images/spinner_white_tiny.gif' />");
+        x_action_makeA4Etiquettes(eti0, eti1, display_openPDF);
+    }
+    else {
+        alertModalWarn("Numero de fiche début et fin obligatoire");
+    }
 }
 
 function imprimeEtiquettesPage(force) {
@@ -109,17 +114,26 @@ function imprimeEtiquettesPage(force) {
 }
 
 function imprimeCoupons(eti0, eti1) {
-    alertModalInfo("Génération des coupons de " + eti0 + " a " + eti1 + " au format PDF <img src='Images/spinner_white_tiny.gif' />");
-    x_action_makeA4Coupons(eti0, eti1, display_openPDF);
+    if (eti0 != "" && eti1 != "") {
+        alertModalInfo("Génération des coupons de " + eti0 + " a " + eti1 + " au format PDF <img src='Images/spinner_white_tiny.gif' />");
+        x_action_makeA4Coupons(eti0, eti1, display_openPDF);
+    }
+    else {
+        alertModalWarn("Numero de fiche début et fin obligatoire");
+    }
 }
 
 function imprimeCouponsPage(force) {
     alertModalInfo("Génération des coupons par page [" + force + "] au format PDF <img src='Images/spinner_white_tiny.gif' />");
     x_action_makeA4Coupons(0, force, display_openPDF);
 }
-imprimeCouponsPage
 
 function imprimeFiches(eti0, eti1) {
-    alertModalInfo("Génération des fiches de " + eti0.value + " a " + eti1.value + " au format PDF <img src='Images/spinner_white_tiny.gif' />");
-    x_action_makeA4Fiches(eti0.value, eti1.value, display_openPDF);
+    if (eti0 != "" && eti1 != "") {
+        alertModalInfo("Génération des fiches de " + eti0 + " a " + eti1 + " au format PDF <img src='Images/spinner_white_tiny.gif' />");
+        x_action_makeA4Fiches(eti0, eti1, display_openPDF);
+    }
+    else {
+        alertModalWarn("Numero de fiche début et fin obligatoire");
+    }
 }

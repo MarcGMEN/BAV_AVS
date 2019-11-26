@@ -90,10 +90,10 @@ function sendMail($titre, $toMail, $messageMail, $pieceJointe = null)
         //error_clear_last();
         if (!mail($toMail, $titre, stripslashes($message), $headers)) {
             file_put_contents(dirname(__FILE__)."/../mail.html", stripslashes($messageMail));
-            $erreur = "Pb sur mail pour : ".$toMail." => ";
-            $erreur .= error_get_last()['message'];
+            error_log("Pb sur mail pour : ".$toMail);
         } else {
             //$erreur="Mail envoi ok a [$toMail]";
+            error_log("Mail envoi ok a [$toMail]");
             $erreur=1;
         }
         return $erreur;
