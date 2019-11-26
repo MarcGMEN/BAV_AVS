@@ -333,7 +333,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
     }
     foreach ($tabFiche as $numFiche) {
         $fiche = [];
-        if ($eti0 >=  $INFO_APPLI['base_info']) {
+        if ($eti0 >=  $INFO_APPLI['base_info'] || $eti0 == 0) {
             $fiche = getOneFicheByCode($numFiche);
             if ($fiche['obj_id']) {
                 // refaire les descriptions, pas de retour chariots et limite.
@@ -372,13 +372,12 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
         }
 
         if (sizeof($fiche) > 0) {
-            $tabPlus['numero_bav'] = $_COOKIE['NUMERO_BAV'];
             $etiquettes .= makeCorps(array_merge($fiche, $client, $data), 'etiquette.html');
             $etiquettes .= "<hr/>";
         }
     }
 
-    $fileHTML = "../html/etiquettes_" . $eti0 . "_" . $eti1 . ".html";
+    $fileHTML = "../out/html/etiquettes_" . $eti0 . "_" . $eti1 . ".html";
 
     file_put_contents($fileHTML, utf8_decode($etiquettes));
 
@@ -388,7 +387,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
     //     return  $CFG_URL . $filePDF;
     // }
     // else {
-    return  $CFG_URL . "/html/etiquettes_" . $eti0 . "_" . $eti1 . ".html";
+    return  $CFG_URL . "/out/html/etiquettes_" . $eti0 . "_" . $eti1 . ".html";
     // }
 
 
@@ -445,7 +444,7 @@ function action_makeA4Coupons($eti0, $eti1, $test = true)
         }
     }
     foreach ($tabFiche as $numFiche) {
-        if ($eti0 >=  $INFO_APPLI['base_info']) {
+        if ($eti0 >=  $INFO_APPLI['base_info'] || $eti0 == 0) {
             $fiche = getOneFicheByCode($numFiche);
             if ($fiche['obj_id']) {
                 $client = getOneClient($fiche['obj_id_vendeur']);
@@ -481,11 +480,11 @@ function action_makeA4Coupons($eti0, $eti1, $test = true)
         $etiquettes .= makeCorps(array_merge($fiche, $client, $data), 'coupon_vendeur.html');
         $etiquettes .= "<hr/>";
     }
-    $fileHTML = "../html/coupon_vendeur_" . $eti0 . "_" . $eti1 . ".html";
+    $fileHTML = "../out/html/coupon_vendeur_" . $eti0 . "_" . $eti1 . ".html";
 
     file_put_contents($fileHTML, utf8_decode($etiquettes));
 
-    return  $CFG_URL . "/html/coupon_vendeur_" . $eti0 . "_" . $eti1 . ".html";
+    return  $CFG_URL . "/out/html/coupon_vendeur_" . $eti0 . "_" . $eti1 . ".html";
     // $filePDF = html2pdf("", $fileHTML, "coupon_vendeur_" . $eti0 . "_" . $eti1, "L");
     // unlink($fileHTML);
 
@@ -546,7 +545,7 @@ function action_makeA4Fiches($eti0, $eti1)
         }
 
         // fichier HTML resultant
-        $fileHTML = "../html/fiches_" . $eti0 . "_" . $eti1 . ".html";
+        $fileHTML = "../out/html/fiches_" . $eti0 . "_" . $eti1 . ".html";
 
         // enregistrement du fichier html
         file_put_contents($fileHTML,  utf8_decode($etiquettes));
@@ -559,7 +558,7 @@ function action_makeA4Fiches($eti0, $eti1)
 
         // return  $CFG_URL . $filePDF;
 
-        return  $CFG_URL . "/html/fiches_" . $eti0 . "_" . $eti1 . ".html";
+        return  $CFG_URL . "/out/html/fiches_" . $eti0 . "_" . $eti1 . ".html";
     } catch (Exception $e) {
         return "ERREUR " . $e->getMessage();
     }
