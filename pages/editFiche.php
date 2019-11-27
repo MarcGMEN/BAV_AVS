@@ -37,7 +37,7 @@ $tabInfo = [
 
 			<td width=10%>
 				<? if ($idText != "") { ?>
-					<span class="link url" onclick='x_action_makePDF(new Array(), "<?= $idText ?>.html",true,"<?= $format ?>", display_openPDF);' )>PDF</span>
+					<span class="link url" onclick='viewPdf("<?= $idText ?>","<?= $format ?>");' )>PDF</span>
 					<?= $format ?>&nbsp;
 					<i class="fas fa-edit" onclick="x_return_html('<?= $idText ?>', display_html_file);idText='<?= $idText ?>';getElement('html_file_title').innerHTML='<?= $title ?>'" ;></i>
 				<? } else { ?>
