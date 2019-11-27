@@ -603,6 +603,11 @@ tr.RENDU, span.RENDU {
 	color: WHITE;
 }
 
+tr.ACHAT, span.ACHAT {
+	background-color: #00a4dd;
+	color: darkgreen;
+}
+
 .tabInput {
 	font-size: 1em;
 	font-family: Verdana, Arial, Helvetica, sans-serif;

@@ -1,6 +1,8 @@
 <script src="JS/clients.js" type="text/javascript"></script>
 
-<h3>Nb  : <span id=total></span></h3>
+<h3>Nb  : <span id=total></span> 
+	(Vendeur: <span id=totalVendeur></span>; Acheteur : <span id=totalAcheteur></span>; 
+	Vendeur-Acheteur : <span id=totalVendeurEtAcheteur></span>; en Attente : <span id=totalAbsent></span>) </h3>
 <table width="100%" >
 	<tr>
 		<td class="tittab" width=35% colspan="2">

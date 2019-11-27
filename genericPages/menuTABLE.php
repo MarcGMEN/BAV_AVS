@@ -12,6 +12,7 @@
 		<td width="<?=$tail?>%">
 			Vendu : <span id="VENDU" class='link' onclick='goTo("stock.php","obj_etat","VENDU",null)' style='font-weight: bold'>...</span>
 			<small><span id="statVendu" >...</span></small>
+			<small ><span title="Payé" class="PAYE link" id="PAYE" onclick='goTo("stock.php","obj_etat","PAYE",null)'></span></small>
 		</td>
     </tr>
     <tr>
@@ -28,7 +29,7 @@
 		</td>-->
 			<td width="<?=$tail?>%">
 				Rendu : <span id="RENDU" class='link' onclick='goTo("stock.php","obj_etat","RENDU",null)' style='font-weight: bold'>...</span>
-	    		&nbsp;&nbsp;<small><span id="statRendu">...</span></small>
+	    		<small><span id="statRendu">...</span></small>
 		</td>
 	</tr>
 </table>
