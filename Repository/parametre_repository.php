@@ -46,6 +46,7 @@ function return_infoAppli()
 
     $infos['nb_eti_page'] = $par['par_nb_eti_page'];
     $infos['nb_coupon_page'] = $par['par_nb_coupon_page'];
+    $infos['vue_parc'] = $par['par_vue_parc'];
     
     $infos['numero_bav'] = $par['par_numero_bav'];
     $infos['titre'] = $par['par_titre'];

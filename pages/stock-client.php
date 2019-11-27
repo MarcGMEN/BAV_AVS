@@ -3,10 +3,12 @@
 	var sens = "asc";
 	var tabSel = {};
 	tabSel['obj_etat'] = 'STOCK';
-
+	var vueParc= "<?=$infAppli['vue_parc']?>";
+	
 	function initPage() {
 
-		if (NB_MODIF == 1 || ADMIN) {
+		console.log(vueParc);
+		if (vueParc == '1' || ADMIN) {
 			x_return_enum('bav_objet', 'obj_type', display_list_type);
 			x_return_enum('bav_objet', 'obj_public', display_list_public);
 			//x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);

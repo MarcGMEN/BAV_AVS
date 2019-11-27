@@ -40,7 +40,10 @@ ipLocal = "<?=$_SERVER['REMOTE_ADDR']?>";
 			<div style="float: left">
 				<img src="Images/logoAVS.png" id="logoAVS" height='120pt'>
 			</div>
-			<div class="link" style="position:absolute; float: right; vertical-align:middle; font-size: 0.5em" onclick="alertModalPass();"><?= $_COOKIE['NUMERO_BAV']; ?>&nbsp;<span id="connex"></span>
+			<div class="link" style="position:absolute; float: right; vertical-align:middle; font-size: 0.5em" onclick="alertModalPass();">
+				<?= $infAppli['numero_bav']; ?>&nbsp;<span id="connex">
+			
+				</span>
 			</div>
 		</td>
 	</tr>

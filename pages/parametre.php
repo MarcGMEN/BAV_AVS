@@ -102,6 +102,13 @@
 					</td>
 				</tr>
 				<tr>
+					<td class="titrow">Vue du parc</td>
+					<td class="tabInput">
+						<input type=number name="par_vue_parc" tabindex=<?= $tabindex++ ?> placeholder="entre 0 et 1" onkeyup="setStartSaisie(true);" min=0 max=1 size=1 value=0 />
+					</td>
+				</tr>
+
+				<tr>
 					<td class="titrow">Nb etiquette par page A4 </td>
 					<td class="tabInput">
 						<input type=number name="par_nb_eti_page" tabindex=<?= $tabindex++ ?> placeholder="entre 1 et 20" onkeyup="setStartSaisie(true);" min=1 max=20 size=2 value="5" />
@@ -116,7 +123,7 @@
 				<tr>
 					<td class="titrow">Numéro de base pour les fiches infos</td>
 					<td class="tabInput">
-						<input type=number name="par_numero_base_info" tabindex=<?= $tabindex++ ?> placeholder="entre 1 et 2000" onkeyup="setStartSaisie(true);" min=1 max=2000 size=4 value="700" />
+						<input type=number name="par_numero_base_info" tabindex=<?= $tabindex++ ?> placeholder="entre 1 et 2000" onkeyup="setStartSaisie(true);" min=1 max=2000 size=4 required>
 					</td>
 				</tr>
 
