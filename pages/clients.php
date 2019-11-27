@@ -1,8 +1,8 @@
 <script src="JS/clients.js" type="text/javascript"></script>
 
 <h3>Nb  : <span id=total></span> 
-	(Vendeur: <span id=totalVendeur></span>; Acheteur : <span id=totalAcheteur></span>; 
-	Vendeur-Acheteur : <span id=totalVendeurEtAcheteur></span>; en Attente : <span id=totalAbsent></span>) </h3>
+	(Vendeurs : <span id=totalVendeur></span>; Acheteurs : <span id=totalAcheteur></span>; 
+	Vendeurs-Acheteurs : <span id=totalVendeurEtAcheteur></span>; En attente : <span id=totalAbsent></span>) </h3>
 <table width="100%" >
 	<tr>
 		<td class="tittab" width=35% colspan="2">
@@ -39,7 +39,7 @@
 		<th class="tittab" width=2%>
 			<span  id='cli_rendu'>R</span>
 		</th>
-		
+		La Bourse Animations Réglement F.A.Q. Contacts Presse Parc Pré-déposer Gestion fiches Stock Clie
 		<th class="tittab" width=2%>
 			<span  id='cli_achat'>A</span>
 		</th>
