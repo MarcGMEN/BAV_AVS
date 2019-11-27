@@ -151,6 +151,12 @@ function save_html($html, $data)
     return $html;
 }
 
+function action_menage($fic) {
+    extract($GLOBALS);
+    $ficSys= str_replace($CFG_URL,"",$fic);
+    unlink("../$ficSys");
+}
+
 sajax_init("");
 // definition des fonction ajax possible
 include "exportAJAX.php";

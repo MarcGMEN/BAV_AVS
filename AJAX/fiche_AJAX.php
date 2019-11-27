@@ -351,9 +351,9 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
             }
         } else {
             $fiche['obj_numero'] = $numFiche;
-            $fiche['obj_type'] = "<span style='font-size:9px'>Autre VTT Route VTC Ville VAE</span>";
-            $fiche['obj_public'] = "<span style='font-size:9px'>Mixte Homme Femme Enfant</span>";
-            $fiche['obj_pratique'] = "Sportive-Loisir-Compétition-Autre";
+            $fiche['obj_type'] = "<br/><span style='font-size:9px'><i>Autre-VTT-Route-VTC-Ville-VAE-BMX</i></span>";
+            $fiche['obj_public'] = "<br/><span style='font-size:9px'><i>Mixte-Homme-Femme-Enfant</i></span>";
+            $fiche['obj_pratique'] = "<br/><span style='font-size:9px'><i>Sportive-Loisir-Compétition-Autre</i></span>";
             $fiche['obj_marque'] = "";
             $fiche['obj_modele'] = "";
             $fiche['obj_couleur'] = "";
@@ -475,9 +475,9 @@ function action_makeA4Coupons($eti0, $eti1, $test = true)
             $client['cli_id_modif'] = "";
 
             $fiche['obj_numero'] = $numFiche;
-            $fiche['obj_type'] = "<span style='font-size:9px'>Autre VTT Route VTC Ville VAE</span>";
-            $fiche['obj_public'] = "<span style='font-size:9px'>Mixte Homme Femme Enfant</span>";
-            $fiche['obj_pratique'] = "Sportive-Loisir-Compétition-Autre";
+            $fiche['obj_type'] = "<br/><span style='font-size:9px'><i>Autre-VTT-Route-VTC-Ville-VAE-BMX</i></span>";
+            $fiche['obj_public'] = "<br/><span style='font-size:9px'><i>Mixte-Homme-Femme-Enfant</i></span>";
+            $fiche['obj_pratique'] = "<br/><span style='font-size:9px'><i>Sportive-Loisir-Compétition-Autre</i></span>";
             $fiche['obj_marque'] = "";
             $fiche['obj_modele'] = "";
             $fiche['obj_couleur'] = "";

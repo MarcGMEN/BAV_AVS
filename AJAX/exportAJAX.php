@@ -7,7 +7,8 @@ sajax_export(
     "return_html",
     "save_html",
     "whatYourName",
-    "return_restant"
+    "return_restant",
+    "action_menage"
 );
 
 //export de toutes les fonction AJAX des modules

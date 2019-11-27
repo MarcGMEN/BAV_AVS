@@ -24,6 +24,9 @@ function confirmModalTest() {
     }, 1000);
 }
 
+function display_rien(val) {
+    console.log(val);
+}
 
 function display_openPDF(val) {
     console.log(val);
