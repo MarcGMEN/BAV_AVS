@@ -334,27 +334,22 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
         if ($eti0 >=  $INFO_APPLI['base_info'] || $eti0 == 0) {
             $fiche = getOneFicheByCode($numFiche);
             if ($fiche['obj_id']) {
+
+                error_log("[action_makeA4Etiquettes] test $test");
+                if (!$test) {
+                    $fiche['obj_modif_data']=0;
+                    updateFiche($fiche);
+                }
+
                 // refaire les descriptions, pas de retour chariots et limite.
-                $client = [];
                 $fiche['obj_description'] = str_replace("\n", " / ", $fiche['obj_description']);
 
                 if ($fiche['obj_prix_depot'] == 0) {
                     $fiche['obj_prix_depot'] = "";
                 }
+
             }
         } else {
-            $client['cli_prix_depot'] = "";
-            $client['cli_nom'] = "";
-            $client['cli_emel'] = "";
-            $client['cli_adresse'] = "";
-            $client['cli_adresse1'] = "";
-            $client['cli_code_postal'] = "";
-            $client['cli_ville'] = "";
-            $client['cli_telephone'] = "";
-            $client['cli_telephone_bis'] = "";
-            $client['cli_taux_com'] = "";
-            $client['cli_id_modif'] = "";
-
             $fiche['obj_numero'] = $numFiche;
             $fiche['obj_type'] = "<span style='font-size:9px'>Autre VTT Route VTC Ville VAE</span>";
             $fiche['obj_public'] = "<span style='font-size:9px'>Mixte Homme Femme Enfant</span>";
@@ -370,7 +365,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
         }
 
         if (sizeof($fiche) > 0) {
-            $etiquettes .= makeCorps(array_merge($fiche, $client, $data), 'etiquette.html');
+            $etiquettes .= makeCorps(array_merge($fiche, $data), 'etiquette.html');
             $etiquettes .= "<hr/>";
         }
     }
@@ -455,6 +450,11 @@ function action_makeA4Coupons($eti0, $eti1, $test = true)
         if ($eti0 >=  $INFO_APPLI['base_info'] || $eti0 == 0) {
             $fiche = getOneFicheByCode($numFiche);
             if ($fiche['obj_id']) {
+                if (!$test) {
+                    $fiche['obj_modif_vendeur']=0;
+                    updateFiche($fiche);
+                }
+
                 $client = getOneClient($fiche['obj_id_vendeur']);
             }
             $client['cli_prenom'] = "";
@@ -626,6 +626,17 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false, $format 
     $numBAV = $INFO_APPLI['numero_bav'];
     $par = return_oneParametre($numBAV);
 
+    $data = array(
+        'date1' => date('d', $INFO_APPLI['date_j1']),
+        'date2' => date('d', $INFO_APPLI['date_j2']),
+        'date3' => date('d', $INFO_APPLI['date_j3']),
+        'mois' => date('M', $INFO_APPLI['date_j2']),
+        'annee' => date('Y', $INFO_APPLI['date_j2']),
+        'titre' => $INFO_APPLI['titre'],
+        'URL' => $CFG_URL,
+        'numero_bav' => $numBAV
+    );
+
     // pas de data, on fait un objet vide
     if ($id) {
         $fiche = getOneFiche($id);
@@ -669,6 +680,7 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false, $format 
         $fiche['obj_id_acheteur'] = 999999;
         $fiche['obj_etat'] = "VENDU";
     } else {
+        $data['titre']="--".$data['titre']."--";
         $client['cli_prix_depot'] = $par['par_prix_depot_1'];
         $client['cli_nom'] = "";
         $client['cli_emel'] = "";
@@ -682,9 +694,9 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false, $format 
         $client['cli_id_modif'] = "";
 
         $fiche['obj_numero'] = "";
-        $fiche['obj_type'] = "<span style='font-size:9px'>Autre VTT Route VTC Ville VAE</span>";
-        $fiche['obj_public'] = "<span style='font-size:9px'>Mixte Homme Femme Enfant</span>";
-        $fiche['obj_pratique'] = "Sportive-Loisir-Compétition-Autre";
+        $fiche['obj_type'] = "<br/><span style='font-size:9px'><i>Autre-VTT-Route-VTC-Ville-VAE-BMX</i></span>";
+        $fiche['obj_public'] = "<br/><span style='font-size:9px'><i>Mixte-Homme-Femme-Enfant</i></span>";
+        $fiche['obj_pratique'] = "<br/><span style='font-size:9px'><i>Sportive-Loisir-Compétition-Autre</i></span>";
         $fiche['obj_marque'] = "";
         $fiche['obj_modele'] = "";
         $fiche['obj_couleur'] = "";
@@ -695,16 +707,7 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false, $format 
         $fiche['obj_id_modif'] = "";
     }
 
-    $data = array(
-        'date1' => date('d', $INFO_APPLI['date_j1']),
-        'date2' => date('d', $INFO_APPLI['date_j2']),
-        'date3' => date('d', $INFO_APPLI['date_j3']),
-        'mois' => date('M', $INFO_APPLI['date_j2']),
-        'annee' => date('Y', $INFO_APPLI['date_j2']),
-        'titre' => $INFO_APPLI['titre'],
-        'URL' => $CFG_URL,
-        'numero_bav' => $numBAV
-    );
+    
 
 
     // MISE EN FORME DE LA FICHE

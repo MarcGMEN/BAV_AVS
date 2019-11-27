@@ -77,7 +77,7 @@
 						repr += "<img src='Images/etiq"+val[index]['obj_modif_data']+".png' style='height:20px' />";
 					}
 					if (val[index]['obj_modif_vendeur'] >0 )  {
-						repr += "<img src='Images/etoile"+val[index]['obj_modif_vendeur']+".png' style='height:20px' />";
+						repr += "<img src='Images/coupon_vendeur"+val[index]['obj_modif_vendeur']+".png' style='height:10px' />";
 					}
 					repr += val[index]['obj_numero'];
 					repr += "</td>";

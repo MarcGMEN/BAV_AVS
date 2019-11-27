@@ -319,7 +319,7 @@ function display_fiche(val) {
             val['obj_etat_libelle'] = "Demande confirmée le [" + formatDate(val['obj_date_depot'], true) + "]";
 
             if (ADMIN) {
-                if (val['obj_modif_data'] != 0) {
+                /*if (val['obj_modif_data'] != 0) {
                     document.ficheForm.buttonPDFEtiquette.style.display = "inline";
                     if (val['obj_modif_data'] == 1) {
                         document.ficheForm.buttonPDFEtiquette.value = "Impression Etiquette";
@@ -328,7 +328,7 @@ function display_fiche(val) {
                         document.ficheForm.buttonPDFEtiquette.value = "Re-Impression Etiquette";
                     }
 
-                }
+                }*/
             }
         }
         // etat STOCK

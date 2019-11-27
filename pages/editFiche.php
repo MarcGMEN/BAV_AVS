@@ -55,7 +55,7 @@ $tabInfo = [
 									a <input type=number name=eti1 size=5 style='width:10%' min='<?= $infAppli['base_info'] ?>'>
 								</td>
 								<td width=15%>
-									<input type=button value='Imprimer' onclick='imprimeEtiquettes(this.form.eti0.value,this.form.eti1.value)'>
+									<input type=button value='Imprimer' onclick='imprimeEtiquettes(this.form.eti0.value,this.form.eti1.value,this.form.testEtiq.checked?1:0)'>
 								</td>
 								<td rowspan=3 width=20%>Param PDF: <br/>marge HB: 15pt, GD:10pt<br/>Zoom 104% - 103%</td>
 							</tr>
@@ -72,7 +72,8 @@ $tabInfo = [
 									[C:<span id="nb_fiche_new"></span>; M:<span id="nb_fiche_modif"></span>]
 								</td>
 								<td>
-									<input type=button name='printEtiquette' value='Imprimer' disabled id="btnImprimeEtiquettesPage" onclick='imprimeEtiquettesPage(this.form.forceEtiquette.checked)'>
+									<input type=button name='printEtiquette' value='Imprimer' disabled id="btnImprimeEtiquettesPage" 
+										onclick='imprimeEtiquettesPage(this.form.forceEtiquette.checked,this.form.testEtiq.checked?1:0)'>
 									<input type='checkbox' id="forceEtiquette" onchange="this.checked?this.form.printEtiquette.disabled=false:this.form.printEtiquette.disabled=true">Force
 								</td>
 							</tr>
@@ -106,7 +107,7 @@ $tabInfo = [
 									à <input type=number name=eti1 size=5 style='width:10%' min='<?= $infAppli['base_info'] ?>'>
 								</td>
 								<td width=15%>
-									<input type=button value='Imprimer' onclick='imprimeCoupons(this.form.eti0.value,this.form.eti1.value)'>
+									<input type=button value='Imprimer' onclick='imprimeCoupons(this.form.eti0.value,this.form.eti1.value,this.form.testCoupon.checked?1:0)'>
 								</td>
 								<td rowspan=3 width=20%>Param PDF (Paysage): <br/>marge par defaut<br/>Zoom 98%</td>
 							</tr>
@@ -123,7 +124,7 @@ $tabInfo = [
 									- Impression des modifs <span id="nbCouponAImprimer"></span> (<?= $infAppli['nb_coupon_page'] ?>/page) : <span id="nb_fiche_coupon"></span>
 									[C:<span id="nb_fiche_new_coupon"></span>; M:<span id="nb_fiche_modif_coupon"></span>]</td>
 								<td>
-									<input type=button name='printCoupon' value='Imprimer' disabled id="btnImprimeCouponsPage" onclick='imprimeCouponsPage(this.form.forceCoupon.checked)'>
+									<input type=button name='printCoupon' value='Imprimer' disabled id="btnImprimeCouponsPage" onclick='imprimeCouponsPage(this.form.forceCoupon.checked,this.form.testCoupon.checked?1:0)'>
 									<input type='checkbox' id="forceCoupon" onchange="this.checked?this.form.printCoupon.disabled=false:this.form.printCoupon.disabled=true">Force
 								</td>
 							</tr>
