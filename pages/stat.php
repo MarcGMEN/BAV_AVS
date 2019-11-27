@@ -23,7 +23,7 @@
 			x_return_statByType(tabToString(tabSel),"depot", display_statDepot);
 
 			// affichage d'un histo des tarifs de depot
-			x_return_histoCount('tarif', 500, 250, 0, 'objet-Vente', display_countTarifDepot);
+			x_return_histoCount('tarif', 500, 250, 0, 'depot', display_countTarifDepot);
 
 			// retour du nombre d'objet vendu supérieur a 500 
 			x_return_countByTarifSup(500, "depot", display_countByTarifSupDepot);
@@ -32,7 +32,7 @@
 			x_return_statByType(tabToString(tabSel),"vente", display_statVente);
 
 			// affichage d'un histo des tarifs de vente
-			x_return_histoCount('tarif', 500, 250, 0, 'objet-Vente', display_countTarifVente);
+			x_return_histoCount('tarif', 500, 250, 0, 'vente', display_countTarifVente);
 
 			// retour du nombre d'objet vendu supérieur a 500 
 			x_return_countByTarifSup(500, "vente", display_countByTarifSupVente);
@@ -107,18 +107,17 @@
 		infoPlusObj("prixMaxidepot", val['objprixMaxidepot']);
 
 		infoPlusCli("nbVeloMaxiVendeurdepot", val['clinbVeloMaxiVendeurdepot']);
-		infoPlusCli("nbVeloMaxiAcheteurdepot", val['clinbVeloMaxiAcheteurdepot']);
-
+		
 		display_formulaire(val, null);
 	}
 
 	function display_statVente(val) {
 
 		infoPlusObj("prixMinivente", val['objprixMinivente']);
-		infoPlusObj("prixMaxivente", val['objprixMaxidvente']);
+		infoPlusObj("prixMaxivente", val['objprixMaxivente']);
 
 		infoPlusCli("nbVeloMaxiVendeurvente", val['clinbVeloMaxiVendeurvente']);
-		infoPlusCli("nbVeloMaxiAcheteurvente", val['clinbVeloMaxiAcheteurvente']);
+		infoPlusCli("nbVeloMaxiAcheteur", val['clinbVeloMaxiAcheteur']);
 
 		display_formulaire(val, null);
 	}
@@ -134,7 +133,7 @@
 
 	function infoPlusCli(id, obj) {
 		if (obj) {
-			obj['plus' + id] = "(" + obj['cli_id_modif'] + ") " + obj['cli_nom'];
+			obj['plus' + id] = "(" + obj['cli_id'] + ") " + obj['cli_nom'];
 			getElement('plus' + id).onclick = function() {
 				goTo("client.php", "modif", obj['cli_id']);
 			};
@@ -264,10 +263,11 @@
 				<div id="resultRangeDepot">500</div>
 			</td>
 			<td width='30%' id='count_rangeDepot' style='text-align:center'>--</td>
-			<td width='40%'></td>
+			<td width='40%'><img id="tarifDepot" /></td>
 		</tr>
 	</table>
-
+	
+	
 	<table width="100%">
 		<tr>
 			<td class="tittab" width=30%></td>
@@ -321,7 +321,8 @@
 				<div id="resultRangeVente">500</div>
 			</td>
 			<td width='30%' id='count_rangeVente' style='text-align:center'>--</td>
-			<td width='40%'></td>
+			<td width='40%'><img id="tarifVente" />
+</td>
 		</tr>
 	</table>
 </fieldset>

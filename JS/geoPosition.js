@@ -31,8 +31,8 @@ function initMap() {
 function geoPosClient(adress, unique = true, group = true, info) {
     var iconBase = 'Images/logoAVS.png';
 
-    widthIcon=40;
-    heightIcon=30;
+    widthIcon = 40;
+    heightIcon = 30;
     // if  (info && Number.isInteger(info)) {
     //     widthIcon+=info*2;
     //     heightIcon+=info*2;
@@ -40,36 +40,33 @@ function geoPosClient(adress, unique = true, group = true, info) {
     var myIcon = L.icon({
         iconUrl: iconBase,
         iconSize: [widthIcon, heightIcon],
-        iconAnchor: [widthIcon/2, heightIcon/2],
+        iconAnchor: [widthIcon / 2, heightIcon / 2],
         popupAnchor: [-3, -3],
     });
     var geocoder = L.Control.Geocoder.nominatim();
 
-    console.log("geoPosClient(" + adress + ") ["+info+"]");
+    //console.log("geoPosClient(" + adress + ") ["+info+"]");
     geocoder.geocode(adress + ', France',
-        function (results) {
-            console.log(results);   
+        function(results) {
+            //console.log(results);
             var r = results[0];
             if (r) {
                 var marker1 = L.marker(r.center, { icon: myIcon });
                 if (info) {
-                    marker1.bindPopup('<strong>'+adress+" : "+info+'</strong>').openPopup();
-                }
-                else{
+                    marker1.bindPopup('<strong>' + adress + " : " + info + '</strong>').openPopup();
+                } else {
                     marker1.bindPopup(adress).openPopup();
                 }
                 markers.push(marker1);
                 if (group) {
                     markerClusters.addLayer(marker1);
-                }
-                else {
+                } else {
                     marker1.addTo(macarte);
                 }
                 if (unique) {
                     initMap();
                     macarte.setView(r.center, 14);
-                }
-                else {
+                } else {
                     afficheGroup();
                 }
             }

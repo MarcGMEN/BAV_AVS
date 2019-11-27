@@ -92,7 +92,7 @@ function return_statByType($selection, $type='depot')
 
         // les etats pour la recherche
         if ($type == "depot") {
-            $etats=['STOCK','RENDU'];
+            $etats=['STOCK','RENDU','VENDU','PAYE'];
             $champPrix="obj_prix_depot";
         } else {
             $etats=['VENDU','PAYE'];
@@ -319,6 +319,7 @@ function return_statRepartition()
                 }
                 
                 if ($val['obj_date_vente']) {
+                    $dateVenteInt = dateMysqlInt($val['obj_date_vente']);
                     if ($dateVenteInt > $date['J2-MATIN'] && $dateVenteInt < $date['J2-MIDI']) {
                         ++$tabCount['vente_J2-AM'];
                     } elseif ($dateVenteInt >= $date['J2-MIDI'] && $dateVenteInt < $date['J3-MATIN']) {
@@ -335,7 +336,7 @@ function return_statRepartition()
     } catch (Exception $e) {
         return 'ERREUR '.$e->getMessage();
     }
-    // print_r($tabCount);
+    //print_r($tabCount);
     return $tabCount;
 }
 
@@ -349,7 +350,7 @@ function return_graphCount($by, $data = '')
 {
     if ($data == 'client') {
         $tabCount = return_statClient();
-    } else if ($data == 'depotVente') {
+    } else if ($data == 'vente') {
         $tabCount = return_statByType(null,"vente");
     }else {
         $tabCount = return_statByType(null,"depot");
@@ -402,12 +403,11 @@ function return_histoCount($by, $width = 400, $height = 250, $sort = 0, $data = 
 {
     if ($data == 'client') {
         $tabCount = return_statClient();
-    } else if ($data == 'depotVente') {
+    } else if ($data == 'vente') {
         $tabCount = return_statByType(null,"vente");
     }else {
         $tabCount = return_statByType(null,"depot");
     }
-
 
     $tabUse=[];
     foreach ($tabCount["count_$by"] as $key => $val) {
@@ -479,7 +479,7 @@ function return_histoCount($by, $width = 400, $height = 250, $sort = 0, $data = 
     $graph->xaxis->SetLabelAngle(45);
 
     // Provoquer l'affichage (renvoie directement l'image au navigateur)
-    $graph->Stroke("../out/img/histo_$by.png");
+    $graph->Stroke("../out/img/histo_$by_$data.png");
 
-    return "./out/img/histo_$by.png";
+    return "./out/img/histo_$by_$data.png";
 }
