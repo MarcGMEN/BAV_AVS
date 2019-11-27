@@ -479,7 +479,7 @@ function return_histoCount($by, $width = 400, $height = 250, $sort = 0, $data = 
     $graph->xaxis->SetLabelAngle(45);
 
     // Provoquer l'affichage (renvoie directement l'image au navigateur)
-    $graph->Stroke("../out/img/histo_$by_$data.png");
+    $graph->Stroke("../out/img/histo_".$by."_".$data.".png");
 
-    return "./out/img/histo_$by_$data.png";
+    return "./out/img/histo_".$by."_".$data.".png";
 }
