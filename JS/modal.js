@@ -46,6 +46,9 @@ function alertModalInfo(message) {
       getElement("modalClose").innerHTML = "<i class='fa fa-times-circle size-3 link' onclick='closeModal()'></i>";
   
       getElement("modalText").innerHTML = message;  
+      
+      $repr = "<input type=button value=Fermer onclick='closeModal()'>";
+      getElement("modalAction").innerHTML = $repr;
 }
 
 /**

@@ -68,9 +68,9 @@
 	function display_statClient(val) {
 		// usage example:
 		initMap();
-		for (i in val['count_code_postal']) {
+		for (i in val['count_adresse']) {
 			if (i) {
-				geoPosClient(i, false, false, val['count_code_postal'][i]);
+				geoPosClient(i, false, false, val['count_adresse'][i]);
 			}
 		}
 	}

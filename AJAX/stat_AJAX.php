@@ -26,6 +26,28 @@ function return_statClient()
             }
             ++$tabCount['count_code_postal'][$keyCDP];
         }
+
+        $tabCount['count_adresse'] = [];
+        foreach ($tab as $key => $val) {
+            $virgule="";
+            if ($val['cli_adresse'] != "") {
+                $keyCDP = $val['cli_adresse'];
+                $virgule=", ";
+            }
+            if ($val['cli_code_postal'] != "") {
+                $keyCDP .= $virgule.$val['cli_code_postal'];
+                $virgule=", ";
+            }
+            if ($val['cli_ville'] != "") {
+                $keyCDP .= $virgule.$val['cli_ville'];
+                $virgule=", ";
+            }
+
+            if (!isset($tabCount['count_adresse'][$keyCDP])) {
+                $tabCount['count_adresse'][$keyCDP] = 0;
+            }
+            ++$tabCount['count_adresse'][$keyCDP];
+        }
     } catch (Exception $e) {
         return 'ERREUR '.$e->getMessage();
     }

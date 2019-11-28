@@ -352,6 +352,9 @@ function display_fiche(val) {
             }
 
             val['obj_etat_libelle'] = "Présent sur le parc";
+            
+            // initialisation du module modif Prix
+            initModifPrix(val,document.ficheForm);
 
             document.ficheForm.obj_prix_vente.disabled = false
 
@@ -359,6 +362,8 @@ function display_fiche(val) {
                 disable_formulaire(document.ficheForm, "cli");
             }
             getElement("fieldSetAcheteur").style.display = 'none';
+
+
         }
         if (val['obj_etat'] == "VENDU") {
             getElement("divPrix").style.display = 'block';
@@ -503,6 +508,9 @@ function confirmModal(plus) {
     } else if (plus == "Supp") {
         var tabObj = recup_formulaire(document.ficheForm, 'obj');
         x_action_deleteFiche(tabObj['obj_id'], display_fin_supp);
+    }
+    else if (plus == "CMop") {
+        confirmModalMop(plus)
     }
 }
 

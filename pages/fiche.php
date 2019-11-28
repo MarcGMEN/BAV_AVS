@@ -4,7 +4,7 @@
 	// pour rendre le champ nom du client unique
 	var idRamdom = "<?= $idRamdom ?>";
 </script>
-
+<script src="JS/modif_prix.js" type="text/javascript"></script>
 <script src="JS/fiche.js" type="text/javascript"></script>
 
 <? if (!$infAppli['ADMIN'] && $GET_modePage == 'create') { ?>
@@ -34,20 +34,20 @@
 				<div class="col-sm-6 col-md-6 col-xs-6">
 					<input type="hidden" name="obj_numero" />
 					No&nbsp;:&nbsp;<span style="font-size: 1.5em" id='obj_numero'></span>
-					<?if ($infAppli['ADMIN']) {?>
+					<? if ($infAppli['ADMIN']) { ?>
 						[<span id="obj_modif_data"></span>-<span id="obj_modif_vendeur"></span>]
-						--<span id="obj_id_modif" ></span>--
-					<?}?>
+						--<span id="obj_id_modif"></span>--
+					<? } ?>
 				</div>
 				<div class="col-sm-6 col-md-6 col-xs-6 tabl1">
 					<span class="alert-info" id="obj_etat_libelle"></span>
-					<input type=button onclick="goTo('saisieExpress.php', '',idFiche,null);" 
-						id=BtnSaisieExpress value="Gestion Fiche" 
-						style='display: none'/>
+					<input type=button onclick="goTo('saisieExpress.php', '',idFiche,null);" id=BtnSaisieExpress value="Gestion Fiche" style='display: none' />
 				</div>
 			</div>
 		</h4>
 		<div class="row">
+			<!-- NEw LINE -->
+			<!-- type -->
 			<div class="col-sm-4 col-md-4 col-xs-12">
 				<span class="titrow col-md-3 col-sm-3 col-xs-3" width=20%>Type</span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
@@ -55,6 +55,7 @@
 					</select>
 				</span>
 			</div>
+			<!-- public -->
 			<div class="col-sm-4 col-md-4 col-xs-12">
 				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Public</span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
@@ -62,6 +63,7 @@
 					</select>
 				</span>
 			</div>
+			<!-- pratique -->
 			<div class="col-sm-4 col-md-4 col-xs-12">
 				<span class="titrow col-md-3 col-sm-3 col-xs-3">Pratique</span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
@@ -69,6 +71,8 @@
 					</select>
 				</span>
 			</div>
+			<!-- NEw LINE -->
+			<!-- marque -->
 			<div class="col-sm-4 col-md-4 col-xs-12">
 				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Marque <span title="Obligatoire">*</span></span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
@@ -76,6 +80,7 @@
 					<datalist id="listMarques"></datalist>
 				</span>
 			</div>
+			<!-- Modele -->
 			<div class="col-sm-4 col-md-4 col-xs-12">
 				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Mod&egrave;le</span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
@@ -83,14 +88,17 @@
 					<datalist id="listModeles"></datalist>
 				</span>
 			</div>
+			<!-- Couleur -->
 			<div class="col-sm-4 col-md-4 col-xs-12">
 				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Couleur <span title="Obligatoire">*</span></span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
 					<input type=text name="obj_couleur" size=20 maxlength="30" tabindex=<?= $tabindex++ ?> style="text-transform:uppercase" placeholder="Couleurs dominantes" onkeyup="setStartSaisie(true);" required />
 				</span>
 			</div>
-
-			<div class="col-sm-6 col-md-6 col-xs-12">
+		</div>
+		<div class="row">
+			<div class="col-sm-6 col-xs-12">
+				<!-- Descpription -->
 				<span class="titrow col-md-2 col-sm-2 col-xs-3">Description <small>(facultative)</small>
 					<span class="help link" onmouseover="Aff_layer('aide_descript')" onmouseout="Cache_layer('aide_descript')">?</span>
 				</span>
@@ -102,7 +110,16 @@
 						<small>Année d'achat, prix d'achat, taille, accessoires, révision (transmission, pneus, freins..)</small>
 					</div>
 				</span>
+
+				<!-- prix depot -->
+				<span class="titrow col-md-2 col-sm-2 col-xs-3">Prix</span>
+				<span class="tabInput col-md-10 col-sm-10 col-xs-9">
+					<input type=number name="obj_prix_depot" size=5 maxlength="10" tabindex=<?= $tabindex++ ?> onkeyup="setStartSaisie(true);" step="0.1" min="0" title="Prix vente, vous pouvez le laisser vide et le renseigner le jour du dépôt." placeholder="00.00" />&#8364;
+				</span>
+
 			</div>
+
+
 			<!--	<div class="col-sm-6 col-md-6 col-xs-12">
 				<span class="titrow col-md-2 col-sm-2 col-xs-3">Accessoires
 					<span class="help link" onmouseover="Aff_layer('aide_accessoire')" onmouseout="Cache_layer('aide_accessoire')">?</span>
@@ -118,16 +135,39 @@
 					</div>
 				</span>
 			</div>-->
-			<div class="col-sm-12 col-md-12 col-xs-12">
-				<span class="titrow col-md-1 col-sm-1 col-xs-3">Prix</span>
-				<span class="tabInput col-md-2 col-sm-2 col-xs-9">
-					<input type=number name="obj_prix_depot" size=5 maxlength="10" tabindex=<?= $tabindex++ ?> onkeyup="setStartSaisie(true);" step="0.1" min="0" title="Prix vente, vous pouvez le laisser vide et le renseigner le jour du dépôt." placeholder="00.00" />&#8364;
+
+			<div class="col-sm-6 col-xs-12" id="divModifPrix" style="display:none">
+				<!-- modif de prix-->
+				<div class="tittab col-md-12 col-sm-12 col-xs-12">Modification des prix</div>
+				<span class="tittab col-md-4">
+					Nouveau prix
 				</span>
+				<span class="tittab col-md-4">
+					Date demande
+				</span>
+				<span class="tittab col-md-4">
+					Date validation
+				</span>
+				<div class="fiche col-md-12" id="divActionModifPrix">
+				<span class="col-md-6">
+					<input type=hidden name="mop_id_obj"/>
+					<br/>Votre nouveau prix 
+					<input type=number name="mop_prix_demande" min=1 style="width:40%" step="0.1" placeholder="00.00"
+						onchange="if (parseFloat(this.form.obj_prix_vente.value) !=parseFloat(this.value)) {this.form.btnModif.disabled=false;} else {this.form.btnModif.disabled=true;}" />
+					<br/>&nbsp;
+				</span>
+				<span class="col-md-6">
+					<br/><input type=button value="Demander la mise à jour" name="btnModif" onclick='addDemande()' disabled>
+					<br/>&nbsp;
+				</span>
+					</div>
 			</div>
 		</div>
+
+
 		<hr />
 		<div class="row" id="divPrix" style='display:none;'>
-			<!-- vue uniqueTABLE -->
+			<!-- PRIX vente -->
 			<div class="col-sm-4 col-md-4 col-xs-4">
 				<span class="titrow col-md-6 col-sm-6  col-xs-12">PRIX :</span>
 				<span class="tabl1 col-md-6 col-sm-6 col-xs-12">
@@ -139,12 +179,14 @@
 						</span>
 					<? } ?>
 			</div>
+			<!-- depot  -->
 			<div class="col-sm-4 col-md-4 col-xs-4">
 				<span class="titrow col-md-6 col-sm-6 col-xs-12">Depot :</span>
 				<span class="tabl1 col-md-6 col-sm-6 col-xs-12">
 					&nbsp&nbsp<span id="depot_calc">...</span>&nbsp;&#8364;
 				</span>
 			</div>
+			<!-- commision  -->
 			<div class="col-sm-4 col-md-4 col-xs-4">
 				<span class="titrow  col-md-6 col-sm-6 col-xs-12">Commission :</span>
 				<span class="tabl1 col-md-6 col-sm-6 col-xs-12">
@@ -153,12 +195,17 @@
 			</div>
 		</div>
 	</fieldset>
+
+	<!-- VENDEUR -->
+	<!-- VENDEUR -->
+	<!-- VENDEUR -->
+	<!-- VENDEUR -->
 	<fieldset class=fiche>
 		<legend class="titreFiche link" id='legendVendeur' onclick='goTo("client.php","consult",document.ficheForm.cli_id.value,"")' title="Accès au vendeur">
-			Le vendeur 
-			<?if ($infAppli['ADMIN']) {?>
+			Le vendeur
+			<? if ($infAppli['ADMIN']) { ?>
 				<span style="font-size: 0.8em" id="cli_id">...</span>
-			<?}?>
+			<? } ?>
 		</legend>
 		<div class="row">
 			<div class="col-sm-6 col-md-6 col-xs-12">
@@ -209,6 +256,11 @@
 			</div>
 		</div>
 	</fieldset>
+
+	<!-- BARRE ACTION -->
+	<!-- BARRE ACTION -->
+	<!-- BARRE ACTION -->
+	<!-- BARRE ACTION -->
 	<div class="row fiche">
 		<div class="col-sm-12 col-md-12 col-xs-12" id="tdCGU">
 			<input type="checkbox" name="checkCGU" required />Je déclare avec lu et pris connaissance des
@@ -223,8 +275,7 @@
 		<div class="col-sm-3 col-md-3 col-xs-6 btnAction" style='display:none' id="tdBtnPdf">
 			<input type=button value="Impression Fiche" onclick="imprimeFiche()" name="buttonPDFFiche" tabindex=<?= $tabindex++ ?>>
 			<? if ($infAppli['ADMIN']) { ?>
-				<input type=button value="Impression Etiquette" onclick="imprimeEtiquette()" 
-					name="buttonPDFEtiquette" tabindex=<?= $tabindex++ ?> style="display:none">
+				<input type=button value="Impression Etiquette" onclick="imprimeEtiquette()" name="buttonPDFEtiquette" tabindex=<?= $tabindex++ ?> style="display:none">
 			<? } ?>
 		</div>
 		<div class="col-sm-3 col-md-3 col-xs-6 btnAction" style='display:none' id="tdBtnSup">
@@ -238,26 +289,26 @@
 		</div>
 	</div>
 
-	<!-- TODO :  possibilité de modifier l'acheteur -->
+	<!-- ACHETEUR -->
+	<!-- ACHETEUR -->
+	<!-- ACHETEUR -->
+	<!-- ACHETEUR -->
 	<fieldset class=fiche style='display:none' id="fieldSetAcheteur">
 		<legend class="titreFiche link" onclick='goTo("client.php","consult",document.ficheForm.ach_id.value,"")'>
-			L'acheteur 
+			L'acheteur
 			<span id="ach_id">...</span></legend>
 		<div class="row">
 			<div class="col-sm-6 col-md-6 col-xs-12">
 				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Emel </span></span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
-					<input type=email name='ach_emel' id="ach_emel" 
-						size="50" maxlength="100" tabindex=<?= $tabindex++ ?> placeholder="aaaa.bbbb@ccc.dd" 
-						onblur='searchAchByMel(this.value)' list='listAcheteur' />
+					<input type=email name='ach_emel' id="ach_emel" size="50" maxlength="100" tabindex=<?= $tabindex++ ?> placeholder="aaaa.bbbb@ccc.dd" onblur='searchAchByMel(this.value)' list='listAcheteur' />
 					<datalist id="listAcheteur"></datalist>
 				</span>
 			</div>
 			<div class="col-sm-6 col-md-6 col-xs-12">
 				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Nom et prénom <span title="Obligatoire">*</span></span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
-					<input type=text name='ach_nom' tabindex=<?= $tabindex++ ?> size="50" maxlength="100" 
-					onblur='searchAchByName(this.value)' list='listAcheteurName' />
+					<input type=text name='ach_nom' tabindex=<?= $tabindex++ ?> size="50" maxlength="100" onblur='searchAchByName(this.value)' list='listAcheteurName' />
 					<datalist id="listAcheteurName"></datalist>
 				</span>
 			</div>
