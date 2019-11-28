@@ -139,28 +139,31 @@
 			<div class="col-sm-6 col-xs-12" id="divModifPrix" style="display:none">
 				<!-- modif de prix-->
 				<div class="tittab col-md-12 col-sm-12 col-xs-12">Modification des prix</div>
-				<span class="tittab col-md-4">
-					Nouveau prix
-				</span>
-				<span class="tittab col-md-4">
-					Date demande
-				</span>
-				<span class="tittab col-md-4">
-					Date validation
-				</span>
+				<div class="col-xs-12">
+					<span class="tittab col-md-4">
+						Nouveau prix
+					</span>
+					<span class="tittab col-md-4">
+						Date demande
+					</span>
+					<span class="tittab col-md-4">
+						Date validation
+					</span>
+				</div>
+				<div class="col-xs-12" id="tabModifPrix">
+				</div>
 				<div class="fiche col-md-12" id="divActionModifPrix">
-				<span class="col-md-6">
-					<input type=hidden name="mop_id_obj"/>
-					<br/>Votre nouveau prix 
-					<input type=number name="mop_prix_demande" min=1 style="width:40%" step="0.1" placeholder="00.00"
-						onchange="if (parseFloat(this.form.obj_prix_vente.value) !=parseFloat(this.value)) {this.form.btnModif.disabled=false;} else {this.form.btnModif.disabled=true;}" />
-					<br/>&nbsp;
-				</span>
-				<span class="col-md-6">
-					<br/><input type=button value="Demander la mise à jour" name="btnModif" onclick='addDemande()' disabled>
-					<br/>&nbsp;
-				</span>
-					</div>
+					<span class="col-md-6">
+						<input type=hidden name="mop_id_obj" />
+						<br />Votre nouveau prix
+						<input type=number name="mop_prix_demande" min=1 style="width:40%" step="0.1" placeholder="00.00" onchange="if (parseFloat(this.form.obj_prix_vente.value) !=parseFloat(this.value)) {this.form.btnModif.disabled=false;} else {this.form.btnModif.disabled=true;}" />
+						<br />&nbsp;
+					</span>
+					<span class="col-md-6">
+						<br /><input type=button value="Demander la mise à jour" name="btnModif" onclick='addDemande()' disabled>
+						<br />&nbsp;
+					</span>
+				</div>
 			</div>
 		</div>
 

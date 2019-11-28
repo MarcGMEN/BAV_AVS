@@ -332,7 +332,6 @@ function display_fiche(val) {
             }
         }
         // etat STOCK
-        if (val['obj_etat'] == "STOCK") {
             getElement("divPrix").style.display = 'block';
             getElement("tdBtnPdf").style.display = 'block';
             document.ficheForm.buttonValideFiche.innerHTML = "Modifier";
@@ -509,7 +508,7 @@ function confirmModal(plus) {
         var tabObj = recup_formulaire(document.ficheForm, 'obj');
         x_action_deleteFiche(tabObj['obj_id'], display_fin_supp);
     }
-    else if (plus == "CMop") {
+    else if (plus == "CMop" || plus == "SMop" ) {
         confirmModalMop(plus)
     }
 }
