@@ -22,6 +22,7 @@
 		<td width="<?=$tail?>%">
 			<!-- fiche etat valide -->
 			Stock : <span id="STOCK" class='link' onclick='goTo("stock.php","obj_etat","STOCK",null)' style='font-weight: bold'>...</span>
+			<span id=countModifPrix ></span>
 		</td>
 	    <!--<td width="<?=$tail?>%">-->
 			<!-- fiche etat modif prix -->

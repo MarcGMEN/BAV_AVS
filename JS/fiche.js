@@ -318,7 +318,7 @@ function display_fiche(val) {
 
             val['obj_etat_libelle'] = "Demande confirmée le [" + formatDate(val['obj_date_depot'], true) + "]";
 
-            
+
         }
         // etat STOCK
         if (val['obj_etat'] == "STOCK") {
@@ -335,24 +335,24 @@ function display_fiche(val) {
             // TODO : blocage de la fiche, sauf admin
             document.ficheForm.obj_prix_depot.disabled = true;
             if (!ADMIN) {
-                document.ficheForm.cli_prix_depot.disabled = true;
+                document.ficheForm.disabled = true;
             } else {
                 document.ficheForm.obj_prix_depot.disabled = false;
             }
 
             val['obj_etat_libelle'] = "Présent sur le parc";
-            
+
             // initialisation du module modif Prix
-            initModifPrix(val,document.ficheForm);
+            initModifPrix(val, document.ficheForm);
 
             document.ficheForm.obj_prix_vente.disabled = false
 
             if (!ADMIN) {
                 disable_formulaire(document.ficheForm, "cli");
+                disable_formulaire(document.ficheForm, "obj");
+                getElement("tdBtnAction").style.display = 'none';
             }
             getElement("fieldSetAcheteur").style.display = 'none';
-
-
         }
         if (val['obj_etat'] == "VENDU") {
             getElement("divPrix").style.display = 'block';
@@ -497,8 +497,7 @@ function confirmModal(plus) {
     } else if (plus == "Supp") {
         var tabObj = recup_formulaire(document.ficheForm, 'obj');
         x_action_deleteFiche(tabObj['obj_id'], display_fin_supp);
-    }
-    else if (plus == "CMop" || plus == "SMop" ) {
+    } else if (plus == "CMop" || plus == "SMop") {
         confirmModalMop(plus)
     }
 }

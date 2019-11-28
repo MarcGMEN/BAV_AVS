@@ -3,6 +3,7 @@
 function getModifPrixFromFiche($idFiche) {
     $requete2 = "SELECT * from bav_modif_prix where mop_id_obj = $idFiche";
     $requete2 .= " order by mop_date_demande ";
+
     if ($result = $GLOBALS['mysqli']->query($requete2)) {
         $tab = array();
         $index = 0;
@@ -17,7 +18,7 @@ function getModifPrixFromFiche($idFiche) {
 }
 
 function getAllModifActivePrixFromFiche() {
-    $requete2 = "SELECT * from bav_modif_prix, bav_objet where mop_id_obj = bav_objet ";
+    $requete2 = "SELECT * from bav_modif_prix, bav_objet where mop_id_obj = obj_id ";
     $requete2 .= " and obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "'";
     $requete2 .= " and  mop_date_validation is null ";
     $requete2 .= " order by mop_date_demande ";

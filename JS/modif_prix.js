@@ -1,4 +1,3 @@
-
 var formMop;
 var theFiche;
 
@@ -14,7 +13,7 @@ function initModifPrix(fiche, theForm) {
     mop['mop_prix_demande'] = fiche['obj_prix_vente'];
     mop['mop_id_obj'] = fiche['obj_id'];
 
-    //x_return_modifPrixFromFiche(val['obj_id'], display_modifPrix);
+    x_return_modifPrixFromFiche(fiche['obj_id'], display_modifPrix);
 
     display_formulaire(mop, formMop);
 }
@@ -23,7 +22,7 @@ function initModifPrix(fiche, theForm) {
 function display_modifPrix(val) {
     console.log(val);
 
-    var maxDemande = $GLOBALS['INFO_APPLI']['NB_MODIF'];
+    var maxDemande = NB_MODIF;
     var nbDemande = 0;
     var demandeEnAttente = false;
     var repr = "";
@@ -34,41 +33,38 @@ function display_modifPrix(val) {
                 // alors on bloque la saisie d'un nouvelle demane
                 nbDemande++;
 
-                repr += "<div class='tabl0 col-md-12'><span class='col-md-4'>"
+                repr += "<div class='tabl0 col-md-12'><span class='col-md-3'>"
                 repr += val[index]['mop_prix_demande'];
-                repr += "</span><span class='tittab col-md-4'>";
+                repr += "</span><span class='col-md-4'>";
                 repr += val[index]['mop_date_demande_FR'];
-                repr += "</span><span class='tittab col-md-4'>";
-                if (val[index]['mop_date_validation'] == null) {
+                repr += "</span><span class='col-md-5'>";
+                if (val[index]['mop_date_validation'] == "") {
                     demandeEnAttente = true;
                     // Btn ADMIN de validation
                     if (ADMIN) {
-                        repr += "<input type=button value='Valider' onclick='confirmDemande(" + val[index]['mop_id'] + ")' >&nbps;";
+                        repr += "<input type=button value='Valider' onclick='confirmDemande(" + val[index]['mop_id'] + ")' >&nbsp;";
+                    } else {
+                        repr += "En cours de validation<br/>";
                     }
-                    repr += "En cours de validation<br/><input type=button value='Supprimer' onclick='removeDemande(" + val[index]['mop_id'] + ")' >";
-                }
-                else {
+                    repr += "<input type=button value='Supprimer' onclick='removeDemande(" + val[index]['mop_id'] + ")' >";
+                } else {
                     repr += val[index]['mop_date_validation_FR'];
                 }
                 repr += "</span></div>";
             }
         }
-        getElement('divActionModifPrix').style.display='true';
-        if (nbDemande >= maxDemande) {
-            getElement('divActionModifPrix').innerHTML = "<h4>Nombre maxi de demande atteint.<br/>Appelez nous par faire d'autre modification.";
-        }
-        else if (demandeEnAttente) {
-            getElement('divActionModifPrix').style.display='none';
+        getElement('divActionModifPrix').style.display = 'block';
+        if (nbDemande >= maxDemande && !demandeEnAttente) {
+            getElement('divActionModifPrix').innerHTML = "<h5>Nombre maxi de demande atteint.<br/>Appelez nous par faire d'autres modifications.</h5>";
+        } else if (demandeEnAttente) {
+            getElement('divActionModifPrix').style.display = 'none';
         }
 
         getElement("tabModifPrix").innerHTML = repr;
-    }
-    else {
+    } else {
         alertModalWarn(val);
     }
 }
-
-
 
 function addDemande() {
     var tabMop = recup_formulaire(formMop, 'mop');
@@ -81,25 +77,22 @@ function addDemande() {
 /**
  * affchage du modal de suppression avec attente de confirmation
  * la confirmation est géré par ConfirmModal optoin Supp
- * @param  mess 
+ * @param  mess s
  */
 function display_messageConfirmMop(mess) {
     alertModalConfirm(mess, "CMop");
 }
 /**
  * retour OK de confirm
- * @param {*} plus 
+ * @param {} plus 
  */
 function confirmModalMop(plus) {
     if (plus == "CMop") {
         var tabMop = recup_formulaire(formMop, 'mop');
         x_action_addDemande(tabToString(tabMop), display_fin_demande);
+    } else if (plus == "SMop") {
+        x_action_removeDemande(idRemove, display_fin_removeMop);
     }
-    else if (plus == "SMop") {
-        var tabMop = recup_formulaire(formMop, 'mop');
-        x_action_removeDemande(tabMod['mop_id'], display_fin_removeMop);
-    }
-
 }
 
 /**
@@ -112,6 +105,9 @@ function display_fin_demande(val) {
 }
 
 function display_fin_removeMop(val) {
+    if (val != 1) {
+        alertModalWarn(val);
+    }
     initModifPrix(theFiche, formMop);
 }
 
@@ -132,8 +128,10 @@ function display_fin_confirmMop(val) {
     initModifPrix(theFiche, formMop);
 }
 
+var idRemove;
 
 function removeDemande(id) {
+    idRemove = id;
     x_get_publiHtml("", 'modal_confirm_Smop.html', display_messageConfirmSuppMop);
     return false;
 }
@@ -143,4 +141,3 @@ function removeDemande(id) {
 function display_messageConfirmSuppMop(mess) {
     alertModalConfirm(mess, "SMop");
 }
-

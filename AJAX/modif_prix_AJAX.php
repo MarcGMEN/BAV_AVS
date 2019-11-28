@@ -7,7 +7,6 @@ function return_modifPrixFromFiche($idFiche) {
         $tabMop[$key]['mop_date_demande_FR'] = formateDateMYSQLtoFR($val['mop_date_demande'], true);
         $tabMop[$key]['mop_date_validation_FR'] = formateDateMYSQLtoFR($val['mop_date_validation'], true);
     }
-
     return $tabMop;
 }
 
@@ -16,13 +15,13 @@ function return_modifPrixFromFiche($idFiche) {
  */
 function return_allDemandeActive() {
     return getAllModifActivePrixFromFiche();
-
 }
 
 /**
  * ajout d'une demande
  */
 function action_addDemande($mop) {
+    $mop = tabToObject(string2Tab($mop), "mop");
     return insertModifPrix($mop);
 }
 
@@ -33,10 +32,10 @@ function action_addDemande($mop) {
 function action_confirmDemande($idMop) {
     $mop['mop_id']=$idMop;
     $mop['mop_date_validation']=date('y-m-d H:i:s');
-    $mopModif=updateModifPrix($mop);
-
+    updateModifPrix($mop);
+    $mopModif= getOneModifPrix($idMop);
     $fiche=getOneFiche($mopModif['mop_id_obj']);
-    $fiche['obj_prix_vente']=$mopModif|['obj_prix_demande'];
+    $fiche['obj_prix_vente']=$mopModif['mop_prix_demande'];
     updateFiche($fiche);
 
     $cliVend = getOneClient($fiche['obj_id_vendeur']);
@@ -58,12 +57,7 @@ function action_confirmDemande($idMop) {
 }
 
 function action_removeDemande($id) {
-    $mop = getOneModifPrix($id);
+   //$mop = getOneModifPrix($id);
+    return deleteModifPrix($id);
 
-    if ($mop['mop_date_validation'] == null) {
-        return "Suppression impossible d'une demande non validé";
-    }
-    else {
-        return deleteModifPrix($id);
-    }
 }

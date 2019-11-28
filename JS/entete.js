@@ -7,6 +7,7 @@ function initEntete() {
         if (getElement('tabStat')) {
             getElement('tabStat').className = 'tabStatShow';
             x_return_countByEtat(display_counter);
+            x_return_allDemandeActive(display_counter2)
         }
         getElement('tdSearch').style.display = "table-cell";
 
@@ -32,8 +33,7 @@ function return_restant() {
         if (minutes < 10) { minutes = "0" + minutes }
         getElement('timeRestant').innerHTML = jourTxt + " " + heures + ":" + minutes + ":" + secondes;
         setTimeout('return_restant()', 1000);
-    }
-    else {
+    } else {
         getElement('timeRestant').innerHTML = "";
     }
 }
@@ -78,6 +78,13 @@ function display_counter(val) {
 
         setTimeout('x_return_countByEtat(display_counter)', 5 * 60 * 1000);
     }
+}
+
+function display_counter2(val) {
+    if (val instanceof Object) {
+        getElement('countModifPrix').innerHTML = "<span style='background-color:DARKRED; color:white'>&nbsp;" + sizeof(val) + "&nbsp;</span>";
+    }
+    setTimeout('x_return_allDemandeActive(display_counter2)', 5 * 60 * 1000);
 }
 
 function enteteSaisie() {

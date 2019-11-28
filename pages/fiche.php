@@ -35,8 +35,9 @@
 					<input type="hidden" name="obj_numero" />
 					No&nbsp;:&nbsp;<span style="font-size: 1.5em" id='obj_numero'></span>
 					<? if ($infAppli['ADMIN']) { ?>
+						<span  style="font-size:0.8em">
 						[<span id="obj_modif_data"></span>-<span id="obj_modif_vendeur"></span>]
-						--<span id="obj_id_modif"></span>--
+						--<span id="obj_id_modif"></span>--</span>
 					<? } ?>
 				</div>
 				<div class="col-sm-6 col-md-6 col-xs-6 tabl1">
@@ -138,25 +139,26 @@
 
 			<div class="col-sm-6 col-xs-12" id="divModifPrix" style="display:none">
 				<!-- modif de prix-->
-				<div class="tittab col-md-12 col-sm-12 col-xs-12">Modification des prix</div>
+				<div class="tittab col-md-12 col-sm-12 col-xs-12">Modification du prix</div>
 				<div class="col-xs-12">
-					<span class="tittab col-md-4">
-						Nouveau prix
+					<span class="tittab col-md-3">
+						Nv prix
 					</span>
 					<span class="tittab col-md-4">
 						Date demande
 					</span>
-					<span class="tittab col-md-4">
+					<span class="tittab col-md-5">
 						Date validation
 					</span>
 				</div>
-				<div class="col-xs-12" id="tabModifPrix">
+				<div id="tabModifPrix">
 				</div>
 				<div class="fiche col-md-12" id="divActionModifPrix">
 					<span class="col-md-6">
 						<input type=hidden name="mop_id_obj" />
 						<br />Votre nouveau prix
-						<input type=number name="mop_prix_demande" min=1 style="width:40%" step="0.1" placeholder="00.00" onchange="if (parseFloat(this.form.obj_prix_vente.value) !=parseFloat(this.value)) {this.form.btnModif.disabled=false;} else {this.form.btnModif.disabled=true;}" />
+						<input type=number name="mop_prix_demande" min=1 style="width:40%" step="0.1" placeholder="00.00" 
+							onchange="if (parseFloat(this.form.obj_prix_vente.value) !=parseFloat(this.value)) {this.form.btnModif.disabled=false;} else {this.form.btnModif.disabled=true;}" />
 						<br />&nbsp;
 					</span>
 					<span class="col-md-6">
