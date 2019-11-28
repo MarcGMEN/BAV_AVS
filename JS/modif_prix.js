@@ -53,11 +53,12 @@ function display_modifPrix(val) {
                 repr += "</span></div>";
             }
         }
-        if (nbDemande >= maxDemande || demandeEnAttente) {
-            getElement('divModifPrix').style.display = 'none';
+        getElement('divActionModifPrix').style.display='true';
+        if (nbDemande >= maxDemande) {
+            getElement('divActionModifPrix').innerHTML = "<h4>Nombre maxi de demande atteint.<br/>Appelez nous par faire d'autre modification.";
         }
-        else {
-            getElement('divModifPrix').style.display = 'block';
+        else if (demandeEnAttente) {
+            getElement('divActionModifPrix').style.display='none';
         }
 
         getElement("tabModifPrix").innerHTML = repr;
