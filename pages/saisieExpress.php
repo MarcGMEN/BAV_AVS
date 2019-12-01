@@ -4,8 +4,7 @@
 </script>
 <script src="JS/saisieExpress.js" type="text/javascript"></script>
 <script>
-	console.log('<?=$_GET['id']?>');
-<? if (isset($_GET['id'])) {?>
+<? if (isset($_GET['id']) && $_GET['id'] != "") {?>
 		x_return_oneFiche('<?=$_GET['id']?>', display_fiche);
 	<?}?>
 </script>
@@ -77,26 +76,30 @@
 <br/>
 <table width='100%'>
 	<tr>
+		<td class='tittab' width=10%>Action</td>
 		<td class='tittab' width=5%>No</td>
 		<td class='tittab' width=10%>Type</td>
 		<td class='tittab' width=10%>Prix vente</td>
-		<td class='tittab' width=55%>Vendeur</td>
+		<td class='tittab' width=45%>Vendeur</td>
 		<td class='tittab' width=10%>Etat</td>
 		<td class='tittab' width=10%></td>
 	</tr>
 </table>
+<form name=formTabSaisie onSubmit='return false'>
 <div style="overflow: scroll; height:50%">
 	<table width='100%' id='tableFiches'>
 		<? for ($index = 1; $index < 2000; $index++) { ?>
 			<tr class='tabl0' id="tr_<?= $index ?>">
+				<td width=10% id="action_<?= $index ?>"></td>
 				<td width=5% id="numero_<?= $index ?>" onclick="x_return_oneFicheByCode('<?= $index ?>', display_fiche)"><span style="color: GREEN"><?= $index ?></span>
 				</td>
 				<td width=10% id="type_<?= $index ?>"></td>
 				<td width=10% id="prix_vente_<?= $index ?>"></td>
-				<td width=55% id="vendeur_<?= $index ?>"></td>
+				<td width=45% id="vendeur_<?= $index ?>"></td>
 				<td width=10% id="etat_<?= $index ?>"></td>
 				<td width=9% id="zoom_<?= $index ?>"></td>
 			</tr>
 		<? } ?>
 	</table>
 </div>
+</form>

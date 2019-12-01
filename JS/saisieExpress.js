@@ -61,26 +61,61 @@ function display_fiches(val) {
  * @param  val 
  */
 function afficheLigne(val) {
-    getElement("numero_" + val['obj_numero']).innerHTML = val['obj_numero'];
-    getElement("type_" + val['obj_numero']).innerHTML = val['obj_type'];
-    getElement("prix_vente_" + val['obj_numero']).innerHTML = val['obj_prix_vente'];
-    getElement("vendeur_" + val['obj_numero']).innerHTML = val['cli_nom'];
-    if (val['cli_emel']) {
-        getElement("vendeur_" + val['obj_numero']).innerHTML += " [" + val['cli_emel'] + "]";
-    }
-    if (val['acheteur_nom']) {
-        getElement("vendeur_" + val['obj_numero']).innerHTML += " => Vendu à " + val['acheteur_nom'];
-    }
-    getElement("etat_" + val['obj_numero']).innerHTML = val['obj_etat'];
+    if (getElement("numero_" + val['obj_numero'])) {
+        getElement("numero_" + val['obj_numero']).innerHTML = val['obj_numero'];
+        getElement("type_" + val['obj_numero']).innerHTML = val['obj_type'];
+        getElement("vendeur_" + val['obj_numero']).innerHTML = val['cli_nom'];
+        if (val['cli_emel']) {
+            getElement("vendeur_" + val['obj_numero']).innerHTML += " [" + val['cli_emel'] + "]";
+        }
+        if (val['acheteur_nom']) {
+            getElement("vendeur_" + val['obj_numero']).innerHTML += " => Vendu à " + val['acheteur_nom'];
+        }
+        getElement("etat_" + val['obj_numero']).innerHTML = val['obj_etat'];
 
-    getElement("zoom_" + val['obj_numero']).innerHTML = "<i class='link fas fa-search' onclick='goTo(\"fiche.php\",\"modif\"," + val['obj_id'] + ")'></i>";
-    getElement("numero_" + val['obj_numero']).className += " link";
+        getElement("zoom_" + val['obj_numero']).innerHTML = "<i class='link fas fa-search' onclick='goTo(\"fiche.php\",\"modif\"," + val['obj_id'] + ")'></i>";
+        getElement("numero_" + val['obj_numero']).className += " link";
 
-    getElement("tr_" + val['obj_numero']).className = "tabl0 " + val['obj_etat'];
+        getElement("tr_" + val['obj_numero']).className = "tabl0 " + val['obj_etat'];
+
+        getElement("prix_vente_" + val['obj_numero']).innerHTML = val['obj_prix_vente'];
+
+        getElement("action_" + val['obj_numero']).innerHTML = "";
+
+        // creation du bouton adapté
+        // pour le retour, saisir la fiche
+        var action = "";
+        var new_etat = "";
+        if (val['obj_etat'] == "CONFIRME") {
+            new_etat = "STOCK";
+            new_libelle = "Stocker";
+            var thePrix = val['obj_prix_depot'];
+            var actionPrix = "<input type='number' name='obj_prix_vente_" + val['obj_numero'] + "' min=1 value='" + thePrix + "' />";
+            getElement("prix_vente_" + val['obj_numero']).innerHTML = actionPrix;
+
+            action = "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\",document.formTabSaisie.obj_prix_vente_" + val['obj_numero'] + ".value)' />";
+            getElement("action_" + val['obj_numero']).innerHTML = action;
+
+        } else if (val['obj_etat'] == "STOCK") {
+            new_etat = "RENDU";
+            new_libelle = "Rendre";
+            action = "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\"," + val['obj_prix_vente'] + ")' />";
+            getElement("action_" + val['obj_numero']).innerHTML = action;
+        } else if (val['obj_etat'] == "VENDU") {
+            new_etat = "PAYE";
+            new_libelle = "Payer";
+            action = "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\"," + val['obj_prix_vente'] + ")' />";
+            getElement("action_" + val['obj_numero']).innerHTML = action;
+        }
+    }
+
 }
 
 function display_fiche(val) {
     getElement("but_action").disabled = false;
+
+    console.log(val);
+    afficheLigne(val);
 
     // on revient sur le numero de fiche en focus
     document.searchFormFiche.numeroFiche.value = "";
@@ -261,6 +296,30 @@ function submitForm() {
     delete tabObj['obj_etat_new2'];
     delete tabObj['obj_etat_newAno'];
     console.log(tabObj);
+
+    modifEtat(tabObj, tabCli);
+
+    return false;
+}
+
+function changeEtatLigne(id, etat, etat_new, prix_vente) {
+    var tabObj = {};
+    tabObj['obj_etat'] = etat;
+    tabObj['obj_etat_new'] = etat_new;
+    tabObj['obj_id'] = id;
+    tabObj['obj_prix_vente'] = prix_vente;
+
+    if (prix_vente == 0) {
+        alertModalWarn("Le prix doit être supérieur a zéro..");
+    } else {
+        modifEtat(tabObj, {});
+    }
+
+
+}
+
+function modifEtat(tabObj, tabCli) {
+
     if (tabObj['obj_etat'] == 'INIT' && tabObj['obj_etat_new'] == "STOCK") {
         tabObj['obj_etat'] = 'STOCK'
         var tabData = Object.assign({}, tabObj, tabCli);
@@ -274,11 +333,12 @@ function submitForm() {
         if (tabObj['obj_etat'] == 'CONFIRME') {
             tabObj['obj_prix_depot'] = tabObj['obj_prix_vente']
         }
+        console.log("avec change etat fiche");
+        console.log(tabObj);
         x_action_changeEtatFiche(tabToString(tabObj), display_fin_create);
     } else {
 
     }
-    return false;
 }
 
 function display_fiche_vente(val) {
@@ -316,7 +376,7 @@ function confirmModal() {
 
 function display_fin_create(val) {
     if (val instanceof Object) {
-        x_return_fiches_express(display_fiches);
+        //x_return_fiches_express(display_fiches);
 
         if (document.formSaisieExpress.cli_id.value != '') {
             x_return_oneClient(document.formSaisieExpress.cli_id.value, display_infoClientVendeur);

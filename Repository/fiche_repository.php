@@ -121,10 +121,18 @@ function getOneFicheByCode($id)
 {
     $row = null;
     if (isset($id)) {
-        $requete2 = " SELECT * from bav_objet ";
+        $requete2 = "SELECT bav_objet.*, ve.*, ve.cli_nom vendeur_nom, ac.cli_nom acheteur_nom from bav_objet ";
+        $requete2 .= "  left outer join bav_client as ve on obj_id_vendeur = ve.cli_id ";
+        $requete2 .= "  left outer join bav_client as ac on obj_id_acheteur = ac.cli_id ";
         $requete2 .= " where obj_numero = '" . $id . "'";
         $requete2 .= " and  obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "'";
-        $row = $GLOBALS['mysqli']->query($requete2)->fetch_assoc();
+        $result = $GLOBALS['mysqli']->query($requete2);
+        if ($result) {
+            $row = $result->fetch_assoc();
+            $result->close();
+        } else {
+            throw new Exception("getFiches' [$requete2] " . $GLOBALS['mysqli']->error);
+        }
     }
     return $row;
 }
@@ -210,7 +218,20 @@ function getAllFiche()
  */
 function getOneFiche($id)
 {
-    return getOne($id, "bav_objet", "obj_id");
+    $requete2 = "SELECT bav_objet.*, ve.*, ve.cli_nom vendeur_nom, ac.cli_nom acheteur_nom from bav_objet ";
+    $requete2 .= "  left outer join bav_client as ve on obj_id_vendeur = ve.cli_id ";
+    $requete2 .= "  left outer join bav_client as ac on obj_id_acheteur = ac.cli_id ";
+    $requete2 .= " where obj_id  = $id";
+   
+    $result = $GLOBALS['mysqli']->query($requete2);
+    if ($result) {
+        $row = $result->fetch_assoc();
+        $result->close();
+    } else {
+        throw new Exception("getFiches' [$requete2] " . $GLOBALS['mysqli']->error);
+    }
+    return $row;
+    // return getOne($id, "bav_objet", "obj_id");
 }
 
 

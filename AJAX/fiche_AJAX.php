@@ -752,6 +752,7 @@ function action_changeEtatFiche($obj)
     extract($GLOBALS);
     $ADMIN = $INFO_APPLI['ADMIN'];
 
+
     if ($ADMIN) {
         $fiche = string2Tab($obj);
         // on bascule la fiche au nouvel ETAT

@@ -66,6 +66,37 @@
 		getElement(id+"_maj").style.display='none';
 		<?}?>
 	}
+	function searchVente(numero) {
+		x_return_oneFicheByCode(numero, display_getFicheVente);
+		return false;
+	}
+
+	function display_getFicheVente(val) {
+		console.log(val);
+		if (val instanceof Object && val['obj_id'] != undefined) {
+       		if (val['obj_etat'] == 'VENDU'  ||  val['obj_etat'] == 'PAYE' ) {
+		
+			    messageVente = "<div class='alert alert-success'><b>Votre vélo numéro " + val['obj_numero'] + " a été vendu !</b> ";
+                messageVente += " Rendez-vous à la soucoupe dès à présent pour retirer votre chèque/argent.";
+                messageVente += "<br />Munissez-vous de : <ul>";
+                messageVente += "<li>Votre reçu vendeur</li>";
+                messageVente += "<li>La pièce d\'identité utilisée lors de l\'inscription</li>";
+                messageVente += "<li>Le montant de la commission due (10% du prix de vente)</li>";
+                messageVente += "</ul></div>";
+			}
+			else if (val['obj_etat'] == 'RENDU') {
+				messageVente = "<div class='alert alert-danger'><b>Votre vélo numéro " + val['obj_numero'] + " vous a été rendu.</b></div>";
+			}
+			else {
+                messageVente = "<div class='alert alert-danger'><b>Votre vélo numéro " + val['obj_numero'] + " n\'a pas encore été vendu.<br/> Veuillez re-essayer ultérieurement.</b></div>";
+			}
+			
+	        if (messageVente != "") {
+    	        alertModalInfo(messageVente);
+			}
+			document.bavFormFiche.inputSearch.value="";
+	   }
+}
 </script>
 <?php
 	$data = array(
@@ -87,8 +118,20 @@
 			 // "PRINCIPES" => 'bav_principe',
 			  'NOS STATISTIQUES' => "bav_statistique",
 		      'PROGRAMME' => "bav_programme"
-	];
-	foreach ($tabInfo as $title => $idText) {
+	];?>
+	
+<? if ($infAppli['CLIENT']) {?>
+<form name="bavFormFiche" action="#" 
+	onsubmit='return searchVente(document.bavFormFiche.inputSearch.value)'>
+	<h3>Votre vélo est il vendu ? <h3><input type="text" name="numeroFiche" size="8" maxlength="50" 
+		title="Saisisez le numéro de fiche" placeholder="N° fiche" id="inputSearch" 
+		onsubmit='searchVente(this.value)' style='background-color:LIGHTGREEN;font-weight: bold' />
+	<i id="loupe" class="fas fa-search link " 
+		onclick="searchVente(document.bavFormFiche.inputSearch.value)"></i>
+
+</form>
+<?}
+foreach ($tabInfo as $title => $idText) {
 ?>
 <div id="tag<?=$idText?>" ></div>
 <h3 class="titreFiche">

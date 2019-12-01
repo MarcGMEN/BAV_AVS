@@ -5,17 +5,21 @@ function initModifPrix(fiche, theForm) {
     formMop = theForm;
     theFiche = fiche;
 
-    var mop = [];
-    if (ADMIN) {
-        // getElement('divActionModifPrix').style.display='none';
+    if (NB_MODIF > 0 || ADMIN) {
+        var mop = [];
+        if (ADMIN) {
+            // getElement('divActionModifPrix').style.display='none';
+        }
+        getElement('divModifPrix').style.display = 'block';
+        mop['mop_prix_demande'] = fiche['obj_prix_vente'];
+        mop['mop_id_obj'] = fiche['obj_id'];
+
+        x_return_modifPrixFromFiche(fiche['obj_id'], display_modifPrix);
+
+        display_formulaire(mop, formMop);
+    } else {
+
     }
-    getElement('divModifPrix').style.display = 'block';
-    mop['mop_prix_demande'] = fiche['obj_prix_vente'];
-    mop['mop_id_obj'] = fiche['obj_id'];
-
-    x_return_modifPrixFromFiche(fiche['obj_id'], display_modifPrix);
-
-    display_formulaire(mop, formMop);
 }
 
 

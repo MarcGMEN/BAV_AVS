@@ -35,9 +35,9 @@
 					<input type="hidden" name="obj_numero" />
 					No&nbsp;:&nbsp;<span style="font-size: 1.5em" id='obj_numero'></span>
 					<? if ($infAppli['ADMIN']) { ?>
-						<span  style="font-size:0.8em">
+						<span  style="font-size:0.6em">
 						[<span id="obj_modif_data"></span>-<span id="obj_modif_vendeur"></span>]
-						--<span id="obj_id_modif"></span>--</span>
+						-<span id="obj_id_modif"></span>-</span>
 					<? } ?>
 				</div>
 				<div class="col-sm-6 col-md-6 col-xs-6 tabl1">
