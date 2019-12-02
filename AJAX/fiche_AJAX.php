@@ -50,6 +50,7 @@ function return_oneFicheByCode($id)
     $row = getOneFicheByCode($id);
     if ($row) {
         $row['obj_date_depot_FR'] = formateDateMYSQLtoFR($row['obj_date_depot'], true);
+        $row['cli_com']=getCommission($row);
     } else {
         $row['obj_numero'] = $id;
     }
@@ -66,6 +67,7 @@ function return_oneFicheByIdModif($id)
     $row = getOneFicheByIdModif($id);
     if ($row) {
         $row['obj_date_depot_FR'] = formateDateMYSQLtoFR($row['obj_date_depot'], true);
+        $row['cli_com']=getCommission($row);
     }
     return $row;
 }
@@ -78,6 +80,7 @@ function return_oneFiche($id)
     $row = getOneFiche($id);
     if ($row) {
         $row['obj_date_depot_FR'] = formateDateMYSQLtoFR($row['obj_date_depot'], true);
+        $row['cli_com']=getCommission($row);
     }
     return $row;
 }
@@ -329,6 +332,11 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
             $tabFiche[$index++] = $numFiche;
         }
     }
+    else if ($eti0 == -1) {
+        for ($numFiche = 0; $numFiche < $INFO_APPLI['nb_eti_page']; $numFiche++) {
+            $tabFiche[$index++] = $numFiche;
+        }
+    }
     foreach ($tabFiche as $numFiche) {
         $fiche = [];
         if ($eti0 >=  $INFO_APPLI['base_info'] || $eti0 == 0) {
@@ -349,13 +357,18 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
                 }
 
             }
-        } else {
-            $fiche['obj_numero'] = $numFiche;
+        } else { 
+            if ($eti0 == -1) {
+                $fiche['obj_numero'] = "";
+            }
+            else {
+                $fiche['obj_numero'] = $numFiche;
+            }
             $fiche['obj_type'] = "<br/><span style='font-size:9px'><i>Autre-VTT-Route-VTC-Ville-VAE-BMX</i></span>";
             $fiche['obj_public'] = "<br/><span style='font-size:9px'><i>Mixte-Homme-Femme-Enfant</i></span>";
             $fiche['obj_pratique'] = "<br/><span style='font-size:9px'><i>Sportive-Loisir-Compétition-Autre</i></span>";
-            $fiche['obj_marque'] = "";
-            $fiche['obj_modele'] = "";
+            $fiche['obj_marque'] = "&nbsp;<br/>";
+            $fiche['obj_modele'] = "&nbsp;";
             $fiche['obj_couleur'] = "";
             $fiche['obj_accessoire'] = "";
             $fiche['obj_description'] = "";
@@ -436,6 +449,11 @@ function action_makeA4Coupons($eti0, $eti1, $test = true)
             $tabFiche[$index++] = $numFiche;
         }
     }
+    else if ($eti0 == -1) {
+        for ($numFiche = 0; $numFiche < $INFO_APPLI['nb_coupon_page']; $numFiche++) {
+            $tabFiche[$index++] = $numFiche;
+        }
+    }
     $espace75="";
     for($i=0;$i<=70;$i++) {
         $espace75.="&nbsp;";
@@ -473,8 +491,12 @@ function action_makeA4Coupons($eti0, $eti1, $test = true)
             $client['cli_telephone_bis'] = "";
             $client['cli_taux_com'] = "10";
             $client['cli_id_modif'] = "";
-
-            $fiche['obj_numero'] = $numFiche;
+            if ($eti0 == -1) {
+                $fiche['obj_numero'] = "";
+            }
+            else {
+                $fiche['obj_numero'] = $numFiche;
+            }
             $fiche['obj_type'] = "<br/><span style='font-size:9px'><i>Autre-VTT-Route-VTC-Ville-VAE-BMX</i></span>";
             $fiche['obj_public'] = "<br/><span style='font-size:9px'><i>Mixte-Homme-Femme-Enfant</i></span>";
             $fiche['obj_pratique'] = "<br/><span style='font-size:9px'><i>Sportive-Loisir-Compétition-Autre</i></span>";
@@ -776,6 +798,9 @@ function action_changeEtatFiche($obj)
         } elseif ($fiche['obj_etat'] == 'DESTOCK') {
             // on remet en CONFIRME
             $fiche['obj_etat'] = 'CONFIRME';
+            // on remet le prix de vente a 0
+            $fiche['obj_prix_vente'] = 0;
+            
         } elseif ($fiche['obj_etat'] == 'RENDU' || $fiche['obj_etat'] == 'PAYE') {
             // action RENDU et PAYE
             // on valide la date de fin

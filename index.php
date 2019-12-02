@@ -76,19 +76,20 @@ sajax_handle_client_request();
 	<!-- <script type="text/javascript" src="JS/sajax/json_stringify.js"></script>
 	<script type="text/javascript" src="JS/sajax/json_parse.js"></script>
 	<script type="text/javascript" src="JS/sajax/sajax.js"></script>  -->
-	<? sajax_show_javascript();
+	<? //sajax_show_javascript();
 	?>
-	<? //sajax_show_javascript("JS/sajax.js"); ?>
+	<? sajax_show_javascript("JS/sajax.js"); 
+	?>
 
 	<script type="text/javascript">
 		var startSaisie = false;
 
 		var ADMIN = <?= $infAppli['ADMIN'] ? 1 : 0 ?>;
 		var CLIENT = <?= $infAppli['CLIENT'] ? 1 : 0 ?>;
-		
+
 		// date d'ouverture du depot
 		var DATE_J1 = <?= $infAppli['date_j1'] ?>;
-		
+
 		var NB_MODIF = <?= $infAppli['NB_MODIF'] ?>;
 		var modePage = '<?= $GET_modePage ?>';
 		var id = '<?= $GET_id ?>';
@@ -103,7 +104,7 @@ sajax_handle_client_request();
 			}
 		}
 	</script>
-	
+
 </head>
 
 <body class="parent" LANG="fr-FR" onload="initIndex();initEntete();initPage()" onunload="unloadPage()">
@@ -113,36 +114,40 @@ sajax_handle_client_request();
 		<input type="hidden" name="id" value="">
 		<input type="hidden" name="message" value="">
 	</form>
-	<a name="top"></a>
+	
 	<div cellspacing="0" cellpadding="0" class="PAGE">
 		<div class="entete">
-			<? include('genericPages/entete.php');  ?>
+			<header>
+				<? include('genericPages/entete.php');  ?>
+			</header>
 		</div>
 		<div class="FENETRE_PRINCIPALE">
-			<? //print_r($infAppli);
-			?>
-			<div class="TEXTE_FEN">
-				<!--<MODE:<?= $GET_modePage ?>; ID:<?= $GET_id ?>;</span>
+			<main>
+				<? //print_r($infAppli);
+				?>
+				<div class="TEXTE_FEN">
+					<!--<MODE:<?= $GET_modePage ?>; ID:<?= $GET_id ?>;</span>
 				<? echo "go to page [" . $GET_page . "]"; ?>-->
-				<? include('pages/' . $GET_page); ?>
-				<!-- Trigger/Open The Modal -->
-			</div>
-			<div id="myModal" class="modal">
-				<!-- Modal content -->
-				<div class="modal-content" id="id-modal-content">
-					<form name="modalForm" method="POST" onsubmit="return submitFormModal()" action="">
-						<table width="100%" class="BH_MODAL" id="id_bh_modal">
-							<tr>
-								<td width="95%" id='modalTitre'></td>
-								<td width="5%" id="modalClose"></td>
-							</tr>
-						</table>
-						<div id="modalText"></div>
-						<br />
-						<div id="modalAction"></div>
-					</form>
+					<? include('pages/' . $GET_page); ?>
+					<!-- Trigger/Open The Modal -->
 				</div>
-			</div>
+				<div id="myModal" class="modal">
+					<!-- Modal content -->
+					<div class="modal-content" id="id-modal-content">
+						<form name="modalForm" method="POST" onsubmit="return submitFormModal()" action="">
+							<table width="100%" class="BH_MODAL" id="id_bh_modal">
+								<tr>
+									<td width="95%" id='modalTitre'></td>
+									<td width="5%" id="modalClose"></td>
+								</tr>
+							</table>
+							<div id="modalText"></div>
+							<br />
+							<div id="modalAction"></div>
+						</form>
+					</div>
+				</div>
+			</main>
 		</div>
 		<div class="pied">
 			<? include('genericPages/pied.php'); ?>

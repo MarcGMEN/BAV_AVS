@@ -69,7 +69,7 @@ function display_fiches(val) {
         var repr = "<table width='100%' border=1>";
         for (index in val) {
             if (!isNaN(index)) {
-                var stylePlus="";
+                var stylePlus="margin: 2 2 2 2";
                 if (val[index]['mop_id'] > 0) {
                     stylePlus="color:DARKRED;font-weight:bold"
                 }

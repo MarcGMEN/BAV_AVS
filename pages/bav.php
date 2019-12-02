@@ -76,12 +76,12 @@
 		if (val instanceof Object && val['obj_id'] != undefined) {
        		if (val['obj_etat'] == 'VENDU'  ||  val['obj_etat'] == 'PAYE' ) {
 		
-			    messageVente = "<div class='alert alert-success'><b>Votre vélo numéro " + val['obj_numero'] + " a été vendu !</b> ";
-                messageVente += " Rendez-vous à la soucoupe dès à présent pour retirer votre chèque/argent.";
-                messageVente += "<br />Munissez-vous de : <ul>";
+			    messageVente = "<div class='alert alert-success'><b>Votre vélo numéro " + val['obj_numero'] + " a été vendu au prix de "+val['obj_prix_vente']+" &euro;.</b> <br/>";
+                messageVente += " Rendez-vous dès à présent à la soucoupe pour retirer votre chèque/argent.";
+                messageVente += "<br/>Munissez-vous de : <ul>";
                 messageVente += "<li>Votre reçu vendeur</li>";
                 messageVente += "<li>La pièce d\'identité utilisée lors de l\'inscription</li>";
-                messageVente += "<li>Le montant de la commission due (10% du prix de vente)</li>";
+                messageVente += "<li>Le montant de la commission due ("+val['cli_taux_com']+"% = "+val['cli_com']+"&euro;)</li>";
                 messageVente += "</ul></div>";
 			}
 			else if (val['obj_etat'] == 'RENDU') {
@@ -95,6 +95,9 @@
     	        alertModalInfo(messageVente);
 			}
 			document.bavFormFiche.inputSearch.value="";
+	   }
+	   else {
+		alertModalInfo("Fiche introuvable..");
 	   }
 }
 </script>
@@ -112,15 +115,25 @@
 		<? foreach ($data as $key => $val) {echo "data2PDF['$key']='$val';\n"; }?>
     </script>
 <?
-	$tabInfo=['News' => "bav_actu",
+	$tabInfo=['Quoi de neuf ? ' => "bav_actu",
 			  'LA BOURSE' => "bav_bourse",
 			  "QUOI VENDRE ?" => "bav_vendre",
 			 // "PRINCIPES" => 'bav_principe',
 			  'NOS STATISTIQUES' => "bav_statistique",
 		      'PROGRAMME' => "bav_programme"
 	];?>
-	
-<? if ($infAppli['CLIENT']) {?>
+
+<!-- <table style="width: 100%;" border=1><tr> -->
+<div class="row" >
+<?foreach ($tabInfo as $title => $idText) {?>
+	<div class="col-sm-2 col-xs-12 titreFiche link" width="<?=(int)(100/sizeof($tabInfo))?>%" >
+		<A HREF="#tag<?=$idText?>" ><?=$title?></A></div>
+<?}?>
+</div>
+<!-- </tr></table> -->
+<br/>
+
+<? if ($infAppli['CLIENT'] || $infAppli['ADMIN']) {?>
 <form name="bavFormFiche" action="#" 
 	onsubmit='return searchVente(document.bavFormFiche.inputSearch.value)'>
 	<h3>Votre vélo est il vendu ? <h3><input type="text" name="numeroFiche" size="8" maxlength="50" 
@@ -130,12 +143,15 @@
 		onclick="searchVente(document.bavFormFiche.inputSearch.value)"></i>
 
 </form>
-<?}
+<?}?>
+
+<?
 foreach ($tabInfo as $title => $idText) {
 ?>
 <div id="tag<?=$idText?>" ></div>
 <h3 class="titreFiche">
 	<span ><?=$title?><span>
+	<A HREF="#" ><i class="fas fa-level-up-alt"></i></A>
 	<? if ($infAppli['ADMIN']) {?>
 	<span>
 		<i class="fas fa-edit" id="<?=$idText?>_edit" onclick="affichEditor('<?=$idText?>')"></i>

@@ -49,7 +49,7 @@ $tabInfo = [
 					<form style="color:black">
 						<table width=100% border=0>
 							<tr >
-								<td rowspan=3 width=15%><i>Impression en test <input type='checkbox' name="testEtiq" checked></i></td>
+								<td rowspan=4 width=15%><i>Impression en test <input type='checkbox' name="testEtiq" checked></i></td>
 								<td width=50%>
 									- Impression de <input type=number min='<?= $infAppli['base_info'] ?>' name=eti0 value='<?= $infAppli['base_info'] ?>' style='width:10%' size=5> 
 									a <input type=number name=eti1 size=5 style='width:10%' min='<?= $infAppli['base_info'] ?>'>
@@ -57,7 +57,7 @@ $tabInfo = [
 								<td width=15%>
 									<input type=button value='Imprimer' onclick='imprimeEtiquettes(this.form.eti0.value,this.form.eti1.value,this.form.testEtiq.checked?1:0)'>
 								</td>
-								<td rowspan=3 width=20%>Param PDF: <br/>marge HB: 15pt, GD:10pt<br/>Zoom 104% - 103%</td>
+								<td rowspan=3 width=20%>Param PDF: <br/>marge HB: 15pt, GD:10pt<br/>Zoom 97%</td>
 							</tr>
 							<tr >
 								<td >
@@ -67,9 +67,17 @@ $tabInfo = [
 									<input type=button value='Imprimer' onclick='imprimeEtiquettes(1,<?= $infAppli["base_info"]-1 ?>)'>
 								</td>
 							</tr>
+							</tr>
+							<td >
+									- Impression des etiquettes vierge
+								</td>
+								<td >
+									<input type=button value='Imprimer' onclick='imprimeEtiquettes(-1,-1)'>
+								</td>
+							</tr>
 							<tr >
 								<td> - Impression des modifs <span id="nbAImprimer"></span> (<?= $infAppli['nb_eti_page'] ?>/page) : <span id="nb_fiche_eti"></span>
-									[C:<span id="nb_fiche_new"></span>; M:<span id="nb_fiche_modif"></span>]
+									[C: <b><span id="nb_fiche_new"></span></b>; M:<b><span id="nb_fiche_modif"></span></b>]
 								</td>
 								<td>
 									<input type=button name='printEtiquette' value='Imprimer' disabled id="btnImprimeEtiquettesPage" 
@@ -102,7 +110,7 @@ $tabInfo = [
 					<form style="color:black">
 						<table width=100% border=0>
 							<tr>
-								<td rowspan=3 width=15%><i>Impression en test <input type='checkbox' name="testCoupon" checked /></i></td>
+								<td rowspan=4 width=15%><i>Impression en test <input type='checkbox' name="testCoupon" checked /></i></td>
 								<td width=50%>- Impression de <input type=number min='<?= $infAppli['base_info'] ?>' name=eti0 value='<?= $infAppli['base_info'] ?>' style='width:10%' size=5>
 									à <input type=number name=eti1 size=5 style='width:10%' min='<?= $infAppli['base_info'] ?>'>
 								</td>
@@ -119,10 +127,18 @@ $tabInfo = [
 									<input type=button value='Imprimer' onclick='imprimeCoupons(1,<?= $infAppli["base_info"]-1 ?>)'>
 								</td>
 							</tr>
+							</tr>
+							<td >
+									- Impression des coupons vierge
+								</td>
+								<td >
+									<input type=button value='Imprimer' onclick='imprimeCoupons(-1,-1)'>
+								</td>
+							</tr>
 							<tr>
 								<td>
 									- Impression des modifs <span id="nbCouponAImprimer"></span> (<?= $infAppli['nb_coupon_page'] ?>/page) : <span id="nb_fiche_coupon"></span>
-									[C:<span id="nb_fiche_new_coupon"></span>; M:<span id="nb_fiche_modif_coupon"></span>]</td>
+									[C: <b><span id="nb_fiche_new_coupon"></span></b>; M:<b><span id="nb_fiche_modif_coupon"></span></b>]</td>
 								<td>
 									<input type=button name='printCoupon' value='Imprimer' disabled id="btnImprimeCouponsPage" onclick='imprimeCouponsPage(this.form.forceCoupon.checked,this.form.testCoupon.checked?1:0)'>
 									<input type='checkbox' id="forceCoupon" onchange="this.checked?this.form.printCoupon.disabled=false:this.form.printCoupon.disabled=true">Force
