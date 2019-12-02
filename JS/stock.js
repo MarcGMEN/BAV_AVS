@@ -69,7 +69,11 @@ function display_fiches(val) {
         var repr = "<table width='100%' border=1>";
         for (index in val) {
             if (!isNaN(index)) {
-                repr += "<tr class='tabl0 " + val[index]['obj_etat'] + " link' onclick='goTo(\"fiche.php\",\"modif\"," + val[index]['obj_id'] + ")'>";
+                var stylePlus="";
+                if (val[index]['mop_id'] > 0) {
+                    stylePlus="color:DARKRED;font-weight:bold"
+                }
+                repr += "<tr class='tabl0 " + val[index]['obj_etat'] + " link' style="+stylePlus+" onclick='goTo(\"fiche.php\",\"modif\"," + val[index]['obj_id'] + ")'>";
                 repr += "<td width=5% align=center>";
                 if (val[index]['obj_modif_data'] > 0) {
                     repr += "<img src='Images/etiq" + val[index]['obj_modif_data'] + ".png' style='height:20px' />";
@@ -78,7 +82,7 @@ function display_fiches(val) {
                     repr += "<img src='Images/coupon_vendeur" + val[index]['obj_modif_vendeur'] + ".png' style='height:10px' />";
                 }
                 if (val[index]['mop_id'] > 0) {
-                    repr += "<img src='Images/modifPrix.png' style='height:10px' />";
+                    repr += "<img src='Images/modifPrix.png' style='height:20px' />";
                 }
                 repr += val[index]['obj_numero'];
                 repr += "</td>";

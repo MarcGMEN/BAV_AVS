@@ -100,6 +100,9 @@ function afficheLigne(val) {
             new_etat = "RENDU";
             new_libelle = "Rendre";
             action = "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\"," + val['obj_prix_vente'] + ")' />";
+            new_etat = "VENDU";
+            new_libelle = "Vendre";
+            action += "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\"," + val['obj_prix_vente'] + ")' />";
             getElement("action_" + val['obj_numero']).innerHTML = action;
         } else if (val['obj_etat'] == "VENDU") {
             new_etat = "PAYE";
@@ -328,7 +331,6 @@ function modifEtat(tabObj, tabCli) {
     } else if (tabObj['obj_etat_new'] == 'VENDU') {
         x_return_oneFiche(tabObj['obj_id'], display_fiche_vente);
     } else if (tabObj['obj_etat'] != '') {
-
         // avec un etat confirme, on bascule le prix de vente en prix depot pour l'update
         if (tabObj['obj_etat'] == 'CONFIRME') {
             tabObj['obj_prix_depot'] = tabObj['obj_prix_vente']
@@ -364,11 +366,13 @@ function confirmModal() {
         delete tabAch[i];
     }
     var tabObjModal = recup_formulaire(document.modalForm, 'obj');
-    var tabObj = recup_formulaire(document.formSaisieExpress, 'obj');
+    //var tabObj = recup_formulaire(document.formSaisieExpress, 'obj');
 
-    tabObj['obj_prix_vente'] = tabObjModal['obj_prix_vente'];
-
-    var tabData = Object.assign({}, tabObj, tabAch);
+   // tabObj['obj_prix_vente'] = tabObjModal['obj_prix_vente'];
+    tabObjModal['obj_etat_new']="VENDU";
+    tabObjModal['obj_etat']="STOCK";
+    var tabData = Object.assign({}, tabObjModal, tabAch);
+    console.log(tabData);
     closeModal();
     x_action_vendFiche(tabToString(tabData), display_fin_create);
 }
