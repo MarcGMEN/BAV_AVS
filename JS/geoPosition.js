@@ -45,10 +45,10 @@ function geoPosClient(adress, unique = true, group = true, info) {
     });
     var geocoder = L.Control.Geocoder.nominatim();
 
-    console.log("geoPosClient(" + adress + ") ["+info+"]");
+    //console.log("geoPosClient(" + adress + ") ["+info+"]");
     geocoder.geocode(adress + ', France',
         function(results) {
-            console.log(results);
+            //console.log(results);
             var r = results[0];
             if (r) {
                 var marker1 = L.marker(r.center, { icon: myIcon });

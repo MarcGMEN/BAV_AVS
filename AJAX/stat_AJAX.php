@@ -29,6 +29,7 @@ function return_statClient()
 
         $tabCount['count_adresse'] = [];
         foreach ($tab as $key => $val) {
+            $keyCDP="";
             $virgule="";
             if ($val['cli_adresse'] != "") {
                 $keyCDP = $val['cli_adresse'];

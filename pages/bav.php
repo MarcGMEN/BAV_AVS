@@ -116,11 +116,11 @@
     </script>
 <?
 	$tabInfo=['Quoi de neuf ? ' => "bav_actu",
-			  'LA BOURSE' => "bav_bourse",
-			  "QUOI VENDRE ?" => "bav_vendre",
+			  'La Bourse' => "bav_bourse",
+			  "Quoi vendre ?" => "bav_vendre",
 			 // "PRINCIPES" => 'bav_principe',
-			  'NOS STATISTIQUES' => "bav_statistique",
-		      'PROGRAMME' => "bav_programme"
+			  'Les stats' => "bav_statistique",
+		      'Programme' => "bav_programme"
 	];?>
 
 <!-- <table style="width: 100%;" border=1><tr> -->
