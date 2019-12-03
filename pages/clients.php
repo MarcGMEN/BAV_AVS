@@ -7,7 +7,7 @@
 	<tr>
 		<td class="tittab" width=35% colspan="2">
 			<span id='cli_nom' onclick="triColonne('cli_nom')" class="sortable">Nom - Prenom&nbsp;&nbsp;&nbsp;</span>
-			Tous <input type="checkbox" value="1" name="all" onchange="x_return_clientsRecap(tri,sens,tabToString(selection),this.checked ? 1 : 0,display_clients);" />
+			Tous <input type="checkbox" value="1" name="all" onchange="findClients(this.checked ? 1 : 0)" />
 			<input type=text name='cli_nom_<?=rand(1, 100)?>' size="20" class="autocomplete"
 			 maxlength="100" onkeyup="selectColonne(this.value)"  />
 			
@@ -21,27 +21,26 @@
 			<span id='cli_telephone' onclick="triColonne('cli_telephone')" class="sortable">Telephone&nbsp;&nbsp;&nbsp;</span>
 		</td>
 
-		<th class="tittab " width=2% >
-			<span  id='cli_depot'>C</span>
+		<th class="tittab " width=2%>
+			<span  id="CONFIRME"  onclick="triColonne('CONFIRME')" class="sortable">C&nbsp;</span>
 		</th>
 
 		<th class="tittab " width=2% >
-			<span  id='cli_depot'>D</span>
+			<span id="STOCK"  onclick="triColonne('STOCK')" class="sortable">D&nbsp;</span>
 		</th>
 
 		<th class="tittab" width=2%>
-			<span  id='cli_vente'>V</span>
+			<span  id="VENDU" onclick="triColonne('VENDU')" class="sortable">V&nbsp;</span>
 		</th>
 		<th class="tittab" width=2%>
-			<span  id='cli_vente'>P</span>
+			<span id="PAYE"  onclick="triColonne('PAYE')" class="sortable">P&nbsp;</span>
 		</th>
 		
 		<th class="tittab" width=2%>
-			<span  id='cli_rendu'>R</span>
+			<span id="RENDU"  onclick="triColonne('RENDU')" class="sortable">R&nbsp;</span>
 		</th>
-		La Bourse Animations Réglement F.A.Q. Contacts Presse Parc Pré-déposer Gestion fiches Stock Clie
 		<th class="tittab" width=2%>
-			<span  id='cli_achat'>A</span>
+			<span id="ACHAT" onclick="triColonne('ACHAT')" class="sortable">A&nbsp;</span>
 		</th>
 
 	</tr>

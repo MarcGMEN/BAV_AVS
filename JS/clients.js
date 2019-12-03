@@ -1,10 +1,11 @@
 var tri = "cli_nom";
 var sens = "asc";
 var selection = { "cli_nom": "*" };
+var allG=0;
 
 function initPage() {
     if (ADMIN) {
-        x_return_clientsRecap(tri, sens, tabToString(selection), display_clients);
+        findClients(allG);
     }
     else {
         goTo();
@@ -14,6 +15,16 @@ function initPage() {
 
 function unloadPage() {
 
+}
+
+function findClients(all) {
+    allG=all;
+    getElement('total').innerHTML="...";
+    getElement('totalAcheteur').innerHTML = "...";
+    getElement('totalVendeur').innerHTML = "...";
+    getElement('totalVendeurEtAcheteur').innerHTML = "...";
+    getElement('totalAbsent').innerHTML = "...";
+    x_return_clientsRecap(tri,sens,tabToString(selection),allG,display_clients);
 }
 
 function display_clients(val) {
@@ -182,8 +193,7 @@ function triColonne(col) {
         sens = "asc";
     }
     getElement(tri).className = "sortable";
-
-    x_return_clientsRecap(col, sens, tabToString(selection), display_clients);
+    findClients(allG);
     tri = col;
 }
 

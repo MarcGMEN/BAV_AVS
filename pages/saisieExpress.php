@@ -1,18 +1,14 @@
 <? $idRamdom = rand(1000, 9999); ?>
 <script>
 	var idRamdom = "<?= $idRamdom ?>";
+	var theId='<?=$_GET['id']?>';
 </script>
 <script src="JS/saisieExpress.js" type="text/javascript"></script>
-<script>
-<? if (isset($_GET['id']) && $_GET['id'] != "") {?>
-		x_return_oneFiche('<?=$_GET['id']?>', display_fiche);
-	<?}?>
-</script>
-<form action="#" name="searchFormFiche" onsubmit='x_return_oneFicheByCode(this.numeroFiche.value, display_fiche); return false'>
+<form action="#" name="searchFormFiche" onsubmit='x_return_oneFicheByCode(this.numeroFiche.value, display_ficheN); return false'>
 	<input type="text" name="numeroFiche" size="8" maxlength="50" title="Saisisez le numéro de fiche" 
 	placeholder="N° fiche" id="inputSearch" style='background-color:LIGHTGREEN;font-weight: bold;width:10%' 
 	tabindex=<?= $tabindex++ ?> />
-	<i id="loupe" class="fas fa-search link " onclick="x_return_oneFicheByCode(this.form.numeroFiche.value, display_fiche)"></i>
+	<i id="loupe" class="fas fa-search link " onclick="x_return_oneFicheByCode(document.searchFormFiche.numeroFiche.value, display_ficheN)"></i>
 </form>
 
 <form name="formSaisieExpress" onsubmit="return submitForm()">

@@ -1,4 +1,7 @@
 function initPage() {
+    if (theId != "") {
+		x_return_oneFiche(theId, display_ficheN);		
+	}
     x_return_fiches_express(display_fiches);
 
     // creation des listes des choix type, public et patiqye
@@ -114,19 +117,24 @@ function afficheLigne(val) {
 
 }
 
+function display_ficheN(val) {
+    getElement("tr_"+val['obj_numero']).scrollIntoView(true); 
+    display_fiche(val);
+}
 function display_fiche(val) {
     getElement("but_action").disabled = false;
 
     console.log(val);
-    afficheLigne(val);
-
+    
     // on revient sur le numero de fiche en focus
     document.searchFormFiche.numeroFiche.value = "";
     //console.log("#tr_"+val['obj_numero']);
     //getElement("tableFiches").location="#tr_"+val['obj_numero'];
     //console.log(window.find("#tr_"+val['obj_numero']));
-    //document.location = "#tr_" + val['obj_numero'];
+    
     if (val['obj_etat']) {
+        afficheLigne(val);
+
         document.formSaisieExpress.obj_type.disabled = true;
         document.formSaisieExpress.obj_prix_vente.disabled = true;
         document.formSaisieExpress.cli_emel.disabled = true;
