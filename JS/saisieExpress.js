@@ -145,8 +145,10 @@ function display_fiche(val) {
         } else if (val['obj_etat'] == "CONFIRME") {
             getElement("but_action").innerHTML = "Mettre en stock";
             val['obj_etat_new'] = "STOCK";
+
             document.formSaisieExpress.obj_prix_vente.disabled = false;
             document.formSaisieExpress.obj_prix_vente.focus();
+            val['obj_prix_vente']=val['obj_prix_depot'];
         } else if (val['obj_etat'] == "STOCK") {
             getElement("but_action").innerHTML = "Vendre";
             getElement("but_action2").style.display = 'block';

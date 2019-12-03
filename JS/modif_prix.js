@@ -72,8 +72,14 @@ function display_modifPrix(val) {
 
 function addDemande() {
     var tabMop = recup_formulaire(formMop, 'mop');
-    var tabData = Object.assign({}, tabMop, theFiche);
-    x_get_publiHtml(tabToString(tabData), 'modal_confirm_Cmop.html', display_messageConfirmMop);
+
+    if (tabMop['mop_prix_demande'] != "" && tabMop['mop_prix_demande'] > 0) {
+        var tabData = Object.assign({}, tabMop, theFiche);
+        x_get_publiHtml(tabToString(tabData), 'modal_confirm_Cmop.html', display_messageConfirmMop);
+    }
+    else {
+        alertModalWarn("Le prix doit être > 0."); 
+    }
 
     return false;
 }

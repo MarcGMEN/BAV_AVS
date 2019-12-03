@@ -158,7 +158,9 @@
 						<input type=hidden name="mop_id_obj" />
 						<br />Votre nouveau prix
 						<input type=number name="mop_prix_demande" min=1 style="width:40%" step="0.1" placeholder="00.00" 
-							onchange="if (parseFloat(this.form.obj_prix_vente.value) !=parseFloat(this.value)) {this.form.btnModif.disabled=false;} else {this.form.btnModif.disabled=true;}" />
+							onchange="if ((parseFloat(this.form.obj_prix_vente.value) !=parseFloat(this.value) && parseFloat(this.form.obj_prix_vente.value) > 0)) {this.form.btnModif.disabled=false;} else {this.form.btnModif.disabled=true;}"
+							onkeyup="if ((parseFloat(this.form.obj_prix_vente.value)  !=parseFloat(this.value) && parseFloat(this.form.obj_prix_vente.value) > 0)) {this.form.btnModif.disabled=false;} else {this.form.btnModif.disabled=true;}"
+							
 						<br />&nbsp;
 					</span>
 					<span class="col-md-6">

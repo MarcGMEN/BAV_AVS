@@ -71,6 +71,7 @@ function alertModalError(message) {
  * modal de saisie du mot de passe
  */
 function alertModalPass() { 
+    getElement('id_bh_modal').className = "BH_MODAL";
     getElement('myModal').style.display = "block";
 
     getElement('modalTitre').innerHTML = "Connexion";
@@ -89,6 +90,8 @@ function alertModalPass() {
  * @param {*} plus 
  */
 function alertModalConfirm(message, plus='') {
+
+    getElement('id_bh_modal').className = "BH_MODAL";
     getElement('myModal').style.display = "block";
 
     getElement('modalTitre').innerHTML = "Confirmation";
