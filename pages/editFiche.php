@@ -32,7 +32,7 @@ $tabInfo = [
 		if ($title == "COUPON VENDEUR") {
 			$format = "L";
 		} ?>
-		<tr class="tabAction" style="border-bottom:1px solid grey">
+		<tr class="tabl0" style="border-bottom:1px solid grey">
 			<td><?= $title ?></td>
 
 			<td width=10%>
@@ -49,7 +49,11 @@ $tabInfo = [
 					<form style="color:black">
 						<table width=100% border=0>
 							<tr >
-								<td rowspan=4 width=15%><i>Test <input type='checkbox' name="testEtiq" checked></i></td>
+								<td rowspan=5 width=15%><i>Test <input type='checkbox' name="testEtiq" checked></i></td>
+								<td colspan=2></td>
+								<td rowspan=5 width=20%>Param PDF: <br/>marge HB: 15pt, GD:10pt<br/>Zoom 97%</td>
+							</tr>
+							<tr class="tabAction">
 								<td width=50%>
 									- De <input type=number min='<?= $infAppli['base_info'] ?>' name=eti0 value='<?= $infAppli['base_info'] ?>' style='width:10%' size=5> 
 									a <input type=number name=eti1 size=5 style='width:10%' min='<?= $infAppli['base_info'] ?>'>
@@ -57,9 +61,8 @@ $tabInfo = [
 								<td width=15%>
 									<input type=button value='Imprimer' onclick='imprimeEtiquettes(this.form.eti0.value,this.form.eti1.value,this.form.testEtiq.checked?1:0)'>
 								</td>
-								<td rowspan=3 width=20%>Param PDF: <br/>marge HB: 15pt, GD:10pt<br/>Zoom 97%</td>
 							</tr>
-							<tr >
+							<tr class="tabAction">
 								<td >
 									- Numérotés 1 -> <?= $infAppli['base_info']-1 ?>
 								</td>
@@ -67,15 +70,15 @@ $tabInfo = [
 									<input type=button value='Imprimer' onclick='imprimeEtiquettes(1,<?= $infAppli["base_info"]-1 ?>)'>
 								</td>
 							</tr>
-							</tr>
+							<tr class="tabAction">
 							<td >
-									- Vierges
+									- 1 page de vierge
 								</td>
 								<td >
 									<input type=button value='Imprimer' onclick='imprimeEtiquettes(-1,-1)'>
 								</td>
 							</tr>
-							<tr >
+							<tr class="tabAction">
 								<td> - Modifs <span id="nbAImprimer"></span> (<?= $infAppli['nb_eti_page'] ?>/page) : <span id="nb_fiche_eti"></span>
 									[C: <b><span id="nb_fiche_new"></span></b>; M:<b><span id="nb_fiche_modif"></span></b>]
 								</td>
@@ -92,7 +95,11 @@ $tabInfo = [
 					<form style="color:black">
 						<table width=100% border=0>
 							<tr>
-								<td rowspan=3 width=15%></td>
+								<td rowspan=3 width=15%>&nbsp;</td>
+								<td colspan=2></td>
+								<td rowspan=3 width=20%>Param PDF: <br/>marge HB: 10pt, GD:10pt<br/>Zoom 79%</td>
+							</tr>
+							<tr class="tabAction">
 								<td width=50%>
 									- De <input type=number  min='<?= $infAppli['base_info'] ?>' name=eti0 value='<?= $infAppli['base_info'] ?>' style='width:10%' size=5> 
 									a <input type=number name=eti1 size=5 style='width:10%' min='<?= $infAppli['base_info'] ?>'>
@@ -100,7 +107,14 @@ $tabInfo = [
 								<td width=15%>
 									<input type=button value='Imprimer' onclick='imprimeFiches(this.form.eti0.value,this.form.eti1.value)'>
 								</td>
-								<td rowspan=3 width=20%>Param PDF: <br/>marge HB: 10pt, GD:10pt<br/>Zoom 79%</td>
+							</tr>
+							<tr class="tabAction">
+							<td >
+									- Vierge
+								</td>
+								<td >
+									<input type=button value='Imprimer' onclick='imprimeFiche()' />
+								</td>
 							</tr>
 						</table>
 					</form>
@@ -110,16 +124,20 @@ $tabInfo = [
 					<form style="color:black">
 						<table width=100% border=0>
 							<tr>
-								<td rowspan=4 width=15%><i>Test <input type='checkbox' name="testCoupon" checked /></i></td>
+								<td rowspan=5 width=15%><i>Test <input type='checkbox' name="testCoupon" checked /></i></td>
+								<td colspan=2></td>
+								<td rowspan=5 width=20%>Param PDF (Paysage): <br/>marge par defaut<br/>Zoom 98%</td>
+							</tr>
+							<tr class="tabAction">
 								<td width=50%>- De <input type=number min='<?= $infAppli['base_info'] ?>' name=eti0 value='<?= $infAppli['base_info'] ?>' style='width:10%' size=5>
 									à <input type=number name=eti1 size=5 style='width:10%' min='<?= $infAppli['base_info'] ?>'>
 								</td>
 								<td width=15%>
 									<input type=button value='Imprimer' onclick='imprimeCoupons(this.form.eti0.value,this.form.eti1.value,this.form.testCoupon.checked?1:0)'>
 								</td>
-								<td rowspan=3 width=20%>Param PDF (Paysage): <br/>marge par defaut<br/>Zoom 98%</td>
+								
 							</tr>
-							<tr>
+							<tr class="tabAction">
 							<td >
 									- Numérotés 1 -> <?= $infAppli['base_info']-1 ?>
 								</td>
@@ -127,15 +145,15 @@ $tabInfo = [
 									<input type=button value='Imprimer' onclick='imprimeCoupons(1,<?= $infAppli["base_info"]-1 ?>)'>
 								</td>
 							</tr>
-							</tr>
+							<tr class="tabAction">
 							<td >
-									- Vierges
+									- 1 page de vierge
 								</td>
 								<td >
 									<input type=button value='Imprimer' onclick='imprimeCoupons(-1,-1)'>
 								</td>
 							</tr>
-							<tr>
+							<tr class="tabAction">
 								<td>
 									- Modifs <span id="nbCouponAImprimer"></span> (<?= $infAppli['nb_coupon_page'] ?>/page) : <span id="nb_fiche_coupon"></span>
 									[C: <b><span id="nb_fiche_new_coupon"></span></b>; M:<b><span id="nb_fiche_modif_coupon"></span></b>]</td>

@@ -37,7 +37,7 @@
 					<? if ($infAppli['ADMIN']) { ?>
 						<span  style="font-size:0.6em">
 						[<span id="obj_modif_data"></span>-<span id="obj_modif_vendeur"></span>]
-						-<span id="obj_id_modif"></span>-</span>
+						(<span id="obj_id_modif"></span>)</span>
 					<? } ?>
 				</div>
 				<div class="col-sm-6 col-md-6 col-xs-6 tabl1">
@@ -211,7 +211,7 @@
 		<legend class="titreFiche link" id='legendVendeur' onclick='goTo("client.php","consult",document.ficheForm.cli_id.value,"")' title="Accès au vendeur">
 			Le vendeur
 			<? if ($infAppli['ADMIN']) { ?>
-				<span style="font-size: 0.8em" id="cli_id">...</span>
+				<span style="font-size: 0.7em" id="cli_id">...</span>
 			<? } ?>
 		</legend>
 		<div class="row">
@@ -303,7 +303,8 @@
 	<fieldset class=fiche style='display:none' id="fieldSetAcheteur">
 		<legend class="titreFiche link" onclick='goTo("client.php","consult",document.ficheForm.ach_id.value,"")'>
 			L'acheteur
-			<span id="ach_id">...</span></legend>
+			<span style="font-size: 0.7em" id="ach_id">...</span>
+			</legend>
 		<div class="row">
 			<div class="col-sm-6 col-md-6 col-xs-12">
 				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Emel </span></span>

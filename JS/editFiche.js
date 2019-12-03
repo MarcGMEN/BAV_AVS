@@ -143,6 +143,11 @@ function imprimeFiches(eti0, eti1) {
     }
 }
 
+function imprimeFiche() {
+    alertModalInfo("Génération d'une fiche vierge au format PDF <img src='Images/spinner_white_tiny.gif' />");
+    x_action_makePDF("",display_openPDF );
+}
+
 function display_openHTML(val) {
     closeModal();
     document.body.style.cursor = 'default';
