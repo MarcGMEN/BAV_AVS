@@ -1,7 +1,11 @@
-<? $idRamdom = rand(1000, 9999); ?>
+<? $idRamdom = rand(1000, 9999); 
+$maxFiche=1800;
+?>
+
 <script>
 	var idRamdom = "<?= $idRamdom ?>";
 	var theId='<?=$_GET['id']?>';
+	var maxFiche = "<?= $maxFiche ?>";;
 </script>
 <script src="JS/saisieExpress.js" type="text/javascript"></script>
 <form action="#" name="searchFormFiche" onsubmit='x_return_oneFicheByCode(this.numeroFiche.value, display_ficheN); return false'>
@@ -82,9 +86,9 @@
 	</tr>
 </table>
 <form name=formTabSaisie onSubmit='return false'>
-<div style="overflow: scroll; height:50%">
+<div style="overflow-y: scroll; height:50%">
 	<table width='100%' id='tableFiches'>
-		<? for ($index = 1; $index < 2000; $index++) { ?>
+		<? for ($index = 1; $index < $maxFiche; $index++) { ?>
 			<tr class='tabl0' id="tr_<?= $index ?>">
 				<td width=13% id="action_<?= $index ?>"></td>
 				<td width=5% id="numero_<?= $index ?>" onclick="x_return_oneFicheByCode('<?= $index ?>', display_fiche)"><span style="color: GREEN"><?= $index ?></span>

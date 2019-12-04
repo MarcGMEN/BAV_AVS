@@ -53,8 +53,11 @@ function display_listVendeurName(val) {
 function display_fiches(val) {
     for (index in val) {
         if (!isNaN(index)) {
-            if (val[index]['obj_numero'] < 2000) {
+            if (parseInt(val[index]['obj_numero']) < parseInt(maxFiche)) {
                 afficheLigne(val[index]);
+            }
+            else {
+                console.log("NOK "+val[index]['obj_numero']+" < "+maxFiche);
             }
         }
     }
@@ -65,6 +68,7 @@ function display_fiches(val) {
  */
 function afficheLigne(val) {
     if (getElement("numero_" + val['obj_numero'])) {
+        getElement("tr_" + val['obj_numero']).style="";
         getElement("numero_" + val['obj_numero']).innerHTML = val['obj_numero'];
         getElement("type_" + val['obj_numero']).innerHTML = val['obj_type'];
         getElement("vendeur_" + val['obj_numero']).innerHTML = val['cli_nom'];
@@ -114,12 +118,22 @@ function afficheLigne(val) {
             getElement("action_" + val['obj_numero']).innerHTML = action;
         }
     }
+    else {
+        console.log("pas d'element [numero_" + val['obj_numero']+"]") ;
+    }
 
 }
 
 function display_ficheN(val) {
-    getElement("tr_"+val['obj_numero']).scrollIntoView(true); 
-    display_fiche(val);
+    if (getElement("tr_"+val['obj_numero'])) {
+        getElement("tr_"+val['obj_numero']).scrollIntoView(true); 
+        display_fiche(val);
+        //getElement("tr_" + val['obj_numero']).style="background-color:GREY";
+    }
+    else {
+        alertModalWarn("Numéro plus grand que le max de fiche prévu ["+maxFiche+"]");
+    }
+    
 }
 function display_fiche(val) {
     getElement("but_action").disabled = false;

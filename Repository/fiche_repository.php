@@ -151,7 +151,7 @@ function getFiches($order, $sens, $tabSel)
     $requete2 .= "  left outer join bav_client as ac on obj_id_acheteur = ac.cli_id ";
     $requete2 .= "  left outer join bav_modif_prix as mop on mop_id_obj = obj_id and mop_date_validation is null ";
     $requete2 .= " where obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "'";
-    //echo $requete2;
+    error_log("[getFiches] $requete2");
     foreach ($tabSel as $key => $val) {
         if ($key == "obj_search") {
             $requete2 .= " and (obj_modele like '%$val%' or obj_description like '%$val%') ";
