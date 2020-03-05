@@ -124,8 +124,8 @@ function get_publiHtml($data, $html)
 function action_makePDFFromHtml($data, $html)
 {
     extract($GLOBALS);
-    $tabSplit = split(".", $html);
-    $ext = tabSplit[sizeof($tabSplit) - 1];
+    $tabSplit = explode(".", $html);
+    $ext = $tabSplit[sizeof($tabSplit) - 1];
     $nameBase = str_replace("." . $ext, "", $html);
     $filePDF = html2pdf(string2Tab($data), "../html/$html", $nameBase);
 
