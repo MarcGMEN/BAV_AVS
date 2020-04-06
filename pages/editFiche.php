@@ -9,6 +9,7 @@ $tabInfo = [
 	'FICHE DEPOT' => "fiche_depot",
 	'ETIQUETTE' => "etiquette",
 	'COUPON VENDEUR' => "coupon_vendeur",
+	'COUPON ACHETEUR' => "coupon_acheteur",
 	'' => "",
 	'CREATE MODAL' => "modal_confirm_create",
 	'CONFIRME MODAL' => "modal_confirm_confirme",
@@ -134,7 +135,7 @@ $tabInfo = [
 									à <input type=number name=eti1 size=5 style='width:10%' min='<?= $infAppli['base_info'] ?>'>
 								</td>
 								<td width=15%>
-									<input type=button value='Imprimer' onclick='imprimeCoupons(this.form.eti0.value,this.form.eti1.value,this.form.testCoupon.checked?1:0)'>
+									<input type=button value='Imprimer' onclick='imprimeCoupons(this.form.eti0.value,this.form.eti1.value,this.form.testCoupon.checked?1:0,"coupon_vendeur")'>
 								</td>
 								
 							</tr>
@@ -143,7 +144,7 @@ $tabInfo = [
 									- Numérotés 1 -> <?= $infAppli['base_info']-1 ?>
 								</td>
 								<td >
-									<input type=button value='Imprimer' onclick='imprimeCoupons(1,<?= $infAppli["base_info"]-1 ?>)'>
+									<input type=button value='Imprimer' onclick='imprimeCoupons(1,<?= $infAppli["base_info"]-1 ?>,0,"coupon_vendeur")'>
 								</td>
 							</tr>
 							<tr class="tabAction">
@@ -151,7 +152,7 @@ $tabInfo = [
 									- 1 page de vierge
 								</td>
 								<td >
-									<input type=button value='Imprimer' onclick='imprimeCoupons(-1,-1)'>
+									<input type=button value='Imprimer' onclick='imprimeCoupons(-1,-1,0,"coupon_vendeur")'>
 								</td>
 							</tr>
 							<tr class="tabAction">
@@ -159,11 +160,39 @@ $tabInfo = [
 									- Modifs <span id="nbCouponAImprimer"></span> (<?= $infAppli['nb_coupon_page'] ?>/page) : <span id="nb_fiche_coupon"></span>
 									[C: <b><span id="nb_fiche_new_coupon"></span></b>; M:<b><span id="nb_fiche_modif_coupon"></span></b>]</td>
 								<td>
-									<input type=button name='printCoupon' value='Imprimer' disabled id="btnImprimeCouponsPage" onclick='imprimeCouponsPage(this.form.forceCoupon.checked,this.form.testCoupon.checked?1:0)'>
+									<input type=button name='printCoupon' value='Imprimer' disabled id="btnImprimeCouponsPage" onclick='imprimeCouponsPage(this.form.forceCoupon.checked,this.form.testCoupon.checked?1:0,"coupon_vendeur")'>
 									<input type='checkbox' id="forceCoupon" onchange="this.checked?this.form.printCoupon.disabled=false:this.form.printCoupon.disabled=true">Force
 								</td>
 							</tr>
 							
+						</table>
+					</form>
+				<? } ?>
+				<? if ($title == "COUPON ACHETEUR") {
+						$format = "L" ?>
+					<form style="color:black">
+						<table width=100% border=0>
+							<tr>
+								<td rowspan=5 width=15%></td>
+								<td colspan=2></td>
+								<td rowspan=5 width=20%>Param PDF (Paysage): <br/>marge par defaut<br/>Zoom 98%</td>
+							</tr>
+							<tr class="tabAction">
+							<td width=50%>
+									- Numérotés 1 -> <?= $infAppli['base_info']-1 ?>
+								</td>
+								<td width=15%>
+									<input type=button value='Imprimer' onclick='imprimeCoupons(1,<?= $infAppli["base_info"]-1 ?>,0,"coupon_acheteur")'>
+								</td>
+							</tr>
+							<tr class="tabAction">
+							<td >
+									- 1 page de vierge
+								</td>
+								<td >
+									<input type=button value='Imprimer' onclick='imprimeCoupons(-1,-1,0,"coupon_acheteur")'>
+								</td>
+							</tr>
 						</table>
 					</form>
 				<? } ?>

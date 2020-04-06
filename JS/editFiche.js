@@ -118,19 +118,19 @@ function imprimeEtiquettesPage(force, test) {
     x_action_makeA4Etiquettes(0, force, test, display_openHTML);
 }
 
-function imprimeCoupons(eti0, eti1, test) {
+function imprimeCoupons(eti0, eti1, test, nameCoupon) {
     if (eti0 != "" && eti1 != "") {
-        alertModalInfo("Génération des coupons de " + eti0 + " a " + eti1 + " au format HTML <img src='Images/spinner_white_tiny.gif' />");
-        x_action_makeA4Coupons(eti0, eti1, test, display_openHTML);
+        alertModalInfo("Génération des "+nameCoupon+" de " + eti0 + " a " + eti1 + " au format HTML <img src='Images/spinner_white_tiny.gif' />");
+        x_action_makeA4Coupons(eti0, eti1, test, nameCoupon, display_openHTML);
     }
     else {
         alertModalWarn("Numero de fiche début et fin obligatoire");
     }
 }
 
-function imprimeCouponsPage(force, test) {
+function imprimeCouponsPage(force, test, nameCoupon) {
     alertModalInfo("Génération des coupons par page [" + force + "] au format HTML <img src='Images/spinner_white_tiny.gif' />");
-    x_action_makeA4Coupons(0, force, test, display_openHTML);
+    x_action_makeA4Coupons(0, force, test, nameCoupon, display_openHTML);
 }
 
 function imprimeFiches(eti0, eti1) {

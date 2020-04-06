@@ -403,7 +403,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
  * creation des etiquetes sur une feuille A4
  * parametre : le numero de depart, la mise a jour de l'impression, le nombre de page
  */
-function action_makeA4Coupons($eti0, $eti1, $test = true)
+function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon="coupon_vendeur")
 {
     extract($GLOBALS);
 
@@ -511,15 +511,15 @@ function action_makeA4Coupons($eti0, $eti1, $test = true)
         }
 
         if (sizeof($fiche) > 0) {
-            $etiquettes .= makeCorps(array_merge($fiche, $client, $data), 'coupon_vendeur.html');
+            $etiquettes .= makeCorps(array_merge($fiche, $client, $data), $nameCoupon.'.html');
             $etiquettes .= "<hr/>";
         }
     }
-    $fileHTML = "../out/html/coupon_vendeur_" . $eti0 . "_" . $eti1 . ".html";
+    $fileHTML = "../out/html/".$nameCoupon."_" . $eti0 . "_" . $eti1 . ".html";
 
     file_put_contents($fileHTML, utf8_decode($etiquettes));
 
-    return  $CFG_URL . "/out/html/coupon_vendeur_" . $eti0 . "_" . $eti1 . ".html";
+    return  $CFG_URL . "/out/html/".$nameCoupon."_" . $eti0 . "_" . $eti1 . ".html";
     // $filePDF = html2pdf("", $fileHTML, "coupon_vendeur_" . $eti0 . "_" . $eti1, "L");
     // unlink($fileHTML);
 
