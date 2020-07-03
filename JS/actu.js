@@ -144,8 +144,10 @@ function deleteActu(idActu) {
     alertModalConfirm('Suppression de cet article', "Supp");
 }
 /**click sur btn cofirm de modalFiche */
-function confirmModalSupp() {
-    x_action_deleteActu(id, initPage);
+function confirmModal(retModal) {
+    if (retModal == 'Supp') {
+        x_action_deleteActu(id, initPage);
+    }
 }
 
 function activeActu(id) {

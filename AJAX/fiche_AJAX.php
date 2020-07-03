@@ -337,6 +337,8 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
             $tabFiche[$index++] = $numFiche;
         }
     }
+
+    $index=1;
     foreach ($tabFiche as $numFiche) {
         $fiche = [];
         if ($eti0 >=  $INFO_APPLI['base_info'] || $eti0 == 0) {
@@ -379,7 +381,12 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
 
         if (sizeof($fiche) > 0) {
             $etiquettes .= makeCorps(array_merge($fiche, $data), 'etiquette.html');
-            $etiquettes .= "<hr/>";
+            if ($index++%$INFO_APPLI['nb_eti_page']==0) {
+                $etiquettes .= "<div style='page-break-after:always; clear:both'>...</div>";
+            }
+            else {
+                $etiquettes .= "<hr/>";
+            }
         }
     }
 
@@ -441,11 +448,11 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon="coupon_ve
             }
         }
     } else if ($eti0 >=  $INFO_APPLI['base_info']) {
-        for ($numFiche = $eti0; $numFiche <= $eti1; $numFiche++) {
+        for ($numFiche = $eti0; $numFiche < $eti1; $numFiche++) {
             $tabFiche[$index++] = $numFiche;
         }
     } else if ($eti0 == 1) {
-        for ($numFiche = 1; $numFiche < $INFO_APPLI['base_info']; $numFiche++) {
+        for ($numFiche = 1; $numFiche < $eti1; $numFiche++) {
             $tabFiche[$index++] = $numFiche;
         }
     }
@@ -463,7 +470,7 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon="coupon_ve
         $espace50.="&nbsp;";
     }
 
-    
+    $index=1;
     foreach ($tabFiche as $numFiche) {
         if ($eti0 >=  $INFO_APPLI['base_info'] || $eti0 == 0) {
             $fiche = getOneFicheByCode($numFiche);
@@ -512,7 +519,13 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon="coupon_ve
 
         if (sizeof($fiche) > 0) {
             $etiquettes .= makeCorps(array_merge($fiche, $client, $data), $nameCoupon.'.html');
-            $etiquettes .= "<hr/>";
+            
+            if ($index++%$INFO_APPLI['nb_coupon_page']==0) {
+                $etiquettes .= "<div style='page-break-after:always; clear:both'>...</div>";
+            }
+            else {
+                $etiquettes .= "<hr/>";
+            }
         }
     }
     $fileHTML = "../out/html/".$nameCoupon."_" . $eti0 . "_" . $eti1 . ".html";

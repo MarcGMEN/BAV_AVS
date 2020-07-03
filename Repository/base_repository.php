@@ -249,6 +249,7 @@ function delete($table, $id, $cleId)
     } else {
         $req = "delete from $table ";
         $req .= " where $cleId = '$id'";
+        error_log($req);
         if (!$GLOBALS['mysqli']->query($req)) {
             throw new Exception("Pb d'update' [$req]" . $GLOBALS['mysqli']->error);
         }

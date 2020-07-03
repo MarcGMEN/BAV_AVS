@@ -14,11 +14,6 @@ require_once "../Commun/Sajax.php";
 require_once "../Commun/mail.php";
 require_once "../Commun/html2pdf.php";
 
-if (!isset($_COOKIE['NUMERO_BAV'])) {
-    setcookie('NUMERO_BAV', date('Y'), time() + (86400 * 30), "/"); // 86400 = 1 day
-    $_COOKIE['NUMERO_BAV'] = date('Y');
-}
-
 $par = return_infoAppli();
 $tabType = return_enum('bav_objet', 'obj_type');
 $tabPublic = return_enum('bav_objet', 'obj_public');
@@ -36,7 +31,7 @@ if (isset($_POST['cli_id']) && $_POST['cli_id'] != '') {
         $textePlusKo = "";
         foreach ($tabData as $ligne) {
             $fiche = array();
-            $fiche['obj_numero_bav'] = $_COOKIE['NUMERO_BAV'];
+            $fiche['obj_numero_bav'] = $par['numero_bav'];
             if (strlen(trim($ligne)) > 0) {
                 $val = explode("|", $ligne);
 

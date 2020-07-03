@@ -35,7 +35,7 @@ function actionMailing($message, $nb)
 }
 function envoiMailing($message, $melTest)
 {
-    $ret = sendMail($melTest, $message, $_COOKIE["NUMERO_BAV"]);
+    $ret = sendMail($melTest, $message, $GLOBALS['INFO_APPLI']['numero_bav']);
     if ($ret == "") {
         valideEnvoi($melTest);
         return "";
