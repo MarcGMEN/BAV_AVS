@@ -473,7 +473,9 @@ function enregisterFiche() {
     }
 
     var tabData = Object.assign({}, tabObj, tabCli);
-    console.log(tabData);
+
+    if (tabObj['obj_prix_depot']) {
+    
     x_get_publiHtml(tabToString(tabData), 'modal_confirm_create.html', display_messageConfirm);
     return false;
 }
@@ -675,4 +677,19 @@ function display_listAcheteurName(val) {
     for (index in val) {
         list.appendChild(new Option(val[index]['cli_emel'] + " - " + val[index]['cli_code_postal'], val[index]['cli_nom']));
     }
+}
+
+
+function action_descript_plus() {
+
+    var tabObj = recup_formulaire(document.ficheForm, 'obj');
+    tabObj['obj_marque'] = document.ficheForm.elements.namedItem('obj_marque_' + idRamdom).value;
+    delete tabObj['obj_marque_' + idRamdom];
+
+    var tabData = Object.assign({}, tabObj);
+    x_get_publiHtml(tabToString(tabData), 'modal_description_plus.html', display_messageDescript);
+
+}
+function display_messageDescript(val) {
+    alertModalConfirm(val,"DescPlus","Description plus");
 }

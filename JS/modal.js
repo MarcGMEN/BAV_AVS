@@ -89,12 +89,12 @@ function alertModalPass() {
  * @param {} message 
  * @param {*} plus 
  */
-function alertModalConfirm(message, plus='') {
+function alertModalConfirm(message, plus='',titre="Confirmation") {
 
     getElement('id_bh_modal').className = "BH_MODAL";
     getElement('myModal').style.display = "block";
 
-    getElement('modalTitre').innerHTML = "Confirmation";
+    getElement('modalTitre').innerHTML = titre;
 
     //console.log(message);
     getElement("modalText").innerHTML = message;
