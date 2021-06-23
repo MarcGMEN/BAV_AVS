@@ -135,12 +135,12 @@
 
 <? if ($infAppli['CLIENT'] || $infAppli['ADMIN']) {?>
 <form name="bavFormFiche" action="#" 
-	onsubmit='return searchVente(document.bavFormFiche.inputSearch.value)'>
+	onsubmit='return searchVente(document.bavFormFiche.inputSearchBAV.value)'>
 	<h3>Votre vélo est il vendu ? <h3><input type="text" name="numeroFiche" size="8" maxlength="50" 
-		title="Saisisez le numéro de fiche" placeholder="N° fiche" id="inputSearch" 
+		title="Saisisez le numéro de fiche" placeholder="N° fiche" id="inputSearchBAV" 
 		onsubmit='searchVente(this.value)' style='background-color:LIGHTGREEN;font-weight: bold' />
 	<i id="loupe" class="fas fa-search link " 
-		onclick="searchVente(document.bavFormFiche.inputSearch.value)"></i>
+		onclick="searchVente(document.bavFormFiche.inputSearchBAV.value)"></i>
 
 </form>
 <?}?>

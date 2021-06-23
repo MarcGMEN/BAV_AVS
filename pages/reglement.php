@@ -6,7 +6,7 @@
 		'mois'=>moisFrench(date('m', $infAppli['date_j2'])),
 		'annee'=>date('Y', $infAppli['date_j2']),
 		'URL'=>$CFG_URL);
-		$message = makeCorps($data, "reglement.html");
+	$message = makeCorps($data, "reglement.html");
 ?>
 <script>
 	var data2PDF = new Object();

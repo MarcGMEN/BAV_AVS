@@ -728,7 +728,7 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false, $format 
         $client['cli_taux_com'] = $par['par_taux_1'];
         $client['cli_id_modif'] = "";
 
-        $fiche['obj_numero'] = "";
+        $fiche['obj_numero'] = "_______";
         $fiche['obj_type'] = "<br/><span style='font-size:9px'><i>Autre-VTT-Route-VTC-Ville-VAE-BMX</i></span>";
         $fiche['obj_public'] = "<br/><span style='font-size:9px'><i>Mixte-Homme-Femme-Enfant</i></span>";
         $fiche['obj_pratique'] = "<br/><span style='font-size:9px'><i>Sportive-Loisir-Compétition-Autre</i></span>";
@@ -741,9 +741,6 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false, $format 
         $fiche['obj_prix_depot'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
         $fiche['obj_id_modif'] = "";
     }
-
-    
-
 
     // MISE EN FORME DE LA FICHE
     // MISE EN FORME DE LA FICHE
