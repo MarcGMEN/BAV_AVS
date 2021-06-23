@@ -11,7 +11,7 @@ $maxFiche=1800;
 <form action="#" name="searchFormFiche" onsubmit='x_return_oneFicheByCode(this.numeroFiche.value, display_ficheN); return false'>
 	<input type="text" name="numeroFiche" size="8" maxlength="50" title="Saisisez le numéro de fiche" 
 	placeholder="N° fiche" id="inputSearch" style='background-color:LIGHTGREEN;font-weight: bold;width:10%' 
-	tabindex=<?= $tabindex++ ?> />
+	tabindex=<?= $tabindex++ ?> onblur="x_return_oneFicheByCode(document.searchFormFiche.numeroFiche.value, display_ficheN)" />
 	<i id="loupe" class="fas fa-search link " onclick="x_return_oneFicheByCode(document.searchFormFiche.numeroFiche.value, display_ficheN)"></i>
 </form>
 

@@ -1,7 +1,7 @@
 function initPage() {
     if (theId != "") {
-		x_return_oneFiche(theId, display_ficheN);		
-	}
+        x_return_oneFiche(theId, display_ficheN);
+    }
     x_return_fiches_express(display_fiches);
 
     // creation des listes des choix type, public et patiqye
@@ -55,9 +55,8 @@ function display_fiches(val) {
         if (!isNaN(index)) {
             if (parseInt(val[index]['obj_numero']) < parseInt(maxFiche)) {
                 afficheLigne(val[index]);
-            }
-            else {
-                console.log("NOK "+val[index]['obj_numero']+" < "+maxFiche);
+            } else {
+                console.log("NOK " + val[index]['obj_numero'] + " < " + maxFiche);
             }
         }
     }
@@ -68,7 +67,7 @@ function display_fiches(val) {
  */
 function afficheLigne(val) {
     if (getElement("numero_" + val['obj_numero'])) {
-        getElement("tr_" + val['obj_numero']).style="";
+        getElement("tr_" + val['obj_numero']).style = "";
         getElement("numero_" + val['obj_numero']).innerHTML = val['obj_numero'];
         getElement("type_" + val['obj_numero']).innerHTML = val['obj_type'];
         getElement("vendeur_" + val['obj_numero']).innerHTML = val['cli_nom'];
@@ -117,35 +116,36 @@ function afficheLigne(val) {
             action = "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\"," + val['obj_prix_vente'] + ")' />";
             getElement("action_" + val['obj_numero']).innerHTML = action;
         }
-    }
-    else {
-        console.log("pas d'element [numero_" + val['obj_numero']+"]") ;
+    } else {
+        console.log("pas d'element [numero_" + val['obj_numero'] + "]");
     }
 
 }
 
 function display_ficheN(val) {
-    if (getElement("tr_"+val['obj_numero'])) {
-        getElement("tr_"+val['obj_numero']).scrollIntoView(true); 
-        display_fiche(val);
-        //getElement("tr_" + val['obj_numero']).style="background-color:GREY";
+    if (val['obj_numero']) {
+        if (getElement("tr_" + val['obj_numero'])) {
+            getElement("tr_" + val['obj_numero']).scrollIntoView(true);
+            display_fiche(val);
+            //getElement("tr_" + val['obj_numero']).style="background-color:GREY";
+        } else {
+            alertModalWarn("Numéro plus grand que le max de fiche prévu [" + maxFiche + "]");
+        }
     }
-    else {
-        alertModalWarn("Numéro plus grand que le max de fiche prévu ["+maxFiche+"]");
-    }
-    
+
 }
+
 function display_fiche(val) {
     getElement("but_action").disabled = false;
 
     console.log(val);
-    
+
     // on revient sur le numero de fiche en focus
     document.searchFormFiche.numeroFiche.value = "";
     //console.log("#tr_"+val['obj_numero']);
     //getElement("tableFiches").location="#tr_"+val['obj_numero'];
     //console.log(window.find("#tr_"+val['obj_numero']));
-    
+
     if (val['obj_etat']) {
         afficheLigne(val);
 
@@ -170,7 +170,7 @@ function display_fiche(val) {
 
             document.formSaisieExpress.obj_prix_vente.disabled = false;
             document.formSaisieExpress.obj_prix_vente.focus();
-            val['obj_prix_vente']=val['obj_prix_depot'];
+            val['obj_prix_vente'] = val['obj_prix_depot'];
         } else if (val['obj_etat'] == "STOCK") {
             getElement("but_action").innerHTML = "Vendre";
             getElement("but_action2").style.display = 'block';
@@ -392,9 +392,9 @@ function confirmModal() {
     var tabObjModal = recup_formulaire(document.modalForm, 'obj');
     //var tabObj = recup_formulaire(document.formSaisieExpress, 'obj');
 
-   // tabObj['obj_prix_vente'] = tabObjModal['obj_prix_vente'];
-    tabObjModal['obj_etat_new']="VENDU";
-    tabObjModal['obj_etat']="STOCK";
+    // tabObj['obj_prix_vente'] = tabObjModal['obj_prix_vente'];
+    tabObjModal['obj_etat_new'] = "VENDU";
+    tabObjModal['obj_etat'] = "STOCK";
     var tabData = Object.assign({}, tabObjModal, tabAch);
     console.log(tabData);
     closeModal();
