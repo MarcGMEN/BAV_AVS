@@ -474,10 +474,10 @@ function enregisterFiche() {
 
     var tabData = Object.assign({}, tabObj, tabCli);
 
-    if (tabObj['obj_prix_depot']) {
-    
-    x_get_publiHtml(tabToString(tabData), 'modal_confirm_create.html', display_messageConfirm);
-    return false;
+    //if (tabObj['obj_prix_depot'] > 400) {
+    //   x_get_publiHtml(tabToString(tabData), 'modal_confirm_create.html', display_messageConfirm);
+    //   return false;
+    // }
 }
 
 function display_messageConfirm(mess) {
@@ -690,6 +690,7 @@ function action_descript_plus() {
     x_get_publiHtml(tabToString(tabData), 'modal_description_plus.html', display_messageDescript);
 
 }
+
 function display_messageDescript(val) {
-    alertModalConfirm(val,"DescPlus","Description plus");
+    alertModalConfirm(val, "DescPlus", "Description plus");
 }
