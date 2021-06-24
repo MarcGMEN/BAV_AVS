@@ -589,7 +589,10 @@ function action_makeA4Fiches($eti0, $eti1)
                 // creation du html avec comme template
                 // html/fiche_depot.html
                 $etiquettes .= makeCorps(array_merge($fiche, $client, $data), 'fiche_depot.html');
+                $etiquettes .= "<div style='page-break-after:always; clear:both'>...</div>";
             }
+
+            
         }
 
         // fichier HTML resultant
