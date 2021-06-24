@@ -474,10 +474,8 @@ function enregisterFiche() {
 
     var tabData = Object.assign({}, tabObj, tabCli);
 
-    //if (tabObj['obj_prix_depot'] > 400) {
-    //   x_get_publiHtml(tabToString(tabData), 'modal_confirm_create.html', display_messageConfirm);
-    //   return false;
-    // }
+    x_get_publiHtml(tabToString(tabData), 'modal_confirm_create.html', display_messageConfirm);
+    return false;
 }
 
 function display_messageConfirm(mess) {
