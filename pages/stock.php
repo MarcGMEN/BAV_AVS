@@ -52,8 +52,8 @@
 		<td class="tittab" width=8%>
 			<span id='obj_type' onclick="triColonne('obj_type')" class="sortable">Type&nbsp;&nbsp;</span>
 			&nbsp;<select id="sel_obj_type" onchange="selectColonne('obj_type', this.value)"></select></td>
-		<td class="tittab" width=8%>
-			<span id='obj_couleur' onclick="triColonne('obj_couleur')" class="sortable">Couleur&nbsp;&nbsp;&nbsp;</span>
+		<td class="tittab maskMobile" width=8%>
+			<span id='obj_couleur' onclick="triColonne('obj_couleur')" class="sortable ">Couleur&nbsp;&nbsp;&nbsp;</span>
 			&nbsp;<input size=7 id='inp_obj_couleur' onkeyup="searchColonne('inp_obj_couleur')"  /></td>
 		<!--<td class="tittab" width=10%>
 			<span id='obj_pratique' onclick="triColonne('obj_pratique')" class="sortable">Pratique&nbsp;&nbsp;&nbsp;</span>

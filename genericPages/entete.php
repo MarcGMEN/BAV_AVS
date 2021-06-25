@@ -42,7 +42,6 @@ ipLocal = "<?=$_SERVER['REMOTE_ADDR']?>";
 			</div>
 			<div class="link" style="position:absolute; float: right; vertical-align:middle; font-size: 0.5em" onclick="alertModalPass();">
 				<?= $infAppli['numero_bav']; ?>&nbsp;<span id="connex">
-			
 				</span>
 			</div>
 		</td>
@@ -55,8 +54,8 @@ ipLocal = "<?=$_SERVER['REMOTE_ADDR']?>";
 		</th>
 		<td class="tdSearch" id="tdSearch" style="display:none">
 			<form name="enteteFormFiche" action="#" onsubmit='return search(document.enteteFormFiche.inputSearch.value)'>
-				<input type="text" name="numeroFiche" size="8" maxlength="50" title="Saisisez le numéro de fiche" placeholder="N° fiche" id="inputSearch" onsubmit='search(this.value)' style='background-color:LIGHTGREEN;font-weight: bold' />
-				<i id="loupe" class="fas fa-search link " onclick="search(document.enteteFormFiche.inputSearch.value)"></i>
+				<input type="text" name="numeroFiche" size="8" maxlength="20" title="Saisisez le numéro de fiche" placeholder="N° fiche" id="inputSearch" onsubmit='search(this.value)' style='background-color:LIGHTGREEN;font-weight: bold' />
+				<i id="loupe" class="fas fa-search link loupe" onclick="search(document.enteteFormFiche.inputSearch.value)"></i>
 			</form>
 		</td>
 	</tr>

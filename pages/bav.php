@@ -141,8 +141,7 @@
 		<input type="text" name="numeroFiche" size="8" maxlength="50" 
 		title="Saisisez le numéro de fiche" placeholder="N° fiche" id="inputSearchBAV" 
 		onsubmit='searchVente(this.value)' style='background-color:LIGHTGREEN;font-weight: bold' />
-	<i id="loupe" class="fas fa-search link " 
-		onclick="searchVente(document.bavFormFiche.inputSearchBAV.value)"></i>
+	<i class="fas fa-search link loupe" onclick="searchVente(document.bavFormFiche.inputSearchBAV.value)"></i>
 </h2>
 </form>
 <?}?>

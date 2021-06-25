@@ -91,7 +91,7 @@ sajax_handle_client_request();
 		var NB_MODIF = <?= $infAppli['NB_MODIF'] ?>;
 		var modePage = '<?= $GET_modePage ?>';
 		var id = '<?= $GET_id ?>';
-
+		
 		function initIndex() {
 			if (id != "" && (modePage == 'restF' || modePage == 'restC')) {
 				search(id, modePage);

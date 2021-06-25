@@ -54,8 +54,9 @@
 		<?}?>
 	}
 </script>
+
 <span class="link url" onclick='x_action_makePDFFromHtml(tabToString(data2PDF),"reglement.html", display_openPDF);' >
-	telecharger le reglement</span>
+	t&eacute;l&eacute;charger le r&egrave;glement</span>
 	<? if ($infAppli['ADMIN']) {?>
 	<span>
 		<i class="fas fa-edit" id="reglement_edit" onclick="affichEditor('reglement')"></i>

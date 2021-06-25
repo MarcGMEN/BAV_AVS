@@ -89,7 +89,7 @@ function display_fiches(val) {
                 repr += "<td width=8%>";
                 repr += val[index]['obj_type'];
                 repr += "</td>";
-                repr += "<td width=8%  >";
+                repr += "<td class='maskMobile' width=8%  >";
                 repr += val[index]['obj_couleur'];
                 repr += "</td>";
                 /*repr += "<td width=10% >";
