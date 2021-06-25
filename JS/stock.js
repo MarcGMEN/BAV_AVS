@@ -66,14 +66,14 @@ function display_fiches(val) {
     if (val instanceof Object) {
 
         var total = 0;
-        var repr = "<table width='100%' border=1>";
+        var repr = "<table width='100%' border=1  >";
         for (index in val) {
             if (!isNaN(index)) {
-                var stylePlus="margin: 2 2 2 2";
+                var stylePlus = "margin: 2 2 2 2";
                 if (val[index]['mop_id'] > 0) {
-                    stylePlus="color:DARKRED;font-weight:bold"
+                    stylePlus = "color:DARKRED;font-weight:bold"
                 }
-                repr += "<tr class='tabl0 " + val[index]['obj_etat'] + " link' style="+stylePlus+" onclick='goTo(\"fiche.php\",\"modif\"," + val[index]['obj_id'] + ")'>";
+                repr += "<tr class='tabl0 " + val[index]['obj_etat'] + " link' style='" + stylePlus + "' onclick='goTo(\"fiche.php\",\"modif\"," + val[index]['obj_id'] + ")'>";
                 repr += "<td width=5% align=center>";
                 if (val[index]['obj_modif_data'] > 0) {
                     repr += "<img src='Images/etiq" + val[index]['obj_modif_data'] + ".png' style='height:20px' />";
@@ -86,8 +86,11 @@ function display_fiches(val) {
                 }
                 repr += val[index]['obj_numero'];
                 repr += "</td>";
-                repr += "<td width=10% >";
+                repr += "<td width=8%>";
                 repr += val[index]['obj_type'];
+                repr += "</td>";
+                repr += "<td width=8%  >";
+                repr += val[index]['obj_couleur'];
                 repr += "</td>";
                 /*repr += "<td width=10% >";
                 repr += val[index]['obj_public'];
@@ -101,14 +104,14 @@ function display_fiches(val) {
                 repr += "<td class='maskMobile' width=14% >";
                 repr += val[index]['vendeur_nom'];
                 repr += "</td>";
-                repr += "<td width=7% >";
+                repr += "<td width=8% >";
                 if (val[index]['obj_prix_vente'] == 0) {
                     repr += "<span style='color:RED'>" + val[index]['obj_prix_depot'] + "</span>";
                 } else {
                     repr += val[index]['obj_prix_vente'];
                 }
                 repr += "</td>";
-                repr += "<td width=10% >";
+                repr += "<td width=8% >";
                 repr += val[index]['obj_etat'];
                 repr += "</td>";
                 repr += "<td width=8% class='maskMobile' >";
@@ -117,7 +120,7 @@ function display_fiches(val) {
                 repr += "<td class='maskMobile' width=14% >";
                 repr += val[index]['acheteur_nom'];
                 repr += "</td>";
-                repr += "<td class='maskMobile' width=20% title='date vente - date retour'>";
+                repr += "<td class='maskMobile' width=16% title='date vente - date retour'>";
                 repr += formatDate(val[index]['obj_date_vente'], false);
                 repr += " - ";
                 repr += formatDate(val[index]['obj_date_retour'], false);
@@ -196,12 +199,30 @@ function selectColonne(col, mask) {
     tabSel['obj_type'] = getElement("sel_obj_type").value;
     tabSel['obj_marque'] = getElement("sel_obj_marque").value;
     tabSel['obj_etat'] = getElement("sel_obj_etat").value;
+    //tabSel['obj_couleur'] = getElement("sel_obj_couleur").value;
     //tabSel[col] = mask;
 
     console.log(col + "," + sens);
     console.log(tabSel);
     x_return_fiches(col, sens, tabToString(tabSel), 0, display_fiches);
 }
+
+function searchColonne(col, mask) {
+    tabSel['obj_search'] = getElement("inp_obj_couleur").value;
+    //tabSel[col] = mask;
+
+    if (tabSel['obj_search'].length > 2 || tabSel['obj_search'].length == 0) {
+
+        if (tabSel['obj_search'].length == 0) {
+            tabSel['obj_search'].length = null;
+        }
+
+        console.log(col + "," + sens);
+        console.log(tabSel);
+        x_return_fiches(null, sens, tabToString(tabSel), 0, display_fiches);
+    }
+}
+
 
 function display_listVendeur(val) {
     var list = getElement("listVendeur");

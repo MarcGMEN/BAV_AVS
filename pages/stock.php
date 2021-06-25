@@ -45,17 +45,17 @@
 
 	</tr>
 </table>
-<table width="100%">
+<table width="100%" >
 	<tr>
 		<td class="tittab" width=5%>
 			<span id='obj_numero' onclick="triColonne('obj_numero')" class="sortable">No&nbsp;&nbsp;</span></td>
-		<td class="tittab" width=10%>
+		<td class="tittab" width=8%>
 			<span id='obj_type' onclick="triColonne('obj_type')" class="sortable">Type&nbsp;&nbsp;</span>
 			&nbsp;<select id="sel_obj_type" onchange="selectColonne('obj_type', this.value)"></select></td>
+		<td class="tittab" width=8%>
+			<span id='obj_couleur' onclick="triColonne('obj_couleur')" class="sortable">Couleur&nbsp;&nbsp;&nbsp;</span>
+			&nbsp;<input size=7 id='inp_obj_couleur' onkeyup="searchColonne('inp_obj_couleur')"  /></td>
 		<!--<td class="tittab" width=10%>
-			<span id='obj_public' onclick="triColonne('obj_public')" class="sortable">Public&nbsp;&nbsp;&nbsp;</span>
-			&nbsp;<select id="sel_obj_public" onchange="selectColonne('obj_public', this.value)"></select></td>
-		<td class="tittab" width=10%>
 			<span id='obj_pratique' onclick="triColonne('obj_pratique')" class="sortable">Pratique&nbsp;&nbsp;&nbsp;</span>
 			&nbsp;<select id="sel_obj_pratique" onchange="selectColonne('obj_pratique', this.value)"></select></td>-->
 		<td class="tittab maskMobile" width=12%>
@@ -72,16 +72,16 @@
 				list=listVendeur />
 			<datalist id="listVendeur"></datalist>-->
 		</td>
-		<td class="tittab" width=7%>
+		<td class="tittab" width=8%>
 			<span class="sortable" id='obj_prix_vente' onclick="triColonne('obj_prix_vente')">Prix vente&nbsp;</span></td>
-		<td class="tittab" width=10%>
+		<td class="tittab" width=8%>
 			<span id='obj_etat' onclick="triColonne('obj_etat')" class="sortable">Etat&nbsp;&nbsp;</span>
 			&nbsp;<select id="sel_obj_etat" onchange="selectColonne('obj_etat', this.value)"></select></td>
 		<td class="tittab maskMobile" width=8%>
 			<span class="sortable" id='obj_date_depot' onclick="triColonne('obj_date_depot')">Date depot&nbsp;</span></td>
 		<td class="tittab maskMobile" width=14%>
 			<span id='acheteur_nom' onclick="triColonne('acheteur_nom')" class="sortable">Acheteur&nbsp&nbsp;</span></td>
-		<td class="tittab maskMobile" width=20%>
+		<td class="tittab maskMobile" width=16%>
 			<span class="sortable" id='obj_date_vente' onclick="triColonne('obj_date_vente')">Date vente&nbsp;&nbsp;</span></td>
 	</tr>
 </table>

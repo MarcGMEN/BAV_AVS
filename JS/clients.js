@@ -1,13 +1,12 @@
 var tri = "cli_nom";
 var sens = "asc";
 var selection = { "cli_nom": "*" };
-var allG=0;
+var allG = 0;
 
 function initPage() {
     if (ADMIN) {
         findClients(allG);
-    }
-    else {
+    } else {
         goTo();
     }
 
@@ -18,13 +17,13 @@ function unloadPage() {
 }
 
 function findClients(all) {
-    allG=all;
-    getElement('total').innerHTML="...";
+    allG = all;
+    getElement('total').innerHTML = "...";
     getElement('totalAcheteur').innerHTML = "...";
     getElement('totalVendeur').innerHTML = "...";
     getElement('totalVendeurEtAcheteur').innerHTML = "...";
     getElement('totalAbsent').innerHTML = "...";
-    x_return_clientsRecap(tri,sens,tabToString(selection),allG,display_clients);
+    x_return_clientsRecap(tri, sens, tabToString(selection), allG, display_clients);
 }
 
 function display_clients(val) {
@@ -37,7 +36,7 @@ function display_clients(val) {
     var totalAcheteur = 0;
     var totalVendeur = 0;
     var totalVendeurEtAcheteur = 0;
-    var totalAbsent=0
+    var totalAbsent = 0
 
 
     for (index in val) {
@@ -82,8 +81,7 @@ function display_clients(val) {
                 if (indAcheteur && indVendeur) {
                     totalVendeurEtAcheteur++;
                 }
-            }
-            else if (!indAcheteur) {
+            } else if (!indAcheteur) {
                 totalAbsent++;
             }
 
@@ -93,8 +91,7 @@ function display_clients(val) {
             chaine = val[index]['cli_nom'];
             if (selection.cli_nom != "*") {
                 repr += chaine.replace(reg, "<b>$1</b>");
-            }
-            else {
+            } else {
                 repr += chaine;
             }
             repr += " <small>(" + val[index]['cli_code_postal'] + ")</small>";
@@ -113,32 +110,28 @@ function display_clients(val) {
             repr += "<th width=2% style='text-align: center'>";
             if (val[index]['CONFIRME'] != 0) {
                 repr += val[index]['CONFIRME'];
-            }
-            else {
+            } else {
                 repr += "";
             }
             repr += "</th>";
             repr += "<th width=2% style='text-align: center'>";
             if (val[index]['STOCK'] != 0) {
                 repr += val[index]['STOCK'];
-            }
-            else {
+            } else {
                 repr += "";
             }
             repr += "</th>";
             repr += "<th width=2% style='text-align: center'>";
             if (val[index]['VENDU'] != 0) {
                 repr += val[index]['VENDU'];
-            }
-            else {
+            } else {
                 repr += "";
             }
             repr += "</th>";
             repr += "<th width=2% style='text-align: center'>";
             if (val[index]['PAYE'] != 0) {
                 repr += val[index]['PAYE'];
-            }
-            else {
+            } else {
                 repr += "";
             }
             repr += "</th>";
@@ -146,8 +139,7 @@ function display_clients(val) {
             repr += "<th width=2% style='text-align: center'>";
             if (val[index]['RENDU'] != 0) {
                 repr += val[index]['RENDU'];
-            }
-            else {
+            } else {
                 repr += "";
             }
             repr += "</th>";
@@ -155,8 +147,7 @@ function display_clients(val) {
             repr += "<th width=2% style='text-align: center'>";
             if (val[index]['ACHAT'] != 0) {
                 repr += val[index]['ACHAT'];
-            }
-            else {
+            } else {
                 repr += "";
             }
             repr += "</th>";
@@ -174,7 +165,7 @@ function display_clients(val) {
     getElement('totalVendeur').innerHTML = totalVendeur;
     getElement('totalVendeurEtAcheteur').innerHTML = totalVendeurEtAcheteur;
     getElement('totalAbsent').innerHTML = totalAbsent;
-    
+
 
     if (sens == "asc") { classSort = "sortUp"; } else { classSort = "sortDown"; }
     getElement(tri).className = classSort;
@@ -184,12 +175,10 @@ function triColonne(col) {
     if (col == tri) {
         if (sens == "asc") {
             sens = "desc";
-        }
-        else {
+        } else {
             sens = "asc";
         }
-    }
-    else {
+    } else {
         sens = "asc";
     }
     getElement(tri).className = "sortable";
@@ -198,12 +187,16 @@ function triColonne(col) {
 }
 
 function selectColonne(mask) {
+    getElement('total').innerHTML = "...";
+    getElement('totalAcheteur').innerHTML = "...";
+    getElement('totalVendeur').innerHTML = "...";
+    getElement('totalVendeurEtAcheteur').innerHTML = "...";
+    getElement('totalAbsent').innerHTML = "...";
     if (mask.length > 1) {
         selection = { 'cli_nom': mask };
-    }
-    else {
+    } else {
         selection = { 'cli_nom': "*" };
     }
-    x_return_clientsRecap(tri, sens, tabToString(selection), display_clients);
+    x_return_clientsRecap(tri, sens, tabToString(selection), allG, display_clients);
 
 }

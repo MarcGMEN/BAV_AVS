@@ -3,7 +3,11 @@
 
 try {
 //$mysqli = mysqli_connect('db2463.1and1.fr','dbo326893785','randovtt' , 'db326893785');
-$mysqli = mysqli_connect('localhost','bav','AVS44b@v!' , 'BAV');
+#$mysqli = mysqli_connect('localhost','bav','AVS44b@v!' , 'bav');
+echo $_SERVER['SERVER_NAME'];
+$mysqli = mysqli_connect('localhost','','' , 'bav');
+print_r("mysqli =");
+print_r($mysqli);
 if (mysqli_connect_errno($mysqli)) {
     echo "Echec lors de la connexion à MySQL : " . mysqli_connect_error();
 }

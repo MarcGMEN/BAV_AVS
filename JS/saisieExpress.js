@@ -70,7 +70,7 @@ function afficheLigne(val) {
         getElement("tr_" + val['obj_numero']).style = "";
         getElement("numero_" + val['obj_numero']).innerHTML = val['obj_numero'];
         getElement("type_" + val['obj_numero']).innerHTML = val['obj_type'];
-        getElement("vendeur_" + val['obj_numero']).innerHTML = val['cli_nom'];
+        getElement("vendeur_" + val['obj_numero']).innerHTML = "<span class='link' onclick='goTo(\"client.php\",\"consult\"," + val['cli_id'] + ")'>" + val['cli_nom'] + "</span>";
         if (val['cli_emel']) {
             getElement("vendeur_" + val['obj_numero']).innerHTML += " [" + val['cli_emel'] + "]";
         }

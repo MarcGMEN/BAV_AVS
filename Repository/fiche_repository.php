@@ -154,7 +154,7 @@ function getFiches($order, $sens, $tabSel)
     error_log("[getFiches] $requete2");
     foreach ($tabSel as $key => $val) {
         if ($key == "obj_search") {
-            $requete2 .= " and (obj_modele like '%$val%' or obj_description like '%$val%') ";
+            $requete2 .= " and (obj_modele like '%$val%' or obj_description like '%$val%' or obj_couleur like '%$val%') ";
         } elseif ($key && $val != "*") {
             $requete2 .= " and $key = '$val' ";
         }

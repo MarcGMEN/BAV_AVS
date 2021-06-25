@@ -548,6 +548,7 @@ table {
     color: #1161a2;
     border-color: #1161a2;
     border-style: solid;
+    border-width: 0.5px;
     font-weight: bold;
     text-align: center;
     font-size: 0.9em;
