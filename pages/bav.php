@@ -115,7 +115,7 @@
 		<? foreach ($data as $key => $val) {echo "data2PDF['$key']='$val';\n"; }?>
     </script>
 <?
-	$tabInfo=['Quoi de neuf ? ' => "bav_actu",
+	$tabInfo=['Quoi de neuf ?' => "bav_actu",
 			  'La Bourse' => "bav_bourse",
 			  "Quoi vendre ?" => "bav_vendre",
 			 // "PRINCIPES" => 'bav_principe',
