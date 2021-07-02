@@ -302,6 +302,7 @@ function display_infoClientVendeur(val, base) {
             x_return_listClientByName(display_listVendeurName);
         }
         display_formulaire(val, document.formSaisieExpress);
+        document.formSaisieExpress.cli_code_postal.disabled = true;
     } else {
         // reset des champs cli
         // saug cli_emel pour ne pas le perdre
