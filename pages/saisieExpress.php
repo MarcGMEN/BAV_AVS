@@ -17,26 +17,58 @@ $maxFiche=1800;
 
 <form name="formSaisieExpress" onsubmit="return submitForm()">
 
-	<table width='100%' border=0>
+	<table width='100%' border=0 >
 		<tr>
 			<td class='tittab' width=5%>No</td>
 			<td class='tittab' width=10%>Type</td>
-			<td class='tittab' width=10%>Prix vente</td>
-			<td class='tittab' width=55% colspan=3>Vendeur</td>
-			<td class='tittab' width=10%>Etat</td>
+			<td class='tittab' width=10%>Couleur</td>
+			<td class='tittab' width=35%>Marque</td>
 			<td class='tittab' width=10%></td>
+			<td class='tittab' width=10%>Etat</td>
+			<td class='tittab' width=10%>Actions</td>
 		</tr>
 		<tr>
-			<td class="tittab">
-				<span id="obj_numero"></span>
+			<td class="tittab" rowspan=3>
+				<span style="font-size:2em" id="obj_numero"></span>
 				<input type="hidden" name="obj_numero">
 				<input type="hidden" name="obj_id">
 				<input type="hidden" name="cli_id">
 			</td>
 			<td>
-			<select name='obj_type' tabindex=<?= $tabindex++ ?> disabled required >
-					</select>
+				<select name='obj_type' tabindex=<?= $tabindex++ ?> disabled required >
+				</select>
 			</td>
+			<td>
+				<input type=text name="obj_couleur" size=20 maxlength="30" disabled tabindex=<?= $tabindex++ ?> 
+					style="text-transform:uppercase" placeholder="Couleurs dominantes"  />
+			</td>
+			<td>
+				<input type=text list="listMarques"  disabled  name="obj_marque_<?= $idRamdom ?>" size=30 maxlength="50" 
+					tabindex=<?= $tabindex++ ?> style="text-transform:uppercase" placeholder="Marque du vélo"  />
+				<datalist id="listMarques"></datalist>
+
+			</td>
+			<td>
+			</td>
+			<td id="obj_etat" rowspan=3 style="text-align:center;vertical-align:middle"></td>
+			<td rowspan=3 style="text-align:center;vertical-align:middle">
+				<button id="but_action" tabindex=<?= $tabindex+6 ?>
+					onsubmit="this.form.action.value='new'" onclick="this.form.action.value='new'"></button>
+				<input type="hidden" name="action" value="new">
+				<button id="but_action2" tabindex=<?= $tabindex+7 ?>
+					onsubmit="this.form.action.value='new2'" onclick="this.form.action.value='new2'"></button>
+				<button id="but_actionAno" tabindex=<?= $tabindex+8 ?> class="error"
+					onsubmit="this.form.action.value='newAno'" onclick="this.form.action.value='newAno'"></button>
+				<input type="hidden" name="obj_etat">
+				<input type="hidden" name="obj_etat_new">
+				<input type="hidden" name="obj_etat_new2">
+				<input type="hidden" name="obj_etat_newAno">
+			</td>
+		</tr>
+		<tr>
+			<td class='tittab' width=10%>Prix vente</td>
+			<td class='tittab' width=55% colspan=3>Vendeur</td>
+		</tr><tr>
 			<td>
 				<input type=number name="obj_prix_vente" disabled size=5 maxlength="10" tabindex=<?= $tabindex++ ?> 
 					title="Prix vente" required step="0.1" placeholder="00.00" min=1 />&nbsp;&#8364;
@@ -44,32 +76,23 @@ $maxFiche=1800;
 			<td>
 				<input type=email name='cli_emel' disabled  tabindex=<?= $tabindex++ ?> 
 					size="50" maxlength="100" 
+					placeholder="E-mail"
 					onblur='searchByMel(this.value)' list="listVendeur">
 				<datalist id="listVendeur"></datalist>
 			</td>
 			<td>
 				<input type=text name='cli_nom_<?= $idRamdom ?>'disabled  tabindex=<?= $tabindex++ ?> 
+					placeholder="Nom et prénom"
 					size="50" maxlength="100" required 
 					onblur='searchByName(this.value)' list="listVendeurName">
 				<datalist id="listVendeurName"></datalist>
 			</td>
 			<td>
-				<input type=text name='cli_code_postal' disabled  tabindex=<?= $tabindex++ ?> size="7" maxlength="5" >
+				<input type=text name='cli_code_postal' 
+					placeholder="Code postal"
+					disabled  tabindex=<?= $tabindex++ ?> size="7" maxlength="5" >
 			</td>
-			<td id="obj_etat"></td>
-			<td>
-				<button id="but_action" tabindex=<?= $tabindex++ ?>
-					onsubmit="this.form.action.value='new'" onclick="this.form.action.value='new'"></button>
-				<input type="hidden" name="action" value="new">
-				<button id="but_action2" tabindex=<?= $tabindex++ ?>
-					onsubmit="this.form.action.value='new2'" onclick="this.form.action.value='new2'"></button>
-				<button id="but_actionAno" tabindex=<?= $tabindex++ ?> class="error"
-					onsubmit="this.form.action.value='newAno'" onclick="this.form.action.value='newAno'"></button>
-				<input type="hidden" name="obj_etat">
-				<input type="hidden" name="obj_etat_new">
-				<input type="hidden" name="obj_etat_new2">
-				<input type="hidden" name="obj_etat_newAno">
-			</td>
+			
 		</tr>
 	</table>
 </form>

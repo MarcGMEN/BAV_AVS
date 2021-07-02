@@ -13,11 +13,20 @@ function initPage() {
     // chargement de la liste des client par mel
     x_return_listClientByName(display_listVendeurName);
 
+    // recuperation de la liste des marques
+    x_return_list_marques(display_list_marques)
+
     document.searchFormFiche.numeroFiche.focus();
 
 
 }
 
+function display_list_marques(val) {
+    var list = getElement("listMarques");
+    for (index in val) {
+        list.appendChild(new Option(val[index], val[index]));
+    }
+}
 /*
  * affichage de la liste de type possible
  */
@@ -70,6 +79,7 @@ function afficheLigne(val) {
         getElement("tr_" + val['obj_numero']).style = "";
         getElement("numero_" + val['obj_numero']).innerHTML = val['obj_numero'];
         getElement("type_" + val['obj_numero']).innerHTML = val['obj_type'];
+
         getElement("vendeur_" + val['obj_numero']).innerHTML = "<span class='link' onclick='goTo(\"client.php\",\"consult\"," + val['cli_id'] + ")'>" + val['cli_nom'] + "</span>";
         if (val['cli_emel']) {
             getElement("vendeur_" + val['obj_numero']).innerHTML += " [" + val['cli_emel'] + "]";
@@ -151,6 +161,8 @@ function display_fiche(val) {
 
         document.formSaisieExpress.obj_type.disabled = true;
         document.formSaisieExpress.obj_prix_vente.disabled = true;
+        document.formSaisieExpress.obj_couleur.disabled = true;
+        document.formSaisieExpress.elements.namedItem('obj_marque_' + idRamdom).disabled = true;
         document.formSaisieExpress.cli_emel.disabled = true;
         document.formSaisieExpress.elements.namedItem('cli_nom_' + idRamdom).disabled = true;
         document.formSaisieExpress.cli_code_postal.disabled = true;
@@ -207,6 +219,7 @@ function display_fiche(val) {
 
             val['obj_etat_new'] = "";
         }
+        val['obj_marque_' + idRamdom] = val['obj_marque'];
 
         display_formulaire(val, document.formSaisieExpress);
 
@@ -217,6 +230,7 @@ function display_fiche(val) {
         val['obj_etat_new'] = "STOCK";
         val['obj_etat'] = "INIT";
         val['obj_id'] = "";
+        val['obj_couleur'] = "";
 
         if (document.formSaisieExpress.cli_id.value != '') {
             x_return_oneClient(document.formSaisieExpress.cli_id.value, display_infoClientVendeur);
@@ -225,6 +239,10 @@ function display_fiche(val) {
         document.formSaisieExpress.obj_type.disabled = false;
         document.formSaisieExpress.obj_type.focus();
         document.formSaisieExpress.obj_prix_vente.disabled = false;
+        document.formSaisieExpress.obj_couleur.disabled = false;
+        document.formSaisieExpress.elements.namedItem('obj_marque_' + idRamdom).disabled = false;
+        document.formSaisieExpress.elements.namedItem('obj_marque_' + idRamdom).value = "";
+
         document.formSaisieExpress.cli_emel.disabled = false;
         document.formSaisieExpress.elements.namedItem('cli_nom_' + idRamdom).disabled = false;
         document.formSaisieExpress.cli_code_postal.disabled = false;
@@ -320,6 +338,8 @@ function submitForm() {
     console.log("etat =>" + document.formSaisieExpress.action.value + " " + tabObj['obj_etat_' + document.formSaisieExpress.action.value]);
 
     tabObj['obj_etat_new'] = tabObj['obj_etat_' + document.formSaisieExpress.action.value];
+    tabObj['obj_marque'] = tabObj['obj_marque_' + idRamdom];
+    delete tabObj['obj_marque_' + idRamdom];
     delete tabObj['obj_etat_new2'];
     delete tabObj['obj_etat_newAno'];
     console.log(tabObj);

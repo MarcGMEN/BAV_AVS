@@ -118,6 +118,7 @@ function action_createFiche($data)
         // on pousse la marque et le modele en capitale
         $tabObj['obj_marque'] = strtoupper($tabObj['obj_marque']);
         $tabObj['obj_modele'] = strtoupper($tabObj['obj_modele']);
+        $tabObj['obj_couleur'] = strtoupper($tabObj['obj_couleur']);
 
         if ($ADMIN) {
             // creation du numero a partir de la base parametre pour la BAV
@@ -250,6 +251,10 @@ function action_createFicheExpress($data)
             'avs44'
         );
         $tabObj['obj_id'] = 0;
+
+        // on pousse la marque et le modele en capitale
+        $tabObj['obj_marque'] = strtoupper($tabObj['obj_marque']);
+        $tabObj['obj_couleur'] = strtoupper($tabObj['obj_couleur']);
 
         // affectationa la BAV
         $tabObj['obj_numero_bav'] = $INFO_APPLI['numero_bav'];
