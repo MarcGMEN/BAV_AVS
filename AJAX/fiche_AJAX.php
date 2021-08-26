@@ -453,11 +453,11 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon="coupon_ve
             }
         }
     } else if ($eti0 >=  $INFO_APPLI['base_info']) {
-        for ($numFiche = $eti0; $numFiche < $eti1; $numFiche++) {
+        for ($numFiche = $eti0; $numFiche <= $eti1; $numFiche++) {
             $tabFiche[$index++] = $numFiche;
         }
     } else if ($eti0 == 1) {
-        for ($numFiche = 1; $numFiche < $eti1; $numFiche++) {
+        for ($numFiche = 1; $numFiche <= $eti1; $numFiche++) {
             $tabFiche[$index++] = $numFiche;
         }
     }
@@ -467,11 +467,11 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon="coupon_ve
         }
     }
     $espace75="";
-    for($i=0;$i<=70;$i++) {
+    for($i=0;$i<=60;$i++) {
         $espace75.="&nbsp;";
     }
     $espace50="";
-    for($i=0;$i<=45;$i++) {
+    for($i=0;$i<=35;$i++) {
         $espace50.="&nbsp;";
     }
 
@@ -491,7 +491,7 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon="coupon_ve
             $client['cli_nom1'] = $client['cli_nom'] ;
         } else {
             $client['cli_prix_depot'] = "";
-            $client['cli_nom1'] = "<u>$espace50</u>";
+            $client['cli_nom1'] = "<u>$espace75</u>";
             $client['cli_nom'] = "<u>$espace75</u>";;
             $client['cli_prenom'] = "<u>$espace75</u>";
             $client['cli_emel'] = "<u>$espace75</u>";
@@ -557,6 +557,7 @@ function action_makeA4Fiches($eti0, $eti1)
         'mois' => date('M', $INFO_APPLI['date_j2']),
         'annee' => date('Y', $INFO_APPLI['date_j2']),
         'titre' => $INFO_APPLI['titre'],
+        'imageBAV' => $INFO_APPLI['titre'],
         'URL' => $CFG_URL,
         'numero_bav' => $INFO_APPLI['numero_bav']
     );
