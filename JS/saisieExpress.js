@@ -106,7 +106,7 @@ function afficheLigne(val) {
             new_etat = "STOCK";
             new_libelle = "Stocker";
             var thePrix = val['obj_prix_depot'];
-            var actionPrix = "<input type='number' name='obj_prix_vente_" + val['obj_numero'] + "' min=1 value='" + thePrix + "' />";
+            var actionPrix = "<input type='number' name='obj_prix_vente_" + val['obj_numero'] + "' min=1 step='0.1' value='" + thePrix + "' />";
             getElement("prix_vente_" + val['obj_numero']).innerHTML = actionPrix;
 
             action = "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\",document.formTabSaisie.obj_prix_vente_" + val['obj_numero'] + ".value)' />";

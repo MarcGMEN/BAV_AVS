@@ -1,4 +1,4 @@
-<? $idRamdom = rand(1000, 9999); 
+<?php $idRamdom = rand(1000, 9999);
 $maxFiche=1800;
 ?>
 
@@ -8,16 +8,24 @@ $maxFiche=1800;
 	var maxFiche = "<?= $maxFiche ?>";;
 </script>
 <script src="JS/saisieExpress.js" type="text/javascript"></script>
-<form action="#" name="searchFormFiche" onsubmit='x_return_oneFicheByCode(this.numeroFiche.value, display_ficheN); return false'>
-	<input type="text" name="numeroFiche" size="8" maxlength="50" title="Saisisez le numéro de fiche" 
-	placeholder="N° fiche" id="inputSearch" style='background-color:LIGHTGREEN;font-weight: bold;width:10%' 
-	tabindex=<?= $tabindex++ ?> onblur="x_return_oneFicheByCode(document.searchFormFiche.numeroFiche.value, display_ficheN)" />
-	<i id="loupe" class="fas fa-search link " onclick="x_return_oneFicheByCode(document.searchFormFiche.numeroFiche.value, display_ficheN)"></i>
+
+
+<div style="position: fixed;background-color: RED; left:-10px">
+<form action="#" name="searchFormFiche" 
+		onsubmit='x_return_oneFicheByCode(this.numeroFiche.value, display_ficheN); return false'>
+	<input type="text" name="numeroFiche" 
+		size="6" maxlength="4" title="Saisisez le numéro de fiche" 
+		placeholder="N° fiche" id="inputSearch" 
+		style='background-color:LIGHTGREEN;font-weight: bold;width:10%' 
+		tabindex=<?= $tabindex++ ?>0
+	 	onblur="x_return_oneFicheByCode(document.searchFormFiche.numeroFiche.value, display_ficheN)" />
+	<i id="loupe" class="fas fa-search link " 
+	onclick="x_return_oneFicheByCode(document.searchFormFiche.numeroFiche.value, display_ficheN)"></i>
 </form>
 
 <form name="formSaisieExpress" onsubmit="return submitForm()">
 
-	<table width='100%' border=0 >
+	<table width='95%' border=0 >
 		<tr>
 			<td class='tittab' width=5%>No</td>
 			<td class='tittab' width=10%>Type</td>
@@ -97,7 +105,7 @@ $maxFiche=1800;
 	</table>
 </form>
 <br/>
-<table width='100%'>
+<table width='90%'>
 	<tr>
 		<td class='tittab' width=12%>Action</td>
 		<td class='tittab' width=5%>No</td>
@@ -108,10 +116,11 @@ $maxFiche=1800;
 		<td class='tittab' width=3%></td>
 	</tr>
 </table>
+</div>
+<div style="overflow-y: scroll; height:45%; padding-top: 200px">
 <form name=formTabSaisie onSubmit='return false'>
-<div style="overflow-y: scroll; height:50%">
-	<table width='100%' id='tableFiches'>
-		<? for ($index = 1; $index < $maxFiche; $index++) { ?>
+	<table width='100%' id='tableFiches' style="overflow-y: scroll; height:45%">
+		<?php for ($index = 1; $index < $maxFiche; $index++) { ?>
 			<tr class='tabl0' id="tr_<?= $index ?>">
 				<td width=13% id="action_<?= $index ?>"></td>
 				<td width=5% id="numero_<?= $index ?>" onclick="x_return_oneFicheByCode('<?= $index ?>', display_fiche)"><span style="color: GREEN"><?= $index ?></span>
@@ -122,7 +131,7 @@ $maxFiche=1800;
 				<td width=10% id="etat_<?= $index ?>"></td>
 				<td width=1% id="zoom_<?= $index ?>"></td>
 			</tr>
-		<? } ?>
+		<?php } ?>
 	</table>
-</div>
 </form>
+</div>
