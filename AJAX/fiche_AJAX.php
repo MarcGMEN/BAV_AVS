@@ -557,7 +557,6 @@ function action_makeA4Fiches($eti0, $eti1)
         'mois' => date('M', $INFO_APPLI['date_j2']),
         'annee' => date('Y', $INFO_APPLI['date_j2']),
         'titre' => $INFO_APPLI['titre'],
-        'imageBAV' => $INFO_APPLI['titre'],
         'URL' => $CFG_URL,
         'numero_bav' => $INFO_APPLI['numero_bav']
     );
