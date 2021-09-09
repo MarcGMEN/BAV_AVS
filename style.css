@@ -466,7 +466,6 @@ div.FENETRE_PRINCIPALE {
     border: 2px;
     border-color: #AAA;
     border-style: outset;
-    height: 80%;
     /*	-moz-border-radius: 10px;
 	border-radius: 10px;
 	*/
@@ -486,7 +485,7 @@ div.FENETRE_PRINCIPALE {
     z-index: 2;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 50pt;
+    margin-bottom: 5pt;
 }
 
 .TITRE_FENETRE_PRINCIPALE {

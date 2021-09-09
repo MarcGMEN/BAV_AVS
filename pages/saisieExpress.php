@@ -116,7 +116,7 @@ $maxFiche=1800;
 		<td class='tittab' width=3%></td>
 	</tr>
 </table>
-<div style="overflow-y: scroll; height: 60%; max-height: 30vw ; ">
+<div style="overflow-y: scroll; height: 60%; max-height: 30vw ">
 <form name=formTabSaisie onSubmit='return false'>
 	<table width='100%' id='tableFiches' >
 		<?php for ($index = 1; $index < $maxFiche; $index++) { ?>
