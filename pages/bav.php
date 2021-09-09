@@ -5,6 +5,7 @@
 		x_return_html('bav_statistique', display_bav_statistique);
 		x_return_html('bav_programme', display_bav_programme);
 		x_return_html('bav_vendre', display_bav_vendre);
+		x_return_html('bav_orga', display_bav_orga);
 	//	x_return_html('bav_principe', display_bav_principe);
 	}
 
@@ -36,6 +37,10 @@
 	function display_bav_principe(val) {<? if ($infAppli['ADMIN']) {?>
 		getElement('editor_bav_principe').innerHTML=val;<?}?>
 		getElement('bav_principe').innerHTML=val;
+	}
+	function display_bav_orga(val) {<? if ($infAppli['ADMIN']) {?>
+		getElement('editor_bav_orga').innerHTML=val;<?}?>
+		getElement('bav_orga').innerHTML=val;
 	}
 
 	function unloadPage() {}
