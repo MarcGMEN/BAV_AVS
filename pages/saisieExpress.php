@@ -10,7 +10,6 @@ $maxFiche=1800;
 <script src="JS/saisieExpress.js" type="text/javascript"></script>
 
 
-<div style="position: fixed;background-color: RED; left:-10px">
 <form action="#" name="searchFormFiche" 
 		onsubmit='x_return_oneFicheByCode(this.numeroFiche.value, display_ficheN); return false'>
 	<input type="text" name="numeroFiche" 
@@ -25,7 +24,7 @@ $maxFiche=1800;
 
 <form name="formSaisieExpress" onsubmit="return submitForm()">
 
-	<table width='95%' border=0 >
+	<table width='100%' border=0 >
 		<tr>
 			<td class='tittab' width=5%>No</td>
 			<td class='tittab' width=10%>Type</td>
@@ -58,8 +57,9 @@ $maxFiche=1800;
 			</td>
 			<td>
 			</td>
-			<td id="obj_etat" rowspan=3 style="text-align:center;vertical-align:middle"></td>
-			<td rowspan=3 style="text-align:center;vertical-align:middle">
+			<td id="obj_etat" rowspan=3 class="tittab" style="text-align:center;vertical-align:middle">
+			</td>
+			<td rowspan=3 class="tittab" style="text-align:center;vertical-align:middle">
 				<button id="but_action" tabindex=<?= $tabindex+6 ?>
 					onsubmit="this.form.action.value='new'" onclick="this.form.action.value='new'"></button>
 				<input type="hidden" name="action" value="new">
@@ -105,7 +105,7 @@ $maxFiche=1800;
 	</table>
 </form>
 <br/>
-<table width='90%'>
+<table width='100%'>
 	<tr>
 		<td class='tittab' width=12%>Action</td>
 		<td class='tittab' width=5%>No</td>
@@ -116,8 +116,7 @@ $maxFiche=1800;
 		<td class='tittab' width=3%></td>
 	</tr>
 </table>
-</div>
-<div style="overflow-y: scroll; height:45%; padding-top: 200px">
+<div style="overflow-y: scroll; height:45%;">
 <form name=formTabSaisie onSubmit='return false'>
 	<table width='100%' id='tableFiches' style="overflow-y: scroll; height:45%">
 		<?php for ($index = 1; $index < $maxFiche; $index++) { ?>

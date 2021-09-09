@@ -170,7 +170,7 @@ function display_fiche(val) {
         getElement("but_actionAno").style.display = 'none';
         getElement("but_action2").style.display = 'none';
 
-        getElement("but_action").style.display = 'block';
+        getElement("but_action").style.display = 'table-cell';
 
         getElement("but_action").focus();
         if (val['obj_etat'] == "INIT") {
@@ -185,9 +185,9 @@ function display_fiche(val) {
             val['obj_prix_vente'] = val['obj_prix_depot'];
         } else if (val['obj_etat'] == "STOCK") {
             getElement("but_action").innerHTML = "Vendre";
-            getElement("but_action2").style.display = 'block';
+            getElement("but_action2").style.display = 'table-cell';
             getElement("but_action2").innerHTML = "Rendre";
-            getElement("but_actionAno").style.display = 'block';
+            getElement("but_actionAno").style.display = 'table-cell';
             getElement("but_actionAno").innerHTML = "De-stocker";
 
             val['obj_etat_new'] = "VENDU";
@@ -195,7 +195,7 @@ function display_fiche(val) {
             val['obj_etat_newAno'] = "DESTOCK";
         } else if (val['obj_etat'] == "VENDU") {
             getElement("but_action").innerHTML = "Payer";
-            getElement("but_actionAno").style.display = 'block';
+            getElement("but_actionAno").style.display = 'table-cell';
             getElement("but_actionAno").innerHTML = "De-vendre";
             val['obj_etat_new'] = "PAYE";
             val['obj_etat_newAno'] = "DEVENDRE";
@@ -204,7 +204,7 @@ function display_fiche(val) {
             getElement("but_action").disabled = true;
             getElement("but_action").innerHTML = "Clos";
 
-            getElement("but_actionAno").style.display = 'block';
+            getElement("but_actionAno").style.display = 'table-cell';
             getElement("but_actionAno").innerHTML = "De-payer";
             val['obj_etat_newAno'] = "DEPAYER";
 
@@ -213,7 +213,7 @@ function display_fiche(val) {
             getElement("but_action").disabled = true;
             getElement("but_action").innerHTML = "Clos";
 
-            getElement("but_actionAno").style.display = 'block';
+            getElement("but_actionAno").style.display = 'table-cell';
             getElement("but_actionAno").innerHTML = "Remettre en stock";
             val['obj_etat_newAno'] = "DERENDRE";
 
@@ -259,7 +259,6 @@ function display_fiche(val) {
 function searchByName(value) {
     console.log("searchByName " + value);
     if (value != "" && document.formSaisieExpress.cli_emel.value == "") {
-        //console.log("recherche par nom");
         x_return_oneClientByName(value, display_infoClientVendeurName);
     }
 }
@@ -290,7 +289,7 @@ function display_infoClientVendeurName(val) {
 }
 
 function display_infoClientVendeur(val, base) {
-    //console.log(val);
+    console.log(val);
     if (val instanceof Object) {
         val['cli_nom_' + idRamdom] = val['cli_nom'];
         // si mel on force la liste des vendeur Name a vide
@@ -454,8 +453,8 @@ function unloadPage() {}
 function searchAchByName(value) {
     console.log("searchByName " + value);
     if (value != "" && document.modalForm.ach_emel.value == "") {
-        //console.log("recherche par nom");
-        x_return_oneClientByName(value, display_infoClientAcheteurBis);
+
+        x_return_oneClientByName(utf8_encode($value), display_infoClientAcheteurBis);
     }
 }
 

@@ -466,6 +466,7 @@ div.FENETRE_PRINCIPALE {
     border: 2px;
     border-color: #AAA;
     border-style: outset;
+    height: 80%;
     /*	-moz-border-radius: 10px;
 	border-radius: 10px;
 	*/

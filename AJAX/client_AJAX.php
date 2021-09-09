@@ -39,7 +39,7 @@ function return_oneClientByMel($mel)
 function return_oneClientByName($mel)
 {
     if (strlen($mel) > 0) {
-        return getOne($mel, "bav_client", "cli_nom");
+        return getOne(utf8_encode($mel), "bav_client", "cli_nom");
     }
 }
 
