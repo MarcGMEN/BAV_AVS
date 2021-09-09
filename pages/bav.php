@@ -120,7 +120,8 @@
 			  "Quoi vendre ?" => "bav_vendre",
 			 // "PRINCIPES" => 'bav_principe',
 			  'Les stats' => "bav_statistique",
-		      'Programme' => "bav_programme"
+		      'Programme' => "bav_programme",
+			  'Organisateur' => "bav_orga"
 	];?>
 
 <!-- <table style="width: 100%;" border=1><tr> -->
