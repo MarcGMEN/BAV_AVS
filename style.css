@@ -393,7 +393,8 @@ div.SSMENU {
     }
     .menuMobile {
         display: block;
-        top: 0;
+        top: 10;
+        left: 10;
     }
     .menuNavigation {
         display: none;
