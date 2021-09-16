@@ -9,7 +9,7 @@ ipLocal = "<?=$_SERVER['REMOTE_ADDR']?>";
 		<td width="12%">
 			<div class="row">
 				<div class="col-sm-6 col-md-6 col-xs-6 menuMobile">
-					<i class="fas fa-bars" style="font-size:36px" onclick="menuSel()"></i>
+					<i class="fas fa-bars"  aria-hidden="true" style="font-size:36px" onclick="menuSel()"></i>
 				</div>
 				<div class="col-sm-12 col-md-12 col-xs-6 maskMobile">
 					<img src="Images/cycleBAV.png" id="cycleBAV" class=link onclick="location.href='index.php'" />
