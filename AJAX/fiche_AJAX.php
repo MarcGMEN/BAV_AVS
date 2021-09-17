@@ -342,7 +342,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
     $index=1;
     foreach ($tabFiche as $numFiche) {
         $fiche = [];
-        if ($eti0 > 0 && $fiche = getOneFicheByCode($numFiche)) {
+        if ($eti0 >= 0 && $fiche = getOneFicheByCode($numFiche)) {
             if ($fiche['obj_id']) {
 
                 error_log("[action_makeA4Etiquettes] test $test");
@@ -468,7 +468,7 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon="coupon_ve
 
     $index=1;
     foreach ($tabFiche as $numFiche) {
-        if ($eti0 > 0 && $fiche = getOneFicheByCode($numFiche)) {
+        if ($eti0 >= 0 && $fiche = getOneFicheByCode($numFiche)) {
             if ($fiche['obj_id']) {
                 if (!$test) {
                     $fiche['obj_modif_vendeur']=0;
