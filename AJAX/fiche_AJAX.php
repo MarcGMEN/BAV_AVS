@@ -328,12 +328,8 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
                 }
             }
         }
-    } else if ($eti0 >=  $INFO_APPLI['base_info']) {
+    } else if ($eti0 >0 ) {
         for ($numFiche = $eti0; $numFiche <= $eti1; $numFiche++) {
-            $tabFiche[$index++] = $numFiche;
-        }
-    } else if ($eti0 == 1) {
-        for ($numFiche = 1; $numFiche < $INFO_APPLI['base_info']; $numFiche++) {
             $tabFiche[$index++] = $numFiche;
         }
     }
@@ -346,8 +342,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
     $index=1;
     foreach ($tabFiche as $numFiche) {
         $fiche = [];
-        if ($eti0 >=  $INFO_APPLI['base_info'] || $eti0 == 0) {
-            $fiche = getOneFicheByCode($numFiche);
+        if ($eti0 > 0 && $fiche = getOneFicheByCode($numFiche)) {
             if ($fiche['obj_id']) {
 
                 error_log("[action_makeA4Etiquettes] test $test");
@@ -371,9 +366,9 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
             else {
                 $fiche['obj_numero'] = $numFiche;
             }
-            $fiche['obj_type'] = "<br/><span style='font-size:9px'><i>Autre-VTT-Route-VTC-Ville-VAE-BMX</i></span>";
-            $fiche['obj_public'] = "<br/><span style='font-size:9px'><i>Mixte-Homme-Femme-Enfant</i></span>";
-            $fiche['obj_pratique'] = "<br/><span style='font-size:9px'><i>Sportive-Loisir-Compétition-Autre</i></span>";
+            $fiche['obj_type'] = "<br/><span style='font-size:6px'><i>Autre-VTT-Route-VTC-Ville-VAE-BMX</i></span>";
+            $fiche['obj_public'] = "<br/><span style='font-size:6px'><i>Mixte-Homme-Femme-Enfant</i></span>";
+            $fiche['obj_pratique'] = "<br/><span style='font-size:6px'><i>Sportive-Loisir-Compétition-Autre</i></span>";
             $fiche['obj_marque'] = "&nbsp;<br/>";
             $fiche['obj_modele'] = "&nbsp;";
             $fiche['obj_couleur'] = "";
@@ -452,12 +447,8 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon="coupon_ve
                 }
             }
         }
-    } else if ($eti0 >=  $INFO_APPLI['base_info']) {
+    } else if ($eti0 > 0) {
         for ($numFiche = $eti0; $numFiche <= $eti1; $numFiche++) {
-            $tabFiche[$index++] = $numFiche;
-        }
-    } else if ($eti0 == 1) {
-        for ($numFiche = 1; $numFiche <= $eti1; $numFiche++) {
             $tabFiche[$index++] = $numFiche;
         }
     }
@@ -477,8 +468,7 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon="coupon_ve
 
     $index=1;
     foreach ($tabFiche as $numFiche) {
-        if ($eti0 >=  $INFO_APPLI['base_info'] || $eti0 == 0) {
-            $fiche = getOneFicheByCode($numFiche);
+        if ($eti0 > 0 && $fiche = getOneFicheByCode($numFiche)) {
             if ($fiche['obj_id']) {
                 if (!$test) {
                     $fiche['obj_modif_vendeur']=0;
