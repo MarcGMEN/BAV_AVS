@@ -389,7 +389,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
             $etiquettes .= makeCorps(array_merge($fiche, $data), 'etiquette.html');
             if ($index++%$INFO_APPLI['nb_eti_page']==0) {
                 $etiquettes .= "<hr/>";
-                $etiquettes .= "<div style='page-break-after:always; clear:both'>...</div>";
+                $etiquettes .= "<div style='page-break-after:always; clear:both;font-size:10pt;height:10pt'>..........</div>";
 
             }
         }
