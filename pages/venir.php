@@ -48,9 +48,9 @@
 				<p><span class="label label-info">Tél</span>
 					<span style="font-size: 16px;">06.46.58.06.61</span></p>
 				<p><span class="label label-info"><img src="Images/iconeInstagram.png" height="20px"></span>
-					<span style="font-size: 16px;"><A href='https://www.instagram.com/bourse.aux.1000.velos/?hl=fr'  target='_blank'>@bourse.aux.1000.velos</span></p>
+					<span style="font-size: 16px;"><A href='https://www.instagram.com/bourse.aux.1000.velos/?hl=fr'  target='_blank'>@bourse.aux.1000.velos</A></span></p>
 				<p><span class="label label-info"><img src="Images/iconeFacebook.png" height="20px"></span>
-					<span style="font-size: 16px;"><A href='https://www.facebook.com/events/277183270915982/' target='_blank'>17eme Bourse aux 1000 vélos</span></p>
+					<span style="font-size: 16px;"><A href='https://www.facebook.com/events/277183270915982/' target='_blank'>17eme Bourse aux 1000 vélos</A></span></p>
 
 		</fieldset>
 	</div>
