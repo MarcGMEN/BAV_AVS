@@ -139,7 +139,7 @@
 <!-- </tr></table> -->
 <br/>
 
-<? if ($infAppli['CLIENT'] || $infAppli['ADMIN']) {?>
+<? if ($infAppli['bav_en_cours'] || $infAppli['ADMIN']) {?>
 <form name="bavFormFiche" action="#" 
 	onsubmit='return searchVente(document.bavFormFiche.inputSearchBAV.value)'>
 	<h3>Votre vélo est il vendu ? </h3>

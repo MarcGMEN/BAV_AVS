@@ -75,12 +75,12 @@ function display_parametre(val) {
     enableDisplay('parametre');
 
     // si on est actif on coche le checkbox
-    document.parametreForm.par_actif.value=1
-    document.parametreForm.par_actif.checked=false;
+    document.parametreForm.par_actif.value = 1
+    document.parametreForm.par_actif.checked = false;
     if (val['par_actif'] == 1) {
-        document.parametreForm.par_actif.checked=true;	
+        document.parametreForm.par_actif.checked = true;
     }
-    
+
     // on position le mode de la page
     modePage = "modification";
 
@@ -106,8 +106,8 @@ function modeCreation() {
     modePage = "creation";
 
     // on est pas actif par defaut, mais la valeur en cas de ckech c'est 1
-    document.parametreForm.par_actif.value=1
-    document.parametreForm.par_actif.checked=false;
+    document.parametreForm.par_actif.value = 1
+    document.parametreForm.par_actif.checked = false;
 
     // on debloque la saisie du numero de BAV
     document.parametreForm.par_numero_bav.disabled = false;
@@ -179,8 +179,11 @@ function display_update(val) {
  * suppresion d'un BAV, avec retour dans le display_update
  */
 function supprimer() {
-    if (document.parametreForm.par_actif.checked)
-    if (confirm('Suppression de parametre')) {
-        x_action_supprimeParametre(document.parametreForm.par_numero_bav.value, display_update);
+    if (!document.parametreForm.par_actif.checked) {
+        if (confirm('Suppression de parametre')) {
+            x_action_supprimeParametre(document.parametreForm.par_numero_bav.value, display_update);
+        }
+    } else {
+        alert("Suppression impossible d'une BAV Active.")
     }
 }
