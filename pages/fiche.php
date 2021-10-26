@@ -21,7 +21,7 @@
 			<a href="mailto:bourse1000velos@avs44.com">bourse1000velos@avs44.com</a> </p>
 	</div>
 	<div class='alert alert-warning'>
-		En cas de non réception des mails, n'hésitez pas a nous contacter <a href='mailto:bourse1000velos@avs44.com' class="url">bourse1000velos@avs44.com</a>
+		En cas de non réception des mails, ou de soucis lors du pré-dépôt via le site, n'hésitez pas a nous contacter <a href='mailto:bourse1000velos@avs44.com' class="url">bourse1000velos@avs44.com</a>
 	</div>
 <? } ?>
 <form name="ficheForm" method="POST" onsubmit="return submitForm()" action="">
