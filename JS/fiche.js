@@ -561,7 +561,7 @@ function supprimerFiche() {
 }
 /**
  * affchage du modal de suppression avec attente de confirmation
- * la confirmation est géré par ConfirmModal optoin Supp
+ * la confirmation est géré par ConfirmModal option Supp
  * @param  mess 
  */
 function display_messageConfirmSupp(mess) {

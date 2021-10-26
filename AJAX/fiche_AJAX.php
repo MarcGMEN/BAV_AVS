@@ -280,12 +280,12 @@ function action_createFicheExpress($data)
  */
 function action_deleteFiche($id)
 {
-    extract($GLOBALS);
-    $ADMIN = $INFO_APPLI['ADMIN'];
+    //extract($GLOBALS);
+    //$ADMIN = $INFO_APPLI['ADMIN'];
 
-    if ($ADMIN) {
+    //if ($ADMIN) {
         deleteFiche($id);
-    }
+    //}
 }
 
 /**
