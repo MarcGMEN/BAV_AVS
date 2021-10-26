@@ -216,7 +216,11 @@
 	<!-- VENDEUR -->
 	<!-- VENDEUR -->
 	<fieldset class=fiche>
-		<legend class="titreFiche link" id='legendVendeur' onclick='goTo("client.php","consult",document.ficheForm.cli_id.value,"")' title="Accès au vendeur">
+		<legend class="titreFiche link" id='legendVendeur'
+		<? if ($GET_modePage != "create") { ?> 
+				onclick='goTo("client.php","consult",document.ficheForm.cli_id.value,"")' title="Accès au vendeur"
+		<?}?>	
+		>
 			Le vendeur
 			<? if ($infAppli['ADMIN']) { ?>
 				<span style="font-size: 0.7em" id="cli_id">...</span>

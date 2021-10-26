@@ -106,6 +106,8 @@ function action_createFiche($data)
         // on a pas de cli_id
         makeClient($tabCli);
 
+        error_log($tabCli['cli_id']);
+
         // en cas de creation, on reforce un update
         // en cas de client trouve par mel ou nom on prend compte les modifs possible
         // adresse ou nom si mel ok.
