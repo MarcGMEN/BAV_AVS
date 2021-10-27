@@ -50,7 +50,7 @@ function return_oneFicheByCode($id)
     $row = getOneFicheByCode($id);
     if ($row) {
         $row['obj_date_depot_FR'] = formateDateMYSQLtoFR($row['obj_date_depot'], true);
-        $row['cli_com']=getCommission($row);
+        $row['cli_com'] = getCommission($row);
     } else {
         $row['obj_numero'] = $id;
     }
@@ -67,7 +67,7 @@ function return_oneFicheByIdModif($id)
     $row = getOneFicheByIdModif($id);
     if ($row) {
         $row['obj_date_depot_FR'] = formateDateMYSQLtoFR($row['obj_date_depot'], true);
-        $row['cli_com']=getCommission($row);
+        $row['cli_com'] = getCommission($row);
     }
     return $row;
 }
@@ -80,7 +80,7 @@ function return_oneFiche($id)
     $row = getOneFiche($id);
     if ($row) {
         $row['obj_date_depot_FR'] = formateDateMYSQLtoFR($row['obj_date_depot'], true);
-        $row['cli_com']=getCommission($row);
+        $row['cli_com'] = getCommission($row);
     }
     return $row;
 }
@@ -105,70 +105,75 @@ function action_createFiche($data)
         // on en normalement avec le mel uniquement
         // on a pas de cli_id
         makeClient($tabCli);
+        
+        error_log("cli_id = ".$tabCli['cli_id']);
+        if ($tabCli['cli_id'] != 0) {
 
-        error_log($tabCli['cli_id']);
+            // en cas de creation, on reforce un update
+            // en cas de client trouve par mel ou nom on prend compte les modifs possible
+            // adresse ou nom si mel ok.
+            updateClient($tabCli);
 
-        // en cas de creation, on reforce un update
-        // en cas de client trouve par mel ou nom on prend compte les modifs possible
-        // adresse ou nom si mel ok.
-        updateClient($tabCli);
+            $tabObj['obj_id_vendeur'] = $tabCli['cli_id'];
 
-        $tabObj['obj_id_vendeur'] = $tabCli['cli_id'];
+            $tabObj['obj_id'] = 0;
 
-        $tabObj['obj_id'] = 0;
+            // on pousse la marque et le modele en capitale
+            $tabObj['obj_marque'] = strtoupper($tabObj['obj_marque']);
+            $tabObj['obj_modele'] = strtoupper($tabObj['obj_modele']);
+            $tabObj['obj_couleur'] = strtoupper($tabObj['obj_couleur']);
 
-        // on pousse la marque et le modele en capitale
-        $tabObj['obj_marque'] = strtoupper($tabObj['obj_marque']);
-        $tabObj['obj_modele'] = strtoupper($tabObj['obj_modele']);
-        $tabObj['obj_couleur'] = strtoupper($tabObj['obj_couleur']);
-
-        if ($ADMIN) {
-            // creation du numero a partir de la base parametre pour la BAV
-            makeNumeroFiche($INFO_APPLI['base_info'], $tabObj);
-            // on passe en STOCK
-            $tabObj['obj_etat'] = 'STOCK';
-            // on valide le prix de vente
-            $tabObj['obj_prix_vente'] = $tabObj['obj_prix_depot'];
-            // date de creation
-            $tabObj['obj_date_depot'] = date('y-m-d H:i:s');
-        } else {
-            $tabObj['obj_etat'] = 'INIT';
-            makeNumeroFiche(5000, $tabObj);
-
-            // creation du lien REST pour confirmer le depot
-            $tabPlus['lien_confirm'] = $CFG_URL . "/Actions/rest.php?a=C&id=" . $tabObj['obj_id_modif'];
-
-            // si pas de pri de depot, alors phrase de rappel
-            if ($tabObj['obj_prix_depot'] == "") {
-                $tabPlus['obj_prix_depot'] = 'A renseigner le jour du dépôt dernier délai';
-                $tabObj['obj_prix_depot'] == 0;
+            if ($ADMIN) {
+                // creation du numero a partir de la base parametre pour la BAV
+                makeNumeroFiche($INFO_APPLI['base_info'], $tabObj);
+                // on passe en STOCK
+                $tabObj['obj_etat'] = 'STOCK';
+                // on valide le prix de vente
+                $tabObj['obj_prix_vente'] = $tabObj['obj_prix_depot'];
+                // date de creation
+                $tabObj['obj_date_depot'] = date('y-m-d H:i:s');
             } else {
-                $tabPlus['obj_prix_depot'] = $tabObj['obj_prix_depot'] . " €";
+                $tabObj['obj_etat'] = 'INIT';
+                makeNumeroFiche(5000, $tabObj);
+
+                // creation du lien REST pour confirmer le depot
+                $tabPlus['lien_confirm'] = $CFG_URL . "/Actions/rest.php?a=C&id=" . $tabObj['obj_id_modif'];
+
+                // si pas de pri de depot, alors phrase de rappel
+                if ($tabObj['obj_prix_depot'] == "") {
+                    $tabPlus['obj_prix_depot'] = 'A renseigner le jour du dépôt dernier délai';
+                    $tabObj['obj_prix_depot'] == 0;
+                } else {
+                    $tabPlus['obj_prix_depot'] = $tabObj['obj_prix_depot'] . " €";
+                }
+
+                $tabPlus['titre'] = $INFO_APPLI['titre'];
+
+                // titre du mel
+                $titreMel = "Confirmation de votre dépôt à " . $INFO_APPLI['titre'];
+
+                // creation du message du mel
+                // template : html/mel_enregristrement.html
+                $message = makeMessage($titreMel, array_merge($tabObj, $tabCli, $tabPlus), "mel_enregistrement.html");
             }
 
-            $tabPlus['titre'] = $INFO_APPLI['titre'];
+            $tabObj['obj_numero_bav'] = $INFO_APPLI['numero_bav'];
+            //        print_r($tabObj);
+            // creation de la fiche
+            $tabObj['obj_id'] = insertFiche($tabObj);
 
-            // titre du mel
-            $titreMel = "Confirmation de votre dépôt à " . $INFO_APPLI['titre'];
-
-            // creation du message du mel
-            // template : html/mel_enregristrement.html
-            $message = makeMessage($titreMel, array_merge($tabObj, $tabCli, $tabPlus), "mel_enregistrement.html");
+            if ($ADMIN) {
+                // si admin, on revient sur la fiche
+                $retour = array();
+                //$retour['message'] = "OK pour creation de ".$tabObj['obj_numero'];
+                $retour['id'] = $tabObj['obj_id'];
+            } else {
+                // sinon on envoi le mel
+                $retour = sendMail($titreMel, $tabCli['cli_emel'], $message);
+            }
         }
-
-        $tabObj['obj_numero_bav'] = $INFO_APPLI['numero_bav'];
-        //        print_r($tabObj);
-        // creation de la fiche
-        $tabObj['obj_id'] = insertFiche($tabObj);
-
-        if ($ADMIN) {
-            // si admin, on revient sur la fiche
-            $retour = array();
-            //$retour['message'] = "OK pour creation de ".$tabObj['obj_numero'];
-            $retour['id'] = $tabObj['obj_id'];
-        } else {
-            // sinon on envoi le mel
-            $retour = sendMail($titreMel, $tabCli['cli_emel'], $message);
+        else {
+            return "ERREUR : problème de création du client";    
         }
     } catch (Exception $e) {
         return "ERREUR " . $e->getMessage();
@@ -284,7 +289,7 @@ function action_deleteFiche($id)
     //$ADMIN = $INFO_APPLI['ADMIN'];
 
     //if ($ADMIN) {
-        deleteFiche($id);
+    deleteFiche($id);
     //}
 }
 
@@ -330,18 +335,17 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
                 }
             }
         }
-    } else if ($eti0 >0 ) {
+    } else if ($eti0 > 0) {
         for ($numFiche = $eti0; $numFiche <= $eti1; $numFiche++) {
             $tabFiche[$index++] = $numFiche;
         }
-    }
-    else if ($eti0 == -1) {
+    } else if ($eti0 == -1) {
         for ($numFiche = 0; $numFiche < $INFO_APPLI['nb_eti_page']; $numFiche++) {
             $tabFiche[$index++] = $numFiche;
         }
     }
 
-    $index=1;
+    $index = 1;
     foreach ($tabFiche as $numFiche) {
         $fiche = [];
         if ($eti0 >= 0 && $fiche = getOneFicheByCode($numFiche)) {
@@ -349,7 +353,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
 
                 error_log("[action_makeA4Etiquettes] test $test");
                 if (!$test) {
-                    $fiche['obj_modif_data']=0;
+                    $fiche['obj_modif_data'] = 0;
                     updateFiche($fiche);
                 }
 
@@ -359,13 +363,11 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
                 if ($fiche['obj_prix_depot'] == 0) {
                     $fiche['obj_prix_depot'] = "";
                 }
-
             }
-        } else { 
+        } else {
             if ($eti0 == -1) {
                 $fiche['obj_numero'] = "";
-            }
-            else {
+            } else {
                 $fiche['obj_numero'] = $numFiche;
             }
             $fiche['obj_type'] = "<br/><span style='font-size:6px'><i>Autre-VTT-Route-VTC-Ville-VAE-BMX</i></span>";
@@ -384,10 +386,9 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
         if (sizeof($fiche) > 0) {
             $etiquettes .= "<hr/>";
             $etiquettes .= makeCorps(array_merge($fiche, $data), 'etiquette.html');
-            if ($index++%$INFO_APPLI['nb_eti_page']==0) {
+            if ($index++ % $INFO_APPLI['nb_eti_page'] == 0) {
                 $etiquettes .= "<hr/>";
                 $etiquettes .= "<div style='page-break-after:always; clear:both;font-size:10pt;height:10pt'>..........</div>";
-
             }
         }
     }
@@ -412,7 +413,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
  * creation des etiquetes sur une feuille A4
  * parametre : le numero de depart, la mise a jour de l'impression, le nombre de page
  */
-function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon="coupon_vendeur")
+function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_vendeur")
 {
     extract($GLOBALS);
 
@@ -453,34 +454,33 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon="coupon_ve
         for ($numFiche = $eti0; $numFiche <= $eti1; $numFiche++) {
             $tabFiche[$index++] = $numFiche;
         }
-    }
-    else if ($eti0 == -1) {
+    } else if ($eti0 == -1) {
         for ($numFiche = 0; $numFiche < $INFO_APPLI['nb_coupon_page']; $numFiche++) {
             $tabFiche[$index++] = $numFiche;
         }
     }
-    $espace75="";
-    for($i=0;$i<=60;$i++) {
-        $espace75.="&nbsp;";
+    $espace75 = "";
+    for ($i = 0; $i <= 60; $i++) {
+        $espace75 .= "&nbsp;";
     }
-    $espace50="";
-    for($i=0;$i<=35;$i++) {
-        $espace50.="&nbsp;";
+    $espace50 = "";
+    for ($i = 0; $i <= 35; $i++) {
+        $espace50 .= "&nbsp;";
     }
 
-    $index=1;
+    $index = 1;
     foreach ($tabFiche as $numFiche) {
         if ($eti0 >= 0 && $fiche = getOneFicheByCode($numFiche)) {
             if ($fiche['obj_id']) {
                 if (!$test) {
-                    $fiche['obj_modif_vendeur']=0;
+                    $fiche['obj_modif_vendeur'] = 0;
                     updateFiche($fiche);
                 }
 
                 $client = getOneClient($fiche['obj_id_vendeur']);
             }
             $client['cli_prenom'] = "";
-            $client['cli_nom1'] = $client['cli_nom'] ;
+            $client['cli_nom1'] = $client['cli_nom'];
         } else {
             $client['cli_prix_depot'] = "";
             $client['cli_nom1'] = "<u>$espace75</u>";
@@ -497,8 +497,7 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon="coupon_ve
             $client['cli_id_modif'] = "";
             if ($eti0 == -1) {
                 $fiche['obj_numero'] = "";
-            }
-            else {
+            } else {
                 $fiche['obj_numero'] = $numFiche;
             }
             $fiche['obj_type'] = "<br/><span style='font-size:9px'><i>Autre-VTT-Route-VTC-Ville-VAE-BMX</i></span>";
@@ -515,21 +514,20 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon="coupon_ve
         }
 
         if (sizeof($fiche) > 0) {
-            $etiquettes .= makeCorps(array_merge($fiche, $client, $data), $nameCoupon.'.html');
-            
-            if ($index++%$INFO_APPLI['nb_coupon_page']==0) {
+            $etiquettes .= makeCorps(array_merge($fiche, $client, $data), $nameCoupon . '.html');
+
+            if ($index++ % $INFO_APPLI['nb_coupon_page'] == 0) {
                 $etiquettes .= "<div style='page-break-after:always; clear:both'>...</div>";
-            }
-            else {
+            } else {
                 $etiquettes .= "<hr/>";
             }
         }
     }
-    $fileHTML = "../out/html/".$nameCoupon."_" . $eti0 . "_" . $eti1 . ".html";
+    $fileHTML = "../out/html/" . $nameCoupon . "_" . $eti0 . "_" . $eti1 . ".html";
 
     file_put_contents($fileHTML, utf8_decode($etiquettes));
 
-    return  $CFG_URL . "/out/html/".$nameCoupon."_" . $eti0 . "_" . $eti1 . ".html";
+    return  $CFG_URL . "/out/html/" . $nameCoupon . "_" . $eti0 . "_" . $eti1 . ".html";
     // $filePDF = html2pdf("", $fileHTML, "coupon_vendeur_" . $eti0 . "_" . $eti1, "L");
     // unlink($fileHTML);
 
@@ -588,8 +586,6 @@ function action_makeA4Fiches($eti0, $eti1)
                 $etiquettes .= makeCorps(array_merge($fiche, $client, $data), 'fiche_depot.html');
                 $etiquettes .= "<div style='page-break-after:always; clear:both'>...</div>";
             }
-
-            
         }
 
         // fichier HTML resultant
@@ -715,7 +711,7 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false, $format 
         $fiche['obj_id_acheteur'] = 999999;
         $fiche['obj_etat'] = "VENDU";
     } else {
-        $data['titre']="--".$data['titre']."--";
+        $data['titre'] = "--" . $data['titre'] . "--";
         $client['cli_prix_depot'] = $par['par_prix_depot_1'];
         $client['cli_nom'] = "";
         $client['cli_emel'] = "";
@@ -810,7 +806,6 @@ function action_changeEtatFiche($obj)
             $fiche['obj_etat'] = 'CONFIRME';
             // on remet le prix de vente a 0
             $fiche['obj_prix_vente'] = 0;
-            
         } elseif ($fiche['obj_etat'] == 'RENDU' || $fiche['obj_etat'] == 'PAYE') {
             // action RENDU et PAYE
             // on valide la date de fin

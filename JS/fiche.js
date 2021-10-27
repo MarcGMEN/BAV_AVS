@@ -503,8 +503,8 @@ function confirmModal(plus) {
 }
 
 function display_fin_create(val) {
-
     setStartSaisie(false);
+
     if (ADMIN) {
         if (val instanceof Object) {
             // retour sur la fiche 
@@ -513,8 +513,13 @@ function display_fin_create(val) {
             alertModalInfo(val);
         }
     } else {
+        if (val == 1) {
+            // retour sur la fiche 
+            goTo('fiche.php', modePage, null, "Merci. Vous allez recevoir un mail de confirmation.");
+        } else {
+            goTo('fiche.php', modePage, null, val + " Veuillez re-saisir votre fiche, en cas de nouveau pb contacter nous bourse1000velos@avs44.com");
+        }
         // pour les clients retour sur une fiche vierge
-        goTo('fiche.php', modePage, null, "Merci. Vous allez recevoir un mail de confirmation.");
     }
 }
 
