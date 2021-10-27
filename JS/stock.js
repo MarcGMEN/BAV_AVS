@@ -98,7 +98,7 @@ function display_fiches(val) {
                 repr += "<td width=10% >";
                 repr += val[index]['obj_pratique'];
                 repr += "</td>";*/
-                repr += "<td class='maskMobile' width=12% title='modèle :" + val[index]['obj_modele'] + "'>";
+                repr += "<td class='maskMobile' width=12% title=\"modèle :" + val[index]['obj_modele'] + "\ndesc :" + val[index]['obj_description'] + "\"'>";
                 repr += val[index]['obj_marque'];
                 repr += "</td>";
                 repr += "<td class='maskMobile' width=14% >";

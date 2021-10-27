@@ -313,12 +313,7 @@ function display_fiche(val) {
             document.ficheForm.obj_prix_vente.value = val['obj_prix_depot'];
             document.ficheForm.obj_prix_vente.disabled = true
 
-            // on ne pas mettre en stock a 0
-            document.ficheForm.obj_prix_depot.min = 1;
-
             val['obj_etat_libelle'] = "Demande confirmée le [" + formatDate(val['obj_date_depot'], true) + "]";
-
-
         }
         // etat STOCK
         if (val['obj_etat'] == "STOCK") {
