@@ -311,14 +311,19 @@ function return_statRepartition()
         $tabCount['stock_J3-AM'] = 0;
         $tabCount['stock_J3-PM'] = 0;
 
+        $paramBAV = getOneParemetre($GLOBALS['INFO_APPLI']['numero_bav']);
+        
+        $date_j1 = strtotime($paramBAV['par_date_debut_depot']);
+        $date_j2 = strtotime($paramBAV['par_date_debut_vente']);
+        $date_j3 = strtotime($paramBAV['par_date_fin_bav']);
         // init de date
-        $date['J1'] = $GLOBALS['INFO_APPLI']['date_j1'];
-        $date['J2-MATIN'] = $GLOBALS['INFO_APPLI']['date_j2'];
-        $date['J2-MIDI'] = mktime(12, 00, 00, date('n', $GLOBALS['INFO_APPLI']['date_j2']), date('j', $GLOBALS['INFO_APPLI']['date_j2']), date('Y', $GLOBALS['INFO_APPLI']['date_j2']));
-        $date['J3-MATIN'] = $GLOBALS['INFO_APPLI']['date_j3'];
-        $date['J3-MIDI'] = mktime(12, 00, 00, date('n', $GLOBALS['INFO_APPLI']['date_j3']), date('j', $GLOBALS['INFO_APPLI']['date_j3']), date('Y', $GLOBALS['INFO_APPLI']['date_j3']));
-        $date['depot_J30'] = mktime(00, 00, 00, date('n', $GLOBALS['INFO_APPLI']['date_j1']), date('j', $GLOBALS['INFO_APPLI']['date_j1']) - 7, date('Y', $GLOBALS['INFO_APPLI']['date_j1']));
-        $date['depot_J7'] = $GLOBALS['INFO_APPLI']['date_j1'];
+        $date['J1'] = $date_j1;
+        $date['J2-MATIN'] = $date_j2;
+        $date['J2-MIDI'] = mktime(12, 00, 00, date('n', $date_j2), date('j', $date_j2), date('Y', $date_j2));
+        $date['J3-MATIN'] = $date_j3;
+        $date['J3-MIDI'] = mktime(12, 00, 00, date('n', $date_j3), date('j', $date_j3), date('Y', $date_j3));
+        $date['depot_J30'] = mktime(00, 00, 00, date('n', $date_j1), date('j', $date_j1) - 7, date('Y', $date_j1));
+        $date['depot_J7'] = $date_j1;
 
         foreach ($tab as $key => $val) {
             if (
@@ -328,7 +333,10 @@ function return_statRepartition()
                 $val['obj_etat'] == 'PAYE'
             ) {
                 $dateDepotInt = dateMysqlInt($val['obj_date_depot']);
-                if ($dateDepotInt < $date['J2-MATIN']) {
+                if ($dateDepotInt < $date['depot_J7']) {
+                    $tabCount['depot_J7']++;
+                }
+                if ($dateDepotInt < $date['J2-MATIN'] && $dateDepotInt >= $date['depot_J7']) {
                     $tabCount['stock_J1']++;
                 }
                 if ($dateDepotInt >= $date['J2-MATIN'] && $dateDepotInt < $date["J2-MIDI"]) {
