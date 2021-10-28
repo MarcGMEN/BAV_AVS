@@ -193,7 +193,7 @@
 </style>
 <?// echo "_COOKIE['par_numero_bav_stat'] = ".$_COOKIE['par_numero_bav_stat']?>
 <? //echo "infoAppli['numero_bav'] = ".$infAppli['numero_bav']?>
-<select id="annee_stat" onchange="changeNumeroBAV(this.value)"></select><
+<select id="annee_stat" onchange="changeNumeroBAV(this.value)"></select>
 <fieldset class=fiche>
 	<legend class=titreFiche>Stat diverses</legend>
 	<table width="100%">
