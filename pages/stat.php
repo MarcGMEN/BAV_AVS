@@ -15,7 +15,7 @@
 			x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);
 
 			// retour de stat client
-		    x_return_statClient(display_statClient);
+		    // x_return_statClient(display_statClient);
 
 			// retour de stat de delais
 			x_return_statDelais(display_formulaire);
@@ -27,19 +27,19 @@
 			x_return_statByType(tabToString(tabSel),"depot", display_statDepot);
 
 			// affichage d'un histo des tarifs de depot
-			x_return_histoCount('tarif', 500, 250, 0, 'depot', display_countTarifDepot);
+			x_return_histoCount(tabToString(tabSel),'tarif', 500, 250, 0, 'depot', display_countTarifDepot);
 
 			// retour du nombre d'objet vendu supérieur a 500 
-			x_return_countByTarifSup(500, "depot", display_countByTarifSupDepot);
+			x_return_countByTarifSup(tabToString(tabSel),500, "depot", display_countByTarifSupDepot);
 
 			// visu de la stat de vente
 			x_return_statByType(tabToString(tabSel),"vente", display_statVente);
 
 			// affichage d'un histo des tarifs de vente
-			x_return_histoCount('tarif', 500, 250, 0, 'vente', display_countTarifVente);
+			x_return_histoCount(tabToString(tabSel),'tarif', 500, 250, 0, 'vente', display_countTarifVente);
 
 			// retour du nombre d'objet vendu supérieur a 500 
-			x_return_countByTarifSup(500, "vente", display_countByTarifSupVente);
+			x_return_countByTarifSup(tabToString(tabSel),500, "vente", display_countByTarifSupVente);
 
 		} else {
 			// si pas ADMIN retour page accueil
@@ -97,11 +97,11 @@
 	}
 
 	function display_countTarifDepot(val) {
-		getElement('tarifDepot').src = val;
+		getElement('tarifDepot').src = val+"?t=" + new Date().getMilliseconds();
 	}
 
 	function display_countTarifVente(val) {
-		getElement('tarifVente').src = val;
+		getElement('tarifVente').src = val+"?t=" + new Date().getMilliseconds();
 	}
 
 	function selectColonne() {
@@ -118,47 +118,62 @@
 
 		// visu de la stat de depot
 		x_return_statByType(tabToString(tabSel),"depot", display_statDepot);
+		x_return_histoCount(tabToString(tabSel),'tarif', 500, 250, 0, 'depot', display_countTarifDepot);
+		x_return_countByTarifSup(tabToString(tabSel),500, "depot", display_countByTarifSupDepot);
 		// visu de la stat de vente
 		x_return_statByType(tabToString(tabSel),"vente", display_statVente);
+		x_return_histoCount(tabToString(tabSel),'tarif', 500, 250, 0, 'vente', display_countTarifVente);
+		x_return_countByTarifSup(tabToString(tabSel),500, "vente", display_countByTarifSupVente);
 	}
 
 	function display_statDepot(val) {
-		console.log(val);
+		infoPlusObj("prixMinidepot", val);
+		infoPlusObj("prixMaxidepot", val);
 
-		infoPlusObj("prixMinidepot", val['objprixMinidepot']);
-		infoPlusObj("prixMaxidepot", val['objprixMaxidepot']);
-
-		infoPlusCli("nbVeloMaxiVendeurdepot", val['clinbVeloMaxiVendeurdepot']);
+		infoPlusCli("nbVeloMaxiVendeurdepot", val);
 		
 		display_formulaire(val, null);
 	}
 
 	function display_statVente(val) {
-		console.log(val);
-		infoPlusObj("prixMinivente", val['objprixMinivente']);
-		infoPlusObj("prixMaxivente", val['objprixMaxivente']);
+		infoPlusObj("prixMinivente", val);
+		infoPlusObj("prixMaxivente", val);
 
-		infoPlusCli("nbVeloMaxiVendeurvente", val['clinbVeloMaxiVendeurvente']);
-		infoPlusCli("nbVeloMaxiAcheteur", val['clinbVeloMaxiAcheteur']);
+		infoPlusCli("nbVeloMaxiVendeurvente", val);
+		infoPlusCli("nbVeloMaxiAcheteur", val);
 
 		display_formulaire(val, null);
+		val['pourcent']="0%";
+		if (getElement('count_depot').innerHTML != "()") {
+			val['pourcent']=parseInt(parseInt(val['count_vente'])/parseInt(getElement('count_depot').innerHTML)*100)+" %";
+		}
+		display_formulaire(val, null);
+
 	}
 
-	function infoPlusObj(id, obj) {
-		if (obj) {
-			obj['plus' + id] = "(" + obj['obj_numero'] + ") " + obj['obj_type'] + "-" + obj['obj_public'] + " - " + obj['obj_marque'] + " [" + obj['vendeur_nom'] + "]"
+	function infoPlusObj(id, val) {
+		if (val["obj"+id]) {
+			var obj=val["obj"+id];
+			val['plus' + id] = "(" + obj['obj_numero'] + ") " + obj['obj_type'] + "-" + obj['obj_public'] + " - " + obj['obj_marque'] + " [" + obj['vendeur_nom'] + "]"
 			getElement('plus' + id).onclick = function() {
 				goTo("fiche.php", "modif", obj['obj_id']);
 			};
 		}
+		else {
+			val['plus' + id]="";
+		}
 	}
 
-	function infoPlusCli(id, obj) {
-		if (obj) {
-			obj['plus' + id] = "(" + obj['cli_id'] + ") " + obj['cli_nom'];
+	function infoPlusCli(id, val) {
+		if (val["cli"+id]) {
+			var obj=val["cli"+id];
+			val['plus' + id] = "(" + obj['cli_id'] + ") " + obj['cli_nom'];
 			getElement('plus' + id).onclick = function() {
 				goTo("client.php", "modif", obj['cli_id']);
 			};
+		}
+		else {
+			val['plus' + id]="";
 		}
 	}
 
@@ -265,7 +280,7 @@
 		<tr class='tabl1'>
 			<td class="tittab">Nombre de velo superieur a 
 				<input type=range oninput="getElement('resultRangeDepot').innerHTML=this.value" 
-					onchange="x_return_countByTarifSup(this.value,'depot', display_countByTarifSupDepot);" 
+					onchange="x_return_countByTarifSup(tabToString(tabSel),this.value,'depot', display_countByTarifSupDepot);" 
 					min=0 max=3000 range=50 value=500 list="tickmarksDepot" />
 				<datalist id="tickmarksDepot">
 					<option value="0">
@@ -299,9 +314,8 @@
 			<td colspan=2 class="tittab" width=70%>
 				<span>Total </span>&nbsp;
 				<span id='count_vente'>()</span>&nbsp;
-				<span id='Tobj_type'>*</span>&nbsp;
-				<span id='Tobj_public'>*</span>&nbsp;
-				<span id='Tobj_pratique'>*</span>
+				<span id='pourcent'>..</span>
+				
 			</td>
 		</tr>
 		<?php
@@ -323,7 +337,7 @@
 	<table width="100%">
 		<tr class='tabl1'>
 			<td class="tittab">Nombre de velo superieur a <input type=range oninput="getElement('resultRangeVente').innerHTML=this.value" 
-				onchange="x_return_countByTarifSup(this.value, 'vente', display_countByTarifSupVente);" 
+				onchange="x_return_countByTarifSup(tabToString(tabSel),this.value, 'vente', display_countByTarifSupVente);" 
 				min=0 max=3000 range=50 value=500 list="tickmarksVente" />
 				<datalist id="tickmarksVente">
 					<option value="0">

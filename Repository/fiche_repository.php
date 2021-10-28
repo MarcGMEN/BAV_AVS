@@ -49,13 +49,20 @@ function countByEtat($idVendeur = null)
 /**
  * comptage des fiches d'une BAV en fonction d'un critere
  */
-function countBy($sel, $search = "=", $val, $etats = "'STOCK','RENDU'")
+function countBy($tabSel ,$selS, $search = "=", $valS, $etats = "'STOCK','RENDU'")
 {
     $requete2 = "SELECT count(*) from bav_objet ";
     $requete2 .= "where obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "'";
     $requete2 .= " and obj_etat in ($etats)";
-    if ($sel && $val != "*") {
-        $requete2 .= " and $sel $search '$val' ";
+    foreach ($tabSel as $key => $val) {
+        if ($key == "obj_search") {
+            $requete2 .= " and (obj_modele like '%$val%' or obj_description like '%$val%' or obj_couleur like '%$val%') ";
+        } elseif ($key && $val != "*") {
+            $requete2 .= " and $key = '$val' ";
+        }
+    }
+    if ($selS && $valS != "*") {
+        $requete2 .= " and $selS $search '$valS' ";
     }
     if ($result = $GLOBALS['mysqli']->query($requete2)) {
         $tab = array();

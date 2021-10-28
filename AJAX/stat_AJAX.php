@@ -60,10 +60,10 @@ function return_statClient()
  * Comptage des prix a partir d'une reference
  * pour deux types possible  "depot" ou "vente"
  */
-function return_countByTarifSup($ref, $type="depot")
+function return_countByTarifSup($selection, $ref, $type="depot")
 {
     $etats = $type == "depot" ? "'STOCK','RENDU','VENDU','PAYE'" :  "'PAYE','VENDU'";
-    return countBy("obj_prix_$type", ">=", $ref,$etats);
+    return countBy(string2Tab($selection), "obj_prix_$type", ">=", $ref,$etats);
 }
 
 /**
@@ -199,7 +199,7 @@ function return_statByType($selection, $type='depot')
         } else {
             $tabCount["prixMoyen$type"] = number_format($total / $nb, 2, ',', '.').' &euro;';
         }
-        
+
         if (sizeof($tabVendeur) > 0) {
             $tabCount["nbVeloMaxiVendeur$type"] = max($tabVendeur);
             $tabCount["clinbVeloMaxiVendeur$type"] = getOneClient(array_search(max($tabVendeur), $tabVendeur));
@@ -430,14 +430,14 @@ function return_graphCount($by, $data = '')
  * data : client ou objetVente ou objetDepot
  * minima : valeur mininale a afficher, pour retire les 1 par ex
  */
-function return_histoCount($by, $width = 400, $height = 250, $sort = 0, $data = '', $minima=0)
+function return_histoCount($selectoin, $by, $width = 400, $height = 250, $sort = 0, $data = '', $minima=0)
 {
     if ($data == 'client') {
         $tabCount = return_statClient();
     } else if ($data == 'vente') {
-        $tabCount = return_statByType(null,"vente");
+        $tabCount = return_statByType($selectoin,"vente");
     }else {
-        $tabCount = return_statByType(null,"depot");
+        $tabCount = return_statByType($selectoin,"depot");
     }
 
     $tabUse=[];
@@ -474,6 +474,8 @@ function return_histoCount($by, $width = 400, $height = 250, $sort = 0, $data = 
         $tabData[$index++] = $val;
     }
     $tabData[$index] = '';
+
+    if ($index > 0 ) {
     //print_r($tabData);
     $bplot = new BarPlot($tabData);
     // Ajouter les barres au conteneur
@@ -511,6 +513,9 @@ function return_histoCount($by, $width = 400, $height = 250, $sort = 0, $data = 
 
     // Provoquer l'affichage (renvoie directement l'image au navigateur)
     $graph->Stroke("../out/img/histo_".$by."_".$data.".png");
-
-    return "./out/img/histo_".$by."_".$data.".png";
+        return "./out/img/histo_".$by."_".$data.".png";
+    }
+    else {
+        return "./Images/avs.png";
+    }    
 }
