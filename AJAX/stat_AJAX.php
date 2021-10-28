@@ -62,7 +62,7 @@ function return_statClient()
  */
 function return_countByTarifSup($ref, $type="depot")
 {
-    $etats = $type == "depot" ? "'STOCK','RENDU'" :  "'PAYE','VENDU'";
+    $etats = $type == "depot" ? "'STOCK','RENDU','VENDU','PAYE'" :  "'PAYE','VENDU'";
     return countBy("obj_prix_$type", ">=", $ref,$etats);
 }
 
@@ -101,7 +101,7 @@ function return_statByType($selection, $type='depot')
         // initialisation du tableau de repartition des tarifs
         $tabCount['count_tarif'] = [];
 
-        $tabCount['count'] = 0;
+        $tabCount['count_'.$type] = 0;
         $tabVendeur=[];
         $tabAcheteur=[];
 
@@ -184,7 +184,7 @@ function return_statByType($selection, $type='depot')
                     }
                     ++$tabAcheteur[$val['obj_id_acheteur']];
                 }
-                $tabCount["count"]++;
+                $tabCount["count_$type"]++;
             }
         }
 

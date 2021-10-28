@@ -47,8 +47,12 @@ function return_infoAppli()
     $infos['nb_eti_page'] = $par['par_nb_eti_page'];
     $infos['nb_coupon_page'] = $par['par_nb_coupon_page'];
     $infos['vue_parc'] = $par['par_vue_parc'];
-    
+
     $infos['numero_bav'] = $par['par_numero_bav'];
+    if (isset($_COOKIE['par_numero_bav_stat']) && $_COOKIE['par_numero_bav_stat'] != "") {
+        $infos['numero_bav'] = $_COOKIE['par_numero_bav_stat'];
+    }
+    
     $infos['titre'] = $par['par_titre'];
 
     $infos['par_date_debut_depot_FR'] =  formateDateMYSQLtoFR($par['par_date_debut_depot'], true);

@@ -2,16 +2,20 @@
 	var tri = "obj_numero";
 	var sens = "asc";
 	var tabSel = {};
+	var anneeBav=<?=$infAppli['numero_bav']?>;
 
 	function initPage() {
 		if (ADMIN) {
+
+			x_return_allParametre(display_parametres);
+
 			// recupereatio de la liste des selections
 			x_return_enum('bav_objet', 'obj_type', display_list_type);
 			x_return_enum('bav_objet', 'obj_public', display_list_public);
 			x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);
 
 			// retour de stat client
-			x_return_statClient(display_statClient);
+		    x_return_statClient(display_statClient);
 
 			// retour de stat de delais
 			x_return_statDelais(display_formulaire);
@@ -42,6 +46,23 @@
 			goTo();
 		}
 	}
+
+	function display_parametres(val) {
+		var select = getElement("annee_stat");
+		select.options[select.options.length] = new Option("Choix", "*");
+		for (index in val) {
+			select.options[select.options.length] = new Option(val[index]['par_numero_bav']+"-"+val[index]['par_titre'], val[index]['par_numero_bav']);
+			if ( anneeBav == index) {
+				select.options[select.options.length - 1].selected = true;
+			}
+		}
+	}
+
+	function changeNumeroBAV(val) {
+		SetCookie("par_numero_bav_stat",val);
+		goTo('stat.php');
+	}
+
 	function unloadPage() {}
 
 	function display_list_type(val) {
@@ -102,6 +123,7 @@
 	}
 
 	function display_statDepot(val) {
+		console.log(val);
 
 		infoPlusObj("prixMinidepot", val['objprixMinidepot']);
 		infoPlusObj("prixMaxidepot", val['objprixMaxidepot']);
@@ -112,7 +134,7 @@
 	}
 
 	function display_statVente(val) {
-
+		console.log(val);
 		infoPlusObj("prixMinivente", val['objprixMinivente']);
 		infoPlusObj("prixMaxivente", val['objprixMaxivente']);
 
@@ -154,6 +176,9 @@
 		height: 400px;
 	}
 </style>
+<?// echo "_COOKIE['par_numero_bav_stat'] = ".$_COOKIE['par_numero_bav_stat']?>
+<? //echo "infoAppli['numero_bav'] = ".$infAppli['numero_bav']?>
+<select id="annee_stat" onchange="changeNumeroBAV(this.value)"></select><
 <fieldset class=fiche>
 	<legend class=titreFiche>Stat diverses</legend>
 	<table width="100%">
@@ -214,7 +239,7 @@
 			<td class="tittab" width=30%></td>
 			<td colspan=2 class="tittab" width=70%>
 				<span>Total </span>&nbsp;
-				<span id='count'>()</span>&nbsp;
+				<span id='count_depot'>()</span>&nbsp;
 				<span id='Tobj_type'>*</span>&nbsp;
 				<span id='Tobj_public'>*</span>&nbsp;
 				<span id='Tobj_pratique'>*</span>
@@ -273,7 +298,7 @@
 			<td class="tittab" width=30%></td>
 			<td colspan=2 class="tittab" width=70%>
 				<span>Total </span>&nbsp;
-				<span id='count'>()</span>&nbsp;
+				<span id='count_vente'>()</span>&nbsp;
 				<span id='Tobj_type'>*</span>&nbsp;
 				<span id='Tobj_public'>*</span>&nbsp;
 				<span id='Tobj_pratique'>*</span>

@@ -15,6 +15,12 @@ if (!isset($GET_page)) {
 	$GET_page = "bav.php";
 }
 
+if ($GET_page != "stat.php") {
+	$_COOKIE['par_numero_bav_stat']="";
+	setcookie('par_numero_bav_stat', null) ;
+}
+
+
 // debut des tabIndex pour les ecrans;
 $tabindex = 1;
 
