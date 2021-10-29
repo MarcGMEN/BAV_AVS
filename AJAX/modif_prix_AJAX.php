@@ -47,7 +47,7 @@ function action_confirmDemande($idMop) {
         $titreMel = "BAV #" . $fiche['obj_numero'] . ", Modification du prix  .";
 
         // creation du message avec le template
-        // html/mel_vendu.html
+        // html/mel_modif.html
         $message = makeMessage($titreMel, array_merge($fiche, $cliVend), "mel_modif.html");
 
         // envoi du mel

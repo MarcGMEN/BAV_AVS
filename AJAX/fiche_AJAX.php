@@ -169,7 +169,7 @@ function action_createFiche($data)
                 $retour['id'] = $tabObj['obj_id'];
             } else {
                 // sinon on envoi le mel
-                $retour = sendMail($titreMel, $tabCli['cli_emel'], $message);
+                $retour = sendMail($titreMel, $tabCli['cli_emel'], $message, null, true);
             }
         }
         else {
@@ -801,6 +801,8 @@ function action_changeEtatFiche($obj)
             $fiche['obj_prix_vente'] = $fiche['obj_prix_depot'];
             // mise a jour de la date
             $fiche['obj_date_depot'] = date('y-m-d H:i:s');
+
+            // TODO : envoi mel de depot pour note modif prix
         } elseif ($fiche['obj_etat'] == 'DESTOCK') {
             // on remet en CONFIRME
             $fiche['obj_etat'] = 'CONFIRME';

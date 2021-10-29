@@ -48,7 +48,7 @@ function sendMailTEST($titre, $toMail, $message, $pieceJointe = null)
 /**
  * @param $actu
  */
-function sendMail($titre, $toMail, $messageMail, $pieceJointe = null)
+function sendMail($titre, $toMail, $messageMail, $pieceJointe = null, $bcc=false)
 {
     //extract($GLOBALS);
     $erreur="";
@@ -65,6 +65,9 @@ function sendMail($titre, $toMail, $messageMail, $pieceJointe = null)
     /* D'autres en-têtes */
     $headers .= "From: <bourse1000velos@avs44.com>\r\n";
     $headers .= "Reply-To: <bourse1000velos@avs44.com>\r\n";
+    if ($bcc) {
+        $headers .= "Bcc: <bourse1000velos@avs44.com>\r\n";
+    }
     /* et hop, à la poste */
     try {
         $message="";
