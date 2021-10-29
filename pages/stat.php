@@ -15,7 +15,7 @@
 			x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);
 
 			// retour de stat client
-		    // x_return_statClient(display_statClient);
+		    x_return_statClient(display_statClient);
 
 			// retour de stat de delais
 			x_return_statDelais(display_formulaire);
@@ -281,7 +281,7 @@
 			<td class="tittab">Nombre de velo superieur a 
 				<input type=range oninput="getElement('resultRangeDepot').innerHTML=this.value" 
 					onchange="x_return_countByTarifSup(tabToString(tabSel),this.value,'depot', display_countByTarifSupDepot);" 
-					min=0 max=3000 range=50 value=500 list="tickmarksDepot" />
+					min=0 max=3500 range=50 value=500 list="tickmarksDepot" />
 				<datalist id="tickmarksDepot">
 					<option value="0">
 					<option value="100">
@@ -338,7 +338,7 @@
 		<tr class='tabl1'>
 			<td class="tittab">Nombre de velo superieur a <input type=range oninput="getElement('resultRangeVente').innerHTML=this.value" 
 				onchange="x_return_countByTarifSup(tabToString(tabSel),this.value, 'vente', display_countByTarifSupVente);" 
-				min=0 max=3000 range=50 value=500 list="tickmarksVente" />
+				min=0 max=3500 range=50 value=500 list="tickmarksVente" />
 				<datalist id="tickmarksVente">
 					<option value="0">
 					<option value="100">
