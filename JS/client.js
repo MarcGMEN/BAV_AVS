@@ -44,7 +44,7 @@ function display_list_prix_depot(val) {
  * 
  */
 function display_client(val) {
-	console.log(val);
+	// console.log(val);
 	if (val instanceof Object) {
 
 		display_formulaire(val, document.clientForm);
@@ -132,7 +132,8 @@ function searchByMel(value) {
  * s'il existe avec un autre id, on le marque...
  */
 function display_infoClientVendeur(val) {
-	if (val['cli_id'] != document.clientForm.cli_id.value) {
+	// console.log(val);
+	if (val && val['cli_id'] != document.clientForm.cli_id.value) {
 		alertModalWarn("Mel deja connu pour :" + val['cli_nom']);
 		x_return_oneClient(document.clientForm.cli_id.value, display_client);
 	}
@@ -144,7 +145,7 @@ function display_infoClientVendeur(val) {
  * @param {} value 
  */
 function searchByName(value) {
-	console.log("searchByName "+value);
+	// console.log("searchByName "+value);
 	if (document.clientForm.cli_emel.value == "") {
 		x_return_oneClientByName(value, display_infoClientVendeurName);
 	}
@@ -154,8 +155,8 @@ function searchByName(value) {
  * @param  val 
  */
 function display_infoClientVendeurName(val) {
-	console.log("display_infoClientVendeurName ");
-	console.log(val);
+	// console.log("display_infoClientVendeurName ");
+	// console.log(val);
 	if (val['cli_id'] && val['cli_id'] != document.clientForm.cli_id.value) {
 		alertModalWarn("Nom deja connu [" + val['cli_id_modif'] + "].");
 		x_return_oneClient(document.clientForm.cli_id.value, display_client);
@@ -233,7 +234,7 @@ function display_fiches_achat(val) {
 
 function display_fiches(val, idElement) {
 
-	console.log(val);
+	// console.log(val);
 	var total = 0;
 	var repr = "<table width='100%'>";
 	for (index in val) {
@@ -268,12 +269,12 @@ function display_fiches(val, idElement) {
 		}
 	}
 	repr += "</table>";
-	console.log(idElement);
+	// console.log(idElement);
 	getElement(idElement).innerHTML = repr;
 	
 	getElement('total'+idElement).innerHTML = total;
 
-	console.log('total'+idElement);
+	// console.log('total'+idElement);
 	return total;
 }
 
@@ -293,14 +294,14 @@ function triColonne(col) {
 		"obj_id_vendeur": idClient
 	};
 
-	console.log("appel fiches vente");
+	// console.log("appel fiches vente");
 	x_return_fiches(tri, sens, tabToString(tabSel), display_fiches);
 
 	var tabSelA = {
 		"obj_id_acheteur": idClient
 	};
 
-	console.log("appel fiches achat");
+	// console.log("appel fiches achat");
 	x_return_fiches(tri, sens, tabToString(tabSelA), display_fiches_achat);
 
 	tri = col;
