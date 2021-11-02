@@ -76,6 +76,7 @@ function display_counter(val) {
             getElement('statRendu').innerHTML = "";
         }
 
+        // refresh toutes les 5 minutes
         setTimeout('x_return_countByEtat(display_counter)', 5 * 60 * 1000);
     }
 }

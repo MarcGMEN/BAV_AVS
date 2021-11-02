@@ -40,8 +40,19 @@
 					No&nbsp;:&nbsp;<span style="font-size: 1.5em" id='obj_numero'></span>
 					<? if ($infAppli['ADMIN']) { ?>
 						<span  style="font-size:0.6em">
-						[<span id="obj_modif_data"></span>-<span id="obj_modif_vendeur"></span>]
-						(<span id="obj_id_modif"></span>)</span>
+						Data[<span id="obj_modif_data"></span>]
+						<span><select name=obj_modif_data style="width:80px" onchange="setStartSaisie(true);">
+								<option value=0>A jour</option>
+								<option value=1>Nouvelle</option>
+								<option value=2>Modifié</option>
+						</select></span>
+						&nbsp; Vendeur[<span id="obj_modif_vendeur"></span>]
+						<select name=obj_modif_vendeur style="width:80px" onchange="setStartSaisie(true);">
+								<option value=0>A jour</option>
+								<option value=1>Nouvelle</option>
+								<option value=2>Modifié</option>
+						</select>
+						<div id="obj_id_modif"></div></span>
 					<? } ?>
 				</div>
 				<div class="col-sm-6 col-md-6 col-xs-6 tabl1">
