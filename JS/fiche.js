@@ -194,7 +194,7 @@ function display_listVendeurName(val) {
  * @param {} value 
  */
 function searchByName(value) {
-    console.log("searchByName " + value);
+    // console.log("searchByName " + value);
     if (value != "" && document.ficheForm.cli_emel.value == "") {
         //console.log("recherche par nom");
         x_return_oneClientByName(value, display_infoClientVendeurName);
@@ -278,7 +278,7 @@ function display_fiche(val) {
         }
 
         val['obj_marque_' + idRamdom] = val['obj_marque'];
-        console.log(val);
+        // console.log(val);
         x_return_oneClient(val['obj_id_vendeur'], display_infoClientVendeur);
         getElement("trTitreFiche").style.display = 'block';
         // TODO : en fonction de l'etat, on propose les btn
@@ -595,7 +595,7 @@ function fermerCRUD(LaForm) {
  * @param {} value 
  */
 function searchAchByName(value) {
-    console.log("searchByName " + value);
+    // console.log("searchByName " + value);
     if (value != "" && document.ficheForm.ach_emel.value == "") {
         //console.log("recherche par nom");
         x_return_oneClientByName(value, display_infoClientAcheteurName);

@@ -906,7 +906,6 @@ function action_updateFiche($data)
     $client = tabToObject(string2Tab($data), "cli");
     $acheteur = tabToObject(string2Tab($data), "ach");
 
-
     if ($acheteur) {
         $clientAcheteur = [];
         foreach ($acheteur as $key => $val) {
@@ -919,8 +918,6 @@ function action_updateFiche($data)
     }
 
     $ficheOld = getOneFiche($fiche['obj_id']);
-
-
 
     // attention au doublon
     // un mel, on cherche si OK, si oui on modifie les données

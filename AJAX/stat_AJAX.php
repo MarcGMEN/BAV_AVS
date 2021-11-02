@@ -31,18 +31,18 @@ function return_statClient()
         foreach ($tab as $key => $val) {
             $keyCDP="";
             $virgule="";
-            if ($val['cli_adresse'] != "") {
-                $keyCDP = $val['cli_adresse'];
-                $virgule=", ";
-            }
+            // if ($val['cli_adresse'] != "") {
+            //     $keyCDP = $val['cli_adresse'];
+            //     $virgule=", ";
+            // }
             if ($val['cli_code_postal'] != "") {
                 $keyCDP .= $virgule.$val['cli_code_postal'];
                 $virgule=", ";
             }
-            if ($val['cli_ville'] != "") {
-                $keyCDP .= $virgule.$val['cli_ville'];
-                $virgule=", ";
-            }
+            // if ($val['cli_ville'] != "") {
+            //     $keyCDP .= $virgule.$val['cli_ville'];
+            //     $virgule=", ";
+            // }
 
             if (!isset($tabCount['count_adresse'][$keyCDP])) {
                 $tabCount['count_adresse'][$keyCDP] = 0;

@@ -23,10 +23,28 @@ require_once 'Commun/mail.php';
 //echo substr(hash_hmac('md5', 700, 'avs442019'), 0, 5);;
 
 //echo password_hash("BAV2019", PASSWORD_DEFAULT);
-echo "412 => ".hash_hmac('md5', 412, 'avs44'.$_COOKIE['NUMERO_BAV']);
-echo "<br/>";
+// echo "412 => ".hash_hmac('md5', 412, 'avs44'.$_COOKIE['NUMERO_BAV']);
+// echo "<br/>";
 
-echo "577 => ".hash_hmac('md5', 577, 'avs44'.$_COOKIE['NUMERO_BAV']);
+// echo "577 => ".hash_hmac('md5', 577, 'avs44'.$_COOKIE['NUMERO_BAV']);
 //echo password_verify('BAV2019', $GLOBALS['PASS_TABLE']);
+
+$address   = 'Tempe AZ';
+$address   = urlencode($address);
+$url       = "https://maps.google.com/maps/api/geocode/json?sensor=false&address={$address}";
+$resp_json = file_get_contents($url);
+$resp      = json_decode($resp_json, true);
+print_r($resp);
+    if ($resp['status'] == 'OK') {
+        // get the important data
+        $lati  = $resp['results'][0]['geometry']['location']['lat'];
+        $longi = $resp['results'][0]['geometry']['location']['lng'];
+        echo $lati;
+        echo $longi;
+
+    } else {
+        return false;
+    }
+
 ?>
 </pre>

@@ -78,7 +78,7 @@ function string2Tab($obj)
                 break;
             case JSON_ERROR_UTF8:
                 $obj8 = utf8_encode($obj);
-                // $obj8 = str_replace('â‚¬', '€', $obj8);
+                $obj8 = str_replace('â¬', '€', $obj8);
                 $json = json_decode($obj8, true);
                 break;
             default:
