@@ -316,7 +316,10 @@
 		</div>
 		<div class="col-sm-3 col-md-3 col-xs-6 btnAction" style='display:none' id="tdBtnEmel">
 			<input type=button value="Emel confirme" name="buttonEmelConfirmFiche" onclick="x_action_reMelConfirme(this.form.obj_id.value,  display_retour_test)" tabindex=<?= $tabindex++ ?> />
+			<input type=hidden name="obj_etat_new" value="CONFIRME" />
+			<input type=button value="Confirme" name="buttonConfirmFiche" onclick="confirmeFiche()" tabindex=<?= $tabindex++ ?> />
 		</div>
+
 		<div class="col-sm-3 col-md-3 col-xs-6 btnAction">
 			<input type=button value="Annuler" onclick="fermerCRUD()" tabindex=<?= $tabindex++ ?>>
 		</div>
