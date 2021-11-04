@@ -43,17 +43,18 @@ function goTo(page = 'bav.php', modePage = '', id = null, message = '') {
     document.formNavigation.submit();
 }
 
-function search(value, type="") {
+function search(value, type = "") {
 
-    if (type=="restF") {
+    if (type == "restF") {
         console.log("modif fiche " + value);
         x_return_oneFicheByIdModif(value, display_getFicheModif);
-    }
-    else if (type=="restC") {
-        console.log("consule client " + value);
+    } else if (type == "restC") {
+        console.log("consult fiche " + value);
         x_return_oneClientByIdModif(value, display_getClient);
-    }
-    else if (!isNaN(Number(value)) && value < 9999) {
+    } else if (type == "restV") {
+        console.log("consult fiche " + value);
+        x_return_oneFicheByIdModif(value, display_getFicheConsult);
+    } else if (!isNaN(Number(value)) && value < 9999) {
         console.log("consult fiche");
         x_return_oneFicheByCode(value, display_getFicheConsult);
     } else {

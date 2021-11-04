@@ -74,7 +74,7 @@ if ($infAppli['ADMIN']) {
                     'class' => 'maskMobileBlock',
                 ],
                 'editFiche.php' => [
-                    'libelle' => 'Edit HTML',
+                    'libelle' => 'Editions',
                     'class' => 'maskMobileBlock',
                 ],
                 'parametre.php' => [

@@ -22,7 +22,7 @@ $tabInfo = [
 	'MAIL VENDU' => "mel_vendu"
 ];
 ?>
-<h1>Gestion des textes HTML</h1>
+<h1>Gestion des éditions</h1>
 <table width="100%" id="tableHTML" style="padding:2 2 2 2 ;">
 	<tr class="tittab">
 		<td width=20%>Fichier</td>
@@ -31,7 +31,7 @@ $tabInfo = [
 	</tr>
 	<? foreach ($tabInfo as $title => $idText) {
 		$format = "P";
-		if ($title == "COUPON VENDEUR") {
+		if ($title == "COUPON VENDEUR" || $title == "COUPON ACHETEUR") {
 			$format = "L";
 		} ?>
 		<tr class="tabl0" style="border-bottom:1px solid grey">
@@ -39,9 +39,9 @@ $tabInfo = [
 
 			<td width=10%>
 				<? if ($idText != "") { ?>
-					<span class="link url" onclick='viewPdf("<?= $idText ?>","<?= $format ?>");' )>PDF</span>
+					<span class="link url" onclick='viewPdf("<?= $idText ?>","<?= $format ?>");' title="Génération du PDF")>PDF</span>
 					<?= $format ?>&nbsp;
-					<i class="fas fa-edit" onclick="x_return_html('<?= $idText ?>', display_html_file);idText='<?= $idText ?>';getElement('html_file_title').innerHTML='<?= $title ?>'" ;></i>
+					<i class="fas fa-edit" onclick="x_return_html('<?= $idText ?>', display_html_file);idText='<?= $idText ?>';getElement('html_file_title').innerHTML='<?= $title ?>'" title="Modification du document"></i>
 				<? } else { ?>
 					<div style="background-color: lightblue;">&nbsp;</div>
 				<? } ?>
@@ -121,8 +121,7 @@ $tabInfo = [
 						</table>
 					</form>
 				<? } ?>
-				<? if ($title == "COUPON VENDEUR") {
-						$format = "L" ?>
+				<? if ($title == "COUPON VENDEUR") {?>
 					<form style="color:black">
 						<table width=100% border=0>
 							<tr>
@@ -168,8 +167,7 @@ $tabInfo = [
 						</table>
 					</form>
 				<? } ?>
-				<? if ($title == "COUPON ACHETEUR") {
-						$format = "L" ?>
+				<? if ($title == "COUPON ACHETEUR") {?>
 					<form style="color:black">
 						<table width=100% border=0>
 							<tr>

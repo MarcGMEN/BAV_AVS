@@ -105,8 +105,8 @@ function action_createFiche($data)
         // on en normalement avec le mel uniquement
         // on a pas de cli_id
         makeClient($tabCli);
-        
-        error_log("cli_id = ".$tabCli['cli_id']);
+
+        error_log("cli_id = " . $tabCli['cli_id']);
         if ($tabCli['cli_id'] != 0) {
 
             // en cas de creation, on reforce un update
@@ -171,9 +171,8 @@ function action_createFiche($data)
                 // sinon on envoi le mel
                 $retour = sendMail($titreMel, $tabCli['cli_emel'], $message, null, true);
             }
-        }
-        else {
-            return "ERREUR : problème de création du client";    
+        } else {
+            return "ERREUR : problème de création du client";
         }
     } catch (Exception $e) {
         return "ERREUR " . $e->getMessage();
@@ -363,12 +362,25 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
                 if ($fiche['obj_prix_depot'] == 0) {
                     $fiche['obj_prix_depot'] = "";
                 }
+                $adresse = $CFG_URL . "index.php?modePage=restV&id=" . $fiche['obj_id_modif'];
+                $fiche['QRCODE'] = "<img src='https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=$adresse&choe=UTF-8' title='Fiche " . $fiche['obj_numero'] . "' />";
+                // $fiche['QRCODE']http://localhost//bourseauxvelos/index.php?modePage=restV&id=b9d68b9dbb6ed51a8e56260a53cef553=$adresse;
             }
         } else {
             if ($eti0 == -1) {
                 $fiche['obj_numero'] = "";
+                $fiche['obj_id_modif'] = "";
+                $fiche['QRCODE'] = "";
             } else {
                 $fiche['obj_numero'] = $numFiche;
+                $fiche['obj_id_modif'] = hash_hmac(
+                    'md5',
+                    $fiche['obj_numero'] . $GLOBALS['INFO_APPLI']['numero_bav'],
+                    'avs44'
+                );
+                $adresse = $CFG_URL . "index.php?modePage=restV&id=" . $fiche['obj_id_modif'];
+                $fiche['QRCODE'] = "<img src='https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=$adresse&choe=UTF-8' title='Fiche " . $fiche['obj_numero'] . "' />";
+                // $fiche['QRCODE']=$adresse;
             }
             $fiche['obj_type'] = "<br/><span style='font-size:6px'><i>Autre-VTT-Route-VTC-Ville-VAE-BMX</i></span>";
             $fiche['obj_public'] = "<br/><span style='font-size:6px'><i>Mixte-Homme-Femme-Enfant</i></span>";
@@ -380,7 +392,6 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
             $fiche['obj_description'] = "";
             $fiche['obj_prix_vente'] = "";
             $fiche['obj_prix_depot'] = "";
-            $fiche['obj_id_modif'] = "";
         }
 
         if (sizeof($fiche) > 0) {
