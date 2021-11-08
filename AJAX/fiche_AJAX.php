@@ -665,6 +665,8 @@ function concatDescription($desc)
     // regroupement de la description
     $desc = str_replace("\n", " / ", $desc);
     $desc = str_replace("<br/>", " / ", $desc);
+
+    return $desc;
 }
 
 /**
@@ -723,7 +725,7 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false, $format 
         $fiche['obj_public'] = "Homme";
         $fiche['obj_pratique'] = "Sportive";
         $fiche['obj_marque'] = "Décathlon";
-        $fiche['obj_modele'] = "RockRider superStar";
+        $fiche['obj_modele'] = "RockRider Super Star";
         $fiche['obj_couleur'] = "Noir et rouge";
         $fiche['obj_accessoire'] = "";
         $fiche['obj_description'] = "ceci est un texte long pour essayer de prendre de la place sur une ligne avec un maximun de place, allez on saute une ligne<br/>une ligne<br/> et encore une<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9";
@@ -763,7 +765,6 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false, $format 
     // MISE EN FORME DE LA FICHE
     // regroupement de la description
     $fiche['obj_description'] = concatDescription($fiche['obj_description']);
-
     if (
         $fiche['obj_prix_vente'] > 0 && ($fiche['obj_etat'] == 'VENDU' || $fiche['obj_etat'] == 'PAYE')
     ) {
