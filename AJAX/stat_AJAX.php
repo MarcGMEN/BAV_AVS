@@ -29,15 +29,15 @@ function return_statClient()
 
         $tabCount['count_adresse'] = [];
         foreach ($tab as $key => $val) {
-            $keyCDP="";
-            $virgule="";
+            $keyCDP = "";
+            $virgule = "";
             // if ($val['cli_adresse'] != "") {
             //     $keyCDP = $val['cli_adresse'];
             //     $virgule=", ";
             // }
             if ($val['cli_code_postal'] != "") {
-                $keyCDP .= $virgule.$val['cli_code_postal'];
-                $virgule=", ";
+                $keyCDP .= $virgule . $val['cli_code_postal'];
+                $virgule = ", ";
             }
             // if ($val['cli_ville'] != "") {
             //     $keyCDP .= $virgule.$val['cli_ville'];
@@ -50,7 +50,7 @@ function return_statClient()
             ++$tabCount['count_adresse'][$keyCDP];
         }
     } catch (Exception $e) {
-        return 'ERREUR '.$e->getMessage();
+        return 'ERREUR ' . $e->getMessage();
     }
     // print_r($tabCount);
     return $tabCount;
@@ -60,18 +60,25 @@ function return_statClient()
  * Comptage des prix a partir d'une reference
  * pour deux types possible  "depot" ou "vente"
  */
-function return_countByTarifSup($selection, $ref, $type="depot")
+function return_countByTarifSup($selection, $ref, $type = "depot")
 {
     $etats = $type == "depot" ? "'STOCK','RENDU','VENDU','PAYE'" :  "'PAYE','VENDU'";
-    return countBy(string2Tab($selection), "obj_prix_$type", ">=", $ref,$etats);
+    if (!$GLOBALS['INFO_APPLI']['bav_en_cours'] && $type == 'depot' && 
+        $GLOBALS['INFO_APPLI']['numero_bav'] == $GLOBALS['INFO_APPLI']['numero_bav_active']) {
+        $etats = "'CONFIRME'";
+    }   
+    
+    return countBy(string2Tab($selection), "obj_prix_$type", ">=", $ref, $etats);
 }
 
 /**
  * retourne les stats pour une selection données
  * deux notions : depot (confirme-stock) et vente (vendu-paye)
  */
-function return_statByType($selection, $type='depot')
+function return_statByType($selection, $type = 'depot')
 {
+    
+    
     try {
         // recherche des fiches
         $tab = getFiches(null, 'asc', string2Tab($selection));
@@ -82,13 +89,13 @@ function return_statByType($selection, $type='depot')
             "nbVeloVendeur$type" => 'Nombre moyen de vélo par vendeur',
             "nbVeloMaxiVendeur$type" => 'Nombre maxi de vélo pour un vendeur'
         ];
-        
-        
+
+
         // initialisation des valeur a 0
         foreach ($tabCategLigne as $keyL => $valL) {
             $tabCount[$keyL] = 0;
         }
-       
+
         // initialisation du tableau de comptage par categorie
         $tabTmp = ['type', 'public', 'marque', 'pratique', 'couleur'];
         foreach ($tabTmp as $key) {
@@ -101,31 +108,39 @@ function return_statByType($selection, $type='depot')
         // initialisation du tableau de repartition des tarifs
         $tabCount['count_tarif'] = [];
 
-        $tabCount['count_'.$type] = 0;
-        $tabVendeur=[];
-        $tabAcheteur=[];
+        $tabCount['count_' . $type] = 0;
+        $tabVendeur = [];
+        $tabAcheteur = [];
 
         // initi du total
-        $total= 0;
+        $total = 0;
         // le nombre
         $nb = 0;
 
         // tranches de repartition des tarifs
         $tabTarif = [30, 50, 100, 150, 200, 250, 500, 750, 1000, 1250, 1500, 1750, 2000];
 
+        if (!$GLOBALS['INFO_APPLI']['bav_en_cours'] && $type == 'depot' && 
+            $GLOBALS['INFO_APPLI']['numero_bav'] == $GLOBALS['INFO_APPLI']['numero_bav_active']) {
+            $type = 'pre-depot';
+        }
         // les etats pour la recherche
         if ($type == "depot") {
-            $etats=['STOCK','RENDU','VENDU','PAYE'];
-            $champPrix="obj_prix_depot";
+            $etats = ['STOCK', 'RENDU', 'VENDU', 'PAYE'];
+            $champPrix = "obj_prix_depot";
+        } else if ($type == "pre-depot") {
+            $etats = ['CONFIRME'];
+            $champPrix = "obj_prix_depot";
+            $type = 'depot';
         } else {
-            $etats=['VENDU','PAYE'];
-            $champPrix="obj_prix_vente";
+            $etats = ['VENDU', 'PAYE'];
+            $champPrix = "obj_prix_vente";
         }
 
         // iteration de la selection des fiches
         foreach ($tab as $key => $val) {
             if (in_array($val['obj_etat'], $etats)) {
-             
+
                 // recherche du prix a travailler
                 $thePrix = $val[$champPrix];
 
@@ -133,7 +148,7 @@ function return_statByType($selection, $type='depot')
                 $tarifOld = '0';
                 $tarifOK = false;
                 foreach ($tabTarif as $valTarif) {
-                    $keyTarif = $tarifOld.' -> '.($valTarif-1);
+                    $keyTarif = $tarifOld . ' -> ' . ($valTarif - 1);
                     if (!isset($tabCount['count_tarif'][$keyTarif])) {
                         $tabCount['count_tarif'][$keyTarif] = 0;
                     }
@@ -145,18 +160,18 @@ function return_statByType($selection, $type='depot')
                     $tarifOld = $valTarif;
                 }
                 if (!$tarifOK) {
-                    ++$tabCount['count_tarif']['> '.$valTarif];
+                    ++$tabCount['count_tarif']['> ' . $valTarif];
                 }
 
                 // comptage par categorie
                 foreach ($tabTmp as $keyTmp) {
-                    $keyObj = rtrim(trim($val['obj_'.$keyTmp]));
+                    $keyObj = rtrim(trim($val['obj_' . $keyTmp]));
                     if (!isset($tabCount["count_$keyTmp"][$keyObj])) {
                         $tabCount["count_$keyTmp"][$keyObj] = 0;
                     }
                     ++$tabCount["count_$keyTmp"][$keyObj];
                 }
-                
+
                 // prix mini
                 if ($thePrix < $tabCount["prixMini$type"]) {
                     $tabCount["prixMini$type"] = $thePrix;
@@ -197,7 +212,7 @@ function return_statByType($selection, $type='depot')
         if ($total == 0) {
             $tabCount["prixMoyen$type"] = '0 &euro;';
         } else {
-            $tabCount["prixMoyen$type"] = number_format($total / $nb, 2, ',', '.').' &euro;';
+            $tabCount["prixMoyen$type"] = number_format($total / $nb, 2, ',', '.') . ' &euro;';
         }
 
         if (sizeof($tabVendeur) > 0) {
@@ -212,7 +227,7 @@ function return_statByType($selection, $type='depot')
             $tabCount['nbVeloAcheteur'] = number_format(array_sum($tabAcheteur) / count($tabAcheteur), 2, ',', '.');
         }
     } catch (Exception $e) {
-        return 'ERREUR '.$e->getMessage();
+        return 'ERREUR ' . $e->getMessage();
     }
     // print_r($tabCount);
     return $tabCount;
@@ -236,7 +251,7 @@ function return_statDelais()
         }
         $tabCount['delaiMinSV'] = 1000000;
 
-        $total= 0;
+        $total = 0;
         $nb = 0;
 
         $totalTimeSV = 0;
@@ -285,7 +300,7 @@ function return_statDelais()
         $tabCount['delaiMoyenSV'] = duree2HMS($totalTimeSV / $nbTimeSV);
         $tabCount['delaiMoyenVR'] = duree2HMS($totalTimeVR / $nbTimeVR);
     } catch (Exception $e) {
-        return 'ERREUR '.$e->getMessage();
+        return 'ERREUR ' . $e->getMessage();
     }
     // print_r($tabCount);
     return $tabCount;
@@ -298,7 +313,7 @@ function return_statRepartition()
 {
     try {
         $tab = getFiches(null, 'asc', null);
-        
+
         $tabCount['vente_J2-AM'] = 0;
         $tabCount['vente_J2-PM'] = 0;
         $tabCount['vente_J3-AM'] = 0;
@@ -312,7 +327,7 @@ function return_statRepartition()
         $tabCount['stock_J3-PM'] = 0;
 
         $paramBAV = getOneParemetre($GLOBALS['INFO_APPLI']['numero_bav']);
-        
+
         $date_j1 = strtotime($paramBAV['par_date_debut_depot']);
         $date_j2 = strtotime($paramBAV['par_date_debut_vente']);
         $date_j3 = strtotime($paramBAV['par_date_fin_bav']);
@@ -348,7 +363,7 @@ function return_statRepartition()
                 } elseif ($dateDepotInt >= $date["J3-MIDI"]) {
                     $tabCount['stock_J3-PM']++;
                 }
-                
+
                 if ($val['obj_date_vente']) {
                     $dateVenteInt = dateMysqlInt($val['obj_date_vente']);
                     if ($dateVenteInt > $date['J2-MATIN'] && $dateVenteInt < $date['J2-MIDI']) {
@@ -365,7 +380,7 @@ function return_statRepartition()
             }
         }
     } catch (Exception $e) {
-        return 'ERREUR '.$e->getMessage();
+        return 'ERREUR ' . $e->getMessage();
     }
     //print_r($tabCount);
     return $tabCount;
@@ -382,9 +397,9 @@ function return_graphCount($by, $data = '')
     if ($data == 'client') {
         $tabCount = return_statClient();
     } else if ($data == 'vente') {
-        $tabCount = return_statByType(null,"vente");
-    }else {
-        $tabCount = return_statByType(null,"depot");
+        $tabCount = return_statByType(null, "vente");
+    } else {
+        $tabCount = return_statByType(null, "depot");
     }
 
     ksort($tabCount["count_$by"]);
@@ -430,17 +445,17 @@ function return_graphCount($by, $data = '')
  * data : client ou objetVente ou objetDepot
  * minima : valeur mininale a afficher, pour retire les 1 par ex
  */
-function return_histoCount($selectoin, $by, $width = 400, $height = 250, $sort = 0, $data = '', $minima=0)
+function return_histoCount($selectoin, $by, $width = 400, $height = 250, $sort = 0, $data = '', $minima = 0)
 {
     if ($data == 'client') {
         $tabCount = return_statClient();
     } else if ($data == 'vente') {
-        $tabCount = return_statByType($selectoin,"vente");
-    }else {
-        $tabCount = return_statByType($selectoin,"depot");
+        $tabCount = return_statByType($selectoin, "vente");
+    } else {
+        $tabCount = return_statByType($selectoin, "depot");
     }
 
-    $tabUse=[];
+    $tabUse = [];
     foreach ($tabCount["count_$by"] as $key => $val) {
         if ($val > $minima) {
             $tabUse[$key] = $val;
@@ -475,47 +490,46 @@ function return_histoCount($selectoin, $by, $width = 400, $height = 250, $sort =
     }
     $tabData[$index] = '';
 
-    if ($index > 0 ) {
-    //print_r($tabData);
-    $bplot = new BarPlot($tabData);
-    // Ajouter les barres au conteneur
-    $graph->Add($bplot);
+    if ($index > 0) {
+        //print_r($tabData);
+        $bplot = new BarPlot($tabData);
+        // Ajouter les barres au conteneur
+        $graph->Add($bplot);
 
-    // Spécification des couleurs des barres
-    $aColors = array('white', 'black', 'green', 'yellow', 'brown', 'red', 'blue', 'lightgreen');
-    //$bplot->SetFillColor($aColors);
-    $bplot->SetFillGradient('AntiqueWhite2', 'AntiqueWhite4:0.8', GRAD_VERT);
-    $bplot->SetColor('yellow');
+        // Spécification des couleurs des barres
+        $aColors = array('white', 'black', 'green', 'yellow', 'brown', 'red', 'blue', 'lightgreen');
+        //$bplot->SetFillColor($aColors);
+        $bplot->SetFillGradient('AntiqueWhite2', 'AntiqueWhite4:0.8', GRAD_VERT);
+        $bplot->SetColor('yellow');
 
-    // Fixer l'aspect de la police
-    $bplot->value->SetFont(FF_FONT2, FS_NORMAL, 10);
-    // Modifier le rendu de chaque valeur
-    $bplot->value->SetFormat('%d');
-    // Afficher les valeurs pour chaque barre
-    $bplot->value->Show();
+        // Fixer l'aspect de la police
+        $bplot->value->SetFont(FF_FONT2, FS_NORMAL, 10);
+        // Modifier le rendu de chaque valeur
+        $bplot->value->SetFormat('%d');
+        // Afficher les valeurs pour chaque barre
+        $bplot->value->Show();
 
-    // Le titre
-    $titre="Repartition par $by";
-    if ($minima > 0) {
-        $titre.=" (avec un minima > $minima)";
-    }
-    $graph->title->Set($titre);
-    $graph->title->SetFont(FF_FONT1, FS_BOLD);
+        // Le titre
+        $titre = "Repartition par $by";
+        if ($minima > 0) {
+            $titre .= " (avec un minima > $minima)";
+        }
+        $graph->title->Set($titre);
+        $graph->title->SetFont(FF_FONT1, FS_BOLD);
 
-    // Titre pour l'axe horizontal(axe x) et vertical (axe y)
-    //$graph->xaxis->title->Set($by);
-    $graph->yaxis->title->Set('Nombre');
-    $graph->yaxis->title->SetFont(FF_FONT1, FS_BOLD);
+        // Titre pour l'axe horizontal(axe x) et vertical (axe y)
+        //$graph->xaxis->title->Set($by);
+        $graph->yaxis->title->Set('Nombre');
+        $graph->yaxis->title->SetFont(FF_FONT1, FS_BOLD);
 
-    // Légende pour l'axe horizontal
-    $graph->xaxis->SetTickLabels(array_keys($tabUse));
-    $graph->xaxis->SetLabelAngle(45);
+        // Légende pour l'axe horizontal
+        $graph->xaxis->SetTickLabels(array_keys($tabUse));
+        $graph->xaxis->SetLabelAngle(45);
 
-    // Provoquer l'affichage (renvoie directement l'image au navigateur)
-    $graph->Stroke("../out/img/histo_".$by."_".$data.".png");
-        return "./out/img/histo_".$by."_".$data.".png";
-    }
-    else {
+        // Provoquer l'affichage (renvoie directement l'image au navigateur)
+        $graph->Stroke("../out/img/histo_" . $by . "_" . $data . ".png");
+        return "./out/img/histo_" . $by . "_" . $data . ".png";
+    } else {
         return "./Images/avs.png";
-    }    
+    }
 }

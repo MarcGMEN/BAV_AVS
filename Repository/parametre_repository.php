@@ -49,6 +49,8 @@ function return_infoAppli()
     $infos['vue_parc'] = $par['par_vue_parc'];
 
     $infos['numero_bav'] = $par['par_numero_bav'];
+    $infos['numero_bav_active'] = $par['par_numero_bav'];
+    
     if (isset($_COOKIE['par_numero_bav_stat']) && $_COOKIE['par_numero_bav_stat'] != "") {
         $infos['numero_bav'] = $_COOKIE['par_numero_bav_stat'];
     }
