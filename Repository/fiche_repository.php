@@ -49,7 +49,7 @@ function countByEtat($idVendeur = null)
 /**
  * comptage des fiches d'une BAV en fonction d'un critere
  */
-function countBy($tabSel ,$selS, $search = "=", $valS, $etats = "'STOCK','RENDU'")
+function countBy($tabSel, $selS, $search = "=", $valS, $etats = "'STOCK','RENDU'")
 {
     $requete2 = "SELECT count(*) from bav_objet ";
     $requete2 .= "where obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "'";
@@ -62,8 +62,9 @@ function countBy($tabSel ,$selS, $search = "=", $valS, $etats = "'STOCK','RENDU'
         }
     }
     if ($selS && $valS != "*") {
-        $requete2 .= " and $selS $search '$valS' ";
+        $requete2 .= " and $selS $search $valS ";
     }
+    error_log($requete2);
     if ($result = $GLOBALS['mysqli']->query($requete2)) {
         $tab = array();
         $row = $result->fetch_assoc();
@@ -84,13 +85,13 @@ function makeNumeroFiche($base, &$objet)
 {
     $objet['obj_numero'] = getFicheLibre($base);
     // creation de idmodif
-    
+
     $objet['obj_id_modif'] = hash_hmac(
         'md5',
-        $objet['obj_numero'].$GLOBALS['INFO_APPLI']['numero_bav'],
+        $objet['obj_numero'] . $GLOBALS['INFO_APPLI']['numero_bav'],
         'avs44'
     );
-    error_log("creation de ".$objet['obj_numero']." => ".$objet['obj_id_modif']);
+    error_log("creation de " . $objet['obj_numero'] . " => " . $objet['obj_id_modif']);
 }
 
 /**
@@ -158,7 +159,7 @@ function getFiches($order, $sens, $tabSel)
     $requete2 .= "  left outer join bav_client as ac on obj_id_acheteur = ac.cli_id ";
     $requete2 .= "  left outer join bav_modif_prix as mop on mop_id_obj = obj_id and mop_date_validation is null ";
     $requete2 .= " where obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "'";
-  //  error_log("[getFiches] $requete2");
+    //  error_log("[getFiches] $requete2");
     foreach ($tabSel as $key => $val) {
         if ($key == "obj_search") {
             $requete2 .= " and (obj_modele like '%$val%' or obj_description like '%$val%' or obj_couleur like '%$val%') ";
@@ -167,7 +168,11 @@ function getFiches($order, $sens, $tabSel)
         }
     }
     if ($order != null) {
-        $requete2 .= " order by $order $sens";
+        if ($order == "obj_prix_vente") {
+            $requete2 .= " order by $order $sens, obj_prix_depot $sens";
+        } else {
+            $requete2 .= " order by $order $sens";
+        }
     }
     $result = $GLOBALS['mysqli']->query($requete2);
     if ($result) {
@@ -183,13 +188,13 @@ function getFiches($order, $sens, $tabSel)
     return $tab;
 }
 
-function getFichesModif($type="data")
+function getFichesModif($type = "data")
 {
     $requete2 = "SELECT bav_objet.* from bav_objet ";
     $requete2 .= " where obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "'";
     $requete2 .= " and obj_modif_$type != 0";
     $requete2 .= "  order by obj_numero ";
-    
+
     $result = $GLOBALS['mysqli']->query($requete2);
     if ($result) {
         $tab = array();
@@ -229,7 +234,7 @@ function getOneFiche($id)
     $requete2 .= "  left outer join bav_client as ve on obj_id_vendeur = ve.cli_id ";
     $requete2 .= "  left outer join bav_client as ac on obj_id_acheteur = ac.cli_id ";
     $requete2 .= " where obj_id  = $id";
-   
+
     $result = $GLOBALS['mysqli']->query($requete2);
     if ($result) {
         $row = $result->fetch_assoc();
