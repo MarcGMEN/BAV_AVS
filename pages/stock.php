@@ -48,7 +48,9 @@
 <table width="100%" >
 	<tr>
 		<td class="tittab" width=5%>
-			<span id='obj_numero' onclick="triColonne('obj_numero')" class="sortable">No&nbsp;&nbsp;</span></td>
+			<span id='obj_numero' onclick="triColonne('obj_numero')" class="sortable">No&nbsp;&nbsp;</span>
+			<input type=checkbox id="selEdit" onchange="isEdit()" value="1">
+		</td>
 		<td class="tittab" width=8%>
 			<span id='obj_type' onclick="triColonne('obj_type')" class="sortable">Type&nbsp;&nbsp;</span>
 			&nbsp;<select id="sel_obj_type" onchange="selectColonne('obj_type', this.value)"></select></td>
