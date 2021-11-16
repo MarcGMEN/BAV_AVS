@@ -196,11 +196,6 @@ function triColonne(col) {
 }
 
 function isEdit() {
-    tabSel['obj_type'] = getElement("sel_obj_type").value;
-    tabSel['obj_marque'] = getElement("sel_obj_marque").value;
-    tabSel['obj_etat'] = getElement("sel_obj_etat").value;
-
-    console.log(getElement("selEdit").value);
     if (getElement("selEdit").value == 1) {
         tabSel['obj_modif_data'] = getElement("selEdit").value;
         tabSel['obj_modif_vendeur'] = getElement("selEdit").value;;
@@ -210,21 +205,14 @@ function isEdit() {
         tabSel['obj_modif_vendeur'] = "*";
         getElement("selEdit").value = 1;
     }
-    console.log(getElement("selEdit").value);
-
     x_return_fiches(tri, sens, tabToString(tabSel), 0, display_fiches);
-
 }
 
 function selectColonne(col, mask) {
     tabSel['obj_type'] = getElement("sel_obj_type").value;
     tabSel['obj_marque'] = getElement("sel_obj_marque").value;
     tabSel['obj_etat'] = getElement("sel_obj_etat").value;
-    //tabSel['obj_couleur'] = getElement("sel_obj_couleur").value;
-    //tabSel[col] = mask;
 
-    console.log(col + "," + sens);
-    console.log(tabSel);
     x_return_fiches(col, sens, tabToString(tabSel), 0, display_fiches);
 }
 
@@ -237,10 +225,7 @@ function searchColonne(col, mask) {
         if (tabSel['obj_search'].length == 0) {
             tabSel['obj_search'].length = null;
         }
-
-        console.log(col + "," + sens);
-        console.log(tabSel);
-        x_return_fiches(null, sens, tabToString(tabSel), 0, display_fiches);
+        x_return_fiches(tri, sens, tabToString(tabSel), 0, display_fiches);
     }
 }
 

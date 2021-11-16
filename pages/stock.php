@@ -49,7 +49,7 @@
 	<tr>
 		<td class="tittab" width=5%>
 			<span id='obj_numero' onclick="triColonne('obj_numero')" class="sortable">No&nbsp;&nbsp;</span>
-			<input type=checkbox id="selEdit" onchange="isEdit()" value="1">
+			<input type=checkbox id="selEdit" onchange="isEdit()" value="1" title="Les News">
 		</td>
 		<td class="tittab" width=8%>
 			<span id='obj_type' onclick="triColonne('obj_type')" class="sortable">Type&nbsp;&nbsp;</span>
