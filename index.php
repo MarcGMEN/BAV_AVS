@@ -94,6 +94,7 @@ sajax_handle_client_request();
 
 		// date d'ouverture du depot
 		var DATE_J1 = <?= $infAppli['date_j1'] ?>;
+		var DATE_J2 = <?= $infAppli['date_j2'] ?>;
 
 		var NB_MODIF = <?= $infAppli['NB_MODIF'] ?>;
 		var modePage = '<?= $GET_modePage ?>';
