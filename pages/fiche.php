@@ -12,9 +12,10 @@
 		<p>Avant de venir déposer votre vélo les à La Soucoupe, nous vous conseillons de remplir la fiche dépôt.</p>
 		<p>- Soit en saissisant votre demande avec le formulaire ci-dessous qui vous transmettra, après confirmation, la fiche dépot par mel.
 			<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Il n'est pas nécéssaire de connaitre le prix de vente, <i>vous pourrez le renseigner le jour du dépôt.</i>
-			<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vous pouvez également modifier votre fiche grace au lien que vous recevrez par mail.
-			<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Vous recevez un mail directement lorsque votre vélo est vendu.</b>
-			<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cette fiche dépôt devra être imprimée par vous pour vous rendre à la Bourse. Une par vélo et un gain de temps sur place lors du dépôt.</p>
+			<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vous pouvez également modifier votre fiche grace au lien que vous recevrez par mel.
+			<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Vous recevez un mel directement lorsque votre vélo est vendu.</b>
+			<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cette fiche dépôt devra être imprimée par vous pour vous rendre à la Bourse. Une par vélo et un gain de temps sur place lors du dépôt.
+		</p>
 		<p>- Soit en téléchargeant, puis en imprimant la fiche dépôt à remplir que vous trouverez ici 
 		<A  href="downloads/Fiche_BAV_2021.pdf" target="_blank"> <img class="link url" src="Images/pdf.png" height='40px' alt="téléchargement de la fiche" title="téléchargement de la fiche"></A>
 			<small><i>Attention aux droits d'ouvertures des popUp, en fonction de votre navigateur.</i></small></p>
@@ -40,8 +41,19 @@
 					No&nbsp;:&nbsp;<span style="font-size: 1.5em" id='obj_numero'></span>
 					<? if ($infAppli['ADMIN']) { ?>
 						<span  style="font-size:0.6em">
-						[<span id="obj_modif_data"></span>-<span id="obj_modif_vendeur"></span>]
-						(<span id="obj_id_modif"></span>)</span>
+						Data[<span id="obj_modif_data"></span>]
+						<span><select name=obj_modif_data style="width:80px" onchange="setStartSaisie(true);">
+								<option value=0>A jour</option>
+								<option value=1>Nouvelle</option>
+								<option value=2>Modifié</option>
+						</select></span>
+						&nbsp; Vendeur[<span id="obj_modif_vendeur"></span>]
+						<select name=obj_modif_vendeur style="width:80px" onchange="setStartSaisie(true);">
+								<option value=0>A jour</option>
+								<option value=1>Nouvelle</option>
+								<option value=2>Modifié</option>
+						</select>
+						<div id="obj_id_modif"></div></span>
 					<? } ?>
 				</div>
 				<div class="col-sm-6 col-md-6 col-xs-6 tabl1">
@@ -305,7 +317,10 @@
 		</div>
 		<div class="col-sm-3 col-md-3 col-xs-6 btnAction" style='display:none' id="tdBtnEmel">
 			<input type=button value="Emel confirme" name="buttonEmelConfirmFiche" onclick="x_action_reMelConfirme(this.form.obj_id.value,  display_retour_test)" tabindex=<?= $tabindex++ ?> />
+			<input type=hidden name="obj_etat_new" value="CONFIRME" />
+			<input type=button value="Confirme" name="buttonConfirmFiche" onclick="confirmeFiche()" tabindex=<?= $tabindex++ ?> />
 		</div>
+
 		<div class="col-sm-3 col-md-3 col-xs-6 btnAction">
 			<input type=button value="Annuler" onclick="fermerCRUD()" tabindex=<?= $tabindex++ ?>>
 		</div>

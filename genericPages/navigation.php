@@ -17,18 +17,21 @@ $tabNavAll = [
     ],
     'animations.php' => [
         'libelle' => 'Animations',
+        'notif' => "ANIM"
     ],
     'reglement.php' => [
         'libelle' => 'Réglement',
     ],
     'faq.php' => [
         'libelle' => 'F.A.Q.',
+        'notif' => "FAQ"
     ],
     'venir.php' => [
         'libelle' => 'Contacts',
     ],
     'presse.php' => [
         'libelle' => 'Presse',
+        'notif' => "PRESSE"
     ],
 ];
 
@@ -74,7 +77,7 @@ if ($infAppli['ADMIN']) {
                     'class' => 'maskMobileBlock',
                 ],
                 'editFiche.php' => [
-                    'libelle' => 'Edit HTML',
+                    'libelle' => 'Editions',
                     'class' => 'maskMobileBlock',
                 ],
                 'parametre.php' => [
@@ -84,7 +87,7 @@ if ($infAppli['ADMIN']) {
             ],
         ],
     ];
-} elseif ($infAppli['CLIENT']) {
+} elseif ($infAppli['CLIENT'] && !$infAppli['bav_en_cours']) {
     $tabNavAdm = [
         'fiche.php' => [
             'libelle' => '<img src="Images/new.png" width=15pt/> Pré-déposer',
@@ -94,7 +97,6 @@ if ($infAppli['ADMIN']) {
 }
 $tabNav = array_merge($tabNavAll, $tabNavAdm);
 ?>
-
 <div class="menuNavigation" id="IDmenuNavigation">
     <div class="row col-md-12" style="width:100%">
         <?php
@@ -104,6 +106,11 @@ $tabNav = array_merge($tabNavAll, $tabNavAdm);
             } else {
                 $className = '';
             }
+            $notif=0;
+            if (isset($val['notif']) && actusRecente($val['notif'])) {
+                $notif=1;
+            }
+            
             $ext = explode('.', $key);
             if ($ext[1] == '') {
                 ?>
@@ -129,9 +136,10 @@ $tabNav = array_merge($tabNavAll, $tabNavAdm);
                     </div>
                 </span>
             <?php
-                } else {
-                    ?>
-                <span class="link <?= $val['class']; ?> navigation <?= $className; ?> " onclick="goTo('<?= $key; ?>', '<?= $val['mode']; ?>', null, null)"><?= $val['libelle']; ?></span>
+                } else { ?>
+                <span class="link <?= $val['class']; ?> navigation <?= $className; ?> " onclick="goTo('<?= $key; ?>', '<?= $val['mode']; ?>', null, null)"><?= $val['libelle']; 
+                if ($notif) { echo "<img src='Images/notif.png' width=15pt title='Nouveau post' alt='new post'>"; }?>
+                </span>
         <?php
             }
         } ?>

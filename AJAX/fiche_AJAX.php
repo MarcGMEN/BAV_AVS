@@ -105,8 +105,8 @@ function action_createFiche($data)
         // on en normalement avec le mel uniquement
         // on a pas de cli_id
         makeClient($tabCli);
-        
-        error_log("cli_id = ".$tabCli['cli_id']);
+
+        error_log("cli_id = " . $tabCli['cli_id']);
         if ($tabCli['cli_id'] != 0) {
 
             // en cas de creation, on reforce un update
@@ -171,9 +171,8 @@ function action_createFiche($data)
                 // sinon on envoi le mel
                 $retour = sendMail($titreMel, $tabCli['cli_emel'], $message, null, true);
             }
-        }
-        else {
-            return "ERREUR : problème de création du client";    
+        } else {
+            return "ERREUR : problème de création du client";
         }
     } catch (Exception $e) {
         return "ERREUR " . $e->getMessage();
@@ -363,12 +362,24 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
                 if ($fiche['obj_prix_depot'] == 0) {
                     $fiche['obj_prix_depot'] = "";
                 }
+                $adresse = $CFG_URL . "index.php?modePage=restV&id=" . $fiche['obj_id_modif'];
+                $fiche['QRCODE'] = "<img src='https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=$adresse&choe=UTF-8' title='Fiche " . $fiche['obj_numero'] . "' />";
             }
         } else {
             if ($eti0 == -1) {
                 $fiche['obj_numero'] = "";
+                $fiche['obj_id_modif'] = "";
+                $fiche['QRCODE'] = "";
             } else {
                 $fiche['obj_numero'] = $numFiche;
+                $fiche['obj_id_modif'] = hash_hmac(
+                    'md5',
+                    $fiche['obj_numero'] . $GLOBALS['INFO_APPLI']['numero_bav'],
+                    'avs44'
+                );
+                $adresse = $CFG_URL . "index.php?modePage=restV&id=" . $fiche['obj_id_modif'];
+                $fiche['QRCODE'] = "<img src='https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=$adresse&choe=UTF-8' title='Fiche " . $fiche['obj_numero'] . "' />";
+                // $fiche['QRCODE']=$adresse;
             }
             $fiche['obj_type'] = "<br/><span style='font-size:6px'><i>Autre-VTT-Route-VTC-Ville-VAE-BMX</i></span>";
             $fiche['obj_public'] = "<br/><span style='font-size:6px'><i>Mixte-Homme-Femme-Enfant</i></span>";
@@ -380,7 +391,6 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
             $fiche['obj_description'] = "";
             $fiche['obj_prix_vente'] = "";
             $fiche['obj_prix_depot'] = "";
-            $fiche['obj_id_modif'] = "";
         }
 
         if (sizeof($fiche) > 0) {
@@ -481,6 +491,9 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
             }
             $client['cli_prenom'] = "";
             $client['cli_nom1'] = $client['cli_nom'];
+
+            $adresse = $CFG_URL . "index.php?modePage=restV&id=" . $fiche['obj_id_modif'];
+                $fiche['QRCODE'] = "<img src='https://chart.googleapis.com/chart?chs=50x50&cht=qr&chl=$adresse&choe=UTF-8' title='Fiche " . $fiche['obj_numero'] . "' />";
         } else {
             $client['cli_prix_depot'] = "";
             $client['cli_nom1'] = "<u>$espace75</u>";
@@ -497,8 +510,17 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
             $client['cli_id_modif'] = "";
             if ($eti0 == -1) {
                 $fiche['obj_numero'] = "";
+                $fiche['obj_id_modif'] = "";
+                $fiche['QRCODE'] = "";
             } else {
                 $fiche['obj_numero'] = $numFiche;
+                $fiche['obj_id_modif'] = hash_hmac(
+                    'md5',
+                    $fiche['obj_numero'] . $GLOBALS['INFO_APPLI']['numero_bav'],
+                    'avs44'
+                );
+                $adresse = $CFG_URL . "index.php?modePage=restV&id=" . $fiche['obj_id_modif'];
+                $fiche['QRCODE'] = "<img src='https://chart.googleapis.com/chart?chs=50x50&cht=qr&chl=$adresse&choe=UTF-8' title='Fiche " . $fiche['obj_numero'] . "' />";
             }
             $fiche['obj_type'] = "<br/><span style='font-size:9px'><i>Autre-VTT-Route-VTC-Ville-VAE-BMX</i></span>";
             $fiche['obj_public'] = "<br/><span style='font-size:9px'><i>Mixte-Homme-Femme-Enfant</i></span>";
@@ -510,7 +532,6 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
             $fiche['obj_description'] = "";
             $fiche['obj_prix_vente'] = "";
             $fiche['obj_prix_depot'] = "";
-            $fiche['obj_id_modif'] = "";
         }
 
         if (sizeof($fiche) > 0) {
@@ -644,6 +665,8 @@ function concatDescription($desc)
     // regroupement de la description
     $desc = str_replace("\n", " / ", $desc);
     $desc = str_replace("<br/>", " / ", $desc);
+
+    return $desc;
 }
 
 /**
@@ -702,7 +725,7 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false, $format 
         $fiche['obj_public'] = "Homme";
         $fiche['obj_pratique'] = "Sportive";
         $fiche['obj_marque'] = "Décathlon";
-        $fiche['obj_modele'] = "RockRider superStar";
+        $fiche['obj_modele'] = "RockRider Super Star";
         $fiche['obj_couleur'] = "Noir et rouge";
         $fiche['obj_accessoire'] = "";
         $fiche['obj_description'] = "ceci est un texte long pour essayer de prendre de la place sur une ligne avec un maximun de place, allez on saute une ligne<br/>une ligne<br/> et encore une<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9";
@@ -742,7 +765,6 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false, $format 
     // MISE EN FORME DE LA FICHE
     // regroupement de la description
     $fiche['obj_description'] = concatDescription($fiche['obj_description']);
-
     if (
         $fiche['obj_prix_vente'] > 0 && ($fiche['obj_etat'] == 'VENDU' || $fiche['obj_etat'] == 'PAYE')
     ) {
@@ -906,7 +928,6 @@ function action_updateFiche($data)
     $client = tabToObject(string2Tab($data), "cli");
     $acheteur = tabToObject(string2Tab($data), "ach");
 
-
     if ($acheteur) {
         $clientAcheteur = [];
         foreach ($acheteur as $key => $val) {
@@ -919,8 +940,6 @@ function action_updateFiche($data)
     }
 
     $ficheOld = getOneFiche($fiche['obj_id']);
-
-
 
     // attention au doublon
     // un mel, on cherche si OK, si oui on modifie les données

@@ -3,6 +3,9 @@ var lat = 47.271469;
 var lon = -2.229505;
 var macarte = null;
 var markerClusters;
+
+var geocoder = L.Control.Geocoder.nominatim();
+
 // Servira à stocker les groupes de marqueurs
 // Nous définissons le dossier qui contiendra les marqueurs
 
@@ -28,6 +31,18 @@ function initMap() {
 }
 
 
+
+function getGeoPos(adress) {
+
+
+    var geoCode = geocoder.geocode(adress + ', France', function(results) {
+        return results;
+    });
+
+
+    return geoCode;
+}
+
 function geoPosClient(adress, unique = true, group = true, info) {
     var iconBase = 'Images/logoAVS.png';
 
@@ -43,9 +58,9 @@ function geoPosClient(adress, unique = true, group = true, info) {
         iconAnchor: [widthIcon / 2, heightIcon / 2],
         popupAnchor: [-3, -3],
     });
-    var geocoder = L.Control.Geocoder.nominatim();
-
     //console.log("geoPosClient(" + adress + ") ["+info+"]");
+
+    //var results = getGeoPos(adress);
     geocoder.geocode(adress + ', France',
         function(results) {
             //console.log(results);
@@ -64,14 +79,12 @@ function geoPosClient(adress, unique = true, group = true, info) {
                     marker1.addTo(macarte);
                 }
                 if (unique) {
-                    initMap();
                     macarte.setView(r.center, 14);
                 } else {
                     afficheGroup();
                 }
-            }
-            else {
-                console.log("pas trouve "+adress);
+            } else {
+                console.log("pas trouve " + adress);
             }
         });
 

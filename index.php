@@ -4,6 +4,7 @@ $time_start = microtime(true);
 require_once "Commun/commun_functions.php";
 require_once "Repository/base_repository.php";
 require_once "Repository/parametre_repository.php";
+require_once "Repository/actu_repository.php";
 require_once "AJAX/parametre_AJAX.php";
 require_once "Commun/connect.php";
 require_once "Commun/Sajax.php";
@@ -15,10 +16,10 @@ if (!isset($GET_page)) {
 	$GET_page = "bav.php";
 }
 
-if ($GET_page != "stat.php") {
+/*if ($GET_page != "stat.php") {
 	$_COOKIE['par_numero_bav_stat']="";
 	setcookie('par_numero_bav_stat', null) ;
-}
+}*/
 
 
 // debut des tabIndex pour les ecrans;
@@ -93,14 +94,15 @@ sajax_handle_client_request();
 
 		// date d'ouverture du depot
 		var DATE_J1 = <?= $infAppli['date_j1'] ?>;
+		var DATE_J2 = <?= $infAppli['date_j2'] ?>;
 
 		var NB_MODIF = <?= $infAppli['NB_MODIF'] ?>;
 		var modePage = '<?= $GET_modePage ?>';
 		var id = '<?= $GET_id ?>';
 		
 		function initIndex() {
-			if (id != "" && (modePage == 'restF' || modePage == 'restC')) {
-				search(id, modePage);
+			if (id != "" && (modePage == 'restF' || modePage == 'restC' || modePage == 'restV')) {
+				(id, modePage);
 				var stateObj = {
 					foo: "bar"
 				};

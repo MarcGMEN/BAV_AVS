@@ -21,7 +21,9 @@ function initEntete() {
  * compte a rebours avant la prochaine edition
  */
 function return_restant() {
-    var diff = ((DATE_J1 + "000") - Date.now()) / 1000;
+    // avec 17h de plus
+    var diff = ((DATE_J1 + "000") - Date.now() + 17 * 3600000) / 1000;
+    //var diff = ((DATE_J2 + "000") - Date.now()) / 1000;
 
     if (diff > 0) {
         var jour = parseInt(diff / (3600 * 24));
@@ -76,6 +78,7 @@ function display_counter(val) {
             getElement('statRendu').innerHTML = "";
         }
 
+        // refresh toutes les 5 minutes
         setTimeout('x_return_countByEtat(display_counter)', 5 * 60 * 1000);
     }
 }

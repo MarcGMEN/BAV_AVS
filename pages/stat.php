@@ -214,14 +214,14 @@
         'prixMinidepot' => 'Prix mini depot',
         'prixMaxidepot' => 'Prix maxi depot',
 		'prixMoyendepot' => 'Prix moyen depot',
-		'nbVeloVendeurdepot' => 'Nombre moyen de velo vendu / vendu',
-		'nbVeloMaxiVendeurdepot' => 'Nombre maxi de velo vendu / vendeur',
+		'nbVeloVendeurdepot' => 'Nombre moyen de velo depose / vendeur',
+		'nbVeloMaxiVendeurdepot' => 'Nombre maxi de velo depose / vendeur',
 	];
 	$tabCategLigneVente = [
         'prixMinivente' => 'Prix mini vente',
         'prixMaxivente' => 'Prix maxi vente',
 		'prixMoyenvente' => 'Prix moyen vente',
-		'nbVeloVendeurvente' => 'Nombre moyen de velo vendi /vendeur ',
+		'nbVeloVendeurvente' => 'Nombre moyen de velo vendu /vendeur ',
 		'nbVeloMaxiVendeurvente' => 'Nombre maxi de vélo vendu / vendeur',
 		'delaiMoyenSV' => 'Delai moyen Stock-Vente',
         'delaiMinSV' => 'Delai mini Stock-Vente',

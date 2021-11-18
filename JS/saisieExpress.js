@@ -370,7 +370,7 @@ function modifEtat(tabObj, tabCli) {
     if (tabObj['obj_etat'] == 'INIT' && tabObj['obj_etat_new'] == "STOCK") {
         tabObj['obj_etat'] = 'STOCK'
         var tabData = Object.assign({}, tabObj, tabCli);
-        console.log("demande de cration express");
+        console.log("demande de creation express");
         x_action_createFicheExpress(tabToString(tabData), display_fin_create);
     } else if (tabObj['obj_etat_new'] == 'VENDU') {
         x_return_oneFiche(tabObj['obj_id'], display_fiche_vente);

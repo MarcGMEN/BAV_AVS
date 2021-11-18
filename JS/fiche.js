@@ -194,7 +194,7 @@ function display_listVendeurName(val) {
  * @param {} value 
  */
 function searchByName(value) {
-    console.log("searchByName " + value);
+    // console.log("searchByName " + value);
     if (value != "" && document.ficheForm.cli_emel.value == "") {
         //console.log("recherche par nom");
         x_return_oneClientByName(value, display_infoClientVendeurName);
@@ -278,11 +278,12 @@ function display_fiche(val) {
         }
 
         val['obj_marque_' + idRamdom] = val['obj_marque'];
-        console.log(val);
+        // console.log(val);
         x_return_oneClient(val['obj_id_vendeur'], display_infoClientVendeur);
         getElement("trTitreFiche").style.display = 'block';
         // TODO : en fonction de l'etat, on propose les btn
         // etat INIT
+        getElement("tdBtnEmel").style.display = 'none';
         if (val['obj_etat'] == "INIT") {
             getElement("tdBtnSup").style.display = 'block';
             document.ficheForm.buttonValideFiche.innerHTML = "Modifier";
@@ -518,6 +519,17 @@ function display_fin_create(val) {
     }
 }
 
+function confirmeFiche() {
+
+    var tabObj = recup_formulaire(document.ficheForm, 'obj');
+    if (tabObj['obj_etat'] == 'INIT' && tabObj['obj_etat_new'] == "CONFIRME") {
+        tabObj['obj_etat'] = 'CONFIRME'
+        x_action_changeEtatFiche(tabToString(tabObj), display_fin_modif);
+    } else {
+        alertModalInfoTimeout("what you do ?????", 0.5);
+    }
+}
+
 function display_fin_supp(val) {
     goTo();
 }
@@ -544,7 +556,7 @@ function display_fin_modif(val) {
         setStartSaisie(false);
         x_return_countByEtat(display_counter);
         x_return_oneFiche(val['obj_id'], display_fiche);
-        alertModalInfoTimeout("Fiche modifié.", 0.5);
+        alertModalInfoTimeout("Fiche " + val['obj_numero'] + " modifié.", 0.5);
     } else {
         alertModalWarn(val);
     }
@@ -595,7 +607,7 @@ function fermerCRUD(LaForm) {
  * @param {} value 
  */
 function searchAchByName(value) {
-    console.log("searchByName " + value);
+    // console.log("searchByName " + value);
     if (value != "" && document.ficheForm.ach_emel.value == "") {
         //console.log("recherche par nom");
         x_return_oneClientByName(value, display_infoClientAcheteurName);
