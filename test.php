@@ -22,11 +22,12 @@ require_once 'Commun/mail.php';
 //print_r($mysqli);
 //echo substr(hash_hmac('md5', 700, 'avs442019'), 0, 5);;
 
+$random = rand($base, $base+2000);
 //echo password_hash("BAV2019", PASSWORD_DEFAULT);
-echo "412 => ".hash_hmac('md5', 412, 'avs44'.$_COOKIE['NUMERO_BAV']);
+echo "412 2021 random => <br/>".hash_hmac('md5', "412"."2021".$random, 'avs44'.$_COOKIE['NUMERO_BAV']);
 echo "<br/>";
 
-echo "577 => ".hash_hmac('md5', 577, 'avs44'.$_COOKIE['NUMERO_BAV']);
+echo "577 => <br/>".hash_hmac('md5', "577".$_COOKIE['NUMERO_BAV'], 'avs44');
 //echo password_verify('BAV2019', $GLOBALS['PASS_TABLE']);
 ?>
 </pre>

@@ -510,7 +510,7 @@ function display_fin_create(val) {
     } else {
         if (val == 1) {
             // retour sur la fiche 
-            goTo('fiche.php', modePage, null, "Merci. Vous allez recevoir un mail de confirmation.");
+            goTo('fiche.php', modePage, null, "Merci. Vous allez recevoir un mel de confirmation.");
         } else {
             goTo('fiche.php', modePage, null, val + " Veuillez re-saisir votre fiche, en cas de nouveau pb contacter nous bourse1000velos@avs44.com");
         }
