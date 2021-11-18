@@ -87,7 +87,7 @@ if ($infAppli['ADMIN']) {
             ],
         ],
     ];
-} elseif ($infAppli['CLIENT']) {
+} elseif ($infAppli['CLIENT'] && !$infAppli['bav_en_cours']) {
     $tabNavAdm = [
         'fiche.php' => [
             'libelle' => '<img src="Images/new.png" width=15pt/> Pré-déposer',
@@ -97,7 +97,6 @@ if ($infAppli['ADMIN']) {
 }
 $tabNav = array_merge($tabNavAll, $tabNavAdm);
 ?>
-
 <div class="menuNavigation" id="IDmenuNavigation">
     <div class="row col-md-12" style="width:100%">
         <?php
