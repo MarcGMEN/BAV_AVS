@@ -8,7 +8,7 @@ function initPage() {
     x_return_enum('bav_objet', 'obj_type', display_list_type);
 
     // chargement de la liste des client par mel
-    x_return_listClientByMel(display_listVendeur);
+    // x_return_listClientByMel(display_listVendeur);
 
     // chargement de la liste des client par mel
     x_return_listClientByName(display_listVendeurName);
@@ -163,7 +163,7 @@ function display_fiche(val) {
         document.formSaisieExpress.obj_prix_vente.disabled = true;
         document.formSaisieExpress.obj_couleur.disabled = true;
         document.formSaisieExpress.elements.namedItem('obj_marque_' + idRamdom).disabled = true;
-        document.formSaisieExpress.cli_emel.disabled = true;
+        //document.formSaisieExpress.cli_emel.disabled = true;
         document.formSaisieExpress.elements.namedItem('cli_nom_' + idRamdom).disabled = true;
         document.formSaisieExpress.cli_code_postal.disabled = true;
 
@@ -243,7 +243,7 @@ function display_fiche(val) {
         document.formSaisieExpress.elements.namedItem('obj_marque_' + idRamdom).disabled = false;
         document.formSaisieExpress.elements.namedItem('obj_marque_' + idRamdom).value = "";
 
-        document.formSaisieExpress.cli_emel.disabled = false;
+        //document.formSaisieExpress.cli_emel.disabled = false;
         document.formSaisieExpress.elements.namedItem('cli_nom_' + idRamdom).disabled = false;
         document.formSaisieExpress.cli_code_postal.disabled = false;
         getElement("but_action2").style.display = 'none';
@@ -258,7 +258,7 @@ function display_fiche(val) {
  */
 function searchByName(value) {
     console.log("searchByName " + value);
-    if (value != "" && document.formSaisieExpress.cli_emel.value == "") {
+    if (value != "") {
         x_return_oneClientByName(value, display_infoClientVendeurName);
     }
 }
@@ -293,13 +293,13 @@ function display_infoClientVendeur(val, base) {
     if (val instanceof Object) {
         val['cli_nom_' + idRamdom] = val['cli_nom'];
         // si mel on force la liste des vendeur Name a vide
-        if (val['cli_emel'] != "") {
-            var list = getElement("listVendeurName");
-            list.innerHTML = "";
-        } else {
-            // chargement de la liste des client par mel
-            x_return_listClientByName(display_listVendeurName);
-        }
+        // if (val['cli_emel'] != "") {
+        //     var list = getElement("listVendeurName");
+        //     list.innerHTML = "";
+        // } else {
+        // chargement de la liste des client par mel
+        x_return_listClientByName(display_listVendeurName);
+        // }
         display_formulaire(val, document.formSaisieExpress);
         document.formSaisieExpress.cli_code_postal.disabled = true;
     } else {
@@ -314,7 +314,7 @@ function display_infoClientVendeur(val, base) {
             //val['cli_emel'] = "";
         } else {
             val['cli_nom_' + idRamdom] = "";
-            val['cli_emel'] = "";
+            // val['cli_emel'] = "";
         }
         val['cli_code_postal'] = "";
 
@@ -396,7 +396,7 @@ function display_messageConfirmChangeEtatForm(val) {
     document.modalForm.obj_prix_vente.focus();
 
     // chargement de la liste des client par mel
-    x_return_listClientByMel(display_listAcheteur);
+    //x_return_listClientByMel(display_listAcheteur);
     // chargement de la liste des client par mel
     x_return_listClientByName(display_listAcheteurBis);
 }
@@ -452,9 +452,8 @@ function unloadPage() {}
  */
 function searchAchByName(value) {
     console.log("searchByName " + value);
-    if (value != "" && document.modalForm.ach_emel.value == "") {
-
-        x_return_oneClientByName(utf8_encode($value), display_infoClientAcheteurBis);
+    if (value != "") {
+        x_return_oneClientByName(value, display_infoClientAcheteurBis);
     }
 }
 
@@ -485,6 +484,7 @@ function display_infoClientAcheteurBis(val) {
 }
 
 function display_infoClientAcheteur(val, base) {
+    console.log(val);
     if (val instanceof Object) {
         // remplacement du trigramme cli par ach
         for (i in val) {

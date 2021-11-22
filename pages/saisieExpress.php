@@ -5,7 +5,7 @@ $maxFiche=1800;
 <script>
 	var idRamdom = "<?= $idRamdom ?>";
 	var theId='<?=$_GET['id']?>';
-	var maxFiche = "<?= $maxFiche ?>";;
+	var maxFiche = "<?= $maxFiche ?>";
 </script>
 <script src="JS/saisieExpress.js" type="text/javascript"></script>
 
@@ -16,7 +16,7 @@ $maxFiche=1800;
 		size="6" maxlength="4" title="Saisisez le numéro de fiche" 
 		placeholder="N° fiche" id="inputSearch" 
 		style='background-color:LIGHTGREEN;font-weight: bold;width:10%' 
-		tabindex=<?= $tabindex++ ?>0
+		tabindex=1
 	 	onblur="x_return_oneFicheByCode(document.searchFormFiche.numeroFiche.value, display_ficheN)" />
 	<i id="loupe" class="fas fa-search link " 
 	onclick="x_return_oneFicheByCode(document.searchFormFiche.numeroFiche.value, display_ficheN)"></i>
@@ -42,30 +42,29 @@ $maxFiche=1800;
 				<input type="hidden" name="cli_id">
 			</td>
 			<td>
-				<select name='obj_type' tabindex=<?= $tabindex++ ?> disabled required >
+				<select name='obj_type' tabindex=2 disabled required >
 				</select>
 			</td>
 			<td>
-				<input type=text name="obj_couleur" size=20 maxlength="30" disabled tabindex=<?= $tabindex++ ?> 
-					style="text-transform:uppercase" placeholder="Couleurs dominantes"  />
+				<input type=text list="listMarques"  disabled  name="obj_marque_<?= $idRamdom ?>" size=30 maxlength="50" 
+					tabindex=3 style="text-transform:uppercase" placeholder="Marque du vélo"  />
+				<datalist id="listMarques"></datalist>
 			</td>
 			<td>
-				<input type=text list="listMarques"  disabled  name="obj_marque_<?= $idRamdom ?>" size=30 maxlength="50" 
-					tabindex=<?= $tabindex++ ?> style="text-transform:uppercase" placeholder="Marque du vélo"  />
-				<datalist id="listMarques"></datalist>
-
+				<input type=text name="obj_couleur" size=20 maxlength="30" disabled tabindex=4
+					style="text-transform:uppercase" placeholder="Couleurs dominantes"  />
 			</td>
 			<td>
 			</td>
 			<td id="obj_etat" rowspan=3 class="tittab" style="text-align:center;vertical-align:middle">
 			</td>
 			<td rowspan=3 class="tittab" style="text-align:center;vertical-align:middle">
-				<button id="but_action" tabindex=<?= $tabindex+6 ?>
+				<button id="but_action" tabindex=<?= $tabindex+8 ?>
 					onsubmit="this.form.action.value='new'" onclick="this.form.action.value='new'"></button>
 				<input type="hidden" name="action" value="new">
-				<button id="but_action2" tabindex=<?= $tabindex+7 ?>
+				<button id="but_action2" tabindex=<?= $tabindex+9 ?>
 					onsubmit="this.form.action.value='new2'" onclick="this.form.action.value='new2'"></button>
-				<button id="but_actionAno" tabindex=<?= $tabindex+8 ?> class="error"
+				<button id="but_actionAno" tabindex=<?= $tabindex+10 ?> class="error"
 					onsubmit="this.form.action.value='newAno'" onclick="this.form.action.value='newAno'"></button>
 				<input type="hidden" name="obj_etat">
 				<input type="hidden" name="obj_etat_new">
@@ -78,18 +77,18 @@ $maxFiche=1800;
 			<td class='tittab' width=55% colspan=3>Vendeur</td>
 		</tr><tr>
 			<td>
-				<input type=number name="obj_prix_vente" disabled size=5 maxlength="10" tabindex=<?= $tabindex++ ?> 
+				<input type=number name="obj_prix_vente" disabled size=5 maxlength="10" tabindex=5
 					title="Prix vente" required step="0.1" placeholder="00.00" min=1 />&nbsp;&#8364;
 			</td>
-			<td>
-				<input type=email name='cli_emel' disabled  tabindex=<?= $tabindex++ ?> 
+			<!--<td>
+				<input type=email name='cli_emel' disabled  tabindex=6 
 					size="50" maxlength="100" 
 					placeholder="E-mail"
 					onblur='searchByMel(this.value)' list="listVendeur">
 				<datalist id="listVendeur"></datalist>
-			</td>
-			<td>
-				<input type=text name='cli_nom_<?= $idRamdom ?>'disabled  tabindex=<?= $tabindex++ ?> 
+			</td>-->
+			<td colspan=2>
+				<input type=text name='cli_nom_<?= $idRamdom ?>'disabled  tabindex=6
 					placeholder="Nom et prénom"
 					size="50" maxlength="100" required 
 					onblur='searchByName(this.value)' list="listVendeurName">
@@ -98,7 +97,7 @@ $maxFiche=1800;
 			<td>
 				<input type=text name='cli_code_postal' 
 					placeholder="Code postal"
-					disabled  tabindex=<?= $tabindex++ ?> size="7" maxlength="5" >
+					disabled  tabindex=<7 size="7" maxlength="5" >
 			</td>
 			
 		</tr>

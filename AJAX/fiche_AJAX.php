@@ -895,24 +895,24 @@ function action_vendFiche($data)
         // on recherche le vendeur
         $cliVend = return_oneClient($theFiche['obj_id_vendeur']);
 
-
         // si le client a un mel on envoi un mel
         if ($cliVend['cli_emel'] != "") {
             $tab = array();
             // calcul de la commission
-            $tab['cli_com'] = getCommission($fiche);
+            $tab['cli_com'] = getCommission($theFiche);
 
             // TODO : envoi du mail
-            $titreMel = "BAV #" . $fiche['obj_numero'] . ", votre vélo est vendu .";
+            $titreMel = "BAV #" . $theFiche['obj_numero'] . ", votre vélo est vendu .";
 
             // creation du message avec le template
             // html/mel_vendu.html
-            $message = makeMessage($titreMel, array_merge($fiche, $cliVend, $tab), "mel_vendu.html");
+            $message = makeMessage($titreMel, array_merge($theFiche, $cliVend, $tab), "mel_vendu.html");
 
+            error_log($message);
             // envoi du mel
             sendMail($titreMel, $cliVend['cli_emel'], $message);
         }
-        return $fiche;
+        return $theFiche;
     } catch (Exception $e) {
         return "ERREUR " . $e->getMessage();
     }

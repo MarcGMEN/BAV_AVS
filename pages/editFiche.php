@@ -225,6 +225,29 @@ $tabInfo = [
 				}
 			},
 			{
+				name: 'confirmation',
+				element: 'div',
+				styles: {
+					'background': 'DARKBLUE',
+					'color': 'WHITE',
+					'width': '75%',
+					'text-align': 'center',
+					'font-weight': 'bold',
+					'font-size': 'large'
+				}
+			},
+			{
+				name: 'visualisation',
+				element: 'div',
+				styles: {
+					'background': 'LIGHTGREEN',
+					'width': '75%',
+					'text-align': 'center',
+					'font-weight': 'bold',
+					'font-size': 'large'
+				}
+			},
+			{
 				name: 'border black',
 				element: 'td',
 				styles: {

@@ -4,38 +4,34 @@ Vente de la fiche --obj_numero-- : <br />
     <li><b>--obj_marque-- - --obj_modele--</b> de couleur : <b>--obj_couleur--</b></li>
     <li> PRIX : <b>--obj_prix_vente--</b></li><br /></li>
 </ul>
-<input type=hidden name="obj_id" value="--obj_id--"/>
-<div class="fiche tittab" style="background-color: lightyellow;" ><h4>Confirmer le prix de vente : 
-        <input class="tabInput" style="width: 20%" type=number name="obj_prix_vente" size=5 maxlength="10"  value="--obj_prix_vente--"
-            title="Prix vente." placeholder="00.00" step="0.1"
-            tabindex="1"/>&#8364;</h4>
+<input type=hidden name="obj_id" value="--obj_id--" />
+<div class="fiche tittab" style="background-color: lightyellow;">
+    <h4>Confirmer le prix de vente :
+        <input class="tabInput" style="width: 20%" type=number name="obj_prix_vente" size=5 maxlength="10" value="--obj_prix_vente--" title="Prix vente." placeholder="00.00" step="0.1" tabindex="1" />&#8364;</h4>
 </div>
 <input type=hidden name="ach_id" />
 <table width=100% cellpadding=2 cellspacing=2>
     <tr>
-    <tr>
-        <td class="titrow" width="10%">Emel </td>
-        <td class="tabInput" width=40%>
-            <input type=email name='ach_emel' id="cli_emel" size="50" maxlength="100" tabindex=2
-              placeholder="aaaa.bbbb@ccc.dd" 
-              onblur='searchAchByMel(this.value)'
-              list="listAcheteur"    />
-            <datalist id="listAcheteur"></datalist>
-        <td class="titrow" width=10%>Nom/prenom <span title="Obligatoire">*<span></td>
-        <td class="tabInput" width=40%>
-            <input type=text name='ach_nom' tabindex=3
-             size="50" maxlength="100" required 
-                onblur='searchAchByName(this.value)'
-			   list="listAcheteurBis" />
-			<datalist id="listAcheteurBis"></datalist>
-        </td>
-    </tr>
-    <tr>
-        <td class="titrow">Adresse</td>
-        <td class="tabInput">
-            <input type=text name="ach_code_postal" size=5 maxlength='10' tabindex=5
-            placeholder="Code postal" />
-        </td>
+        <tr>
+            <!--<td class="titrow" width="10%">Emel </td>
+            <td class="tabInput" width=40%>
+                <input type=email name='ach_emel' id="cli_emel" size="50" maxlength="100" tabindex=2 placeholder="aaaa.bbbb@ccc.dd" onblur='searchAchByMel(this.value)' list="listAcheteur" />
+                <datalist id="listAcheteur"></datalist>
+            </td>-->
+
+            <td class="titrow" width=10%>Nom/prenom <span title="Obligatoire">*<span></td>
+            <td class="tabInput" width=40%>
+                <input type=text name='ach_nom' tabindex=3
+                   size="50" maxlength="100" required 
+                   onblur='searchAchByName(this.value)'
+    			   list="listAcheteurBis" />
+			    <datalist id="listAcheteurBis"></datalist>
+            </td>
+            <td class="titrow" width=10%>Code postal</td>
+            <td class="tabInput" width=40%>
+                <input type=text name="ach_code_postal" size=5 maxlength='10' tabindex=5
+                   placeholder="Code postal" />
+            </td>
     </tr>
 </table>
 
