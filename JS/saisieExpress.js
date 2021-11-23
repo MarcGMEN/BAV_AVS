@@ -1,3 +1,5 @@
+focus = true;
+
 function initPage() {
     if (theId != "") {
         x_return_oneFiche(theId, display_ficheN);
@@ -172,7 +174,13 @@ function display_fiche(val) {
 
         getElement("but_action").style.display = 'table-cell';
 
-        getElement("but_action").focus();
+        console.log("focus " + focus);
+
+        if (focus == 1) {
+            console.log('focus bouton');
+            getElement("but_action").focus();
+        }
+        focus = true;
         if (val['obj_etat'] == "INIT") {
             getElement("but_action").innerHTML = "Confirmer";
             val['obj_etat_new'] = "CONFIRME";
@@ -185,6 +193,7 @@ function display_fiche(val) {
             val['obj_prix_vente'] = val['obj_prix_depot'];
         } else if (val['obj_etat'] == "STOCK") {
             getElement("but_action").innerHTML = "Vendre";
+
             getElement("but_action2").style.display = 'table-cell';
             getElement("but_action2").innerHTML = "Rendre";
             getElement("but_actionAno").style.display = 'table-cell';
@@ -433,6 +442,7 @@ function display_fin_create(val) {
         getElement("but_action").style.display = 'none';
         getElement("but_action").innerHTML = "";
         // recharge de la fiche dans le bloc de saisie
+        focus = false;
         x_return_oneFiche(val['obj_id'], display_fiche);
 
         // on revient sur le numero de fiche en focus

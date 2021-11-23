@@ -360,13 +360,6 @@
 			</legend>
 		<div class="row">
 			<div class="col-sm-6 col-md-6 col-xs-12">
-				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Emel </span></span>
-				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
-					<input type=email name='ach_emel' id="ach_emel" size="50" maxlength="100" tabindex=<?= $tabindex++ ?> placeholder="aaaa.bbbb@ccc.dd" onblur='searchAchByMel(this.value)' list='listAcheteur' />
-					<datalist id="listAcheteur"></datalist>
-				</span>
-			</div>
-			<div class="col-sm-6 col-md-6 col-xs-12">
 				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Nom et prénom <span title="Obligatoire">*</span></span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
 					<input type=text name='ach_nom' tabindex=<?= $tabindex++ ?> size="50" maxlength="100" onblur='searchAchByName(this.value)' list='listAcheteurName' />
@@ -374,7 +367,7 @@
 				</span>
 			</div>
 			<div class="col-sm-6 col-md-6 col-xs-12">
-				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Adresse</span>
+				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Code postal</span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
 					<input type=text name="ach_code_postal" size=5 maxlength='10' tabindex=<?= $tabindex++ ?> placeholder="Code postal" onkeyup="setStartSaisie(true);" />
 				</span>
