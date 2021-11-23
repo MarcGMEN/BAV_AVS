@@ -81,17 +81,19 @@ function countBy($tabSel, $selS, $search = "=", $valS, $etats = "'STOCK','RENDU'
  * recherche de la place libre
  * creation d'une clef md5 pour les appels REST
  */
-function makeNumeroFiche($base, &$objet)
+function makeNumeroFiche($base, &$objet, $avecRandom=false)
 {
     $objet['obj_numero'] = getFicheLibre($base);
     // creation de idmodif
 
-    $random = rand($base, $base+2000);
+    $random="";
+    if ($avecRandom) {
+        $random = rand($base, $base+2000);
+    }
     
     $objet['obj_id_modif'] = hash_hmac(
         'md5',
         $objet['obj_numero'].$GLOBALS['INFO_APPLI']['numero_bav'].$random,
-        //+$random,
         'avs44'
     );
     error_log("creation de " . $objet['obj_numero'] . " => " . $objet['obj_id_modif']);

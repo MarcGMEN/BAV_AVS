@@ -22,7 +22,7 @@ if ($GET_a == "C") {
             if (trim($fiche['obj_etat']) == "INIT") {
                 $fiche['obj_etat'] = 'CONFIRME';
 
-                makeNumeroFiche($INFO_APPLI['base_info'], $fiche);
+                makeNumeroFiche($INFO_APPLI['base_info'], $fiche, false);
 
                 $fiche['obj_modif_data'] = 1;
                 $fiche['obj_modif_vendeur'] = 1;

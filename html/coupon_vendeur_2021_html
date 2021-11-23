@@ -1,0 +1,59 @@
+<table cellpadding="3" cellspacing="3" style="height:130px; width:1200px">
+    <tbody>
+        <tr>
+            <td style="height:130px; vertical-align:middle; width:100px">
+                <table border="1" cellpadding="1" cellspacing="0">
+                    <tbody>
+                        <tr>
+                            <td style="height:130px; text-align:center; width:100px">
+                                <p><span style="font-family:Arial"><strong>Un caf&eacute;<br />
+						offert</strong></span><br />
+                                    <img alt="tasse de café" height="53" src="https://unetache.fr/wp-content/uploads/2019/02/tachecafe7.png" width="53" /></p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+            <td style="height:130px; width:800px">
+                <table border="1" cellpadding="1" cellspacing="0">
+                    <tbody>
+                        <tr>
+                            <td colspan="2" style="height:15px; width:700px"><span style="font-family:Arial,Helvetica,sans-serif"><strong>Re&ccedil;u pour le vendeur&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="background-color:#ecf0f1">&nbsp;Suivi des ventes : http:/avs44.com/bourseauxvelos</span></strong>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="height:110px; vertical-align:top; width:400px"><span style="font-family:Arial,Helvetica,sans-serif"><span style="font-size:14px">--titre-- --date1--/--date2--/--date3-- --mois-- --annee--</span><br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <img alt="AVS" src="http://avs44.com//bourseauxvelos/html/Bav.png" style="float:right" width="108" /><br />
+                                <span style="font-size:16px">N&deg;</span><span style="font-size:25px">&nbsp;</span><span style="font-size:36px"><strong>--obj_numero--</strong></span> &nbsp;&nbsp;&nbsp;
+                                <span>--QRCODE--</span><br />
+                                <span style="font-size:9px">Id :</span><strong><span style="font-size:9px"> --obj_id_modif--</span></strong><br />
+                                <span style="font-size:16px">Vendeur : <strong>--cli_nom1--</strong></span></span>
+                            </td>
+                            <td style="text-align:justify; vertical-align:top; width:400px"><span style="font-size:10px"><span style="font-family:Arial,Helvetica,sans-serif">Re&ccedil;u &agrave; remettre (<strong>obligatoirement</strong>) accompagn&eacute; d&#39;une pi&egrave;ce d&#39;identit&eacute; pour r&eacute;cup&eacute;rer votre v&eacute;lo au plus tard le dimanche soir avant 19h ou, le r&eacute;glement d&egrave;s que la vente est effectu&eacute;e.<br />
+						<strong>Pr&eacute;voir &eacute;galement en esp&egrave;ce ou en ch&egrave;que, la somme correspondante &agrave; la commision (--cli_taux_com-- %) &agrave; l&#39;ordre de la l&#39;AVS Saint Nazaire</strong><br />
+						<br />
+						<strong><span style="background-color:#bdc3c7">&nbsp;Proc&eacute;dure de 30km&nbsp;</span></strong><br /> Possibilit&eacute; de recevoir le r&egrave;glement de la vente directement chez vous. (voir modalit&eacute; sur le r&egrave;glement de la BAV
+                                sur le site Internet http:/avs44.com/bourseauxvelos )<br /> T&eacute;l&eacute;phone de l&#39;organisation :<strong> 06.46.58.06.61</strong></span>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+            <td style="height:130px; text-align:left; width:300px">
+                <table border="1" cellpadding="1" cellspacing="0">
+                    <tbody>
+                        <tr>
+                            <td style="height:130px; vertical-align:top; width:300px"><span style="font-family:Arial,Helvetica,sans-serif"><strong>Tombola --numero_bav--&nbsp;&nbsp;<img alt="AVS" height="33" src="http://avs44.com//bourseauxvelos/Images/logoAVS.png" style="float:right" width="54" /></strong></span>
+                                <p style="text-align:left"><span style="font-family:Arial,Helvetica,sans-serif">Nom&nbsp; &nbsp; &nbsp; : <span style="font-size:10px">--cli_nom--</span><br /> Pr&eacute;nom : <span style="font-size:10px">--cli_prenom--</span><br /> Ville&nbsp; &nbsp;
+                                    &nbsp; &nbsp;: <span style="font-size:10px">--cli_ville--</span><br /> T&eacute;l&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;: <span style="font-size:10px">--cli_telephone--</span><br /> Email&nbsp; &nbsp; &nbsp;: <span style="font-size:10px">--cli_emel--</span></span>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -125,7 +125,7 @@ function action_createFiche($data)
 
             if ($ADMIN) {
                 // creation du numero a partir de la base parametre pour la BAV
-                makeNumeroFiche($INFO_APPLI['base_info'], $tabObj);
+                makeNumeroFiche($INFO_APPLI['base_info'], $tabObj, false);
                 // on passe en STOCK
                 $tabObj['obj_etat'] = 'STOCK';
                 // on valide le prix de vente
@@ -134,7 +134,7 @@ function action_createFiche($data)
                 $tabObj['obj_date_depot'] = date('y-m-d H:i:s');
             } else {
                 $tabObj['obj_etat'] = 'INIT';
-                makeNumeroFiche(5000, $tabObj);
+                makeNumeroFiche(5000, $tabObj, true);
 
                 // creation du lien REST pour confirmer le depot
                 $tabPlus['lien_confirm'] = $CFG_URL . "/Actions/rest.php?a=C&id=" . $tabObj['obj_id_modif'];
@@ -372,14 +372,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
                 $fiche['QRCODE'] = "";
             } else {
                 $fiche['obj_numero'] = $numFiche;
-                $fiche['obj_id_modif'] = hash_hmac(
-                    'md5',
-                    $fiche['obj_numero'] . $GLOBALS['INFO_APPLI']['numero_bav'],
-                    'avs44'
-                );
-                $adresse = $CFG_URL . "index.php?modePage=restV&id=" . $fiche['obj_id_modif'];
-                $fiche['QRCODE'] = "<img src='https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=$adresse&choe=UTF-8' title='Fiche " . $fiche['obj_numero'] . "' />";
-                // $fiche['QRCODE']=$adresse;
+                makeNumeroFiche($INFO_APPLI['base_info'], $fiche, false);
             }
             $fiche['obj_type'] = "<br/><span style='font-size:6px'><i>Autre-VTT-Route-VTC-Ville-VAE-BMX</i></span>";
             $fiche['obj_public'] = "<br/><span style='font-size:6px'><i>Mixte-Homme-Femme-Enfant</i></span>";
@@ -474,7 +467,7 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
         $espace75 .= "&nbsp;";
     }
     $espace50 = "";
-    for ($i = 0; $i <= 35; $i++) {
+    for ($i = 0; $i <= 30; $i++) {
         $espace50 .= "&nbsp;";
     }
 
@@ -486,25 +479,24 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
                     $fiche['obj_modif_vendeur'] = 0;
                     updateFiche($fiche);
                 }
-
                 $client = getOneClient($fiche['obj_id_vendeur']);
             }
             $client['cli_prenom'] = "";
             $client['cli_nom1'] = $client['cli_nom'];
 
             $adresse = $CFG_URL . "index.php?modePage=restV&id=" . $fiche['obj_id_modif'];
-                $fiche['QRCODE'] = "<img src='https://chart.googleapis.com/chart?chs=50x50&cht=qr&chl=$adresse&choe=UTF-8' title='Fiche " . $fiche['obj_numero'] . "' />";
+                $fiche['QRCODE'] = "<img src='https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=$adresse&choe=UTF-8' title='Fiche " . $fiche['obj_numero'] . "' />";
         } else {
             $client['cli_prix_depot'] = "";
-            $client['cli_nom1'] = "<u>$espace75</u>";
-            $client['cli_nom'] = "<u>$espace75</u>";;
-            $client['cli_prenom'] = "<u>$espace75</u>";
-            $client['cli_emel'] = "<u>$espace75</u>";
+            $client['cli_nom1'] = "<u>$espace50</u>";
+            $client['cli_nom'] = "<u>$espace50</u>";;
+            $client['cli_prenom'] = "<u>$espace50</u>";
+            $client['cli_emel'] = "<u>$espace50</u>";
             $client['cli_adresse'] = "";
             $client['cli_adresse1'] = "";
             $client['cli_code_postal'] = "";
-            $client['cli_ville'] = "<u>$espace75</u>";;
-            $client['cli_telephone'] = "<u>$espace75</u>";;
+            $client['cli_ville'] = "<u>$espace50</u>";;
+            $client['cli_telephone'] = "<u>$espace50</u>";;
             $client['cli_telephone_bis'] = "";
             $client['cli_taux_com'] = "10";
             $client['cli_id_modif'] = "";
@@ -514,13 +506,10 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
                 $fiche['QRCODE'] = "";
             } else {
                 $fiche['obj_numero'] = $numFiche;
-                $fiche['obj_id_modif'] = hash_hmac(
-                    'md5',
-                    $fiche['obj_numero'] . $GLOBALS['INFO_APPLI']['numero_bav'],
-                    'avs44'
-                );
+                makeNumeroFiche($INFO_APPLI['base_info'], $tabObj, false);
+
                 $adresse = $CFG_URL . "index.php?modePage=restV&id=" . $fiche['obj_id_modif'];
-                $fiche['QRCODE'] = "<img src='https://chart.googleapis.com/chart?chs=50x50&cht=qr&chl=$adresse&choe=UTF-8' title='Fiche " . $fiche['obj_numero'] . "' />";
+                $fiche['QRCODE'] = "<img src='https://chart.googleapis.com/chart?chs=80x80&cht=qr&chl=$adresse&choe=UTF-8' title='Fiche " . $fiche['obj_numero'] . "' />";
             }
             $fiche['obj_type'] = "<br/><span style='font-size:9px'><i>Autre-VTT-Route-VTC-Ville-VAE-BMX</i></span>";
             $fiche['obj_public'] = "<br/><span style='font-size:9px'><i>Mixte-Homme-Femme-Enfant</i></span>";
