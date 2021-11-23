@@ -4,7 +4,6 @@
 	// pour rendre le champ nom du client unique
 	var idRamdom = "<?= $idRamdom ?>";
 </script>
-<script src="JS/modif_prix.js" type="text/javascript"></script>
 <script src="JS/fiche.js" type="text/javascript"></script>
 
 <? if (!$infAppli['ADMIN'] && $GET_modePage == 'create') { ?>
@@ -110,6 +109,30 @@
 				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Couleur <span title="Obligatoire">*</span></span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
 					<input type=text name="obj_couleur" size=20 maxlength="30" tabindex=<?= $tabindex++ ?> style="text-transform:uppercase" placeholder="Couleurs dominantes" onkeyup="setStartSaisie(true);" required />
+				</span>
+			</div>
+
+			<!-- NEw LINE -->
+			<!-- Date achat -->
+			<div class="col-sm-4 col-md-4 col-xs-12">
+				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Date achat </span>
+				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
+					<input type=date  name="obj_date_achat" tabindex=<?= $tabindex++ ?> placeholder="Date achat" onkeyup="setStartSaisie(true);" />
+				</span>
+			</div>
+			<!-- prix achat -->
+			<div class="col-sm-4 col-md-4 col-xs-12">
+				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Prix achat</span>
+				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
+				<input type=number name="obj_prix_achat" size=5 maxlength="10" tabindex=<?= $tabindex++ ?> onkeyup="setStartSaisie(true);" step="0.1" min="0" title="Prix d'achat de votre vélo" placeholder="00.00" />&#8364;
+				</span>
+			</div>
+			<!-- Taille -->
+			<div class="col-sm-4 col-md-4 col-xs-12">
+				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Taille </span>
+				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
+				<input type=text name="obj_taille" size=25 maxlength="30" tabindex=<?= $tabindex++ ?> style="text-transform:uppercase" list="listTailles" placeholder="Taille du vélo" onkeyup="setStartSaisie(true);" />
+					<datalist id="listTailles"></datalist>
 				</span>
 			</div>
 		</div>

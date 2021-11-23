@@ -8,7 +8,6 @@ require_once "../config.ini";
 require_once "../Repository/base_repository.php";
 require_once "../Repository/parametre_repository.php";
 require_once "../Repository/fiche_repository.php";
-require_once "../Repository/modif_prix_repository.php";
 require_once "../Repository/client_repository.php";
 require_once "../Repository/faq_repository.php";
 require_once "../Repository/actu_repository.php";

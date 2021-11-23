@@ -16,6 +16,7 @@ function initPage() {
 
     // recuperation de la liste des marques
     x_return_list_marques(display_list_marques)
+    x_return_list_tailles(display_list_tailles)
 
     // chargement des taux
     x_return_tauxBAV(display_list_taux_com);
@@ -144,6 +145,14 @@ function display_list_prix_depot(val) {
 
 function display_list_marques(val) {
     var list = getElement("listMarques");
+    for (index in val) {
+        list.appendChild(new Option(val[index], val[index]));
+    }
+}
+
+function display_list_tailles(val) {
+    var list = getElement("listTailles");
+    list.innerHTML = "";
     for (index in val) {
         list.appendChild(new Option(val[index], val[index]));
     }

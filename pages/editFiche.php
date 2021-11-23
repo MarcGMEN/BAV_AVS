@@ -18,7 +18,6 @@ $tabInfo = [
 	// 'RESTOCK MODAL' => "modal_confirm_restock",
 	'MAIL ENREGISTREMENT' => "mel_enregistrement",
 	'MAIL CONFIRME' => "mel_confirme",
-	'MAIL MODIF' => "mel_modif",
 	'MAIL VENDU' => "mel_vendu"
 ];
 ?>

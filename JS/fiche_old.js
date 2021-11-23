@@ -27,13 +27,13 @@ function initPage() {
         x_return_listClientByMel(display_listVendeur);
         // chargement de la liste des client par nom
         x_return_listClientByName(display_listVendeurBis);
-       
+
         console.log("mode " + ADMIN);
         // en mode create de table, le mail n'est pas obligatoire
         document.ficheForm.cli_emel.required = false;
 
         // pas de CGU pour la ADMIN
-        
+
         document.ficheForm.checkCGU.required = false;
         // pas la peine de voir les CGU
         getElement("tdCGU").style.display = 'none';
@@ -56,10 +56,10 @@ function initPage() {
         // affichage des boutons 
         getElement("tdBtnEtat").style.display = 'block';
 
-    // sinon si pas de CLIENT possible
+        // sinon si pas de CLIENT possible
     } else if (!CLIENT) {
         alertModalInfo("La saisie n'est pas encore ouverte.");
-        setTimeout(function () { goTo() }, 2000);
+        setTimeout(function() { goTo() }, 2000);
     }
 
     // si on passe un d de fiche alors pn affiche
@@ -155,6 +155,8 @@ function display_list_modeles(val) {
     }
 }
 
+
+
 /**
  * liste des vendeurs par mel
  * @param  val 
@@ -216,7 +218,7 @@ function display_fiche(val) {
             document.ficheForm.obj_etat_new.value = "CONFIRME";
             val['obj_etat_libelle'] = "Demande initiée par le vendeur le [" + formatDate(val['obj_date_depot'], true) + "]";
             document.ficheForm.obj_prix_vente.disabled = true
-            
+
             if (ADMIN) {
                 getElement("tdBtnEmel").style.display = 'block';
             }
@@ -269,7 +271,7 @@ function display_fiche(val) {
             document.ficheForm.buttonEtatFicheBis.style.display = 'inline';
             document.ficheForm.buttonEtatFicheBis.value = 'Rendre';
             document.ficheForm.obj_prix_vente.disabled = false
-            document.ficheForm.buttonEtatFicheBis.onclick = function () { changeEtatFiche('RENDU') };
+            document.ficheForm.buttonEtatFicheBis.onclick = function() { changeEtatFiche('RENDU') };
             if (!ADMIN) {
                 disable_formulaire(document.ficheForm, "cli");
             }
@@ -302,7 +304,7 @@ function display_fiche(val) {
             document.ficheForm.buttonEtatFicheBis.style.display = 'inline';
             document.ficheForm.buttonEtatFicheBis.value = 'Remettre en Stock';
 
-            document.ficheForm.buttonEtatFicheBis.onclick = function () { changeEtatFiche('RESTOCK') };
+            document.ficheForm.buttonEtatFicheBis.onclick = function() { changeEtatFiche('RESTOCK') };
             //}
 
             if (ADMIN) {
@@ -319,8 +321,7 @@ function display_fiche(val) {
             getElement("divPrix").style.display = 'block';
             if (TABLE) {
                 getElement("tdBtnPdf").style.display = 'block';
-            }
-            else if (ADMIN) {
+            } else if (ADMIN) {
                 getElement("tdBtnPdf").style.display = 'block';
                 getElement("tdBtnSup").style.display = 'block';
             } else {
@@ -340,14 +341,12 @@ function display_fiche(val) {
                 document.ficheForm.buttonEtatFiche.value = "Remettre en stock";
                 document.ficheForm.obj_etat_new.value = "RESTOCK";
 
-            }
-            else {
+            } else {
                 val['obj_etat_libelle'] = "Payé au vendeur le [" + formatDate(val['obj_date_retour']) + "]";
                 if (ADMIN) {
                     document.ficheForm.buttonEtatFiche.value = "Remettre en stock";
                     document.ficheForm.obj_etat_new.value = "RESTOCK";
-                }
-                else {
+                } else {
                     getElement("tdBtnEtat").style.display = 'none';
                 }
                 getElement("fieldSetAcheteur").style.display = 'block';
@@ -484,7 +483,7 @@ function display_fin_modif(val) {
         setStartSaisie(false);
         x_return_countByEtat(display_counter);
         x_return_oneFiche(val['obj_id'], display_fiche);
-        alertModalInfoTimeout("Fiche modifié.",0.5);
+        alertModalInfoTimeout("Fiche modifié.", 0.5);
     } else {
         alertModalWarn(val);
     }
@@ -639,11 +638,9 @@ function display_infoClientVendeur(val, base) {
         val['cli_id'] = "";
         if (base == 'emel') {
             val['cli_nom'] = "";
-        }
-        else if (base == 'nom') {
+        } else if (base == 'nom') {
             //val['cli_emel'] = "";
-        }
-        else {
+        } else {
             val['cli_nom'] = "";
             val['cli_emel'] = "";
         }
@@ -729,4 +726,3 @@ function display_listAcheteurBis(val) {
         list.appendChild(new Option(val[index], val[index]));
     }
 }
-

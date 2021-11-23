@@ -2,6 +2,7 @@
 sajax_export(
     "return_list_marques",
     "return_list_modeles",
+    "return_list_tailles",
     "return_oneFiche",
     "action_updateFiche",
     "action_deleteFiche",

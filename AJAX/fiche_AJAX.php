@@ -31,6 +31,19 @@ function return_list_marques()
     return $tabRetour;
 }
 
+function return_list_tailles()
+{
+    $index=0;
+    for ($i=34; $i <62 ; $i+=2) { 
+        $tabMarques[$index++]=$i;
+    }
+    $tabRetour = array_merge($tabMarques, ['XS','S','M','L','XL','10 pouces','12 pouces','14 pouces','16 pouces','20 pouces','24 pouces']);
+    //$tabRetour = array_merge($tabMarques, listUnique("bav_objet", "obj_taille"));
+    $tabRetour = array_unique($tabRetour);
+    sort($tabRetour);
+    return $tabRetour;
+}
+
 /**
  * retourne la liste des modeles connus pour une marque donnée
  */
