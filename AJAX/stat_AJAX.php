@@ -63,7 +63,7 @@ function return_statClient()
 function return_countByTarifSup($selection, $ref, $type = "depot")
 {
     $etats = $type == "depot" ? "'STOCK','RENDU','VENDU','PAYE'" :  "'PAYE','VENDU'";
-    if (!$GLOBALS['INFO_APPLI']['bav_en_cours'] && $type == 'depot' && 
+    if ($GLOBALS['INFO_APPLI']['avant_bav'] && $type == 'depot' && 
         $GLOBALS['INFO_APPLI']['numero_bav'] == $GLOBALS['INFO_APPLI']['numero_bav_active']) {
         $etats = "'CONFIRME'";
     }   
@@ -120,7 +120,7 @@ function return_statByType($selection, $type = 'depot')
         // tranches de repartition des tarifs
         $tabTarif = [30, 50, 100, 150, 200, 250, 500, 750, 1000, 1250, 1500, 1750, 2000];
 
-        if (!$GLOBALS['INFO_APPLI']['bav_en_cours'] && $type == 'depot' && 
+        if ($GLOBALS['INFO_APPLI']['avant_bav']  && $type == 'depot' && 
             $GLOBALS['INFO_APPLI']['numero_bav'] == $GLOBALS['INFO_APPLI']['numero_bav_active']) {
             $type = 'pre-depot';
         }

@@ -70,6 +70,11 @@ function return_infoAppli()
     if ($today >= $infos['date_j2'] && $today <= $infos['date_j3']) {
         $infos['bav_en_cours']=1;
     }
+    $infos['avant_bav']=0;
+    if ($today < $infos['date_j2'] ) {
+        $infos['avant_bav']=1;
+    }
+    
     
     return $infos;
 }

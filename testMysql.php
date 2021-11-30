@@ -5,12 +5,12 @@ require_once "config.ini";
 try {
 // $mysqli = mysqli_connect('db2463.1and1.fr','dbo326893785','randovtt' , 'db326893785');
 $mysqli = mysqli_connect('localhost','bav','AVS44b@v!' , 'BAV');
-// echo $_SERVER['SERVER_NAME'];
+echo $_SERVER['SERVER_NAME'];
 // $mysqli = mysqli_connect('localhost','','' , 'bav');
 // print_r("mysqli =");
 // print_r($mysqli);
 if (mysqli_connect_errno($mysqli)) {
-    // echo "Echec lors de la connexion à MySQL : " . mysqli_connect_error();
+    echo "Echec lors de la connexion à MySQL : " . mysqli_connect_error();
 }
 $requete2 = " select * from bav_objet ";
 $resultat = $mysqli->query($requete2);
@@ -21,7 +21,7 @@ if ($row = $resultat->fetch_assoc()) {
     // if (!$mysqli->query("update bav_objet set obj_id_modif = '$newId' where obj_id = ".$row['obj_id'])) {
     //     echo $GLOBALS['mysqli']->error;
     // }
-    $adresse="http://avs44.com/bourseauxvelos/index.php?modePage=restF&id=" . $row['obj_id_modif'];
+    $adresse="https://bourseaux1000velos.avs44.com/bourseauxvelos/index.php?modePage=restF&id=" . $row['obj_id_modif'];
 
 }
 $resultat->close();
