@@ -522,7 +522,7 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
                 makeNumeroFiche($INFO_APPLI['base_info'], $tabObj, false);
 
                 $adresse = $CFG_URL . "index.php?modePage=restV&id=" . $fiche['obj_id_modif'];
-                $fiche['QRCODE'] = "<img src='https://chart.googleapis.com/chart?chs=80x80&cht=qr&chl=$adresse&choe=UTF-8' title='Fiche " . $fiche['obj_numero'] . "' />";
+                $fiche['QRCODE'] = "<img src='https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=$adresse&choe=UTF-8' title='Fiche " . $fiche['obj_numero'] . "' />";
             }
             $fiche['obj_type'] = "<br/><span style='font-size:9px'><i>Autre-VTT-Route-VTC-Ville-VAE-BMX</i></span>";
             $fiche['obj_public'] = "<br/><span style='font-size:9px'><i>Mixte-Homme-Femme-Enfant</i></span>";

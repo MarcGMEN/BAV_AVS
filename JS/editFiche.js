@@ -62,10 +62,12 @@ function display_modifVendeur(val) {
 }
 
 function display_html_file(val) {
-    CKEDITOR.replace('editor_html_file');
-    CKEDITOR.instances.editor_html_file.setData(val);
+    // CKEDITOR.replace('editor_html_file');
+    // CKEDITOR.instances.editor_html_file.setData(val);
     //getElement('editor_html_file').innerHTML = val;
     getElement('edition').style.display = 'block';
+    getElement('editor_html_file').innerHTML = val;
+    getElement('visu_html').innerHTML = val;
     getElement('tableHTML').style.display = 'none';
 }
 
@@ -76,7 +78,7 @@ function saveEditor(id, data) {
     alertModalInfoTimeout(data, 1);
     idTextSAved = id;
     x_save_html(id, data, display_fin_save);
-    CKEDITOR.instances.editor_html_file.destroy();
+    // CKEDITOR.instances.editor_html_file.destroy();
     //cancelEditor(id);
 }
 
@@ -93,7 +95,9 @@ function display_fin_save(val) {
 
 function cancelEditor(id) {
     getElement('edition').style.display = 'none';
-    CKEDITOR.instances.editor_html_file.destroy();
+    getElement('visu_html').innerHTML = '';
+
+    // CKEDITOR.instances.editor_html_file.destroy();
     getElement('tableHTML').style.display = 'table';
 
 }
@@ -149,6 +153,6 @@ function display_openHTML(val) {
     closeModal();
     document.body.style.cursor = 'default';
     window.open(val, '_blank');
-    setTimeout(function() { x_action_menage(val, display_rien) }, 100);
+    //setTimeout(function() { x_action_menage(val, display_rien) }, 100);
     initPage();
 }

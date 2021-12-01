@@ -8,14 +8,16 @@
 $tabInfo = [
 	'FICHE DEPOT' => "fiche_depot",
 	'ETIQUETTE' => "etiquette",
-	'COUPON VENDEUR' => "coupon_vendeur",
-	'COUPON ACHETEUR' => "coupon_acheteur",
+	'COUPON DEPOT' => "coupon_vendeur",
+	'COUPON SORTIE' => "coupon_acheteur",
 	'' => "",
 	'CREATE MODAL' => "modal_confirm_create",
 	'CONFIRME MODAL' => "modal_confirm_confirme",
 	'PAYE MODAL' => "modal_confirm_paye",
 	// 'RENDRE MODAL' => "modal_confirm_rendre",
 	// 'RESTOCK MODAL' => "modal_confirm_restock",
+	'MAIL ENTETE' => "entete_mail",
+	'MAIL PIED' => "pied_mail",
 	'MAIL ENREGISTREMENT' => "mel_enregistrement",
 	'MAIL CONFIRME' => "mel_confirme",
 	'MAIL VENDU' => "mel_vendu"
@@ -30,7 +32,7 @@ $tabInfo = [
 	</tr>
 	<? foreach ($tabInfo as $title => $idText) {
 		$format = "P";
-		if ($title == "COUPON VENDEUR" || $title == "COUPON ACHETEUR") {
+		if ($title == "COUPON DEPOT" || $title == "COUPON SORTIE") {
 			$format = "L";
 		} ?>
 		<tr class="tabl0" style="border-bottom:1px solid grey">
@@ -120,7 +122,7 @@ $tabInfo = [
 						</table>
 					</form>
 				<? } ?>
-				<? if ($title == "COUPON VENDEUR") {?>
+				<? if ($title == "COUPON DEPOT") {?>
 					<form style="color:black">
 						<table width=100% border=0>
 							<tr>
@@ -166,20 +168,29 @@ $tabInfo = [
 						</table>
 					</form>
 				<? } ?>
-				<? if ($title == "COUPON ACHETEUR") {?>
+				<? if ($title == "COUPON SORTIE") {?>
 					<form style="color:black">
 						<table width=100% border=0>
-							<tr>
-								<td rowspan=5 width=15%></td>
+						<tr>
+								<td rowspan=5 width=15%><i>Test <input type='checkbox' name="testCoupon" checked /></i></td>
 								<td colspan=2></td>
-								<td rowspan=5 width=20%>Param PDF (Paysage): <br/><?= $infAppli['nb_coupon_page'] ?>/page</td>
+								<td rowspan=5 width=20%>Param PDF (Paysage): <br/> <?= $infAppli['nb_coupon_page'] ?>/page</td>
 							</tr>
 							<tr class="tabAction">
-							<td width=50%>
-									- Numérotés 1 -> 1500
+								<td width=50%>- De <input type=number min='<?= $infAppli['base_info'] ?>' name=eti0 value='<?= $infAppli['base_info'] ?>' style='width:10%' size=5>
+									à <input type=number name=eti1 size=5 style='width:10%' min='<?= $infAppli['base_info'] ?>'>
 								</td>
 								<td width=15%>
-									<input type=button value='Imprimer' onclick='imprimeCoupons(1,1500,0,"coupon_acheteur")'>
+									<input type=button value='Imprimer' onclick='imprimeCoupons(this.form.eti0.value,this.form.eti1.value,this.form.testCoupon.checked?1:0,"coupon_acheteur")'>
+								</td>
+								
+							</tr>
+							<tr class="tabAction">
+							<td >
+									- Numérotés 1 -> <?= $infAppli['base_info']-1 ?>
+								</td>
+								<td >
+									<input type=button value='Imprimer' onclick='imprimeCoupons(1,<?= $infAppli["base_info"]-1 ?>,0,"coupon_acheteur")'>
 								</td>
 							</tr>
 							<tr class="tabAction">
@@ -188,6 +199,15 @@ $tabInfo = [
 								</td>
 								<td >
 									<input type=button value='Imprimer' onclick='imprimeCoupons(-1,-1,0,"coupon_acheteur")'>
+								</td>
+							</tr>
+							<tr class="tabAction">
+								<td>
+									- Modifs <span id="nbCouponAImprimer"></span> (<?= $infAppli['nb_coupon_page'] ?>/page) : <span id="nb_fiche_coupon"></span>
+									[C: <b><span id="nb_fiche_new_couponA"></span></b>; M:<b><span id="nb_fiche_modif_couponA"></span></b>]</td>
+								<td>
+									<input type=button name='printCouponA' value='Imprimer' disabled id="btnImprimeCouponsPageA" onclick='imprimeCouponsPage(this.form.forceCouponA.checked,this.form.testCouponA.checked?1:0,"coupon_acheteur")'>
+									<input type='checkbox' id="forceCouponA" onchange="this.checked?this.form.printCouponA.disabled=false:this.form.printCouponA.disabled=true">Force
 								</td>
 							</tr>
 						</table>
@@ -201,15 +221,24 @@ $tabInfo = [
 	<div id="edition" style="display:none">
 		<h2 class=fiche>
 			<div class="row">
+
 				<div class="col-sm-6" id="html_file_title"></div>
-				<div class="col-sm-2"><i class="far fa-eye link" onclick='alertModalInfo(CKEDITOR.instances.editor_html_file.getData());' )></i></div>
-				<div class="col-sm-1"><i class="fas fa-save link" onclick="saveEditor(idText,CKEDITOR.instances.editor_html_file.getData())"></i></div>
+				<!-- <div class="col-sm-2"><i class="far fa-eye link" onclick='alertModalInfo(CKEDITOR.instances.editor_html_file.getData());' )></i></div> -->
+				<!-- <div class="col-sm-1"><i class="fas fa-save link" onclick="saveEditor(idText,CKEDITOR.instances.editor_html_file.getData())"></i></div> -->
+				<div class="col-sm-2"><i class="far fa-eye link" onclick='alertModalInfo(document.formEdition.editor_html_file.value);' )></i></div>
+				<div class="col-sm-1"><i class="fas fa-save link" onclick="saveEditor(idText,document.formEdition.editor_html_file.value)"></i></div>
 				<div class="col-sm-1"><i class="far fa-file-pdf link" onclick='viewOnPdf(idText, idText=="coupon_vendeur"?"L":"P")' )></i></div>
 				<div class="col-sm-2" style="text-align: right"><i class="fas fa-times link"  onclick="cancelEditor('html_file')"></i></div>
 			</div>
+			<div class="row">
+			</div>
 		</h2>
-		<textarea style="width:100%" rows=150 id="editor_html_file" contenteditable="true"></textarea>
+		<!-- <textarea style="width:100%" rows=150 id="editor_html_file" contenteditable="true"></textarea> -->
 		<!-- <textarea style="width:100%;heigth:40%" rows=25 id="editor_html_file"></textarea> -->
+		<textarea style="width:100%; height: 200px;" rows=150 id="editor_html_file" onkeyup="getElement('visu_html').innerHTML=this.value"></textarea>		
+		<div id="visu_html" style="border:1px black solid"> 
+
+		</div>
 		<script>
 		// Inline styles.
 		CKEDITOR.stylesSet.add('style_fic', [{
