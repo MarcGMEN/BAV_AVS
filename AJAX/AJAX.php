@@ -137,7 +137,7 @@ function action_makePDFFromHtml($data, $html)
 function return_html($html)
 {
     extract($GLOBALS);
-    $data = ['URL' => $CFG_URL];
+    //$data = ['URL' => $CFG_URL];
     return makeCorps($data, '../html/' . $html . '.html');
 }
 
