@@ -40,7 +40,7 @@ $tabInfo = [
 
 			<td width=10%>
 				<? if ($idText != "") { ?>
-					<span class="link url" onclick='viewPdf("<?= $idText ?>","<?= $format ?>");' title="Génération du PDF")>PDF</span>
+					<span class="link url" onclick='viewPdf("<?= $idText ?>","<?= $format ?>");' title="Génération du PDF" )>PDF</span>
 					<?= $format ?>&nbsp;
 					<i class="fas fa-edit" onclick="x_return_html('<?= $idText ?>', display_html_file);idText='<?= $idText ?>';getElement('html_file_title').innerHTML='<?= $title ?>'" title="Modification du document"></i>
 				<? } else { ?>
@@ -51,14 +51,14 @@ $tabInfo = [
 				<? if ($title == "ETIQUETTE") { ?>
 					<form style="color:black">
 						<table width=100% border=0>
-							<tr >
+							<tr>
 								<td rowspan=5 width=15%><i>Test <input type='checkbox' name="testEtiq" checked></i></td>
 								<td colspan=2></td>
-								<td rowspan=5 width=20%>Param PDF: <br/><?= $infAppli['nb_eti_page'] ?>/page</td>
+								<td rowspan=5 width=20%>Param PDF: <br /><?= $infAppli['nb_eti_page'] ?>/page</td>
 							</tr>
 							<tr class="tabAction">
 								<td width=50%>
-									- De <input type=number min='<?= $infAppli['base_info'] ?>' name=eti0 value='<?= $infAppli['base_info'] ?>' style='width:10%' size=5> 
+									- De <input type=number min='<?= $infAppli['base_info'] ?>' name=eti0 value='<?= $infAppli['base_info'] ?>' style='width:10%' size=5>
 									a <input type=number name=eti1 size=5 style='width:10%' min='<?= $infAppli['base_info'] ?>'>
 								</td>
 								<td width=15%>
@@ -66,18 +66,18 @@ $tabInfo = [
 								</td>
 							</tr>
 							<tr class="tabAction">
-								<td >
-									- Numérotés 1 -> <?= $infAppli['base_info']-1 ?>
+								<td>
+									- Numérotés 1 -> <?= $infAppli['base_info'] - 1 ?>
 								</td>
-								<td >
-									<input type=button value='Imprimer' onclick='imprimeEtiquettes(1,<?= $infAppli["base_info"]-1 ?>)'>
+								<td>
+									<input type=button value='Imprimer' onclick='imprimeEtiquettes(1,<?= $infAppli["base_info"] - 1 ?>)'>
 								</td>
 							</tr>
 							<tr class="tabAction">
-							<td >
+								<td>
 									- 1 page de vierge
 								</td>
-								<td >
+								<td>
 									<input type=button value='Imprimer' onclick='imprimeEtiquettes(-1,-1)'>
 								</td>
 							</tr>
@@ -86,8 +86,7 @@ $tabInfo = [
 									[C: <b><span id="nb_fiche_new"></span></b>; M:<b><span id="nb_fiche_modif"></span></b>]
 								</td>
 								<td>
-									<input type=button name='printEtiquette' value='Imprimer' disabled id="btnImprimeEtiquettesPage" 
-										onclick='imprimeEtiquettesPage(this.form.forceEtiquette.checked,this.form.testEtiq.checked?1:0)'>
+									<input type=button name='printEtiquette' value='Imprimer' disabled id="btnImprimeEtiquettesPage" onclick='imprimeEtiquettesPage(this.form.forceEtiquette.checked,this.form.testEtiq.checked?1:0)'>
 									<input type='checkbox' id="forceEtiquette" onchange="this.checked?this.form.printEtiquette.disabled=false:this.form.printEtiquette.disabled=true">Force
 								</td>
 							</tr>
@@ -100,11 +99,11 @@ $tabInfo = [
 							<tr>
 								<td rowspan=3 width=15%>&nbsp;</td>
 								<td colspan=2></td>
-								<td rowspan=3 width=20%>Param PDF: <br/>marge HB: 10pt, GD:10pt<br/>Zoom 79%</td>
+								<td rowspan=3 width=20%>Param PDF: <br />marge HB: 10pt, GD:10pt<br />Zoom 79%</td>
 							</tr>
 							<tr class="tabAction">
 								<td width=50%>
-									- De <input type=number  min='<?= $infAppli['base_info'] ?>' name=eti0 value='<?= $infAppli['base_info'] ?>' style='width:10%' size=5> 
+									- De <input type=number min='<?= $infAppli['base_info'] ?>' name=eti0 value='<?= $infAppli['base_info'] ?>' style='width:10%' size=5>
 									a <input type=number name=eti1 size=5 style='width:10%' min='<?= $infAppli['base_info'] ?>'>
 								</td>
 								<td width=15%>
@@ -112,23 +111,23 @@ $tabInfo = [
 								</td>
 							</tr>
 							<tr class="tabAction">
-							<td >
+								<td>
 									- Vierge
 								</td>
-								<td >
+								<td>
 									<input type=button value='Imprimer' onclick='imprimeFiche()' />
 								</td>
 							</tr>
 						</table>
 					</form>
 				<? } ?>
-				<? if ($title == "COUPON DEPOT") {?>
+				<? if ($title == "COUPON DEPOT") { ?>
 					<form style="color:black">
 						<table width=100% border=0>
 							<tr>
 								<td rowspan=5 width=15%><i>Test <input type='checkbox' name="testCoupon" checked /></i></td>
 								<td colspan=2></td>
-								<td rowspan=5 width=20%>Param PDF (Paysage): <br/> <?= $infAppli['nb_coupon_page'] ?>/page</td>
+								<td rowspan=5 width=20%>Param PDF (Paysage): <br /> <?= $infAppli['nb_coupon_page'] ?>/page</td>
 							</tr>
 							<tr class="tabAction">
 								<td width=50%>- De <input type=number min='<?= $infAppli['base_info'] ?>' name=eti0 value='<?= $infAppli['base_info'] ?>' style='width:10%' size=5>
@@ -137,21 +136,21 @@ $tabInfo = [
 								<td width=15%>
 									<input type=button value='Imprimer' onclick='imprimeCoupons(this.form.eti0.value,this.form.eti1.value,this.form.testCoupon.checked?1:0,"coupon_vendeur")'>
 								</td>
-								
+
 							</tr>
 							<tr class="tabAction">
-							<td >
-									- Numérotés 1 -> <?= $infAppli['base_info']-1 ?>
+								<td>
+									- Numérotés 1 -> <?= $infAppli['base_info'] - 1 ?>
 								</td>
-								<td >
-									<input type=button value='Imprimer' onclick='imprimeCoupons(1,<?= $infAppli["base_info"]-1 ?>,0,"coupon_vendeur")'>
+								<td>
+									<input type=button value='Imprimer' onclick='imprimeCoupons(1,<?= $infAppli["base_info"] - 1 ?>,0,"coupon_vendeur")'>
 								</td>
 							</tr>
 							<tr class="tabAction">
-							<td >
+								<td>
 									- 1 page de vierge
 								</td>
-								<td >
+								<td>
 									<input type=button value='Imprimer' onclick='imprimeCoupons(-1,-1,0,"coupon_vendeur")'>
 								</td>
 							</tr>
@@ -164,17 +163,17 @@ $tabInfo = [
 									<input type='checkbox' id="forceCoupon" onchange="this.checked?this.form.printCoupon.disabled=false:this.form.printCoupon.disabled=true">Force
 								</td>
 							</tr>
-							
+
 						</table>
 					</form>
 				<? } ?>
-				<? if ($title == "COUPON SORTIE") {?>
+				<? if ($title == "COUPON SORTIE") { ?>
 					<form style="color:black">
 						<table width=100% border=0>
-						<tr>
+							<tr>
 								<td rowspan=5 width=15%><i>Test <input type='checkbox' name="testCoupon" checked /></i></td>
 								<td colspan=2></td>
-								<td rowspan=5 width=20%>Param PDF (Paysage): <br/> <?= $infAppli['nb_coupon_page'] ?>/page</td>
+								<td rowspan=5 width=20%>Param PDF (Paysage): <br /> <?= $infAppli['nb_coupon_page'] ?>/page</td>
 							</tr>
 							<tr class="tabAction">
 								<td width=50%>- De <input type=number min='<?= $infAppli['base_info'] ?>' name=eti0 value='<?= $infAppli['base_info'] ?>' style='width:10%' size=5>
@@ -183,21 +182,21 @@ $tabInfo = [
 								<td width=15%>
 									<input type=button value='Imprimer' onclick='imprimeCoupons(this.form.eti0.value,this.form.eti1.value,this.form.testCoupon.checked?1:0,"coupon_acheteur")'>
 								</td>
-								
+
 							</tr>
 							<tr class="tabAction">
-							<td >
-									- Numérotés 1 -> <?= $infAppli['base_info']-1 ?>
+								<td>
+									- Numérotés 1 -> <?= $infAppli['base_info'] - 1 ?>
 								</td>
-								<td >
-									<input type=button value='Imprimer' onclick='imprimeCoupons(1,<?= $infAppli["base_info"]-1 ?>,0,"coupon_acheteur")'>
+								<td>
+									<input type=button value='Imprimer' onclick='imprimeCoupons(1,<?= $infAppli["base_info"] - 1 ?>,0,"coupon_acheteur")'>
 								</td>
 							</tr>
 							<tr class="tabAction">
-							<td >
+								<td>
 									- 1 page de vierge
 								</td>
-								<td >
+								<td>
 									<input type=button value='Imprimer' onclick='imprimeCoupons(-1,-1,0,"coupon_acheteur")'>
 								</td>
 							</tr>
@@ -228,77 +227,33 @@ $tabInfo = [
 				<div class="col-sm-2"><i class="far fa-eye link" onclick='alertModalInfo(document.formEdition.editor_html_file.value);' )></i></div>
 				<div class="col-sm-1"><i class="fas fa-save link" onclick="saveEditor(idText,document.formEdition.editor_html_file.value)"></i></div>
 				<div class="col-sm-1"><i class="far fa-file-pdf link" onclick='viewOnPdf(idText, idText=="coupon_vendeur"?"L":"P")' )></i></div>
-				<div class="col-sm-2" style="text-align: right"><i class="fas fa-times link"  onclick="cancelEditor('html_file')"></i></div>
+				<div class="col-sm-2" style="text-align: right"><i class="fas fa-times link" onclick="cancelEditor('html_file')"></i></div>
 			</div>
 			<div class="row">
 			</div>
 		</h2>
 		<!-- <textarea style="width:100%" rows=150 id="editor_html_file" contenteditable="true"></textarea> -->
 		<!-- <textarea style="width:100%;heigth:40%" rows=25 id="editor_html_file"></textarea> -->
-		<textarea style="width:100%; height: 200px;" rows=150 id="editor_html_file" onkeyup="getElement('visu_html').innerHTML=this.value"></textarea>		
-		<div id="visu_html" style="border:1px black solid"> 
-
+		<div class="editor-holder">
+			<ul class="toolbar">
+				<li><a href="#" id="indent" title="Toggle tabs or spaces"><i class="fa fa-indent"></i></a></li>
+				<li><a href="#" id="fullscreen" title="Toggle fullscreen mode"><i class="fa fa-expand"></i></a></li>
+			</ul>
+			<div class="scroller">
+				<textarea class="editor allow-tabs" style="width:100%; height: 200px;" rows=150 id="editor_html_file" onkeyup="getElement('visu_html').innerHTML=this.value" >
+		</textarea>
+				<pre><code class="syntax-highight html"></code></pre>
+			</div>
 		</div>
-		<script>
-		// Inline styles.
-		CKEDITOR.stylesSet.add('style_fic', [{
-				name: 'rubrique',
-				element: 'div',
-				styles: {
-					'background': '#c0c0c0',
-					'width': '100%',
-					'text-align': 'center',
-					'font-weight': 'bold',
-					'font-size': 'large'
-				}
-			},
-			{
-				name: 'confirmation',
-				element: 'div',
-				styles: {
-					'background': 'DARKBLUE',
-					'color': 'WHITE',
-					'width': '75%',
-					'text-align': 'center',
-					'font-weight': 'bold',
-					'font-size': 'large'
-				}
-			},
-			{
-				name: 'visualisation',
-				element: 'div',
-				styles: {
-					'background': 'LIGHTGREEN',
-					'width': '75%',
-					'text-align': 'center',
-					'font-weight': 'bold',
-					'font-size': 'large'
-				}
-			},
-			{
-				name: 'border black',
-				element: 'td',
-				styles: {
-					'border': '1px solid black'
-				}
-			},
-			{
-				name: 'ecrit span',
-				element: 'span',
-				styles: {
-					'border-bottom': '1px solid blue'
-				}
-			},
-			{
-				name: 'ecrit TD',
-				element: 'td',
-				styles: {
-					'border-bottom': '1px solid blue'
-				}
-			}
-		]);
-		CKEDITOR.config.stylesSet = 'style_fic';
-		CKEDITOR.config.height = '400pt';
-	</script>
+		<div id="visu_html" style="border:1px black solid">
+<!-- 
+			<textarea style="width:100%; height: 200px;" rows=150 id="editor_html_file" onkeyup="getElement('visu_html').innerHTML=this.value"></textarea>
+
+		</div> -->
+		<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+		<!-- <script src='https://use.fontawesome.com/b2c0f76220.js'></script> -->
+		<script src='https://raw.githubusercontent.com/emmetio/textarea/master/emmet.min.js'></script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.5.0/highlight.min.js'></script>
+		<script src="JS/editor.js"></script>   
 	</div>
 </form>

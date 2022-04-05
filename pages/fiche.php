@@ -144,7 +144,7 @@
 					<br/>
 				</span>
 				<span class="tabInput col-md-10 col-sm-10 col-xs-9">
-					<textarea rows="4" cols="100" tabindex=<?= $tabindex++ ?> style="resize:none;overflow: none;" name="obj_description" maxlength="250" onkeyup="MaxLengthTextarea(this, 250);setStartSaisie(true)" placeholder="Année d'achat, prix d'achat, taille, accessoires, révision (transmission, pneus, freins..)"></textarea>
+					<textarea rows="4" cols="100" tabindex=<?= $tabindex++ ?> style="resize:none;overflow: none;" name="obj_description" maxlength="250" onkeyup="MaxLengthTextarea(this, 250);setStartSaisie(true)" placeholder="Accessoires, révision (transmission, pneus, freins..)"></textarea>
 				</span>
 				<span class="col-md-12 col-sm-12 col-xs-12 help" id='id_descplus' style="visibility: hidden;">
 					<div style='color:blue; background-color: yellow;'>Pour saisir une description plus précise qui accompagnera votre vélo,
@@ -153,7 +153,7 @@
 				</span>
 				<span class="col-md-12 col-sm-12 col-xs-12 help">
 					<div id="aide_descript" style="visibility: hidden;">
-						<small>Année d'achat, prix d'achat, taille, accessoires, révision (transmission, pneus, freins..)</small>
+						<small>Saisisez ici les accessoires, les révisions (transmission, pneus, freins..), et autres</small>
 					</div>
 				</span>
 

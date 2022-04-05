@@ -397,6 +397,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
             $fiche['obj_description'] = "";
             $fiche['obj_prix_vente'] = "";
             $fiche['obj_prix_depot'] = "";
+            $fiche['obj_taille'] = "";
         }
 
         if (sizeof($fiche) > 0) {
@@ -534,6 +535,7 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
             $fiche['obj_description'] = "";
             $fiche['obj_prix_vente'] = "";
             $fiche['obj_prix_depot'] = "";
+            $fiche['obj_taille'] = "";
         }
 
         if (sizeof($fiche) > 0) {
@@ -735,6 +737,7 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false, $format 
         $fiche['obj_prix_depot'] = "150";
         $fiche['obj_id_acheteur'] = 999999;
         $fiche['obj_etat'] = "VENDU";
+        $fiche['obj_taille'] = "XL";
     } else {
         $data['titre'] = "--" . $data['titre'] . "--";
         $client['cli_prix_depot'] = $par['par_prix_depot_1'];
@@ -761,6 +764,7 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false, $format 
         $fiche['obj_prix_vente'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
         $fiche['obj_prix_depot'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
         $fiche['obj_id_modif'] = "";
+        $fiche['obj_taille'] = "";
     }
 
     // MISE EN FORME DE LA FICHE

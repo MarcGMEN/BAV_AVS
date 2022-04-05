@@ -56,6 +56,8 @@ sajax_handle_client_request();
 	<link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.css" />
 	<link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css" />
 	<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+	
+	<link rel="stylesheet" href="editor.css" />
 
 
 	<!--  GOOGLE MAP -->
@@ -71,7 +73,8 @@ sajax_handle_client_request();
 	<script src="JS/commun.js" type="text/javascript"></script>
 	<script src="JS/index.js" type="text/javascript"></script>
 
-	<script src="ckeditor/ckeditor.js"></script>
+	<!-- <script src="ckeditor/ckeditor.js"></script> -->
+ 	
 
 	<!-- <script src="JS/calendrier.js" type="text/javascript"></script> -->
 	<!-- <script src="JS/fileIO.js" type="text/javascript"></script> -->

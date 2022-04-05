@@ -3,7 +3,7 @@
 // consult : modification par le client avec numero de fiche
 // 
 
-texteDescription = "Taille :\nPrix d'achat :\nAnnée d'achat :\n";
+texteDescription = "";
 
 /*
  * action lors du chargement de la page
