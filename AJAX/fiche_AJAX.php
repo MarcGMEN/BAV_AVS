@@ -33,11 +33,11 @@ function return_list_marques()
 
 function return_list_tailles()
 {
-    $index=0;
-    for ($i=34; $i <62 ; $i+=2) { 
-        $tabMarques[$index++]=$i;
+    $index = 0;
+    for ($i = 34; $i < 62; $i += 2) {
+        $tabMarques[$index++] = $i;
     }
-    $tabRetour = array_merge($tabMarques, ['XS','S','M','L','XL','10 pouces','12 pouces','14 pouces','16 pouces','20 pouces','24 pouces']);
+    $tabRetour = array_merge($tabMarques, ['XS', 'S', 'M', 'L', 'XL', '10 pouces', '12 pouces', '14 pouces', '16 pouces', '20 pouces', '24 pouces']);
     //$tabRetour = array_merge($tabMarques, listUnique("bav_objet", "obj_taille"));
     $tabRetour = array_unique($tabRetour);
     sort($tabRetour);
@@ -375,11 +375,12 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
                 if ($fiche['obj_prix_depot'] == 0) {
                     $fiche['obj_prix_depot'] = "";
                 }
-                $adresse = $CFG_URL . "index.php?modePage=restV&id=" . $fiche['obj_id_modif'];
-                $qrcodeFic= makeQrCode($adresse, $fiche);
-                
+                $adresse = $CFG_URL . "index.php?modePage=restV&id=" . $fiche['obj_id_modif'] . "&type=Etiquette";
+                $keyQrcode = "restV-" . $fiche['obj_id_modif'] . "-Etiquette";
+                $qrcodeFic = makeQrCode($adresse, $keyQrcode,1);
+
                 // $fiche['QRCODE'] = "<img src='https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=$adresse&choe=UTF-8' title='Fiche " . $fiche['obj_numero'] . "' />";
-                $fiche['QRCODE'] = "<img src='$qrcodeFic' title='Fiche " . $fiche['obj_numero'] . "' />";
+                $fiche['QRCODE'] = "Plus de détail,scanner le QRCode <br/><img  src='$CFG_URL/$qrcodeFic' title='Fiche " . $fiche['obj_numero'] . "' />";
             }
         } else {
             if ($eti0 == -1) {
@@ -389,7 +390,14 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
             } else {
                 $fiche['obj_numero'] = $numFiche;
                 makeIdModif($fiche, false);
+                $adresse = $CFG_URL . "index.php?modePage=restV&id=" . $fiche['obj_id_modif'] . "&type=Etiquette";
+                $keyQrcode = "restV-" . $fiche['obj_id_modif'] . "-Etiquette";
+                $qrcodeFic = makeQrCode($adresse, $keyQrcode,1);
+
+                // $fiche['QRCODE'] = "<img src='https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=$adresse&choe=UTF-8' title='Fiche " . $fiche['obj_numero'] . "' />";
+                $fiche['QRCODE'] = "Plus de détail,scanner le QRCode <br/><img  src='$CFG_URL/$qrcodeFic' title='Fiche " . $fiche['obj_numero'] . "' />";
             }
+
             $fiche['obj_type'] = "<br/><span style='font-size:9px'><i>Autre-VTT-Route-VTC-Ville-VAE-BMX</i></span>";
             $fiche['obj_public'] = "<br/><span style='font-size:9px'><i>Mixte-Homme-Femme-Enfant</i></span>";
             $fiche['obj_pratique'] = "<br/><span style='font-size:9px'><i>Sportive-Loisir-Compétition-Autre</i></span>";
@@ -487,6 +495,10 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
     for ($i = 0; $i <= 30; $i++) {
         $espace50 .= "&nbsp;";
     }
+    $espace100 = "";
+    for ($i = 0; $i <= 90; $i++) {
+        $espace100 .= "&nbsp;";
+    }
 
     $index = 1;
     foreach ($tabFiche as $numFiche) {
@@ -499,13 +511,15 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
                 $client = getOneClient($fiche['obj_id_vendeur']);
             }
             $client['cli_prenom'] = "";
-            $client['cli_nom1'] = $client['cli_nom']."<br/><small>".$fiche['obj_id_modif']."</<small>";
-            $adresse = $CFG_URL . "/index.php?modePage=restV&id=" . $fiche['obj_id_modif']."&type=$nameCoupon";
-            $qrcodeFic= makeQrCode($adresse, $fiche);
-            
+            $client['cli_nom1'] = $client['cli_nom'];
+            //$client['cli_nom1'] .="<br/><small>".$fiche['obj_id_modif']."</<small>";
+            $adresse = $CFG_URL . "/index.php?modePage=restV&id=" . $fiche['obj_id_modif'] . "&type=$nameCoupon";
+            $keyQrcode = "restV-" . $fiche['obj_id_modif'] . "-$nameCoupon";
+            $qrcodeFic = makeQrCode($adresse, $keyQrcode);
+
             // $fiche['QRCODE'] = "<img src='https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=$adresse&choe=UTF-8' title='Fiche " . $fiche['obj_numero'] . "' />";
             $fiche['QRCODE'] = "<img  src='$CFG_URL/$qrcodeFic' title='Fiche " . $fiche['obj_numero'] . "' />";
-            $fiche['QRCODE'] =  $numFiche." ".$fiche['obj_numero']." ".$adresse;
+            // $fiche['QRCODE'] .=  $adresse;
         } else {
             $client['cli_prix_depot'] = "";
             $client['cli_nom1'] = "<u>$espace50</u>";
@@ -527,19 +541,20 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
             } else {
                 $fiche['obj_numero'] = $numFiche;
                 makeIdModif($fiche, false);
-                $client['cli_nom1'] = "<small>".$fiche['obj_id_modif']."</<small>";
-                $adresse = $CFG_URL . "index.php?modePage=restV&id=" . $fiche['obj_id_modif']."&type=$nameCoupon";
-                $qrcodeFic= makeQrCode($adresse, $fiche);
+                //$client['cli_nom1'] = "<small>".$fiche['obj_id_modif']."</<small>";
+                $adresse = $CFG_URL . "index.php?modePage=restV&id=" . $fiche['obj_id_modif'] . "&type=$nameCoupon";
+                $keyQrcode = "restV-" . $fiche['obj_id_modif'] . "-$nameCoupon";
+                $qrcodeFic = makeQrCode($adresse, $keyQrcode);
                 // $fiche['QRCODE'] = "<img src='https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=$adresse&choe=UTF-8' title='Fiche " . $fiche['obj_numero'] . "' />";
                 $fiche['QRCODE'] = "<img src='$CFG_URL/$qrcodeFic' title='Fiche " . $fiche['obj_numero'] . "' />";
-                $fiche['QRCODE'] =  $numFiche." ".$fiche['obj_numero']." ".$adresse;
+                // $fiche['QRCODE'] .=  $adresse;
             }
             $fiche['obj_type'] = "<br/><span style='font-size:9px'><i>Autre-VTT-Route-VTC-Ville-VAE-BMX</i></span>";
             $fiche['obj_public'] = "<br/><span style='font-size:9px'><i>Mixte-Homme-Femme-Enfant</i></span>";
             $fiche['obj_pratique'] = "<br/><span style='font-size:9px'><i>Sportive-Loisir-Compétition-Autre</i></span>";
-            $fiche['obj_marque'] = "";
-            $fiche['obj_modele'] = "$espace60";
-            $fiche['obj_couleur'] = "";
+            $fiche['obj_marque'] = "<u>$espace100</u>";
+            $fiche['obj_modele'] = "<u>$espace75</u>";
+            $fiche['obj_couleur'] = "<u>$espace50</u>";
             $fiche['obj_accessoire'] = "";
             $fiche['obj_description'] = "";
             $fiche['obj_prix_vente'] = "";

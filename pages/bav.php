@@ -73,38 +73,11 @@
 	}
 	function searchVente(numero) {
 		x_return_oneFicheByCode(numero, display_getFicheVente);
+		document.bavFormFiche.inputSearch.value = "";
 		return false;
 	}
 
-	function display_getFicheVente(val) {
-		console.log(val);
-		if (val instanceof Object && val['obj_id'] != undefined) {
-       		if (val['obj_etat'] == 'VENDU'  ||  val['obj_etat'] == 'PAYE' ) {
-		
-			    messageVente = "<div class='alert alert-success'><b>Votre vélo numéro " + val['obj_numero'] + " a été vendu au prix de "+val['obj_prix_vente']+" &euro;.</b> <br/>";
-                messageVente += " Rendez-vous dès à présent à la soucoupe pour retirer votre chèque/argent.";
-                messageVente += "<br/>Munissez-vous de : <ul>";
-                messageVente += "<li>Votre reçu vendeur</li>";
-                messageVente += "<li>La pièce d\'identité utilisée lors de l\'inscription</li>";
-                messageVente += "<li>Le montant de la commission due ("+val['cli_taux_com']+"% = "+val['cli_com']+"&euro;)</li>";
-                messageVente += "</ul></div>";
-			}
-			else if (val['obj_etat'] == 'RENDU') {
-				messageVente = "<div class='alert alert-danger'><b>Votre vélo numéro " + val['obj_numero'] + " vous a été rendu.</b></div>";
-			}
-			else {
-                messageVente = "<div class='alert alert-danger'><b>Votre vélo numéro " + val['obj_numero'] + " n\'a pas encore été vendu.<br/> Veuillez re-essayer ultérieurement.</b></div>";
-			}
-			
-	        if (messageVente != "") {
-    	        alertModalInfo(messageVente);
-			}
-			document.bavFormFiche.inputSearch.value="";
-	   }
-	   else {
-		alertModalInfo("Fiche introuvable..");
-	   }
-}
+	
 </script>
 <?php
 	$data = array(

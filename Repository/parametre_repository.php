@@ -37,11 +37,11 @@ function return_infoAppli()
 
     foreach ($tabIpsAdmin as $ipOk) {
         if (trim($ipOk) == trim($ipLu)) {
-            //print_r(trim($ipOk)." == ".trim($ipLu));
             $infos['ADMIN'] = 1;
             break;
         }
     }
+
     $infos['base_info'] = $par['par_numero_base_info'];
 
     $infos['nb_eti_page'] = $par['par_nb_eti_page'];
@@ -74,8 +74,6 @@ function return_infoAppli()
     if ($today < $infos['date_j2'] ) {
         $infos['avant_bav']=1;
     }
-    
-    
     return $infos;
 }
 

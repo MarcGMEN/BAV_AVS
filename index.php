@@ -93,7 +93,6 @@ sajax_handle_client_request();
 
 	<script type="text/javascript">
 		var startSaisie = false;
-
 		var ADMIN = <?= $infAppli['ADMIN'] ? 1 : 0 ?>;
 		var CLIENT = <?= $infAppli['CLIENT'] ? 1 : 0 ?>;
 
@@ -104,10 +103,11 @@ sajax_handle_client_request();
 		var NB_MODIF = <?= $infAppli['NB_MODIF'] ?>;
 		var modePage = '<?= $GET_modePage ?>';
 		var id = '<?= $GET_id ?>';
+		var type = '<?= $GET_type ?>';
 		
 		function initIndex() {
 			if (id != "" && (modePage == 'restF' || modePage == 'restC' || modePage == 'restV')) {
-				search(id, modePage);
+				search(id, modePage, type);
 				var stateObj = {
 					foo: "bar"
 				};
@@ -117,7 +117,6 @@ sajax_handle_client_request();
 	</script>
 
 </head>
-
 <body class="parent" LANG="fr-FR" onload="initIndex();initEntete();initPage()" onunload="unloadPage()">
 	<form name="formNavigation" method="get">
 		<input type="hidden" name="page" value="">
@@ -134,8 +133,7 @@ sajax_handle_client_request();
 		</div>
 		<div class="FENETRE_PRINCIPALE">
 			<main>
-				<? //print_r($infAppli);
-				?>
+				
 				<div class="TEXTE_FEN">
 					<!--<MODE:<?= $GET_modePage ?>; ID:<?= $GET_id ?>;</span>
 				<? echo "go to page [" . $GET_page . "]"; ?>-->

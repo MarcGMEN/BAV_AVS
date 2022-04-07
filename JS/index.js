@@ -42,16 +42,18 @@ function goTo(page = 'bav.php', modePage = '', id = null, message = '') {
     document.formNavigation.message.value = message;
     document.formNavigation.submit();
 }
+var Gtype = '';
 
-function search(value, type = "") {
+function search(value, modePage = "", type = "") {
 
-    if (type == "restF") {
+    Gtype = type;
+    if (modePage == "restF") {
         console.log("modif fiche " + value);
         x_return_oneFicheByIdModif(value, display_getFicheModif);
-    } else if (type == "restC") {
+    } else if (modePage == "restC") {
         console.log("consult fiche " + value);
         x_return_oneClientByIdModif(value, display_getClient);
-    } else if (type == "restV") {
+    } else if (modePage == "restV") {
         console.log("consult fiche " + value);
         x_return_oneFicheByIdModif(value, display_getFicheConsult);
     } else if (!isNaN(Number(value)) && value < 9999) {
@@ -69,12 +71,13 @@ function search(value, type = "") {
 function display_getFicheConsult(val) {
     console.log(val);
     if (val instanceof Object && val['obj_id'] != undefined) {
-        if (ADMIN) {
-            console.log("fiche.php&id=" + val['obj_id']);
-            goTo("fiche.php", "modif", val['obj_id']);
-        } else if (val['obj_numero'] < 5000) {
+        /*  if (ADMIN) {
+              console.log("fiche.php&id=" + val['obj_id']);
+              goTo("fiche.php", "modif", val['obj_id']);
+          } else */
+        if (val['obj_numero'] < 5000) {
             console.log("consult.php&id=" + val['obj_id']);
-            goTo("consult.php", "consult", val['obj_id']);
+            goTo("consult.php", Gtype, val['obj_id']);
         } else {
             alertModalWarnTimeout("Format incorrect (N° fiche, code fiche, code client)", 2);
         }

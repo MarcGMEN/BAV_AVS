@@ -1,6 +1,8 @@
 <script>
 	var idFiche = '<?=$GET_id?>';
+	var modePage = '<?=$GET_modePage?>';
 	function initPage() {
+		console.log(modePage);
 		if (idFiche) {
        		x_return_oneFiche(idFiche, display_fiche);
     	} else {
@@ -13,8 +15,18 @@
 			if (val['obj_etat'] == "CONFIRME") { 
 				val['obj_prix_vente']=val['obj_prix_depot'];
 			}
+			val['etat_str']=val['obj_etat'];
+			if (val['obj_etat'] == "STOCK") { 
+				val['etat_str']="<div class='alert alert-danger'>Pas encore vendu</div>";
+			}
+			if (val['obj_etat'] == "VENDU" || val['obj_etat'] == "PAYE" ) { 
+				val['etat_str']="<div class='alert alert-success'>Vendu</div>";
+			}
+			if (val['obj_etat'] == "RENDU" ) { 
+				val['etat_str']="<div class='alert alert-success'>Récupérer</div>";
+			}
 
-
+			display_getFicheVente(val);
 			display_formulaire(val);
         }
 	}
@@ -27,12 +39,12 @@
 		<div class="col-sm-4 col-md-4 col-xs-4">
 			<span class="titrow col-md-3 col-sm-3 col-xs-3" width=20%>No</span>
 			<span class="tabl1 col-md-9 col-sm-9 col-xs-9">
-				<span id='obj_numero'></span>
+				<span style='font-size: 2em;' id='obj_numero'></span>
 			</span>
 		</div>
-		<div class="col-sm-4 col-md-4 col-xs-4">
-			<div class="col-sm-6 col-md-6 col-xs-6 tabl1">
-				<span id="obj_etat"></span>
+		<div class="col-sm-8 col-md-8 col-xs-8">
+			<div class="col-sm-12 col-md-12 col-xs-12 tabl1">
+				<span id="etat_str"></span>
 			</div>
 		</div>
 	</div>
@@ -72,6 +84,24 @@
 			<span class="titrow  col-md-3 col-sm-3 col-xs-3">Couleur</span>
 			<span class="tabInput col-md-9 col-sm-9 col-xs-9">
 				<span id='obj_couleur'></span>
+			</span>
+		</div>
+		<div class="col-sm-4 col-md-4 col-xs-12">
+			<span class="titrow  col-md-3 col-sm-3 col-xs-3">Date d'achat</span>
+			<span class="tabInput col-md-9 col-sm-9 col-xs-9">
+				<span id='obj_date_achat'></span>
+			</span>
+		</div>
+		<div class="col-sm-4 col-md-4 col-xs-12">
+			<span class="titrow  col-md-3 col-sm-3 col-xs-3">Prix d'achat</span>
+			<span class="tabInput col-md-9 col-sm-9 col-xs-9">
+				<span id='obj_prix_achat'></span>
+			</span>
+		</div>
+		<div class="col-sm-4 col-md-4 col-xs-12">
+			<span class="titrow  col-md-3 col-sm-3 col-xs-3">Taille</span>
+			<span class="tabInput col-md-9 col-sm-9 col-xs-9">
+				<span id='obj_taille'></span>
 			</span>
 		</div>
 

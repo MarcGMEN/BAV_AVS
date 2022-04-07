@@ -307,11 +307,11 @@ function makeCorps($data, $fileHTML)
     return  $messageMail;
 }
 
-function makeQrCode($adresse, $fiche) {
+function makeQrCode($adresse,$keyFile, $level=2) {
 
-	$qrcodeFic="out/img/".$fiche['obj_id_modif'].".png";
+	$qrcodeFic="out/img/$keyFile.png";
 	if (!file_exists("../$qrcodeFic")) {
-		QRcode::png($adresse, "../$qrcodeFic",QR_ECLEVEL_L, 2);
+		QRcode::png($adresse, "../$qrcodeFic",QR_ECLEVEL_L, $level);
 	}
 	return $qrcodeFic;
 }

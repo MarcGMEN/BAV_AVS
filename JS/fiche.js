@@ -347,8 +347,6 @@ function display_fiche(val) {
 
             val['obj_etat_libelle'] = "Présent sur le parc";
 
-            // initialisation du module modif Prix
-            initModifPrix(val, document.ficheForm);
 
             document.ficheForm.obj_prix_vente.disabled = false
 
