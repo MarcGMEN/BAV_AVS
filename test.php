@@ -16,6 +16,9 @@ require_once 'config.ini';
 require_once 'Commun/commun_functions.php';
 require_once 'Commun/mail.php';
 
+include('vendor/phpqrcode/qrlib.php');
+
+QRcode::png('PHP QR Code :)');
 // echo "test.php";
 // echo sendMail("test PJ", "braillou@gmail.com", "piece jointe", "/BAV/out/PDF/Fiche_710.pdf");
 //echo sendMail('test ', 'braillou@gmmmmail.com', 'sans piece jointe', null);

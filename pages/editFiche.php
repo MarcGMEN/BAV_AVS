@@ -224,8 +224,8 @@ $tabInfo = [
 				<div class="col-sm-6" id="html_file_title"></div>
 				<!-- <div class="col-sm-2"><i class="far fa-eye link" onclick='alertModalInfo(CKEDITOR.instances.editor_html_file.getData());' )></i></div> -->
 				<!-- <div class="col-sm-1"><i class="fas fa-save link" onclick="saveEditor(idText,CKEDITOR.instances.editor_html_file.getData())"></i></div> -->
-				<div class="col-sm-2"><i class="far fa-eye link" onclick='alertModalInfo(document.formEdition.editor_html_file.value);' )></i></div>
-				<div class="col-sm-1"><i class="fas fa-save link" onclick="saveEditor(idText,document.formEdition.editor_html_file.value)"></i></div>
+				<div class="col-sm-2"><i class="far fa-eye link" onclick='alertModalInfo(document.formEdition.editing.value);' )></i></div>
+				<div class="col-sm-1"><i class="fas fa-save link" onclick="saveEditor(idText,document.formEdition.editing.value)"></i></div>
 				<div class="col-sm-1"><i class="far fa-file-pdf link" onclick='viewOnPdf(idText, idText=="coupon_vendeur"?"L":"P")' )></i></div>
 				<div class="col-sm-2" style="text-align: right"><i class="fas fa-times link" onclick="cancelEditor('html_file')"></i></div>
 			</div>
@@ -234,26 +234,26 @@ $tabInfo = [
 		</h2>
 		<!-- <textarea style="width:100%" rows=150 id="editor_html_file" contenteditable="true"></textarea> -->
 		<!-- <textarea style="width:100%;heigth:40%" rows=25 id="editor_html_file"></textarea> -->
-		<div class="editor-holder">
-			<ul class="toolbar">
-				<li><a href="#" id="indent" title="Toggle tabs or spaces"><i class="fa fa-indent"></i></a></li>
-				<li><a href="#" id="fullscreen" title="Toggle fullscreen mode"><i class="fa fa-expand"></i></a></li>
-			</ul>
-			<div class="scroller">
-				<textarea class="editor allow-tabs" style="width:100%; height: 200px;" rows=150 id="editor_html_file" onkeyup="getElement('visu_html').innerHTML=this.value" >
-		</textarea>
-				<pre><code class="syntax-highight html"></code></pre>
-			</div>
-		</div>
-		<div id="visu_html" style="border:1px black solid">
-<!-- 
-			<textarea style="width:100%; height: 200px;" rows=150 id="editor_html_file" onkeyup="getElement('visu_html').innerHTML=this.value"></textarea>
 
-		</div> -->
-		<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
-		<!-- <script src='https://use.fontawesome.com/b2c0f76220.js'></script> -->
-		<script src='https://raw.githubusercontent.com/emmetio/textarea/master/emmet.min.js'></script>
-		<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.5.0/highlight.min.js'></script>
-		<script src="JS/editor.js"></script>   
+		<div style="height: 250px;position: relative;">
+			<textarea placeholder="Enter HTML Source Code" 
+				id="editing" 
+				spellcheck="false" 
+				oninput="update(this.value); sync_scroll(this);" 
+				onscroll="sync_scroll(this);" 
+				onkeydown="check_tab(this, event);"
+				onkeyup="getElement('visu_html').innerHTML=this.value">
+			</textarea>
+			<pre id="highlighting" aria-hidden="true">
+				<code class="language-html" id="highlighting-content">
+				</code>
+			</pre>
+		</div>
+		<!-- <textarea style="width:100%; height: 200px;" rows=150 id="editor_html_file" onkeyup="getElement('visu_html').innerHTML=this.value"></textarea> -->
+		<div id="visu_html" style="border:1px black solid">
+		</div>
 	</div>
+	<script src="JS/prism.js"></script>
+	<script src="JS/editor.js"></script>
+	
 </form>

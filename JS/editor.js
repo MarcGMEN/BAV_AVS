@@ -1,123 +1,35 @@
-var tabCharacter = "  ";
-var tabOffset = 2;
-
-$(document).on('click', '#indent', function(e) {
-    e.preventDefault();
-    var self = $(this);
-
-    self.toggleClass('active');
-
-    if (self.hasClass('active')) {
-        tabCharacter = "\t";
-        tabOffset = 1;
-    } else {
-        tabCharacter = "  ";
-        tabOffset = 2;
+function update(text) {
+    let result_element = document.querySelector("#highlighting-content");
+    // Handle final newlines (see article)
+    if (text[text.length - 1] == "\n") {
+        text += " ";
     }
-})
-
-$(document).on('click', '#fullscreen', function(e) {
-    e.preventDefault();
-    var self = $(this);
-
-    self.toggleClass('active');
-    self.parents('.editor-holder').toggleClass('fullscreen');
-});
-
-/*------------------------------------------
-	Render existing code
-------------------------------------------*/
-$(document).on('ready', function() {
-    hightlightSyntax();
-
-    // emmet.require('textarea').setup({
-    //     pretty_break: true,
-    //     use_tab: true
-    // });
-});
-
-
-
-
-/*------------------------------------------
-	Capture text updates
-------------------------------------------*/
-$(document).on('ready load keyup keydown change', '.editor', function() {
-    correctTextareaHight(this);
-    hightlightSyntax();
-});
-
-
-/*------------------------------------------
-	Resize textarea based on content  
-------------------------------------------*/
-function correctTextareaHight(element) {
-    var self = $(element),
-        outerHeight = self.outerHeight(),
-        innerHeight = self.prop('scrollHeight'),
-        borderTop = parseFloat(self.css("borderTopWidth")),
-        borderBottom = parseFloat(self.css("borderBottomWidth")),
-        combinedScrollHeight = innerHeight + borderTop + borderBottom;
-
-    if (outerHeight < combinedScrollHeight) {
-        self.height(combinedScrollHeight);
-    }
-}
-// function correctTextareaHight(element){
-// 	while($(element).outerHeight() < element.scrollHeight + parseFloat($(element).css("borderTopWidth")) + parseFloat($(element).css("borderBottomWidth"))) {
-// 		$(element).height($(element).height()+1);
-// 	};
-// }
-
-
-/*------------------------------------------
-	Run syntax hightlighter  
-------------------------------------------*/
-function hightlightSyntax() {
-    var me = $('.editor');
-    var content = me.val();
-    var codeHolder = $('code');
-    var escaped = escapeHtml(content);
-
-    codeHolder.html(escaped);
-
-    $('.syntax-highight').each(function(i, block) {
-        hljs.highlightBlock(block);
-    });
+    // Update code
+    result_element.innerHTML = text.replace(new RegExp("&", "g"), "&amp;").replace(new RegExp("<", "g"), "&lt;"); /* Global RegExp */
+    // Syntax Highlight
+    Prism.highlightElement(result_element);
 }
 
-
-/*------------------------------------------
-	String html characters
-------------------------------------------*/
-function escapeHtml(unsafe) {
-    return unsafe
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+function sync_scroll(element) {
+    /* Scroll result to scroll coords of event - sync with textarea */
+    let result_element = document.querySelector("#highlighting");
+    // Get and set x and y
+    result_element.scrollTop = element.scrollTop;
+    result_element.scrollLeft = element.scrollLeft;
 }
 
-
-/*------------------------------------------
-	Enable tabs in textarea
-------------------------------------------*/
-$(document).delegate('.allow-tabs', 'keydown', function(e) {
-    var keyCode = e.keyCode || e.which;
-
-    if (keyCode == 9) {
-        e.preventDefault();
-        var start = $(this).get(0).selectionStart;
-        var end = $(this).get(0).selectionEnd;
-
-        // set textarea value to: text before caret + tab + text after caret
-        $(this).val($(this).val().substring(0, start) +
-            tabCharacter +
-            $(this).val().substring(end));
-
-        // put caret at right position again
-        $(this).get(0).selectionStart =
-            $(this).get(0).selectionEnd = start + tabOffset;
+function check_tab(element, event) {
+    let code = element.value;
+    if (event.key == "Tab") {
+        /* Tab key pressed */
+        event.preventDefault(); // stop normal
+        let before_tab = code.slice(0, element.selectionStart); // text before tab
+        let after_tab = code.slice(element.selectionEnd, element.value.length); // text after tab
+        let cursor_pos = element.selectionEnd + 1; // where cursor moves after tab - moving forward by 1 char to after tab
+        element.value = before_tab + "\t" + after_tab; // add tab char
+        // move cursor
+        element.selectionStart = cursor_pos;
+        element.selectionEnd = cursor_pos;
+        update(element.value); // Update text to include indent
     }
-});
+}

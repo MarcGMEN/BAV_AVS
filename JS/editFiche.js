@@ -66,7 +66,8 @@ function display_html_file(val) {
     // CKEDITOR.instances.editor_html_file.setData(val);
     //getElement('editor_html_file').innerHTML = val;
     getElement('edition').style.display = 'block';
-    getElement('editor_html_file').innerHTML = val;
+    getElement('editing').value = val;
+    update(val);
     getElement('visu_html').innerHTML = val;
     getElement('tableHTML').style.display = 'none';
 }
