@@ -404,7 +404,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
             $fiche['obj_type'] = "<br/><span style='font-size:9px'><i>Autre-VTT-Route-VTC-Ville-VAE-BMX</i></span>";
             $fiche['obj_public'] = "<br/><span style='font-size:9px'><i>Mixte-Homme-Femme-Enfant</i></span>";
             $fiche['obj_pratique'] = "<br/><span style='font-size:9px'><i>Sportive-Loisir-Compétition-Autre</i></span>";
-            $fiche['obj_marque'] = "&nbsp;<br/>";
+            $fiche['obj_marque'] = "&nbsp;";
             $fiche['obj_modele'] = "&nbsp;";
             $fiche['obj_couleur'] = "";
             $fiche['obj_accessoire'] = "";

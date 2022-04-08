@@ -2,7 +2,7 @@
 	var tri = "obj_numero";
 	var sens = "asc";
 	var tabSel = {};
-	var anneeBav=<?=$infAppli['numero_bav']?>;
+	var anneeBav='<?=$infAppli['numero_bav']?>';
 
 	function initPage() {
 		if (ADMIN) {

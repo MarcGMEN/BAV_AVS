@@ -84,6 +84,10 @@ if ($infAppli['ADMIN']) {
                     'libelle' => 'Paramètres',
                     'class' => 'maskMobileBlock',
                 ],
+                'statSite.php' => [
+                    'libelle' => 'Stat Access',
+                    'class' => 'maskMobileBlock',
+                ],
             ],
         ],
     ];
