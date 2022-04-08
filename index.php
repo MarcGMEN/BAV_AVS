@@ -114,6 +114,9 @@ sajax_handle_client_request();
 				};
 				history.pushState(stateObj, "", "index.php");
 			}
+			else if (ADMIN == 0) {
+				x_add_counter_action("<?=$GET_page?>-"+modePage + "-" + type, display_rien);
+			}
 		}
 	</script>
 

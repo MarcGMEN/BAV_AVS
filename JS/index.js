@@ -45,7 +45,6 @@ function goTo(page = 'bav.php', modePage = '', id = null, message = '') {
 var Gtype = '';
 
 function search(value, modePage = "", type = "") {
-    x_add_counter_action(modePage + "_" + type, display_rien);
     Gtype = type;
     if (modePage == "restF") {
         x_return_oneFicheByIdModif(value, display_getFicheModif);
