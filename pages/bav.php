@@ -72,7 +72,7 @@
 		<?}?>
 	}
 	function searchVente(numero) {
-		x_add_counter_action("searchVente-"+numero+"-", display_rien);
+		x_add_counter_action("searchVente",numero, display_rien);
 		x_return_oneFicheByCode(numero, display_getFicheVente);
 		document.bavFormFiche.inputSearch.value = "";
 		return false;

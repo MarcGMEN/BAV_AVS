@@ -7,7 +7,7 @@
 	function initPage() {
 		if (ADMIN) {
 			x_return_allParametre(display_parametres);
-			x_return_list_unique("bav_counter_access", "cas_action",display_actions)
+			x_return_list_unique("bav_counter_access", "cas_page",display_actions)
 		} else {
 			// si pas ADMIN retour page accueil
 			goTo();

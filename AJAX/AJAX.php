@@ -157,12 +157,15 @@ function action_menage($fic) {
     unlink("../$ficSys");
 }
 
-function add_counter_action($action) {
+function add_counter_action($page, $modePage, $type="") {
     extract($GLOBALS);
-    $cas['cas_action']=$action;
+    $cas['cas_page']=$page;
+    $cas['cas_mode_page']=$modePage;
+    $cas['cas_type']=$type;
     $cas['cas_numero_bav']=$INFO_APPLI['numero_bav'];
 
-    $cas['cas_navigateur']=getOS()."-".getBrowser();
+    $cas['cas_navigateur']=getBrowser();
+    $cas['cas_os']=getOS();
     $cas['cas_admin']=$INFO_APPLI['ADMIN'];
     insertCounterAction($cas);
 }
