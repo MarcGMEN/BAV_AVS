@@ -1,41 +1,46 @@
 <script>
-	var idFiche = '<?=$GET_id?>';
-	var modePage = '<?=$GET_modePage?>';
+	var idFiche = '<?= $GET_id ?>';
+	var modePage = '<?= $GET_modePage ?>';
+
 	function initPage() {
-		console.log(modePage);
 		if (idFiche) {
-       		x_return_oneFiche(idFiche, display_fiche);
-    	} else {
-            goTo();
-    	}
+			
+			x_return_oneFiche(idFiche, display_fiche);
+		} else {
+			goTo();
+		}
 	}
+
 	function display_fiche(val) {
-        if (val instanceof Object) {
-            //console.log(val);
-			if (val['obj_etat'] == "CONFIRME") { 
-				val['obj_prix_vente']=val['obj_prix_depot'];
+		if (val instanceof Object) {
+			//console.log(val);
+			if (val['obj_etat'] == "CONFIRME") {
+				val['obj_prix_vente'] = val['obj_prix_depot'];
 			}
-			val['etat_str']=val['obj_etat'];
-			if (val['obj_etat'] == "STOCK") { 
-				val['etat_str']="<div class='alert alert-danger'>Pas encore vendu</div>";
+			val['etat_str'] = val['obj_etat'];
+			if (val['obj_etat'] == "STOCK") {
+				val['etat_str'] = "<div class='alert alert-danger'>Pas encore vendu</div>";
 			}
-			if (val['obj_etat'] == "VENDU" || val['obj_etat'] == "PAYE" ) { 
-				val['etat_str']="<div class='alert alert-success'>Vendu</div>";
+			if (val['obj_etat'] == "VENDU" || val['obj_etat'] == "PAYE") {
+				val['etat_str'] = "<div class='alert alert-success'>Vendu le "+val['obj_date_vente']+"</div>";
 			}
-			if (val['obj_etat'] == "RENDU" ) { 
-				val['etat_str']="<div class='alert alert-success'>Récupérer</div>";
+			if (val['obj_etat'] == "RENDU") {
+				val['etat_str'] = "<div class='alert alert-success'>Récupérer</div>";
 			}
 
-			display_getFicheVente(val);
+			if (modePage == "Etiquette") {
+				var j = 0;
+			} else {
+				display_getFicheVente(val);
+			}
 			display_formulaire(val);
-        }
+		}
 	}
-	
-	function unloadPage() {}
 
+	function unloadPage() {}
 </script>
 <fieldset class=fiche>
-	<div class="row tittab" id='trTitreFiche' >
+	<div class="row tittab" id='trTitreFiche'>
 		<div class="col-sm-4 col-md-4 col-xs-4">
 			<span class="titrow col-md-3 col-sm-3 col-xs-3" width=20%>No</span>
 			<span class="tabl1 col-md-9 col-sm-9 col-xs-9">
@@ -50,6 +55,12 @@
 	</div>
 
 	<div class="row">
+		<div class="col-sm-12 col-md-12 col-xs-12">
+			<span class="titrow col-md-3 col-sm-3 col-xs-3" width=20%>Déposé le</span>
+			<span class="tabInput col-md-9 col-sm-9 col-xs-9">
+				<span id='obj_date_depot'></span>
+			</span>
+		</div>
 		<div class="col-sm-4 col-md-4 col-xs-12">
 			<span class="titrow col-md-3 col-sm-3 col-xs-3" width=20%>Type</span>
 			<span class="tabInput col-md-9 col-sm-9 col-xs-9">

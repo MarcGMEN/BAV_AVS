@@ -11,6 +11,7 @@ require_once "../Repository/fiche_repository.php";
 require_once "../Repository/client_repository.php";
 require_once "../Repository/faq_repository.php";
 require_once "../Repository/actu_repository.php";
+require_once "../Repository/counter_access_repository.php";
 require_once "../Commun/Sajax.php";
 require_once "../Commun/mail.php";
 require_once "../Commun/html2pdf.php";
@@ -154,6 +155,16 @@ function action_menage($fic) {
     extract($GLOBALS);
     $ficSys= str_replace($CFG_URL,"",$fic);
     unlink("../$ficSys");
+}
+
+function add_counter_action($action) {
+    extract($GLOBALS);
+    $cas['cas_action']=$action;
+    $cas['cas_numero_bav']=$INFO_APPLI['numero_bav'];
+
+    $cas['cas_navigateur']=getOS()."-".getBrowser();
+    $cas['cas_admin']=$INFO_APPLI['ADMIN'];
+    insertCounterAction($cas);
 }
 
 sajax_init("");

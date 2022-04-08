@@ -5,6 +5,7 @@ require_once "Commun/commun_functions.php";
 require_once "Repository/base_repository.php";
 require_once "Repository/parametre_repository.php";
 require_once "Repository/actu_repository.php";
+require_once "Repository/counter_access_repository.php";
 require_once "AJAX/parametre_AJAX.php";
 require_once "Commun/connect.php";
 require_once "Commun/Sajax.php";

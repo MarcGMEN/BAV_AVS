@@ -45,19 +45,15 @@ function goTo(page = 'bav.php', modePage = '', id = null, message = '') {
 var Gtype = '';
 
 function search(value, modePage = "", type = "") {
-
+    x_add_counter_action(modePage + "_" + type, display_rien);
     Gtype = type;
     if (modePage == "restF") {
-        console.log("modif fiche " + value);
         x_return_oneFicheByIdModif(value, display_getFicheModif);
     } else if (modePage == "restC") {
-        console.log("consult fiche " + value);
         x_return_oneClientByIdModif(value, display_getClient);
     } else if (modePage == "restV") {
-        console.log("consult fiche " + value);
         x_return_oneFicheByIdModif(value, display_getFicheConsult);
     } else if (!isNaN(Number(value)) && value < 9999) {
-        console.log("consult fiche");
         x_return_oneFicheByCode(value, display_getFicheConsult);
     } else {
         alertModalWarnTimeout("Demande incorrecte", 2);

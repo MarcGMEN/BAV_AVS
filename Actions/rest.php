@@ -5,6 +5,7 @@ require_once "../Commun/connect.php";
 require_once "../config.ini";
 require_once "../Repository/base_repository.php";
 require_once "../Repository/parametre_repository.php";
+require_once "../AJAX/AJAX.php";
 require_once "../AJAX/parametre_AJAX.php";
 require_once "../AJAX/fiche_AJAX.php";
 require_once "../Repository/fiche_repository.php";
@@ -14,6 +15,8 @@ require_once "../Commun/mail.php";
 require_once "../Commun/html2pdf.php";
 
 $INFO_APPLI = return_infoAppli();
+
+add_counter_action("rest.php_".$GET_a);
 // demande de confirmation de la fiche;
 if ($GET_a == "C") {
     try {
@@ -51,7 +54,7 @@ if ($GET_a == "C") {
                     $tabPlus['obj_prix_depot'] = 'A renseigner le jour du dépôt dernier délai';
                     $fiche['obj_prix_depot'] = 0;
                 } else {
-                    $tabPlus['obj_prix_depot'] = $fiche['obj_prix_depot'] . " €";
+                    $tabPlus['obj_prix_depot'] = $fiche['obj_prix_depot'] . " &euro;";
                 }
 
                 $tabPlus['obj_prix_vente'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
@@ -92,7 +95,7 @@ if ($GET_a == "I") {
             $client = getOneClient($fiche['obj_id_vendeur']);
 
             if ($fiche['obj_prix_vente'] != $fiche['obj_prix_depot'] && $fiche['obj_prix_vente'] > 0) {
-                $fiche['obj_prix_depot'] = "<s>" . $fiche['obj_prix_depot'] . " €</s><span style='color:RED'>" . $fiche['obj_prix_vente'] . "</span>";
+                $fiche['obj_prix_depot'] = "<s>" . $fiche['obj_prix_depot'] . " &euro;</s><span style='color:RED'>" . $fiche['obj_prix_vente'] . "</span>";
             }
 
             if ($fiche['obj_prix_vente'] > 0 && ($fiche['obj_etat'] == 'VENDU' || $fiche['obj_etat'] == 'PAYE')) {
