@@ -141,6 +141,9 @@ function searchFiles($rep,$mask) {
 		}
 		closedir($handle);
 	}
+	else {
+		error_log("pas trouvé $rep/$mask");
+	}
 
 	return $tabFic;
 }

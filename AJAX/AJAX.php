@@ -172,6 +172,7 @@ function add_counter_action($page, $modePage, $type="") {
 
 sajax_init("");
 // definition des fonction ajax possible
-include "exportAJAX.php";
+error_log("Appel export frol AJAX");
 
+include "exportAJAX.php";
 sajax_handle_client_request();

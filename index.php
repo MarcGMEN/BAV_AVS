@@ -34,6 +34,7 @@ $sajax_debug_mode = false;
 
 sajax_init("AJAX/AJAX.php");
 // inclusion des exports pour le module membre, incontournable
+error_log("Appel export frol index");
 include "AJAX/exportAJAX.php";
 
 sajax_handle_client_request();
@@ -74,10 +75,8 @@ sajax_handle_client_request();
 	<script src="JS/commun.js" type="text/javascript"></script>
 	<script src="JS/index.js" type="text/javascript"></script>
 
-	<!-- <script src="ckeditor/ckeditor.js"></script> -->
- 	
-
-	<!-- <script src="JS/calendrier.js" type="text/javascript"></script> -->
+	<script src="ckeditor/ckeditor.js"></script>
+ 	<!-- <script src="JS/calendrier.js" type="text/javascript"></script> -->
 	<!-- <script src="JS/fileIO.js" type="text/javascript"></script> -->
 	<!--  POUR le gestion des couleurs -->
 	<!-- <script type="text/javascript" src="JS/jscolor.js"></script> -->

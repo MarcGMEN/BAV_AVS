@@ -881,3 +881,25 @@ img.logo {
     border-radius: 5px;
     padding: 3px;
 }
+
+.tree1 {
+    background-color: grey;
+    color: white;
+    font-size: 1.2em;
+}
+
+.tree2 {
+    background-color: lightgrey;
+    color: black;
+    font-size: 1.1em;
+}
+
+.tree3 {
+    font-size: 1.0em;
+}
+
+.tree0 {
+    background-color: white;
+    color: black;
+    font-size: 1.5em;
+}
