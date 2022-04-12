@@ -885,21 +885,21 @@ img.logo {
 .tree1 {
     background-color: grey;
     color: white;
-    font-size: 1.2em;
+    font-size: 1.1em;
 }
 
 .tree2 {
     background-color: lightgrey;
     color: black;
-    font-size: 1.1em;
+    font-size: 1.0em;
 }
 
 .tree3 {
-    font-size: 1.0em;
+    font-size: 0.9em;
 }
 
 .tree0 {
     background-color: white;
     color: black;
-    font-size: 1.5em;
+    font-size: 1.2em;
 }
