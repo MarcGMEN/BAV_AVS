@@ -58,8 +58,8 @@ $tabInfo = [
 							</tr>
 							<tr class="tabAction">
 								<td width=50%>
-									- De <input type=number min='<?= $infAppli['base_info'] ?>' name=eti0 value='<?= $infAppli['base_info'] ?>' style='width:10%' size=5>
-									a <input type=number name=eti1 size=5 style='width:10%' min='<?= $infAppli['base_info'] ?>'>
+									- De <input type=number min='<?= $infAppli['base_info'] ?>' name=eti0 value='<?= $infAppli['base_info'] ?>' style='width:30%' size=5>
+									a <input type=number name=eti1 size=5 style='width:30%' min='<?= $infAppli['base_info'] ?>'>
 								</td>
 								<td width=15%>
 									<input type=button value='Imprimer' onclick='imprimeEtiquettes(this.form.eti0.value,this.form.eti1.value,this.form.testEtiq.checked?1:0)'>
@@ -103,8 +103,8 @@ $tabInfo = [
 							</tr>
 							<tr class="tabAction">
 								<td width=50%>
-									- De <input type=number min='<?= $infAppli['base_info'] ?>' name=eti0 value='<?= $infAppli['base_info'] ?>' style='width:10%' size=5>
-									a <input type=number name=eti1 size=5 style='width:10%' min='<?= $infAppli['base_info'] ?>'>
+									- De <input type=number min='<?= $infAppli['base_info'] ?>' name=eti0 value='<?= $infAppli['base_info'] ?>' style='width:30%' size=5>
+									a <input type=number name=eti1 size=5 style='width:30%' min='<?= $infAppli['base_info'] ?>'>
 								</td>
 								<td width=15%>
 									<input type=button value='Imprimer' onclick='imprimeFiches(this.form.eti0.value,this.form.eti1.value)'>
@@ -130,8 +130,8 @@ $tabInfo = [
 								<td rowspan=5 width=20%>Param PDF (Paysage): <br /> <?= $infAppli['nb_coupon_page'] ?>/page</td>
 							</tr>
 							<tr class="tabAction">
-								<td width=50%>- De <input type=number min='<?= $infAppli['base_info'] ?>' name=eti0 value='<?= $infAppli['base_info'] ?>' style='width:10%' size=5>
-									à <input type=number name=eti1 size=5 style='width:10%' min='<?= $infAppli['base_info'] ?>'>
+								<td width=50%>- De <input type=number min='<?= $infAppli['base_info'] ?>' name=eti0 value='<?= $infAppli['base_info'] ?>' style='width:30%' size=5>
+									à <input type=number name=eti1 size=5 style='width:30%' min='<?= $infAppli['base_info'] ?>'>
 								</td>
 								<td width=15%>
 									<input type=button value='Imprimer' onclick='imprimeCoupons(this.form.eti0.value,this.form.eti1.value,this.form.testCoupon.checked?1:0,"coupon_vendeur")'>
@@ -176,8 +176,8 @@ $tabInfo = [
 								<td rowspan=5 width=20%>Param PDF (Paysage): <br /> <?= $infAppli['nb_coupon_page'] ?>/page</td>
 							</tr>
 							<tr class="tabAction">
-								<td width=50%>- De <input type=number min='<?= $infAppli['base_info'] ?>' name=eti0 value='<?= $infAppli['base_info'] ?>' style='width:10%' size=5>
-									à <input type=number name=eti1 size=5 style='width:10%' min='<?= $infAppli['base_info'] ?>'>
+								<td width=50%>- De <input type=number min='<?= $infAppli['base_info'] ?>' name=eti0 value='<?= $infAppli['base_info'] ?>' style='width:30%' size=5>
+									à <input type=number name=eti1 size=5 style='width:30%' min='<?= $infAppli['base_info'] ?>'>
 								</td>
 								<td width=15%>
 									<input type=button value='Imprimer' onclick='imprimeCoupons(this.form.eti0.value,this.form.eti1.value,this.form.testCoupon.checked?1:0,"coupon_acheteur")'>

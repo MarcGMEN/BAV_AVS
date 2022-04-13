@@ -312,6 +312,7 @@ function makeCorps($data, $fileHTML)
 
 function makeQrCode($adresse,$keyFile, $level=2) {
 
+	mkdir("../out/img");
 	$qrcodeFic="out/img/$keyFile.png";
 	if (!file_exists("../$qrcodeFic")) {
 		QRcode::png($adresse, "../$qrcodeFic",QR_ECLEVEL_L, $level);
