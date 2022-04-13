@@ -403,7 +403,7 @@
 			var hL1 = (hauteur / 3) + 2;
 			ctx.moveTo(10, hL1);
 			ctx.lineTo(longueur - 10, hL1);
-			ctx.fillText((2 * max / 3).toFixed(2), 10, hL1);
+			ctx.fillText((2 * max / 3).toFixed(2), 10, hL1+13);
 			ctx.stroke();
 			ctx.closePath();
 
@@ -414,9 +414,30 @@
 
 			ctx.moveTo(10, hL2);
 			ctx.lineTo(longueur - 10, hL2);
-			ctx.fillText((max / 3).toFixed(2), 10, hL2);
+			ctx.fillText((max / 3).toFixed(2), 10, hL2+13);
 			ctx.stroke();
 			ctx.closePath();
+
+			ctx.beginPath();
+			ctx.font = "12px arial";
+			ctx.lineWidth = "1";
+			var hL3 = 10;
+			ctx.moveTo(10, hL3);
+			ctx.lineTo(longueur - 10, hL3);
+			ctx.fillText((max).toFixed(2), 10, hL3+13);
+			ctx.stroke();
+			ctx.closePath();
+
+			ctx.beginPath();
+			ctx.font = "12px arial";
+			ctx.lineWidth = "1";
+			var hL4 = hauteur-10;
+			ctx.moveTo(10, hL4);
+			ctx.lineTo(longueur - 10, hL4);
+			ctx.fillText("0,00", 10, hL4-3 );
+			ctx.stroke();
+			ctx.closePath();
+
 		}
 
 	}
