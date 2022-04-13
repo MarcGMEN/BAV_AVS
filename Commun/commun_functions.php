@@ -359,6 +359,46 @@ function getOS() {
     return $os_platform;
 }
 
+function getOSlight() { 
+
+    global $user_agent;
+
+    $os_platform  = "Unknown OS Platform";
+
+    $os_array     = array(
+                          '/windows nt 10/i'      =>  'Windows',
+                          '/windows nt 6.3/i'     =>  'Windows',
+                          '/windows nt 6.2/i'     =>  'Windows',
+                          '/windows nt 6.1/i'     =>  'Windows',
+                          '/windows nt 6.0/i'     =>  'Windows',
+                          '/windows nt 5.2/i'     =>  'Windows',
+                          '/windows nt 5.1/i'     =>  'Windows',
+                          '/windows xp/i'         =>  'Windows',
+                          '/windows nt 5.0/i'     =>  'Windows',
+                          '/windows me/i'         =>  'Windows',
+                          '/win98/i'              =>  'Windows',
+                          '/win95/i'              =>  'Windows',
+                          '/win16/i'              =>  'Windows',
+                          '/macintosh|mac os x/i' =>  'Mac OS',
+                          '/mac_powerpc/i'        =>  'Mac OS',
+                          '/linux/i'              =>  'Linux',
+                          '/ubuntu/i'             =>  'Linux',
+                          '/iphone/i'             =>  'iPhone',
+                          '/ipod/i'               =>  'iPod',
+                          '/ipad/i'               =>  'iPad',
+                          '/android/i'            =>  'Android',
+                          '/blackberry/i'         =>  'BlackBerry',
+                          '/webos/i'              =>  'Mobile'
+                    );
+
+    foreach ($os_array as $regex => $value)
+        if (preg_match($regex, $user_agent))
+            $os_platform = $value;
+
+    return $os_platform;
+}
+
+
 function getBrowser() {
 
     global $user_agent;

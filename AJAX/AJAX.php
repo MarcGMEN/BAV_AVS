@@ -165,7 +165,7 @@ function add_counter_action($page, $modePage, $type="") {
     $cas['cas_numero_bav']=$INFO_APPLI['numero_bav'];
 
     $cas['cas_navigateur']=getBrowser();
-    $cas['cas_os']=getOS();
+    $cas['cas_os']=getOSlight();
     $cas['cas_admin']=$INFO_APPLI['ADMIN'];
     insertCounterAction($cas);
 }
