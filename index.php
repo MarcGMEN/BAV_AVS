@@ -34,7 +34,6 @@ $sajax_debug_mode = false;
 
 sajax_init("AJAX/AJAX.php");
 // inclusion des exports pour le module membre, incontournable
-error_log("Appel export frol index");
 include "AJAX/exportAJAX.php";
 
 sajax_handle_client_request();
@@ -107,7 +106,7 @@ sajax_handle_client_request();
 		
 		function initIndex() {
 			if (id != "" && (modePage == 'restF' || modePage == 'restC' || modePage == 'restV')) {
-				search(id, modePage, type);
+				searchSuiteRest(id, modePage, type);
 				var stateObj = {
 					foo: "bar"
 				};

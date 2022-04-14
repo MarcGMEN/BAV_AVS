@@ -55,7 +55,7 @@
 	}
 </script>
 
-<span class="link url" onclick='x_action_makePDFFromHtml(tabToString(data2PDF),"reglement.html", display_openPDF);' >
+<span class="link url" onclick='loadReglement("reglement.php")' >
 	t&eacute;l&eacute;charger le r&egrave;glement</span>
 	<? if ($infAppli['ADMIN']) {?>
 	<span>

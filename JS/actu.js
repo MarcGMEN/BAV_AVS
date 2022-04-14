@@ -21,7 +21,7 @@ function unloadPage() {
 
 }
 
-function search(search) {
+function searchActu(search) {
     gSearch = search;
     x_return_actus(noAccent(search), approved, typeACT, display_acts);
 }
@@ -42,23 +42,21 @@ function display_acts(val) {
             annee = val[index]['act_numero_bav'];
 
             if (gSearch) {
-                var reg=new RegExp("("+gSearch+")", "gi");
+                var reg = new RegExp("(" + gSearch + ")", "gi");
                 val[index]['act_titre'] = val[index]['act_titre'].replace(reg, "<b style='color:BLUE'>$1</b>");
                 val[index]['act_text'] = val[index]['act_text'].replace(reg, "<b style='color:BLUE'>$1</b>");
             }
 
             if (type != "FAQ") {
                 repr += "<div class='col-md-4 col-sm-6 col-xs-12'>";
-            }
-            else {
+            } else {
                 repr += "<div class='col-md-12 col-sm-12 col-xs-12'>";
             }
 
             if (ADMIN) {
                 if (val[index]['act_active'] == "0") {
                     repr += "<div class='alert-danger'>"
-                }
-                else {
+                } else {
                     repr += "<div class='alert-success'>"
                 }
 
@@ -69,8 +67,7 @@ function display_acts(val) {
                 if (val[index]['act_active'] == "1") {
                     repr += "&nbsp;<i class='link far fa-check-square' title='Désactiver'" +
                         " onclick='desactiveActu(" + val[index]['act_id'] + ")'></i>&nbsp;";
-                }
-                else {
+                } else {
                     repr += "&nbsp;<i class='link far fa-square' title='Activer' " +
                         " onclick='activeActu(" + val[index]['act_id'] + ")'></i>&nbsp;";
                 }
@@ -100,8 +97,7 @@ function display_acts(val) {
         }
         repr += "</div >";
         getElement("actus").innerHTML = repr;
-    }
-    else {
+    } else {
         getElement("actus").innerHTML = "<div class='alert alert-warning'><h3>Aucun résultat</h3></div>";
     }
 }
@@ -139,6 +135,7 @@ function display_create(val) {
 }
 
 var id = 0;
+
 function deleteActu(idActu) {
     id = idActu;
     alertModalConfirm('Suppression de cet article', "Supp");
@@ -154,6 +151,7 @@ function activeActu(id) {
     var data = { 'act_id': id, 'act_active': '1' };
     x_action_updateActu(tabToString(data), initPage);
 }
+
 function desactiveActu(id) {
     var data = { 'act_id': id, 'act_active': '0' };
     x_action_updateActu(tabToString(data), initPage);
@@ -183,6 +181,3 @@ function saveEditor(question, reponse, id) {
     var data = { 'act_id': id, 'act_text': reponse, 'act_titre': question };
     x_action_updateActu(tabToString(data), initPage);
 }
-
-
-

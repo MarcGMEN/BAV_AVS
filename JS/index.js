@@ -25,7 +25,7 @@ function confirmModalTest() {
 }
 
 function display_rien(val) {
-    console.log(val);
+    console.log("display_rien",val);
 }
 
 function display_openPDF(val) {
@@ -33,6 +33,22 @@ function display_openPDF(val) {
     closeModal();
     document.body.style.cursor = 'default';
     window.open(val, '_blank');
+}
+
+function openPDF(val) {
+    if (!ADMIN) { 
+        x_add_counter_action("open Link", val, "", display_rien);
+    }
+    window.open(val, '_blank');
+
+}
+
+function loadReglement(where) {
+    document.body.style.cursor = 'wait';
+    if (!ADMIN) {
+        x_add_counter_action("open Link", "reglement.pdf", where, display_rien);
+    }
+    x_action_makePDFFromHtml(tabToString(data2PDF), "reglement.html", display_openPDF);
 }
 
 function goTo(page = 'bav.php', modePage = '', id = null, message = '') {
@@ -44,7 +60,7 @@ function goTo(page = 'bav.php', modePage = '', id = null, message = '') {
 }
 var Gtype = '';
 
-function search(value, modePage = "", type = "") {
+function searchSuiteRest(value, modePage = "", type = "") {
     Gtype = type;
     if (modePage == "restF") {
         x_return_oneFicheByIdModif(value, display_getFicheModif);

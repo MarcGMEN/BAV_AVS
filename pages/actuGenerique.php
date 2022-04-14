@@ -6,7 +6,7 @@
 </script>
 
 <script src="JS/actu.js" type="text/javascript"></script>
-Recherche : <input type=text name='search_<?=rand(1, 100)?>' size="20" maxlength="100" onkeyup="search(this.value)" />
+Recherche : <input type=text name='search_<?=rand(1, 100)?>' size="20" maxlength="100" onkeyup="searchActu(this.value)" />
 <hr />
 
 <!-- SHOW Q & A -->
