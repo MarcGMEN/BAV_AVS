@@ -2,8 +2,8 @@
 
 CREATE TABLE `bav_counter_access` (
   `cas_id` int NOT NULL AUTO_INCREMENT,
-  `cas_page` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `cas_mode_page` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `cas_page` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `cas_mode_page` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `cas_type` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `cas_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `cas_numero_bav` varchar(10) NOT NULL,

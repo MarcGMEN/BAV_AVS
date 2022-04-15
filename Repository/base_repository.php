@@ -195,7 +195,7 @@ function update($table, $obj, $cleId)
         }
     }
     $req .= " where $cleId = '" . $obj[$cleId] . "'";
-    error_log($req);
+    //error_log($req);
     if (!$GLOBALS['mysqli']->query($req)) {
         throw new Exception("--Pb d'update' [$req]   ===> " . $GLOBALS['mysqli']->error);
     }
@@ -220,17 +220,22 @@ function insert($table, $obj)
     foreach ($obj as $key => $val) {
         if ($descTable[$key]) {
             $guillemet = "";
+            //error_log($key."=>".$descTable[$key]->type);        
             if ($descTable[$key]->type == "s" || $descTable[$key]->type == "b" || $descTable[$key]->type == "t") {
                 $guillemet = "'";
             } elseif (strlen($val) == 0) {
                 $val = 0;
+            }
+            if ($descTable[$key]->type == "t" && !$val) {
+                $guillemet = "";
+                $val = "null";
             }
             $req .= $virgule . "$guillemet" . addslashes(rtrim($val)) . "$guillemet";
             $virgule = " , ";
         }
     }
     $req .= ")";
-    error_log($req);
+   // error_log($req);
 
     if (!$GLOBALS['mysqli']->query($req)) {
         error_log("Pb d'insert' [$req]" . $GLOBALS['mysqli']->error);
