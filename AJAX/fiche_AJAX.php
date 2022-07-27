@@ -375,12 +375,13 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
                 if ($fiche['obj_prix_depot'] == 0) {
                     $fiche['obj_prix_depot'] = "";
                 }
-                $adresse = $CFG_URL . "/index.php?modePage=restV&id=" . $fiche['obj_id_modif'] . "&type=Etiquette";
+                /*$adresse = $CFG_URL . "/index.php?modePage=restV&id=" . $fiche['obj_id_modif'] . "&type=Etiquette";
                 $keyQrcode = "restV-" . $fiche['obj_id_modif'] . "-Etiquette";
                 $qrcodeFic = makeQrCode($adresse, $keyQrcode, 1);
 
                 // $fiche['QRCODE'] = "<img src='https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=$adresse&choe=UTF-8' title='Fiche " . $fiche['obj_numero'] . "' />";
-                $fiche['QRCODE'] = "Plus de détail,scanner le QRCode <br/><img  src='$CFG_URL/$qrcodeFic' title='Fiche " . $fiche['obj_numero'] . "' />";
+                $fiche['QRCODE'] = "Plus de détail,scanner le QRCode <br/><img  src='$CFG_URL/$qrcodeFic' title='Fiche " . $fiche['obj_numero'] . "' />";*/
+                $fiche['QRCODE']="";
                 $data['adresse'] = $adresse;
             }
         } else {
