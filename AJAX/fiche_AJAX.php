@@ -377,7 +377,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
                 }
                 $adresse = $CFG_URL . "/index.php?modePage=restV&id=" . $fiche['obj_id_modif'] . "&type=Etiquette";
                 $keyQrcode = "restV-" . $fiche['obj_id_modif'] . "-Etiquette";
-                $qrcodeFic = makeQrCode($adresse, $keyQrcode,1);
+                $qrcodeFic = makeQrCode($adresse, $keyQrcode, 1);
 
                 // $fiche['QRCODE'] = "<img src='https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=$adresse&choe=UTF-8' title='Fiche " . $fiche['obj_numero'] . "' />";
                 $fiche['QRCODE'] = "Plus de détail,scanner le QRCode <br/><img  src='$CFG_URL/$qrcodeFic' title='Fiche " . $fiche['obj_numero'] . "' />";
@@ -394,7 +394,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
                 makeIdModif($fiche, false);
                 $adresse = $CFG_URL . "/index.php?modePage=restV&id=" . $fiche['obj_id_modif'] . "&type=Etiquette";
                 $keyQrcode = "restV-" . $fiche['obj_id_modif'] . "-Etiquette";
-                $qrcodeFic = makeQrCode($adresse, $keyQrcode,1);
+                $qrcodeFic = makeQrCode($adresse, $keyQrcode, 1);
 
                 // $fiche['QRCODE'] = "<img src='https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=$adresse&choe=UTF-8' title='Fiche " . $fiche['obj_numero'] . "' />";
                 $fiche['QRCODE'] = "Plus de détail,scanner le QRCode <br/><img  src='$CFG_URL/$qrcodeFic' title='Fiche " . $fiche['obj_numero'] . "' />";
@@ -412,6 +412,8 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
             $fiche['obj_prix_vente'] = "";
             $fiche['obj_prix_depot'] = "";
             $fiche['obj_taille'] = "";
+            $fiche['obj_date_achat'] = "";
+            $fiche['obj_prix_achat'] = "";
         }
 
         if (sizeof($fiche) > 0) {
@@ -516,12 +518,16 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
             $client['cli_prenom'] = "";
             $client['cli_nom1'] = $client['cli_nom'];
             //$client['cli_nom1'] .="<br/><small>".$fiche['obj_id_modif']."</<small>";
-            $adresse = $CFG_URL . "/index.php?modePage=restV&id=" . $fiche['obj_id_modif'] . "&type=$nameCoupon";
-            $keyQrcode = "restV-" . $fiche['obj_id_modif'] . "-$nameCoupon";
-            $qrcodeFic = makeQrCode($adresse, $keyQrcode);
+            if ($nameCoupon == "coupon_vendeur") {
+                $adresse = $CFG_URL . "/index.php?modePage=restV&id=" . $fiche['obj_id_modif'] . "&type=$nameCoupon";
+                $keyQrcode = "restV-" . $fiche['obj_id_modif'] . "-$nameCoupon";
+                $qrcodeFic = makeQrCode($adresse, $keyQrcode);
 
-            // $fiche['QRCODE'] = "<img src='https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=$adresse&choe=UTF-8' title='Fiche " . $fiche['obj_numero'] . "' />";
-            $fiche['QRCODE'] = "<img  src='$CFG_URL/$qrcodeFic' title='Fiche " . $fiche['obj_numero'] . "' />";
+                // $fiche['QRCODE'] = "<img src='https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=$adresse&choe=UTF-8' title='Fiche " . $fiche['obj_numero'] . "' />";
+                $fiche['QRCODE'] = "<img  src='$CFG_URL/$qrcodeFic' title='Fiche " . $fiche['obj_numero'] . "' />";
+            } else {
+                $fiche['QRCODE'] = "";
+            }
             // $fiche['QRCODE'] .=  $adresse;
         } else {
             $client['cli_prix_depot'] = "";
@@ -563,6 +569,8 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
             $fiche['obj_prix_vente'] = "";
             $fiche['obj_prix_depot'] = "";
             $fiche['obj_taille'] = "";
+            $fiche['obj_date_achat'] = "";
+            $fiche['obj_prix_achat'] = "";
         }
 
         if (sizeof($fiche) > 0) {
@@ -765,6 +773,9 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false, $format 
         $fiche['obj_id_acheteur'] = 999999;
         $fiche['obj_etat'] = "VENDU";
         $fiche['obj_taille'] = "XL";
+        $fiche['obj_date_achat'] = "01/01/1901";
+        $fiche['obj_prix_achat'] = "3200";
+        $fiche['QRCODE'] = "";
     } else {
         $data['titre'] = "--" . $data['titre'] . "--";
         $client['cli_prix_depot'] = $par['par_prix_depot_1'];
@@ -792,6 +803,9 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false, $format 
         $fiche['obj_prix_depot'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
         $fiche['obj_id_modif'] = "";
         $fiche['obj_taille'] = "";
+        $fiche['obj_date_achat'] = "";
+        $fiche['obj_prix_achat'] = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+        $fiche['QRCODE'] = "";
     }
 
     // MISE EN FORME DE LA FICHE
