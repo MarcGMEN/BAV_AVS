@@ -171,7 +171,7 @@ $tabInfo = [
 					<form style="color:black">
 						<table width=100% border=0>
 							<tr>
-								<td rowspan=5 width=15%><i>Test <input type='checkbox' name="testCoupon" checked /></i></td>
+								<td rowspan=5 width=15%><i>Test <input type='checkbox' name="testCouponA" checked /></i></td>
 								<td colspan=2></td>
 								<td rowspan=5 width=20%>Param PDF (Paysage): <br /> <?= $infAppli['nb_coupon_page'] ?>/page</td>
 							</tr>
@@ -202,8 +202,8 @@ $tabInfo = [
 							</tr>
 							<tr class="tabAction">
 								<td>
-									- Modifs <span id="nbCouponAImprimer"></span> (<?= $infAppli['nb_coupon_page'] ?>/page) : <span id="nb_fiche_coupon"></span>
-									[C: <b><span id="nb_fiche_new_couponA"></span></b>; M:<b><span id="nb_fiche_modif_couponA"></span></b>]</td>
+									- Modifs <span id="nbCouponAImprimerA"></span> (<?= $infAppli['nb_coupon_page'] ?>/page) : <span id="nb_fiche_couponA"></span>
+								</td>
 								<td>
 									<input type=button name='printCouponA' value='Imprimer' disabled id="btnImprimeCouponsPageA" onclick='imprimeCouponsPage(this.form.forceCouponA.checked,this.form.testCouponA.checked?1:0,"coupon_acheteur")'>
 									<input type='checkbox' id="forceCouponA" onchange="this.checked?this.form.printCouponA.disabled=false:this.form.printCouponA.disabled=true">Force
