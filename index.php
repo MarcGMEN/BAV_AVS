@@ -57,7 +57,7 @@ sajax_handle_client_request();
 	<link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.css" />
 	<link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css" />
 	<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
-	
+
 	<link rel="stylesheet" href="editor.css" />
 
 
@@ -75,7 +75,7 @@ sajax_handle_client_request();
 	<script src="JS/index.js" type="text/javascript"></script>
 
 	<script src="ckeditor/ckeditor.js"></script>
- 	<!-- <script src="JS/calendrier.js" type="text/javascript"></script> -->
+	<!-- <script src="JS/calendrier.js" type="text/javascript"></script> -->
 	<!-- <script src="JS/fileIO.js" type="text/javascript"></script> -->
 	<!--  POUR le gestion des couleurs -->
 	<!-- <script type="text/javascript" src="JS/jscolor.js"></script> -->
@@ -88,7 +88,8 @@ sajax_handle_client_request();
 	<!-- MODE DEV -->
 	<? sajax_show_javascript(); ?>
 	<!-- MODE PROD -->
-	<? //sajax_show_javascript("JS/sajax.js"); ?>
+	<? //sajax_show_javascript("JS/sajax.js"); 
+	?>
 
 	<script type="text/javascript">
 		var startSaisie = false;
@@ -103,7 +104,7 @@ sajax_handle_client_request();
 		var modePage = '<?= $GET_modePage ?>';
 		var id = '<?= $GET_id ?>';
 		var type = '<?= $GET_type ?>';
-		
+
 		function initIndex() {
 			if (id != "" && (modePage == 'restF' || modePage == 'restC' || modePage == 'restV')) {
 				searchSuiteRest(id, modePage, type);
@@ -111,14 +112,14 @@ sajax_handle_client_request();
 					foo: "bar"
 				};
 				history.pushState(stateObj, "", "index.php");
-			}
-			else if (ADMIN == 0) {
-				x_add_counter_action("<?=$GET_page?>",modePage,type, display_rien);
+			} else if (ADMIN == 0) {
+				x_add_counter_action("<?= $GET_page ?>", modePage, type, display_rien);
 			}
 		}
 	</script>
 
 </head>
+
 <body class="parent" LANG="fr-FR" onload="initIndex();initEntete();initPage()" onunload="unloadPage()">
 	<form name="formNavigation" method="get">
 		<input type="hidden" name="page" value="">
@@ -126,7 +127,7 @@ sajax_handle_client_request();
 		<input type="hidden" name="id" value="">
 		<input type="hidden" name="message" value="">
 	</form>
-	
+
 	<div cellspacing="0" cellpadding="0" class="PAGE">
 		<div class="entete">
 			<header>
@@ -135,7 +136,7 @@ sajax_handle_client_request();
 		</div>
 		<div class="FENETRE_PRINCIPALE">
 			<main>
-				
+
 				<div class="TEXTE_FEN">
 					<!--<MODE:<?= $GET_modePage ?>; ID:<?= $GET_id ?>;</span>
 				<? echo "go to page [" . $GET_page . "]"; ?>-->
@@ -167,7 +168,7 @@ sajax_handle_client_request();
 </body>
 <?
 if (isset($GET_message) && trim($GET_message) != '') {
-	?>
+?>
 
 	<script>
 		console.log("message <?= $GET_message ?>");

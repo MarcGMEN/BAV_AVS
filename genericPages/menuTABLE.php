@@ -1,36 +1,35 @@
-<?php $tail = (int) 100 / 3;?>
-<table width="100%" id="tabStat">
-	<tr>
-    	<td width="<?=$tail?>%">
-	    	<!-- fiche etat cofirme -->
-		    A valider : <span id="CONFIRME" class='link' onclick='goTo("stock.php","obj_etat","CONFIRME",null)' style='font-weight: bold'>...</span>
-		</td>
-		<td width="<?=$tail?>%">
+<div class="row" >
+	<div class="col-md-12">
+		<div class="col-md-2 col-sm-1 col-xs-3" style="text-align:right">Confirm</div>
+		<div class="col-md-2 col-sm-3 col-xs-3">
+			<!-- fiche etat cofirme -->
+			<span id="CONFIRME" class='link' onclick='goTo("stock.php","obj_etat","CONFIRME",null)' style='font-weight: bold'>...</span>
+		</div>
+		<div class="col-md-2 col-sm-2 col-xs-3" style="text-align:right">Total</div>
+		<div class="col-md-2 col-sm-2 col-xs-3">
 			<!-- fiche etat valide -->
-			Total : <span id="TOTAL" style='font-weight: bold'>...</span>
-		</td>
-		<td width="<?=$tail?>%">
-			Vendu : <span id="VENDU" class='link' onclick='goTo("stock.php","obj_etat","VENDU",null)' style='font-weight: bold'>...</span>
-			<small><span id="statVendu" >...</span></small>
-			<small ><span title="Payé" class="PAYE link" id="PAYE" onclick='goTo("stock.php","obj_etat","PAYE",null)'></span></small>
-		</td>
-    </tr>
-    <tr>
-		<td width="<?=$tail?>%">
-			Init : <span id="INIT" class='link' onclick='goTo("stock.php","obj_etat","INIT",null)' style='font-weight: bold'>...</span>
-		</td>
-		<td width="<?=$tail?>%">
-			<!-- fiche etat valide -->
-			Stock : <span id="STOCK" class='link' onclick='goTo("stock.php","obj_etat","STOCK",null)' style='font-weight: bold'>...</span>
-			<span id=countModifPrix ></span>
-		</td>
-	    <!--<td width="<?=$tail?>%">-->
-			<!-- fiche etat modif prix -->
-			<!--<s>Modif prix : <span id="modifPrix">...</span></A></s>
-		</td>-->
-			<td width="<?=$tail?>%">
-				Rendu : <span id="RENDU" class='link' onclick='goTo("stock.php","obj_etat","RENDU",null)' style='font-weight: bold'>...</span>
-	    		<small><span id="statRendu">...</span></small>
-		</td>
-	</tr>
-</table>
+			<span id="TOTAL" style='font-weight: bold'>...</span>
+		</div>
+		<div class="col-md-2 col-sm-2 col-xs-3" style="text-align:right">Vendu</div>
+		<div class="col-md-2 col-sm-2 col-xs-3">
+			<span id="VENDU" class='link' onclick='goTo("stock.php","obj_etat","VENDU",null)' style='font-weight: bold'>...</span>
+			<small><span id="statVendu">...</span></small>
+			<small><span title="Payé" class="PAYE link" id="PAYE" onclick='goTo("stock.php","obj_etat","PAYE",null)'></span></small>
+		</div>
+
+		<div class="col-md-2 col-sm-2 col-xs-3" style="text-align:right">Init</div>
+		<div class="col-md-2 col-sm-2 col-xs-3">
+			<span id="INIT" class='link' onclick='goTo("stock.php","obj_etat","INIT",null)' style='font-weight: bold'>...</span>
+		</div>
+		<div class="col-md-2 col-sm-2 col-xs-3" style="text-align:right">Stock</div>
+		<div class="col-md-2 col-sm-2 col-xs-3">
+			<span id="STOCK" class='link' onclick='goTo("stock.php","obj_etat","STOCK",null)' style='font-weight: bold'>...</span>
+			<span id=countModifPrix></span>
+		</div>
+		<div class="col-md-2 col-sm-2 col-xs-3" style="text-align:right">Rendu</div>
+		<div class="col-md-2 col-sm-2 col-xs-3">
+			<span id="RENDU" class='link' onclick='goTo("stock.php","obj_etat","RENDU",null)' style='font-weight: bold'>...</span>
+			<small><span id="statRendu">...</span></small>
+		</div>
+	</div>
+</div>

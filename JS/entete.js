@@ -4,10 +4,10 @@ function initEntete() {
     // affichage du comptage que pour ADMIN
     if (ADMIN) {
         getElement('connex').innerHTML = 'ADMIN';
-        if (getElement('tabStat')) {
-            getElement('tabStat').className = 'tabStatShow';
+        //if (getElement('tabStat')) {
+            //getElement('tabStat').className = 'tabStatShow';
             x_return_countByEtat(display_counter);
-        }
+        //}
         getElement('tdSearch').style.display = "table-cell";
 
     } else if (CLIENT) {

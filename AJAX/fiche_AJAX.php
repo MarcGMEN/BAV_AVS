@@ -375,14 +375,19 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
                 if ($fiche['obj_prix_depot'] == 0) {
                     $fiche['obj_prix_depot'] = "";
                 }
-                /*$adresse = $CFG_URL . "/index.php?modePage=restV&id=" . $fiche['obj_id_modif'] . "&type=Etiquette";
+                $adresse = $CFG_URL . "/index.php?modePage=restV&id=" . $fiche['obj_id_modif'] . "&type=Etiquette";
                 $keyQrcode = "restV-" . $fiche['obj_id_modif'] . "-Etiquette";
                 $qrcodeFic = makeQrCode($adresse, $keyQrcode, 1);
 
                 // $fiche['QRCODE'] = "<img src='https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=$adresse&choe=UTF-8' title='Fiche " . $fiche['obj_numero'] . "' />";
-                $fiche['QRCODE'] = "Plus de détail,scanner le QRCode <br/><img  src='$CFG_URL/$qrcodeFic' title='Fiche " . $fiche['obj_numero'] . "' />";*/
-                $fiche['QRCODE']="";
-                $data['adresse'] = $adresse;
+                $fiche['QRCODE'] = "Plus de détail,scanner le QRCode <br/><img  src='$CFG_URL/$qrcodeFic' title='Fiche " . $fiche['obj_numero'] . "' />";
+                //$fiche['QRCODE']="";
+                if ($CFG_DEBUG) { 
+                    $data['adresse'] = $adresse;
+                }
+                else {
+                    $data['adresse'] = "";
+                }
             }
         } else {
             if ($eti0 == -1) {
@@ -392,14 +397,20 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
                 $data['adresse'] = "";
             } else {
                 $fiche['obj_numero'] = $numFiche;
-                makeIdModif($fiche, false);
+                /*makeIdModif($fiche, false);
                 $adresse = $CFG_URL . "/index.php?modePage=restV&id=" . $fiche['obj_id_modif'] . "&type=Etiquette";
                 $keyQrcode = "restV-" . $fiche['obj_id_modif'] . "-Etiquette";
                 $qrcodeFic = makeQrCode($adresse, $keyQrcode, 1);
 
                 // $fiche['QRCODE'] = "<img src='https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=$adresse&choe=UTF-8' title='Fiche " . $fiche['obj_numero'] . "' />";
-                $fiche['QRCODE'] = "Plus de détail,scanner le QRCode <br/><img  src='$CFG_URL/$qrcodeFic' title='Fiche " . $fiche['obj_numero'] . "' />";
-                $data['adresse'] = $adresse;
+                $fiche['QRCODE'] = "Plus de détail,scanner le QRCode <br/><img  src='$CFG_URL/$qrcodeFic' title='Fiche " . $fiche['obj_numero'] . "' />";*/
+                $fiche['QRCODE']="";
+                if ($CFG_DEBUG) { 
+                    $data['adresse'] = $adresse;
+                }
+                else {
+                    $data['adresse'] = "";
+                }
             }
 
             $fiche['obj_type'] = "<br/><span style='font-size:9px'><i>Autre-VTT-Route-VTC-Ville-VAE-BMX</i></span>";
@@ -529,6 +540,23 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
             } else {
                 $fiche['QRCODE'] = "";
             }
+
+            if ($CFG_DEBUG) { 
+                $data['adresse'] = $adresse;
+            }
+            else {
+                $data['adresse'] = "";
+            }
+
+
+            $fiche['obj_object'] = trim($fiche['obj_marque'])." ".trim($fiche['obj_modele']);
+            
+            $fiche['obj_marque'] = trim($fiche['obj_marque']) == "" ? "<u>$espace100</u>" : $fiche['obj_marque'];
+            $fiche['obj_modele'] = trim($fiche['obj_modele']) == "" ? "<u>$espace75</u>" : $fiche['obj_modele'];
+            $fiche['obj_couleur'] = trim($fiche['obj_couleur']) == "" ? "<u>$espace50</u>" : $fiche['obj_couleur'];
+
+            
+            
             // $fiche['QRCODE'] .=  $adresse;
         } else {
             $client['cli_prix_depot'] = "";
@@ -564,6 +592,7 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
             $fiche['obj_pratique'] = "<br/><span style='font-size:9px'><i>Sportive-Loisir-Compétition-Autre</i></span>";
             $fiche['obj_marque'] = "<u>$espace100</u>";
             $fiche['obj_modele'] = "<u>$espace75</u>";
+            $fiche['obj_object'] = "";
             $fiche['obj_couleur'] = "<u>$espace50</u>";
             $fiche['obj_accessoire'] = "";
             $fiche['obj_description'] = "";
@@ -572,6 +601,13 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
             $fiche['obj_taille'] = "";
             $fiche['obj_date_achat'] = "";
             $fiche['obj_prix_achat'] = "";
+
+            if ($CFG_DEBUG) { 
+                $data['adresse'] = $adresse;
+            }
+            else {
+                $data['adresse'] = "";
+            }
         }
 
         if (sizeof($fiche) > 0) {

@@ -19,13 +19,13 @@ function display_retour_test(val) {
 }
 
 function confirmModalTest() {
-    setTimeout(function() {
+    setTimeout(function () {
         closeModal();
     }, 1000);
 }
 
 function display_rien(val) {
-    console.log("display_rien",val);
+    console.log("display_rien", val);
 }
 
 function display_openPDF(val) {
@@ -36,7 +36,7 @@ function display_openPDF(val) {
 }
 
 function openPDF(val) {
-    if (!ADMIN) { 
+    if (!ADMIN) {
         x_add_counter_action("open Link", val, "", display_rien);
     }
     window.open(val, '_blank');
