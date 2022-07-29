@@ -63,6 +63,7 @@ function return_oneFicheByCode($id)
     $row = getOneFicheByCode($id);
     if ($row) {
         $row['obj_date_depot_FR'] = formateDateMYSQLtoFR($row['obj_date_depot'], true);
+        $row['obj_date_achat_FR'] = formateDateMYSQLtoFR($row['obj_date_achat'], false);
         $row['cli_com'] = getCommission($row);
     } else {
         $row['obj_numero'] = $id;
@@ -80,6 +81,8 @@ function return_oneFicheByIdModif($id)
     $row = getOneFicheByIdModif($id);
     if ($row) {
         $row['obj_date_depot_FR'] = formateDateMYSQLtoFR($row['obj_date_depot'], true);
+        $row['obj_date_achat_FR'] = formateDateMYSQLtoFR($row['obj_date_achat'], false);
+
         $row['cli_com'] = getCommission($row);
     }
     return $row;
@@ -93,6 +96,8 @@ function return_oneFiche($id)
     $row = getOneFiche($id);
     if ($row) {
         $row['obj_date_depot_FR'] = formateDateMYSQLtoFR($row['obj_date_depot'], true);
+        $row['obj_date_achat_FR'] = formateDateMYSQLtoFR($row['obj_date_achat'], false);
+
         $row['cli_com'] = getCommission($row);
     }
     return $row;
@@ -361,8 +366,8 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
     foreach ($tabFiche as $numFiche) {
         $fiche = [];
         if ($eti0 >= 0 && $fiche = getOneFicheByCode($numFiche)) {
+            error_log($fiche['obj_id']);
             if ($fiche['obj_id']) {
-
                 error_log("[action_makeA4Etiquettes] test $test");
                 if (!$test) {
                     $fiche['obj_modif_data'] = 0;
@@ -382,11 +387,14 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
                 // $fiche['QRCODE'] = "<img src='https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=$adresse&choe=UTF-8' title='Fiche " . $fiche['obj_numero'] . "' />";
                 $fiche['QRCODE'] = "Plus de détail,scanner le QRCode <br/><img  src='$CFG_URL/$qrcodeFic' title='Fiche " . $fiche['obj_numero'] . "' />";
                 //$fiche['QRCODE']="";
-                if ($CFG_DEBUG) { 
+                if ($CFG_DEBUG) {
                     $data['adresse'] = $adresse;
-                }
-                else {
+                } else {
                     $data['adresse'] = "";
+                }
+                $fiche['obj_achat'] = "";
+                if ($fiche['obj_prix_achat'] != "" || $fiche['obj_date_achat_FR'] != "") {
+                    $fiche['obj_achat'] = $fiche['obj_prix_achat'] . " &euro; (" . $fiche['obj_date_achat_FR'] . ")";
                 }
             }
         } else {
@@ -404,13 +412,8 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
 
                 // $fiche['QRCODE'] = "<img src='https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=$adresse&choe=UTF-8' title='Fiche " . $fiche['obj_numero'] . "' />";
                 $fiche['QRCODE'] = "Plus de détail,scanner le QRCode <br/><img  src='$CFG_URL/$qrcodeFic' title='Fiche " . $fiche['obj_numero'] . "' />";*/
-                $fiche['QRCODE']="";
-                if ($CFG_DEBUG) { 
-                    $data['adresse'] = $adresse;
-                }
-                else {
-                    $data['adresse'] = "";
-                }
+                $fiche['QRCODE'] = "";
+                $data['adresse'] = "";
             }
 
             $fiche['obj_type'] = "<br/><span style='font-size:9px'><i>Autre-VTT-Route-VTC-Ville-VAE-BMX</i></span>";
@@ -425,6 +428,8 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
             $fiche['obj_prix_depot'] = "";
             $fiche['obj_taille'] = "";
             $fiche['obj_date_achat'] = "";
+            $fiche['obj_date_achat_FR'] = "";
+            $fiche['obj_achat'] = "";
             $fiche['obj_prix_achat'] = "";
         }
 
@@ -481,7 +486,12 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
     if ($eti0 == 0) {
         //recherche des fiches modifié ou crée, regroupé par page
         // $eti1 => 1 force ; 0 : normal
-        $fiches = getFichesModif('vendeur');
+        if ($nameCoupon =="coupon_vendeur") {
+            $fiches = getFichesModif('vendeur');
+        } else {
+            $fiches =  getFiches(null, 'asc', ['obj_etat'=>'STOCK']);
+            //$fiches = getFichesModif('vendeur');
+        }
         $nbEtiq = 10000;
         if ($eti1 == "false") {
             //limite le tableau au modulo par page            
@@ -541,22 +551,21 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
                 $fiche['QRCODE'] = "";
             }
 
-            if ($CFG_DEBUG) { 
+            if ($CFG_DEBUG) {
                 $data['adresse'] = $adresse;
-            }
-            else {
+            } else {
                 $data['adresse'] = "";
             }
 
 
-            $fiche['obj_object'] = trim($fiche['obj_marque'])." ".trim($fiche['obj_modele']);
-            
+            $fiche['obj_object'] = trim($fiche['obj_marque']) . " " . trim($fiche['obj_modele']);
+
             $fiche['obj_marque'] = trim($fiche['obj_marque']) == "" ? "<u>$espace100</u>" : $fiche['obj_marque'];
             $fiche['obj_modele'] = trim($fiche['obj_modele']) == "" ? "<u>$espace75</u>" : $fiche['obj_modele'];
             $fiche['obj_couleur'] = trim($fiche['obj_couleur']) == "" ? "<u>$espace50</u>" : $fiche['obj_couleur'];
 
-            
-            
+
+
             // $fiche['QRCODE'] .=  $adresse;
         } else {
             $client['cli_prix_depot'] = "";
@@ -602,10 +611,9 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
             $fiche['obj_date_achat'] = "";
             $fiche['obj_prix_achat'] = "";
 
-            if ($CFG_DEBUG) { 
+            if ($CFG_DEBUG) {
                 $data['adresse'] = $adresse;
-            }
-            else {
+            } else {
                 $data['adresse'] = "";
             }
         }
@@ -1039,7 +1047,9 @@ function action_updateFiche($data)
     if ($fiche['obj_etat'] == "CONFIRME") {
         // error_log("test cli_nom  " . strtoupper($client['cli_nom']) . " != " . strtoupper($cliOld['cli_nom']));
         // si modification de client de la fiche
-        if ($ficheOld['obj_modif_vendeur'] == 0 && strtoupper($client['cli_nom']) != strtoupper($cliOld['cli_nom'])) {
+        if ($ficheOld['obj_modif_vendeur'] == 0 && (strtoupper($client['cli_nom']) != strtoupper($cliOld['cli_nom'] ||
+            strtoupper($fiche['obj_marque']) != strtoupper($ficheOld['obj_marque']) ||
+            strtoupper($fiche['obj_couleur']) != strtoupper($ficheOld['obj_couleur'])))) {
             $fiche['obj_modif_vendeur'] = 2;
         }
 
@@ -1050,6 +1060,9 @@ function action_updateFiche($data)
                 strtoupper($fiche['obj_public']) != strtoupper($ficheOld['obj_public']) ||
                 strtoupper($fiche['obj_marque']) != strtoupper($ficheOld['obj_marque']) ||
                 strtoupper($fiche['obj_couleur']) != strtoupper($ficheOld['obj_couleur']) ||
+                strtoupper($fiche['obj_taille']) != strtoupper($ficheOld['obj_taille']) ||
+                strtoupper($fiche['obj_date_achat']) != strtoupper($ficheOld['obj_date_achat']) ||
+                strtoupper($fiche['obj_prix_achat']) != strtoupper($ficheOld['obj_prix_achat']) ||
                 strtoupper($fiche['obj_description']) != strtoupper($ficheOld['obj_description']) ||
                 strtoupper($fiche['obj_prix_depot']) != strtoupper($ficheOld['obj_prix_depot']))
         ) {

@@ -1,5 +1,5 @@
 <?php $idRamdom = rand(1000, 9999);
-$maxFiche=1800;
+$maxFiche=2001;
 ?>
 
 <script>
@@ -28,8 +28,8 @@ $maxFiche=1800;
 		<tr>
 			<td class='tittab' width=5%>No</td>
 			<td class='tittab' width=10%>Type</td>
-			<td class='tittab' width=10%>Couleur</td>
-			<td class='tittab' width=35%>Marque</td>
+			<td class='tittab' width=10%>Marque</td>
+			<td class='tittab' width=35%>Couleur</td>
 			<td class='tittab' width=10%></td>
 			<td class='tittab' width=10%>Etat</td>
 			<td class='tittab' width=10%>Actions</td>

@@ -75,7 +75,7 @@ function display_html_file(val) {
 var idTextSAved = ""
 
 function saveEditor(id, data) {
-    console.log(data);
+    //console.log(data);
     alertModalInfoTimeout(data, 1);
     idTextSAved = id;
     x_save_html(id, data, display_fin_save);

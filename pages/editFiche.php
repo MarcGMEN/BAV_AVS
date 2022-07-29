@@ -171,7 +171,7 @@ $tabInfo = [
 					<form style="color:black">
 						<table width=100% border=0>
 							<tr>
-								<td rowspan=5 width=15%><i>Test <input type='checkbox' name="testCoupon" checked /></i></td>
+								<td rowspan=5 width=15%><i>Test <input type='checkbox' name="testCouponA" checked /></i></td>
 								<td colspan=2></td>
 								<td rowspan=5 width=20%>Param PDF (Paysage): <br /> <?= $infAppli['nb_coupon_page'] ?>/page</td>
 							</tr>

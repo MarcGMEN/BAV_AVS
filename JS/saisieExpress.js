@@ -150,6 +150,7 @@ function display_ficheN(val) {
 function display_fiche(val) {
     getElement("but_action").disabled = false;
 
+    console.log("display_fiche");
     console.log(val);
 
     // on revient sur le numero de fiche en focus
@@ -157,6 +158,12 @@ function display_fiche(val) {
     //console.log("#tr_"+val['obj_numero']);
     //getElement("tableFiches").location="#tr_"+val['obj_numero'];
     //console.log(window.find("#tr_"+val['obj_numero']));
+
+
+    getElement("but_actionAno").style.display = 'none';
+    getElement("but_action2").style.display = 'none';
+    getElement("but_action").style.display = 'table-cell';
+
 
     if (val['obj_etat']) {
         afficheLigne(val);
@@ -169,10 +176,6 @@ function display_fiche(val) {
         document.formSaisieExpress.elements.namedItem('cli_nom_' + idRamdom).disabled = true;
         document.formSaisieExpress.cli_code_postal.disabled = true;
 
-        getElement("but_actionAno").style.display = 'none';
-        getElement("but_action2").style.display = 'none';
-
-        getElement("but_action").style.display = 'table-cell';
 
         console.log("focus " + focus);
 
@@ -255,7 +258,7 @@ function display_fiche(val) {
         //document.formSaisieExpress.cli_emel.disabled = false;
         document.formSaisieExpress.elements.namedItem('cli_nom_' + idRamdom).disabled = false;
         document.formSaisieExpress.cli_code_postal.disabled = false;
-        getElement("but_action2").style.display = 'none';
+        //getElement("but_action2").style.display = 'none';
         getElement("but_action").style.display = 'block';
         getElement("but_action").innerHTML = "Créer";
     }

@@ -143,7 +143,9 @@ function getOneFicheByCode($id)
         $requete2 .= " and  obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "'";
         $result = $GLOBALS['mysqli']->query($requete2);
         if ($result) {
-            $row = $result->fetch_assoc();
+            if ($row = $result->fetch_assoc()) {
+                $row['obj_date_achat_FR'] = formateDateMYSQLtoFR($row['obj_date_achat'], false);
+            }
             $result->close();
         } else {
             throw new Exception("getFiches' [$requete2] " . $GLOBALS['mysqli']->error);
@@ -166,7 +168,6 @@ function getFiches($order, $sens, $tabSel)
     $requete2 .= "  left outer join bav_client as ac on obj_id_acheteur = ac.cli_id ";
     //$requete2 .= "  left outer join bav_modif_prix as mop on mop_id_obj = obj_id and mop_date_validation is null ";
     $requete2 .= " where obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "'";
-    //  error_log("[getFiches] $requete2");
     foreach ($tabSel as $key => $val) {
         if ($key == "obj_search") {
             $requete2 .= " and (obj_modele like '%$val%' or obj_description like '%$val%' or obj_couleur like '%$val%') ";
@@ -181,6 +182,8 @@ function getFiches($order, $sens, $tabSel)
             $requete2 .= " order by $order $sens";
         }
     }
+    error_log("[getFiches] $requete2");
+    
     $result = $GLOBALS['mysqli']->query($requete2);
     if ($result) {
         $tab = array();

@@ -34,6 +34,8 @@ if ($GET_a == "C") {
 
                 //$row['obj_date_depot_FR'] = formateDateMYSQLtoFR($row['obj_date_depot'], true);
                 $tabPlus['obj_date_depot_FR_SH'] = formateDateMYSQLtoFR($fiche['obj_date_depot'], false);
+                $tabPlus['obj_date_achat_FR'] = formateDateMYSQLtoFR($fiche['obj_date_achat'], false);
+
 
                 $client = getOneClient($fiche['obj_id_vendeur']);
 
@@ -91,6 +93,8 @@ if ($GET_a == "I") {
 
             //$row['obj_date_depot_FR'] = formateDateMYSQLtoFR($row['obj_date_depot'], true);
             $tabPlus['obj_date_depot_FR_SH'] = formateDateMYSQLtoFR($fiche['obj_date_depot'], false);
+            $tabPlus['obj_date_achat_FR'] = formateDateMYSQLtoFR($fiche['obj_date_achat'], false);
+
 
             $client = getOneClient($fiche['obj_id_vendeur']);
 
