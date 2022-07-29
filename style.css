@@ -547,7 +547,7 @@ table {
 }
 
 .tittab {
-/*    font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;*/
+    /*    font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;*/
     font-family: Verdana, Arial, Helvetica, sans-serif;
     color: #1161a2;
     border-color: #1161a2;
@@ -641,7 +641,9 @@ span.STOCK {
     color: BLACK;
 }
 
-#countModifStock, #countModifData, #countModifVendeur {
+#countModifStock,
+#countModifData,
+#countModifVendeur {
     background-color: ORANGE;
     color: BLACK;
     font-size: 0.6em;
@@ -649,9 +651,9 @@ span.STOCK {
     border-radius: 3px;
     padding: 3px;
 }
+
 #countModifData {
     background-color: lightgreen;
-    
 }
 
 tr.VENDU,
@@ -782,7 +784,7 @@ img.logo {
         font-size: 60% !important;
     }
     div.FENETRE_PRINCIPALE {
-        margin-top: 70px;
+        margin-top: 40px;
     }
     .maskMobile,
     .maskMobileBlock {
@@ -791,6 +793,11 @@ img.logo {
     .tabl1,
     .tabl0 {
         font-size: 0.8em;
+    }
+    #countModifStock,
+    #countModifData,
+    #countModifVendeur {
+        display: none;
     }
 }
 

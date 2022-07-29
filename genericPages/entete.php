@@ -24,7 +24,7 @@ ipLocal = "<?=$_SERVER['REMOTE_ADDR']?>";
 			</div>
 			<?php if ($infAppli['ADMIN']) {
 				include './genericPages/menuTABLE.php';
-			} ?>
+			}?>
 		</td>
 		<td width="15%">
 			<!--<span style="float: left; display:none" id="theMenu">

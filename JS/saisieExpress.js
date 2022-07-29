@@ -159,11 +159,9 @@ function display_fiche(val) {
     //getElement("tableFiches").location="#tr_"+val['obj_numero'];
     //console.log(window.find("#tr_"+val['obj_numero']));
 
-
     getElement("but_actionAno").style.display = 'none';
     getElement("but_action2").style.display = 'none';
     getElement("but_action").style.display = 'table-cell';
-
 
     if (val['obj_etat']) {
         afficheLigne(val);
@@ -175,7 +173,6 @@ function display_fiche(val) {
         //document.formSaisieExpress.cli_emel.disabled = true;
         document.formSaisieExpress.elements.namedItem('cli_nom_' + idRamdom).disabled = true;
         document.formSaisieExpress.cli_code_postal.disabled = true;
-
 
         console.log("focus " + focus);
 
@@ -258,7 +255,8 @@ function display_fiche(val) {
         //document.formSaisieExpress.cli_emel.disabled = false;
         document.formSaisieExpress.elements.namedItem('cli_nom_' + idRamdom).disabled = false;
         document.formSaisieExpress.cli_code_postal.disabled = false;
-        //getElement("but_action2").style.display = 'none';
+        getElement("but_actionAno").style.display = 'none';
+        getElement("but_action2").style.display = 'none';
         getElement("but_action").style.display = 'block';
         getElement("but_action").innerHTML = "Créer";
     }
@@ -383,6 +381,7 @@ function modifEtat(tabObj, tabCli) {
         tabObj['obj_etat'] = 'STOCK'
         var tabData = Object.assign({}, tabObj, tabCli);
         console.log("demande de creation express");
+        tabData['obj_modif_stock'] = 1
         x_action_createFicheExpress(tabToString(tabData), display_fin_create);
     } else if (tabObj['obj_etat_new'] == 'VENDU') {
         x_return_oneFiche(tabObj['obj_id'], display_fiche_vente);
