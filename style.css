@@ -641,6 +641,19 @@ span.STOCK {
     color: BLACK;
 }
 
+#countModifStock, #countModifData, #countModifVendeur {
+    background-color: ORANGE;
+    color: BLACK;
+    font-size: 0.6em;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    padding: 3px;
+}
+#countModifData {
+    background-color: lightgreen;
+    
+}
+
 tr.VENDU,
 span.VENDU {
     background-color: GREEN;

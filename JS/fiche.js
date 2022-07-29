@@ -44,10 +44,11 @@ function initPage() {
         getElement("tdCGU").style.display = 'none';
 
         // champ au nom aleatoir pour contrer google 
-        document.ficheForm.elements.namedItem('obj_marque_' + idRamdom).required = false;
+        document.ficheForm.elements.namedItem('obj_marque_' + idRamdom).required = true;
 
         // pas de couleur obligatoire
-        document.ficheForm.obj_couleur.required = false;
+        document.ficheForm.obj_couleur.required = true;
+
 
         // prix de depot oblogatoire
         document.ficheForm.obj_prix_depot.required = true;

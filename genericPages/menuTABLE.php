@@ -4,6 +4,8 @@
 		<div class="col-md-2 col-sm-3 col-xs-3">
 			<!-- fiche etat cofirme -->
 			<span id="CONFIRME" class='link' onclick='goTo("stock.php","obj_etat","CONFIRME",null)' style='font-weight: bold'>...</span>
+			<span id=countModifData title="Nb de d'etiquette à imprimer" ></span>
+			<span id=countModifVendeur title="Nb de coupons dépot à imprimer" ></span>
 		</div>
 		<div class="col-md-2 col-sm-2 col-xs-3" style="text-align:right">Total</div>
 		<div class="col-md-2 col-sm-2 col-xs-3">
@@ -24,7 +26,7 @@
 		<div class="col-md-2 col-sm-2 col-xs-3" style="text-align:right">Stock</div>
 		<div class="col-md-2 col-sm-2 col-xs-3">
 			<span id="STOCK" class='link' onclick='goTo("stock.php","obj_etat","STOCK",null)' style='font-weight: bold'>...</span>
-			<span id=countModifPrix></span>
+			<span id=countModifStock title="Nb de coupons sortie à imprimer" ></span>
 		</div>
 		<div class="col-md-2 col-sm-2 col-xs-3" style="text-align:right">Rendu</div>
 		<div class="col-md-2 col-sm-2 col-xs-3">

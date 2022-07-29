@@ -5,8 +5,12 @@ function initEntete() {
     if (ADMIN) {
         getElement('connex').innerHTML = 'ADMIN';
         //if (getElement('tabStat')) {
-            //getElement('tabStat').className = 'tabStatShow';
-            x_return_countByEtat(display_counter);
+        //getElement('tabStat').className = 'tabStatShow';
+        x_return_countByEtat(display_counter);
+        x_return_fichesModif('stock', display_modifStockE);
+        x_return_fichesModif('data', display_modifDataE);
+        x_return_fichesModif('vendeur', display_modifVendeurE);
+
         //}
         getElement('tdSearch').style.display = "table-cell";
 
@@ -37,6 +41,17 @@ function return_restant() {
     } else {
         getElement('timeRestant').innerHTML = "";
     }
+}
+
+function display_modifStockE(val) {
+    getElement('countModifStock').innerHTML = sizeof(val)+ " coupon"+ (sizeof(val) > 1 ? "s" : "");
+}
+
+function display_modifDataE(val) {
+    getElement('countModifData').innerHTML = sizeof(val) + " étiquette"+ (sizeof(val) > 1 ? "s" : "");
+}
+function display_modifVendeurE(val) {
+    getElement('countModifVendeur').innerHTML = sizeof(val) + " coupon"+ (sizeof(val) > 1 ? "s" : "");
 }
 
 /**

@@ -489,7 +489,7 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
         if ($nameCoupon =="coupon_vendeur") {
             $fiches = getFichesModif('vendeur');
         } else {
-            $fiches =  getFiches(null, 'asc', ['obj_etat'=>'STOCK']);
+            $fiches =  getFichesModif('stock');
             //$fiches = getFichesModif('vendeur');
         }
         $nbEtiq = 10000;

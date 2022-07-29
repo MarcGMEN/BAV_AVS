@@ -62,6 +62,7 @@ var Gtype = '';
 
 function searchSuiteRest(value, modePage = "", type = "") {
     Gtype = type;
+    console.log("searchSuiteRest " + value + "; " + modePage + "; " + type);
     if (modePage == "restF") {
         x_return_oneFicheByIdModif(value, display_getFicheModif);
     } else if (modePage == "restC") {
@@ -77,6 +78,12 @@ function searchSuiteRest(value, modePage = "", type = "") {
     // si numerique < 10000 alors fiche en consult
     // si 5 caracteres => modif fiche
     // si 8 caracteres => consult client
+}
+
+function searchFiche(code) {
+    console.log("searchFiche " +code);
+    x_return_oneFicheByCode(code, display_getFicheModif);
+    return false;
 }
 
 function display_getFicheConsult(val) {
@@ -101,7 +108,7 @@ function display_getFicheModif(val) {
     if (val instanceof Object) {
         goTo("fiche.php", "modif", val['obj_id']);
     } else {
-        alertModalWarnTimeout("Code incorrect", 2);
+        alertModalWarnTimeout("Fiche inconnue", 2);
     }
 
 }
@@ -110,7 +117,7 @@ function display_getClient(val) {
     if (val instanceof Object) {
         goTo("client.php", "consult", val['cli_id']);
     } else {
-        alertModalWarnTimeout("Code incorrect", 2);
+        alertModalWarnTimeout("Client inconnu", 2);
     }
 
 }

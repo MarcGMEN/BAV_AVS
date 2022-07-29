@@ -54,9 +54,9 @@ ipLocal = "<?=$_SERVER['REMOTE_ADDR']?>";
 			<?php include './genericPages/navigation.php'; ?>
 		</th>
 		<td class="tdSearch" id="tdSearch" style="display:none">
-			<form name="enteteFormFiche" action="#" onsubmit='return search(document.enteteFormFiche.inputSearch.value)'>
+			<form name="enteteFormFiche" action="#" onsubmit='return searchFiche(document.enteteFormFiche.inputSearch.value)'>
 				<input type="text" name="numeroFiche" size="8" maxlength="20" title="Saisisez le numéro de fiche" placeholder="N° fiche" id="inputSearch" onsubmit='search(this.value)' style='background-color:LIGHTGREEN;font-weight: bold' />
-				<i id="loupe" class="fas fa-search link loupe" onclick="search(document.enteteFormFiche.inputSearch.value)"></i>
+				<i id="loupe" class="fas fa-search link loupe" onclick="searchFiche(document.enteteFormFiche.inputSearch.value)"></i>
 			</form>
 		</td>
 	</tr>

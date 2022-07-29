@@ -76,11 +76,17 @@ function display_fiches(val) {
                 repr += "<tr class='tabl0 " + val[index]['obj_etat'] + " link' style='" + stylePlus + "' onclick='goTo(\"fiche.php\",\"modif\"," + val[index]['obj_id'] + ")'>";
                 repr += "<td width=5% align=center>";
                 if (val[index]['obj_modif_data'] > 0) {
-                    repr += "<img src='Images/etiq" + val[index]['obj_modif_data'] + ".png' style='height:20px' />";
+                    //repr += "<img src='Images/etiq" + val[index]['obj_modif_data'] + ".png' style='height:20px' />";
+                    repr += "<div style='font-size:0.5em'>etiquette</div>";
                 }
                 if (val[index]['obj_modif_vendeur'] > 0) {
-                    repr += "<img src='Images/coupon_vendeur" + val[index]['obj_modif_vendeur'] + ".png' style='height:10px' />";
+                    //repr += "<img src='Images/coupon_vendeur" + val[index]['obj_modif_vendeur'] + ".png' style='height:10px' />";
+                    repr += "<div style='font-size:0.5em'>coupon vendeur</div>";
                 }
+                if (val[index]['obj_modif_stock'] > 0) {
+                    repr += "<div style='font-size:0.5em'>coupon Stock</div>";
+                }
+                
                 if (val[index]['mop_id'] > 0) {
                     repr += "<img src='Images/modifPrix.png' style='height:20px' />";
                 }
