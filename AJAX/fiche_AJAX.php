@@ -1052,9 +1052,9 @@ function action_updateFiche($data)
     if ($fiche['obj_etat'] == "CONFIRME") {
         // error_log("test cli_nom  " . strtoupper($client['cli_nom']) . " != " . strtoupper($cliOld['cli_nom']));
         // si modification de client de la fiche
-        if ($ficheOld['obj_modif_vendeur'] == 0 && (strtoupper($client['cli_nom']) != strtoupper($cliOld['cli_nom'] ||
+        if ($ficheOld['obj_modif_vendeur'] == 0 && (strtoupper($client['cli_nom']) != strtoupper($cliOld['cli_nom']) ||
             strtoupper($fiche['obj_marque']) != strtoupper($ficheOld['obj_marque']) ||
-            strtoupper($fiche['obj_couleur']) != strtoupper($ficheOld['obj_couleur'])))) {
+            strtoupper($fiche['obj_modele']) != strtoupper($ficheOld['obj_modele']))) {
             $fiche['obj_modif_vendeur'] = 2;
         }
 
@@ -1064,11 +1064,12 @@ function action_updateFiche($data)
                 strtoupper($fiche['obj_type']) != strtoupper($ficheOld['obj_type']) ||
                 strtoupper($fiche['obj_public']) != strtoupper($ficheOld['obj_public']) ||
                 strtoupper($fiche['obj_marque']) != strtoupper($ficheOld['obj_marque']) ||
+                strtoupper($fiche['obj_modele']) != strtoupper($ficheOld['obj_modele']) ||
                 strtoupper($fiche['obj_couleur']) != strtoupper($ficheOld['obj_couleur']) ||
                 strtoupper($fiche['obj_taille']) != strtoupper($ficheOld['obj_taille']) ||
                 strtoupper($fiche['obj_date_achat']) != strtoupper($ficheOld['obj_date_achat']) ||
                 strtoupper($fiche['obj_prix_achat']) != strtoupper($ficheOld['obj_prix_achat']) ||
-                strtoupper($fiche['obj_description']) != strtoupper($ficheOld['obj_description']) ||
+                //strtoupper($fiche['obj_description']) != strtoupper($ficheOld['obj_description']) ||
                 strtoupper($fiche['obj_prix_depot']) != strtoupper($ficheOld['obj_prix_depot']))
         ) {
             $fiche['obj_modif_data'] = 2;
