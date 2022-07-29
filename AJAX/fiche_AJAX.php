@@ -533,6 +533,9 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
             if ($fiche['obj_id']) {
                 if (!$test) {
                     $fiche['obj_modif_vendeur'] = 0;
+                    if ($nameCoupon == "coupon_acheteur") {
+                        $fiche['obj_modif_stock'] = 0;
+                    }
                     updateFiche($fiche);
                 }
                 $client = getOneClient($fiche['obj_id_vendeur']);
@@ -915,6 +918,7 @@ function action_changeEtatFiche($obj)
             $fiche['obj_prix_vente'] = $fiche['obj_prix_depot'];
             // mise a jour de la date
             $fiche['obj_date_depot'] = date('y-m-d H:i:s');
+            $fiche['obj_modif_stock'] = 1;
 
             // TODO : envoi mel de depot pour note modif prix
         } elseif ($fiche['obj_etat'] == 'DESTOCK') {
@@ -922,6 +926,7 @@ function action_changeEtatFiche($obj)
             $fiche['obj_etat'] = 'CONFIRME';
             // on remet le prix de vente a 0
             $fiche['obj_prix_vente'] = 0;
+            $fiche['obj_modif_stock'] = 0;
         } elseif ($fiche['obj_etat'] == 'RENDU' || $fiche['obj_etat'] == 'PAYE') {
             // action RENDU et PAYE
             // on valide la date de fin

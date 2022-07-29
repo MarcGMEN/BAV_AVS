@@ -5,6 +5,8 @@ function initPage() {
         x_return_fichesModif('data', display_modifData);
         x_return_fichesModif('vendeur', display_modifVendeur);
 
+        x_return_fichesModif('stock', display_modifStock);
+
     } else {
         goTo();
     }
@@ -59,6 +61,25 @@ function display_modifVendeur(val) {
     }
     getElement('nb_fiche_modif_coupon').innerHTML = nbModif;
     getElement('nb_fiche_new_coupon').innerHTML = nbNew;
+}
+
+function display_modifStock(val) {
+    getElement('nb_fiche_couponA').innerHTML = sizeof(val);
+    var nbAImprimer = parseInt(parseInt(sizeof(val)) / parseInt(nb_coupon_page));
+    getElement('nbCouponAImprimerA').innerHTML = nbAImprimer + " page";
+    if (nbAImprimer > 1) {
+        getElement('nbCouponAImprimerA').innerHTML = nbAImprimer + " pages";
+    }
+    if (nbAImprimer > 0) {
+        getElement('btnImprimeCouponsPageA').disabled = false;
+    }
+    var nbModif = 0;
+    var nbNew = 0
+    for (i in val) {
+        if (val[i]['obj_modif_stock'] == 1) {
+            nbNew++;
+        }
+    }
 }
 
 function display_html_file(val) {
