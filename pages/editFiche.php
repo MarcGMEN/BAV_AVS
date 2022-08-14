@@ -180,7 +180,7 @@ $tabInfo = [
 									à <input type=number name=eti1 size=5 style='width:30%' min='<?= $infAppli['base_info'] ?>'>
 								</td>
 								<td width=15%>
-									<input type=button value='Imprimer' onclick='imprimeCoupons(this.form.eti0.value,this.form.eti1.value,this.form.testCoupon.checked?1:0,"coupon_acheteur")'>
+									<input type=button value='Imprimer' onclick='imprimeCoupons(this.form.eti0.value,this.form.eti1.value,this.form.testCouponA.checked?1:0,"coupon_acheteur")'>
 								</td>
 
 							</tr>
