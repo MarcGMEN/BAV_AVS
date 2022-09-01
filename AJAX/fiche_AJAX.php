@@ -382,7 +382,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
                 }
                 $adresse = $CFG_URL . "/index.php?modePage=restV&id=" . $fiche['obj_id_modif'] . "&type=Etiquette";
                 $keyQrcode = "restV-" . $fiche['obj_id_modif'] . "-Etiquette";
-                $qrcodeFic = makeQrCode($adresse, $keyQrcode, 1);
+                $qrcodeFic = makeQrCode($adresse, $keyQrcode, 2);
 
                 // $fiche['QRCODE'] = "<img src='https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=$adresse&choe=UTF-8' title='Fiche " . $fiche['obj_numero'] . "' />";
                 $fiche['QRCODE'] = "Plus de détail,scanner le QRCode <br/><img  src='$CFG_URL/$qrcodeFic' title='Fiche " . $fiche['obj_numero'] . "' />";
@@ -393,7 +393,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
                     $data['adresse'] = "";
                 }
                 $fiche['obj_achat'] = "";
-                if ($fiche['obj_prix_achat'] != "" || $fiche['obj_date_achat_FR'] != "") {
+                if (($fiche['obj_prix_achat'] != "" && $fiche['obj_prix_achat'] > 0 ) || $fiche['obj_date_achat_FR'] != "") {
                     $fiche['obj_achat'] = $fiche['obj_prix_achat'] . " &euro; (" . $fiche['obj_date_achat_FR'] . ")";
                 }
             }
