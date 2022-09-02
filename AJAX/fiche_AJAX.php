@@ -385,7 +385,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
                 $qrcodeFic = makeQrCode($adresse, $keyQrcode, 2);
 
                 // $fiche['QRCODE'] = "<img src='https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=$adresse&choe=UTF-8' title='Fiche " . $fiche['obj_numero'] . "' />";
-                $fiche['QRCODE'] = "Plus de détail,scanner le QRCode <br/><img  src='$CFG_URL/$qrcodeFic' title='Fiche " . $fiche['obj_numero'] . "' />";
+                $fiche['QRCODE'] = "<img  src='$CFG_URL/$qrcodeFic' title='Fiche " . $fiche['obj_numero'] . "' height='80px'/>";
                 //$fiche['QRCODE']="";
                 if ($CFG_DEBUG) {
                     $data['adresse'] = $adresse;
@@ -434,10 +434,10 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
         }
 
         if (sizeof($fiche) > 0) {
-            $etiquettes .= "<hr/>";
+            $etiquettes .= "<hr style='text-align:left;width:15cm' />";
             $etiquettes .= makeCorps(array_merge($fiche, $data), 'etiquette.html');
             if ($index++ % $INFO_APPLI['nb_eti_page'] == 0) {
-                $etiquettes .= "<hr/>";
+                $etiquettes .= "<hr style='text-align:left;width:15cm' />";
                 $etiquettes .= "<div style='page-break-after:always; clear:both;font-size:10pt;height:10pt'>..........</div>";
             }
         }
