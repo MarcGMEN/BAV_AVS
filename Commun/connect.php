@@ -26,7 +26,7 @@ else {
 	$mysqli = mysqli_connect('127.0.0.1','','' , 'BAV');
 }
 
-if (mysqli_connect_errno($mysqli)) {
+if ($mysqli->mysqli_connect_errno) {
 	print_r($mysqli);
     echo "Echec lors de la connexion à MySQL : " . mysqli_connect_error();
 }

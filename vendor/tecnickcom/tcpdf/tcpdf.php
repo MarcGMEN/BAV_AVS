@@ -1840,6 +1840,7 @@ class TCPDF {
 	 */
 	public function __construct($orientation='P', $unit='mm', $format='A4', $unicode=true, $encoding='UTF-8', $diskcache=false, $pdfa=false) {
 		/* Set internal character encoding to ASCII */
+		error_log("html2pdf 111");
 		if (function_exists('mb_internal_encoding') AND mb_internal_encoding()) {
 			$this->internal_encoding = mb_internal_encoding();
 			mb_internal_encoding('ASCII');
@@ -10251,6 +10252,7 @@ class TCPDF {
 	 * @param $s (string) string to output.
 	 * @param $n (int) object reference for encryption mode
 	 * @protected
+	 * @return string encrypted data
 	 * @author Nicola Asuni
 	 * @since 5.5.000 (2010-06-22)
 	 */

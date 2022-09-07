@@ -154,7 +154,8 @@ if (!isset($SAJAX_INCLUDED)) {
 		var sajax_asynchro = new Array();
 		<?
         if (is_array($sajax_asynchro) ) {
-		while (list($key,$val) = each($sajax_asynchro)) {?>
+		foreach($sajax_asynchro as $key => $val) {
+		//while (list($key,$val) = each($sajax_asynchro)) {?>
 		sajax_asynchro['<?=$key?>']=<?=$val?>;
 		<?}}?>
 		
