@@ -34,6 +34,8 @@
 		console.log(val);
 		var repr = "";
 		var tab = tree(val, "", 0);
+		tabDates.sort();
+		tabDatesTimes.sort();
 		repr = tab['repr'];
 		getElement('statresult').innerHTML = repr;
 	}
@@ -58,12 +60,12 @@
 		var nb = 0;
 		var dates = [];
 		for (var index in val) {
-
 			if (parent == "") {
 				dates = [];
 			}
 			repr += "<ul>";
 			if (val[index] instanceof Object) {
+				// console.log("tree => "+index);
 				var idHtml = parent + "-" + index;
 
 				var tab = tree(val[index], idHtml, niv + 1);
@@ -78,8 +80,11 @@
 				repr += "<div id='div_" + idHtml + "' style=\"display:none\">";
 				repr += tab['repr'];
 				repr += "</div>";
-				Array.prototype.push.apply(dates, tab['dates']);
-				for (var j in dates) {
+				
+				// console.log("on a "+sizeof(tab['dates'])+" date pour "+idHtml);
+				// console.log(tab['dates']);
+				for (var j in tab['dates']) {
+					var dateLu=tab['dates'][j];
 
 					//tabDates.push(idHtml);
 					// if (debut == null || dates[j] < debut) {
@@ -97,8 +102,8 @@
 						tabDatesTimes[idHtml] = [];
 					}
 
-					var keyDate = dates[j].getFullYear() + "-" + dates[j].getMonth() + "-" + dates[j].getDate();
-					var keyDateTime = dates[j].getFullYear() + "-" + dates[j].getMonth() + "-" + dates[j].getDate() + "-" + dates[j].getHours();
+					var keyDate = dateLu.getFullYear() + "-" + dateLu.getMonth() + "-" + dateLu.getDate();
+					var keyDateTime = dateLu.getFullYear() + "-" + dateLu.getMonth() + "-" + dateLu.getDate() + "-" + dateLu.getHours();
 					if (!tabDates[idHtml][keyDate]) {
 						tabDates[idHtml][keyDate] = 0;
 					}
@@ -106,11 +111,13 @@
 						tabDatesTimes[idHtml][keyDateTime] = 0;
 					}
 
-					//console.log(idHtml+" "+dates[j].getFullYear()+"-"+dates[j].getMonth()+"-"+dates[j].getDate()+" ("+tabDates[idHtml][dates[j].getFullYear()+"-"+dates[j].getMonth()+"-"+dates[j].getDate()]+") += 1");
+					// console.log(idHtml+" "+keyDate+" ("+tabDates[idHtml][keyDate]+") += 1");
 					tabDates[idHtml][keyDate] += 1;
 					tabDatesTimes[idHtml][keyDateTime] += 1;
-
 				}
+				Array.prototype.push.apply(dates, tab['dates']);
+				// console.log("on au total "+sizeof(dates)+" date");
+				
 				repr += "</li>";
 
 				repr += "<div style='display:none;border:0px blue solid' id='divcanvas" + idHtml + "'>";
@@ -165,17 +172,25 @@
 	function initDate(id) {
 		// console.log("nb row " + nbRow);
 		//var nbRow = sizeof(tabDates[id]);
+		console.log("initDate de"+id);
+		console.log(tabDates[id]);
 		var start = null;
+		var fin = null;
 		var max = 0
 		for (var date in tabDates[id]) {
 			if (start == null) {
 				start = new Date(date);
 				start.setMonth(start.getMonth() + 1);
 			}
-			fin = new Date(date);
-			fin.setMonth(fin.getMonth() + 1);
+
+			var finNew = new Date(date);
+			finNew.setMonth(finNew.getMonth() + 1);
+			if (finNew > fin) {
+				fin=finNew;
+			}
+			
 		}
-		start.setDate(start.getDate() + 1);
+		start.setDate(start.getDate() - 1);
 		fin.setDate(fin.getDate() + 1);
 
 		var ecartJour = Math.floor((fin - start) / (60 * 60 * 1000 * 24) + 1);
@@ -222,8 +237,8 @@
 		var fin = new Date(finHTML.value);
 		fin.setHours(0);
 
-		console.log(start);
-		console.log(fin);
+		// console.log(start);
+		// console.log(fin);
 
 		var max = 0
 
@@ -238,8 +253,8 @@
 				max = nb;
 			}
 		}
-		console.log("max " + max);
-		console.log("nb " + nb);
+		// console.log("max " + max);
+		// console.log("nb " + nb);
 		fin.setDate(fin.getDate() + 1);
 
 		var nbRow = Math.floor((fin - start) / (60 * 60 * 1000));
@@ -248,7 +263,7 @@
 		} else {
 			var nbRow = Math.floor((fin - start) / (24 * 60 * 60 * 1000));
 		}
-		console.log("nbRow " + nbRow);
+		// console.log("nbRow " + nbRow);
 
 		/* le contour*/
 		// ctx.lineWidth = "2";
