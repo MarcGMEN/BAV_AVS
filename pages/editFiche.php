@@ -10,7 +10,7 @@ $tabInfo = [
 	'ETIQUETTE' => "etiquette",
 	'COUPON DEPOT' => "coupon_vendeur",
 	'COUPON SORTIE' => "coupon_acheteur",
-	'' => "",
+	'_' => "",
 	'CREATE MODAL' => "modal_confirm_create",
 	'CONFIRME MODAL' => "modal_confirm_confirme",
 	'PAYE MODAL' => "modal_confirm_paye",
@@ -20,7 +20,9 @@ $tabInfo = [
 	'MAIL PIED' => "pied_mail",
 	'MAIL ENREGISTREMENT' => "mel_enregistrement",
 	'MAIL CONFIRME' => "mel_confirme",
-	'MAIL VENDU' => "mel_vendu"
+	'MAIL VENDU' => "mel_vendu",
+	'__' => "",
+	'FACTURE' => 'facture' 
 ];
 ?>
 <h1>Gestion des éditions</h1>
@@ -208,6 +210,21 @@ $tabInfo = [
 									<input type=button name='printCouponA' value='Imprimer' disabled id="btnImprimeCouponsPageA" onclick='imprimeCouponsPage(this.form.forceCouponA.checked,this.form.testCouponA.checked?1:0,"coupon_acheteur")'>
 									<input type='checkbox' id="forceCouponA" onchange="this.checked?this.form.printCouponA.disabled=false:this.form.printCouponA.disabled=true">Force
 								</td>
+							</tr>
+						</table>
+					</form>
+				<? } ?>
+				<? if ($title == "FACTURE") { ?>
+					<form style="color:black">
+						<table width=100% border=1>
+							<tr class="tabAction">
+								<td width=15%></td>
+								<td > Numero <input type=number style='width:30%' name=nfac size=5></td>
+								<td width=15%>
+									<input type=button value='Imprimer' onclick='imprimeLibreFiche(this.form.nfac.value,"facture")'>
+								</td>
+								<td width=20%></td>
+								
 							</tr>
 						</table>
 					</form>

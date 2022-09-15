@@ -393,7 +393,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
                     $data['adresse'] = "";
                 }
                 $fiche['obj_achat'] = "";
-                if (($fiche['obj_prix_achat'] != "" && $fiche['obj_prix_achat'] > 0 ) || $fiche['obj_date_achat_FR'] != "") {
+                if (($fiche['obj_prix_achat'] != "" && $fiche['obj_prix_achat'] > 0) || $fiche['obj_date_achat_FR'] != "") {
                     $fiche['obj_achat'] = $fiche['obj_prix_achat'] . " &euro; (" . $fiche['obj_date_achat_FR'] . ")";
                 }
             }
@@ -486,7 +486,7 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
     if ($eti0 == 0) {
         //recherche des fiches modifié ou crée, regroupé par page
         // $eti1 => 1 force ; 0 : normal
-        if ($nameCoupon =="coupon_vendeur") {
+        if ($nameCoupon == "coupon_vendeur") {
             $fiches = getFichesModif('vendeur');
         } else {
             $fiches =  getFichesModif('stock');
@@ -643,6 +643,87 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
 }
 
 /**
+ * generation d'une edition sur des données de la fichie
+ */
+function action_makeLibreFiche($eti, $nameFdp)
+{
+    extract($GLOBALS);
+    $data = array(
+        'date1' => date('d', $INFO_APPLI['date_j1']),
+        'date2' => date('d', $INFO_APPLI['date_j2']),
+        'date3' => date('d', $INFO_APPLI['date_j3']),
+        'mois' => date('M', $INFO_APPLI['date_j2']),
+        'annee' => date('Y', $INFO_APPLI['date_j2']),
+        'titre' => $INFO_APPLI['titre'],
+        'URL' => $CFG_URL,
+        'numero_bav' => $INFO_APPLI['numero_bav'],
+        'today' => date('d/m/Y') );
+    try {
+        $fiche = return_oneFicheByCode($eti);
+        error_log("-" . $fiche['obj_id'] . "-");
+        if ($fiche['obj_id'] != null) {
+            // refaire les descriptions, pas de retour chariots et limite.
+            $client = getOneClient($fiche['obj_id_vendeur']);
+            $acheteur = getOneClient($fiche['obj_id_acheteur']);
+
+            if (!is_array($acheteur)) {
+                $acheteur = array();
+                $acheteur['ach_nom'] = "____________________________________";
+                $acheteur['ach_adresse'] = "_____________________________________";
+                $acheteur['ach_adresse1'] = "_____________________________________";
+                $acheteur['ach_ville'] = "_______________________________";
+                $acheteur['ach_code_postal'] = "__________";
+            } else {
+                foreach ($acheteur as $key => $value) {
+                    $newKey = str_replace("cli_", "ach_", $key);
+                    $acheteur[$newKey] = $value;
+                    unset($acheteur[$key]);
+                }
+            }
+            // MISE EN FORME DE LA FICHE
+            // MISE EN FORME DE LA FICHE
+            // regroupement de la description
+            $fiche['obj_description'] = concatDescription($fiche['obj_description']);
+
+            if (
+                $fiche['obj_prix_vente'] > 0 && ($fiche['obj_etat'] == 'VENDU' || $fiche['obj_etat'] == 'PAYE')
+            ) {
+                $client['cli_com'] = getCommission($fiche);
+            } else {
+                $fiche['obj_prix_vente'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
+                $client['cli_com'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>";
+            }
+
+            if ($fiche['obj_prix_vente'] != $fiche['obj_prix_depot'] && $fiche['obj_prix_vente'] > 0) {
+                $fiche['obj_prix_depot'] = "<s>" . $fiche['obj_prix_depot'] . " €</s><span style='color:RED'>" . $fiche['obj_prix_vente'] . "</span>";
+            }
+
+            if ($fiche['obj_prix_depot'] == 0) {
+                $fiche['obj_prix_depot'] = "";
+            }
+            // MISE EN FORME DE LA FICHE
+            // MISE EN FORME DE LA FICHE
+
+            // creation du html avec comme template
+            // html/fiche_depot.html
+            $etiquettes .= makeCorps(array_merge($fiche, $client, $data, $acheteur), $nameFdp . '.html');
+            //print_r($acheteur);
+
+        }
+
+        // fichier HTML resultant
+        $fileHTML = "../out/html/" . $nameFdp . "_" . $eti . ".html";
+
+        // enregistrement du fichier html
+        file_put_contents($fileHTML,  utf8_decode($etiquettes));
+
+        return  $CFG_URL . "/out/html/" . $nameFdp . "_" . $eti . ".html";
+    } catch (Exception $e) {
+        return "ERREUR " . $e->getMessage();
+    }
+}
+
+/**
  * accumulation des fiches dans un seul fichiers pour impression rapide
  */
 function action_makeA4Fiches($eti0, $eti1)
@@ -715,6 +796,7 @@ function action_makeA4Fiches($eti0, $eti1)
         return "ERREUR " . $e->getMessage();
     }
 }
+
 
 /**
  * calcul de la commission

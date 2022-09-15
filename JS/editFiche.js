@@ -152,6 +152,15 @@ function imprimeCoupons(eti0, eti1, test, nameCoupon) {
     }
 }
 
+function imprimeLibreFiche(eti, nameFdp) {
+    if (eti != "" ) {
+        alertModalInfo("Génération de " + nameFdp + " pour " + eti + " au format HTML <img src='Images/spinner_white_tiny.gif' />");
+        x_action_makeLibreFiche(eti, nameFdp, display_openHTML);
+    } else {
+        alertModalWarn("Numero de fiche obligatoire");
+    }
+}
+
 function imprimeCouponsPage(force, test, nameCoupon) {
     alertModalInfo("Génération des coupons par page [" + force + "] au format HTML <img src='Images/spinner_white_tiny.gif' />");
     x_action_makeA4Coupons(0, force, test, nameCoupon, display_openHTML);
