@@ -26,9 +26,8 @@ else {
 	$mysqli = mysqli_connect('127.0.0.1','','' , 'BAV');
 }
 
-if ($mysqli->mysqli_connect_errno) {
-	print_r($mysqli);
-    echo "Echec lors de la connexion à MySQL : " . mysqli_connect_error();
+if (isset($mysqli->mysqli_connect_errno)) {
+    error_log("Echec lors de la connexion à MySQL : " . mysqli_connect_error());
 }
 if (!$mysqli->set_charset("utf8")) {
     printf("Erreur lors du chargement du jeu de caractères utf8 : %s\n", $mysqli->error);

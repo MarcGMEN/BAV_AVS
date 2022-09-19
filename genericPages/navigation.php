@@ -19,8 +19,8 @@ $tabNavAll = [
         'libelle' => 'Animations',
         'notif' => "ANIM"
     ],
-    'reglement.php' => [
-        'libelle' => 'Réglement',
+    'reglements.php' => [
+        'libelle' => 'Réglements',
     ],
     'faq.php' => [
         'libelle' => 'F.A.Q.',

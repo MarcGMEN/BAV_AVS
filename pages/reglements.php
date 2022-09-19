@@ -1,17 +1,22 @@
 <?php
+if ($GET_modePage == "") {
+	$GET_modePage="B";
+}
     $data = array(
 		'date1'=>date('d', $infAppli['date_j1']),
 		'date2'=>date('d', $infAppli['date_j2']),
 		'date3'=>date('d', $infAppli['date_j3']),
 		'mois'=>moisFrench(date('m', $infAppli['date_j2'])),
 		'annee'=>date('Y', $infAppli['date_j2']),
-		'URL'=>$CFG_URL);
-	$message = makeCorps($data, "reglement.html");
+		'URL'=>$CFG_URL,
+		'TITRE' => $infAppli['titre']
+	);
+	$message = makeCorps($data, "reglement".$GET_modePage.".html");
 ?>
 <script>
 	var data2PDF = new Object();
 	function initPage() {
-		x_return_html('reglement', display_reglement);
+		x_return_html('reglement<?=$GET_modePage?>', display_reglement);
 		<? foreach ($data as $key => $val) {echo "data2PDF['$key']='$val';\n"; }?>
 	}
 
@@ -55,13 +60,22 @@
 	}
 </script>
 
-<span class="link url" onclick='loadReglement("reglement.php")' >
+
+<table class="BH_CADRE" style="border-spacing:15; padding:15">
+	<tr>
+        <td class="link navigation <?=$GET_modePage == "B" ? "navigationSel" : '';?>" onclick="goTo('reglements.php', 'B', null, null)">Réglement de la bourse aux vélos</td>
+		<td class="link navigation <?=$GET_modePage == "T" ? "navigationSel" : '';?>" onclick="goTo('reglements.php', 'T', null, null)">Réglement de la tombola</td>
+	</tr>
+</table>
+<hr/>
+
+<span class="link url" onclick='loadReglement("reglements.php",'<?=$GET_modePage?>')' >
 	t&eacute;l&eacute;charger le r&egrave;glement</span>
 	<? if ($infAppli['ADMIN']) {?>
 	<span>
 		<i class="fas fa-edit" id="reglement_edit" onclick="affichEditor('reglement')"></i>
 		<i class="fas fa-save" id="reglement_save" style='display:none' 
-			onclick="saveEditor('reglement',CKEDITOR.instances.editor_reglement.getData())"></i>	
+			onclick="saveEditor('reglement<?=$GET_modePage?>',CKEDITOR.instances.editor_reglement.getData())"></i>	
 		<i class="fas fa-times"id="reglement_cancel" style='display:none' onclick="cancelEditor('reglement')"></i>	
 	</span>	
 	<?}?>
@@ -89,3 +103,4 @@
 
 </script>
 <?}?>
+
