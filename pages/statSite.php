@@ -71,9 +71,9 @@
 				var tab = tree(val[index], idHtml, niv + 1);
 				repr += "<li>";
 				repr += "<div class='row tree" + niv + "'>";
-				repr += "<div class='col-xs-6 col-sm-6 col-md-6' >" + index + "</div>";
+				repr += "<div class='col-xs-5 col-sm-5 col-md-5' >" + index + "</div>";
 				repr += "<div class='col-xs-3 col-sm-3 col-md-3 link' onclick=\"inverseStat('" + idHtml + "')\" id='croix_" + idHtml + "'> + </div>";
-				repr += "<div class='col-xs-1 col-sm-1 col-md-1' >Cpt => " + tab['nb'] + "</div>";
+				repr += "<div class='col-xs-2 col-sm-2 col-md-2' >Cpt => " + tab['nb'] + "</div>";
 				repr += "<div class='col-xs-1 col-sm-1 col-md-1 link' onclick=\"initDate('" + idHtml + "');dessin('" + idHtml + "',0)\"><img src='Images/statBarre.png' height='20px'/>j</div>";
 				repr += "<div class='col-xs-1 col-sm-1 col-md-1 link' onclick=\"initDate('" + idHtml + "');dessin('" + idHtml + "',1)\"><img src='Images/statBarre.png' height='20px'/>j/h</div>";
 				repr += "</div>";

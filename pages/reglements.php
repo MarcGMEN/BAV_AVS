@@ -69,8 +69,8 @@ if ($GET_modePage == "") {
 </table>
 <hr/>
 
-<span class="link url" onclick='loadReglement("reglements.php",'<?=$GET_modePage?>')' >
-	t&eacute;l&eacute;charger le r&egrave;glement</span>
+<span class="link url" onclick='loadReglement("reglements.php","<?=$GET_modePage?>")' >
+	T&eacute;l&eacute;charger le r&egrave;glement</span>
 	<? if ($infAppli['ADMIN']) {?>
 	<span>
 		<i class="fas fa-edit" id="reglement_edit" onclick="affichEditor('reglement')"></i>
