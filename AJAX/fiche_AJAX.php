@@ -657,11 +657,13 @@ function action_makeLibreFiche($eti, $nameFdp)
         'titre' => $INFO_APPLI['titre'],
         'URL' => $CFG_URL,
         'numero_bav' => $INFO_APPLI['numero_bav'],
-        'today' => date('d/m/Y') );
+        'today' => date('d/m/Y')
+    );
     try {
         $fiche = return_oneFicheByCode($eti);
         error_log("-" . $fiche['obj_id'] . "-");
-        if ($fiche['obj_id'] != null) {
+        if ($fiche != null && $fiche['obj_id'] != '') {
+            error_log("OK pour la fiche");
             // refaire les descriptions, pas de retour chariots et limite.
             $client = getOneClient($fiche['obj_id_vendeur']);
             $acheteur = getOneClient($fiche['obj_id_acheteur']);
@@ -709,15 +711,18 @@ function action_makeLibreFiche($eti, $nameFdp)
             $etiquettes .= makeCorps(array_merge($fiche, $client, $data, $acheteur), $nameFdp . '.html');
             //print_r($acheteur);
 
+
+            // fichier HTML resultant
+            $fileHTML = "../out/html/" . $nameFdp . "_" . $eti . ".html";
+
+            // enregistrement du fichier html
+            file_put_contents($fileHTML,  utf8_decode($etiquettes));
+
+            return  $CFG_URL . "/out/html/" . $nameFdp . "_" . $eti . ".html";
         }
-
-        // fichier HTML resultant
-        $fileHTML = "../out/html/" . $nameFdp . "_" . $eti . ".html";
-
-        // enregistrement du fichier html
-        file_put_contents($fileHTML,  utf8_decode($etiquettes));
-
-        return  $CFG_URL . "/out/html/" . $nameFdp . "_" . $eti . ".html";
+        else {
+            return  "Fiche $eti non trouvé.";
+        }
     } catch (Exception $e) {
         return "ERREUR " . $e->getMessage();
     }
@@ -742,7 +747,7 @@ function action_makeA4Fiches($eti0, $eti1)
     try {
         for ($numFiche = $eti0; $numFiche <= $eti1; $numFiche++) {
             $fiche = return_oneFicheByCode($numFiche);
-            if ($fiche['obj_id']) {
+            if ($fiche != null && $fiche['obj_id'] != '') {
                 // refaire les descriptions, pas de retour chariots et limite.
                 $client = getOneClient($fiche['obj_id_vendeur']);
 

@@ -182,8 +182,14 @@ function imprimeFiche() {
 
 function display_openHTML(val) {
     closeModal();
-    document.body.style.cursor = 'default';
-    window.open(val, '_blank');
-    //setTimeout(function() { x_action_menage(val, display_rien) }, 100);
-    initPage();
+    console.log(val);
+    if (isValidUrl(val)) {
+        document.body.style.cursor = 'default';
+        window.open(val, '_blank');
+        //setTimeout(function() { x_action_menage(val, display_rien) }, 100);
+        initPage();
+    }
+    else {
+        alertModalWarn(val);
+    }
 }

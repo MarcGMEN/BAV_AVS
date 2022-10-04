@@ -574,3 +574,12 @@ function MaxLengthTextarea(objettextarea, maxlength) {
 		alert('Votre texte ne doit pas dépasser ' + maxlength + ' caractères!');
 	}
 }
+
+const isValidUrl = urlString=> {
+	try { 
+		return Boolean(new URL(urlString)); 
+	}
+	catch(e){ 
+		return false; 
+	}
+}
