@@ -666,7 +666,10 @@ function action_makeLibreFiche($eti, $nameFdp)
             error_log("OK pour la fiche");
             // refaire les descriptions, pas de retour chariots et limite.
             $client = getOneClient($fiche['obj_id_vendeur']);
-            $acheteur = getOneClient($fiche['obj_id_acheteur']);
+            $acheteur='';
+            if ($fiche['obj_id_acheteur']) {
+                $acheteur = getOneClient($fiche['obj_id_acheteur']);
+            }
 
             if (!is_array($acheteur)) {
                 $acheteur = array();
