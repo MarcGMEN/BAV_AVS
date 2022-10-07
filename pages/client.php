@@ -131,6 +131,11 @@
 				<div class="col-sm-3 col-md-3 col-xs-3 btnAction" id="tdBtnSup">
 					<input type=button value="Supprimer" name="buttonSupprimeFiche" onclick="supprimerClient(this.form.cli_id.value)" tabindex=<?= $tabindex++ ?> />
 				</div>
+				<? if ($infAppli['ADMIN']) { ?>
+				<div class="col-sm-3 col-md-3 col-xs-3 btnAction" id="tdBtnFeuille">
+					<input type=button value="Feuille fiche" name="buttonFeuilleFiche" onclick="fichesClient(this.form.cli_id.value)" tabindex=<?= $tabindex++ ?> />
+				</div>
+				<?}?>
 			</div>
 		<? } ?>
 	</form>

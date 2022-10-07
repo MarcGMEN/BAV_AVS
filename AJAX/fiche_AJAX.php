@@ -719,8 +719,7 @@ function action_makeLibreFiche($eti, $nameFdp)
             file_put_contents($fileHTML,  utf8_decode($etiquettes));
 
             return  $CFG_URL . "/out/html/" . $nameFdp . "_" . $eti . ".html";
-        }
-        else {
+        } else {
             return  "Fiche $eti non trouvé.";
         }
     } catch (Exception $e) {
@@ -1194,25 +1193,27 @@ function return_fichesModif($type = 'data')
 /**
  * recherche des fiches
  */
-function return_fiches($tri, $sens, $selection)
+function return_fiches($tri, $sens, $selection, $detail = 1)
 {
     try {
         $tab = getFiches($tri, $sens, string2Tab($selection));
 
         foreach ($tab as $key => $val) {
-            $tab['total_vente_' . $val['obj_etat']] += $val['obj_prix_vente'];
-            $tab['total_nb_' . $val['obj_etat']]++;
+            if ($detail== 1) {
+                $tab['total_vente_' . $val['obj_etat']] += $val['obj_prix_vente'];
+                $tab['total_nb_' . $val['obj_etat']]++;
 
-            if ($val['obj_etat'] == "PAYE") {
-                $tab['total_com_paye'] += getCommission($val);
-            } elseif ($val['obj_etat'] == "VENDU") {
-                $tab['total_com_vendu'] += getCommission($val);
-            }
-            if (
-                $val['obj_etat'] == "STOCK" || $val['obj_etat'] == "VENDU" || $val['obj_etat'] == "RENDU" || $val['obj_etat'] == "PAYE"
-            ) {
-                $tab['total_vente_depot'] += $val['obj_prix_vente'];
-                $tab['total_depot'] += $val['cli_prix_depot'];
+                if ($val['obj_etat'] == "PAYE") {
+                    $tab['total_com_paye'] += getCommission($val);
+                } elseif ($val['obj_etat'] == "VENDU") {
+                    $tab['total_com_vendu'] += getCommission($val);
+                }
+                if (
+                    $val['obj_etat'] == "STOCK" || $val['obj_etat'] == "VENDU" || $val['obj_etat'] == "RENDU" || $val['obj_etat'] == "PAYE"
+                ) {
+                    $tab['total_vente_depot'] += $val['obj_prix_vente'];
+                    $tab['total_depot'] += $val['cli_prix_depot'];
+                }
             }
         }
         return $tab;
