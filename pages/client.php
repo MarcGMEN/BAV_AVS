@@ -133,7 +133,7 @@
 				</div>
 				<? if ($infAppli['ADMIN']) { ?>
 				<div class="col-sm-3 col-md-3 col-xs-3 btnAction" id="tdBtnFeuille">
-					<input type=button value="Feuille fiche" name="buttonFeuilleFiche" onclick="fichesClient(this.form.cli_id.value)" tabindex=<?= $tabindex++ ?> />
+					<input type=button value="Feuille comissions" name="buttonFeuilleFiche" onclick="fichesClient(this.form.cli_id.value)" tabindex=<?= $tabindex++ ?> />
 				</div>
 				<?}?>
 			</div>

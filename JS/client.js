@@ -343,8 +343,8 @@ function display_fiches_feuille(val) {
     repr += "<tr style='background-color:grey;'>";
     for (j = 0; j < nbCol; j++) {
         repr += "<th style='border: 1px solid black;'>N°</th>";
-        repr += "<th style='border: 1px solid black;'>Etat</th>";
         repr += "<th style='border: 1px solid black;'>Prix</th>";
+        repr += "<th style='border: 1px solid black;'>Etat</th>";
         repr += "<th style='border: 1px solid black;'>Com</th>";
         repr += "<th ></th>";
     }
