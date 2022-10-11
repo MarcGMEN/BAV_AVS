@@ -873,7 +873,10 @@ function action_makeData($id, $test = false)
         $client = getOneClient($fiche['obj_id_vendeur']);
     } elseif ($test) {
         $client['cli_prix_depot'] = $par['par_prix_depot_1'];
-        $client['cli_nom'] = "TEST";
+        $client['cli_nom'] = "mr TEST henry";
+        $client['cli_prenom'] = "";
+        $client['cli_nom1'] = $client['cli_nom'];
+        
         $client['cli_id_modif'] = "be49226b2150c567adf4f090c21be17f";
         $client['cli_emel'] = "test@test.com";
         $client['cli_adresse'] = "votre adresse";
@@ -884,6 +887,7 @@ function action_makeData($id, $test = false)
         $client['cli_telephone_bis'] = "";
         $client['cli_taux_com'] = $par['par_taux_1'];
         $client['cli_id_modif'] = "";
+        $client['cli_com'] = "1.3";
 
         $ach['ach_nom'] = "TEST acheteur";
         $ach['ach_id_modif'] = "be49226b2150c567adf4f090c21be17f";
@@ -912,11 +916,15 @@ function action_makeData($id, $test = false)
         $fiche['obj_taille'] = "XL";
         $fiche['obj_date_achat'] = "01/01/1901";
         $fiche['obj_prix_achat'] = "3200";
+        $fiche['obj_object'] = trim($fiche['obj_marque']) . " " . trim($fiche['obj_modele']);
         $fiche['QRCODE'] = "";
+
     } else {
         $data['titre'] = "--" . $data['titre'] . "--";
         $client['cli_prix_depot'] = $par['par_prix_depot_1'];
         $client['cli_nom'] = "";
+        $client['cli_prenom'] = "";
+        $client['cli_nom1'] = $client['cli_nom'];
         $client['cli_emel'] = "";
         $client['cli_adresse'] = "";
         $client['cli_adresse1'] = "";
@@ -943,6 +951,8 @@ function action_makeData($id, $test = false)
         $fiche['obj_date_achat'] = "";
         $fiche['obj_prix_achat'] = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
         $fiche['QRCODE'] = "";
+        $fiche['obj_object'] = "";
+        $client['cli_com'] = "";
     }
 
     // MISE EN FORME DE LA FICHE
