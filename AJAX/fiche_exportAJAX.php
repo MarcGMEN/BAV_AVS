@@ -22,5 +22,6 @@ sajax_export(
     "action_makeA4Fiches",
     "action_reMelConfirme",
     "return_fichesModif",
-    "action_makeLibreFiche"
+    "action_makeLibreFiche",
+    "action_makeHtml"
 );

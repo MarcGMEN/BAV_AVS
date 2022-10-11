@@ -109,6 +109,12 @@ function viewOnPdf(idText, format) {
     x_action_makePDF(new Array(), idText + ".html", true, format, display_openHTML);
 }
 
+function viewOnHtml(idText) {
+    alertModalInfo("Génération de " + idText + " au format HTML <img src='Images/spinner_white_tiny.gif' />");
+    x_action_makeHtml(new Array(), idText + ".html", true, display_viewHTML);
+}
+
+
 function display_fin_save(val) {
     x_return_html(idTextSAved, display_html_file);
     //alertModalInfoTimeout("save OK " + val, 1);
@@ -192,4 +198,9 @@ function display_openHTML(val) {
     else {
         alertModalWarn(val);
     }
+}
+
+function display_viewHTML(val) {
+    closeModal();
+    alertModalInfo(val);
 }
