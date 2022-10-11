@@ -19,17 +19,15 @@ function makeMessage($titre, $data, $fileHTML)
     
     $messageMail.=makeEntete($titre);
     $messageMail.=makeCorps($data, $fileHTML);
-    $messageMail.=makePied($titre);
+    $messageMail.=makePied();
     
     return  $messageMail;
 }
-
 
 function makePied()
 {
     extract($GLOBALS);
     $messageMail="";
-    
     
     $messageMail.=file_get_contents(dirname(__FILE__)."/../html/pied_mail.html");
     $messageMail=str_replace("--NOM_SITE--", $CFG_NOM, $messageMail);

@@ -4,7 +4,6 @@
 
 	function initPage() {
 		if (idFiche) {
-			
 			x_return_oneFiche(idFiche, display_fiche);
 		} else {
 			goTo();
@@ -19,13 +18,13 @@
 			}
 			val['etat_str'] = val['obj_etat'];
 			if (val['obj_etat'] == "STOCK") {
-				val['etat_str'] = "<div class='alert alert-danger'>Pas encore vendu</div>";
+				val['etat_str'] = "<div class='alert alert-danger' style='font-size:20px'>Pas encore vendu</div>";
 			}
 			if (val['obj_etat'] == "VENDU" || val['obj_etat'] == "PAYE") {
-				val['etat_str'] = "<div class='alert alert-success'>Vendu le "+val['obj_date_vente']+"</div>";
+				val['etat_str'] = "<div class='alert alert-success' style='font-size:20px'>Vendu le "+val['obj_date_vente']+"</div>";
 			}
 			if (val['obj_etat'] == "RENDU") {
-				val['etat_str'] = "<div class='alert alert-success'>Récupérer</div>";
+				val['etat_str'] = "<div class='alert alert-success' style='font-size:20px'>Récupérer</div>";
 			}
 
 			if (modePage == "Etiquette") {

@@ -222,6 +222,7 @@ function action_reMelConfirme($id)
             } else {
                 $tabPlus['obj_prix_depot'] = $fiche['obj_prix_depot'] . " €";
             }
+            $tabPlus['obj_date_achat_FR'] = formateDateMYSQLtoFR($fiche['obj_date_achat'], false);
 
             // recherche du client
             $tabCli = getOneClient($fiche['obj_id_vendeur']);
@@ -666,7 +667,7 @@ function action_makeLibreFiche($eti, $nameFdp)
             error_log("OK pour la fiche");
             // refaire les descriptions, pas de retour chariots et limite.
             $client = getOneClient($fiche['obj_id_vendeur']);
-            $acheteur='';
+            $acheteur = '';
             if ($fiche['obj_id_acheteur']) {
                 $acheteur = getOneClient($fiche['obj_id_acheteur']);
             }
@@ -871,12 +872,29 @@ function action_makeData($id, $test = false)
     if ($id) {
         $fiche = getOneFiche($id);
         $client = getOneClient($fiche['obj_id_vendeur']);
+
+        if (
+            $fiche['obj_prix_vente'] > 0 && ($fiche['obj_etat'] == 'VENDU' || $fiche['obj_etat'] == 'PAYE')
+        ) {
+            $client['cli_com'] = getCommission($fiche);
+        } else {
+            $fiche['obj_prix_vente'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
+            $client['cli_com'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>";
+        }
+
+        if ($fiche['obj_prix_vente'] != $fiche['obj_prix_depot'] && $fiche['obj_prix_vente'] > 0) {
+            $fiche['obj_prix_depot'] = "<s>" . $fiche['obj_prix_depot'] . " €</s><span style='color:RED'>" . $fiche['obj_prix_vente'] . "</span>";
+        }
+
+        if ($fiche['obj_prix_depot'] == 0) {
+            $fiche['obj_prix_depot'] = "";
+        }
     } elseif ($test) {
         $client['cli_prix_depot'] = $par['par_prix_depot_1'];
         $client['cli_nom'] = "mr TEST henry";
         $client['cli_prenom'] = "";
         $client['cli_nom1'] = $client['cli_nom'];
-        
+
         $client['cli_id_modif'] = "be49226b2150c567adf4f090c21be17f";
         $client['cli_emel'] = "test@test.com";
         $client['cli_adresse'] = "votre adresse";
@@ -914,10 +932,19 @@ function action_makeData($id, $test = false)
         $fiche['obj_id_acheteur'] = 999999;
         $fiche['obj_etat'] = "VENDU";
         $fiche['obj_taille'] = "XL";
-        $fiche['obj_date_achat'] = "01/01/1901";
+        $fiche['obj_date_achat_FR'] = "01/01/1901";
         $fiche['obj_prix_achat'] = "3200";
         $fiche['obj_object'] = trim($fiche['obj_marque']) . " " . trim($fiche['obj_modele']);
         $fiche['QRCODE'] = "";
+        $data['lien_confirm'] = $CFG_URL . "/Actions/rest.php?a=C&id=" . $fiche['obj_id_modif'];
+
+        $adresse = $CFG_URL . "/index.php?modePage=restV&id=" . $fiche['obj_id_modif'] . "&type=Etiquette";
+        $keyQrcode = "restV-" . $fiche['obj_id_modif'] . "-Etiquette";
+        $qrcodeFic = makeQrCode($adresse, $keyQrcode, 2);
+
+        // $fiche['QRCODE'] = "<img src='https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=$adresse&choe=UTF-8' title='Fiche " . $fiche['obj_numero'] . "' />";
+        $fiche['QRCODE'] = "<img  src='$CFG_URL/$qrcodeFic' title='Fiche " . $fiche['obj_numero'] . "' height='80px'/>";
+        $data['adresse'] = "";
 
     } else {
         $data['titre'] = "--" . $data['titre'] . "--";
@@ -948,40 +975,29 @@ function action_makeData($id, $test = false)
         $fiche['obj_prix_depot'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
         $fiche['obj_id_modif'] = "";
         $fiche['obj_taille'] = "";
+        $fiche['obj_date_achat_FR'] = "";
         $fiche['obj_date_achat'] = "";
         $fiche['obj_prix_achat'] = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
         $fiche['QRCODE'] = "";
         $fiche['obj_object'] = "";
         $client['cli_com'] = "";
+
+        $data['lien_confirm'] = $CFG_URL . "/Actions/rest.php?a=C&id=" . $fiche['obj_id_modif'];
     }
 
     // MISE EN FORME DE LA FICHE
     // MISE EN FORME DE LA FICHE
     // regroupement de la description
     $fiche['obj_description'] = concatDescription($fiche['obj_description']);
-    if (
-        $fiche['obj_prix_vente'] > 0 && ($fiche['obj_etat'] == 'VENDU' || $fiche['obj_etat'] == 'PAYE')
-    ) {
-        $client['cli_com'] = getCommission($fiche);
-    } else {
-        $fiche['obj_prix_vente'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
-        $client['cli_com'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>";
-    }
 
-    if ($fiche['obj_prix_vente'] != $fiche['obj_prix_depot'] && $fiche['obj_prix_vente'] > 0) {
-        $fiche['obj_prix_depot'] = "<s>" . $fiche['obj_prix_depot'] . " €</s><span style='color:RED'>" . $fiche['obj_prix_vente'] . "</span>";
-    }
-
-    if ($fiche['obj_prix_depot'] == 0) {
-        $fiche['obj_prix_depot'] = "";
-    }
     // MISE EN FORME DE LA FICHE
     // MISE EN FORME DE LA FICHE
 
     return array_merge($fiche, $client, $data);
 }
 
-function action_makeHtml($id, $html, $test ){
+function action_makeHtml($id, $html, $test)
+{
     $data = action_makeData($id, $test);
     error_log($html);
     return  makeCorps($data, $html);
@@ -1075,6 +1091,17 @@ function action_changeEtatFiche($obj)
  */
 function action_vendFiche($data)
 {
+    extract($GLOBALS);
+    $tab = array(
+        'date1' => date('d', $INFO_APPLI['date_j1']),
+        'date2' => date('d', $INFO_APPLI['date_j2']),
+        'date3' => date('d', $INFO_APPLI['date_j3']),
+        'mois' => date('M', $INFO_APPLI['date_j2']),
+        'annee' => date('Y', $INFO_APPLI['date_j2']),
+        'titre' => $INFO_APPLI['titre'],
+        'URL' => $CFG_URL,
+        'numero_bav' => $numBAV
+    );
     try {
         $fiche = tabToObject(string2Tab($data), "obj");
         $client = tabToObject(string2Tab($data), "cli");
@@ -1106,7 +1133,6 @@ function action_vendFiche($data)
 
         // si le client a un mel on envoi un mel
         if ($cliVend['cli_emel'] != "") {
-            $tab = array();
             // calcul de la commission
             $tab['cli_com'] = getCommission($theFiche);
 
@@ -1225,7 +1251,7 @@ function return_fiches($tri, $sens, $selection, $detail = 1)
         $tab = getFiches($tri, $sens, string2Tab($selection));
 
         foreach ($tab as $key => $val) {
-            if ($detail== 1) {
+            if ($detail == 1) {
                 $tab['total_vente_' . $val['obj_etat']] += $val['obj_prix_vente'];
                 $tab['total_nb_' . $val['obj_etat']]++;
 

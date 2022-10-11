@@ -36,7 +36,6 @@ if ($GET_a == "C") {
                 $tabPlus['obj_date_depot_FR_SH'] = formateDateMYSQLtoFR($fiche['obj_date_depot'], false);
                 $tabPlus['obj_date_achat_FR'] = formateDateMYSQLtoFR($fiche['obj_date_achat'], false);
 
-
                 $client = getOneClient($fiche['obj_id_vendeur']);
 
                 $tabPlus['titre'] = $INFO_APPLI['titre'];
@@ -70,7 +69,7 @@ if ($GET_a == "C") {
                 if ($retour == 1) {
                     $retour = "Un mel de confirmation avec votre fiche n°[" .
                         $fiche['obj_numero'] . "] de dépôt vous a été envoyé à : " . $client['cli_emel'];
-                    $retour .= "<br/>Merci pour votre dépot. Vous allez recevoir un mel avec la fiche de dépôt à imprimer.";
+                    $retour .= "<br/>Merci pour votre dépot.";
                 }
             } else {
                 $retour = "Fiche déjà confirmé avec le n°[" . $fiche['obj_numero'] . "].";
@@ -94,7 +93,6 @@ if ($GET_a == "I") {
             //$row['obj_date_depot_FR'] = formateDateMYSQLtoFR($row['obj_date_depot'], true);
             $tabPlus['obj_date_depot_FR_SH'] = formateDateMYSQLtoFR($fiche['obj_date_depot'], false);
             $tabPlus['obj_date_achat_FR'] = formateDateMYSQLtoFR($fiche['obj_date_achat'], false);
-
 
             $client = getOneClient($fiche['obj_id_vendeur']);
 
@@ -126,7 +124,7 @@ if ($GET_a == "I") {
             //              echo $page_src;
             //header($page_src);
         } else {
-            $retour = "Fiche non imprimable actuelle, contactez nous.";
+            $retour = "Fiche non imprimable actuellement, contactez nous.";
         }
         /*} else {
             $retour = "Fiche inconnue";
