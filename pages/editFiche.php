@@ -243,7 +243,7 @@ $tabInfo = [
 				<!-- <div class="col-sm-1"><i class="fas fa-save link" onclick="saveEditor(idText,CKEDITOR.instances.editor_html_file.getData())"></i></div> -->
 				<div class="col-sm-2"><i class="far fa-eye link" onclick='alertModalInfo(document.formEdition.editing.value);' )></i></div>
 				<div class="col-sm-1"><i class="fas fa-save link" onclick="saveEditor(idText,document.formEdition.editing.value)"></i></div>
-				<div class="col-sm-1"><i class="far fa-file-code link" onclick='viewOnHtml(idText)' )></i></div>
+				<div class="col-sm-1"><i class="far fa-file-pdf link" onclick='viewOnPdf(idText, idText=="coupon_vendeur"?"L":"P")' )></i></div>
 				<div class="col-sm-2" style="text-align: right"><i class="fas fa-times link" onclick="cancelEditor('html_file')"></i></div>
 			</div>
 			<div class="row">
