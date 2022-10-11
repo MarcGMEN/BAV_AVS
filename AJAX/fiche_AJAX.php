@@ -848,7 +848,7 @@ function concatDescription($desc)
 /**
  * creation d'une fiche en PDF
  */
-function action_makePDF($id, $html = 'fiche_depot.html', $test = false, $format = "P")
+function action_makeData($id, $test = false)
 {
     extract($GLOBALS);
     $ADMIN = $INFO_APPLI['ADMIN'];
@@ -968,9 +968,22 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false, $format 
     // MISE EN FORME DE LA FICHE
     // MISE EN FORME DE LA FICHE
 
+    return array_merge($fiche, $client, $data);
+}
+
+function action_makeHtml($id, $html, $test ){
+    $data = action_makeData($id, $test);
+    error_log($html);
+    return  makeCorps($data, $html);
+}
+
+function action_makePDF($id, $html = 'fiche_depot.html', $test = false, $format = "P")
+{
+    extract($GLOBALS);
+    $data = action_makeData($id, $test);
     try {
 
-        $filePDF = html2pdf(array_merge($fiche, $client, $data), $html, basename($html, ".html") . "_" . $fiche['obj_numero'], $format);
+        $filePDF = html2pdf($data, $html, basename($html, ".html") . "_" . $data['obj_numero'], $format);
     } catch (Exception $e) {
         print_r($e);
         return "ERREUR " . $e->getMessage();
