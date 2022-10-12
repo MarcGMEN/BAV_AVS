@@ -167,6 +167,8 @@ function action_createFiche($data)
 
                 $tabPlus['titre'] = $INFO_APPLI['titre'];
 
+                $tabPlus['obj_date_achat_FR'] = formateDateMYSQLtoFR($fiche['obj_date_achat'], false);
+
                 // titre du mel
                 $titreMel = "Confirmation de votre dépôt à " . $INFO_APPLI['titre'];
 
