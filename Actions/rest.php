@@ -120,20 +120,22 @@ if ($GET_a == "I") {
             // convert en PDF
             $filePDF = html2pdf(array_merge($fiche, $client, $tabPlus), "fiche_depot.html", "Fiche_" . $fiche['obj_numero']);
 
-            $page_src = "location:" . $CFG_PROJET . $filePDF;
-            //              echo $page_src;
-            //header($page_src);
+//            http://localhost/bourseauxvelos/Actions/rest.php?a=I&id=ecce6383d142d41b0d4f83a6b0f73840
+            $page_src = "location:" . $CFG_URL.$CFG_PROJET . $filePDF;
+ 
         } else {
             $retour = "Fiche non imprimable actuellement, contactez nous.";
+            $page_src .= "?message=$retour";
         }
         /*} else {
             $retour = "Fiche inconnue";
         }*/
     } catch (Exception $e) {
         $retour = $e->getMessage();
+        $page_src .= "?message=$retour";
     }
-    $page_src .= "?message=$retour";
+    
 }
 
-error_log("REST : Go to ".$page_src);
+//echo("REST : Go to ".$page_src);
 header($page_src);
