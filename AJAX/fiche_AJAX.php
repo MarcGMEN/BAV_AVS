@@ -187,7 +187,7 @@ function action_createFiche($data)
                 $retour['id'] = $tabObj['obj_id'];
             } else {
                 // sinon on envoi le mel
-                $retour = sendMail($titreMel, $tabCli['cli_emel'], $message, null, true);
+                $retour = sendMail($titreMel, $tabCli['cli_emel'], $message, null, false);
             }
         } else {
             return "ERREUR : problème de création du client";
