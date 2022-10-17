@@ -243,6 +243,7 @@ input.error {
 .help {
     font-family: Verdana, Arial, Helvetica, sans-serif;
     vertical-align: top;
+    background-color: lightcyan;
 }
 
 .btnAction {

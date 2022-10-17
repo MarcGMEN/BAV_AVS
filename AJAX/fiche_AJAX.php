@@ -396,8 +396,11 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
                     $data['adresse'] = "";
                 }
                 $fiche['obj_achat'] = "";
-                if (($fiche['obj_prix_achat'] != "" && $fiche['obj_prix_achat'] > 0) || $fiche['obj_date_achat_FR'] != "") {
-                    $fiche['obj_achat'] = $fiche['obj_prix_achat'] . " &euro; (" . $fiche['obj_date_achat_FR'] . ")";
+                if ($fiche['obj_prix_achat'] != "" && $fiche['obj_prix_achat'] > 0) {
+                    $fiche['obj_achat'] .= $fiche['obj_prix_achat'] . " &euro; ";
+                }
+                if ($fiche['obj_date_achat_FR'] != "") {
+                    $fiche['obj_achat'] .= "(".$fiche['obj_date_achat_FR'].")";
                 }
             }
         } else {

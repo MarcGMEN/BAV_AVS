@@ -101,10 +101,14 @@
 			<!-- NEw LINE -->
 			<!-- marque -->
 			<div class="col-sm-4 col-md-4 col-xs-12">
-				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Marque <span title="Obligatoire">*</span></span>
+				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Marque <span title="Obligatoire">*</span>
+						
+				</span>
+					
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
 					<input type=text list="listMarques" name="obj_marque_<?= $idRamdom ?>" size=30 maxlength="50" tabindex=<?= $tabindex++ ?> style="text-transform:uppercase" placeholder="Marque du vélo" onkeyup="setStartSaisie(true);" onblur="x_return_list_modeles(this.value,display_list_modeles)" required />
 					<datalist id="listMarques"></datalist>
+<!--					<br/><span style='font-size:7pt'>Saisie libre</span>-->
 				</span>
 			</div>
 			<!-- Modele -->
@@ -126,9 +130,17 @@
 			<!-- NEw LINE -->
 			<!-- Date achat -->
 			<div class="col-sm-4 col-md-4 col-xs-12">
-				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Date achat </span>
+				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Date achat 
+					<span class="help link" onmouseover="Aff_layer('aide_date_achat')" onmouseout="Cache_layer('aide_date_achat')">?</span>
+					<br/>
+				</span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
 					<input type=date  name="obj_date_achat" tabindex=<?= $tabindex++ ?> placeholder="Date achat" onkeyup="setStartSaisie(true);" />
+				</span>
+				<span class="col-md-12 col-sm-12 col-xs-12 ">
+					<div id="aide_date_achat" style="visibility: hidden;" class='help'>
+						<small>Saisisez 01/01/AAAA si vous ne connaissez pas la date exacte.</small>
+					</div>
 				</span>
 			</div>
 			<!-- prix achat -->
@@ -157,13 +169,13 @@
 				<span class="tabInput col-md-10 col-sm-10 col-xs-9">
 					<textarea rows="4" cols="100" tabindex=<?= $tabindex++ ?> style="resize:none;overflow: none;" name="obj_description" maxlength="250" onkeyup="MaxLengthTextarea(this, 250);setStartSaisie(true)" placeholder="Accessoires, révision (transmission, pneus, freins..)"></textarea>
 				</span>
-				<span class="col-md-12 col-sm-12 col-xs-12 help" id='id_descplus' style="visibility: hidden;">
-					<div style='color:blue; background-color: yellow;'>Pour saisir une description plus précise qui accompagnera votre vélo,
+				<span class="col-md-12 col-sm-12 col-xs-12" id='id_descplus' style="visibility: hidden;">
+					<div style='color:blue; background-color: yellow;' class=' help'>Pour saisir une description plus précise qui accompagnera votre vélo,
 					<span class="link" onclick="action_descript_plus()"> cliquez ici.</span>
 					</div>
 				</span>
-				<span class="col-md-12 col-sm-12 col-xs-12 help">
-					<div id="aide_descript" style="visibility: hidden;">
+				<span class="col-md-12 col-sm-12 col-xs-12">
+					<div id="aide_descript" style="visibility: hidden;" class=' help'>
 						<small>Saisisez ici les accessoires, les révisions (transmission, pneus, freins..), et autres</small>
 					</div>
 				</span>

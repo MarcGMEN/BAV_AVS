@@ -77,8 +77,6 @@ function return_countByTarifSup($selection, $ref, $type = "depot")
  */
 function return_statByType($selection, $type = 'depot')
 {
-    
-    
     try {
         // recherche des fiches
         $tab = getFiches(null, 'asc', string2Tab($selection));
@@ -342,13 +340,17 @@ function return_statRepartition()
 
         foreach ($tab as $key => $val) {
             if (
+                $val['obj_etat'] == 'CONFIRME' ||
                 $val['obj_etat'] == 'STOCK' ||
                 $val['obj_etat'] == 'VENDU' ||
                 $val['obj_etat'] == 'RENDU' ||
                 $val['obj_etat'] == 'PAYE'
             ) {
                 $dateDepotInt = dateMysqlInt($val['obj_date_depot']);
-                if ($dateDepotInt < $date['depot_J7']) {
+                if ($dateDepotInt < $date['depot_J30']) {
+                    $tabCount['depot_J30']++;
+                }
+                elseif ($dateDepotInt < $date['depot_J7']) {
                     $tabCount['depot_J7']++;
                 }
                 if ($dateDepotInt < $date['J2-MATIN'] && $dateDepotInt >= $date['depot_J7']) {
