@@ -22,7 +22,7 @@ function return_list_marques()
 {
     $tabMarques = [
         'TREK', 'SCOTT', 'CANNONDALE', 'GITANE', 'PEUGEOT', 'MERCIER', 'SUNN', 'GT', 'EXS', 'CERVELO', 'BIANCHI',
-        'COLNAGO', 'KUOTA', 'BH', 'BMC', 'BTWIN', 'DECATHLON', 'CANYON', 'CKT', 'COMMENCAL', 'DIAMONDBACK', 'GIANT', 'KONA',
+        'COLNAGO', 'KUOTA', 'BH', 'BMC', 'B\'TWIN', 'DECATHLON', 'CANYON', 'CKT', 'COMMENCAL', 'DIAMONDBACK', 'GIANT', 'KONA',
         'KTM', 'MBK', 'MERIDA', 'ORBEA', 'PINARELLO', 'RIDLEY', 'SPECIALIZED', 'TIME', 'WILLIER', 'LOOK'
     ];
     $tabRetour = array_merge($tabMarques, listUnique("bav_objet", "obj_marque"));

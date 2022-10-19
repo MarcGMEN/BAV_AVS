@@ -16,7 +16,7 @@ require_once "../Commun/html2pdf.php";
 
 $INFO_APPLI = return_infoAppli();
 
-add_counter_action("rest.php",$GET_a);
+add_counter_action("rest.php", $GET_a);
 // demande de confirmation de la fiche;
 if ($GET_a == "C") {
     try {
@@ -116,13 +116,12 @@ if ($GET_a == "I") {
 
             $fiche['obj_description'] = str_replace("\n", " / ", $fiche['obj_description']);
             $fiche['obj_description'] = str_replace("<br/>", " / ", $fiche['obj_description']);
-            
+
             // convert en PDF
             $filePDF = html2pdf(array_merge($fiche, $client, $tabPlus), "fiche_depot.html", "Fiche_" . $fiche['obj_numero']);
 
-//            http://localhost/bourseauxvelos/Actions/rest.php?a=I&id=ecce6383d142d41b0d4f83a6b0f73840
-            $page_src = "location:" . $CFG_URL.$CFG_PROJET . $filePDF;
- 
+            //            http://localhost/bourseauxvelos/Actions/rest.php?a=I&id=ecce6383d142d41b0d4f83a6b0f73840
+            $page_src = "location:" . $CFG_URL . $CFG_PROJET . $filePDF;
         } else {
             $retour = "Fiche non imprimable actuellement, contactez nous.";
             $page_src .= "?message=$retour";
@@ -134,7 +133,6 @@ if ($GET_a == "I") {
         $retour = $e->getMessage();
         $page_src .= "?message=$retour";
     }
-    
 }
 
 //echo("REST : Go to ".$page_src);
