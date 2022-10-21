@@ -56,9 +56,11 @@ function countBy($tabSel, $selS, $search = "=", $valS, $etats = "'STOCK','RENDU'
     $requete2 .= " and obj_etat in ($etats)";
     foreach ($tabSel as $key => $val) {
         if ($key == "obj_search") {
-            $requete2 .= " and (obj_modele like '%$val%' or obj_description like '%$val%' or obj_couleur like '%$val%') ";
+            $requete2 .= " and (obj_modele like '%".addslashes($val)."%' ";
+            $requete2 .= " or obj_description like '%".addslashes($val)."%' ";
+            $requete2 .= " or obj_couleur like '%".addslashes($val)."%') ";
         } elseif ($key && $val != "*") {
-            $requete2 .= " and $key = '$val' ";
+            $requete2 .= " and $key = '".addslashes($val)."' ";
         }
     }
     if ($selS && $valS != "*") {
@@ -170,9 +172,11 @@ function getFiches($order, $sens, $tabSel)
     $requete2 .= " where obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "'";
     foreach ($tabSel as $key => $val) {
         if ($key == "obj_search") {
-            $requete2 .= " and (obj_modele like '%$val%' or obj_description like '%$val%' or obj_couleur like '%$val%') ";
+            $requete2 .= " and (obj_modele like '%".addslashes($val)."%' ";
+            $requete2 .= " or obj_description like '%".addslashes($val)."%' ";
+            $requete2 .= " or obj_couleur like '%".addslashes($val)."%') ";
         } elseif ($key && $val != "*") {
-            $requete2 .= " and $key = '$val' ";
+            $requete2 .= " and $key = '".addslashes($val)."' ";
         }
     }
     if ($order != null) {
