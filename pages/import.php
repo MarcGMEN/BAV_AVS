@@ -72,7 +72,7 @@
 <fieldset class=fiche>
 	<legend class="titreFiche">Le Fichier</legend>
 	<div class="alert alert-info">
-		<b>Format attendu :</b> Type | Public | Pratique | Marque | Modèle | Couleur | Description | Prix
+		<b>Format attendu :</b> Type | Public | Pratique | Marque | Modèle | Couleur | Date achat | Prix achat | Taille | Description | Prix
 	</div>
 	<form action="Actions/importFile.php" method="post" enctype="multipart/form-data" name=fileForm>
 		<input type=hidden name="cli_id" required />
