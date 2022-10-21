@@ -16,6 +16,7 @@ if (isset($_FILES)) {
 	extract($_FILES,EXTR_PREFIX_ALL,'FILE');
 }
 
+
 if ($_SERVER['SERVER_NAME'] == "avs44.com" || $_SERVER['SERVER_NAME'] == "bourseaux1000velos.avs44.com") {
 	$mysqli = mysqli_connect('db2463.1and1.fr','dbo326893785','randovtt' , 'db326893785');
 }
