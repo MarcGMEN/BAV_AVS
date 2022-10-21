@@ -395,7 +395,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
                 } else {
                     $data['adresse'] = "";
                 }
-                $fiche['obj_achat'] = "";
+                $fiche['obj_achat'] = "-";
                 if ($fiche['obj_prix_achat'] != "" && $fiche['obj_prix_achat'] > 0) {
                     $fiche['obj_achat'] .= $fiche['obj_prix_achat'] . " &euro; ";
                 }
