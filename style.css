@@ -681,6 +681,12 @@ span.ACHAT {
     color: darkgreen;
 }
 
+tr.ERROR,
+span.ERROR {
+    background-color: red;
+    color: white;
+}
+
 .tabInput {
     font-size: 1em;
     font-family: Verdana, Arial, Helvetica, sans-serif;

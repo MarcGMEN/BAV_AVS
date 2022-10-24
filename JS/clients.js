@@ -75,6 +75,17 @@ function display_clients(val) {
             if (totalClient == 0) {
                 classPlus = "WARN"
             }
+            classPlus = "";
+
+            if (val[index]['cli_taux_com'] == 0) {
+                classPlus = "ERROR"
+            } else {
+                if (val[index]['cli_taux_com'] == 5) {
+                    classPlus = "STOCK"
+                } else if (val[index]['cli_pri_depot'] == 0) {
+                    classPlus = "ACHAT"
+                }
+            }
 
             if (indVendeur) {
                 totalVendeur++;
