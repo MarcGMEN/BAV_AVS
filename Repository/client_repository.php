@@ -33,17 +33,35 @@ function getClientsRecap($order, $sens, $tabSel, $all = false)
 
     $requete2 = "select *,";
     $requete2 .= "(select count(*) from bav_objet objC where objC.obj_id_vendeur = cli_id and objC.obj_etat in ('CONFIRME') ";
-    $requete2 .= " and objC.obj_numero_bav =" . $INFO_APPLI['numero_bav'] . ") CONFIRME, ";
+    if (!$all) {
+        $requete2 .= " and objC.obj_numero_bav =" . $INFO_APPLI['numero_bav'];
+    }
+    $requete2 .= ") CONFIRME, ";
     $requete2 .= "(select count(*) from bav_objet objS where objS.obj_id_vendeur = cli_id and objS.obj_etat in ('STOCK') ";
-    $requete2 .= " and objS.obj_numero_bav =" . $INFO_APPLI['numero_bav'] . ") STOCK, ";
+    if (!$all) {
+        $requete2 .= " and objS.obj_numero_bav =" . $INFO_APPLI['numero_bav'];
+    }
+    $requete2 .= ") STOCK, ";
     $requete2 .= "(select count(*) from bav_objet objV where objV.obj_id_vendeur = cli_id and objV.obj_etat in ('VENDU') ";
-    $requete2 .= " and objV.obj_numero_bav =" . $INFO_APPLI['numero_bav'] . ") VENDU, ";
+    if (!$all) {
+        $requete2 .= " and objV.obj_numero_bav =" . $INFO_APPLI['numero_bav'];
+    }
+    $requete2 .= ") VENDU, ";
     $requete2 .= "(select count(*) from bav_objet objR where objR.obj_id_vendeur = cli_id and objR.obj_etat in ('RENDU') ";
-    $requete2 .= " and objR.obj_numero_bav =" . $INFO_APPLI['numero_bav'] . ") RENDU, ";
+    if (!$all) {
+        $requete2 .= " and objR.obj_numero_bav =" . $INFO_APPLI['numero_bav'];
+    }
+    $requete2 .=  ") RENDU, ";
     $requete2 .= "(select count(*) from bav_objet objP where objP.obj_id_vendeur = cli_id and objP.obj_etat in ('PAYE') ";
-    $requete2 .= " and objP.obj_numero_bav =" . $INFO_APPLI['numero_bav'] . ") PAYE, ";
+    if (!$all) {
+        $requete2 .= " and objP.obj_numero_bav =" . $INFO_APPLI['numero_bav'];
+    }
+    $requete2 .=  ") PAYE, ";
     $requete2 .= "(select count(*) from bav_objet objA where objA.obj_id_acheteur = cli_id ";
-    $requete2 .= " and objA.obj_numero_bav =" . $INFO_APPLI['numero_bav'] . ") ACHAT ";
+    if (!$all) {
+        $requete2 .= " and objA.obj_numero_bav =" . $INFO_APPLI['numero_bav'];
+    }
+    $requete2 .=  ") ACHAT ";
 
     $requete2 .= " FROM bav_client WHERE 1 = 1  ";
     foreach ($tabSel as $key => $val) {
@@ -74,6 +92,7 @@ function getClientsRecap($order, $sens, $tabSel, $all = false)
         $tab = array();
         $index = 0;
         while ($row = $result->fetch_assoc()) {
+            $row['bavs']=getBavsClient($row['cli_id']);
             $tab[$index++] = $row;
         }
         $result->close();
@@ -113,6 +132,7 @@ function getClients($order, $sens, $tabSel, $all = false)
         $tab = array();
         $index = 0;
         while ($row = $result->fetch_assoc()) {
+            $row['bavs']=getBavsClient($row['cli_id']);
             $tab[$index++] = $row;
         }
         $result->close();
@@ -123,11 +143,37 @@ function getClients($order, $sens, $tabSel, $all = false)
 }
 
 /**
+ * recherche des clients pour une BAV ou pas
+ */
+function getBavsClient($idClient)
+{
+    $requete2 = "SELECT distinct obj_numero_bav from bav_client, bav_objet ";
+    $requete2 .= " where 1 = 1 ";
+    $requete2 .= " and (obj_id_vendeur = $idClient OR obj_id_acheteur = $idClient) ";
+    $requete2 .= " order by obj_numero_bav ";
+    //echo $requete2;
+
+    if ($result = $GLOBALS['mysqli']->query($requete2)) {
+        $tab = array();
+        $index = 0;
+        while ($row = $result->fetch_assoc()) {
+            $row['id_client']=$idClient;
+            $tab[$index++] = $row;
+
+        }
+        $result->close();
+    } else {
+        throw new Exception("getBavsClient' [$requete2]" . $GLOBALS['mysqli']->error);
+    }
+    return $tab;
+}
+
+/**
  * mise a jour du client
  */
 function updateClient($obj)
 {
-    if ($obj == "") { 
+    if ($obj == "") {
         return "update impossible sans id";
     } else {
         return update("bav_client", $obj, "cli_id");

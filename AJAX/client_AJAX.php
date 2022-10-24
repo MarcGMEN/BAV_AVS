@@ -69,6 +69,10 @@ function return_clientsRecap($tri, $sens, $selection, $all = false)
     return $tab;
 }
 
+function return_bavsClient($id) {
+    return  getBavsClient($id);
+}
+
 /**
  * retourne un client via son id
  */

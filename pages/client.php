@@ -8,6 +8,7 @@
 
 	var idRamdom = "<?= $idRamdom ?>";
 	var modePage = '<?= $GET_modePage ?>';
+	var anneeBav='<?=$infAppli['numero_bav']?>';
 </script>
 <style type="text/css">
 		#map {
@@ -141,6 +142,7 @@
 	</form>
 </fieldset>
 <? if ($infAppli['ADMIN']) { ?>
+	<select id="annee_stat" onchange="changeNumeroBAV(this.value)"></select>
 	<table width="100%" class="alert alert-info">
 		<tr>
 			<td width=12%>

@@ -9,5 +9,6 @@ sajax_export(
     "return_listClientByName",
     "return_oneClientByName",
     "return_clients","return_clientsRecap",
-    "action_deleteClient"
+    "action_deleteClient",
+    "return_bavsClient"
 );

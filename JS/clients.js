@@ -27,6 +27,7 @@ function findClients(all) {
 }
 
 function display_clients(val) {
+    console.log(val);
     var total = 0;
     var repr = "<table width='100%' border=1>";
     if (selection.cli_nom != "*") {
@@ -96,6 +97,7 @@ function display_clients(val) {
                 totalAbsent++;
             }
 
+            classPlus = "";
 
             repr += "<tr class='tabl0 link " + classPlus + "' onclick='goTo(\"client.php\",\"select\"," + val[index]['cli_id'] + ")'>";
             repr += "<td width=20% >";
@@ -105,6 +107,13 @@ function display_clients(val) {
             } else {
                 repr += chaine;
             }
+            repr += " <span style='font-size:7pt; font-weight:bold' id=bavs_" + val[index]['cli_id'] + "' title=\""; 
+            var virgule = '';
+            for (indexbavs in val[index]['bavs']) {
+                repr += virgule + val[index]['bavs'][indexbavs]['obj_numero_bav'];
+                virgule = ", ";
+            }
+            repr += "\" >" + sizeof(val[index]['bavs']) + "</span>"
             repr += " <small>(" + val[index]['cli_code_postal'] + ")</small>";
             repr += "</td>";
             repr += "<td width=15% class='maskmobile' ><small>";
@@ -165,6 +174,8 @@ function display_clients(val) {
             repr += "</tr>";
 
             total++;
+
+            // x_return_bavsClient(val[index]['cli_id'], display_bavs);
         }
     }
     repr += "</table>";
@@ -180,6 +191,17 @@ function display_clients(val) {
 
     if (sens == "asc") { classSort = "sortUp"; } else { classSort = "sortDown"; }
     getElement(tri).className = classSort;
+}
+
+function display_bavs(val) {
+    console.log(val);
+    var virgule = "";
+    getElement('bavs_'+val[0]['id_client']).innerHTML = "[";
+    for (index in val) {
+        getElement('bavs_' + val[0]['id_client']).innerHTML += virgule + val[index]['obj_numero_bav'];
+        virgule = ",";
+    }
+    getElement('bavs_'+val[0]['id_client']).innerHTML += "]";
 }
 
 function triColonne(col) {

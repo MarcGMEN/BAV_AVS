@@ -11,9 +11,30 @@ function initPage() {
         // recherche du client
         x_return_oneClient(idClient, display_client);
 
+        if (ADMIN) {
+            x_return_bavsClient(idClient, display_parametres);
+        }
+
     } else {
         goTo();
     }
+}
+
+function display_parametres(val) {
+    var select = getElement("annee_stat");
+    select.options[select.options.length] = new Option("Choix", "*");
+    for (index in val) {
+        select.options[select.options.length] = new Option(val[index]['obj_numero_bav'], val[index]['obj_numero_bav']);
+        if ( anneeBav == index) {
+            select.options[select.options.length - 1].selected = true;
+        }
+    }
+}
+
+
+function changeNumeroBAV(val) {
+    SetCookie("par_numero_bav_stat", val);
+    goTo('client.php', 'select', idClient);
 }
 
 // que faire en cas de changement de saisie
@@ -86,7 +107,7 @@ function display_client(val) {
     }
 }
 
-function unloadPage() {}
+function unloadPage() { }
 
 // ***********************************************************
 // ***********************************************************
@@ -136,7 +157,7 @@ function display_infoClientVendeur(val) {
     if (val && val['cli_id'] != document.clientForm.cli_id.value) {
         alertModalWarn("Mel deja connu pour :" + val['cli_nom']);
         x_return_oneClient(document.clientForm.cli_id.value, display_client);
-    } else {}
+    } else { }
 }
 /**
  * recherche par nim si pas encore trouve, si pas de mel
@@ -158,7 +179,7 @@ function display_infoClientVendeurName(val) {
     if (val['cli_id'] && val['cli_id'] != document.clientForm.cli_id.value) {
         alertModalWarn("Nom deja connu [" + val['cli_id_modif'] + "].");
         x_return_oneClient(document.clientForm.cli_id.value, display_client);
-    } else {}
+    } else { }
 }
 
 // bouton ANNULER
