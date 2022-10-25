@@ -83,7 +83,7 @@ function display_clients(val) {
             } else {
                 if (val[index]['cli_taux_com'] == 5) {
                     classPlus = "STOCK"
-                } else if (val[index]['cli_pri_depot'] == 0) {
+                } else if (val[index]['cli_prix_depot'] == 0) {
                     classPlus = "ACHAT"
                 }
             }
@@ -97,8 +97,6 @@ function display_clients(val) {
                 totalAbsent++;
             }
 
-            classPlus = "";
-
             repr += "<tr class='tabl0 link " + classPlus + "' onclick='goTo(\"client.php\",\"select\"," + val[index]['cli_id'] + ")'>";
             repr += "<td width=20% >";
             chaine = val[index]['cli_nom'];
@@ -107,13 +105,13 @@ function display_clients(val) {
             } else {
                 repr += chaine;
             }
-            repr += " <span style='font-size:7pt; font-weight:bold' id=bavs_" + val[index]['cli_id'] + "' title=\""; 
+            repr += " <span style='font-size:7pt;font-weight: bold;' id=bavs_" + val[index]['cli_id'] + "' title=\"";
             var virgule = '';
             for (indexbavs in val[index]['bavs']) {
                 repr += virgule + val[index]['bavs'][indexbavs]['obj_numero_bav'];
                 virgule = ", ";
             }
-            repr += "\" >" + sizeof(val[index]['bavs']) + "</span>"
+            repr += "\" >[" + sizeof(val[index]['bavs']) + "]</span>"
             repr += " <small>(" + val[index]['cli_code_postal'] + ")</small>";
             repr += "</td>";
             repr += "<td width=15% class='maskmobile' ><small>";
@@ -196,12 +194,12 @@ function display_clients(val) {
 function display_bavs(val) {
     console.log(val);
     var virgule = "";
-    getElement('bavs_'+val[0]['id_client']).innerHTML = "[";
+    getElement('bavs_' + val[0]['id_client']).innerHTML = "[";
     for (index in val) {
         getElement('bavs_' + val[0]['id_client']).innerHTML += virgule + val[index]['obj_numero_bav'];
         virgule = ",";
     }
-    getElement('bavs_'+val[0]['id_client']).innerHTML += "]";
+    getElement('bavs_' + val[0]['id_client']).innerHTML += "]";
 }
 
 function triColonne(col) {
