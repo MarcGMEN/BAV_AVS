@@ -158,7 +158,7 @@ $useruploadfolder = "$browserfolder/uploads";
 $useruploadpath = $usersiteroot."$useruploadfolder/";
 $foldershistory[] = $useruploadfolder;
 
-    $useruploadfolder = "bourseauxvelos/ckeditorUploads";
+    $useruploadfolder = "ckeditorUploads";
     $useruploadpath = $usersiteroot."$useruploadfolder/";
-    $foldershistory[] = "bourseauxvelos/ckeditorUploads";
+    $foldershistory[] = "ckeditorUploads";
         
