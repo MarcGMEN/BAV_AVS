@@ -136,13 +136,12 @@
 	</div>
 	<hr />
 	<div class="row">
-		<!-- vue uniqueTABLE -->
-		<div class="col-sm-4 col-md-4 col-xs-4">
-			<span class="titrow  col-md-3 col-sm-3 col-xs-12">PRIX :</span>
-			<span class="tabl1 col-md-9 col-sm-9 col-xs-12">
+		<div class="col-sm-12 col-md-12 col-xs-12">
+			<span class="titrow  col-md-3 col-sm-3 col-xs-3">PRIX :</span>
+			<span class="tabl1 col-md-9 col-sm-9 col-xs-9">
 				<input type=hidden name="obj_prix_vente">
-				&nbsp&nbsp<span id="obj_prix_vente">0.00</span>&#8364;&nbsp <span id="date_vente">
-				</span>
+				&nbsp&nbsp<span id="obj_prix_vente">0.00</span>&euro;&nbsp
+				<span id="date_vente"></span>
 		</div>
 	</div>
 </fieldset>
