@@ -35,14 +35,20 @@ function getByTree($numBav)
         $tab = array();
         $index = 0;
         while ($row = $result->fetch_assoc()) {
+            if ($row['cas_os']== "Android" || $row['cas_os']== "iPhone") {
+                $row['cas_os']="tel";
+            }
+            else {
+                $row['cas_os']="ordi";
+            }
             if ($row['cas_mode_page'] != "") {
                 if ($row['cas_type'] != "") {
-                    $tab[$row['cas_page']][$row['cas_mode_page']][$row['cas_type']][$row['cas_os']][$row['cas_navigateur']][$row['cas_date']]++;
+                    $tab[$row['cas_page']][$row['cas_mode_page']][$row['cas_type']]['OS_'.$row['cas_os']][$row['cas_date']]++;
                 } else {
-                    $tab[$row['cas_page']][$row['cas_mode_page']][$row['cas_os']][$row['cas_navigateur']][$row['cas_date']]++;
+                    $tab[$row['cas_page']][$row['cas_mode_page']]['OS_'.$row['cas_os']][$row['cas_date']]++;
                 }
             } else {
-                $tab[$row['cas_page']][$row['cas_os']][$row['cas_navigateur']][$row['cas_date']]++;
+                $tab[$row['cas_page']]['OS_'.$row['cas_os']][$row['cas_date']]++;
             }
             // $tab[$row['cas_page']] = array(
             //         'cpt' => $tab[$row['cas_page']]['cpt'] + 1,
@@ -79,6 +85,7 @@ function getByDay($numBav)
         $tab = array();
         $index = 0;
         while ($row = $result->fetch_assoc()) {
+
             if ($row['cas_mode_page'] != "") {
                 if ($row['cas_type'] != "") {
                     $tab[$row['cas_page']][$row['cas_mode_page']][$row['cas_type']][$row['cas_os']][$row['cas_navigateur']][$row['cas_date']]++;
