@@ -69,7 +69,11 @@
 				var idHtml = parent + "-" + index;
 
 				var tab = tree(val[index], idHtml, niv + 1);
-				if (!index.match("(s_)")) {
+				if (!index.match("^(s_)")) {
+
+
+					var lastDate = new Date(Math.max.apply(null, tab['dates']));
+					var lastDateFR = lastDate.getDate() + "/" + (lastDate.getMonth() +1) +"/" + lastDate.getFullYear();
 					repr += "<li>";
 					repr += "<div class='row tree" + niv + "'>";
 					repr += "<div class='col-xs-5 col-sm-5 col-md-5' >" + index + "</div>";
@@ -80,7 +84,7 @@
 						repr += "<div class='col-xs-3 col-sm-3 col-md-3 '>&nbsp;</div>";
 					}
 
-					repr += "<div class='col-xs-2 col-sm-2 col-md-2' >Cpt => " + tab['nb'] + "</div>";
+					repr += "<div class='col-xs-2 col-sm-2 col-md-2' >Cpt => " + tab['nb'] +" (" +lastDateFR +")</div>";
 					repr += "<div class='col-xs-1 col-sm-1 col-md-1 link' onclick=\"initDate('" + idHtml + "');dessin('" + idHtml + "',0)\"><img src='Images/statBarre.png' height='20px'/>j</div>";
 					repr += "<div class='col-xs-1 col-sm-1 col-md-1 link' onclick=\"initDate('" + idHtml + "');dessin('" + idHtml + "',1)\"><img src='Images/statBarre.png' height='20px'/>j/h</div>";
 					repr += "</div>";
@@ -89,6 +93,7 @@
 					repr += "</div>";
 				}
 				else {
+					// console.log("pas d'affichage de "+index);
 					affiche=0;
 				}
 
@@ -151,6 +156,7 @@
 				// repr += "<div class='tree1'>" + index + " => " + val[index] + "</div>";
 				dates.push(new Date(index));
 				affiche=0;
+				// console.log("pas d'affichage de "+index+"  car dates");
 			}
 			repr += "</ul>";
 		}
@@ -204,6 +210,7 @@
 			}
 
 		}
+		fin = new Date();
 		start.setDate(start.getDate() - 1);
 		fin.setDate(fin.getDate() + 1);
 
