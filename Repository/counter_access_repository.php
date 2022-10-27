@@ -43,12 +43,12 @@ function getByTree($numBav)
             }
             if ($row['cas_mode_page'] != "") {
                 if ($row['cas_type'] != "") {
-                    $tab[$row['cas_page']][$row['cas_mode_page']][$row['cas_type']]['OS_'.$row['cas_os']][$row['cas_date']]++;
+                    $tab[$row['cas_page']][$row['cas_mode_page']][$row['cas_type']]['s_'.$row['cas_os']][$row['cas_date']]++;
                 } else {
-                    $tab[$row['cas_page']][$row['cas_mode_page']]['OS_'.$row['cas_os']][$row['cas_date']]++;
+                    $tab[$row['cas_page']][$row['cas_mode_page']]['s_'.$row['cas_os']][$row['cas_date']]++;
                 }
             } else {
-                $tab[$row['cas_page']]['OS_'.$row['cas_os']][$row['cas_date']]++;
+                $tab[$row['cas_page']]['s_'.$row['cas_os']][$row['cas_date']]++;
             }
             // $tab[$row['cas_page']] = array(
             //         'cpt' => $tab[$row['cas_page']]['cpt'] + 1,

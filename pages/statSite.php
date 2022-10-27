@@ -69,7 +69,7 @@
 				var idHtml = parent + "-" + index;
 
 				var tab = tree(val[index], idHtml, niv + 1);
-				if (!index.match("(OS_)")) {
+				if (!index.match("(s_)")) {
 					repr += "<li>";
 					repr += "<div class='row tree" + niv + "'>";
 					repr += "<div class='col-xs-5 col-sm-5 col-md-5' >" + index + "</div>";
@@ -128,7 +128,7 @@
 				}
 				Array.prototype.push.apply(dates, tab['dates']);
 				// console.log("on au total "+sizeof(dates)+" date");
-				if (!index.match("(OS_)")) {
+				if (!index.match("(s_)")) {
 					repr += "</li>";
 
 					repr += "<div style='display:none;border:0px blue solid' id='divcanvas" + idHtml + "'>";
@@ -231,7 +231,7 @@
 	}
 
 	function likekeys(id) {
-		return id.match("^(" + idDessin + ")") && id != idDessin && id.match("(-OS_)");
+		return id.match("^(" + idDessin + ")") && id != idDessin && id.match("(-s_)");
 	}
 
 	var idDessin = "";
@@ -302,12 +302,25 @@
 			tabData = tabDatesTimes[id]
 		}
 
-		for (var date in tabData) {
-			var nb = tabData[date];
+		var debut=start;
+		while (debut < fin) {
+			var keyDate = debut.getFullYear() + "-" + debut.getMonth() + "-" + debut.getDate();
+			if (hour) {
+				keyDate = keyDate + "-" + debut.getHours();
+			}
+			//for (var date in tabData) {
+			var nb = tabData[keyDate];
 			// console.log(date + " " + nb);
 			if (nb > max) {
 				max = nb;
 			}
+			//}
+			if (hour) {
+				var newDate = debut.setHours(debut.getHours() + 1);
+			} else {
+				var newDate = debut.setDate(debut.getDate() + 1);
+			}
+			debut = new Date(newDate);
 		}
 		// console.log("nb " + nb);
 		fin.setDate(fin.getDate() + 1);
@@ -341,7 +354,7 @@
 			alertModalInfo("Attention vous dépasse la capacité d'affichage 63 jours max");
 		}
 		if (fin < start) {
-			alertModalInfo("Attention date de début supérieure à la date de fin");
+			alertModalInfoTimeout("Attention date de début supérieure à la date de fin",1);
 		}
 		// console.log("longueur " + longueur);
 		// console.log("largeur " + largeur);
@@ -349,6 +362,7 @@
 		var dayBefore;
 		var cptHour = 0;
 		var cptRow = 0;
+		var nbTot=0;
 		while (start < fin) {
 			var keyDate = start.getFullYear() + "-" + start.getMonth() + "-" + start.getDate();
 			var keyDateTime = keyDate + "-" + start.getHours();
@@ -365,15 +379,15 @@
 			var nb = 0;
 			// console.log(tabDates);
 
-			var colorOS = ["lightblue", "lightgreen", "lightgray", "white", "salmon"];
-			var indexOS = 0;
-
+			var colorOS = {'s_tel': "lightblue", 's_ordi':"lightgreen"};
+			
 			var hc_prec = 0;
 			var hc_tot = 0;
 			var nbDate = 0;
 			if (tabData[laDate]) {
 				nbDate = tabData[laDate];
 			}
+			nbTot+=nbDate;
 
 			for (var OS in tabDataOS) {
 
@@ -392,7 +406,7 @@
 
 				ctx.lineWidth = "1";
 				// ctx.fillStyle = "lightblue";
-				ctx.fillStyle = colorOS[indexOS];
+				ctx.fillStyle = colorOS[OS];
 				// console.log("ctx.fillRect("+decal+", "+(hauteur-hc-10)+", "+largeur+", "+hc+")");
 				ctx.fillRect(decal, hauteur - hc - 10 - hc_prec, largeur, hc)
 //				console.log(hauteur, decal, hauteur - hc - 10 - hc_prec, largeur, hc, OS, nb);
@@ -401,15 +415,14 @@
 				if (nb > 0) {
 					ctx.font = "10px arial";
 					//var Xlettre = decal + largeur / 2 - 7;
-					var Xlettre = decal + 7;
-					var Ylettre = hauteur - hc / 2 - hc_prec;
+					var Xlettre = decal + largeur/15;
+					var Ylettre = hauteur - hc / 2 - hc_prec -10;
 					if (largeur > 5) {
 						ctx.fillText(nb + " " + OS, Xlettre, Ylettre);
 					}
 //					console.log("ctx.fillText(" + nb + ", " + Xlettre + ", " + Ylettre + ")");
 				}
 				hc_prec = hc;
-				indexOS++;
 				hc_tot += hc;
 			}
 
@@ -491,6 +504,9 @@
 		ctx.lineTo(Xlettre, 10);
 		ctx.closePath();
 		ctx.stroke();
+
+		ctx.font = "15px arial";
+		ctx.fillText("Total: "+nbTot, Xlettre +10 , Ylettre - hauteur/2);
 
 		if (largeur < 5) {
 			ctx.beginPath();
