@@ -74,7 +74,6 @@
 
 					var lastDate = new Date(Math.max.apply(null, tab['dates']));
 					var lastDateFR = lastDate.getDate() + "/" + (lastDate.getMonth() +1) +"/" + lastDate.getFullYear();
-					repr += "<li>";
 					repr += "<div class='row tree" + niv + "'>";
 					repr += "<div class='col-xs-5 col-sm-5 col-md-5' >" + index + "</div>";
 					if (tab['affiche']==1) {
@@ -134,7 +133,6 @@
 				Array.prototype.push.apply(dates, tab['dates']);
 				// console.log("on au total "+sizeof(dates)+" date");
 				if (!index.match("(s_)")) {
-					repr += "</li>";
 
 					repr += "<div style='display:none;border:0px blue solid' id='divcanvas" + idHtml + "'>";
 					repr += "<div class='row'>";
@@ -249,6 +247,7 @@
 		idDessin = id;
 		var divCanvas = getElement("divcanvas" + id);
 		divCanvas.style.display = 'block';
+		
 
 		var monCanvas = getElement("canvas" + id);
 		var ctx = monCanvas.getContext("2d");
