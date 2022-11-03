@@ -39,7 +39,7 @@
 					<div class="col-sm-4 col-md-4 col-xs-4">
 						<input type="hidden" name="obj_numero" />
 						No&nbsp;:&nbsp;<span style="font-size: 1.5em" id='obj_numero'></span>
-						<span  id="obj_id_modif" style="color:black; font-size: 0.5em; text-align: left;"></span>
+						<!--<span  id="obj_id_modif" style="color:black; font-size: 0.5em; text-align: left;"></span>-->
 					</div>
 					<div class="col-sm-8 col-md-8 col-xs-8">
 					<? if ($infAppli['ADMIN']) { ?>

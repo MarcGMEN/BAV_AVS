@@ -29,7 +29,8 @@ if ($GET_a == "C") {
 
                 $fiche['obj_modif_data'] = 1;
                 $fiche['obj_modif_vendeur'] = 1;
-
+                $fiche['obj_modif_stock'] = 1;
+                
                 $fiche['obj_date_depot'] = date('y-m-d H:i:s');
 
                 //$row['obj_date_depot_FR'] = formateDateMYSQLtoFR($row['obj_date_depot'], true);

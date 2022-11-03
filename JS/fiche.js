@@ -297,7 +297,7 @@ function display_fiche(val) {
         if (val['obj_etat'] == "INIT") {
             getElement("tdBtnSup").style.display = 'block';
             document.ficheForm.buttonValideFiche.innerHTML = "Modifier";
-            val['obj_etat_libelle'] = "Demande initiée par le vendeur le [" + formatDate(val['obj_date_depot'], true) + "]";
+            val['obj_etat_libelle'] = "Demande initiée par le vendeur <br/>le [" + formatDate(val['obj_date_depot'], true) + "]";
             document.ficheForm.obj_prix_vente.disabled = true
 
             if (ADMIN) {
@@ -324,7 +324,7 @@ function display_fiche(val) {
             document.ficheForm.obj_prix_vente.value = val['obj_prix_depot'];
             document.ficheForm.obj_prix_vente.disabled = true
 
-            val['obj_etat_libelle'] = "Demande confirmée le [" + formatDate(val['obj_date_depot'], true) + "]";
+            val['obj_etat_libelle'] = "Demande confirmée<br/>le [" + formatDate(val['obj_date_depot'], true) + "]";
         }
         // etat STOCK
         if (val['obj_etat'] == "STOCK") {
@@ -404,9 +404,9 @@ function display_fiche(val) {
 
 
             if (val['obj_etat'] == "RENDU") {
-                val['obj_etat_libelle'] = "Rendu au vendeur le [" + formatDate(val['obj_date_retour']) + "]";
+                val['obj_etat_libelle'] = "Rendu au vendeur<br/>le [" + formatDate(val['obj_date_retour']) + "]";
             } else {
-                val['obj_etat_libelle'] = "Payé au vendeur le [" + formatDate(val['obj_date_retour']) + "]";
+                val['obj_etat_libelle'] = "Payé au vendeur<br/>le [" + formatDate(val['obj_date_retour']) + "]";
 
                 getElement("fieldSetAcheteur").style.display = 'block';
 
