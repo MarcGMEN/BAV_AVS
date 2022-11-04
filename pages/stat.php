@@ -66,7 +66,7 @@
 		colorEtat['RESTI_' + anneeBavSuvi] = 'DARKRED';
 		var monCanvas = getElement("canvasSuivi1");
 		var ctx = monCanvas.getContext("2d");
-		monCanvas.width = screen.width * 0.7;
+		monCanvas.width = screen.width * 0.83;
 
 		ctx.beginPath();
 		ctx.font = "15px arial";
@@ -231,7 +231,7 @@
 		var index=0;
 		for (var numeroBAV in val) {
 			var strCheck="";
-			if (numeroBAV!= anneeBavActive) {
+			if (numeroBAV!= anneeBav) {
 				repr+="<input type='radio'  name='annee_statSuvi' id='ck"+numeroBAV+"' value='"+numeroBAV+"' onchange='addStatsuvi(this.value)' "+strCheck+" >"+numeroBAV+"</input>";
 				lastBAV=numeroBAV;
 			}
