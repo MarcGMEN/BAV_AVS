@@ -246,6 +246,7 @@
 		var repr = "";
 		var lastBAV = "";
 		var index = 0;
+		repr += "<input type='radio'  name='annee_statSuvi' id='ck" + numeroBAV + "' value='" + numeroBAV + "' onchange='addStatsuvi(\"\")' >Rien</input>";
 		for (var numeroBAV in val) {
 			var strCheck = "";
 			if (numeroBAV != anneeBav) {
