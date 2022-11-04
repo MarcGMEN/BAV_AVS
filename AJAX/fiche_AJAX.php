@@ -1289,3 +1289,8 @@ function return_fiches_express()
 {
     return  getFiches('obj_numero', "asc", []);
 }
+
+
+function return_nbFichesByDay($numeroBAV) {
+    return getNbFichesByDay($numeroBAV);
+}

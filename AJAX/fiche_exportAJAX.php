@@ -23,5 +23,6 @@ sajax_export(
     "action_reMelConfirme",
     "return_fichesModif",
     "action_makeLibreFiche",
-    "action_makeHtml"
+    "action_makeHtml",
+    "return_nbFichesByDay"
 );

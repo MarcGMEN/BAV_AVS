@@ -56,11 +56,11 @@ function countBy($tabSel, $selS, $search = "=", $valS, $etats = "'STOCK','RENDU'
     $requete2 .= " and obj_etat in ($etats)";
     foreach ($tabSel as $key => $val) {
         if ($key == "obj_search") {
-            $requete2 .= " and (obj_modele like '%".addslashes($val)."%' ";
-            $requete2 .= " or obj_description like '%".addslashes($val)."%' ";
-            $requete2 .= " or obj_couleur like '%".addslashes($val)."%') ";
+            $requete2 .= " and (obj_modele like '%" . addslashes($val) . "%' ";
+            $requete2 .= " or obj_description like '%" . addslashes($val) . "%' ";
+            $requete2 .= " or obj_couleur like '%" . addslashes($val) . "%') ";
         } elseif ($key && $val != "*") {
-            $requete2 .= " and $key = '".addslashes($val)."' ";
+            $requete2 .= " and $key = '" . addslashes($val) . "' ";
         }
     }
     if ($selS && $valS != "*") {
@@ -87,7 +87,7 @@ function makeNumeroFiche($base, &$objet, $avecRandom = false)
 {
     $objet['obj_numero'] = getFicheLibre($base);
     // creation de idmodif
-    makeIdModif($objet,$avecRandom);
+    makeIdModif($objet, $avecRandom);
 }
 
 function makeIdModif(&$objet, $avecRandom = false)
@@ -172,11 +172,11 @@ function getFiches($order, $sens, $tabSel)
     $requete2 .= " where obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "'";
     foreach ($tabSel as $key => $val) {
         if ($key == "obj_search") {
-            $requete2 .= " and (obj_modele like '%".addslashes($val)."%' ";
-            $requete2 .= " or obj_description like '%".addslashes($val)."%' ";
-            $requete2 .= " or obj_couleur like '%".addslashes($val)."%') ";
+            $requete2 .= " and (obj_modele like '%" . addslashes($val) . "%' ";
+            $requete2 .= " or obj_description like '%" . addslashes($val) . "%' ";
+            $requete2 .= " or obj_couleur like '%" . addslashes($val) . "%') ";
         } elseif ($key && $val != "*") {
-            $requete2 .= " and $key = '".addslashes($val)."' ";
+            $requete2 .= " and $key = '" . addslashes($val) . "' ";
         }
     }
     if ($order != null) {
@@ -187,7 +187,7 @@ function getFiches($order, $sens, $tabSel)
         }
     }
     error_log("[getFiches] $requete2");
-    
+
     $result = $GLOBALS['mysqli']->query($requete2);
     if ($result) {
         $tab = array();
@@ -201,6 +201,45 @@ function getFiches($order, $sens, $tabSel)
     }
     return $tab;
 }
+
+function getNbFichesByDay($numeroBav)
+{
+    $paramBav = getOneParemetre($numeroBav);
+
+    $paramBav['par_date_debut_depot'];
+    $paramBav['par_date_debut_vente'];
+    $paramBav['par_date_fin_bav'];
+    $dateTmp = strtotime($paramBav['par_date_fin_bav']);
+
+    $finplus1 = mktime(0, 0, 0, date('m', $dateTmp), date('d', $dateTmp) + 1, date('Y', $dateTmp));
+
+    $tabSearch = array('STOCK' => 'obj_date_depot', 'VENDU' => 'obj_date_vente');
+
+    $tab = array();
+
+    foreach ($tabSearch as $key => $value) {
+
+        $requete2 = "SELECT count(*),DATE_FORMAT($value,\"%Y-%m-%d %H\") as $key ";
+        $requete2 .= "from bav_objet ";
+        $requete2 .= "where obj_numero_bav = '$numeroBav' ";
+        $requete2 .= "and $value between '" . $paramBav['par_date_debut_depot'] . "' and '" . date('Y-m-d', $finplus1) . "' ";
+        $requete2 .= "group by 2 ";
+        error_log($requete2);
+
+
+        $result = $GLOBALS['mysqli']->query($requete2);
+        if ($result) {
+            while ($row = $result->fetch_assoc()) {
+                $tab[$row[$key]][$key] = $row['count(*)'];
+            }
+            $result->close();
+        } else {
+            throw new Exception("getNbFichesByDay' [$requete2] " . $GLOBALS['mysqli']->error);
+        }
+    }
+    return $tab;
+}
+
 
 function getFichesModif($type = "data")
 {
