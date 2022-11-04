@@ -210,27 +210,33 @@ function getNbFichesByDay($numeroBav)
     $paramBav['par_date_debut_vente'];
     $paramBav['par_date_fin_bav'];
     $dateTmp = strtotime($paramBav['par_date_fin_bav']);
+    $datesJ = array(date("Y-m-d", strtotime($paramBav['par_date_debut_depot'])),date("Y-m-d", strtotime($paramBav['par_date_debut_vente'])),date("Y-m-d", strtotime($paramBav['par_date_fin_bav'])));
 
     $finplus1 = mktime(0, 0, 0, date('m', $dateTmp), date('d', $dateTmp) + 1, date('Y', $dateTmp));
 
-    $tabSearch = array('STOCK' => 'obj_date_depot', 'VENDU' => 'obj_date_vente');
+    $tabSearch = array('DEPOT' => 'obj_date_depot', 'VENTE' => 'obj_date_vente', 'RESTI' => 'obj_date_retour');
 
     $tab = array();
 
     foreach ($tabSearch as $key => $value) {
 
-        $requete2 = "SELECT count(*),DATE_FORMAT($value,\"%Y-%m-%d %H\") as $key ";
+        $keyRow=$key."_".$numeroBav;
+        $requete2 = "SELECT count(*),$value as $keyRow " ;
+        //$requete2 = "SELECT count(*),DATE_FORMAT($value,\"%Y-%m-%d %H\") as $key ";
         $requete2 .= "from bav_objet ";
         $requete2 .= "where obj_numero_bav = '$numeroBav' ";
-        $requete2 .= "and $value between '" . $paramBav['par_date_debut_depot'] . "' and '" . date('Y-m-d', $finplus1) . "' ";
+        $requete2 .= " and obj_etat IN ('STOCK','VENDU','PAYE','RENDU') ";
+        $requete2 .= " and $value between '" . $paramBav['par_date_debut_depot'] . "' and '" . date('Y-m-d', $finplus1) . "' ";
+        // $requete2 .= " and $value >= '" . $paramBav['par_date_debut_depot'] . "' ";
         $requete2 .= "group by 2 ";
-        error_log($requete2);
+        // error_log($requete2);
 
 
         $result = $GLOBALS['mysqli']->query($requete2);
         if ($result) {
             while ($row = $result->fetch_assoc()) {
-                $tab[$row[$key]][$key] = $row['count(*)'];
+                $keyTab= array_search(date("Y-m-d",strtotime($row[$keyRow])), $datesJ)." ".date("H",strtotime($row[$keyRow]));
+                $tab[$keyTab][$keyRow] += $row['count(*)'];
             }
             $result->close();
         } else {

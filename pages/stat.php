@@ -3,14 +3,18 @@
 	var sens = "asc";
 	var tabSel = {};
 	var anneeBav = '<?= $infAppli['numero_bav'] ?>';
+	var anneeBavActive = '<?= $infAppli['numero_bav_active'] ?>';
+	var anneeBavSuvi = '';
+	// var anneeBavActive = '2021';
 
 	function initPage() {
 		if (ADMIN) {
 
-			// x_return_nbFichesByDay(anneeBav, display_statByAnneeRef);
-			// x_return_nbFichesByDay('2021', display_statByAnneeBis);
+			x_return_nbFichesByDay(anneeBav, display_statByAnneeRef);
+
 
 			x_return_allParametre(display_parametres);
+			x_return_allParametre(display_parametres_statSuivi);
 
 			// recupereatio de la liste des selections
 			x_return_enum('bav_objet', 'obj_type', display_list_type);
@@ -18,7 +22,7 @@
 			x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);
 
 			// retour de stat client
-			x_return_statClient(display_statClient);
+			// x_return_statClient(display_statClient);
 
 			// retour de stat de delais
 			x_return_statDelais(display_formulaire);
@@ -50,83 +54,123 @@
 		}
 	}
 
-	var pasHourG=0;
+	var maxY = 1500;
+
 	function display_statByAnneeBis(val) {
 		var colorEtat = [];
-		colorEtat['STOCK'] = 'ORANGE';
-		colorEtat['VENDU'] = 'GREEN';
+		colorEtat['DEPOT_' + anneeBav] = 'ORANGE';
+		colorEtat['VENTE_' + anneeBav] = 'GREEN';
+		colorEtat['RESTI_' + anneeBav] = 'RED';
+		colorEtat['DEPOT_' + anneeBavSuvi] = 'DARKORANGE';
+		colorEtat['VENTE_' + anneeBavSuvi] = 'DARKGREEN';
+		colorEtat['RESTI_' + anneeBavSuvi] = 'DARKRED';
 		var monCanvas = getElement("canvasSuivi1");
 		var ctx = monCanvas.getContext("2d");
 		monCanvas.width = screen.width * 0.7;
 
 		ctx.beginPath();
 		ctx.font = "15px arial";
-		ctx.fillText("2021",10,100);
+		ctx.fillText(anneeBav + " vs " + anneeBavSuvi, monCanvas.width / 2, 20);
 		ctx.stroke();
 		ctx.closePath();
-		
-		display_statByAnnee(val,colorEtat, monCanvas,ctx)
+
+		for (var i = 0; i <= 1500; i += 250) {
+			ctx.beginPath();
+			ctx.lineWidth = "1";
+			ctx.strokeStyle = "GREY";
+			var Y2 = monCanvas.height - (i * monCanvas.height / maxY) - 10 ;
+			ctx.moveTo(0, Y2 );
+			ctx.lineTo(monCanvas.width, Y2 );
+			ctx.fillText(i, 5, Y2);
+			ctx.stroke();
+			ctx.closePath();
+		}
+
+
+		display_statByAnnee(val, colorEtat, monCanvas, ctx)
 	}
+
+	var valRef = [];
 
 	function display_statByAnneeRef(val) {
-		var monCanvas = getElement("canvasSuivi");
-		var ctx = monCanvas.getContext("2d");
-		monCanvas.width = screen.width * 0.7;
-		
-		var colorEtat = [];
-		colorEtat['STOCK'] = 'BLUE';
-		colorEtat['VENDU'] = 'GREEN';
 
-		ctx.beginPath();
-		ctx.font = "15px arial";
-		ctx.fillText(anneeBav,10,100);
-		ctx.stroke();
-		ctx.closePath();
-		
-		
-		display_statByAnnee(val,colorEtat, monCanvas, ctx)
-
+		valRef = val;
+		x_return_nbFichesByDay(anneeBavSuvi, display_statByAnneeBis);
 	}
 
-	function display_statByAnnee(val, colorEtat, monCanvas,ctx) {
-		console.log(val);
-		
-		ctx.font = "15px arial";
-		
-		var countEtat = [];
-		countEtat['STOCK'] = 0;
-		countEtat['VENDU'] = 0;
-
-		var countEtatOld = [];
-		countEtatOld['STOCK'] = 0;
-		countEtatOld['VENDU'] = 0;
-
-		var Xdebut = 0;
-		var maxY = 1500;
-		console.log();
-		var hauteurCanvas = monCanvas.height;
-		var largeurCanvas = monCanvas.width;
+	function display_statByAnnee(val, colorEtat, monCanvas, ctx) {
 
 		if (sizeof(val) > 0) {
-			var pasHour = largeurCanvas / sizeof(val);
-			console.log(pasHour, largeurCanvas);
-			for (var i in val) {
+			if (sizeof(valRef) > 0) {
+				for (var date in val) {
+					if (valRef[date]) {
+						// console.log("ajout de " + date);
+						for (var etatRef in valRef[date]) {
+							val[date][etatRef] = valRef[date][etatRef];
+						}
+					}
+				}
+				for (var date in valRef) {
+					if (!val[date]) {
+						// console.log("nouvelle " + date);
+						val[date] = valRef[date];
+					}
+				}
+			}
+		} else if (sizeof(valRef) > 0) {
+			val = valRef;
+		}
+		// console.log(val);
 
-				var date = i;
-				var tabEtat = val[i];
+		ctx.font = "15px arial";
+
+		var countEtat = [];
+		countEtat['DEPOT_' + anneeBav] = 0;
+		countEtat['VENTE_' + anneeBav] = 0;
+		countEtat['RESTI_' + anneeBav] = 0;
+		countEtat['DEPOT_' + anneeBavSuvi] = 0;
+		countEtat['VENTE_' + anneeBavSuvi] = 0;
+		countEtat['RESTI_' + anneeBavSuvi] = 0;
+
+		var countEtatOld = [];
+		countEtatOld['DEPOT_' + anneeBav] = 0;
+		countEtatOld['VENTE_' + anneeBav] = 0;
+		countEtatOld['RESTI_' + anneeBav] = 0;
+		countEtatOld['DEPOT_' + anneeBavSuvi] = 0;
+		countEtatOld['VENTE_' + anneeBavSuvi] = 0;
+		countEtatOld['RESTI_' + anneeBavSuvi] = 0;
+		
+		var Xdebut = 0;
+
+		var keysSort = Object.keys(val).sort()
+		// console.log(keysSort);
+		var hauteurCanvas = monCanvas.height-10;
+		var largeurCanvas = monCanvas.width;
+		var jourOld = 0;
+		if (sizeof(keysSort) > 0) {
+			var pasHour = largeurCanvas / sizeof(val);
+			for (var date in keysSort) {
+
+				var tabEtat = val[keysSort[date]];
+				var jour = keysSort[date].split(" ")[0];
+				var heure = keysSort[date].split(" ")[1];
+				// console.log(jour, date);
 
 				for (var etat in tabEtat) {
 					var value = tabEtat[etat];
+					// console.log("cpt "+etat);
 					countEtat[etat] += parseInt(value);
 				}
+				// console.log(countEtat);
 				for (var etatLu in countEtat) {
+
 					ctx.beginPath();
 					ctx.lineWidth = "2";
 					ctx.strokeStyle = colorEtat[etatLu];
 					var Y = countEtatOld[etatLu] * hauteurCanvas / maxY;
 					ctx.moveTo(Xdebut, hauteurCanvas - Y);
 
-					// console.log(date , etatLu, countEtatOld[etatLu], Xdebut, 200-Y2);
+					// console.log(keysSort[date], etatLu, countEtatOld[etatLu], Xdebut, 200 - Y);
 					var Y2 = countEtat[etatLu] * hauteurCanvas / maxY;
 					ctx.lineTo(Xdebut + pasHour, hauteurCanvas - Y2);
 					// console.log("=>", countEtat[etatLu], Xdebut+pasHour,200-Y2)
@@ -135,16 +179,72 @@
 
 					countEtatOld[etatLu] = countEtat[etatLu];
 				}
+
+				if (jour != jourOld) {
+					ctx.beginPath();
+					ctx.lineWidth = "1";
+					ctx.font = "11px arial";
+					ctx.strokeStyle = "grey"
+					ctx.moveTo(Xdebut, hauteurCanvas);
+					ctx.fillText("J"+jour, Xdebut +10 , 20);
+					// console.log(jour, countEtatOld[etatLu], Xdebut, 200 - Y2);
+					ctx.lineTo(Xdebut, 0);
+					ctx.stroke();
+					ctx.closePath();
+				}
+
+				ctx.beginPath();
+					ctx.lineWidth = "1";
+					ctx.strokeStyle = "grey"
+					ctx.font = "9px arial";
+					ctx.moveTo(Xdebut, hauteurCanvas);
+					ctx.lineTo(Xdebut, hauteurCanvas - 10);
+					ctx.fillText(heure, Xdebut , monCanvas.height);
+					ctx.stroke();
+					ctx.closePath();
+				jourOld = jour;
+
 				Xdebut += pasHour;
+
 			}
 			for (var etatLu in countEtat) {
-				var Y2 = countEtat[etatLu] * hauteurCanvas / maxY;
+				var Y2 =  hauteurCanvas -  (countEtat[etatLu] * hauteurCanvas / maxY) -5 ;
+				if (etatLu.startsWith('RESTI')) {
+					Y2+=10;
+				}
+				ctx.fillStyle = colorEtat[etatLu];
 				ctx.beginPath();
-				ctx.fillText(etatLu+" ("+countEtat[etatLu]+")", Xdebut - 100, hauteurCanvas - Y2);
+				ctx.font = "12px arial";
+				// console.log(etatLu + " (" + countEtat[etatLu] + ")", Xdebut - 120, Y2);
+				ctx.fillText(etatLu + " (" + countEtat[etatLu] + ")", Xdebut - 120, Y2);
 				ctx.stroke();
 				ctx.closePath();
 			}
 		}
+	}
+
+	function display_parametres_statSuivi(val){
+		console.log(val);
+		var divCheckbox = getElement("annee_statSuvi");
+		var repr="";
+		var lastBAV="";
+		var index=0;
+		for (var numeroBAV in val) {
+			var strCheck="";
+			if (numeroBAV!= anneeBavActive) {
+				repr+="<input type='radio'  name='annee_statSuvi' id='ck"+numeroBAV+"' value='"+numeroBAV+"' onchange='addStatsuvi(this.value)' "+strCheck+" >"+numeroBAV+"</input>";
+				lastBAV=numeroBAV;
+			}
+		}
+		divCheckbox.innerHTML=repr;
+		getElement("ck"+lastBAV).checked=true;
+
+		addStatsuvi(lastBAV);
+	}
+
+	function addStatsuvi(value) { 
+		anneeBavSuvi=value;
+		x_return_nbFichesByDay(anneeBav, display_statByAnneeRef);
 	}
 
 	function display_parametres(val) {
@@ -299,8 +399,11 @@
 <select id="annee_stat" onchange="changeNumeroBAV(this.value)"></select>
 
 
-<!-- <canvas id="canvasSuivi"  height="200">Votre navigateur est trop vieux</canvas>
-<canvas id="canvasSuivi1"  height="200">Votre navigateur est trop vieux</canvas> -->
+<div>
+	Choix de la BAV a comparer par rapport à <?= $infAppli['numero_bav']?> :
+	<span id='annee_statSuvi'></span>
+	<canvas id="canvasSuivi1" height="200">Votre navigateur est trop vieux</canvas>
+</div>
 
 <fieldset class=fiche>
 	<legend class=titreFiche>Stat diverses</legend>
