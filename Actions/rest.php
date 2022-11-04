@@ -16,6 +16,9 @@ require_once "../Commun/html2pdf.php";
 
 $INFO_APPLI = return_infoAppli();
 
+if  (!isset($GET_a)) {
+    $GET_a="VIDE";
+}
 add_counter_action("rest.php", $GET_a);
 // demande de confirmation de la fiche;
 if ($GET_a == "C") {

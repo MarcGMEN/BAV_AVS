@@ -5,6 +5,7 @@
 	var anneeBav = '<?= $infAppli['numero_bav'] ?>';
 	var anneeBavActive = '<?= $infAppli['numero_bav_active'] ?>';
 	var anneeBavSuvi = '';
+	var cumul = 1;
 	// var anneeBavActive = '2021';
 
 	function initPage() {
@@ -74,13 +75,23 @@
 		ctx.stroke();
 		ctx.closePath();
 
-		for (var i = 0; i <= 1500; i += 250) {
+		var pasGrille=0;
+		if (cumul) {
+			maxY=1500;
+			pasGrille=250;
+		}
+		else {
+			maxY=300;
+			pasGrille=50;
+		}
+
+		for (var i = 0; i <= maxY; i += pasGrille) {
 			ctx.beginPath();
 			ctx.lineWidth = "1";
 			ctx.strokeStyle = "GREY";
-			var Y2 = monCanvas.height - (i * monCanvas.height / maxY) - 10 ;
-			ctx.moveTo(0, Y2 );
-			ctx.lineTo(monCanvas.width, Y2 );
+			var Y2 = monCanvas.height - (i * monCanvas.height / maxY) - 10;
+			ctx.moveTo(0, Y2);
+			ctx.lineTo(monCanvas.width, Y2);
 			ctx.fillText(i, 5, Y2);
 			ctx.stroke();
 			ctx.closePath();
@@ -139,12 +150,12 @@
 		countEtatOld['DEPOT_' + anneeBavSuvi] = 0;
 		countEtatOld['VENTE_' + anneeBavSuvi] = 0;
 		countEtatOld['RESTI_' + anneeBavSuvi] = 0;
-		
+
 		var Xdebut = 0;
 
 		var keysSort = Object.keys(val).sort()
 		// console.log(keysSort);
-		var hauteurCanvas = monCanvas.height-10;
+		var hauteurCanvas = monCanvas.height - 10;
 		var largeurCanvas = monCanvas.width;
 		var jourOld = 0;
 		if (sizeof(keysSort) > 0) {
@@ -159,7 +170,11 @@
 				for (var etat in tabEtat) {
 					var value = tabEtat[etat];
 					// console.log("cpt "+etat);
-					countEtat[etat] += parseInt(value);
+					if (cumul) {
+						countEtat[etat] += parseInt(value);
+					} else {
+						countEtat[etat] = parseInt(value);
+					}
 				}
 				// console.log(countEtat);
 				for (var etatLu in countEtat) {
@@ -186,7 +201,7 @@
 					ctx.font = "11px arial";
 					ctx.strokeStyle = "grey"
 					ctx.moveTo(Xdebut, hauteurCanvas);
-					ctx.fillText("J"+jour, Xdebut +10 , 20);
+					ctx.fillText("J" + jour, Xdebut + 10, 20);
 					// console.log(jour, countEtatOld[etatLu], Xdebut, 200 - Y2);
 					ctx.lineTo(Xdebut, 0);
 					ctx.stroke();
@@ -194,56 +209,58 @@
 				}
 
 				ctx.beginPath();
-					ctx.lineWidth = "1";
-					ctx.strokeStyle = "grey"
-					ctx.font = "9px arial";
-					ctx.moveTo(Xdebut, hauteurCanvas);
-					ctx.lineTo(Xdebut, hauteurCanvas - 10);
-					ctx.fillText(heure, Xdebut , monCanvas.height);
-					ctx.stroke();
-					ctx.closePath();
+				ctx.lineWidth = "1";
+				ctx.strokeStyle = "grey"
+				ctx.font = "9px arial";
+				ctx.moveTo(Xdebut, hauteurCanvas);
+				ctx.lineTo(Xdebut, hauteurCanvas - 10);
+				ctx.fillText(heure, Xdebut, monCanvas.height);
+				ctx.stroke();
+				ctx.closePath();
 				jourOld = jour;
 
 				Xdebut += pasHour;
 
 			}
-			for (var etatLu in countEtat) {
-				var Y2 =  hauteurCanvas -  (countEtat[etatLu] * hauteurCanvas / maxY) -5 ;
-				if (etatLu.startsWith('RESTI')) {
-					Y2+=10;
+			if (cumul) {
+				for (var etatLu in countEtat) {
+					var Y2 = hauteurCanvas - (countEtat[etatLu] * hauteurCanvas / maxY) - 5;
+					if (etatLu.startsWith('RESTI')) {
+						Y2 += 10;
+					}
+					ctx.fillStyle = colorEtat[etatLu];
+					ctx.beginPath();
+					ctx.font = "12px arial";
+					// console.log(etatLu + " (" + countEtat[etatLu] + ")", Xdebut - 120, Y2);
+					ctx.fillText(etatLu + " (" + countEtat[etatLu] + ")", Xdebut - 120, Y2);
+					ctx.stroke();
+					ctx.closePath();
 				}
-				ctx.fillStyle = colorEtat[etatLu];
-				ctx.beginPath();
-				ctx.font = "12px arial";
-				// console.log(etatLu + " (" + countEtat[etatLu] + ")", Xdebut - 120, Y2);
-				ctx.fillText(etatLu + " (" + countEtat[etatLu] + ")", Xdebut - 120, Y2);
-				ctx.stroke();
-				ctx.closePath();
 			}
 		}
 	}
 
-	function display_parametres_statSuivi(val){
+	function display_parametres_statSuivi(val) {
 		console.log(val);
 		var divCheckbox = getElement("annee_statSuvi");
-		var repr="";
-		var lastBAV="";
-		var index=0;
+		var repr = "";
+		var lastBAV = "";
+		var index = 0;
 		for (var numeroBAV in val) {
-			var strCheck="";
-			if (numeroBAV!= anneeBav) {
-				repr+="<input type='radio'  name='annee_statSuvi' id='ck"+numeroBAV+"' value='"+numeroBAV+"' onchange='addStatsuvi(this.value)' "+strCheck+" >"+numeroBAV+"</input>";
-				lastBAV=numeroBAV;
+			var strCheck = "";
+			if (numeroBAV != anneeBav) {
+				repr += "<input type='radio'  name='annee_statSuvi' id='ck" + numeroBAV + "' value='" + numeroBAV + "' onchange='addStatsuvi(this.value)' " + strCheck + " >" + numeroBAV + "</input>";
+				lastBAV = numeroBAV;
 			}
 		}
-		divCheckbox.innerHTML=repr;
-		getElement("ck"+lastBAV).checked=true;
+		divCheckbox.innerHTML = repr;
+		getElement("ck" + lastBAV).checked = true;
 
 		addStatsuvi(lastBAV);
 	}
 
-	function addStatsuvi(value) { 
-		anneeBavSuvi=value;
+	function addStatsuvi(value) {
+		anneeBavSuvi = value;
 		x_return_nbFichesByDay(anneeBav, display_statByAnneeRef);
 	}
 
@@ -400,8 +417,15 @@
 
 
 <div>
-	Choix de la BAV a comparer par rapport à <?= $infAppli['numero_bav']?> :
-	<span id='annee_statSuvi'></span>
+	<div class="row">
+		<div class="col-sm-9 col-xs-9">
+			Choix de la BAV a comparer par rapport à <?= $infAppli['numero_bav'] ?> :
+			<span id='annee_statSuvi'></span>
+		</div>
+		<div class="col-sm-3 col-xs-3" style='text-align:right'>
+			<input type=checkbox onchange='cumul=cumul == 1 ? 0 : 1;x_return_nbFichesByDay(anneeBav, display_statByAnneeRef);'>Cumul</input>
+		</div>
+	</div>
 	<canvas id="canvasSuivi1" height="200">Votre navigateur est trop vieux</canvas>
 </div>
 

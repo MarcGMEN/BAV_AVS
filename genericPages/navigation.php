@@ -21,6 +21,7 @@ $tabNavAll = [
     ],
     'reglements.php' => [
         'libelle' => 'Réglements',
+        'mode' => 'B',
     ],
     'faq.php' => [
         'libelle' => 'F.A.Q.',
