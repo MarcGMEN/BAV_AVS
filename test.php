@@ -11,12 +11,8 @@
 
 //setcookie('NUMERO_BAV_BIS', date('Y'), time() + (86400 * 30), '/') or die('unable to create cookie');
 
-require_once 'Commun/connect.php';
 require_once 'config.ini';
 require_once 'Commun/commun_functions.php';
-require_once 'Commun/mail.php';
-
-include('vendor/phpqrcode/qrlib.php');
 
 //QRcode::png('PHP QR Code :)');
 // echo "test.php";
@@ -25,26 +21,25 @@ include('vendor/phpqrcode/qrlib.php');
 //print_r($mysqli);
 //echo substr(hash_hmac('md5', 700, 'avs442019'), 0, 5);;
 
-$tabAJAX =file_get_contents("AJAX/parametre_AJAX.php");
+// $tabAJAX =file_get_contents("AJAX/parametre_AJAX.php");
 
-$contents = file_get_contents($file);
-// escape special characters in the query
-$pattern = preg_quote("function ", '/');
-// finalise the regular expression, matching the whole line
-$pattern = "/^$pattern.*\$/m";
-// search, and store all matching occurences in $matches
-$tabFunction=array();
-$i=0;
-if(preg_match_all($pattern, $tabAJAX, $matches)){
-   foreach (preg_replace("(function )","", $matches[0]) as $val) {
-        $tabVal=explode('(', $val);
-        $tabFunction[$i++]=$tabVal[0]."()";
-   }
-}
-print_r($tabFunction);
+// $contents = file_get_contents($file);
+// // escape special characters in the query
+// $pattern = preg_quote("function ", '/');
+// // finalise the regular expression, matching the whole line
+// $pattern = "/^$pattern.*\$/m";
+// // search, and store all matching occurences in $matches
+// $tabFunction=array();
+// $i=0;
+// if(preg_match_all($pattern, $tabAJAX, $matches)){
+//    foreach (preg_replace("(function )","", $matches[0]) as $val) {
+//         $tabVal=explode('(', $val);
+//         $tabFunction[$i++]=$tabVal[0]."()";
+//    }
+// }
+// print_r($tabFunction);
 
 
-$random = rand($base, $base+2000);
 //echo password_hash("BAV2019", PASSWORD_DEFAULT);
 // echo "412 2021 random => <br/>".hash_hmac('md5', "412"."2021".$random, 'avs44'.$_COOKIE['NUMERO_BAV']);
 // echo "<br/>";
@@ -69,5 +64,6 @@ $random = rand($base, $base+2000);
 //         return false;
 //     }
 
+echo getIP();
 ?>
 </pre>

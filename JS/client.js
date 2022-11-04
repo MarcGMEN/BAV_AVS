@@ -25,7 +25,7 @@ function display_parametres(val) {
     select.options[select.options.length] = new Option("Choix", "*");
     for (index in val) {
         select.options[select.options.length] = new Option(val[index]['obj_numero_bav'], val[index]['obj_numero_bav']);
-        if ( anneeBav == index) {
+        if (anneeBav == index) {
             select.options[select.options.length - 1].selected = true;
         }
     }
@@ -107,7 +107,7 @@ function display_client(val) {
     }
 }
 
-function unloadPage() { }
+function unloadPage() {}
 
 // ***********************************************************
 // ***********************************************************
@@ -157,7 +157,7 @@ function display_infoClientVendeur(val) {
     if (val && val['cli_id'] != document.clientForm.cli_id.value) {
         alertModalWarn("Mel deja connu pour :" + val['cli_nom']);
         x_return_oneClient(document.clientForm.cli_id.value, display_client);
-    } else { }
+    } else {}
 }
 /**
  * recherche par nim si pas encore trouve, si pas de mel
@@ -179,7 +179,7 @@ function display_infoClientVendeurName(val) {
     if (val['cli_id'] && val['cli_id'] != document.clientForm.cli_id.value) {
         alertModalWarn("Nom deja connu [" + val['cli_id_modif'] + "].");
         x_return_oneClient(document.clientForm.cli_id.value, display_client);
-    } else { }
+    } else {}
 }
 
 // bouton ANNULER
@@ -256,32 +256,34 @@ function display_fiches(val, idElement) {
     var repr = "<table width='100%'>";
     for (index in val) {
         if (!isNaN(index)) {
-            repr += "<tr class='tabl0 link' ";
-            repr += " title='accès à la fiche " + val[index]['obj_numero'] + "' ";
-            repr += " onclick='goTo(\"fiche.php\",\"modif\"," + val[index]['obj_id'] + ",null)'>";
-            repr += "<td width=10% align=center>";
-            repr += val[index]['obj_numero'];
-            repr += "</td>";
-            repr += "<td class='maskmobile' width=20%>";
-            repr += val[index]['obj_type'];
-            repr += "</td>";
-            repr += "<td class='maskmobile' width=20% >";
-            repr += val[index]['obj_public'];
-            repr += "</td>";
-            repr += "<td width=30% >";
-            repr += val[index]['obj_marque'];
-            repr += "</td>";
-            repr += "<td width=10% >";
-            if (val[index]['obj_prix_vente'] == 0) {
-                repr += "<span style='color:orange'>" + val[index]['obj_prix_depot'] + "</span>";
-            } else {
-                repr += val[index]['obj_prix_vente'];
+            if (val[index]['obj_numero'] < 5000 || (val[index]['obj_numero'] >= 5000 && ADMIN)) {
+                repr += "<tr class='tabl0 link' ";
+                repr += " title='accès à la fiche " + val[index]['obj_numero'] + "' ";
+                repr += " onclick='goTo(\"fiche.php\",\"modif\"," + val[index]['obj_id'] + ",null)'>";
+                repr += "<td width=10% align=center>";
+                repr += val[index]['obj_numero'];
+                repr += "</td>";
+                repr += "<td class='maskmobile' width=20%>";
+                repr += val[index]['obj_type'];
+                repr += "</td>";
+                repr += "<td class='maskmobile' width=20% >";
+                repr += val[index]['obj_public'];
+                repr += "</td>";
+                repr += "<td width=30% >";
+                repr += val[index]['obj_marque'];
+                repr += "</td>";
+                repr += "<td width=10% >";
+                if (val[index]['obj_prix_vente'] == 0) {
+                    repr += "<span style='color:orange'>" + val[index]['obj_prix_depot'] + "</span>";
+                } else {
+                    repr += val[index]['obj_prix_vente'];
+                }
+                repr += "</td>";
+                repr += "<td width=10% >";
+                repr += val[index]['obj_etat'];
+                repr += "</td>";
+                repr += "</tr>";
             }
-            repr += "</td>";
-            repr += "<td width=10% >";
-            repr += val[index]['obj_etat'];
-            repr += "</td>";
-            repr += "</tr>";
             total = total + 1;
         }
     }

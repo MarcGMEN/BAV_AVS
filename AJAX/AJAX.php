@@ -167,6 +167,7 @@ function add_counter_action($page, $modePage, $type="") {
     $cas['cas_navigateur']=getBrowser();
     $cas['cas_os']=getOSlight();
     $cas['cas_admin']=$INFO_APPLI['ADMIN'];
+    $cas['cas_ip']=getIp();
     insertCounterAction($cas);
 }
 
