@@ -424,7 +424,7 @@
 			<span id='annee_statSuvi'></span>
 		</div>
 		<div class="col-sm-3 col-xs-3" style='text-align:right'>
-			<input type=checkbox onchange='cumul=cumul == 1 ? 0 : 1;x_return_nbFichesByDay(anneeBav, display_statByAnneeRef);'>Cumul</input>
+			<input type=checkbox onchange='cumul=cumul == 1 ? 0 : 1;x_return_nbFichesByDay(anneeBav, display_statByAnneeRef);'> No cumul</input>
 		</div>
 	</div>
 	<canvas id="canvasSuivi1" height="200">Votre navigateur est trop vieux</canvas>
