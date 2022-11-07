@@ -75,14 +75,13 @@
 		ctx.stroke();
 		ctx.closePath();
 
-		var pasGrille=0;
+		var pasGrille = 0;
 		if (cumul) {
-			maxY=1500;
-			pasGrille=250;
-		}
-		else {
-			maxY=300;
-			pasGrille=50;
+			maxY = 1500;
+			pasGrille = 250;
+		} else {
+			maxY = 300;
+			pasGrille = 50;
 		}
 
 		for (var i = 0; i <= maxY; i += pasGrille) {
@@ -160,6 +159,7 @@
 		var jourOld = 0;
 		if (sizeof(keysSort) > 0) {
 			var pasHour = largeurCanvas / sizeof(val);
+
 			for (var date in keysSort) {
 
 				var tabEtat = val[keysSort[date]];
@@ -176,50 +176,105 @@
 						countEtat[etat] = parseInt(value);
 					}
 				}
-				// console.log(countEtat);
-				for (var etatLu in countEtat) {
-
+				if (jour != jourOld) {
 					ctx.beginPath();
-					ctx.lineWidth = "2";
-					ctx.strokeStyle = colorEtat[etatLu];
-					var Y = countEtatOld[etatLu] * hauteurCanvas / maxY;
-					ctx.moveTo(Xdebut, hauteurCanvas - Y);
-
-					// console.log(keysSort[date], etatLu, countEtatOld[etatLu], Xdebut, 200 - Y);
-					var Y2 = countEtat[etatLu] * hauteurCanvas / maxY;
-					ctx.lineTo(Xdebut + pasHour, hauteurCanvas - Y2);
-					// console.log("=>", countEtat[etatLu], Xdebut+pasHour,200-Y2)
+					ctx.lineWidth = "1";
+					ctx.moveTo(Xdebut + pasHour / 2, hauteurCanvas);
+					ctx.lineTo(Xdebut + pasHour / 2, hauteurCanvas - 10);
+					ctx.strokeStyle = "grey"
 					ctx.stroke();
 					ctx.closePath();
 
+					Xdebut += pasHour / 2;
+
+					if (!cumul) {
+						for (var etatLu in countEtat) {
+							countEtatOld[etatLu] = 0;
+						}
+					}
+				}
+				// console.log(countEtat);
+				for (var etatLu in countEtat) {
+
+					if (jour == jourOld && Xdebut > 0) {
+						ctx.beginPath();
+						ctx.lineWidth = "2";
+						ctx.strokeStyle = colorEtat[etatLu];
+						var Y = countEtatOld[etatLu] * hauteurCanvas / maxY;
+						ctx.moveTo(Xdebut, hauteurCanvas - Y);
+
+						// console.log(keysSort[date], etatLu, countEtatOld[etatLu], Xdebut, 200 - Y);
+						var Y2 = countEtat[etatLu] * hauteurCanvas / maxY;
+						ctx.lineTo(Xdebut + pasHour, hauteurCanvas - Y2);
+						// console.log("=>", countEtat[etatLu], Xdebut+pasHour,200-Y2)
+						ctx.stroke();
+						ctx.closePath();
+
+						if (heure==12 && cumul) {
+							ctx.beginPath();
+							ctx.lineWidth = "2";
+							ctx.fillStyle = colorEtat[etatLu];
+							var Y = countEtatOld[etatLu] * hauteurCanvas / maxY;
+							ctx.fillText(countEtat[etatLu], Xdebut + pasHour - 10, hauteurCanvas - Y -10);
+							// console.log("=>", countEtat[etatLu], Xdebut+pasHour,200-Y2)
+							ctx.stroke();
+							ctx.closePath();
+						}
+					} else {
+						if (cumul) {
+							ctx.beginPath();
+							ctx.lineWidth = "2";
+							ctx.fillStyle = colorEtat[etatLu];
+							var Y = countEtatOld[etatLu] * hauteurCanvas / maxY;
+							ctx.fillText(countEtat[etatLu], Xdebut - 10, hauteurCanvas - Y);
+							// console.log("=>", countEtat[etatLu], Xdebut+pasHour,200-Y2)
+							ctx.stroke();
+							ctx.closePath();
+						}
+					}
 					countEtatOld[etatLu] = countEtat[etatLu];
 				}
-
 				if (jour != jourOld) {
+
 					ctx.beginPath();
 					ctx.lineWidth = "1";
 					ctx.font = "11px arial";
 					ctx.strokeStyle = "grey"
-					ctx.moveTo(Xdebut + pasHour, hauteurCanvas);
-					ctx.lineTo(Xdebut + pasHour, 0);
-					ctx.fillText("J" + jour, Xdebut + pasHour + 10, 20);
+					ctx.moveTo(Xdebut, hauteurCanvas);
+					ctx.lineTo(Xdebut, 0);
+					ctx.fillText("J" + jour, Xdebut + 10, 20);
+
 					// console.log(jour, countEtatOld[etatLu], Xdebut, 200 - Y2);
 					ctx.stroke();
 					ctx.closePath();
-				}
 
-				ctx.beginPath();
-				ctx.lineWidth = "1";
-				ctx.strokeStyle = "grey"
-				ctx.font = "9px arial";
-				ctx.moveTo(Xdebut+pasHour, hauteurCanvas);
-				ctx.lineTo(Xdebut+pasHour, hauteurCanvas - 10);
-				ctx.fillText(heure, Xdebut+pasHour, monCanvas.height);
-				ctx.stroke();
-				ctx.closePath();
+					ctx.beginPath();
+					ctx.lineWidth = "1";
+					ctx.strokeStyle = "grey"
+					ctx.font = "9px arial";
+					ctx.fillText(heure, Xdebut + pasHour / 2, monCanvas.height);
+					ctx.moveTo(Xdebut + pasHour / 2, hauteurCanvas);
+					ctx.lineTo(Xdebut + pasHour / 2, hauteurCanvas - 10);
+
+					ctx.stroke();
+					ctx.closePath();
+					Xdebut += pasHour / 2;
+				} else {
+
+					ctx.beginPath();
+					ctx.lineWidth = "1";
+					ctx.strokeStyle = "grey"
+					ctx.font = "9px arial";
+					ctx.fillText(heure, Xdebut + pasHour, monCanvas.height);
+					ctx.moveTo(Xdebut + pasHour, hauteurCanvas);
+					ctx.lineTo(Xdebut + pasHour, hauteurCanvas - 10);
+
+					ctx.stroke();
+					ctx.closePath();
+					Xdebut += pasHour;
+				}
 				jourOld = jour;
 
-				Xdebut += pasHour;
 
 			}
 			if (cumul) {
