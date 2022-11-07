@@ -200,10 +200,10 @@
 					ctx.lineWidth = "1";
 					ctx.font = "11px arial";
 					ctx.strokeStyle = "grey"
-					ctx.moveTo(Xdebut, hauteurCanvas);
-					ctx.fillText("J" + jour, Xdebut + 10, 20);
+					ctx.moveTo(Xdebut + pasHour, hauteurCanvas);
+					ctx.lineTo(Xdebut + pasHour, 0);
+					ctx.fillText("J" + jour, Xdebut + pasHour + 10, 20);
 					// console.log(jour, countEtatOld[etatLu], Xdebut, 200 - Y2);
-					ctx.lineTo(Xdebut, 0);
 					ctx.stroke();
 					ctx.closePath();
 				}
@@ -212,9 +212,9 @@
 				ctx.lineWidth = "1";
 				ctx.strokeStyle = "grey"
 				ctx.font = "9px arial";
-				ctx.moveTo(Xdebut, hauteurCanvas);
-				ctx.lineTo(Xdebut, hauteurCanvas - 10);
-				ctx.fillText(heure, Xdebut, monCanvas.height);
+				ctx.moveTo(Xdebut+pasHour, hauteurCanvas);
+				ctx.lineTo(Xdebut+pasHour, hauteurCanvas - 10);
+				ctx.fillText(heure, Xdebut+pasHour, monCanvas.height);
 				ctx.stroke();
 				ctx.closePath();
 				jourOld = jour;
