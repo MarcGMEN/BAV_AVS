@@ -1294,3 +1294,7 @@ function return_fiches_express()
 function return_nbFichesByDay($numeroBAV) {
     return getNbFichesByDay($numeroBAV);
 }
+
+function return_nbFichesByDayAvantBAV($numeroBAV) {
+    return getNbFichesByDayAvantBAV($numeroBAV);
+}

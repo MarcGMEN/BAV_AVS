@@ -12,6 +12,7 @@
 		if (ADMIN) {
 
 			x_return_nbFichesByDay(anneeBav, display_statByAnneeRef);
+			x_return_nbFichesByDayAvantBAV(anneeBav, display_statPreDepotByAnneeRef);
 
 
 			x_return_allParametre(display_parametres);
@@ -55,6 +56,134 @@
 		}
 	}
 
+	function display_statPreDepotByAnneeRef(val) {
+		var colorEtat = [];
+		colorEtat['PRE_DEPOT_' + anneeBav] = 'ORANGE';
+		var monCanvas = getElement("canvasSuivi0");
+		var ctx = monCanvas.getContext("2d");
+		monCanvas.width = screen.width * 0.83;
+
+		ctx.beginPath();
+		ctx.font = "15px arial";
+		ctx.fillText(anneeBav, monCanvas.width / 2, 20);
+		ctx.stroke();
+		ctx.closePath();
+
+		var pasGrille = 0;
+		if (cumul) {
+			maxY = 500;
+			pasGrille = 100;
+		} else {
+			maxY = 100;
+			pasGrille = 25;
+		}
+
+		for (var i = 0; i <= maxY; i += pasGrille) {
+			ctx.beginPath();
+			ctx.lineWidth = "1";
+			ctx.strokeStyle = "GREY";
+			var Y2 = monCanvas.height - (i * monCanvas.height / maxY) - 10;
+			ctx.moveTo(0, Y2);
+			ctx.lineTo(monCanvas.width, Y2);
+			ctx.fillText(i, 5, Y2);
+			ctx.stroke();
+			ctx.closePath();
+		}
+		display_statPreDepotByAnnee(val, colorEtat, monCanvas, ctx)
+	}
+
+	function display_statPreDepotByAnnee(val, colorEtat, monCanvas, ctx) {
+
+		console.log(val);
+
+		ctx.font = "15px arial";
+
+		var countEtat = [];
+		countEtat['PRE_DEPOT_' + anneeBav] = 0;
+
+		var countEtatOld = [];
+		countEtatOld['PRE_DEPOT_' + anneeBav] = 0;
+
+		var Xdebut = 0;
+
+		var keysSort = Object.keys(val).sort()
+		console.log(keysSort);
+		var hauteurCanvas = monCanvas.height - 10;
+		var largeurCanvas = monCanvas.width;
+		if (sizeof(keysSort) > 0) {
+			var pasHour = largeurCanvas / sizeof(val);
+
+			for (var date in keysSort) {
+
+				var tabEtat = val[keysSort[date]];
+				var jour = keysSort[date];
+				console.log(jour );
+
+				for (var etat in tabEtat) {
+					var value = tabEtat[etat];
+					// console.log("cpt "+etat);
+					if (cumul) {
+						countEtat[etat] += parseInt(value);
+					} else {
+						countEtat[etat] = parseInt(value);
+					}
+				}
+
+				// console.log(countEtat);
+				for (var etatLu in countEtat) {
+
+					ctx.beginPath();
+					ctx.lineWidth = "2";
+					ctx.strokeStyle = colorEtat[etatLu];
+					var Y = countEtatOld[etatLu] * hauteurCanvas / maxY;
+					ctx.moveTo(Xdebut, hauteurCanvas - Y);
+
+					console.log(keysSort[date], etatLu, countEtatOld[etatLu], Xdebut, 200 - Y);
+					var Y2 = countEtat[etatLu] * hauteurCanvas / maxY;
+					ctx.lineTo(Xdebut + pasHour, hauteurCanvas - Y2);
+					console.log("=>", countEtat[etatLu], Xdebut+pasHour,200-Y2)
+					ctx.stroke();
+					ctx.closePath();
+					countEtatOld[etatLu] = countEtat[etatLu];
+				}
+				ctx.beginPath();
+					ctx.lineWidth = "1";
+					ctx.strokeStyle = "grey"
+					ctx.font = "9px arial";
+					ctx.fillText(jour, Xdebut + pasHour / 2, monCanvas.height);
+					ctx.moveTo(Xdebut + pasHour / 2, hauteurCanvas);
+					ctx.lineTo(Xdebut + pasHour / 2, hauteurCanvas - 10);
+
+					ctx.stroke();
+					ctx.closePath();
+				Xdebut += pasHour;
+			}
+			if (cumul) {
+				for (var etatLu in countEtat) {
+					var Y2 = hauteurCanvas - (countEtat[etatLu] * hauteurCanvas / maxY) - 5;
+					if (etatLu.startsWith('RESTI')) {
+						Y2 += 10;
+					}
+					ctx.fillStyle = colorEtat[etatLu];
+					ctx.beginPath();
+					ctx.font = "12px arial";
+					// console.log(etatLu + " (" + countEtat[etatLu] + ")", Xdebut - 120, Y2);
+					ctx.fillText(etatLu + " (" + countEtat[etatLu] + ")", Xdebut - 150, Y2);
+					ctx.stroke();
+					ctx.closePath();
+				}
+			}
+		}
+	}
+
+
+	var valRef = [];
+
+	function display_statByAnneeRef(val) {
+
+		valRef = val;
+		x_return_nbFichesByDay(anneeBavSuvi, display_statByAnneeBis);
+	}
 	var maxY = 1500;
 
 	function display_statByAnneeBis(val) {
@@ -89,8 +218,39 @@
 		ctx.stroke();
 		ctx.closePath();
 
+<<<<<<< HEAD
 		
 		var maxYCalc=0;
+=======
+		var pasGrille = 0;
+		if (cumul) {
+			maxY = 1500;
+			pasGrille = 250;
+		} else {
+			maxY = 300;
+			pasGrille = 50;
+		}
+
+		for (var i = 0; i <= maxY; i += pasGrille) {
+			ctx.beginPath();
+			ctx.lineWidth = "1";
+			ctx.strokeStyle = "GREY";
+			var Y2 = monCanvas.height - (i * monCanvas.height / maxY) - 10;
+			ctx.moveTo(0, Y2);
+			ctx.lineTo(monCanvas.width, Y2);
+			ctx.fillText(i, 5, Y2);
+			ctx.stroke();
+			ctx.closePath();
+		}
+
+
+		display_statByAnnee(val, colorEtat, monCanvas, ctx)
+	}
+
+
+	function display_statByAnnee(val, colorEtat, monCanvas, ctx) {
+
+>>>>>>> 13af3ef (stat pre depot)
 		if (sizeof(val) > 0) {
 			if (sizeof(valRef) > 0) {
 				for (var date in val) {
@@ -218,12 +378,12 @@
 						ctx.stroke();
 						ctx.closePath();
 
-						if (heure==12 && cumul) {
+						if (heure == 12 && cumul) {
 							ctx.beginPath();
 							ctx.lineWidth = "2";
 							ctx.fillStyle = colorEtat[etatLu];
 							var Y = countEtatOld[etatLu] * hauteurCanvas / maxY;
-							ctx.fillText(countEtat[etatLu], Xdebut + pasHour - 10, hauteurCanvas - Y -10);
+							ctx.fillText(countEtat[etatLu], Xdebut + pasHour - 10, hauteurCanvas - Y - 10);
 							// console.log("=>", countEtat[etatLu], Xdebut+pasHour,200-Y2)
 							ctx.stroke();
 							ctx.closePath();
@@ -479,7 +639,7 @@
 ?>
 <select id="annee_stat" onchange="changeNumeroBAV(this.value)"></select>
 
-
+<canvas id="canvasSuivi0" height="200">Votre navigateur est trop vieux</canvas>
 <div>
 	<div class="row">
 		<div class="col-sm-9 col-xs-9">

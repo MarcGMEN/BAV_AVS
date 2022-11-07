@@ -24,5 +24,6 @@ sajax_export(
     "return_fichesModif",
     "action_makeLibreFiche",
     "action_makeHtml",
-    "return_nbFichesByDay"
+    "return_nbFichesByDay",
+    "return_nbFichesByDayAvantBAV"
 );
