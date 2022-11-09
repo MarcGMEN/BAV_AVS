@@ -58,6 +58,20 @@
 	var maxY = 1500;
 
 	function display_statByAnneeBis(val) {
+		
+
+		display_statByAnnee(val, colorEtat, monCanvas, ctx)
+	}
+
+	var valRef = [];
+
+	function display_statByAnneeRef(val) {
+
+		valRef = val;
+		x_return_nbFichesByDay(anneeBavSuvi, display_statByAnnee);
+	}
+
+	function display_statByAnnee(val) {
 		var colorEtat = [];
 		colorEtat['DEPOT_' + anneeBav] = 'ORANGE';
 		colorEtat['VENTE_' + anneeBav] = 'GREEN';
@@ -75,41 +89,8 @@
 		ctx.stroke();
 		ctx.closePath();
 
-		var pasGrille = 0;
-		if (cumul) {
-			maxY = 1500;
-			pasGrille = 250;
-		} else {
-			maxY = 300;
-			pasGrille = 50;
-		}
-
-		for (var i = 0; i <= maxY; i += pasGrille) {
-			ctx.beginPath();
-			ctx.lineWidth = "1";
-			ctx.strokeStyle = "GREY";
-			var Y2 = monCanvas.height - (i * monCanvas.height / maxY) - 10;
-			ctx.moveTo(0, Y2);
-			ctx.lineTo(monCanvas.width, Y2);
-			ctx.fillText(i, 5, Y2);
-			ctx.stroke();
-			ctx.closePath();
-		}
-
-
-		display_statByAnnee(val, colorEtat, monCanvas, ctx)
-	}
-
-	var valRef = [];
-
-	function display_statByAnneeRef(val) {
-
-		valRef = val;
-		x_return_nbFichesByDay(anneeBavSuvi, display_statByAnneeBis);
-	}
-
-	function display_statByAnnee(val, colorEtat, monCanvas, ctx) {
-
+		
+		var maxYCalc=0;
 		if (sizeof(val) > 0) {
 			if (sizeof(valRef) > 0) {
 				for (var date in val) {
@@ -130,7 +111,34 @@
 		} else if (sizeof(valRef) > 0) {
 			val = valRef;
 		}
-		// console.log(val);
+		for (var date in val) {
+			for (var etatRef in val[date]) {
+				maxYCalc= maxYCalc>val[date][etatRef]?maxYCalc:val[date][etatRef];
+			}
+		}
+		console.log(val);
+		console.log(maxYCalc);
+
+		var pasGrille = 0;
+		if (cumul) {
+			maxY = 1500;
+			pasGrille = 250;
+		} else {
+			maxY = maxYCalc+40;
+			pasGrille = 50;
+		}
+
+		for (var i = 0; i <= maxY; i += pasGrille) {
+			ctx.beginPath();
+			ctx.lineWidth = "1";
+			ctx.strokeStyle = "GREY";
+			var Y2 = monCanvas.height - (i * monCanvas.height / maxY) - 10;
+			ctx.moveTo(0, Y2);
+			ctx.lineTo(monCanvas.width, Y2);
+			ctx.fillText(i, 5, Y2);
+			ctx.stroke();
+			ctx.closePath();
+		}
 
 		ctx.font = "15px arial";
 
