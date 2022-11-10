@@ -92,7 +92,7 @@ function getClientsRecap($order, $sens, $tabSel, $all = false)
         $tab = array();
         $index = 0;
         while ($row = $result->fetch_assoc()) {
-            $row['bavs']=getBavsClient($row['cli_id']);
+           // $row['bavs']=getBavsClient($row['cli_id']);
             $tab[$index++] = $row;
         }
         $result->close();
