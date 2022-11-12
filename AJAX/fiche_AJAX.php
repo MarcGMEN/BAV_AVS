@@ -379,8 +379,8 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
 
                 // refaire les descriptions, pas de retour chariots et limite.
                 $fiche['obj_description'] = str_replace("\n", " / ", $fiche['obj_description']);
-                if (strlen($fiche['obj_description']) > 200) {
-                    $fiche['obj_description']=substr($fiche['obj_description'], 0, 200)."...";
+                if (strlen($fiche['obj_description']) > 250) {
+                    $fiche['obj_description']=substr($fiche['obj_description'], 0, 250)."...";
                 }
 
                 if ($fiche['obj_prix_depot'] == 0) {

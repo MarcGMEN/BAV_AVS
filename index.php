@@ -161,6 +161,7 @@ sajax_handle_client_request();
 				</div>
 			</main>
 		</div>
+		<br/>
 		<div class="pied">
 			<? include('genericPages/pied.php'); ?>
 		</div>
