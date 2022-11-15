@@ -487,7 +487,8 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
         'numero_bav' => $INFO_APPLI['numero_bav']
     );
 
-    $etiquettes = "";
+    $etiquettes = "<html><head><link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'              integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous'></head><body>";
+	;
     // TODO : recherche des fiches a imprimer en fonction de la table bav_etiquette.
     // avec une base eti0
     $tabFiche = [];
@@ -611,7 +612,7 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
             $fiche['obj_type'] = "<br/><span style='font-size:9px'><i>Autre-VTT-Route-VTC-Ville-VAE-BMX</i></span>";
             $fiche['obj_public'] = "<br/><span style='font-size:9px'><i>Mixte-Homme-Femme-Enfant</i></span>";
             $fiche['obj_pratique'] = "<br/><span style='font-size:9px'><i>Sportive-Loisir-Compétition-Autre</i></span>";
-            $fiche['obj_marque'] = "<u>$espace100</u>";
+            $fiche['obj_marque'] = "<u>$espace75</u>";
             $fiche['obj_modele'] = "<u>$espace75</u>";
             $fiche['obj_object'] = "";
             $fiche['obj_couleur'] = "<u>$espace50</u>";
@@ -642,6 +643,8 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
     }
     $fileHTML = "../out/html/" . $nameCoupon . "_" . $eti0 . "_" . $eti1 . ".html";
 
+
+    $etiquettes.="</body></html>";
     file_put_contents($fileHTML, utf8_decode($etiquettes));
 
     return  $CFG_URL . "/out/html/" . $nameCoupon . "_" . $eti0 . "_" . $eti1 . ".html";
