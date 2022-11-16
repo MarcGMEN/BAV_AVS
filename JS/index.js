@@ -19,7 +19,7 @@ function display_retour_test(val) {
 }
 
 function confirmModalTest() {
-    setTimeout(function () {
+    setTimeout(function() {
         closeModal();
     }, 1000);
 }
@@ -46,9 +46,9 @@ function openPDF(val) {
 function loadReglement(where, code) {
     document.body.style.cursor = 'wait';
     if (!ADMIN) {
-        x_add_counter_action("open Link", "reglement"+code+".pdf", where, display_rien);
+        x_add_counter_action("open Link", "reglement" + code + ".pdf", where, display_rien);
     }
-    x_action_makePDFFromHtml(tabToString(data2PDF), "reglement"+code+".html", display_openPDF);
+    x_action_makePDFFromHtml(tabToString(data2PDF), "reglement" + code + ".html", display_openPDF);
 }
 
 function goTo(page = 'bav.php', modePage = '', id = null, message = '') {
@@ -81,7 +81,7 @@ function searchSuiteRest(value, modePage = "", type = "") {
 }
 
 function searchFiche(code) {
-    console.log("searchFiche " +code);
+    console.log("searchFiche " + code);
     x_return_oneFicheByCode(code, display_getFicheModif);
     return false;
 }

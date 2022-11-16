@@ -86,9 +86,9 @@ sajax_handle_client_request();
 	<script type="text/javascript" src="JS/sajax/json_parse.js"></script>
 	<script type="text/javascript" src="JS/sajax/sajax.js"></script>  -->
 	<!-- MODE DEV -->
-	<? sajax_show_javascript(); ?>
+	<? //sajax_show_javascript(); ?>
 	<!-- MODE PROD -->
-	<? //sajax_show_javascript("JS/sajax.js"); 
+	<? sajax_show_javascript("JS/sajax.js"); 
 	?>
 
 	<script type="text/javascript">
@@ -112,7 +112,7 @@ sajax_handle_client_request();
 					foo: "bar"
 				};
 				history.pushState(stateObj, "", "index.php");
-			} else if (ADMIN == 0) {
+			} else if (<?= $infAppli['ADMIN'] ? 1 : 0 ?> == 0) {
 				x_add_counter_action("<?= $GET_page ?>", modePage, type, display_rien);
 			}
 		}
@@ -167,14 +167,10 @@ sajax_handle_client_request();
 		</div>
 	</div>
 </body>
-<?
-if (isset($GET_message) && trim($GET_message) != '') {
-?>
-
+<?if (isset($GET_message) && trim($GET_message) != '') {?>
 	<script>
 		console.log("message <?= $GET_message ?>");
 		alertModalInfo('<?= $GET_message ?>');
 	</script>
 <? } ?>
-
 </html>
