@@ -436,17 +436,16 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
             $fiche['obj_prix_vente'] = "";
             $fiche['obj_prix_depot'] = "";
             $fiche['obj_taille'] = "";
-            $fiche['obj_date_achat'] = "";
             $fiche['obj_date_achat_FR'] = "";
             $fiche['obj_achat'] = "";
             $fiche['obj_prix_achat'] = "";
         }
 
         if (sizeof($fiche) > 0) {
-            $etiquettes .= "<hr style='text-align:left;width:15cm' />";
+            $etiquettes .= "<hr  />";
             $etiquettes .= makeCorps(array_merge($fiche, $data), 'etiquette.html');
             if ($index++ % $INFO_APPLI['nb_eti_page'] == 0) {
-                $etiquettes .= "<hr style='text-align:left;width:15cm' />";
+                $etiquettes .= "<hr  />";
                 $etiquettes .= "<div style='page-break-after:always; clear:both;font-size:10pt;height:10pt'>..........</div>";
             }
         }
@@ -637,7 +636,7 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
             if ($index++ % $INFO_APPLI['nb_coupon_page'] == 0) {
                 $etiquettes .= "<div style='page-break-after:always; clear:both'>...</div>";
             } else {
-                $etiquettes .= "<hr/>";
+                $etiquettes .= "<hr style='border:1px solid black'/>";
             }
         }
     }
