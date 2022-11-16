@@ -12,8 +12,7 @@
 		if (ADMIN) {
 
 			x_return_nbFichesByDay(anneeBav, display_statByAnneeRef);
-			x_return_nbFichesByDayAvantBAV(anneeBav, display_statPreDepotByAnneeRef);
-
+			//x_return_nbFichesByDayAvantBAV(anneeBav, display_statPreDepotByAnneeRef);
 
 			x_return_allParametre(display_parametres);
 			x_return_allParametre(display_parametres_statSuivi);
@@ -217,40 +216,8 @@
 		ctx.fillText(anneeBav + " vs " + anneeBavSuvi, monCanvas.width / 2, 20);
 		ctx.stroke();
 		ctx.closePath();
-
-<<<<<<< HEAD
 		
 		var maxYCalc=0;
-=======
-		var pasGrille = 0;
-		if (cumul) {
-			maxY = 1500;
-			pasGrille = 250;
-		} else {
-			maxY = 300;
-			pasGrille = 50;
-		}
-
-		for (var i = 0; i <= maxY; i += pasGrille) {
-			ctx.beginPath();
-			ctx.lineWidth = "1";
-			ctx.strokeStyle = "GREY";
-			var Y2 = monCanvas.height - (i * monCanvas.height / maxY) - 10;
-			ctx.moveTo(0, Y2);
-			ctx.lineTo(monCanvas.width, Y2);
-			ctx.fillText(i, 5, Y2);
-			ctx.stroke();
-			ctx.closePath();
-		}
-
-
-		display_statByAnnee(val, colorEtat, monCanvas, ctx)
-	}
-
-
-	function display_statByAnnee(val, colorEtat, monCanvas, ctx) {
-
->>>>>>> 13af3ef (stat pre depot)
 		if (sizeof(val) > 0) {
 			if (sizeof(valRef) > 0) {
 				for (var date in val) {
@@ -639,7 +606,7 @@
 ?>
 <select id="annee_stat" onchange="changeNumeroBAV(this.value)"></select>
 
-<canvas id="canvasSuivi0" height="200">Votre navigateur est trop vieux</canvas>
+<!-- <canvas id="canvasSuivi0" height="200">Votre navigateur est trop vieux</canvas> -->
 <div>
 	<div class="row">
 		<div class="col-sm-9 col-xs-9">
