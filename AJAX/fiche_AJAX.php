@@ -541,9 +541,11 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
         if ($eti0 >= 0 && $fiche = getOneFicheByCode($numFiche)) {
             if ($fiche['obj_id']) {
                 if (!$test) {
-                    $fiche['obj_modif_vendeur'] = 0;
                     if ($nameCoupon == "coupon_acheteur") {
                         $fiche['obj_modif_stock'] = 0;
+                    }
+                    else {
+                        $fiche['obj_modif_vendeur'] = 0;
                     }
                     updateFiche($fiche);
                 }
