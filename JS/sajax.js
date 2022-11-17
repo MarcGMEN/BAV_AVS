@@ -15,12 +15,15 @@
 				sajax_asynchro['whatYourName']=1;
 				sajax_asynchro['return_restant']=1;
 				sajax_asynchro['action_menage']=1;
+				sajax_asynchro['add_counter_action']=1;
 				sajax_asynchro['return_oneFaq']=1;
 				sajax_asynchro['action_createFaq']=1;
 				sajax_asynchro['action_deleteFaq']=1;
 				sajax_asynchro['action_updateFaq']=1;
 				sajax_asynchro['action_insertFaq']=1;
 				sajax_asynchro['return_faqs']=1;
+				sajax_asynchro['return_countByPage']=1;
+				sajax_asynchro['return_byTree']=1;
 				sajax_asynchro['return_oneClient']=1;
 				sajax_asynchro['action_updateClient']=1;
 				sajax_asynchro['action_makeClient']=1;
@@ -32,6 +35,7 @@
 				sajax_asynchro['return_clients']=1;
 				sajax_asynchro['return_clientsRecap']=1;
 				sajax_asynchro['action_deleteClient']=1;
+				sajax_asynchro['return_bavsClient']=1;
 				sajax_asynchro['return_statByType']=1;
 				sajax_asynchro['return_statRepartition']=1;
 				sajax_asynchro['return_statDelais']=1;
@@ -48,6 +52,7 @@
 				sajax_asynchro['return_actus']=1;
 				sajax_asynchro['return_list_marques']=1;
 				sajax_asynchro['return_list_modeles']=1;
+				sajax_asynchro['return_list_tailles']=1;
 				sajax_asynchro['return_oneFiche']=1;
 				sajax_asynchro['action_updateFiche']=1;
 				sajax_asynchro['action_deleteFiche']=1;
@@ -67,11 +72,10 @@
 				sajax_asynchro['action_makeA4Fiches']=1;
 				sajax_asynchro['action_reMelConfirme']=1;
 				sajax_asynchro['return_fichesModif']=1;
-				sajax_asynchro['return_modifPrixFromFiche']=1;
-				sajax_asynchro['return_allDemandeActive']=1;
-				sajax_asynchro['action_addDemande']=1;
-				sajax_asynchro['action_removeDemande']=1;
-				sajax_asynchro['action_confirmDemande']=1;
+				sajax_asynchro['action_makeLibreFiche']=1;
+				sajax_asynchro['action_makeHtml']=1;
+				sajax_asynchro['return_nbFichesByDay']=1;
+				sajax_asynchro['return_nbFichesByDayAvantBAV']=1;
 				sajax_asynchro['return_countMailing']=1;
 				sajax_asynchro['return_countMailingAEnvoyer']=1;
 				sajax_asynchro['return_countMailingEnvoye']=1;
@@ -342,6 +346,13 @@
 		}
 		
 				
+		// wrapper for add_counter_action		
+		function x_add_counter_action() {
+			sajax_do_call("add_counter_action",
+				x_add_counter_action.arguments);
+		}
+		
+				
 		// wrapper for return_oneFaq		
 		function x_return_oneFaq() {
 			sajax_do_call("return_oneFaq",
@@ -381,6 +392,20 @@
 		function x_return_faqs() {
 			sajax_do_call("return_faqs",
 				x_return_faqs.arguments);
+		}
+		
+				
+		// wrapper for return_countByPage		
+		function x_return_countByPage() {
+			sajax_do_call("return_countByPage",
+				x_return_countByPage.arguments);
+		}
+		
+				
+		// wrapper for return_byTree		
+		function x_return_byTree() {
+			sajax_do_call("return_byTree",
+				x_return_byTree.arguments);
 		}
 		
 				
@@ -458,6 +483,13 @@
 		function x_action_deleteClient() {
 			sajax_do_call("action_deleteClient",
 				x_action_deleteClient.arguments);
+		}
+		
+				
+		// wrapper for return_bavsClient		
+		function x_return_bavsClient() {
+			sajax_do_call("return_bavsClient",
+				x_return_bavsClient.arguments);
 		}
 		
 				
@@ -570,6 +602,13 @@
 		function x_return_list_modeles() {
 			sajax_do_call("return_list_modeles",
 				x_return_list_modeles.arguments);
+		}
+		
+				
+		// wrapper for return_list_tailles		
+		function x_return_list_tailles() {
+			sajax_do_call("return_list_tailles",
+				x_return_list_tailles.arguments);
 		}
 		
 				
@@ -706,38 +745,31 @@
 		}
 		
 				
-		// wrapper for return_modifPrixFromFiche		
-		function x_return_modifPrixFromFiche() {
-			sajax_do_call("return_modifPrixFromFiche",
-				x_return_modifPrixFromFiche.arguments);
+		// wrapper for action_makeLibreFiche		
+		function x_action_makeLibreFiche() {
+			sajax_do_call("action_makeLibreFiche",
+				x_action_makeLibreFiche.arguments);
 		}
 		
 				
-		// wrapper for return_allDemandeActive		
-		function x_return_allDemandeActive() {
-			sajax_do_call("return_allDemandeActive",
-				x_return_allDemandeActive.arguments);
+		// wrapper for action_makeHtml		
+		function x_action_makeHtml() {
+			sajax_do_call("action_makeHtml",
+				x_action_makeHtml.arguments);
 		}
 		
 				
-		// wrapper for action_addDemande		
-		function x_action_addDemande() {
-			sajax_do_call("action_addDemande",
-				x_action_addDemande.arguments);
+		// wrapper for return_nbFichesByDay		
+		function x_return_nbFichesByDay() {
+			sajax_do_call("return_nbFichesByDay",
+				x_return_nbFichesByDay.arguments);
 		}
 		
 				
-		// wrapper for action_removeDemande		
-		function x_action_removeDemande() {
-			sajax_do_call("action_removeDemande",
-				x_action_removeDemande.arguments);
-		}
-		
-				
-		// wrapper for action_confirmDemande		
-		function x_action_confirmDemande() {
-			sajax_do_call("action_confirmDemande",
-				x_action_confirmDemande.arguments);
+		// wrapper for return_nbFichesByDayAvantBAV		
+		function x_return_nbFichesByDayAvantBAV() {
+			sajax_do_call("return_nbFichesByDayAvantBAV",
+				x_return_nbFichesByDayAvantBAV.arguments);
 		}
 		
 				

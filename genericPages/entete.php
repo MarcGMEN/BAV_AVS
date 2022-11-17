@@ -1,7 +1,3 @@
-<script>
-ipLocal = "<?=$_SERVER['REMOTE_ADDR']?>";
-</script>
-
 <script src="JS/entete.js" type="text/javascript"></script>
 
 <table class="BH_CADRE" cellspacing="0" cellpadding="0">

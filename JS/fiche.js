@@ -212,7 +212,7 @@ function searchByName(value) {
 }
 
 function searchByMel(value) {
-    if (value != "") {
+    if (value != "" && ADMIN) {
         x_return_oneClientByMel(value, display_infoClientVendeurMel);
         var list = getElement("listVendeurName");
         list.innerHTML = "";
@@ -231,7 +231,7 @@ function display_infoClientVendeurName(val) {
 }
 
 function display_infoClientVendeur(val, base) {
-    //console.log(val);
+    console.log(val);
     if (val instanceof Object) {
         if (val['cli_emel'] != "") {
             var list = getElement("listVendeurName");
