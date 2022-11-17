@@ -212,7 +212,7 @@ function searchByName(value) {
 }
 
 function searchByMel(value) {
-    if (value != "" && ADMIN) {
+    if (value != "") {
         x_return_oneClientByMel(value, display_infoClientVendeurMel);
         var list = getElement("listVendeurName");
         list.innerHTML = "";
