@@ -23,7 +23,7 @@
 			x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);
 
 			// retour de stat client
-			// x_return_statClient(display_statClient);
+			x_return_statClient(display_statClient);
 
 			// retour de stat de delais
 			x_return_statDelais(display_formulaire);

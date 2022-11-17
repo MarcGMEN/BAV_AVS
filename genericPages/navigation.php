@@ -50,7 +50,11 @@ $tabNavAdm = [];
 if ($infAppli['ADMIN']) {
     $tabNavAdm = [
         'fiche.php' => [
-            'libelle' => 'Pré-déposer',
+            'libelle' => 'Accès fiche',
+            'mode' => 'create',
+        ],
+        'ficheV2.php' => [
+            'libelle' => '--Pré-déposer v2',
             'mode' => 'create',
         ],
         'saisieExpress.php' => [
@@ -98,6 +102,7 @@ if ($infAppli['ADMIN']) {
             'libelle' => '<img src="Images/new.png" width=15pt/> Pré-déposer',
             'mode' => 'create',
         ],
+        
     ];
 }
 $tabNav = array_merge($tabNavAll, $tabNavAdm);
