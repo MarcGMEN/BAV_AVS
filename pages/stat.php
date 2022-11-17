@@ -26,7 +26,7 @@
 			x_return_statClient(display_statClient);
 
 			// retour de stat de delais
-			x_return_statDelais(display_formulaire);
+			// x_return_statDelais(display_formulaire);
 
 			// retour de stat de delais
 			x_return_statRepartition(display_formulaire);
