@@ -56,6 +56,7 @@ function goTo(page = 'bav.php', modePage = '', id = null, message = '') {
     document.formNavigation.modePage.value = modePage;
     document.formNavigation.id.value = id;
     document.formNavigation.message.value = message;
+    document.formNavigation.method = 'POST';
     document.formNavigation.submit();
 }
 var Gtype = '';
