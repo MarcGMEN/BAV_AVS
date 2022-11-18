@@ -9,14 +9,13 @@
 <? if (!$infAppli['ADMIN'] && $GET_modePage == 'create') { ?>
 	<div class='alert alert-info'>
 		<p>Avant de venir déposer votre vélo les à La Soucoupe, nous vous conseillons de remplir la fiche dépôt.</p>
-		<p>- Soit en saissisant votre demande avec le formulaire ci-dessous qui vous transmettra, après confirmation, la fiche dépot par mel.
+		<p>- Soit en saissisant votre demande avec le formulaire ci-dessous qui vous transmettra, après confirmation, la fiche dépot par mail.
 			<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Il n'est pas nécéssaire de connaitre le prix de vente, <i>vous pourrez le renseigner le jour du dépôt.</i>
-			<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vous pouvez également modifier votre fiche grace au lien que vous recevrez par mel.
-			<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Vous recevez un mel directement lorsque votre vélo est vendu.</b>
+			<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Vous recevez un mail directement lorsque votre vélo est vendu.</b>
 			<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cette fiche dépôt devra être imprimée par vous pour vous rendre à la Bourse. Une par vélo et un gain de temps sur place lors du dépôt.
 		</p>
 		<p>- Soit en téléchargeant, puis en imprimant la fiche dépôt à remplir que vous trouverez ici 
-		<A  href="downloads/Fiche_BAV_2021.pdf" target="_blank"> <img class="link url" src="Images/pdf.png" height='40px' alt="téléchargement de la fiche" title="téléchargement de la fiche"></A>
+		<A  href="downloads/Fiche_BAV_2022.pdf" target="_blank"> <img class="link url" src="Images/pdf.png" height='40px' alt="téléchargement de la fiche" title="téléchargement de la fiche"></A>
 			<small><i>Attention aux droits d'ouvertures des popUp, en fonction de votre navigateur.</i></small></p>
 		<p>- Si vous souhaitez déposer plus de 15 vélos, contactez nous pour mettre en place un procédure spéciale.
 			<a href="mailto:bourse1000velos@avs44.com">bourse1000velos@avs44.com</a> </p>
@@ -289,7 +288,7 @@
 		</legend>
 		<div class="row">
 			<div class="col-sm-6 col-md-6 col-xs-12">
-				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Emel <span title="Obligatoire">*</span></span>
+				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Mail <span title="Obligatoire">*</span></span>
 				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
 					<input type=email name='cli_emel' id="cli_emel" size="50" maxlength="100" tabindex=<?= $tabindex++ ?> placeholder="aaaa.bbbb@ccc.dd" required onblur='searchByMel(this.value)' list='listVendeur' />
 					<datalist id="listVendeur"></datalist>
