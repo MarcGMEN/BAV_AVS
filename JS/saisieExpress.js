@@ -299,7 +299,7 @@ function display_infoClientVendeurName(val) {
 }
 
 function display_infoClientVendeur(val, base) {
-    console.log(val);
+    //console.log(val);
     if (val instanceof Object) {
         val['cli_nom_' + idRamdom] = val['cli_nom'];
         // si mel on force la liste des vendeur Name a vide
@@ -308,7 +308,7 @@ function display_infoClientVendeur(val, base) {
         //     list.innerHTML = "";
         // } else {
         // chargement de la liste des client par mel
-        x_return_listClientByName(display_listVendeurName);
+        //x_return_listClientByName(display_listVendeurName);
         // }
         display_formulaire(val, document.formSaisieExpress);
         document.formSaisieExpress.cli_code_postal.disabled = true;
@@ -390,8 +390,8 @@ function modifEtat(tabObj, tabCli) {
         if (tabObj['obj_etat'] == 'CONFIRME') {
             tabObj['obj_prix_depot'] = tabObj['obj_prix_vente']
         }
-        console.log("avec change etat fiche");
-        console.log(tabObj);
+        // console.log("avec change etat fiche");
+        //console.log(tabObj);
         x_action_changeEtatFiche(tabToString(tabObj), display_fin_create);
     } else {
 

@@ -5,7 +5,7 @@ var allG = 0;
 
 function initPage() {
     if (ADMIN) {
-        findClients(allG);
+        //        findClients(allG);
     } else {
         goTo();
     }
@@ -126,28 +126,28 @@ function display_clients(val) {
             repr += val[index]['cli_telephone'];
             repr += "</td>";
             repr += "<th width=2% style='text-align: center'>";
-            if (val[index]['CONFIRME'] != 0) {
+            if (val[index]['CONFIRME'] && val[index]['CONFIRME'] != 0) {
                 repr += val[index]['CONFIRME'];
             } else {
                 repr += "";
             }
             repr += "</th>";
             repr += "<th width=2% style='text-align: center'>";
-            if (val[index]['STOCK'] != 0) {
+            if (val[index]['STOCK'] && val[index]['STOCK'] != 0) {
                 repr += val[index]['STOCK'];
             } else {
                 repr += "";
             }
             repr += "</th>";
             repr += "<th width=2% style='text-align: center'>";
-            if (val[index]['VENDU'] != 0) {
+            if (val[index]['VENDU'] && val[index]['VENDU'] != 0) {
                 repr += val[index]['VENDU'];
             } else {
                 repr += "";
             }
             repr += "</th>";
             repr += "<th width=2% style='text-align: center'>";
-            if (val[index]['PAYE'] != 0) {
+            if (val[index]['PAYE'] && val[index]['PAYE'] != 0) {
                 repr += val[index]['PAYE'];
             } else {
                 repr += "";
@@ -155,7 +155,7 @@ function display_clients(val) {
             repr += "</th>";
 
             repr += "<th width=2% style='text-align: center'>";
-            if (val[index]['RENDU'] != 0) {
+            if (val[index]['RENDU'] && val[index]['RENDU'] != 0) {
                 repr += val[index]['RENDU'];
             } else {
                 repr += "";
@@ -163,7 +163,7 @@ function display_clients(val) {
             repr += "</th>";
 
             repr += "<th width=2% style='text-align: center'>";
-            if (val[index]['ACHAT'] != 0) {
+            if (val[index]['ACHAT'] && val[index]['ACHAT'] != 0) {
                 repr += val[index]['ACHAT'];
             } else {
                 repr += "";
@@ -223,10 +223,10 @@ function selectColonne(mask) {
     getElement('totalVendeur').innerHTML = "...";
     getElement('totalVendeurEtAcheteur').innerHTML = "...";
     getElement('totalAbsent').innerHTML = "...";
-    if (mask.length > 1) {
+    if (mask.length > 2) {
         selection = { 'cli_nom': mask };
     } else {
-        selection = { 'cli_nom': "*" };
+        //selection = { 'cli_nom': "*" };
     }
     x_return_clientsRecap(tri, sens, tabToString(selection), allG, display_clients);
 

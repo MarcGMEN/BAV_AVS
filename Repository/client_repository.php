@@ -31,7 +31,7 @@ function getClientsRecap($order, $sens, $tabSel, $all = false)
 {
     extract($GLOBALS);
 
-    $requete2 = "select *,";
+    
     $requete2 .= "(select count(*) from bav_objet objC where objC.obj_id_vendeur = cli_id and objC.obj_etat in ('CONFIRME') ";
     if (!$all) {
         $requete2 .= " and objC.obj_numero_bav =" . $INFO_APPLI['numero_bav'];
@@ -63,6 +63,7 @@ function getClientsRecap($order, $sens, $tabSel, $all = false)
     }
     $requete2 .=  ") ACHAT ";
 
+    $requete2 = "select *'";
     $requete2 .= " FROM bav_client WHERE 1 = 1  ";
     foreach ($tabSel as $key => $val) {
         if ($val != "*") {

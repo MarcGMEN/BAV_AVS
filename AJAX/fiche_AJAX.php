@@ -1058,7 +1058,9 @@ function action_changeEtatFiche($obj)
             $fiche['obj_prix_vente'] = $fiche['obj_prix_depot'];
             // mise a jour de la date
             $fiche['obj_date_depot'] = date('y-m-d H:i:s');
-            $fiche['obj_modif_stock'] = 1;
+            // if ($fiche['obj_numero'] < 1001) {
+            //     $fiche['obj_modif_stock'] = 1;
+            // }
 
             // TODO : envoi mel de depot pour note modif prix
         } elseif ($fiche['obj_etat'] == 'DESTOCK') {
