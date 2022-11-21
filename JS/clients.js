@@ -9,7 +9,6 @@ function initPage() {
     } else {
         goTo();
     }
-
 }
 
 function unloadPage() {
@@ -218,16 +217,13 @@ function triColonne(col) {
 }
 
 function selectColonne(mask) {
-    getElement('total').innerHTML = "...";
-    getElement('totalAcheteur').innerHTML = "...";
-    getElement('totalVendeur').innerHTML = "...";
-    getElement('totalVendeurEtAcheteur').innerHTML = "...";
-    getElement('totalAbsent').innerHTML = "...";
-    if (mask.length > 2) {
+    if (mask.length > 1) {
+        getElement('total').innerHTML = "...";
+        getElement('totalAcheteur').innerHTML = "...";
+        getElement('totalVendeur').innerHTML = "...";
+        getElement('totalVendeurEtAcheteur').innerHTML = "...";
+        getElement('totalAbsent').innerHTML = "...";
         selection = { 'cli_nom': mask };
-    } else {
-        //selection = { 'cli_nom': "*" };
+        x_return_clientsRecap(tri, sens, tabToString(selection), allG, display_clients);
     }
-    x_return_clientsRecap(tri, sens, tabToString(selection), allG, display_clients);
-
 }
