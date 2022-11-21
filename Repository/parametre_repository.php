@@ -28,8 +28,9 @@ function return_infoAppli()
     $infos['CLIENT'] = 0;
     $infos['ADMIN'] = $_COOKIE['AADD'] == $GLOBALS['PASS_ADMIN'] ? 1 : 0;
     $infos['NB_MODIF'] = $par['par_nb_modif'];
-    //  print_r(strtotime($par['par_table_date_debut'])." < $today < ".strtotime($par['par_table_date_fin']));
-    if (strtotime($par['par_client_date_debut']) < $today && $today < strtotime($par['par_client_date_fin'])) {
+    $dateFin=strtotime($par['par_client_date_fin']);
+    $dateFin17=mktime(17, 0, 0, date('m',$dateFin), date('d',$dateFin), date('Y',$dateFin));
+    if (strtotime($par['par_client_date_debut']) < $today && $today <$dateFin17) {
         $infos['CLIENT'] = 1;
     } else {
         $infos['message'] = "Session pas encore ouverte";

@@ -66,7 +66,7 @@ function countBy($tabSel, $selS, $search = "=", $valS, $etats = "'STOCK','RENDU'
     if ($selS && $valS != "*") {
         $requete2 .= " and $selS $search $valS ";
     }
-    error_log($requete2);
+    // error_log($requete2);
     if ($result = $GLOBALS['mysqli']->query($requete2)) {
         $tab = array();
         $row = $result->fetch_assoc();
@@ -116,7 +116,7 @@ function getFicheLibre($base)
     $row = null;
     $query = " SELECT obj_numero from bav_objet where obj_numero >= $base and obj_numero_bav = '" .
         $GLOBALS['INFO_APPLI']['numero_bav'] . "' order by obj_numero";
-    error_log($query);
+    // error_log($query);
     if ($result = $GLOBALS['mysqli']->query($query)) {
         while ($row = $result->fetch_assoc()) {
             if ($row['obj_numero'] != $base) {
@@ -186,7 +186,7 @@ function getFiches($order, $sens, $tabSel)
             $requete2 .= " order by $order $sens";
         }
     }
-    error_log("[getFiches] $requete2");
+    // error_log("[getFiches] $requete2");
 
     $result = $GLOBALS['mysqli']->query($requete2);
     if ($result) {
@@ -267,13 +267,14 @@ function getNbFichesByDayAvantBAV($numeroBav)
         $requete2 .= "where obj_numero_bav = '$numeroBav' ";
         $requete2 .= " and obj_etat IN ('CONFIRME') ";
         $requete2 .= " and obj_date_depot <= '" . $paramBav['par_date_debut_vente'] . "'";
-        $requete2 .= "group by 2 ";
+        $requete2 .= " group by 2 ";
         error_log($requete2);
 
         $result = $GLOBALS['mysqli']->query($requete2);
         if ($result) {
             while ($row = $result->fetch_assoc()) {
                 $keyTab = date("Y-m-d", strtotime($row[$keyRow]));
+                error_log($row[$keyRow]);
                 $tab[$keyTab][$keyRow] += $row['count(*)'];
             }
             $result->close();

@@ -231,7 +231,7 @@ function display_infoClientVendeurName(val) {
 }
 
 function display_infoClientVendeur(val, base) {
-    //console.log(val);
+    console.log(val);
     if (val instanceof Object) {
         if (val['cli_emel'] != "") {
             var list = getElement("listVendeurName");

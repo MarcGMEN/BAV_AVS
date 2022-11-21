@@ -12,7 +12,7 @@
 		if (ADMIN) {
 
 			x_return_nbFichesByDay(anneeBav, display_statByAnneeRef);
-			//x_return_nbFichesByDayAvantBAV(anneeBav, display_statPreDepotByAnneeRef);
+			// x_return_nbFichesByDayAvantBAV(anneeBav, display_statPreDepotByAnneeRef);
 
 			x_return_allParametre(display_parametres);
 			x_return_allParametre(display_parametres_statSuivi);
@@ -26,7 +26,7 @@
 			x_return_statClient(display_statClient);
 
 			// retour de stat de delais
-			x_return_statDelais(display_formulaire);
+			// x_return_statDelais(display_formulaire);
 
 			// retour de stat de delais
 			x_return_statRepartition(display_formulaire);
@@ -56,6 +56,7 @@
 	}
 
 	function display_statPreDepotByAnneeRef(val) {
+		console.log('display_statPreDepotByAnneeRef',val);
 		var colorEtat = [];
 		colorEtat['PRE_DEPOT_' + anneeBav] = 'ORANGE';
 		var monCanvas = getElement("canvasSuivi0");

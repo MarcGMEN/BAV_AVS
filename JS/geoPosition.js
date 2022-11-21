@@ -1,4 +1,4 @@
-// On initialise la latitude et la longitude de Paris (centre de la carte)
+// On initialise la latitude et la longitude de st nazaire (centre de la carte)
 var lat = 47.271469;
 var lon = -2.229505;
 var macarte = null;
