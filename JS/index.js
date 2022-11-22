@@ -51,6 +51,15 @@ function loadReglement(where, code) {
     x_action_makePDFFromHtml(tabToString(data2PDF), "reglement" + code + ".html", display_openPDF);
 }
 
+function goToPOST(page = 'bav.php', modePage = '', id = null, message = '') {
+    document.formNavigation.page.value = page
+    document.formNavigation.modePage.value = modePage;
+    document.formNavigation.id.value = id;
+    document.formNavigation.message.value = message;
+    document.formNavigation.method = 'POST';
+    document.formNavigation.submit();
+}
+
 function goTo(page = 'bav.php', modePage = '', id = null, message = '') {
     document.formNavigation.page.value = page
     document.formNavigation.modePage.value = modePage;

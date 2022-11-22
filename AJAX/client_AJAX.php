@@ -20,7 +20,7 @@ function return_listClientByMel($mel = null)
  */
 function return_listClientByName($nom = null)
 {
-    return getClients("cli_nom", "asc", ['cli_nom'=>$nom], true);
+    return getClients("cli_nom", "asc", ['cli_nom' => $nom], true);
 }
 
 
@@ -30,7 +30,7 @@ function return_listClientByName($nom = null)
 function return_countClient($all)
 {
     return countClient($all);
-} 
+}
 
 /**
  * retourne un client via son mel
@@ -39,6 +39,29 @@ function return_oneClientByMel($mel)
 {
     if (strlen($mel) > 0) {
         return getOne($mel, "bav_client", "cli_emel");
+    }
+}
+
+/**
+ * retourne un client via son mel
+ */
+function connect_client($mel, $code)
+{
+    if (strlen($mel) > 0) {
+        return connectClient($mel,$code);
+    }
+}
+
+
+/**
+ * retourne un client via son mel
+ */
+function return_isClientByMel($mel)
+{
+    if (return_oneClientByMel($mel)) {
+        return true;
+    } else {
+        return false;
     }
 }
 
@@ -60,6 +83,7 @@ function return_oneClientByIdModif($mid)
     return getOne($mid, "bav_client", "cli_id_modif");
 }
 
+
 /**
  * retourne tous les clients 
  */
@@ -78,7 +102,8 @@ function return_clientsRecap($tri, $sens, $selection, $all = false)
     return $tab;
 }
 
-function return_bavsClient($id) {
+function return_bavsClient($id)
+{
     return  getBavsClient($id);
 }
 
@@ -88,7 +113,8 @@ function return_bavsClient($id) {
 function return_oneClient($id)
 {
     $row = getOneClient($id);
-    if ($row) { }
+    if ($row) {
+    }
     return $row;
 }
 
@@ -106,8 +132,7 @@ function action_updateClient($obj)
             if ($climel['cli_id'] &&  $climel['cli_id'] != $tab['cli_id']) {
                 return "Mel déja utilisé pour " . $climel['cli_nom'];
             }
-        }
-        else {
+        } else {
             $climel = getOneClientByName($tab['cli_nom']);
             if ($climel['cli_id'] && $climel['cli_id'] != $tab['cli_id']) {
                 return "Nom déja utilisé pour " . $climel['cli_id_modif'];
@@ -143,11 +168,42 @@ function action_deleteClient($id)
 /**
  * creation d'un client
  */
-function action_makeClient($data)
+function action_makeClient($data, $mail = false)
 {
+    extract($GLOBALS);
+
     $tabCli = tabToObject(string2Tab($data), "cli");
-    return makeClient($tabCli);
+    $tabCli = makeClient($tabCli);
+
+    // TODO : envoi du mail
+    $titreMel = "Pré enregistrement à la ".$INFO_APPLI['titre'];
+
+    $tabCli['cli_code']=substr($tabCli['cli_id_modif'],0,6);
+    $tabCli['titre']=$INFO_APPLI['titre'];
+    // creation du message avec le template
+    $message = makeMessage($titreMel, array_merge($tabCli), "mel_pre-enregistrement.html");
+
+    // envoi du mel
+    sendMail($titreMel, $tabCli['cli_emel'], $message);
 }
+
+function action_redonneCode($mel)
+{
+    extract($GLOBALS);
+
+    $tabCli= return_oneClientByMel($mel);
+    // TODO : envoi du mail
+    $titreMel = "Code d'accès à la ".$INFO_APPLI['titre'];
+
+    $tabCli['cli_code']=substr($tabCli['cli_id_modif'],0,6);
+    $tabCli['titre']=$INFO_APPLI['titre'];
+    // creation du message avec le template
+    $message = makeMessage($titreMel, array_merge($tabCli), "mel_code_access.html");
+
+    // envoi du mel
+    sendMail($titreMel, $tabCli['cli_emel'], $message);
+}
+
 
 /**
  * creation d'un client
@@ -160,16 +216,15 @@ function makeClient($tabCli)
     if ($tabCli['cli_emel'] != null) {
         //echo "makeClient => recherche par mel";
         $clientSearch =  getOne($tabCli['cli_emel'], "bav_client", "cli_emel");
-        
     }
-    if ($clientSearch==null && $tabCli['cli_nom'] != null) {
+    if ($clientSearch == null && $tabCli['cli_nom'] != null) {
         //echo "makeClient => recherche par nom";
         $clientSearch =  getOne($tabCli['cli_nom'], "bav_client", "cli_nom");
     }
-    if ($clientSearch==null) {
+    if ($clientSearch == null) {
         //echo "makeClient => inconnu, alors creation";
         $tabCli['cli_id'] = 0;
-        $tabCli['cli_id_modif'] = hash_hmac('md5', $tabCli['cli_nom'].rand(0, 200000), 'avs44');
+        $tabCli['cli_id_modif'] = hash_hmac('md5', $tabCli['cli_nom'] . rand(0, 200000), 'avs44');
         if (!$tabCli['cli_taux_com']) {
             $tabCli['cli_taux_com'] = 10;
         }

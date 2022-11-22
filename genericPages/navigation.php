@@ -43,8 +43,8 @@ if ($infAppli['ADMIN']) {
         'SPACE' => [
             'libelle' => '&nbsp;&nbsp;&nbsp;',
         ],
-        'ficheV2.php' => [
-            'libelle' => '--Pré-déposer v2',
+        'pre_depot.php' => [
+            'libelle' => 'Pré-déposer pour TEST',
             'mode' => 'create',
         ],
         'saisieExpress.php' => [
@@ -88,7 +88,7 @@ if ($infAppli['ADMIN']) {
         'SPACE0' => [
             'libelle' => '---->',
         ],
-        'ficheV2.php' => [
+        'pre_depot.php' => [
             'libelle' => '<span class="PRE-DEPOT" >Pré-déposer</span>',
             'mode' => 'create',
         ],

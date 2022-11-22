@@ -15,7 +15,6 @@ function makeMessage($titre, $data, $fileHTML)
 {
     extract($GLOBALS);
     $messageMail="";
-
     
     $messageMail.=makeEntete($titre);
     $messageMail.=makeCorps($data, $fileHTML);

@@ -191,6 +191,27 @@ function getBavsClient($idClient)
     return $tab;
 }
 
+
+/**
+ * recherche des clients pour une BAV ou pas
+ */
+function connectClient($mel,$code)
+{
+    $requete2 = "SELECT * from bav_client ";
+    $requete2 .= " where 1 = 1 ";
+    $requete2 .= " and cli_emel = '$mel'";
+    $requete2 .= " and SUBSTRING(cli_id_modif, 1, 6) = '$code'";
+
+    if ($result = $GLOBALS['mysqli']->query($requete2)) {
+        $row = $result->fetch_assoc();
+        $result->close();
+    } else {
+        throw new Exception("connectClient' [$requete2]" . $GLOBALS['mysqli']->error);
+    }
+    return $row;
+}
+
+
 /**
  * mise a jour du client
  */

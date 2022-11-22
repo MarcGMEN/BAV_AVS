@@ -11,5 +11,7 @@ sajax_export(
     "return_clients","return_clientsRecap",
     "action_deleteClient",
     "return_bavsClient",
-    "return_countClient"
+    "return_countClient",
+    "return_isClientByMel",
+    "connect_client","action_redonneCode"
 );

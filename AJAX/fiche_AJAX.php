@@ -124,7 +124,7 @@ function action_createFiche($data)
     extract($GLOBALS);
     $ADMIN = $INFO_APPLI['ADMIN'];
 
-    $retour = "";
+    $retour = [];
     try {
         $tabObj = tabToObject(string2Tab($data), "obj");
         $tabCli = tabToObject(string2Tab($data), "cli");
@@ -132,7 +132,7 @@ function action_createFiche($data)
         // creation du client, si mel ou nom OK, on le recupere
         // on en normalement avec le mel uniquement
         // on a pas de cli_id
-        makeClient($tabCli);
+        //makeClient($tabCli);
 
         error_log("cli_id = " . $tabCli['cli_id']);
         if ($tabCli['cli_id'] != 0) {
@@ -140,7 +140,7 @@ function action_createFiche($data)
             // en cas de creation, on reforce un update
             // en cas de client trouve par mel ou nom on prend compte les modifs possible
             // adresse ou nom si mel ok.
-            updateClient($tabCli);
+            //updateClient($tabCli);
 
             $tabObj['obj_id_vendeur'] = $tabCli['cli_id'];
 
@@ -151,7 +151,7 @@ function action_createFiche($data)
             $tabObj['obj_modele'] = strtoupper($tabObj['obj_modele']);
             $tabObj['obj_couleur'] = strtoupper($tabObj['obj_couleur']);
 
-            if ($ADMIN) {
+            if (!$ADMIN) {
                 // creation du numero a partir de la base parametre pour la BAV
                 makeNumeroFiche($INFO_APPLI['base_info'], $tabObj, false);
                 // on passe en STOCK
@@ -161,30 +161,36 @@ function action_createFiche($data)
                 // date de creation
                 $tabObj['obj_date_depot'] = date('y-m-d H:i:s');
             } else {
-                $tabObj['obj_etat'] = 'INIT';
-                makeNumeroFiche(5000, $tabObj, true);
+                $tabObj['obj_etat'] = 'CONFIRME';
+                makeNumeroFiche($INFO_APPLI['base_info'], $tabObj, true);
+
+                $tabObj['obj_modif_data'] = 1;
+                $tabObj['obj_modif_vendeur'] = 1;
+                $tabObj['obj_modif_stock'] = 1;
+
+                updateFiche($tabObj);
 
                 // creation du lien REST pour confirmer le depot
-                $tabPlus['lien_confirm'] = $CFG_URL . "/Actions/rest.php?a=C&id=" . $tabObj['obj_id_modif'];
+                // $tabPlus['lien_confirm'] = $CFG_URL . "/Actions/rest.php?a=C&id=" . $tabObj['obj_id_modif'];
 
-                // si pas de pri de depot, alors phrase de rappel
-                if ($tabObj['obj_prix_depot'] == "") {
-                    $tabPlus['obj_prix_depot'] = 'A renseigner le jour du dépôt dernier délai';
-                    $tabObj['obj_prix_depot'] == 0;
-                } else {
-                    $tabPlus['obj_prix_depot'] = $tabObj['obj_prix_depot'] . " €";
-                }
+                // // si pas de pri de depot, alors phrase de rappel
+                // if ($tabObj['obj_prix_depot'] == "") {
+                //     $tabPlus['obj_prix_depot'] = 'A renseigner le jour du dépôt dernier délai';
+                //     $tabObj['obj_prix_depot'] == 0;
+                // } else {
+                //     $tabPlus['obj_prix_depot'] = $tabObj['obj_prix_depot'] . " €";
+                // }
 
-                $tabPlus['titre'] = $INFO_APPLI['titre'];
+                // $tabPlus['titre'] = $INFO_APPLI['titre'];
 
-                $tabPlus['obj_date_achat_FR'] = formateDateMYSQLtoFR($fiche['obj_date_achat'], false);
+                // $tabPlus['obj_date_achat_FR'] = formateDateMYSQLtoFR($fiche['obj_date_achat'], false);
 
-                // titre du mel
-                $titreMel = "Confirmation de votre dépôt à " . $INFO_APPLI['titre'];
+                // // titre du mel
+                // $titreMel = "Confirmation de votre dépôt à " . $INFO_APPLI['titre'];
 
-                // creation du message du mel
-                // template : html/mel_enregristrement.html
-                $message = makeMessage($titreMel, array_merge($tabObj, $tabCli, $tabPlus), "mel_enregistrement.html");
+                // // creation du message du mel
+                // // template : html/mel_enregristrement.html
+                // $message = makeMessage($titreMel, array_merge($tabObj, $tabCli, $tabPlus), "mel_enregistrement.html");
             }
 
             $tabObj['obj_numero_bav'] = $INFO_APPLI['numero_bav'];
@@ -192,15 +198,7 @@ function action_createFiche($data)
             // creation de la fiche
             $tabObj['obj_id'] = insertFiche($tabObj);
 
-            if ($ADMIN) {
-                // si admin, on revient sur la fiche
-                $retour = array();
-                //$retour['message'] = "OK pour creation de ".$tabObj['obj_numero'];
-                $retour['id'] = $tabObj['obj_id'];
-            } else {
-                // sinon on envoi le mel
-                $retour = sendMail($titreMel, $tabCli['cli_emel'], $message, null, false);
-            }
+            $retour = 1;
         } else {
             return "ERREUR : problème de création du client";
         }
@@ -450,36 +448,33 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
             $fiche['obj_prix_achat'] = "";
         }
 
-
-        
         if (sizeof($fiche) > 0) {
             $tabCoupons[$fiche['obj_numero']] = makeCorps(array_merge($fiche, $data), 'etiquette.html');
         }
     }
 
-    $nbCoupon=$INFO_APPLI['nb_eti_page'];
-    $nbPage=ceil(sizeof($tabCoupons)/$nbCoupon);
+    $nbCoupon = $INFO_APPLI['nb_eti_page'];
+    $nbPage = ceil(sizeof($tabCoupons) / $nbCoupon);
 
     // echo "nb coupon : $nbCoupon ;  nbPage = $nbPage";
-    $ligne=1;
-    $page=0;
-    $nbCouponTotal=sizeof($tabCoupons);
+    $ligne = 1;
+    $page = 0;
+    $nbCouponTotal = sizeof($tabCoupons);
     // echo  $nbCouponTotal;
     foreach ($tabCoupons as $key => $value) {
-        $pos=$ligne+$nbCoupon*$page;
+        $pos = $ligne + $nbCoupon * $page;
         // echo "$key => $ligne+$nbCoupon*$page => ".($pos)." <br\>";
         if ($pos > $nbCouponTotal) {
-            $page=0;
+            $page = 0;
             $ligne++;
             $nbPage--;
-            $pos=$ligne+$nbCoupon*$page;
-        
+            $pos = $ligne + $nbCoupon * $page;
         }
         // echo "BIS $key => $ligne+$nbCoupon*$page => ".($pos)." <br\>";
-        $tabImpression[$pos]=$value;
+        $tabImpression[$pos] = $value;
         $page++;
         if ($page >= $nbPage) {
-            $page=0;
+            $page = 0;
             $ligne++;
         }
     }
@@ -487,11 +482,11 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
     ksort($tabImpression);
     foreach ($tabImpression as $key => $value) {
         $etiquettes .= "<hr  />";
-            $etiquettes .= $value;
-            if ($index++ % $INFO_APPLI['nb_eti_page'] == 0) {
-                $etiquettes .= "<hr  />";
-                $etiquettes .= "<div style='page-break-after:always; clear:both;font-size:10pt;height:10pt'>..........</div>";
-            }
+        $etiquettes .= $value;
+        if ($index++ % $INFO_APPLI['nb_eti_page'] == 0) {
+            $etiquettes .= "<hr  />";
+            $etiquettes .= "<div style='page-break-after:always; clear:both;font-size:10pt;height:10pt'>..........</div>";
+        }
     }
 
     $fileHTML = "../out/html/etiquettes_" . $eti0 . "_" . $eti1 . ".html";
@@ -580,7 +575,7 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
     }
 
     $tabImpression = [];
-    $tabCoupons=[];
+    $tabCoupons = [];
 
     $index = 1;
     foreach ($tabFiche as $numFiche) {
@@ -682,29 +677,28 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
         }
     }
 
-    $nbCoupon=$INFO_APPLI['nb_coupon_page'];
-    $nbPage=ceil(sizeof($tabCoupons)/$nbCoupon);
+    $nbCoupon = $INFO_APPLI['nb_coupon_page'];
+    $nbPage = ceil(sizeof($tabCoupons) / $nbCoupon);
 
     // echo "nb coupon : $nbCoupon ;  nbPage = $nbPage";
-    $ligne=1;
-    $page=0;
-    $nbCouponTotal=sizeof($tabCoupons);
+    $ligne = 1;
+    $page = 0;
+    $nbCouponTotal = sizeof($tabCoupons);
     // echo  $nbCouponTotal;
     foreach ($tabCoupons as $key => $value) {
-        $pos=$ligne+$nbCoupon*$page;
+        $pos = $ligne + $nbCoupon * $page;
         // echo "$key => $ligne+$nbCoupon*$page => ".($pos)." <br\>";
         if ($pos > $nbCouponTotal) {
-            $page=0;
+            $page = 0;
             $ligne++;
             $nbPage--;
-            $pos=$ligne+$nbCoupon*$page;
-        
+            $pos = $ligne + $nbCoupon * $page;
         }
         // echo "BIS $key => $ligne+$nbCoupon*$page => ".($pos)." <br\>";
-        $tabImpression[$pos]=$value;
+        $tabImpression[$pos] = $value;
         $page++;
         if ($page >= $nbPage) {
-            $page=0;
+            $page = 0;
             $ligne++;
         }
     }
@@ -1272,17 +1266,23 @@ function action_updateFiche($data)
     // si pas de mel, on cherche le nom si OK, on recupere et modifis les données
     // attention au homonyne..
     // si rien trouvé on le crée.
-    $client = makeClient($client);
-    $fiche['obj_id_vendeur'] = $client['cli_id'];
+    if ($client) {
+        $client = makeClient($client);
+        $fiche['obj_id_vendeur'] = $client['cli_id'];
+
+        $cliOld = return_oneClient($fiche['obj_id_vendeur']);
+    
+        if (strtoupper($client['cli_nom']) != strtoupper($cliOld['cli_nom'])) {
+            $fiche['obj_modif_vendeur'] = 2;
+        }
+    }
 
     // en mode CONFIRME
     // on recherche le vendeur
-    $cliOld = return_oneClient($fiche['obj_id_vendeur']);
     if ($fiche['obj_etat'] == "CONFIRME") {
         // error_log("test cli_nom  " . strtoupper($client['cli_nom']) . " != " . strtoupper($cliOld['cli_nom']));
         // si modification de client de la fiche
-        if ($ficheOld['obj_modif_vendeur'] == 0 && (strtoupper($client['cli_nom']) != strtoupper($cliOld['cli_nom']) ||
-            strtoupper($fiche['obj_marque']) != strtoupper($ficheOld['obj_marque']) ||
+        if ($ficheOld['obj_modif_vendeur'] == 0 && (strtoupper($fiche['obj_marque']) != strtoupper($ficheOld['obj_marque']) ||
             strtoupper($fiche['obj_modele']) != strtoupper($ficheOld['obj_modele']))) {
             $fiche['obj_modif_vendeur'] = 2;
         }
