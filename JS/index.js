@@ -99,10 +99,6 @@ function searchFiche(code) {
 function display_getFicheConsult(val) {
     console.log(val);
     if (val instanceof Object && val['obj_id'] != undefined) {
-        /*  if (ADMIN) {
-              console.log("fiche.php&id=" + val['obj_id']);
-              goTo("fiche.php", "modif", val['obj_id']);
-          } else */
         if (val['obj_numero'] < 5000) {
             console.log("consult.php&id=" + val['obj_id']);
             goTo("consult.php", Gtype, val['obj_id']);

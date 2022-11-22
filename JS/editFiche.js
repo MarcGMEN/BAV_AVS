@@ -14,6 +14,7 @@ function initPage() {
 
 function unloadPage() {}
 
+// affichage des la repartition des impression pour les data de la fiche
 function display_modifData(val) {
 
     getElement('nb_fiche_eti').innerHTML = sizeof(val);
@@ -39,6 +40,7 @@ function display_modifData(val) {
     getElement('nb_fiche_new').innerHTML = nbNew;
 }
 
+// affichage des la repartition des impression pour les data de la fiche et du coupon vendeur
 function display_modifVendeur(val) {
     getElement('nb_fiche_coupon').innerHTML = sizeof(val);
     var nbAImprimer = parseInt(parseInt(sizeof(val)) / parseInt(nb_coupon_page));
@@ -63,6 +65,7 @@ function display_modifVendeur(val) {
     getElement('nb_fiche_new_coupon').innerHTML = nbNew;
 }
 
+// affichage des la repartition des impression pour les datas du coupon de sorties
 function display_modifStock(val) {
     getElement('nb_fiche_couponA').innerHTML = sizeof(val);
     var nbAImprimer = parseInt(parseInt(sizeof(val)) / parseInt(nb_coupon_page));
@@ -82,10 +85,8 @@ function display_modifStock(val) {
     }
 }
 
+
 function display_html_file(val) {
-    // CKEDITOR.replace('editor_html_file');
-    // CKEDITOR.instances.editor_html_file.setData(val);
-    //getElement('editor_html_file').innerHTML = val;
     getElement('edition').style.display = 'block';
     getElement('editing').value = val;
     update(val);
@@ -95,13 +96,16 @@ function display_html_file(val) {
 
 var idTextSAved = ""
 
+/**
+ * sauvegarde des editions
+ * @param {s} id 
+ * @param {*} data 
+ */
 function saveEditor(id, data) {
     //console.log(data);
     alertModalInfoTimeout(data, 1);
     idTextSAved = id;
     x_save_html(id, data, display_fin_save);
-    // CKEDITOR.instances.editor_html_file.destroy();
-    //cancelEditor(id);
 }
 
 function viewOnPdf(idText, format) {
@@ -114,11 +118,8 @@ function viewOnHtml(idText) {
     x_action_makeHtml(new Array(), idText + ".html", true, display_viewHTML);
 }
 
-
 function display_fin_save(val) {
     x_return_html(idTextSAved, display_html_file);
-    //alertModalInfoTimeout("save OK " + val, 1);
-    //location.reload();
 }
 
 function cancelEditor(id) {
@@ -149,6 +150,8 @@ function imprimeEtiquettesPage(force, test) {
     x_action_makeA4Etiquettes(0, force, test, display_openHTML);
 }
 
+
+
 function imprimeCoupons(eti0, eti1, test, nameCoupon) {
     if (eti0 != "" && eti1 != "") {
         alertModalInfo("Génération des " + nameCoupon + " de " + eti0 + " a " + eti1 + " au format HTML <img src='Images/spinner_white_tiny.gif' />");
@@ -158,8 +161,10 @@ function imprimeCoupons(eti0, eti1, test, nameCoupon) {
     }
 }
 
+
+
 function imprimeLibreFiche(eti, nameFdp) {
-    if (eti != "" ) {
+    if (eti != "") {
         alertModalInfo("Génération de " + nameFdp + " pour " + eti + " au format HTML <img src='Images/spinner_white_tiny.gif' />");
         x_action_makeLibreFiche(eti, nameFdp, display_openHTML);
     } else {
@@ -194,8 +199,7 @@ function display_openHTML(val) {
         window.open(val, '_blank');
         //setTimeout(function() { x_action_menage(val, display_rien) }, 100);
         initPage();
-    }
-    else {
+    } else {
         alertModalWarn(val);
     }
 }

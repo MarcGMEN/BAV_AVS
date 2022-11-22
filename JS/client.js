@@ -82,26 +82,6 @@ function display_client(val) {
         };
         x_return_fiches(tri, sens, tabToString(tabSelA), display_fiches_achat);
 
-        adress = "";
-        virgule = "";
-        if (val['cli_adresse'] != "") {
-            adress += val['cli_adresse'];
-            virgule = ", ";
-        }
-        if (val['cli_adresse1'] != "") {
-            adress += virgule + val['cli_adresse1'];
-            virgule = ", ";
-        }
-        if (val['cli_code_postal'] != "") {
-            adress += virgule + val['cli_code_postal'];
-            virgule = ", ";
-        }
-        if (val['cli_ville'] != "") {
-            adress += virgule + val['cli_ville'];
-            virgule = ", ";
-        }
-
-        //geoPosClient(adress,true);
     } else {
         goTo(null, null, null, "Client inconnue.");
     }
@@ -259,7 +239,7 @@ function display_fiches(val, idElement) {
             if (val[index]['obj_numero'] < 5000 || (val[index]['obj_numero'] >= 5000 && ADMIN)) {
                 repr += "<tr class='tabl0 link' ";
                 repr += " title='accès à la fiche " + val[index]['obj_numero'] + "' ";
-                repr += " onclick='goTo(\"fiche.php\",\"modif\"," + val[index]['obj_id'] + ",null)'>";
+                repr += " onclick='goTo(\"ficheAdmin.php\",\"modif\"," + val[index]['obj_id'] + ",null)'>";
                 repr += "<td width=10% align=center>";
                 repr += val[index]['obj_numero'];
                 repr += "</td>";
@@ -314,7 +294,7 @@ function triColonne(col) {
     };
 
     // console.log("appel fiches vente");
-    x_return_fiches(tri, sens, tabToString(tabSel), display_fiches);
+    x_return_fiches(tri, sens, tabToString(tabSel), display_fiches_depot);
 
     var tabSelA = {
         "obj_id_acheteur": idClient

@@ -567,7 +567,7 @@
 			var obj = val["obj" + id];
 			val['plus' + id] = "(" + obj['obj_numero'] + ") " + obj['obj_type'] + "-" + obj['obj_public'] + " - " + obj['obj_marque'] + " [" + obj['vendeur_nom'] + "]"
 			getElement('plus' + id).onclick = function() {
-				goTo("fiche.php", "modif", obj['obj_id']);
+				goTo("ficheAdmin.php", "modif", obj['obj_id']);
 			};
 		} else {
 			val['plus' + id] = "";

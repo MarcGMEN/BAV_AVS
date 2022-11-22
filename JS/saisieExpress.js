@@ -122,7 +122,7 @@ function afficheLigne(val) {
         }
         getElement("etat_" + index).innerHTML = val['obj_etat'];
 
-        getElement("zoom_" + index).innerHTML = "<i class='link fas fa-search' onclick='goTo(\"fiche.php\",\"modif\"," + val['obj_id'] + ")'></i>";
+        getElement("zoom_" + index).innerHTML = "<i class='link fas fa-search' onclick='goTo(\"ficheAdmin.php\",\"modif\"," + val['obj_id'] + ")'></i>";
         getElement("numero_" + index).className += " link";
 
         getElement("tr_" + index).className = "tabl0 " + val['obj_etat'];
@@ -142,21 +142,21 @@ function afficheLigne(val) {
             var actionPrix = "<input type='number' name='obj_prix_vente_" + index + "' min=1 step='0.1' value='" + thePrix + "' />";
             getElement("prix_vente_" + index).innerHTML = actionPrix;
 
-            action = "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\",document.formTabSaisie.obj_prix_vente_" + index + ".value)' />";
+            action = "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\",document.formTabSaisie.obj_prix_vente_" + index + ".value," + val['obj_numero'] + ")' />";
             getElement("action_" + index).innerHTML = action;
 
         } else if (val['obj_etat'] == "STOCK") {
             new_etat = "RENDU";
             new_libelle = "Rendre";
-            action = "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\"," + val['obj_prix_vente'] + ")' />";
+            action = "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\"," + val['obj_prix_vente'] + "," + val['obj_numero'] + ")' />";
             new_etat = "VENDU";
             new_libelle = "Vendre";
-            action += "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\"," + val['obj_prix_vente'] + ")' />";
+            action += "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\"," + val['obj_prix_vente'] + "," + val['obj_numero'] + ")' />";
             getElement("action_" + index).innerHTML = action;
         } else if (val['obj_etat'] == "VENDU") {
             new_etat = "PAYE";
             new_libelle = "Payer";
-            action = "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\"," + val['obj_prix_vente'] + ")' />";
+            action = "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\"," + val['obj_prix_vente'] + "," + val['obj_numero'] + ")' />";
             getElement("action_" + index).innerHTML = action;
         }
     } else {
@@ -408,8 +408,9 @@ function submitForm() {
     return false;
 }
 
-function changeEtatLigne(id, etat, etat_new, prix_vente) {
+function changeEtatLigne(id, etat, etat_new, prix_vente, numero) {
     var tabObj = {};
+    tabObj['obj_numero'] = numero;
     tabObj['obj_etat'] = etat;
     tabObj['obj_etat_new'] = etat_new;
     tabObj['obj_id'] = id;

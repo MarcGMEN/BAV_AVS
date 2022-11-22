@@ -11,7 +11,7 @@
 </style>
 
 <div id="parametres">
-	<h3 class="tittab1">Liste des parametres
+	<h3 class="tittab1">Liste des paramétrages
 		<span class="tittab1" style='align-content: right'>
 			<button height="100%" onclick="modeCreation()">
 				<span class="fas fa-plus-square"></span>&nbsp;Creation<br />
@@ -24,8 +24,8 @@
 <div id="parametre" style="display:none">
 	<form name="parametreForm" method="POST" action="" onsubmit='return valider(document.parametreForm)'>
 		<fieldset class=fiche>
-			<legend class=titreFiche>Parametre<small>
-					<div id="modeParametre"></div>
+			<legend class=titreFiche>Paramètres<small>
+					<!-- <div id="modeParametre"></div> -->
 				</small></legend>
 			<table width=100% cellpadding=2 cellspacing=2 style="border:1px solid black">
 				<tr>
@@ -92,6 +92,7 @@
 						<input type=date name="par_client_date_debut" size=15 maxlength="15" tabindex=<?= $tabindex++ ?> onkeyup="setStartSaisie(true);" required max="2030-12-31" />
 						&nbsp;au&nbsp;
 						<input type=date name="par_client_date_fin" tabindex=<?= $tabindex++ ?> onkeyup="setStartSaisie(true);" required max="2030-12-31" />
+						<small>Date d'ouverture des pré-dépôts, fermeture à 17h.</small>
 					</td>
 				</tr>
 				<tr>

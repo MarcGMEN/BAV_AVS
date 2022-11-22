@@ -72,7 +72,7 @@ function display_fiches(val) {
                 if (val[index]['mop_id'] > 0) {
                     stylePlus = "color:DARKRED;font-weight:bold"
                 }
-                repr += "<tr class='tabl0 " + val[index]['obj_etat'] + " link' style='" + stylePlus + "' onclick='goTo(\"fiche.php\",\"modif\"," + val[index]['obj_id'] + ")'>";
+                repr += "<tr class='tabl0 " + val[index]['obj_etat'] + " link' style='" + stylePlus + "' onclick='goTo(\"ficheAdmin.php\",\"modif\"," + val[index]['obj_id'] + ")'>";
                 repr += "<td width=5% align=center>";
                 if (val[index]['obj_modif_data'] > 0) {
                     //repr += "<img src='Images/etiq" + val[index]['obj_modif_data'] + ".png' style='height:20px' />";

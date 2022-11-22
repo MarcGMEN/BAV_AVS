@@ -10,19 +10,18 @@
 
 function initPage() {
     if (ADMIN) {
-      console.log(ADMIN);
-       // chargement des taux
-      x_return_tauxBAV(display_list_taux_com);
-      // chargement des depot
-      x_return_depotsBAV(display_list_prix_depot);
+        console.log(ADMIN);
+        // chargement des taux
+        x_return_tauxBAV(display_list_taux_com);
+        // chargement des depot
+        x_return_depotsBAV(display_list_prix_depot);
 
-      pageSaisie();
+        pageSaisie();
 
-      if (cli_id != '') {
-         x_return_oneClient(cli_id, display_infoClientVendeur);
-      }
-    }
-    else {
+        if (cli_id != '') {
+            x_return_oneClient(cli_id, display_infoClientVendeur);
+        }
+    } else {
         goTo();
     }
 }
@@ -67,7 +66,7 @@ function display_list_prix_depot(val) {
  */
 function submitForm() {
     var tabCli = recup_formulaire(document.clientForm, 'cli');
-    x_action_makeClient(tabToString(tabCli), display_fin_client);
+    x_action_makeClient(tabToString(tabCli), false, display_fin_client);
     return false;
 }
 
@@ -81,7 +80,7 @@ function display_infoClientVendeurBis(val) {
 
 function display_infoClientVendeur(val, base) {
     if (val instanceof Object) {
-        getElement('legendVendeur').innerHTML = "["+val['cli_id_modif']+"]";
+        getElement('legendVendeur').innerHTML = "[" + val['cli_id_modif'] + "]";
     } else {
         // reset des champs cli
         // saug cli_emel pour ne pas le perdre
@@ -129,7 +128,7 @@ function display_listVendeurBis(val) {
 
 function display_fin_client(val) {
     if (val instanceof Object) {
-        getElement('legendVendeur').innerHTML = "["+val['cli_id_modif']+"]";
+        getElement('legendVendeur').innerHTML = "[" + val['cli_id_modif'] + "]";
         display_formulaire(val, document.clientForm);
         display_formulaire(val, document.fileForm);
     } else {

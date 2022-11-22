@@ -22,11 +22,7 @@
 				<div class="col-sm-6 col-md-6 col-xs-12">
 					<span class="titrow  col-md-3 col-sm-3 col-xs-3">Emel <span title="Obligatoire">*</span></span>
 					<span class="tabInput col-md-9 col-sm-9 col-xs-9">
-						<? if ($GET_modePage != 'modif') { ?>
-							<span id='cli_emel'></span>
-						<? } else { ?>
-							<input type=email name='cli_emel' id="cli_emel" size="50" maxlength="100" tabindex=<?= $tabindex++ ?> placeholder="aaaa.bbbb@ccc.dd" required onkeyup="setStartSaisie(true);" />
-						<? } ?>
+						<span id='cli_emel'></span>
 					</span>
 				</div>
 				<div class="col-sm-6 col-md-6 col-xs-12">
@@ -102,15 +98,15 @@
 		<td class="tittab" width=7%>
 			<span id='tri_numero' onclick="triColonne('obj_numero')" class="sortable">No&nbsp;&nbsp;&nbsp;</span>
 		</td>
-		<td class="maskmobile tittab" width=20%>
+		<td class="maskmobile tittab" width=10%>
 			<span id='tri_type' onclick="triColonne('obj_type')" class="sortable">Type&nbsp;&nbsp;&nbsp;</span>
 			&nbsp;
 		</td>
-		<td class="maskmobile tittab" width=20%>
+		<td class="maskmobile tittab" width=10%>
 			<span id='tri_public' onclick="triColonne('obj_public')" class="sortable">Public&nbsp;&nbsp;&nbsp;</span>
 			&nbsp;
 		</td>
-		<td class="tittab" width=10%>
+		<td class="tittab" width=30%>
 			<span id='tri_marque' onclick="triColonne('obj_marque')" class="sortable">Marque&nbsp;&nbsp;&nbsp;</span>
 		</td>
 		<td class="maskmobile tittab" width=10%>
@@ -139,7 +135,7 @@
 				<h3>
 		</div>
 		<div class="col-sm-6 col-md-6 col-xs-6 alert alert-info" >
-			<h5>⚠ N'oubliez pas d'imprimer votre fiche avant de venir en cliquant sur l'icone :📇<h5>
+			<h5><b>⚠ N'oubliez pas d'imprimer votre fiche de dépôt avant de venir en cliquant sur l'icone :📇</b><h5>
 		</div>
 	</div>
 </div>

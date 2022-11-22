@@ -88,7 +88,7 @@ function display_parametre(val) {
     document.parametreForm.par_numero_bav.disabled = true;
 
     // on ecrit le mode de la page dans le titre
-    getElement('modeParametre').innerHTML = modePage;
+    // getElement('modeParametre').innerHTML = modePage;
 }
 
 /* acces en creation */
@@ -113,7 +113,7 @@ function modeCreation() {
     document.parametreForm.par_numero_bav.disabled = false;
 
     // on ecrit le mode de la page dans le titre
-    getElement('modeParametre').innerHTML = modePage;
+    // getElement('modeParametre').innerHTML = modePage;
 }
 
 /* fermeture du CRUD */

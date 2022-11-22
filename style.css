@@ -602,19 +602,18 @@ table {
     /*font-size: 0.8em;*/
 }
 
-td.tabl0 {
+tr.tabl0 {
+    border-bottom: 0.5px solid grey;
     padding: 2pt;
-    font-size: 0.8em;
+    font-size: 1em;
 }
 
 .tabAction:hover {
-    background-color: #1161a2;
-    color: grey;
+    background-color: #6ba2cf;
 }
 
 .tabl0:hover {
-    background-color: #1161a2;
-    color: darkgrey;
+    background-color: #6ba2cf;
     font-weight: bold;
 }
 

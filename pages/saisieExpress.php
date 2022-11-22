@@ -106,7 +106,7 @@ $maxFiche = 50;
 			<?php for ($index = 1; $index <= $maxFiche; $index++) { ?>
 				<tr class='tabl0' id="tr_<?= $index ?>">
 					<td width=13% id="action_<?= $index ?>"></td>
-					<td width=5% id="numero_<?= $index ?>" onclick="x_return_oneFicheByCode('<?= $index ?>', display_fiche)"><span style="color: GREEN"><?= $index ?></span>
+					<td width=5% id="numero_<?= $index ?>" onclick="x_return_oneFicheByCode(getElement('numero_<?=$index?>').innerHTML, display_fiche)"><span style="color: GREEN"><?= $index ?></span>
 					</td>
 					<td width=10% id="type_<?= $index ?>"></td>
 					<td width=10% id="prix_vente_<?= $index ?>"></td>

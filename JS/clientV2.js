@@ -10,70 +10,34 @@ function initPage() {
     }
 }
 
-function display_parametres(val) {
-    var select = getElement("annee_stat");
-    select.options[select.options.length] = new Option("Choix", "*");
-    for (index in val) {
-        select.options[select.options.length] = new Option(val[index]['obj_numero_bav'], val[index]['obj_numero_bav']);
-        if (anneeBav == index) {
-            select.options[select.options.length - 1].selected = true;
-        }
-    }
-}
-
-// que faire en cas de changement de saisie
-function pageSaisie() {
-    if (startSaisie) {
-        document.clientForm.buttonValideFiche.disabled = false;
-    } else {
-        document.clientForm.buttonValideFiche.disabled = true;
-    }
-}
-
-
 /*
  * action lors du derchargement de la page
  */
 function unloadPage() {}
+
 /**
- * 
+ *  affichage des infos client
  */
 function display_client(val) {
     // console.log(val);
     if (val instanceof Object) {
 
+        // formulaire et span
         display_formulaire(val, document.clientForm);
 
         cli_id = val['cli_id'];
 
+        // recherche des fiches de dépots
         var tabSel = {
             "obj_id_vendeur": val['cli_id']
         };
         x_return_fiches(tri, sens, tabToString(tabSel), display_fiches_depot);
 
+        // recherche des fiches achats
         var tabSelA = {
             "obj_id_acheteur": val['cli_id']
         };
         x_return_fiches(tri, sens, tabToString(tabSelA), display_fiches_achat);
-
-        adress = "";
-        virgule = "";
-        if (val['cli_adresse'] != "") {
-            adress += val['cli_adresse'];
-            virgule = ", ";
-        }
-        if (val['cli_adresse1'] != "") {
-            adress += virgule + val['cli_adresse1'];
-            virgule = ", ";
-        }
-        if (val['cli_code_postal'] != "") {
-            adress += virgule + val['cli_code_postal'];
-            virgule = ", ";
-        }
-        if (val['cli_ville'] != "") {
-            adress += virgule + val['cli_ville'];
-            virgule = ", ";
-        }
     } else {
         goTo(null, null, null, "Client inconnue.");
     }
@@ -97,6 +61,7 @@ function submitFormClient() {
     return false;
 }
 
+// fin de modif, on relance la page
 function display_fin_modif(val) {
     setStartSaisie(false);
     if (val instanceof Object) {
@@ -141,9 +106,10 @@ var sens = "asc";
 var selection = "*";
 var tabSel = new Array();
 
+// affichage des fiche de depot
 function display_fiches_depot(val) {
 
-    var total = display_fiches(val, 'fiches');
+    display_fiches(val, 'fiches');
 
     if (sens == "asc") {
         classSort = "sortUp";
@@ -154,15 +120,16 @@ function display_fiches_depot(val) {
     getElement(triS).className = classSort;
 }
 
+// affichage de fiche achats
 function display_fiches_achat(val) {
     display_fiches(val, 'fichesA');
 }
 
+// affichage tableau
 function display_fiches(val, idElement) {
-
     // console.log(val);
     var total = 0;
-    var repr = "<table width='100%'>";
+    var repr = "<table width='100%' spacing=0>";
     for (index in val) {
         if (!isNaN(index)) {
             if (val[index]['obj_numero'] < 5000) {
@@ -170,14 +137,14 @@ function display_fiches(val, idElement) {
                 repr += "<td width=7% align=center>";
                 repr += val[index]['obj_numero'];
                 repr += "</td>";
-                repr += "<td class='maskmobile' width=20%>";
+                repr += "<td class='maskmobile' width=10%>";
                 repr += val[index]['obj_type'];
                 repr += "</td>";
-                repr += "<td class='maskmobile' width=20% >";
+                repr += "<td class='maskmobile' width=10% >";
                 repr += val[index]['obj_public'];
                 repr += "</td>";
-                repr += "<td width=10% >";
-                repr += val[index]['obj_marque'];
+                repr += "<td width=30% >";
+                repr += val[index]['obj_marque'] + " " + val[index]['obj_modele'];
                 repr += "</td>";
                 repr += "<td class='maskmobile'  width=10% >";
                 repr += val[index]['obj_couleur'];
@@ -190,29 +157,33 @@ function display_fiches(val, idElement) {
                 }
                 repr += "</td>";
                 repr += "<td width=15% >";
-                switch (val[index]['obj_etat']) {
-                    case "CONFIRME":
-                        repr += "En attente de dépôt";
-                        break;
-                    case "STOCK":
-                        repr += "Présent sur le parc";
-                        break;
-                    case "VENDU":
-                        repr += "Vendu";
-                        break;
-                    case "RENDU":
-                        repr += "Restitué";
-                        break;
-                    case "PAYE":
-                        repr += "Vendu et argent remis";
-                        break;
+                if (idElement == "fiches") {
+                    switch (val[index]['obj_etat']) {
+                        case "CONFIRME":
+                            repr += "En attente de dépôt";
+                            break;
+                        case "STOCK":
+                            repr += "Présent sur le parc";
+                            break;
+                        case "VENDU":
+                            repr += "Vendu";
+                            break;
+                        case "RENDU":
+                            repr += "Restitué";
+                            break;
+                        case "PAYE":
+                            repr += "Vendu et argent remis";
+                            break;
+                    }
+                } else {
+
                 }
                 repr += "</td>";
                 repr += "<td width=8% style='text-align:center' >";
                 if (val[index]['obj_etat'] == 'CONFIRME' && idElement == "fiches") {
-                    repr += "<span title='Modifier'  onclick='modifierFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link' style='font-size:1.5em'>✏</span>";
+                    repr += "<span title='Modifier'  onclick='modifierFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link' style='font-size:1.5em'><i class='link fas fa-edit'></i></span > ";
                     repr += "<span title='Supprimer' onclick='supprimerFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link' style='font-size:1.5em'>❌</span>";
-                    repr += "<span title='Imprimer' onclick='imprimeFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link' style='font-size:1.5em'> 📇</span>";
+                    repr += "<span title='Imprimer' onclick='imprimeFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link' style='font-size:1.5em'>📇</span>";
                 }
                 repr += "</td>";
                 repr += "</tr>";
@@ -221,20 +192,19 @@ function display_fiches(val, idElement) {
         }
     }
     repr += "</table>";
-    // console.log(idElement);
     getElement(idElement).innerHTML = repr;
-
-    // getElement('total' + idElement).innerHTML = total;
-
-    // console.log('total'+idElement);
     return total;
 }
 
+/** impression de la fiche */
 function imprimeFiche(id, numero) {
 
     alertModalInfo("Génération de la fiche " + numero + " au format PDF <img src='Images/spinner_white_tiny.gif' />");
     x_action_makePDF(id, display_openPDF);
 }
+
+/**
+ * tri des colonnes */
 
 function triColonne(col) {
     if (col == tri) {
@@ -267,15 +237,17 @@ function triColonne(col) {
 
 }
 
+/**
+ * Ajout d'un depot
+ * @param  cli_id_mod 
+ */
 function addDepot(cli_id_mod) {
     var tabData = {
         "cli_id_modif": cli_id_mod,
         'obj_numero': ""
     };
     x_get_publiHtml(tabToString(tabData), 'modal_create_fiche.html', display_messageConfirm);
-
 }
-
 
 function supprimerFiche(id, numero) {
     var tabObj = []
@@ -295,7 +267,6 @@ function display_messageConfirmSupp(mess) {
     alertModalConfirm(mess, 'Supp', "Suppression du depot");
 }
 
-
 function modifierFiche(id, numero) {
     var tabObj = []
     tabObj['obj_id'] = id;
@@ -306,10 +277,10 @@ function modifierFiche(id, numero) {
 
 function modalModifFiche(val) {
     // creation du message de confirmation de la suppression
-
     display_formulaire(val, document.modalForm);
     return false;
 }
+
 /**
  * affchage du modal de suppression avec attente de confirmation
  * la confirmation est géré par ConfirmModal option Supp
@@ -319,7 +290,7 @@ function display_messageConfirmModif(mess) {
     alertModalConfirm(mess, 'Modif', "Modification du depot");
 }
 
-
+// confimr ajout
 function display_messageConfirm(mess) {
     alertModalConfirm(mess, 'Fiche', "Votre depot.");
 }
@@ -334,9 +305,6 @@ function confirmModal(plus) {
         tabCli['cli_id'] = document.clientForm.cli_id.value;
         var tabData = Object.assign({}, tabObj, tabCli);
         x_action_createFiche(tabToString(tabData), display_fin_create);
-    } else if (plus == "Close") {
-        closeModal();
-        goTo();
     } else if (plus == "Supp") {
         var tabObj = recup_formulaire(document.modalForm, 'obj');
         x_action_deleteFiche(tabObj['obj_id'], display_fin_create);
@@ -346,6 +314,7 @@ function confirmModal(plus) {
         x_action_updateFiche(tabToString(tabData), display_fin_create);
     }
 }
+
 
 function display_fin_create(val) {
     if (val == 1 || val == "" || val instanceof Object) {
@@ -406,6 +375,7 @@ function display_list_tailles(val) {
 }
 
 function display_list_modeles(val) {
+    var list = getElement("listModeles");
     list.innerHTML = "";
     for (index in val) {
         list.appendChild(new Option(val[index], val[index]));

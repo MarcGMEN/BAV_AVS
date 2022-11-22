@@ -48,7 +48,7 @@ function return_oneClientByMel($mel)
 function connect_client($mel, $code)
 {
     if (strlen($mel) > 0) {
-        return connectClient($mel,$code);
+        return connectClient($mel, $code);
     }
 }
 
@@ -168,35 +168,38 @@ function action_deleteClient($id)
 /**
  * creation d'un client
  */
-function action_makeClient($data, $mail = false)
+function action_makeClient($data, $mail = true)
 {
     extract($GLOBALS);
 
     $tabCli = tabToObject(string2Tab($data), "cli");
     $tabCli = makeClient($tabCli);
 
-    // TODO : envoi du mail
-    $titreMel = "Pré enregistrement à la ".$INFO_APPLI['titre'];
+    if ($mail) {
+        // TODO : envoi du mail
+        $titreMel = "Pré enregistrement à la " . $INFO_APPLI['titre'];
 
-    $tabCli['cli_code']=substr($tabCli['cli_id_modif'],0,6);
-    $tabCli['titre']=$INFO_APPLI['titre'];
-    // creation du message avec le template
-    $message = makeMessage($titreMel, array_merge($tabCli), "mel_pre-enregistrement.html");
+        $tabCli['cli_code'] = substr($tabCli['cli_id_modif'], 0, 6);
+        $tabCli['titre'] = $INFO_APPLI['titre'];
+        // creation du message avec le template
+        $message = makeMessage($titreMel, array_merge($tabCli), "mel_pre-enregistrement.html");
 
-    // envoi du mel
-    sendMail($titreMel, $tabCli['cli_emel'], $message);
+        // envoi du mel
+        sendMail($titreMel, $tabCli['cli_emel'], $message);
+    }
+    return $tabCli;
 }
 
 function action_redonneCode($mel)
 {
     extract($GLOBALS);
 
-    $tabCli= return_oneClientByMel($mel);
+    $tabCli = return_oneClientByMel($mel);
     // TODO : envoi du mail
-    $titreMel = "Code d'accès à la ".$INFO_APPLI['titre'];
+    $titreMel = "Code d'accès à la " . $INFO_APPLI['titre'];
 
-    $tabCli['cli_code']=substr($tabCli['cli_id_modif'],0,6);
-    $tabCli['titre']=$INFO_APPLI['titre'];
+    $tabCli['cli_code'] = substr($tabCli['cli_id_modif'], 0, 6);
+    $tabCli['titre'] = $INFO_APPLI['titre'];
     // creation du message avec le template
     $message = makeMessage($titreMel, array_merge($tabCli), "mel_code_access.html");
 

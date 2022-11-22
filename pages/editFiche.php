@@ -10,19 +10,21 @@ $tabInfo = [
 	'ETIQUETTE' => "etiquette",
 	'COUPON DEPOT' => "coupon_vendeur",
 	'COUPON SORTIE' => "coupon_acheteur",
-	'_' => "",
-	'CREATE MODAL' => "modal_confirm_create",
-	'CONFIRME MODAL' => "modal_confirm_confirme",
-	'PAYE MODAL' => "modal_confirm_paye",
-	 'VENDRE MODAL' => "modal_confirm_vendre",
+	'VIDE1' => "",
+	'CREATE MODAL' => "modal_create_fiche",
+	'SUPP MODAL' => "modal_confirm_supp",
+	//'MODIF MODAL' => "modal_confirm_confirme",
+	'VIDE2' => "",
+	'VENDRE MODAL' => "modal_confirm_vendre",
 	// 'RESTOCK MODAL' => "modal_confirm_restock",
+	'VIDE3' => "",
 	'MAIL ENTETE' => "entete_mail",
 	'MAIL PIED' => "pied_mail",
 	'MAIL ENREGISTREMENT' => "mel_enregistrement",
 	'MAIL CONFIRME' => "mel_confirme",
 	'MAIL VENDU' => "mel_vendu",
-	'__' => "",
-	'FACTURE' => 'facture' 
+	'VIDE4' => "",
+	'FACTURE' => 'facture'
 ];
 ?>
 <h1>Gestion des éditions</h1>
@@ -32,23 +34,29 @@ $tabInfo = [
 		<td width=80% colspan="2">Actions</td>
 
 	</tr>
-	<? foreach ($tabInfo as $title => $idText) {
-		$format = "P";
-		if ($title == "COUPON DEPOT" || $title == "COUPON SORTIE") {
-			$format = "L";
-		} ?>
+	<? foreach ($tabInfo as $title => $idText) { ?>
 		<tr class="tabl0" style="border-bottom:1px solid grey">
-			<td><?= $title ?></td>
+			<td>
+				<? if (!startsWith($title, "VIDE")) {
+					echo $title;
+				} else {
+					echo "<div style='background-color: lightblue;'>&nbsp;</div>";
+				}
+				?>
+			</td>
 
-			<td width=10%>
-				<? if ($idText != "") { ?>
-					<span class="link url" onclick='viewPdf("<?= $idText ?>","<?= $format ?>");' title="Génération du PDF" )>PDF</span>
+			<? if (startsWith("VIDE", $idText)) { ?>
+				<td colspan=5>
+					<div style="background-color: lightblue;">&nbsp;</div>
+				</td>
+			<? } else { ?>
+				<td width=10% >
+					<!-- <span class="link url" onclick='viewPdf("<?= $idText ?>","<?= $format ?>");' title="Génération du PDF" )>PDF</span> -->
 					<?= $format ?>&nbsp;
 					<i class="fas fa-edit" onclick="x_return_html('<?= $idText ?>', display_html_file);idText='<?= $idText ?>';getElement('html_file_title').innerHTML='<?= $title ?>'" title="Modification du document"></i>
-				<? } else { ?>
-					<div style="background-color: lightblue;">&nbsp;</div>
-				<? } ?>
-			</td>
+				</td>
+
+			<? } ?>
 			<td width=70%>
 				<? if ($title == "ETIQUETTE") { ?>
 					<form style="color:black">
@@ -219,12 +227,12 @@ $tabInfo = [
 						<table width=100% border=1>
 							<tr class="tabAction">
 								<td width=15%></td>
-								<td > Numero <input type=number style='width:30%' name=nfac size=5></td>
+								<td> Numero <input type=number style='width:30%' name=nfac size=5></td>
 								<td width=15%>
 									<input type=button value='Imprimer' onclick='imprimeLibreFiche(this.form.nfac.value,"facture")'>
 								</td>
 								<td width=20%></td>
-								
+
 							</tr>
 						</table>
 					</form>
@@ -253,13 +261,7 @@ $tabInfo = [
 		<!-- <textarea style="width:100%;heigth:40%" rows=25 id="editor_html_file"></textarea> -->
 
 		<div style="height: 250px;position: relative;">
-			<textarea placeholder="Enter HTML Source Code" 
-				id="editing" 
-				spellcheck="false" 
-				oninput="update(this.value); sync_scroll(this);" 
-				onscroll="sync_scroll(this);" 
-				onkeydown="check_tab(this, event);"
-				onkeyup="getElement('visu_html').innerHTML=this.value">
+			<textarea placeholder="Enter HTML Source Code" id="editing" spellcheck="false" oninput="update(this.value); sync_scroll(this);" onscroll="sync_scroll(this);" onkeydown="check_tab(this, event);" onkeyup="getElement('visu_html').innerHTML=this.value">
 			</textarea>
 			<pre id="highlighting" aria-hidden="true">
 				<code class="language-html" id="highlighting-content">
@@ -272,5 +274,5 @@ $tabInfo = [
 	</div>
 	<script src="JS/prism.js"></script>
 	<script src="JS/editor.js"></script>
-	
+
 </form>
