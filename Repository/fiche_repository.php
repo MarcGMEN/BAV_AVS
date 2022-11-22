@@ -107,6 +107,24 @@ function makeIdModif(&$objet, $avecRandom = false)
  * retourne la commission pour une fiche
  */
 
+ /**
+ * recherche des fiches libres pour une BAV a partri d'une base
+ */
+function getNumMaxFiche()
+{
+    $row = null;
+    $query = " SELECT max(obj_numero) from bav_objet where obj_numero_bav = '" .$GLOBALS['INFO_APPLI']['numero_bav'] . "'";
+    $query .= " and obj_numero < 5000";
+    // error_log($query);
+    if ($result = $GLOBALS['mysqli']->query($query)) {
+        $row = $result->fetch_assoc();
+        $result->close();
+    } else {
+        throw new Exception("Pb getNumMaxFiche' [$query]" . mysqli_error($result));
+    }
+    return $row['max(obj_numero)'];
+}
+
 
 /**
  * recherche des fiches libres pour une BAV a partri d'une base
@@ -201,6 +219,31 @@ function getFiches($order, $sens, $tabSel)
     }
     return $tab;
 }
+
+function getFichesExpress($base)
+{
+    $requete2 = "SELECT bav_objet.*, ve.*, ve.cli_nom vendeur_nom, ac.cli_nom acheteur_nom from bav_objet ";
+    $requete2 .= "  left outer join bav_client as ve on obj_id_vendeur = ve.cli_id ";
+    $requete2 .= "  left outer join bav_client as ac on obj_id_acheteur = ac.cli_id ";
+    //$requete2 .= "  left outer join bav_modif_prix as mop on mop_id_obj = obj_id and mop_date_validation is null ";
+    $requete2 .= " where obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "'";
+    $requete2 .= " and obj_numero >= $base ";
+    $requete2 .= " order by obj_numero";
+    $requete2 .= " limit 0,50 ";
+    
+    $result = $GLOBALS['mysqli']->query($requete2);
+    if ($result) {
+        $tab = array();
+        while ($row = $result->fetch_assoc()) {
+            $tab[$row['obj_numero']] = $row;
+        }
+        $result->close();
+    } else {
+        throw new Exception("getFichesExpress' [$requete2] " . $GLOBALS['mysqli']->error);
+    }
+    return $tab;
+}
+
 
 function getNbFichesByDay($numeroBav)
 {

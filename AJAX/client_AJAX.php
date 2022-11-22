@@ -23,6 +23,15 @@ function return_listClientByName($nom = null)
     return getClients("cli_nom", "asc", ['cli_nom'=>$nom], true);
 }
 
+
+/**
+ * retourne la liste de nom des clients
+ */
+function return_countClient($all)
+{
+    return countClient($all);
+} 
+
 /**
  * retourne un client via son mel
  */
@@ -146,7 +155,7 @@ function action_makeClient($data)
  * Si presence d'un nom => recherche => si OK on retourne l'id
  * Sinon on crée...  
  */
-function makeClient(&$tabCli)
+function makeClient($tabCli)
 {
     if ($tabCli['cli_emel'] != null) {
         //echo "makeClient => recherche par mel";
@@ -157,7 +166,6 @@ function makeClient(&$tabCli)
         //echo "makeClient => recherche par nom";
         $clientSearch =  getOne($tabCli['cli_nom'], "bav_client", "cli_nom");
     }
-
     if ($clientSearch==null) {
         //echo "makeClient => inconnu, alors creation";
         $tabCli['cli_id'] = 0;
@@ -172,6 +180,6 @@ function makeClient(&$tabCli)
 
         $clientSearch = $tabCli;
     }
-    
+
     return $clientSearch;
 }

@@ -1,5 +1,5 @@
 <?php $idRamdom = rand(1000, 9999);
-$maxFiche = 2001;
+$maxFiche = 50;
 ?>
 
 <script>
@@ -9,15 +9,14 @@ $maxFiche = 2001;
 </script>
 <script src="JS/saisieExpress.js" type="text/javascript"></script>
 
-
-<form action="#" name="searchFormFiche" onsubmit='x_return_oneFicheByCode(this.numeroFiche.value, display_ficheN); return false'>
-	<input type="text" name="numeroFiche" size="6" maxlength="4" title="Saisisez le numéro de fiche" placeholder="N° fiche" id="inputSearch" style='background-color:LIGHTGREEN;font-weight: bold;width:10%' tabindex=1 onblur="x_return_oneFicheByCode(document.searchFormFiche.numeroFiche.value, display_ficheN)" />
-	<i id="loupe" class="fas fa-search link " onclick="x_return_oneFicheByCode(document.searchFormFiche.numeroFiche.value, display_ficheN)"></i>
+<form action="#" name="searchFormFiche" onsubmit='searchFicheExpress(this.numeroFiche.value); return false'>
+	<input type="text" name="numeroFiche" size="6" maxlength="4" title="Saisisez le numéro de fiche" placeholder="N° fiche" id="inputSearch" style='background-color:LIGHTGREEN;font-weight: bold;width:10%' tabindex=1 onblur="searchFicheExpress(document.searchFormFiche.numeroFiche.value)" />
+	<i id="loupe" class="fas fa-search link " onclick="searchFicheExpress(document.searchFormFiche.numeroFiche.value)"></i>
 </form>
 
 <form name="formSaisieExpress" onsubmit="return submitForm()">
 
-	<table width='100%' border=0>
+	<table width='100%'>
 		<tr>
 			<td class='tittab' width=5%>No</td>
 			<td class='tittab' width=10%>Type</td>
@@ -87,6 +86,9 @@ $maxFiche = 2001;
 	</table>
 </form>
 <br />
+
+<div id='pageFiche'></div>
+
 <table width='100%'>
 	<tr>
 		<td class='tittab' width=12%>Action</td>
@@ -101,7 +103,7 @@ $maxFiche = 2001;
 <div style="overflow-y: scroll; height: 50%; max-height: 30vw ">
 	<form name=formTabSaisie onSubmit='return false'>
 		<table width='100%' id='tableFiches'>
-			<?php for ($index = 1; $index < $maxFiche; $index++) { ?>
+			<?php for ($index = 1; $index <= $maxFiche; $index++) { ?>
 				<tr class='tabl0' id="tr_<?= $index ?>">
 					<td width=13% id="action_<?= $index ?>"></td>
 					<td width=5% id="numero_<?= $index ?>" onclick="x_return_oneFicheByCode('<?= $index ?>', display_fiche)"><span style="color: GREEN"><?= $index ?></span>

@@ -94,6 +94,27 @@ function recupEnumToArray($table, $champ)
     }
 }
 
+function selectVue($vue, $champ)
+{
+    $query = "SELECT $champ ";
+    $query .= "from $vue  ";
+    $query .= " order by $champ";
+    //error_log("listUnique ".$query);
+    $tab = array();
+    if ($result = $GLOBALS['mysqli']->query($query)) {
+        $tab = array();
+        $index = 0;
+        while ($row = $result->fetch_assoc()) {
+            $tab[$index++] = $row[$champ];
+        }
+        $result->close();
+    } else {
+        throw new Exception("listUnique' [$query]" . $GLOBALS['mysqli']->error);
+    }
+    return $tab;
+}
+
+
 function listUnique($table, $champ, $sel = null, $champPlus = null)
 {
     $query = "SELECT $champ ";

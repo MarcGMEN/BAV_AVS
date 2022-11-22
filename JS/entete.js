@@ -44,20 +44,23 @@ function return_restant() {
 }
 
 function display_modifStockE(val) {
-    getElement('countModifStock').innerHTML = sizeof(val)+ " coupon"+ (sizeof(val) > 1 ? "s" : "");
+    getElement('countModifStock').innerHTML = sizeof(val) + " coupon" + (sizeof(val) > 1 ? "s" : "");
 }
 
 function display_modifDataE(val) {
-    getElement('countModifData').innerHTML = sizeof(val) + " étiquette"+ (sizeof(val) > 1 ? "s" : "");
+    getElement('countModifData').innerHTML = sizeof(val) + " étiquette" + (sizeof(val) > 1 ? "s" : "");
 }
+
 function display_modifVendeurE(val) {
-    getElement('countModifVendeur').innerHTML = sizeof(val) + " coupon"+ (sizeof(val) > 1 ? "s" : "");
+    getElement('countModifVendeur').innerHTML = sizeof(val) + " coupon" + (sizeof(val) > 1 ? "s" : "");
 }
 
 /**
  * affichage des compteurs
  * @param val 
  */
+var totalFiche = 0;
+
 function display_counter(val) {
     if (val instanceof Object) {
         for (key in val) {
@@ -65,29 +68,29 @@ function display_counter(val) {
                 getElement(key).innerHTML = val[key];
             }
         }
-        var total = 0;
+
         var totalVente = 0
         if (val['STOCK']) {
-            total += parseInt(val['STOCK']);
+            totalFiche += parseInt(val['STOCK']);
         }
         if (val['VENDU']) {
-            total += parseInt(val['VENDU']);
+            totalFiche += parseInt(val['VENDU']);
             totalVente += parseInt(val['VENDU']);
         }
         if (val['RENDU']) {
-            total += parseInt(val['RENDU']);
+            totalFiche += parseInt(val['RENDU']);
         }
         if (val['PAYE']) {
-            total += parseInt(val['PAYE']);
+            totalFiche += parseInt(val['PAYE']);
             totalVente += parseInt(val['PAYE']);
         }
 
-        getElement('TOTAL').innerHTML = total;
+        getElement('TOTAL').innerHTML = totalFiche;
 
-        getElement('statVendu').innerHTML = parseInt((totalVente / total) * 100) + "%";
+        getElement('statVendu').innerHTML = parseInt((totalVente / totalFiche) * 100) + "%";
         getElement('VENDU').innerHTML = totalVente;
         if (val['RENDU']) {
-            getElement('statRendu').innerHTML = parseInt((parseInt(val['RENDU']) / total) * 100) + "%";
+            getElement('statRendu').innerHTML = parseInt((parseInt(val['RENDU']) / totalFiche) * 100) + "%";
         } else {
             getElement('statRendu').innerHTML = "";
         }

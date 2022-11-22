@@ -86,10 +86,9 @@ sajax_handle_client_request();
 	<script type="text/javascript" src="JS/sajax/json_parse.js"></script>
 	<script type="text/javascript" src="JS/sajax/sajax.js"></script>  -->
 	<!-- MODE DEV -->
-	<!-- <? //sajax_show_javascript(); ?> -->
+	<? sajax_show_javascript(); ?>
 	<!-- MODE PROD -->
-	<? sajax_show_javascript("JS/sajax.js"); 
-	?>
+	<? //sajax_show_javascript("JS/sajax.js");?>
 
 	<script type="text/javascript">
 		var startSaisie = false;

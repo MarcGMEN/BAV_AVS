@@ -31,6 +31,8 @@ function getClientsRecap($order, $sens, $tabSel, $all = false)
 {
     extract($GLOBALS);
    
+    $requete2 = "select *, ";
+
     $requete2 .= "(select count(*) from bav_objet objC where objC.obj_id_vendeur = cli_id and objC.obj_etat in ('CONFIRME') ";
     if (!$all) {
         $requete2 .= " and objC.obj_numero_bav =" . $INFO_APPLI['numero_bav'];
@@ -61,8 +63,8 @@ function getClientsRecap($order, $sens, $tabSel, $all = false)
         $requete2 .= " and objA.obj_numero_bav =" . $INFO_APPLI['numero_bav'];
     }
     $requete2 .=  ") ACHAT ";
+    // reload
 
-    $requete2 = "select * ";
     $requete2 .= " FROM bav_client WHERE 1 = 1  ";
     foreach ($tabSel as $key => $val) {
         if ($val != "*") {
@@ -77,8 +79,8 @@ function getClientsRecap($order, $sens, $tabSel, $all = false)
 
     // si tous on recherche tous le clients
     if (!$all) {
-        $requete2 .= " and exists (select obj_id from bav_objet where (obj_id_vendeur = cli_id OR obj_id_acheteur = cli_id) ";
-        $requete2 .= " and obj_numero_bav = " . $INFO_APPLI['numero_bav'] . ") ";
+        $requete2 .= " and (cli_id in (select obj_id_vendeur from bav_objet where (obj_id_vendeur = cli_id)  and obj_numero_bav = 2022) ";
+        $requete2 .= " or cli_id in (select obj_id_acheteur from bav_objet where (obj_id_acheteur = cli_id)  and obj_numero_bav = 2022) )";
     }
 
     //$requete2 .= " group by cli_id";
@@ -104,15 +106,15 @@ function getClientsRecap($order, $sens, $tabSel, $all = false)
 }
 
 /**
- * recherche des clients pour une BAV ou pas
+ * recherche des clients pour une BAV ou pass
  */
 function getClients($order, $sens, $tabSel, $all = false)
 {
     $requete2 = "SELECT * from bav_client ";
     $requete2 .= " where 1 = 1 ";
     if (!$all) {
-        $requete2 .= " and exists (select obj_id from bav_objet where (obj_id_vendeur = cli_id OR obj_id_acheteur = cli_id) ";
-        $requete2 .= " and obj_numero_bav = " . $GLOBALS['INFO_APPLI']['numero_bav'] . ") ";
+        $requete2 .= " and (cli_id in (select obj_id_vendeur from bav_objet where (obj_id_vendeur = cli_id)  and obj_numero_bav = 2022) ";
+        $requete2 .= " or cli_id in (select obj_id_acheteur from bav_objet where (obj_id_acheteur = cli_id)  and obj_numero_bav = 2022) )";
     }
     foreach ($tabSel as $key => $val) {
         if ($val != "*") {
@@ -132,7 +134,6 @@ function getClients($order, $sens, $tabSel, $all = false)
         $tab = array();
         $index = 0;
         while ($row = $result->fetch_assoc()) {
-            $row['bavs']=getBavsClient($row['cli_id']);
             $tab[$index++] = $row;
         }
         $result->close();
@@ -140,6 +141,28 @@ function getClients($order, $sens, $tabSel, $all = false)
         throw new Exception("getClients' [$requete2]" . $GLOBALS['mysqli']->error);
     }
     return $tab;
+}
+
+
+/**
+ * recherche des clients pour une BAV ou pas
+ */
+function countClient($all)
+{
+    $requete2 = "SELECT count(*) from bav_client ";
+    $requete2 .= " where 1 = 1 ";
+    if (!$all) {
+        $requete2 .= " and (cli_id in (select obj_id_vendeur from bav_objet where (obj_id_vendeur = cli_id)  and obj_numero_bav = 2022) ";
+        $requete2 .= " or cli_id in (select obj_id_acheteur from bav_objet where (obj_id_acheteur = cli_id)  and obj_numero_bav = 2022) )";
+    }
+
+    if ($result = $GLOBALS['mysqli']->query($requete2)) {
+        $row = $result->fetch_assoc();
+        $result->close();
+    } else {
+        throw new Exception("getBavsClient' [$requete2]" . $GLOBALS['mysqli']->error);
+    }
+    return $row['count(*)'];
 }
 
 /**

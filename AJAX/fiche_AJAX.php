@@ -14,6 +14,14 @@ function return_countByEtat()
     return countByEtat();
 }
 
+function return_count_fiches() {
+    return countBy([],null, "","","'CONFIRME','STOCK','RENDU','VENDU','PAYE'");
+}
+
+function return_num_max_fiches() {
+    return getNumMaxFiche();
+}
+
 /**
  * retourne la liste des marques connue pour la BAV, avec une base
  * triée par ordre alpha
@@ -25,7 +33,7 @@ function return_list_marques()
         'COLNAGO', 'KUOTA', 'BH', 'BMC', 'B\'TWIN', 'DECATHLON', 'CANYON', 'CKT', 'COMMENCAL', 'DIAMONDBACK', 'GIANT', 'KONA',
         'KTM', 'MBK', 'MERIDA', 'ORBEA', 'PINARELLO', 'RIDLEY', 'SPECIALIZED', 'TIME', 'WILLIER', 'LOOK'
     ];
-    $tabRetour = array_merge($tabMarques, listUnique("bav_objet", "obj_marque"));
+    $tabRetour = array_merge($tabMarques, selectVue("v_marque", "obj_marque"));
     $tabRetour = array_unique($tabRetour);
     sort($tabRetour);
     return $tabRetour;
@@ -266,7 +274,7 @@ function action_createFicheExpress($data)
         // on recoit un mel et ou un nom
         // en cas de mel, on ignore le nom
         // en cas de nom, pas de mel a priori
-        makeClient($tabCli);
+        $tabCli= makeClient($tabCli);
 
         $tabObj['obj_prix_depot'] = $tabObj['obj_prix_vente'];
 
@@ -291,7 +299,6 @@ function action_createFicheExpress($data)
             $retour = $tabObj;
             $retour['obj_id'] = $id;
         } else {
-            print_r($tabObj);
             return "Oups problème de mise a jour";
         }
     } catch (Exception $e) {
@@ -1124,7 +1131,7 @@ function action_vendFiche($data)
         // on recoit un mel et ou un nom
         // en cas de mel, on ignore le nom
         // en cas de nom, pas de mel a priori
-        makeClient($client);
+        $client = makeClient($client);
 
         // on recoit l'etat VENDU
         $fiche['obj_etat'] = $fiche['obj_etat_new'];
@@ -1183,7 +1190,7 @@ function action_updateFiche($data)
             $newKey = str_ireplace("ach_", "cli_", $key);
             $clientAcheteur[$newKey] = $val;
         }
-        makeClient($clientAcheteur);
+        $clientAcheteur = makeClient($clientAcheteur);
 
         $fiche['obj_id_acheteur'] = $clientAcheteur['cli_id'];
     }
@@ -1195,7 +1202,7 @@ function action_updateFiche($data)
     // si pas de mel, on cherche le nom si OK, on recupere et modifis les données
     // attention au homonyne..
     // si rien trouvé on le crée.
-    makeClient($client);
+    $client = makeClient($client);
     $fiche['obj_id_vendeur'] = $client['cli_id'];
 
     // en mode CONFIRME
@@ -1291,9 +1298,9 @@ function return_fiches($tri, $sens, $selection, $detail = 1)
 /**
  * retou de toutes les fiches
  */
-function return_fiches_express()
+function return_fiches_express($base)
 {
-    return  getFiches('obj_numero', "asc", []);
+    return  getFichesExpress($base);
 }
 
 

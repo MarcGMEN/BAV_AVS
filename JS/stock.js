@@ -26,7 +26,6 @@ function display_list_pratique(val) {
     display_list(val, 'pratique');
 }
 
-
 function display_list_marque(val) {
     display_list(val, 'marque');
 }
@@ -86,7 +85,7 @@ function display_fiches(val) {
                 if (val[index]['obj_modif_stock'] > 0) {
                     repr += "<div style='font-size:0.5em'>coupon Stock</div>";
                 }
-                
+
                 if (val[index]['mop_id'] > 0) {
                     repr += "<img src='Images/modifPrix.png' style='height:20px' />";
                 }

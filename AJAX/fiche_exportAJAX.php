@@ -15,6 +15,8 @@ sajax_export(
     "action_changeEtatFiche",
     "action_vendFiche",
     "return_countByEtat",
+    "return_count_fiches",
+    "return_num_max_fiches",
     "return_fiches",
     "return_fiches_express",
     "action_makeA4Etiquettes",

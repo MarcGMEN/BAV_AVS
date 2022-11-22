@@ -5,7 +5,10 @@ var allG = 0;
 
 function initPage() {
     if (ADMIN) {
-        //        findClients(allG);
+        findClients(allG);
+        x_return_countClient(allG, display_count);
+        getElement('total').innerHTML = "...";
+
     } else {
         goTo();
     }
@@ -13,6 +16,10 @@ function initPage() {
 
 function unloadPage() {
 
+}
+
+function display_count(val) {
+    getElement('totalFull').innerHTML = val;
 }
 
 function findClients(all) {
@@ -26,7 +33,6 @@ function findClients(all) {
 }
 
 function display_clients(val) {
-    console.log(val);
     var total = 0;
     var repr = "<table width='100%' border=1>";
     if (selection.cli_nom != "*") {

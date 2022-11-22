@@ -36,22 +36,12 @@ $tabNavAll = [
     ],
 ];
 
-if ($infAppli['NB_MODIF'] == 1) {
-    $tabClientPlus = [
-        'stock-client.php' => [
-            'libelle' => 'Parc',
-        ],
-    ];
-    $tabNavAll = array_merge($tabNavAll, $tabClientPlus);
-}
-
 $tabNavAdm = [];
 
 if ($infAppli['ADMIN']) {
     $tabNavAdm = [
-        'fiche.php' => [
-            'libelle' => 'Accès fiche',
-            'mode' => 'create',
+        'SPACE' => [
+            'libelle' => '&nbsp;&nbsp;&nbsp;',
         ],
         'ficheV2.php' => [
             'libelle' => '--Pré-déposer v2',
@@ -63,9 +53,6 @@ if ($infAppli['ADMIN']) {
         ],
         'stock.php' => [
             'libelle' => 'Stock',
-        ],
-        'stock-client.php' => [
-            'libelle' => 'Parc',
         ],
         'clients.php' => [
             'libelle' => 'Clients',
@@ -98,11 +85,17 @@ if ($infAppli['ADMIN']) {
     ];
 } elseif ($infAppli['CLIENT'] && !$infAppli['bav_en_cours']) {
     $tabNavAdm = [
-        'fiche.php' => [
-            'libelle' => '<img src="Images/new.png" width=15pt/> Pré-déposer',
+        'SPACE0' => [
+            'libelle' => '---->',
+        ],
+        'ficheV2.php' => [
+            'libelle' => '<span class="PRE-DEPOT" >Pré-déposer</span>',
             'mode' => 'create',
         ],
-        
+        'SPACE1' => [
+            'libelle' => '<----',
+        ],
+
     ];
 }
 $tabNav = array_merge($tabNavAll, $tabNavAdm);
@@ -116,41 +109,45 @@ $tabNav = array_merge($tabNavAll, $tabNavAdm);
             } else {
                 $className = '';
             }
-            $notif=0;
+            $notif = 0;
             if (isset($val['notif']) && actusRecente($val['notif'])) {
-                $notif=1;
+                $notif = 1;
             }
-            
-            $ext = explode('.', $key);
-            if ($ext[1] == '') {
-                ?>
-                <span class="link <?= $val['class']; ?> navigation <?= $className; ?>" id="lib_ss<?= $key; ?>" onclick="inverseDisplay('ss<?= $key; ?>')">
-                    <?= $val['libelle']; ?>
-                    <img src="Images/arrow.gif" />
-                    <div id="ss<?= $key; ?>" class="SSMENU" style="display:none; position:absolute;width:200px">
+            if (startsWith($key,"SPACE")) {?>
+                <?= $val['libelle'];?>
+            <?} else {
+                $ext = explode('.', $key);
+                if ($ext[1] == '') {?>
+                    <span class="link <?= $val['class']; ?> navigation <?= $className; ?>" id="lib_ss<?= $key; ?>" onclick="inverseDisplay('ss<?= $key; ?>')">
+                        <?= $val['libelle']; ?>
+                        <img src="Images/arrow.gif" />
+                        <div id="ss<?= $key; ?>" class="SSMENU" style="display:none; position:absolute;width:200px">
 
-                        <?php foreach ($val['sousMenu'] as $keyS => $valS) {
-                                    if ($GET_page == $keyS) {
-                                        $classNameS = 'ssnavigationSel'; ?>
-                                <script>
-                                    getElement('lib_ss<?= $key; ?>').className += " navigationSel";
-                                </script>
-                            <?php
-                                        } else {
-                                            $classNameS = '';
-                                        } ?>
-                            <div class="col-sm-12 col-md-12 col-xs-12 link <?= $valS['class']; ?> ssnavigation <?= $classNameS; ?> " onclick="goTo('<?= $keyS; ?>', '<?= $valS['mode']; ?>', null, null)">- <?= $valS['libelle']; ?></div>
-                        <?php
+                            <?php foreach ($val['sousMenu'] as $keyS => $valS) {
+                                if ($GET_page == $keyS) {
+                                    $classNameS = 'ssnavigationSel'; ?>
+                                    <script>
+                                        getElement('lib_ss<?= $key; ?>').className += " navigationSel";
+                                    </script>
+                                <?php
+                                } else {
+                                    $classNameS = '';
                                 } ?>
+                                <div class="col-sm-12 col-md-12 col-xs-12 link <?= $valS['class']; ?> ssnavigation <?= $classNameS; ?> " onclick="goTo('<?= $keyS; ?>', '<?= $valS['mode']; ?>', null, null)">- <?= $valS['libelle']; ?></div>
+                            <?php
+                            } ?>
 
-                    </div>
-                </span>
-            <?php
+                        </div>
+                    </span>
+                <?php
                 } else { ?>
-                <span class="link <?= $val['class']; ?> navigation <?= $className; ?> " onclick="goTo('<?= $key; ?>', '<?= $val['mode']; ?>', null, null)"><?= $val['libelle']; 
-                if ($notif) { echo "<img src='Images/notif.png' width=15pt title='Nouveau post' alt='new post'>"; }?>
-                </span>
-        <?php
+                    <span class="link <?= $val['class']; ?> navigation <?= $className; ?> " onclick="goTo('<?= $key; ?>', '<?= $val['mode']; ?>', null, null)">
+                        <?= $val['libelle'];
+                        if ($notif) {
+                            echo "<img src='Images/notif.png' width=15pt title='Nouveau post' alt='new post'>";
+                        } ?>
+                    </span>
+            <?php }
             }
         } ?>
     </div>

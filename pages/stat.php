@@ -202,12 +202,12 @@
 
 	function display_statByAnnee(val) {
 		var colorEtat = [];
-		colorEtat['DEPOT_' + anneeBav] = 'ORANGE';
-		colorEtat['VENTE_' + anneeBav] = 'GREEN';
-		colorEtat['RESTI_' + anneeBav] = 'RED';
-		colorEtat['DEPOT_' + anneeBavSuvi] = 'DARKORANGE';
-		colorEtat['VENTE_' + anneeBavSuvi] = 'DARKGREEN';
-		colorEtat['RESTI_' + anneeBavSuvi] = 'DARKRED';
+		colorEtat['DEPOT_' + anneeBav] = 'DARKORANGE';
+		colorEtat['VENTE_' + anneeBav] = 'DARKGREEN';
+		colorEtat['RESTI_' + anneeBav] = 'DARKRED';
+		colorEtat['DEPOT_' + anneeBavSuvi] = 'ORANGE';
+		colorEtat['VENTE_' + anneeBavSuvi] = 'GREEN';
+		colorEtat['RESTI_' + anneeBavSuvi] = 'RED';
 		var monCanvas = getElement("canvasSuivi1");
 		var ctx = monCanvas.getContext("2d");
 		monCanvas.width = screen.width * 0.83;
