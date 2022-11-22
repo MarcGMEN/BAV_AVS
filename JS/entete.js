@@ -96,7 +96,7 @@ function display_counter(val) {
         }
 
         // refresh toutes les 5 minutes
-        setTimeout('x_return_countByEtat(display_counter)', 5 * 60 * 1000);
+        setTimeout('x_return_countByEtat(display_counter)', 1 * 60 * 1000);
     }
 }
 
