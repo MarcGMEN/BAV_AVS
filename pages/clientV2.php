@@ -99,7 +99,7 @@
 </div>
 <table width="100%">
 	<tr>
-		<td class="tittab" width=10%>
+		<td class="tittab" width=7%>
 			<span id='tri_numero' onclick="triColonne('obj_numero')" class="sortable">No&nbsp;&nbsp;&nbsp;</span>
 		</td>
 		<td class="maskmobile tittab" width=20%>
@@ -113,7 +113,7 @@
 		<td class="tittab" width=10%>
 			<span id='tri_marque' onclick="triColonne('obj_marque')" class="sortable">Marque&nbsp;&nbsp;&nbsp;</span>
 		</td>
-		<td class="tittab" width=10%>
+		<td class="maskmobile tittab" width=10%>
 			<span id='tri_couleur' onclick="triColonne('obj_couleur')" class="sortable">Couleur&nbsp;&nbsp;&nbsp;</span>
 		</td>
 		<td class="tittab" width=10%>
@@ -123,7 +123,7 @@
 		<td class="tittab" width=15%>
 			<span id='tri_etat' onclick="triColonne('obj_etat')" class="sortable">Etat&nbsp;&nbsp;&nbsp;</span>
 		</td>
-		<td class="tittab" width=5%>
+		<td class="tittab" width=8%>
 			Actions</span>
 		</td>
 	</tr>
@@ -131,10 +131,10 @@
 
 <div class="row">
 	<div class="col-sm-12 col-md-12 col-xs-12">
-		<div class="col-sm-3 col-md-3 col-xs-3">
+		<div class="col-sm-3 col-md-3 col-xs-2">
 			<h3>Vos dépots</h3>
 		</div>
-		<div class="col-sm-3 col-md-3 col-xs-3">
+		<div class="col-sm-3 col-md-3 col-xs-4">
 			<h3><input type=button value="Ajouter ➕" onclick="addDepot(document.clientForm.cli_id_modif.value)" />
 				<h3>
 		</div>

@@ -74,7 +74,7 @@ function submitPreSaisie(laForm) {
 }
 
 function display_preEnregistrement(val) {
-    alertModalInfo("Votre code vous a étes envoyer a votre mel " + document.firstAccesForm.new_email_depot.value);
+    alertModalInfo("Votre code vous a étés envoye à votre mail " + document.firstAccesForm.new_email_depot.value);
     fermer_PreSaisie();
 }
 

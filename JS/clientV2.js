@@ -167,7 +167,7 @@ function display_fiches(val, idElement) {
         if (!isNaN(index)) {
             if (val[index]['obj_numero'] < 5000) {
                 repr += "<tr class='tabl0' >";
-                repr += "<td width=10% align=center>";
+                repr += "<td width=7% align=center>";
                 repr += val[index]['obj_numero'];
                 repr += "</td>";
                 repr += "<td class='maskmobile' width=20%>";
@@ -179,7 +179,7 @@ function display_fiches(val, idElement) {
                 repr += "<td width=10% >";
                 repr += val[index]['obj_marque'];
                 repr += "</td>";
-                repr += "<td width=10% >";
+                repr += "<td class='maskmobile'  width=10% >";
                 repr += val[index]['obj_couleur'];
                 repr += "</td>";
                 repr += "<td width=10% >";
@@ -208,11 +208,11 @@ function display_fiches(val, idElement) {
                         break;
                 }
                 repr += "</td>";
-                repr += "<td width=5% style='text-align:center' >";
+                repr += "<td width=8% style='text-align:center' >";
                 if (val[index]['obj_etat'] == 'CONFIRME' && idElement == "fiches") {
-                    repr += "<span title='Modifier'  onclick='modifierFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link'>✏</span>";
-                    repr += "<span title='Supprimer' onclick='supprimerFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link'>❌</span>";
-                    repr += "<span title='Imprimer' onclick='imprimeFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link'> 📇</span>";
+                    repr += "<span title='Modifier'  onclick='modifierFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link' style='font-size:1.5em'>✏</span>";
+                    repr += "<span title='Supprimer' onclick='supprimerFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link' style='font-size:1.5em'>❌</span>";
+                    repr += "<span title='Imprimer' onclick='imprimeFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link' style='font-size:1.5em'> 📇</span>";
                 }
                 repr += "</td>";
                 repr += "</tr>";

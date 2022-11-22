@@ -151,7 +151,7 @@ function action_createFiche($data)
             $tabObj['obj_modele'] = strtoupper($tabObj['obj_modele']);
             $tabObj['obj_couleur'] = strtoupper($tabObj['obj_couleur']);
 
-            if (!$ADMIN) {
+            if ($ADMIN) {
                 // creation du numero a partir de la base parametre pour la BAV
                 makeNumeroFiche($INFO_APPLI['base_info'], $tabObj, false);
                 // on passe en STOCK
