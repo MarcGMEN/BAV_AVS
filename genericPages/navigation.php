@@ -43,10 +43,7 @@ if ($infAppli['ADMIN']) {
         'SPACE' => [
             'libelle' => '&nbsp;&nbsp;&nbsp;',
         ],
-        'pre_depot.php' => [
-            'libelle' => 'Pré-déposer pour TEST',
-            'mode' => 'create',
-        ],
+        
         'saisieExpress.php' => [
             'libelle' => 'Gestion fiches',
             'class' => 'maskMobileBlock',
@@ -56,9 +53,6 @@ if ($infAppli['ADMIN']) {
         ],
         'clients.php' => [
             'libelle' => 'Clients',
-        ],
-        'stat.php' => [
-            'libelle' => 'Stats',
         ],
         'sousMenuAdmin' => [
             'libelle' => 'Admin',
@@ -76,9 +70,16 @@ if ($infAppli['ADMIN']) {
                     'libelle' => 'Paramètres',
                     'class' => 'maskMobileBlock',
                 ],
+                'stat.php' => [
+                    'libelle' => 'Stats',
+                ],
                 'statSite.php' => [
                     'libelle' => 'Stat Access',
                     'class' => 'maskMobileBlock',
+                ],
+                'pre_depot.php' => [
+                    'libelle' => 'Pré-déposer pour TEST',
+                    'mode' => 'create',
                 ],
             ],
         ],
@@ -86,14 +87,14 @@ if ($infAppli['ADMIN']) {
 } elseif ($infAppli['CLIENT'] && !$infAppli['bav_en_cours']) {
     $tabNavAdm = [
         'SPACE0' => [
-            'libelle' => '---->',
+            'libelle' => '🟡🟡',
         ],
         'pre_depot.php' => [
             'libelle' => '<span class="PRE-DEPOT" >Pré-déposer</span>',
             'mode' => 'create',
         ],
         'SPACE1' => [
-            'libelle' => '<----',
+            'libelle' => '🟡🟡',
         ],
 
     ];
