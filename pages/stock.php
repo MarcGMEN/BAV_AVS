@@ -86,8 +86,8 @@ Recherche générique : <input size=50 id='obj_search' onkeyup="searchColonne('o
 			<span class="sortable" id='obj_date_depot' onclick="triColonne('obj_date_depot')">Date depot&nbsp;</span></td>
 		<td class="tittab maskMobile" width=14%>
 			<span id='acheteur_nom' onclick="triColonne('acheteur_nom')" class="sortable">Acheteur&nbsp&nbsp;</span></td>
-		<td class="tittab maskMobile" width=16%>
-			<span class="sortable" id='obj_date_vente' onclick="triColonne('obj_date_vente')">Date vente&nbsp;&nbsp;</span></td>
+		<!-- <td class="tittab maskMobile" width=16%>
+			<span class="sortable" id='obj_date_vente' onclick="triColonne('obj_date_vente')">Date vente&nbsp;&nbsp;</span></td> -->
 	</tr>
 </table>
 <div id=fiches></div>

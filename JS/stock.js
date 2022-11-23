@@ -76,8 +76,8 @@ function display_fiches(val) {
 
                 if (gSearch) {
                     var reg = new RegExp("(" + gSearch + ")", "gi");
-                    val[index]['obj_modele'] = val[index]['obj_modele'].replace(reg, "<b style='color:BLUE'>$1</b>");
-                    val[index]['obj_description'] = val[index]['obj_description'].replace(reg, "<b style='color:BLUE'>$1</b>");
+                    val[index]['obj_modele'] = val[index]['obj_modele'].replace(reg, "--$1--");
+                    val[index]['obj_description'] = val[index]['obj_description'].replace(reg, "--$1--");
                     val[index]['obj_prix_vente'] = val[index]['obj_prix_vente'].replace(reg, "<b style='color:BLUE'>$1</b>");
                     val[index]['obj_prix_depot'] = val[index]['obj_prix_depot'].replace(reg, "<b style='color:BLUE'>$1</b>");
                     val[index]['obj_couleur'] = val[index]['obj_couleur'].replace(reg, "<b style='color:BLUE'>$1</b>");
@@ -141,11 +141,11 @@ function display_fiches(val) {
                 repr += "<td class='maskMobile' width=14% >";
                 repr += val[index]['acheteur_nom'];
                 repr += "</td>";
-                repr += "<td class='maskMobile' width=16% title='date vente - date retour'>";
-                repr += formatDate(val[index]['obj_date_vente'], false);
-                repr += " - ";
-                repr += formatDate(val[index]['obj_date_retour'], false);
-                repr += "</td>";
+                // repr += "<td class='maskMobile' width=16% title='date vente - date retour'>";
+                // repr += formatDate(val[index]['obj_date_vente'], false);
+                // repr += " - ";
+                // repr += formatDate(val[index]['obj_date_retour'], false);
+                // repr += "</td>";
                 repr += "</tr>";
 
                 total = total + 1;
