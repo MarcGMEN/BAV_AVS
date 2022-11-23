@@ -10,21 +10,27 @@ $tabInfo = [
 	'ETIQUETTE' => "etiquette",
 	'COUPON DEPOT' => "coupon_vendeur",
 	'COUPON SORTIE' => "coupon_acheteur",
-	'VIDE1' => "",
+	'VIDE4' => " Facturation",
+	'FACTURE' => 'facture',
+	'VIDE1' => "Les modals de fiche",
 	'CREATE MODAL' => "modal_create_fiche",
 	'SUPP MODAL' => "modal_confirm_supp",
 	//'MODIF MODAL' => "modal_confirm_confirme",
-	'VIDE2' => "",
+	'VIDE2' => "Les modals de gestion de fiche",
 	'VENDRE MODAL' => "modal_confirm_vendre",
 	// 'RESTOCK MODAL' => "modal_confirm_restock",
-	'VIDE3' => "",
+	'VIDE3' => "Les Mails",
 	'MAIL ENTETE' => "entete_mail",
 	'MAIL PIED' => "pied_mail",
 	'MAIL ENREGISTREMENT' => "mel_enregistrement",
 	'MAIL CONFIRME' => "mel_confirme",
 	'MAIL VENDU' => "mel_vendu",
-	'VIDE4' => "",
-	'FACTURE' => 'facture'
+	'VIDE5' => "La page d'accueil",
+	'BAV_ACTU' => 'bav_actu',
+	'BAV_VENDRE' => 'bav_vendre',
+	'BAV_STAT' => 'bav_statistique',
+	'BAV_PROGRAMME' => 'bav_programme',
+	'BAV_ORGA' => 'bav_orga',
 ];
 ?>
 <h1>Gestion des éditions</h1>
@@ -45,9 +51,9 @@ $tabInfo = [
 				?>
 			</td>
 
-			<? if (startsWith("VIDE", $idText)) { ?>
+			<? if (startsWith($title, "VIDE")) { ?>
 				<td colspan=5>
-					<div style="background-color: lightblue;">&nbsp;</div>
+					<div style="background-color: lightblue;"><?=$idText?></div>
 				</td>
 			<? } else { ?>
 				<td width=10% >
@@ -55,8 +61,9 @@ $tabInfo = [
 					<?= $format ?>&nbsp;
 					<i class="fas fa-edit" onclick="x_return_html('<?= $idText ?>', display_html_file);idText='<?= $idText ?>';getElement('html_file_title').innerHTML='<?= $title ?>'" title="Modification du document"></i>
 				</td>
-
 			<? } ?>
+
+
 			<td width=70%>
 				<? if ($title == "ETIQUETTE") { ?>
 					<form style="color:black">
@@ -64,7 +71,7 @@ $tabInfo = [
 							<tr>
 								<td rowspan=5 width=15%><i>Test <input type='checkbox' name="testEtiq" checked></i></td>
 								<td colspan=2></td>
-								<td rowspan=5 width=20%>Param PDF: <br /><?= $infAppli['nb_eti_page'] ?>/page</td>
+								<td rowspan=5 width=20%></td>
 							</tr>
 							<tr class="tabAction">
 								<td width=50%>
@@ -75,14 +82,14 @@ $tabInfo = [
 									<input type=button value='Imprimer' onclick='imprimeEtiquettes(this.form.eti0.value,this.form.eti1.value,this.form.testEtiq.checked?1:0)'>
 								</td>
 							</tr>
-							<tr class="tabAction">
+							<!-- <tr class="tabAction">
 								<td>
 									- Numérotés 1 -> <?= $infAppli['base_info'] - 1 ?>
 								</td>
 								<td>
 									<input type=button value='Imprimer' onclick='imprimeEtiquettes(1,<?= $infAppli["base_info"] - 1 ?>)'>
 								</td>
-							</tr>
+							</tr> -->
 							<tr class="tabAction">
 								<td>
 									- 1 page de vierge
@@ -109,7 +116,7 @@ $tabInfo = [
 							<tr>
 								<td rowspan=3 width=15%>&nbsp;</td>
 								<td colspan=2></td>
-								<td rowspan=3 width=20%>Param PDF: <br />marge HB: 10pt, GD:10pt<br />Zoom 79%</td>
+								<td rowspan=3 width=20%></td>
 							</tr>
 							<tr class="tabAction">
 								<td width=50%>
@@ -137,7 +144,7 @@ $tabInfo = [
 							<tr>
 								<td rowspan=5 width=15%><i>Test <input type='checkbox' name="testCoupon" checked /></i></td>
 								<td colspan=2></td>
-								<td rowspan=5 width=20%>Param PDF (Paysage): <br /> <?= $infAppli['nb_coupon_page'] ?>/page</td>
+								<td rowspan=5 width=20%></td>
 							</tr>
 							<tr class="tabAction">
 								<td width=50%>- De <input type=number min='<?= $infAppli['base_info'] ?>' name=eti0 value='<?= $infAppli['base_info'] ?>' style='width:30%' size=5>
@@ -148,14 +155,14 @@ $tabInfo = [
 								</td>
 
 							</tr>
-							<tr class="tabAction">
+							<!-- <tr class="tabAction">
 								<td>
 									- Numérotés 1 -> <?= $infAppli['base_info'] - 1 ?>
 								</td>
 								<td>
 									<input type=button value='Imprimer' onclick='imprimeCoupons(1,<?= $infAppli["base_info"] - 1 ?>,0,"coupon_vendeur")'>
 								</td>
-							</tr>
+							</tr> -->
 							<tr class="tabAction">
 								<td>
 									- 1 page de vierge
@@ -183,7 +190,7 @@ $tabInfo = [
 							<tr>
 								<td rowspan=5 width=15%><i>Test <input type='checkbox' name="testCouponA" checked /></i></td>
 								<td colspan=2></td>
-								<td rowspan=5 width=20%>Param PDF (Paysage): <br /> <?= $infAppli['nb_coupon_page'] ?>/page</td>
+								<td rowspan=5 width=20%></td>
 							</tr>
 							<tr class="tabAction">
 								<td width=50%>- De <input type=number min='<?= $infAppli['base_info'] ?>' name=eti0 value='<?= $infAppli['base_info'] ?>' style='width:30%' size=5>
@@ -194,14 +201,14 @@ $tabInfo = [
 								</td>
 
 							</tr>
-							<tr class="tabAction">
+							<!-- <tr class="tabAction">
 								<td>
 									- Numérotés 1 -> <?= $infAppli['base_info'] - 1 ?>
 								</td>
 								<td>
 									<input type=button value='Imprimer' onclick='imprimeCoupons(1,<?= $infAppli["base_info"] - 1 ?>,0,"coupon_acheteur")'>
 								</td>
-							</tr>
+							</tr> -->
 							<tr class="tabAction">
 								<td>
 									- 1 page de vierge
@@ -260,6 +267,7 @@ $tabInfo = [
 		<!-- <textarea style="width:100%" rows=150 id="editor_html_file" contenteditable="true"></textarea> -->
 		<!-- <textarea style="width:100%;heigth:40%" rows=25 id="editor_html_file"></textarea> -->
 
+		
 		<div style="height: 250px;position: relative;">
 			<textarea placeholder="Enter HTML Source Code" id="editing" spellcheck="false" oninput="update(this.value); sync_scroll(this);" onscroll="sync_scroll(this);" onkeydown="check_tab(this, event);" onkeyup="getElement('visu_html').innerHTML=this.value">
 			</textarea>

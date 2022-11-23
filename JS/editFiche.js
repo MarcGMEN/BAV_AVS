@@ -86,13 +86,7 @@ function display_modifStock(val) {
 }
 
 
-function display_html_file(val) {
-    getElement('edition').style.display = 'block';
-    getElement('editing').value = val;
-    update(val);
-    getElement('visu_html').innerHTML = val;
-    getElement('tableHTML').style.display = 'none';
-}
+
 
 var idTextSAved = ""
 
@@ -207,4 +201,12 @@ function display_openHTML(val) {
 function display_viewHTML(val) {
     closeModal();
     alertModalInfo(val);
+}
+
+function display_html_file(val) {
+    getElement('edition').style.display = 'block';
+    getElement('editing').value = val;
+    update(val);
+    getElement('visu_html').innerHTML = val;
+    getElement('tableHTML').style.display = 'none';
 }

@@ -65,7 +65,7 @@ if ($infAppli['ADMIN']) {
             'class' => 'maskMobileBlock',
             'sousMenu' => [
                 'import.php' => [
-                    'libelle' => 'Import Gros Client',
+                    'libelle' => 'Import Client',
                     'class' => 'maskMobileBlock',
                 ],
                 'editFiche.php' => [
