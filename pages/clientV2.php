@@ -20,13 +20,13 @@
 			<input type=hidden name=cli_id_modif />
 			<div class="row">
 				<div class="col-sm-6 col-md-6 col-xs-12">
-					<span class="titrow  col-md-3 col-sm-3 col-xs-3">Emel <span title="Obligatoire">*</span></span>
+					<span class="titrow  col-md-3 col-sm-3 col-xs-3">Emel</span>
 					<span class="tabInput col-md-9 col-sm-9 col-xs-9">
 						<span id='cli_emel'></span>
 					</span>
 				</div>
 				<div class="col-sm-6 col-md-6 col-xs-12">
-					<span class="titrow  col-md-3 col-sm-3 col-xs-3">Nom/prenom <span title="Obligatoire">*</span></span>
+					<span class="titrow  col-md-3 col-sm-3 col-xs-3">Nom/prénom <span title="Obligatoire">*</span></span>
 					<span class="tabInput col-md-9 col-sm-9 col-xs-9">
 						<? if ($GET_modePage != 'modif') { ?>
 							<span id='cli_nom'></span>
@@ -58,7 +58,7 @@
 				</div>
 			</div>-->
 				<div class="col-sm-6 col-md-6 col-xs-12">
-					<span class="titrow  col-md-3 col-sm-3 col-xs-3">Telephone</span>
+					<span class="titrow  col-md-3 col-sm-3 col-xs-3">Téléphone</span>
 					<span class="tabInput col-md-9 col-sm-9 col-xs-9">
 						<? if ($GET_modePage != 'modif') { ?>
 							<div id='cli_telephone'></div>

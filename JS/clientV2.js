@@ -160,10 +160,10 @@ function display_fiches(val, idElement) {
                 if (idElement == "fiches") {
                     switch (val[index]['obj_etat']) {
                         case "CONFIRME":
-                            repr += "En attente de dépôt";
+                            repr += "A déposer";
                             break;
                         case "STOCK":
-                            repr += "Présent sur le parc";
+                            repr += "Non vendu";
                             break;
                         case "VENDU":
                             repr += "Vendu";
@@ -181,9 +181,9 @@ function display_fiches(val, idElement) {
                 repr += "</td>";
                 repr += "<td width=8% style='text-align:center' >";
                 if (val[index]['obj_etat'] == 'CONFIRME' && idElement == "fiches") {
-                    repr += "<span title='Modifier'  onclick='modifierFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link' style='font-size:1.5em'><i class='link fas fa-edit'></i></span > ";
-                    repr += "<span title='Supprimer' onclick='supprimerFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link' style='font-size:1.5em'>❌</span>";
-                    repr += "<span title='Imprimer' onclick='imprimeFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link' style='font-size:1.5em'>📇</span>";
+                    repr += "<span title='Modifier'  onclick='modifierFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link' style='font-size:1.5em'>&nbsp;<i class='link fas fa-edit'></i></span > ";
+                    repr += "<span title='Supprimer' onclick='supprimerFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link' style='font-size:1.5em'>&nbsp;❌</span>";
+                    repr += "<span title='Imprimer' onclick='imprimeFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link' style='font-size:1.5em'>&nbsp;📇</span>";
                 }
                 repr += "</td>";
                 repr += "</tr>";

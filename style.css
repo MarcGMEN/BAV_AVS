@@ -802,7 +802,8 @@ img.logo {
         display: none;
     }
     .tabl1,
-    .tabl0 {
+    .tabl0,
+    tr.tabl0 {
         font-size: 0.6em;
     }
     #countModifStock,
