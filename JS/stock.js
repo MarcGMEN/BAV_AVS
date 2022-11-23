@@ -59,6 +59,7 @@ function setParamVal(val) {
         goTo();
     }
 }
+var gSearch = "";
 
 function display_fiches(val) {
     console.log(val);
@@ -72,6 +73,17 @@ function display_fiches(val) {
                 if (val[index]['mop_id'] > 0) {
                     stylePlus = "color:DARKRED;font-weight:bold"
                 }
+
+                if (gSearch) {
+                    var reg = new RegExp("(" + gSearch + ")", "gi");
+                    val[index]['obj_modele'] = val[index]['obj_modele'].replace(reg, "<b style='color:BLUE'>$1</b>");
+                    val[index]['obj_description'] = val[index]['obj_description'].replace(reg, "<b style='color:BLUE'>$1</b>");
+                    val[index]['obj_prix_vente'] = val[index]['obj_prix_vente'].replace(reg, "<b style='color:BLUE'>$1</b>");
+                    val[index]['obj_prix_depot'] = val[index]['obj_prix_depot'].replace(reg, "<b style='color:BLUE'>$1</b>");
+                    val[index]['obj_couleur'] = val[index]['obj_couleur'].replace(reg, "<b style='color:BLUE'>$1</b>");
+                    val[index]['obj_marque'] = val[index]['obj_marque'].replace(reg, "<b style='color:BLUE'>$1</b>");
+                }
+
                 repr += "<tr class='tabl0 " + val[index]['obj_etat'] + " link' style='" + stylePlus + "' onclick='goTo(\"ficheAdmin.php\",\"modif\"," + val[index]['obj_id'] + ")'>";
                 repr += "<td width=5% align=center>";
                 if (val[index]['obj_modif_data'] > 0) {
@@ -109,12 +121,16 @@ function display_fiches(val) {
                 repr += "<td class='maskMobile' width=14% title=\"mel : " + val[index]['cli_emel'] + "\">";
                 repr += val[index]['vendeur_nom'];
                 repr += "</td>";
-                repr += "<td width=8% >";
+                repr += "<td width=8% style='text-align:right'>";
                 if (val[index]['obj_prix_vente'] == 0) {
                     repr += "<span style='color:RED'>" + val[index]['obj_prix_depot'] + "</span>";
                 } else {
+                    if (val[index]['obj_prix_depot'] != val[index]['obj_prix_vente']) {
+                        repr += '<div style="text-align:left;color:grey;font-size:0.8em;text-decoration:line-through;">' + val[index]['obj_prix_depot'] + ' &euro;</div>';
+                    }
                     repr += val[index]['obj_prix_vente'];
                 }
+                repr += "&nbsp;&euro;";
                 repr += "</td>";
                 repr += "<td width=8% >";
                 repr += val[index]['obj_etat'];
@@ -222,10 +238,13 @@ function selectColonne(col, mask) {
 }
 
 function searchColonne(col, mask) {
-    tabSel['obj_search'] = getElement("inp_obj_couleur").value;
-    //tabSel[col] = mask;
 
-    if (tabSel['obj_search'].length > 2 || tabSel['obj_search'].length == 0) {
+
+    tabSel['obj_search'] = getElement(col).value;
+    //tabSel[col] = mask;
+    gSearch = getElement(col).value;
+
+    if (tabSel['obj_search'].length > 1 || tabSel['obj_search'].length == 0) {
 
         if (tabSel['obj_search'].length == 0) {
             tabSel['obj_search'].length = null;

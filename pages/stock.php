@@ -45,6 +45,8 @@
 
 	</tr>
 </table>
+Recherche générique : <input size=50 id='obj_search' onkeyup="searchColonne('obj_search')"  placeholder="Recherche large"/>
+<small>(description, modele, marque, couleur, prix_depot et prix de vente)</small>
 <table width="100%" >
 	<tr>
 		<td class="tittab" width=5%>
@@ -56,7 +58,7 @@
 			&nbsp;<select id="sel_obj_type" onchange="selectColonne('obj_type', this.value)"></select></td>
 		<td class="tittab maskMobile" width=8%>
 			<span id='obj_couleur' onclick="triColonne('obj_couleur')" class="sortable ">Couleur&nbsp;&nbsp;&nbsp;</span>
-			&nbsp;<input size=7 id='inp_obj_couleur' onkeyup="searchColonne('inp_obj_couleur')"  /></td>
+			&nbsp;</td>
 		<!--<td class="tittab" width=10%>
 			<span id='obj_pratique' onclick="triColonne('obj_pratique')" class="sortable">Pratique&nbsp;&nbsp;&nbsp;</span>
 			&nbsp;<select id="sel_obj_pratique" onchange="selectColonne('obj_pratique', this.value)"></select></td>-->
@@ -75,7 +77,8 @@
 			<datalist id="listVendeur"></datalist>-->
 		</td>
 		<td class="tittab" width=8%>
-			<span class="sortable" id='obj_prix_vente' onclick="triColonne('obj_prix_vente')">Prix vente&nbsp;</span></td>
+			<span class="sortable" id='obj_prix_vente' onclick="triColonne('obj_prix_vente')">Prix vente&nbsp;</span>
+			&nbsp;</td>
 		<td class="tittab" width=8%>
 			<span id='obj_etat' onclick="triColonne('obj_etat')" class="sortable">Etat&nbsp;&nbsp;</span>
 			&nbsp;<select id="sel_obj_etat" onchange="selectColonne('obj_etat', this.value)"></select></td>

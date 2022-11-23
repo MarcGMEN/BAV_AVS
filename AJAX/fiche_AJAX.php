@@ -432,8 +432,8 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
                 $data['adresse'] = "";
             }
 
-            $fiche['obj_type'] = "<br/><span style='font-size:9px'><i>Autre-VTT-Route-VTC-Ville-VAE-BMX</i></span>";
-            $fiche['obj_public'] = "<br/><span style='font-size:9px'><i>Mixte-Homme-Femme-Enfant</i></span>";
+            $fiche['obj_type'] = "<br/><span style='font-size:9px'><i>Autre-VTT-Route-VTC-Ville-VAE-Enfant</i></span>";
+            $fiche['obj_public'] = "<br/><span style='font-size:9px'><i>Mixte-Homme-Femme</i></span>";
             $fiche['obj_pratique'] = "<br/><span style='font-size:9px'><i>Sportive-Loisir-Compétition-Autre</i></span>";
             $fiche['obj_marque'] = "&nbsp;";
             $fiche['obj_modele'] = "&nbsp;";
@@ -650,8 +650,8 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
                 $fiche['QRCODE'] = "<img src='$CFG_URL/$qrcodeFic' title='Fiche " . $fiche['obj_numero'] . "' />";
                 // $fiche['QRCODE'] .=  $adresse;
             }
-            $fiche['obj_type'] = "<br/><span style='font-size:9px'><i>Autre-VTT-Route-VTC-Ville-VAE-BMX</i></span>";
-            $fiche['obj_public'] = "<br/><span style='font-size:9px'><i>Mixte-Homme-Femme-Enfant</i></span>";
+            $fiche['obj_type'] = "<br/><span style='font-size:9px'><i>Autre-VTT-Route-VTC-Ville-VAE-Enfant</i></span>";
+            $fiche['obj_public'] = "<br/><span style='font-size:9px'><i>Mixte-Homme-Femme</i></span>";
             $fiche['obj_pratique'] = "<br/><span style='font-size:9px'><i>Sportive-Loisir-Compétition-Autre</i></span>";
             $fiche['obj_marque'] = "<u>$espace75</u>";
             $fiche['obj_modele'] = "<u>$espace75</u>";
@@ -1046,8 +1046,8 @@ function action_makeData($id, $test = false)
         $client['cli_id_modif'] = "";
 
         $fiche['obj_numero'] = "_______";
-        $fiche['obj_type'] = "<br/><span style='font-size:9px'><i>Autre-VTT-Route-VTC-Ville-VAE-BMX</i></span>";
-        $fiche['obj_public'] = "<br/><span style='font-size:9px'><i>Mixte-Homme-Femme-Enfant</i></span>";
+        $fiche['obj_type'] = "<br/><span style='font-size:9px'><i>Autre-VTT-Route-VTC-Ville-VAE-Enfant</i></span>";
+        $fiche['obj_public'] = "<br/><span style='font-size:9px'><i>Mixte-Homme-Femme</i></span>";
         $fiche['obj_pratique'] = "<br/><span style='font-size:9px'><i>Sportive-Loisir-Compétition-Autre</i></span>";
         $fiche['obj_marque'] = "";
         $fiche['obj_modele'] = "";
