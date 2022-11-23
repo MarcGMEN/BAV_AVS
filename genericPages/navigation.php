@@ -84,7 +84,7 @@ if ($infAppli['ADMIN']) {
             ],
         ],
     ];
-} elseif ($infAppli['CLIENT'] && !$infAppli['bav_en_cours']) {
+} elseif ($infAppli['CLIENT']) {
     $tabNavAdm = [
         'SPACE0' => [
             'libelle' => '🟡🟡',
@@ -98,7 +98,22 @@ if ($infAppli['ADMIN']) {
         ],
 
     ];
+} elseif ($infAppli['bav_en_cours']) {
+    $tabNavAdm = [
+        'SPACE0' => [
+            'libelle' => '🟡🟡',
+        ],
+        'pre_depot.php' => [
+            'libelle' => '<span class="PRE-DEPOT" >Suivi dépot</span>',
+            'mode' => '',
+        ],
+        'SPACE1' => [
+            'libelle' => '🟡🟡',
+        ],
+
+    ];
 }
+
 $tabNav = array_merge($tabNavAll, $tabNavAdm);
 ?>
 <div class="menuNavigation" id="IDmenuNavigation">

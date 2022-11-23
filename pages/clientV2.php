@@ -131,8 +131,10 @@
 			<h3>Vos dépots</h3>
 		</div>
 		<div class="col-sm-3 col-md-3 col-xs-4">
+			<? if ($infAppli['CLIENT'] == 1) { ?>
 			<h3><input type=button value="Ajouter ➕" onclick="addDepot(document.clientForm.cli_id_modif.value)" />
 				<h3>
+			<? }?>
 		</div>
 		<div class="col-sm-6 col-md-6 col-xs-6 alert alert-info" >
 			<h5><b>⚠ N'oubliez pas d'imprimer votre fiche de dépôt avant de venir en cliquant sur l'icone :📇</b><h5>

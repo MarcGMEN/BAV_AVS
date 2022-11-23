@@ -2,6 +2,11 @@
  * action lors du chargement de la page
  */
 function initPage() {
+    if (!CLIENT && !ADMIN && !BAV_ENCOURS) {
+        alertModalInfo("Page non accessible.");
+        setTimeout(function() { goTo() }, 2000);
+    }
+
     if (idClient) {
         // recherche du client
         x_return_oneClientByIdModif(idClient, display_client);

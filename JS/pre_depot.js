@@ -18,10 +18,10 @@ function initPage() {
     // x_return_list_marques(display_list_marques)
     // x_return_list_tailles(display_list_tailles)
 
-    // if (!CLIENT && !ADMIN) {
-    //     alertModalInfo("La saisie n'est pas encore ouverte.");
-    //     setTimeout(function() { goTo() }, 2000);
-    // }
+    if (!CLIENT && !ADMIN && !BAV_ENCOURS) {
+        alertModalInfo("Page non accessible.");
+        setTimeout(function() { goTo() }, 2000);
+    }
 
     // if (modePage != "create") {
     //     goTo();
