@@ -57,7 +57,7 @@ $tabInfo = [
 				</td>
 			<? } else { ?>
 				<td width=10% >
-					<!-- <span class="link url" onclick='viewPdf("<?= $idText ?>","<?= $format ?>");' title="Génération du PDF" )>PDF</span> -->
+					<span class="link url" onclick='viewPdf("<?= $idText ?>","<?= $format ?>");' title="Génération du PDF" )>PDF</span>
 					<?= $format ?>&nbsp;
 					<i class="fas fa-edit" onclick="x_return_html('<?= $idText ?>', display_html_file);idText='<?= $idText ?>';getElement('html_file_title').innerHTML='<?= $title ?>'" title="Modification du document"></i>
 				</td>

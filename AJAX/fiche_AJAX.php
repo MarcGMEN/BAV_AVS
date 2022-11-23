@@ -398,7 +398,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
                 $qrcodeFic = makeQrCode($adresse, $keyQrcode, 2);
 
                 // $fiche['QRCODE'] = "<img src='https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=$adresse&choe=UTF-8' title='Fiche " . $fiche['obj_numero'] . "' />";
-                $fiche['QRCODE'] = "<img  src='$CFG_URL/$qrcodeFic' title='Fiche " . $fiche['obj_numero'] . "' height='80px'/>";
+                $fiche['QRCODE'] = "<img  src='$CFG_URL/$qrcodeFic' title='Fiche " . $fiche['obj_numero'] . "' height='90px'/>";
                 //$fiche['QRCODE']="";
                 if ($CFG_DEBUG) {
                     $data['adresse'] = $adresse;
@@ -434,7 +434,8 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
 
             $fiche['obj_type'] = "<br/><span style='font-size:9px'><i>Autre-VTT-Route-VTC-Ville-VAE-Enfant</i></span>";
             $fiche['obj_public'] = "<br/><span style='font-size:9px'><i>Mixte-Homme-Femme</i></span>";
-            $fiche['obj_pratique'] = "<br/><span style='font-size:9px'><i>Sportive-Loisir-Compétition-Autre</i></span>";
+            $fiche['obj_pratique'] = "";
+            // $fiche['obj_pratique'] = "<br/><span style='font-size:9px'><i>Sportive-Loisir-Compétition-Autre</i></span>";
             $fiche['obj_marque'] = "&nbsp;";
             $fiche['obj_modele'] = "&nbsp;";
             $fiche['obj_couleur'] = "";
@@ -449,7 +450,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
         }
 
         if (sizeof($fiche) > 0) {
-            $tabCoupons[$fiche['obj_numero']] = makeCorps(array_merge($fiche, $data), 'etiquette.html');
+            $tabCoupons[$index++] = makeCorps(array_merge($fiche, $data), 'etiquette.html');
         }
     }
 
@@ -652,7 +653,8 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
             }
             $fiche['obj_type'] = "<br/><span style='font-size:9px'><i>Autre-VTT-Route-VTC-Ville-VAE-Enfant</i></span>";
             $fiche['obj_public'] = "<br/><span style='font-size:9px'><i>Mixte-Homme-Femme</i></span>";
-            $fiche['obj_pratique'] = "<br/><span style='font-size:9px'><i>Sportive-Loisir-Compétition-Autre</i></span>";
+            $fiche['obj_pratique'] = "";
+            // $fiche['obj_pratique'] = "<br/><span style='font-size:9px'><i>Sportive-Loisir-Compétition-Autre</i></span>";
             $fiche['obj_marque'] = "<u>$espace75</u>";
             $fiche['obj_modele'] = "<u>$espace75</u>";
             $fiche['obj_object'] = "";
@@ -673,7 +675,7 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
         }
 
         if (sizeof($fiche) > 0) {
-            $tabCoupons[$fiche['obj_numero']] = makeCorps(array_merge($fiche, $client, $data), $nameCoupon . '.html');
+            $tabCoupons[$index++] = makeCorps(array_merge($fiche, $client, $data), $nameCoupon . '.html');
         }
     }
 
@@ -1018,6 +1020,14 @@ function action_makeData($id, $test = false)
         $fiche['obj_taille'] = "XL";
         $fiche['obj_date_achat_FR'] = "01/01/1901";
         $fiche['obj_prix_achat'] = "3200";
+        $fiche['obj_achat'] = "3200";
+        $fiche['obj_achat'] = "-";
+        if ($fiche['obj_prix_achat'] != "" && $fiche['obj_prix_achat'] > 0) {
+            $fiche['obj_achat'] .= $fiche['obj_prix_achat'] . " &euro; ";
+        }
+        if ($fiche['obj_date_achat_FR'] != "") {
+            $fiche['obj_achat'] .= "(" . $fiche['obj_date_achat_FR'] . ")";
+        }
         $fiche['obj_object'] = trim($fiche['obj_marque']) . " " . trim($fiche['obj_modele']);
         $fiche['QRCODE'] = "";
         $data['lien_confirm'] = $CFG_URL . "/Actions/rest.php?a=C&id=" . $fiche['obj_id_modif'];
@@ -1027,7 +1037,7 @@ function action_makeData($id, $test = false)
         $qrcodeFic = makeQrCode($adresse, $keyQrcode, 2);
 
         // $fiche['QRCODE'] = "<img src='https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=$adresse&choe=UTF-8' title='Fiche " . $fiche['obj_numero'] . "' />";
-        $fiche['QRCODE'] = "<img  src='$CFG_URL/$qrcodeFic' title='Fiche " . $fiche['obj_numero'] . "' height='80px'/>";
+        $fiche['QRCODE'] = "<img  src='$CFG_URL/$qrcodeFic' title='Fiche " . $fiche['obj_numero'] . "' height='90px'/>";
         $data['adresse'] = "";
     } else {
         $data['titre'] = "--" . $data['titre'] . "--";
@@ -1048,7 +1058,9 @@ function action_makeData($id, $test = false)
         $fiche['obj_numero'] = "_______";
         $fiche['obj_type'] = "<br/><span style='font-size:9px'><i>Autre-VTT-Route-VTC-Ville-VAE-Enfant</i></span>";
         $fiche['obj_public'] = "<br/><span style='font-size:9px'><i>Mixte-Homme-Femme</i></span>";
-        $fiche['obj_pratique'] = "<br/><span style='font-size:9px'><i>Sportive-Loisir-Compétition-Autre</i></span>";
+        $fiche['obj_pratique'] = "";
+            // $fiche['obj_pratique'] = "<br/><span style='font-size:9px'><i>Sportive-Loisir-Compétition-Autre</i></span>";
+            
         $fiche['obj_marque'] = "";
         $fiche['obj_modele'] = "";
         $fiche['obj_couleur'] = "";
@@ -1270,7 +1282,7 @@ function action_updateFiche($data)
         $fiche['obj_id_vendeur'] = $client['cli_id'];
 
         $cliOld = return_oneClient($fiche['obj_id_vendeur']);
-    
+
         if (strtoupper($client['cli_nom']) != strtoupper($cliOld['cli_nom'])) {
             $fiche['obj_modif_vendeur'] = 2;
         }
