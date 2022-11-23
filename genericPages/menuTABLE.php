@@ -8,10 +8,10 @@
 				<span id=countModifData title="Nb de d'etiquette à imprimer"></span>
 				<span id=countModifVendeur title="Nb de coupons dépot à imprimer"></span>
 			</div>
-			<div class="col-md-3 col-sm-3 col-xs-2" style="text-align:right">Init</div>
+			<!-- <div class="col-md-3 col-sm-3 col-xs-2" style="text-align:right">Init</div>
 			<div class="col-md-9 col-sm-9 col-xs-4">
 				<span id="INIT" class='link' onclick='goTo("stock.php","obj_etat","INIT",null)' style='font-weight: bold'>...</span>
-			</div>
+			</div> -->
 		</div>
 
 		<div class="col-md-4 col-sm-4 col-xs-12">

@@ -44,8 +44,10 @@ require_once 'Commun/commun_functions.php';
 // echo "412 2021 random => <br/>".hash_hmac('md5', "412"."2021".$random, 'avs44'.$_COOKIE['NUMERO_BAV']);
 // echo "<br/>";
 
-// echo "577 => <br/>".hash_hmac('md5', "577".$_COOKIE['NUMERO_BAV'], 'avs44');
-//echo password_verify('BAV2019', $GLOBALS['PASS_TABLE']);
+$pass="BAV1000_2023";
+echo "$pass => ".password_hash($pass, PASSWORD_DEFAULT);
+echo "<br/>";
+echo "PASS : ".password_verify($pass, $GLOBALS['PASS_ADMIN']);
 
 // $address   = 'Tempe AZ';
 // $address   = urlencode($address);
@@ -64,6 +66,6 @@ require_once 'Commun/commun_functions.php';
 //         return false;
 //     }
 
-echo getIP();
+// echo getIP();
 ?>
 </pre>

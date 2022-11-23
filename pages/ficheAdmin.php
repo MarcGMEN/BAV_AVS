@@ -24,23 +24,23 @@
 					</div>
 					<div class="col-sm-8 col-md-8 col-xs-8">
 						<span style="font-size:0.6em; text-align: left;">
-							Stock[<span id="obj_modif_stock"></span>]
-							<span><select name=obj_modif_stock style="width:80px" onchange="setStartSaisie(true);">
-									<option value=0>A jour</option>
-									<option value=1>Nouveau</option>
-								</select></span>
-							&nbsp;Data[<span id="obj_modif_data"></span>]
+							Etiquette
 							<span><select name=obj_modif_data style="width:80px" onchange="setStartSaisie(true);">
 									<option value=0>A jour</option>
 									<option value=1>Nouvelle</option>
 									<option value=2>Modifié</option>
 								</select></span>
-							&nbsp;Vendeur[<span id="obj_modif_vendeur"></span>]
+							&nbsp;Coupon dépôt
 							<select name=obj_modif_vendeur style="width:80px" onchange="setStartSaisie(true);">
 								<option value=0>A jour</option>
 								<option value=1>Nouvelle</option>
 								<option value=2>Modifié</option>
 							</select>
+							&nbsp;Coupon sortie
+							<span><select name=obj_modif_stock style="width:80px" onchange="setStartSaisie(true);">
+									<option value=0>A jour</option>
+									<option value=1>Nouveau</option>
+								</select></span>
 						</span>
 					</div>
 				</div>

@@ -151,52 +151,17 @@ function action_createFiche($data)
             $tabObj['obj_modele'] = strtoupper($tabObj['obj_modele']);
             $tabObj['obj_couleur'] = strtoupper($tabObj['obj_couleur']);
 
-            if ($ADMIN) {
-                // creation du numero a partir de la base parametre pour la BAV
-                makeNumeroFiche($INFO_APPLI['base_info'], $tabObj, false);
-                // on passe en STOCK
-                $tabObj['obj_etat'] = 'STOCK';
-                // on valide le prix de vente
-                $tabObj['obj_prix_vente'] = $tabObj['obj_prix_depot'];
-                // date de creation
-                $tabObj['obj_date_depot'] = date('y-m-d H:i:s');
-            } else {
-                $tabObj['obj_etat'] = 'CONFIRME';
-                makeNumeroFiche($INFO_APPLI['base_info'], $tabObj, true);
-
-                $tabObj['obj_modif_data'] = 1;
-                $tabObj['obj_modif_vendeur'] = 1;
-                $tabObj['obj_modif_stock'] = 1;
-
-                updateFiche($tabObj);
-
-                // creation du lien REST pour confirmer le depot
-                // $tabPlus['lien_confirm'] = $CFG_URL . "/Actions/rest.php?a=C&id=" . $tabObj['obj_id_modif'];
-
-                // // si pas de pri de depot, alors phrase de rappel
-                // if ($tabObj['obj_prix_depot'] == "") {
-                //     $tabPlus['obj_prix_depot'] = 'A renseigner le jour du dépôt dernier délai';
-                //     $tabObj['obj_prix_depot'] == 0;
-                // } else {
-                //     $tabPlus['obj_prix_depot'] = $tabObj['obj_prix_depot'] . " €";
-                // }
-
-                // $tabPlus['titre'] = $INFO_APPLI['titre'];
-
-                // $tabPlus['obj_date_achat_FR'] = formateDateMYSQLtoFR($fiche['obj_date_achat'], false);
-
-                // // titre du mel
-                // $titreMel = "Confirmation de votre dépôt à " . $INFO_APPLI['titre'];
-
-                // // creation du message du mel
-                // // template : html/mel_enregristrement.html
-                // $message = makeMessage($titreMel, array_merge($tabObj, $tabCli, $tabPlus), "mel_enregistrement.html");
-            }
-
+            $tabObj['obj_etat'] = 'CONFIRME';
+            makeNumeroFiche($INFO_APPLI['base_info'], $tabObj, true);
+            
             $tabObj['obj_numero_bav'] = $INFO_APPLI['numero_bav'];
-            //        print_r($tabObj);
-            // creation de la fiche
+
+            $tabObj['obj_modif_data'] = 1;
+            $tabObj['obj_modif_vendeur'] = 1;
+            $tabObj['obj_modif_stock'] = 1;
+
             $tabObj['obj_id'] = insertFiche($tabObj);
+
 
             $retour = 1;
         } else {
@@ -1059,8 +1024,8 @@ function action_makeData($id, $test = false)
         $fiche['obj_type'] = "<br/><span style='font-size:9px'><i>Autre-VTT-Route-VTC-Ville-VAE-Enfant</i></span>";
         $fiche['obj_public'] = "<br/><span style='font-size:9px'><i>Mixte-Homme-Femme</i></span>";
         $fiche['obj_pratique'] = "";
-            // $fiche['obj_pratique'] = "<br/><span style='font-size:9px'><i>Sportive-Loisir-Compétition-Autre</i></span>";
-            
+        // $fiche['obj_pratique'] = "<br/><span style='font-size:9px'><i>Sportive-Loisir-Compétition-Autre</i></span>";
+
         $fiche['obj_marque'] = "";
         $fiche['obj_modele'] = "";
         $fiche['obj_couleur'] = "";
@@ -1140,6 +1105,10 @@ function action_changeEtatFiche($obj)
             $fiche['obj_prix_vente'] = $fiche['obj_prix_depot'];
             // mise a jour de la date
             $fiche['obj_date_depot'] = date('y-m-d H:i:s');
+
+            // lors de l'init INFO => modif_stock
+            // lors de la create rapide => modif_stock
+            // donc ici ce n'ai que le cas d'un restockage.
             // if ($fiche['obj_numero'] < 1001) {
             //     $fiche['obj_modif_stock'] = 1;
             // }
@@ -1300,11 +1269,11 @@ function action_updateFiche($data)
 
         // si modification de datas de la fiche
         if (
-            $ficheOld['obj_modif_data'] == 0 && (strtoupper($fiche['obj_modele']) != strtoupper($ficheOld['obj_modele']) ||
+            $ficheOld['obj_modif_data'] == 0 && 
+                (strtoupper($fiche['obj_modele']) != strtoupper($ficheOld['obj_modele']) ||
                 strtoupper($fiche['obj_type']) != strtoupper($ficheOld['obj_type']) ||
                 strtoupper($fiche['obj_public']) != strtoupper($ficheOld['obj_public']) ||
                 strtoupper($fiche['obj_marque']) != strtoupper($ficheOld['obj_marque']) ||
-                strtoupper($fiche['obj_modele']) != strtoupper($ficheOld['obj_modele']) ||
                 strtoupper($fiche['obj_couleur']) != strtoupper($ficheOld['obj_couleur']) ||
                 strtoupper($fiche['obj_taille']) != strtoupper($ficheOld['obj_taille']) ||
                 strtoupper($fiche['obj_date_achat']) != strtoupper($ficheOld['obj_date_achat']) ||

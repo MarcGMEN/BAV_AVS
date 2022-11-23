@@ -46,7 +46,7 @@
 	</tr>
 </table>
 Recherche générique : <input size=50 id='obj_search' onkeyup="searchColonne('obj_search')"  placeholder="Recherche large"/>
-<small>(description, modele, marque, couleur, prix_depot et prix de vente)</small>
+<small>(description, modèle, marque, couleur, prix depôt et prix de vente)</small>
 <table width="100%" >
 	<tr>
 		<td class="tittab" width=5%>

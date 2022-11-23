@@ -4,44 +4,57 @@
 </script>
 <script src="JS/pre_depot.js" type="text/javascript"></script>
 
-<div class='alert alert-info' id="informations">
-	<p>Avant de venir déposer votre vélo les à La Soucoupe, nous vous conseillons de remplir la fiche dépôt.</p>
-	<p>- Soit en saissisant votre demande avec le formulaire ci-dessous qui vous transmettra, après confirmation, la fiche dépot par mel.
-		<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Il n'est pas nécéssaire de connaitre le prix de vente, <i>vous pourrez le renseigner le jour du dépôt.</i>
-		<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vous pouvez également modifier votre fiche grace au lien que vous recevrez par mel.
-		<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Vous recevez un mel directement lorsque votre vélo est vendu.</b>
-		<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cette fiche dépôt devra être imprimée par vous pour vous rendre à la Bourse. Une par vélo et un gain de temps sur place lors du dépôt.
-	</p>
-	<p>- Soit en téléchargeant, puis en imprimant la fiche dépôt à remplir que vous trouverez ici
-		<A href="downloads/Fiche_BAV_2021.pdf" target="_blank"> <img class="link url" src="Images/pdf.png" height='40px' alt="téléchargement de la fiche" title="téléchargement de la fiche"></A>
-		<small><i>Attention aux droits d'ouvertures des popUp, en fonction de votre navigateur.</i></small>
-	</p>
-	<p>- Si vous souhaitez déposer plus de 15 vélos, contactez nous pour mettre en place un procédure spéciale.
-		<a href="mailto:bourse1000velos@avs44.com">bourse1000velos@avs44.com</a>
-	</p>
-	<h2 class='alert alert-warning'> Attention , nouvelle Procédure </h2>
-</div>
-
+<? if ($infAppli['CLIENT']) { ?>
+	<div class='alert alert-info' id="informations">
+		<p>Avant de venir déposer votre vélo les à La Soucoupe, nous vous conseillons de remplir la fiche dépôt.</p>
+		<p>- Soit en vous identfiant avec le formulaire ci-dessous, et enuite saisir vos pré-dépôts directement sur le site de la Bourse.</p>
+		<ul>
+			<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Il n'est pas nécéssaire de connaitre le prix de vente, <i>vous pourrez le renseigner le jour du dépôt.</i></li>
+			<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vous accèderez au dépôt le vendredi à la Soucoupe via des files prioritaires.</li>
+			<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vous pouvez également modifier votre dépôt.</li>
+			<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Vous recevez un mel directement lorsque votre vélo est vendu.</b></li>
+			<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cette fiche dépôt devra être imprimée par vous pour vous rendre à la Bourse, une par dépôt.</li>
+		</ul>
+		<p>- Soit en téléchargeant, puis en imprimant la fiche dépôt à remplir que vous trouverez ici
+			<A href="downloads/Fiche_BAV_2022.pdf" target="_blank"> <img class="link url" src="Images/pdf.png" height='30px' alt="téléchargement de la fiche" title="téléchargement de la fiche"></A>
+			<small><i>Attention aux droits d'ouvertures des popUp, en fonction de votre navigateur.</i></small>
+		</p>
+		<p>- Si vous souhaitez déposer plus de 15 vélos, contactez nous pour mettre en place un procédure spéciale.
+			<a href="mailto:bourse1000velos@avs44.com">bourse1000velos@avs44.com</a>
+		</p>
+		<h2 class='alert alert-warning'> Attention , nouvelle Procédure </h2>
+	</div>
+<? } else { ?>
+	<h3> Suivi de votre dépôt</h3>
+<? } ?>
 <div class="row" id="connexions">
 	<div class="col-sm-12 col-md-12 col-xs-12 ">
-		<div class="col-sm-5 col-md-5 col-xs-12 alert alert-info" id='div_first_connexion'>
-			<form name="firstAccesForm" method="POST" onsubmit="return submitFormFA(this)" action="#">
-
+		<? if ($infAppli['CLIENT']) { ?>
+			<div class="col-sm-5 col-md-5 col-xs-12 alert alert-info" id='div_first_connexion'>
 				<div class="col-sm-12 col-md-12 col-xs-12 ">
-					Pour votre premier pré-dépôt il faut vous enregistrer,
+					<h4>Pré-enregistrement<h4>
 				</div>
-				<div class="col-sm-10 col-md-10 col-xs-12">
-					<input type='email' width=10% size=30 maxlength="80" name='new_email_depot' required placeholder="Saisise votre mail" value="dggdg@frfrf.fr"/>
-				</div>
-				<div class="col-sm-2 col-md-2 col-xs-12">
-					<input type='submit' value="S'enregrister" />
-				</div>
-			</form>
-		</div>
-		<div class="col-sm-1 col-md-1 col-xs-12 alert alert-warning" style='text-align: center;'>
-			OU
-		</div>
+
+				<form name="firstAccesForm" method="POST" onsubmit="return submitFormFA(this)" action="#">
+					<div class="col-sm-12 col-md-12 col-xs-12 ">
+						Pour votre premier pré-dépôt il faut vous enregistrer,
+					</div>
+					<div class="col-sm-10 col-md-10 col-xs-12">
+						<input type='email' width=10% size=30 maxlength="80" name='new_email_depot' required placeholder="Saisise votre mail" value="dggdg@frfrf.fr" />
+					</div>
+					<div class="col-sm-2 col-md-2 col-xs-12">
+						<input type='submit' value="S'enregrister" />
+					</div>
+				</form>
+			</div>
+			<div class="col-sm-1 col-md-1 col-xs-12 alert alert-warning" style='text-align: center;'>
+				OU
+			</div>
+		<? } ?>
 		<div class="col-sm-6 col-md-6 col-xs-12 alert alert-info" id='div_connexion'>
+			<div class="col-sm-12 col-md-12 col-xs-12 ">
+				<h4>Connexion<h4>
+			</div>
 			<form name="accesForm" method="POST" onsubmit="return submitFormConnex(this)" action="">
 				<div class="col-sm-6 col-md-6 col-xs-12">
 					Vous vous êtes déjà enregister <input type='email' size=30 maxlength="80" required name='email_depot' placeholder="Saisise votre mail" />
@@ -64,7 +77,7 @@
 	<form name="formPreSaisie" method="POST" onsubmit="return submitPreSaisie(this)">
 		<fieldset class=fiche>
 			<legend class="titreFiche" id='legendVendeur'>
-				Vos coordonnées pour vous enregister a la <?=$infAppli['titre']?>
+				Vos coordonnées pour vous enregister a la <?= $infAppli['titre'] ?>
 			</legend>
 			<div class="row">
 				<div class="col-sm-6 col-md-6 col-xs-12">
@@ -112,7 +125,7 @@
 				<div class="col-sm-3 col-md-3 col-xs-6 btnAction" id="tdBtnAction">
 					<!-- etat vide pour reconnaitre une action de modif simple -->
 					<input type="submit" tabindex=<?= $tabindex++ ?> value="Enregistrer" />
-					
+
 				</div>
 
 				<div class="col-sm-3 col-md-3 col-xs-6 btnAction">
