@@ -9,7 +9,7 @@
 					<div style="font-size:15px; " onclick="menuSel()">-<br/>-</div>
 				</div>
 				<div class="col-sm-12 col-md-12 col-xs-6 maskMobile">
-					<img src="Images/veloss_BAV.png" id="cycleBAV" class=link onclick="location.href='index.php'" />
+					<img src="Images/BAV_2020.png" id="cycleBAV" class=link onclick="location.href='index.php'" />
 					<!-- <img src="Images/cycleBAV.png" id="cycleBAV" class=link onclick="location.href='index.php'" /> -->
 					<p style="font-size:0.7em" id=timeRestant></p>
 				</div>

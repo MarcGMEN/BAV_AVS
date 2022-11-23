@@ -70,6 +70,7 @@ function display_counter(val) {
         }
 
         var totalVente = 0
+        totalFiche = 0;
         if (val['STOCK']) {
             totalFiche += parseInt(val['STOCK']);
         }
