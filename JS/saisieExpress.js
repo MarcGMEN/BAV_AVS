@@ -20,8 +20,6 @@ function initPage() {
     // recuperation de la liste des marques
     x_return_list_marques(display_list_marques)
 
-
-
     document.searchFormFiche.numeroFiche.focus();
     getElement("divscroll").style.height = (document.body.offsetHeight - getElement("divscroll").offsetTop + 30);
 
@@ -153,10 +151,6 @@ function afficheLigne(val) {
 
             action += "<span title='Supprimer' onclick='supprimerFiche(" + val['obj_id'] + "," + val['obj_numero'] + ")' class='link' >❌</span>";
             action += "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\",document.formTabSaisie.obj_prix_vente_" + index + ".value," + val['obj_numero'] + ")' />";
-
-
-
-
         } else if (val['obj_etat'] == "STOCK") {
             new_etat = "RENDU";
             new_libelle = "Rendre";
@@ -191,14 +185,6 @@ function supprimerFiche(id, numero) {
 
 function display_messageConfirmSupp(mess) {
     alertModalConfirm(mess, 'Supp', "Suppression du depot");
-}
-
-/**click sur btn cofirm de modalFiche */
-function confirmModal(plus) {
-    if (plus == "Supp") {
-        var tabObj = recup_formulaire(document.modalForm, 'obj');
-        x_action_deleteFiche(tabObj['obj_id'], display_fin_create);
-    }
 }
 
 /** impression de la fiche */
@@ -507,33 +493,42 @@ function display_messageConfirmChangeEtatForm(val) {
 }
 
 /**click sur btn cofirm de modalEtatForm */
-function confirmModal() {
-    var tabAch = recup_formulaire(document.modalForm, 'ach');
-    tabAch['ach_nom'] = document.modalForm.elements.namedItem('ach_nom_' + idRamdom).value;
-    delete tabAch['ach_nom_' + idRamdom];
-    for (i in tabAch) {
-        newKey = i.replace("ach_", "cli_");
-        tabAch[newKey] = tabAch[i];
-        delete tabAch[i];
+function confirmModal(plus) {
+    if (plus == "Supp") {
+        var tabObj = recup_formulaire(document.modalForm, 'obj');
+        x_action_deleteFiche(tabObj['obj_id'], display_fin_delete);
+    } else {
+        var tabAch = recup_formulaire(document.modalForm, 'ach');
+        tabAch['ach_nom'] = document.modalForm.elements.namedItem('ach_nom_' + idRamdom).value;
+        delete tabAch['ach_nom_' + idRamdom];
+        for (i in tabAch) {
+            newKey = i.replace("ach_", "cli_");
+            tabAch[newKey] = tabAch[i];
+            delete tabAch[i];
+        }
+        var tabObjModal = recup_formulaire(document.modalForm, 'obj');
+        //var tabObj = recup_formulaire(document.formSaisieExpress, 'obj');
+
+        // tabObj['obj_prix_vente'] = tabObjModal['obj_prix_vente'];
+        tabObjModal['obj_etat_new'] = "VENDU";
+        tabObjModal['obj_etat'] = "STOCK";
+        var tabData = Object.assign({}, tabObjModal, tabAch);
+        //console.log(tabData);
+        getElement("but_action").innerHTML = 'Mise en vente <img src="Images/refresh_icon_active.gif" height=10px />';
+        getElement("but_action").disabled = true;
+        getElement("but_actionAno").style.display = 'none';
+        getElement("but_action2").style.display = 'none';
+
+        x_action_vendFiche(tabToString(tabData), display_fin_vente);
     }
-    var tabObjModal = recup_formulaire(document.modalForm, 'obj');
-    //var tabObj = recup_formulaire(document.formSaisieExpress, 'obj');
-
-    // tabObj['obj_prix_vente'] = tabObjModal['obj_prix_vente'];
-    tabObjModal['obj_etat_new'] = "VENDU";
-    tabObjModal['obj_etat'] = "STOCK";
-    var tabData = Object.assign({}, tabObjModal, tabAch);
-    //console.log(tabData);
-    getElement("but_action").innerHTML = 'Mise en vente <img src="Images/refresh_icon_active.gif" height=10px />';
-    getElement("but_action").disabled = true;
-    getElement("but_actionAno").style.display = 'none';
-    getElement("but_action2").style.display = 'none';
-
-    x_action_vendFiche(tabToString(tabData), display_fin_vente);
 }
 
 function display_fin_vente(val) {
     display_fin_create(val);
+}
+
+function display_fin_delete(val) {
+    x_return_fiches_express(baseNumFiche, display_fichesExpress);
 }
 
 
