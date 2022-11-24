@@ -6,31 +6,34 @@
 <script src="JS/editFiche.js"></script>
 <?
 $tabInfo = [
-	'FICHE DEPOT' => "fiche_depot",
-	'ETIQUETTE' => "etiquette",
-	'COUPON DEPOT' => "coupon_vendeur",
-	'COUPON SORTIE' => "coupon_acheteur",
+	'VIDE0' => "Les papiers",
+	'Fiche de dépôt' => "fiche_depot",
+	'Etiquette' => "etiquette",
+	'Coupon de dépôt' => "coupon_vendeur",
+	'Coupon de sortie' => "coupon_acheteur",
 	'VIDE4' => " Facturation",
-	'FACTURE' => 'facture',
+	'Facture' => 'facture',
 	'VIDE1' => "Les modals de fiche",
-	'CREATE MODAL' => "modal_create_fiche",
-	'SUPP MODAL' => "modal_confirm_supp",
+	'Modal de creation de lafiche' => "modal_create_fiche",
+	'Modal de suppresion de la fiche' => "modal_confirm_supp",
 	//'MODIF MODAL' => "modal_confirm_confirme",
 	'VIDE2' => "Les modals de gestion de fiche",
-	'VENDRE MODAL' => "modal_confirm_vendre",
+	'Modal de saisie de la vente' => "modal_confirm_vendre",
 	// 'RESTOCK MODAL' => "modal_confirm_restock",
 	'VIDE3' => "Les Mails",
-	'MAIL ENTETE' => "entete_mail",
-	'MAIL PIED' => "pied_mail",
-	'MAIL ENREGISTREMENT' => "mel_enregistrement",
-	'MAIL CONFIRME' => "mel_confirme",
-	'MAIL VENDU' => "mel_vendu",
+	'Entete des mails' => "entete_mail",
+	'Pied des mails' => "pied_mail",
+	'Mail de pré-enregistrement' => "mel_pre-enregistrement",
+	'Mail de renvoi du code d\'accès' => "mel_code_access",
+	// 'MAIL ENREGISTREMENT' => "mel_enregistrement",
+	// 'MAIL CONFIRME' => "mel_confirme",
+	'Mail d\'information de la vente' => "mel_vendu",
 	'VIDE5' => "La page d'accueil",
-	'BAV_ACTU' => 'bav_actu',
-	'BAV_VENDRE' => 'bav_vendre',
-	'BAV_STAT' => 'bav_statistique',
-	'BAV_PROGRAMME' => 'bav_programme',
-	'BAV_ORGA' => 'bav_orga',
+	'Page d\'actualité' => 'bav_actu',
+	'Page de Quoi vendre' => 'bav_vendre',
+	'Page des statsitiques' => 'bav_statistique',
+	'Page du programme' => 'bav_programme',
+	'Page de l\'organisateur' => 'bav_orga',
 ];
 ?>
 <h1>Gestion des éditions</h1>
@@ -53,19 +56,20 @@ $tabInfo = [
 
 			<? if (startsWith($title, "VIDE")) { ?>
 				<td colspan=5>
-					<div style="background-color: lightblue;"><?=$idText?></div>
+					<div style="background-color: lightblue;font-weight: bold;"><?= $idText ?></div>
 				</td>
 			<? } else { ?>
-				<td width=10% >
-					<span class="link url" onclick='viewPdf("<?= $idText ?>","<?= $format ?>");' title="Génération du PDF" )>PDF</span>
-					<?= $format ?>&nbsp;
-					<i class="fas fa-edit" onclick="x_return_html('<?= $idText ?>', display_html_file);idText='<?= $idText ?>';getElement('html_file_title').innerHTML='<?= $title ?>'" title="Modification du document"></i>
+				<td width=10%>
+					<? if ($idText == "fiche_depot") { ?>
+						<span class="link url" onclick='viewPdf("<?= $idText ?>","<?= $format ?>");' title="Génération du PDF" )>PDF</span>
+					<? } ?>
+					<i class="fas fa-edit" onclick="x_return_html('<?= $idText ?>', display_html_file);idText='<?= $idText ?>';getElement('html_file_title').innerHTML='<?= addslashes($title) ?>'  " title="Modification du document"></i>
 				</td>
 			<? } ?>
 
 
 			<td width=70%>
-				<? if ($title == "ETIQUETTE") { ?>
+				<? if ($idText == "etiquette") { ?>
 					<form style="color:black">
 						<table width=100% border=0>
 							<tr>
@@ -110,7 +114,7 @@ $tabInfo = [
 						</table>
 					</form>
 				<? } ?>
-				<? if ($title == "FICHE DEPOT") { ?>
+				<? if ($idText == "fiche_depot") { ?>
 					<form style="color:black">
 						<table width=100% border=0>
 							<tr>
@@ -138,7 +142,7 @@ $tabInfo = [
 						</table>
 					</form>
 				<? } ?>
-				<? if ($title == "COUPON DEPOT") { ?>
+				<? if ($idText == "coupon_vendeur") { ?>
 					<form style="color:black">
 						<table width=100% border=0>
 							<tr>
@@ -184,7 +188,7 @@ $tabInfo = [
 						</table>
 					</form>
 				<? } ?>
-				<? if ($title == "COUPON SORTIE") { ?>
+				<? if ($idText == "coupon_acheteur") { ?>
 					<form style="color:black">
 						<table width=100% border=0>
 							<tr>
@@ -229,7 +233,7 @@ $tabInfo = [
 						</table>
 					</form>
 				<? } ?>
-				<? if ($title == "FACTURE") { ?>
+				<? if ($idText == "facture") { ?>
 					<form style="color:black">
 						<table width=100% border=1>
 							<tr class="tabAction">
@@ -267,7 +271,7 @@ $tabInfo = [
 		<!-- <textarea style="width:100%" rows=150 id="editor_html_file" contenteditable="true"></textarea> -->
 		<!-- <textarea style="width:100%;heigth:40%" rows=25 id="editor_html_file"></textarea> -->
 
-		
+
 		<div style="height: 250px;position: relative;">
 			<textarea placeholder="Enter HTML Source Code" id="editing" spellcheck="false" oninput="update(this.value); sync_scroll(this);" onscroll="sync_scroll(this);" onkeydown="check_tab(this, event);" onkeyup="getElement('visu_html').innerHTML=this.value">
 			</textarea>

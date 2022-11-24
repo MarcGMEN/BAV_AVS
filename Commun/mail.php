@@ -95,8 +95,6 @@ function sendMail($titre, $toMail, $messageMail, $pieceJointe = null, $bcc=false
             file_put_contents(dirname(__FILE__)."/../mail.html", stripslashes($messageMail));
             error_log("Pb sur mail pour : ".$toMail);
         } else {
-            //$erreur="Mail envoi ok a [$toMail]";
-            error_log("Mail envoi ok a [$toMail]");
             $erreur=1;
         }
         return $erreur;

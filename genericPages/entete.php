@@ -15,7 +15,7 @@
 				</div>
 			</div>
 		</td>
-		<td width="73%">
+		<td width="78%">
 			<div class="TITRE_FENETRE_PRINCIPALE">
 				<?= $infAppli['titre']; ?>
 			</div>
@@ -23,7 +23,7 @@
 				include './genericPages/menuTABLE.php';
 			}?>
 		</td>
-		<td width="15%">
+		<td width="10%">
 			<!--<span style="float: left; display:none" id="theMenu">
 				<i class="fas fa-bars fa-3x" onclick="inverseDisplay('divMenu')"></i>
 				<div style="position:absolute; display:none" id='divMenu'>

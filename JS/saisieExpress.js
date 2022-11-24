@@ -23,6 +23,8 @@ function initPage() {
     x_return_fiches_express(baseNumFiche, display_fichesExpress);
 
     document.searchFormFiche.numeroFiche.focus();
+    getElement("divscroll").style.height = (document.body.offsetHeight - getElement("divscroll").offsetTop + 30);
+
 }
 
 var maxFiche = 0;

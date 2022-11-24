@@ -4,9 +4,7 @@ function initPage() {
     if (ADMIN) {
         x_return_fichesModif('data', display_modifData);
         x_return_fichesModif('vendeur', display_modifVendeur);
-
         x_return_fichesModif('stock', display_modifStock);
-
     } else {
         goTo();
     }

@@ -944,6 +944,7 @@ function action_makeData($id, $test = false)
         $client['cli_nom1'] = $client['cli_nom'];
 
         $client['cli_id_modif'] = "be49226b2150c567adf4f090c21be17f";
+        $client['cli_code'] = "be4922";
         $client['cli_emel'] = "test@test.com";
         $client['cli_adresse'] = "votre adresse";
         $client['cli_adresse1'] = "";

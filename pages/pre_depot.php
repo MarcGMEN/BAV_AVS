@@ -40,7 +40,7 @@
 						Pour votre premier pré-dépôt il faut vous enregistrer,
 					</div>
 					<div class="col-sm-10 col-md-10 col-xs-12">
-						<input type='email' width=10% size=30 maxlength="80" name='new_email_depot' required placeholder="Saisise votre mail" value="dggdg@frfrf.fr" />
+						<input type='email' width=10% size=30 maxlength="80" name='new_email_depot' required placeholder="Saisissez votre mail" />
 					</div>
 					<div class="col-sm-2 col-md-2 col-xs-12">
 						<input type='submit' value="S'enregrister" />
@@ -57,11 +57,13 @@
 			</div>
 			<form name="accesForm" method="POST" onsubmit="return submitFormConnex(this)" action="">
 				<div class="col-sm-6 col-md-6 col-xs-12">
-					Vous vous êtes déjà enregister <input type='email' size=30 maxlength="80" required name='email_depot' placeholder="Saisise votre mail" />
+					Vous vous êtes déjà enregister<br/>
+					<input type='email' size=30 maxlength="80" required name='email_depot' placeholder="Saisissez votre mail" />
 					<p class="link" onclick='renvoiCode(document.accesForm)'>Code d'accès oublié</p>
 				</div>
 				<div class="col-sm-5 col-md-5 col-xs-12">
-					Code d'accès <br /><small>(Reçu par mail lors de l'enregistrement)</small><input type='password' name='pass_depot' required placeholder="Le code d'accès" />
+					Code d'accès<br/><input type='password' name='pass_depot' required placeholder="Le code d'accès" />
+					<p><small>(Reçu par mail lors de l'enregistrement)</small></p>
 				</div>
 				<div class="col-sm-1 col-md-1 col-xs-12">
 					<input type='submit' value='Connexion' />
