@@ -6,6 +6,8 @@ function initPage() {
     if (theId != "") {
         x_return_oneFiche(theId, display_ficheN);
     }
+    x_return_num_max_fiches(display_num_max_fiches);
+
     // creation des listes des choix type
     x_return_enum('bav_objet', 'obj_type', display_list_type);
 
@@ -18,9 +20,7 @@ function initPage() {
     // recuperation de la liste des marques
     x_return_list_marques(display_list_marques)
 
-    x_return_num_max_fiches(display_num_max_fiches);
 
-    x_return_fiches_express(baseNumFiche, display_fichesExpress);
 
     document.searchFormFiche.numeroFiche.focus();
     getElement("divscroll").style.height = (document.body.offsetHeight - getElement("divscroll").offsetTop + 30);
@@ -36,9 +36,15 @@ function display_num_max_fiches(val) {
     for (var i = 1; i < val; i += classeur) {
         getElement("pageFiche").innerHTML += "<span class='link' id='cla_" + i + "' onclick='baseNumFiche=" + i + ";x_return_fiches_express(" + i + ", display_fichesExpress)'>" + i + "</span>&nbsp;&nbsp;"
     }
+
+    x_return_fiches_express(baseNumFiche, display_fichesExpress);
 }
 
 function searchFicheExpress(num) {
+
+    if (num > maxFiche) {
+        x_return_num_max_fiches(display_num_max_fiches);
+    }
     if (num) {
         baseNumFiche = parseInt((parseInt((parseInt(num) - 1) / parseInt(classeur))) * parseInt(classeur) + 1);
         // console.log("On est sur la base de " + baseNumFiche + "  via " + num + " pour max " + classeur);
@@ -88,10 +94,6 @@ function display_listVendeurName(val) {
  */
 function display_fichesExpress(val) {
     //console.log(val);
-    for (var i = 1; i < maxFiche; i += classeur) {
-        getElement("cla_" + i).className = 'link';
-    }
-    getElement("cla_" + baseNumFiche).className = 'navigation navigationSel';
 
     for (var num = baseNumFiche; num <= (parseInt(classeur) + parseInt(baseNumFiche)); num++) {
         //console.log(num, baseNumFiche, (parseInt(maxFiche) + parseInt(baseNumFiche)));
@@ -101,6 +103,10 @@ function display_fichesExpress(val) {
             resetLigne(num - baseNumFiche + 1);
         }
     }
+    for (var i = 1; i < maxFiche; i += classeur) {
+        getElement("cla_" + i).className = 'link';
+    }
+    getElement("cla_" + baseNumFiche).className = 'navigation navigationSel';
 }
 /**
  * affichage d'un ligne
