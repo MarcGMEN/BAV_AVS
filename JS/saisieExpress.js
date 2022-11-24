@@ -151,7 +151,10 @@ function afficheLigne(val) {
             var actionPrix = "<input type='number' name='obj_prix_vente_" + index + "' min=1 step='0.1' value='" + thePrix + "' />";
             getElement("prix_vente_" + index).innerHTML = actionPrix;
 
+            action += "<span title='Supprimer' onclick='supprimerFiche(" + val['obj_id'] + "," + val['obj_numero'] + ")' class='link' >❌</span>";
             action += "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\",document.formTabSaisie.obj_prix_vente_" + index + ".value," + val['obj_numero'] + ")' />";
+
+
 
 
         } else if (val['obj_etat'] == "STOCK") {
@@ -174,6 +177,28 @@ function afficheLigne(val) {
         // console.log("pas d'element [numero_" + index + "]");
     }
 
+}
+
+function supprimerFiche(id, numero) {
+    var tabObj = []
+    tabObj['obj_id'] = id;
+    tabObj['obj_numero'] = numero;
+
+    // creation du message de confirmation de la suppression
+    x_get_publiHtml(tabToString(Object.assign({}, tabObj)), 'modal_confirm_supp.html', display_messageConfirmSupp);
+    return false;
+}
+
+function display_messageConfirmSupp(mess) {
+    alertModalConfirm(mess, 'Supp', "Suppression du depot");
+}
+
+/**click sur btn cofirm de modalFiche */
+function confirmModal(plus) {
+    if (plus == "Supp") {
+        var tabObj = recup_formulaire(document.modalForm, 'obj');
+        x_action_deleteFiche(tabObj['obj_id'], display_fin_create);
+    }
 }
 
 /** impression de la fiche */

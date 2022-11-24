@@ -79,7 +79,7 @@ $maxFiche = 50;
 				<datalist id="listVendeurName"></datalist>
 			</td>
 			<td>
-				<input type=text name='cli_code_postal' placeholder="Code postal" disabled tabindex=<7 size="7" maxlength="5">
+				<input type=text name='cli_code_postal' placeholder="Code postal" tabindex=7 size="7" maxlength="5">
 			</td>
 
 		</tr>
