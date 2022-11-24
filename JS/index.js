@@ -29,7 +29,7 @@ function display_rien(val) {
 }
 
 function display_openPDF(val) {
-    console.log(val);
+    // console.log(val);
     closeModal();
     document.body.style.cursor = 'default';
     window.open(val, '_blank');
@@ -72,7 +72,7 @@ var Gtype = '';
 
 function searchSuiteRest(value, modePage = "", type = "") {
     Gtype = type;
-    console.log("searchSuiteRest " + value + "; " + modePage + "; " + type);
+    // console.log("searchSuiteRest " + value + "; " + modePage + "; " + type);
     if (modePage == "restF") {
         x_return_oneFicheByIdModif(value, display_getFicheModif);
     } else if (modePage == "restC") {
@@ -91,16 +91,16 @@ function searchSuiteRest(value, modePage = "", type = "") {
 }
 
 function searchFiche(code) {
-    console.log("searchFiche " + code);
+    // console.log("searchFiche " + code);
     x_return_oneFicheByCode(code, display_getFicheModif);
     return false;
 }
 
 function display_getFicheConsult(val) {
-    console.log(val);
+    // console.log(val);
     if (val instanceof Object && val['obj_id'] != undefined) {
         if (val['obj_numero'] < 5000) {
-            console.log("consult.php&id=" + val['obj_id']);
+            // console.log("consult.php&id=" + val['obj_id']);
             goTo("consult.php", Gtype, val['obj_id']);
         } else {
             alertModalWarnTimeout("Format incorrect (N° fiche, code fiche, code client)", 2);

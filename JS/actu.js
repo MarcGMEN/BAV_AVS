@@ -27,7 +27,7 @@ function searchActu(search) {
 }
 
 function display_acts(val) {
-    console.log(val);
+    // console.log(val);
     if (val instanceof Object && !objectIsEmpty(val)) {
         var repr = "<div class='row'>";
         var annee = "";
@@ -109,7 +109,7 @@ function submitActu(laForm) {
     if (CKEDITOR.instances.edit_act_article) {
         tabData['act_text'] = CKEDITOR.instances.edit_act_article.getData();
     }
-    console.log(tabData);
+    // console.log(tabData);
     x_action_insertActu(tabToString(tabData), typeACT, display_create);
     return false;
 }
@@ -160,7 +160,7 @@ function desactiveActu(id) {
 function updateActu(id) {
     getElement('reponse_' + id).style.display = 'none';
     getElement('question_' + id).style.display = 'none';
-    console.log(id);
+    // console.log(id);
     getElement('reponse_edit_' + id).style.display = 'block';
     CKEDITOR.replace("edit_act_R" + id);
     CKEDITOR.replace("edit_act_Q" + id);

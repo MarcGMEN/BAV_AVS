@@ -31,7 +31,7 @@
 	}
 
 	function display_actions(val) {
-		console.log(val);
+		// console.log(val);
 		var repr = "";
 		var tab = tree(val, "", 0);
 		tabDates.sort();

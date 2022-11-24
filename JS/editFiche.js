@@ -187,7 +187,7 @@ function imprimeFiche() {
 
 function display_openHTML(val) {
     closeModal();
-    console.log(val);
+    // console.log(val);
     if (isValidUrl(val)) {
         document.body.style.cursor = 'default';
         window.open(val, '_blank');

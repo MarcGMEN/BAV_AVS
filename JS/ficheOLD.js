@@ -33,7 +33,7 @@ function initPage() {
         // chargement de la liste des client par mel
         // x_return_listClientByName(display_listVendeurName);
 
-        console.log("mode " + ADMIN);
+        // console.log("mode " + ADMIN);
         // en mode create de table, le mail n'est pas obligatoire
         document.ficheForm.cli_emel.required = false;
 
@@ -227,7 +227,7 @@ function display_infoClientVendeurName(val) {
 }
 
 function display_infoClientVendeur(val, base) {
-    console.log(val);
+    // console.log(val);
     if (val instanceof Object) {
         if (val['cli_emel'] != "") {
             var list = getElement("listVendeurName");
@@ -415,7 +415,7 @@ function display_fiche(val) {
         }
         display_formulaire(val, document.ficheForm);
     } else {
-        console.log("Fiche inconnue.");
+        // console.log("Fiche inconnue.");
         //goTo(null, null, null, "Fiche inconnue.");
     }
 }

@@ -153,17 +153,19 @@ function action_createFiche($data)
 
             $tabObj['obj_etat'] = 'CONFIRME';
             makeNumeroFiche($INFO_APPLI['base_info'], $tabObj, true);
-            
+
             $tabObj['obj_numero_bav'] = $INFO_APPLI['numero_bav'];
 
             $tabObj['obj_modif_data'] = 1;
             $tabObj['obj_modif_vendeur'] = 1;
             $tabObj['obj_modif_stock'] = 1;
+            
 
             $tabObj['obj_id'] = insertFiche($tabObj);
 
+            $tabObj['modif_fiche'] = 1;
 
-            $retour = 1;
+            return $tabObj;
         } else {
             return "ERREUR : problème de création du client";
         }
@@ -277,12 +279,7 @@ function action_createFicheExpress($data)
  */
 function action_deleteFiche($id)
 {
-    //extract($GLOBALS);
-    //$ADMIN = $INFO_APPLI['ADMIN'];
-
-    //if ($ADMIN) {
-    deleteFiche($id);
-    //}
+    return deleteFiche($id);
 }
 
 /**
@@ -1269,8 +1266,8 @@ function action_updateFiche($data)
 
         // si modification de datas de la fiche
         if (
-            $ficheOld['obj_modif_data'] == 0 && 
-                (strtoupper($fiche['obj_modele']) != strtoupper($ficheOld['obj_modele']) ||
+            $ficheOld['obj_modif_data'] == 0 &&
+            (strtoupper($fiche['obj_modele']) != strtoupper($ficheOld['obj_modele']) ||
                 strtoupper($fiche['obj_type']) != strtoupper($ficheOld['obj_type']) ||
                 strtoupper($fiche['obj_public']) != strtoupper($ficheOld['obj_public']) ||
                 strtoupper($fiche['obj_marque']) != strtoupper($ficheOld['obj_marque']) ||
@@ -1285,6 +1282,22 @@ function action_updateFiche($data)
         }
     }
 
+    $modifFiche = 0;
+    if (
+        strtoupper($fiche['obj_modele']) != strtoupper($ficheOld['obj_modele']) ||
+        strtoupper($fiche['obj_type']) != strtoupper($ficheOld['obj_type']) ||
+        strtoupper($fiche['obj_public']) != strtoupper($ficheOld['obj_public']) ||
+        strtoupper($fiche['obj_marque']) != strtoupper($ficheOld['obj_marque']) ||
+        strtoupper($fiche['obj_couleur']) != strtoupper($ficheOld['obj_couleur']) ||
+        strtoupper($fiche['obj_taille']) != strtoupper($ficheOld['obj_taille']) ||
+        strtoupper($fiche['obj_date_achat']) != strtoupper($ficheOld['obj_date_achat']) ||
+        strtoupper($fiche['obj_prix_achat']) != strtoupper($ficheOld['obj_prix_achat']) ||
+        //strtoupper($fiche['obj_description']) != strtoupper($ficheOld['obj_description']) ||
+        strtoupper($fiche['obj_prix_depot']) != strtoupper($ficheOld['obj_prix_depot'])
+    ) {
+        $modifFiche = 1;
+    }
+
     try {
         $fiche['obj_marque'] = strtoupper($fiche['obj_marque']);
         $fiche['obj_modele'] = strtoupper($fiche['obj_modele']);
@@ -1297,6 +1310,8 @@ function action_updateFiche($data)
             updateClient($clientAcheteur);
         }
 
+        $fiche = getOneFiche($fiche['obj_id']);
+        $fiche['modif_fiche'] = $modifFiche;
         return $fiche;
     } catch (Exception $e) {
         return "ERREUR " . $e->getMessage();
@@ -1306,7 +1321,6 @@ function action_updateFiche($data)
 function return_fichesModif($type = 'data')
 {
     try {
-        $par = return_parametreActif();
         $tab = getFichesModif($type);
         return $tab;
     } catch (Exception $e) {

@@ -39,7 +39,7 @@ function display_num_max_fiches(val) {
 function searchFicheExpress(num) {
     if (num) {
         baseNumFiche = parseInt((parseInt((parseInt(num) - 1) / parseInt(classeur))) * parseInt(classeur) + 1);
-        console.log("On est sur la base de " + baseNumFiche + "  via " + num + " pour max " + classeur);
+        // console.log("On est sur la base de " + baseNumFiche + "  via " + num + " pour max " + classeur);
         x_return_fiches_express(baseNumFiche, display_fichesExpress);
         setTimeout('x_return_oneFicheByCode(' + num + ', display_ficheN)', 100);
 
@@ -312,7 +312,7 @@ function display_fiche(val) {
  * @param {} value 
  */
 function searchByName(value) {
-    console.log("searchByName " + value);
+    // console.log("searchByName " + value);
     if (value != "") {
         x_return_oneClientByName(value, display_infoClientVendeurName);
     }
@@ -430,7 +430,7 @@ function modifEtat(tabObj, tabCli) {
     if (tabObj['obj_etat'] == 'INIT' && tabObj['obj_etat_new'] == "STOCK") {
         tabObj['obj_etat'] = 'STOCK'
         var tabData = Object.assign({}, tabObj, tabCli);
-        console.log("demande de creation express");
+        // console.log("demande de creation express");
         tabData['obj_modif_stock'] = 1
         x_action_createFicheExpress(tabToString(tabData), display_fin_create);
     } else if (tabObj['obj_etat_new'] == 'VENDU') {
@@ -522,7 +522,7 @@ function unloadPage() {}
  * @param {} value 
  */
 function searchAchByName(value) {
-    console.log("searchAchByName " + value);
+    // console.log("searchAchByName " + value);
     if (value != "") {
         x_return_oneClientByName(value, display_infoClientAcheteurBis);
     }
@@ -555,7 +555,7 @@ function display_infoClientAcheteurBis(val) {
 }
 
 function display_infoClientAcheteur(val, base) {
-    console.log(val);
+    // console.log(val);
     if (val instanceof Object) {
         // remplacement du trigramme cli par ach
         for (i in val) {

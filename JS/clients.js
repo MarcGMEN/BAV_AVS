@@ -197,7 +197,7 @@ function display_clients(val) {
 }
 
 function display_bavs(val) {
-    console.log(val);
+    // console.log(val);
     var virgule = "";
     getElement('bavs_' + val[0]['id_client']).innerHTML = "[";
     for (index in val) {
@@ -230,6 +230,9 @@ function selectColonne(mask) {
         getElement('totalVendeurEtAcheteur').innerHTML = "...";
         getElement('totalAbsent').innerHTML = "...";
         selection = { 'cli_nom': mask };
+        x_return_clientsRecap(tri, sens, tabToString(selection), allG, display_clients);
+    } else if (mask.length == 0) {
+        selection = { 'cli_nom': "*" };
         x_return_clientsRecap(tri, sens, tabToString(selection), allG, display_clients);
     }
 }

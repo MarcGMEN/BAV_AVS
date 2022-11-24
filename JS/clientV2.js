@@ -320,9 +320,13 @@ function confirmModal(plus) {
     }
 }
 
-
 function display_fin_create(val) {
-    if (val == 1 || val == "" || val instanceof Object) {
+    if (val == 1 || val instanceof Object) {
+        if (val instanceof Object) {
+            if (val['modif_fiche'] == 1) {
+                imprimeFiche(val['obj_id'], val['obj_numero']);
+            }
+        }
         var tabSel = {
             "obj_id_vendeur": document.clientForm.cli_id.value
         };
@@ -331,9 +335,9 @@ function display_fin_create(val) {
         alertModalError(val);
     }
 }
-
 /** MODAL */
-
+/** MODAL */
+/** MODAL */
 function initModal(plus) {
     if (plus == "Fiche" || plus == "Modif") {
         // creation des listes des choix type, public et patiqye
@@ -348,7 +352,6 @@ function initModal(plus) {
 }
 
 function display_list_type(val) {
-    console.log(val);
     display_list_select(val, 'obj_type', document.modalForm);
 }
 /*

@@ -219,7 +219,10 @@ function update($table, $obj, $cleId)
     //error_log($req);
     if (!$GLOBALS['mysqli']->query($req)) {
         throw new Exception("--Pb d'update' [$req]   ===> " . $GLOBALS['mysqli']->error);
+ 
+ 
     }
+    return $obj;
 }
 
 /**

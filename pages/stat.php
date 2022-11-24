@@ -56,7 +56,7 @@
 	}
 
 	function display_statPreDepotByAnneeRef(val) {
-		console.log('display_statPreDepotByAnneeRef',val);
+		// console.log('display_statPreDepotByAnneeRef',val);
 		var colorEtat = [];
 		colorEtat['PRE_DEPOT_' + anneeBav] = 'ORANGE';
 		var monCanvas = getElement("canvasSuivi0");
@@ -94,7 +94,7 @@
 
 	function display_statPreDepotByAnnee(val, colorEtat, monCanvas, ctx) {
 
-		console.log(val);
+		// console.log(val);
 
 		ctx.font = "15px arial";
 
@@ -107,7 +107,7 @@
 		var Xdebut = 0;
 
 		var keysSort = Object.keys(val).sort()
-		console.log(keysSort);
+		// console.log(keysSort);
 		var hauteurCanvas = monCanvas.height - 10;
 		var largeurCanvas = monCanvas.width;
 		if (sizeof(keysSort) > 0) {
@@ -117,7 +117,7 @@
 
 				var tabEtat = val[keysSort[date]];
 				var jour = keysSort[date];
-				console.log(jour );
+				// console.log(jour );
 
 				for (var etat in tabEtat) {
 					var value = tabEtat[etat];
@@ -138,10 +138,10 @@
 					var Y = countEtatOld[etatLu] * hauteurCanvas / maxY;
 					ctx.moveTo(Xdebut, hauteurCanvas - Y);
 
-					console.log(keysSort[date], etatLu, countEtatOld[etatLu], Xdebut, 200 - Y);
+					// console.log(keysSort[date], etatLu, countEtatOld[etatLu], Xdebut, 200 - Y);
 					var Y2 = countEtat[etatLu] * hauteurCanvas / maxY;
 					ctx.lineTo(Xdebut + pasHour, hauteurCanvas - Y2);
-					console.log("=>", countEtat[etatLu], Xdebut+pasHour,200-Y2)
+					// console.log("=>", countEtat[etatLu], Xdebut+pasHour,200-Y2)
 					ctx.stroke();
 					ctx.closePath();
 					countEtatOld[etatLu] = countEtat[etatLu];
@@ -244,8 +244,8 @@
 				maxYCalc= maxYCalc>val[date][etatRef]?maxYCalc:val[date][etatRef];
 			}
 		}
-		console.log(val);
-		console.log(maxYCalc);
+		// console.log(val);
+		// console.log(maxYCalc);
 
 		var pasGrille = 0;
 		if (cumul) {
@@ -432,7 +432,7 @@
 	}
 
 	function display_parametres_statSuivi(val) {
-		console.log(val);
+		// console.log(val);
 		var divCheckbox = getElement("annee_statSuvi");
 		var repr = "";
 		var lastBAV = "";

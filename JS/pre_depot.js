@@ -36,7 +36,7 @@ function initPage() {
 // PRE ENREGISTREMENT
 function submitFormFA(laForm) {
     try {
-        console.log(laForm);
+        // console.log(laForm);
 
         x_return_isClientByMel(laForm.new_email_depot.value, display_verif_mail);
         return false;

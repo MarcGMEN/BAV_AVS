@@ -84,7 +84,7 @@ function geoPosClient(adress, unique = true, group = true, info) {
                     afficheGroup();
                 }
             } else {
-                console.log("pas trouve " + adress);
+                // console.log("pas trouve " + adress);
             }
         });
 

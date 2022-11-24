@@ -1,5 +1,5 @@
 function initEntete() {
-    console.log("CLIENT:" + CLIENT + " ADMIN:" + ADMIN + "");
+    // console.log("CLIENT:" + CLIENT + " ADMIN:" + ADMIN + "");
 
     // affichage du comptage que pour ADMIN
     if (ADMIN) {

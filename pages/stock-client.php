@@ -159,8 +159,8 @@
 		//tabSel['obj_pratique'] = getElement("sel_obj_pratique").value;
 		//tabSel[col] = mask;
 
-		console.log(col + "," + sens);
-		console.log(tabSel);
+		// console.log(col + "," + sens);
+		// console.log(tabSel);
 		x_return_fiches(col, sens, tabToString(tabSel), 0, display_fiches);
 	}
 	var gSearch = ""

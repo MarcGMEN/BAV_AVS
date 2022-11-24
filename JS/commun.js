@@ -94,7 +94,7 @@ function recup_formulaire(laForm, trigrame) {
                 if (name && name.startsWith(trigrame)) {
                     if (element.type == 'checkbox') {
                         if (element.checked) {
-                            console.log("chekced");
+                            // console.log("chekced");
                             obj[name] = element.value;
                         } else {
                             obj[name] = "";
@@ -547,8 +547,8 @@ function limit_ligne(f, lettre, texte) {
     var tableau = texte.split(nl);
     var nbligne = compte_ligne(texte);
 
-    console.log(tableau);
-    console.log(nbligne);
+    // console.log(tableau);
+    // console.log(nbligne);
 
     if ((lettre == 13) && (nbligne > nbligne_max - 1)) {
         for (var i = 0; i < nbligne_max; i++) {

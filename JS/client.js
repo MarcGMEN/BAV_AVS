@@ -308,7 +308,7 @@ function triColonne(col) {
 
 
 function supprimerClient(id) {
-    console.log("Suppression du client " + id);
+    // console.log("Suppression du client " + id);
     x_action_deleteClient(id, display_fin_delete);
 }
 
@@ -328,14 +328,14 @@ function fichesClient(id) {
 }
 
 function display_fiches_feuille(val) {
-    console.log(val);
+    // console.log(val);
 
     var newWindow = window.open("", "Fiches du client", "width=800,height=400,scrollbars=1,resizable=1")
 
     var nbFiche = sizeof(val);
-    console.log(nbFiche);
+    // console.log(nbFiche);
     var nbCol = parseInt((nbFiche / 30) + 1);
-    console.log(nbCol);
+    // console.log(nbCol);
     var tailtd = parseInt(100 / 5 / nbCol);
     var total = 0;
     var totalCom = 0;
@@ -353,7 +353,7 @@ function display_fiches_feuille(val) {
     }
     for (index in val) {
         if (!isNaN(index)) {
-            console.log((index % nbCol));
+            // console.log((index % nbCol));
             if ((index % nbCol) == 0) {
                 repr += "</tr><tr>";
             }

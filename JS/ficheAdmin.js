@@ -297,7 +297,7 @@ function display_fiche(val) {
         }
         display_formulaire(val, document.ficheForm);
     } else {
-        console.log("Fiche inconnue.");
+        // console.log("Fiche inconnue.");
         //goTo(null, null, null, "Fiche inconnue.");
     }
 }

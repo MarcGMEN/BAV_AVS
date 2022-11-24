@@ -39,7 +39,7 @@ function display_list_etat(val) {
 }
 
 function display_list(val, row) {
-    console.log(val);
+    // console.log(val);
     var select = getElement("sel_obj_" + row);
     select.options[select.options.length] = new Option("Choix", "*");
     for (index in val) {
@@ -62,7 +62,7 @@ function setParamVal(val) {
 var gSearch = "";
 
 function display_fiches(val) {
-    console.log(val);
+    // console.log(val);
     if (val instanceof Object) {
 
         var total = 0;

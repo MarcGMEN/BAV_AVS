@@ -10,7 +10,7 @@
 
 function initPage() {
     if (ADMIN) {
-        console.log(ADMIN);
+        // console.log(ADMIN);
         // chargement des taux
         x_return_tauxBAV(display_list_taux_com);
         // chargement des depot
