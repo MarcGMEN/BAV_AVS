@@ -66,7 +66,7 @@ function display_list_prix_depot(val) {
  */
 function submitForm() {
     var tabCli = recup_formulaire(document.clientForm, 'cli');
-    x_action_makeClient(tabToString(tabCli), false, display_fin_client);
+    x_action_makeClient(tabToString(tabCli), 0, display_fin_client);
     return false;
 }
 

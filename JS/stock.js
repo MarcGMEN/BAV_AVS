@@ -85,7 +85,7 @@ function display_fiches(val) {
                 }
 
                 repr += "<tr class='tabl0 " + val[index]['obj_etat'] + " link' style='" + stylePlus + "' onclick='goTo(\"ficheAdmin.php\",\"modif\"," + val[index]['obj_id'] + ")'>";
-                repr += "<td width=5% align=center>";
+                repr += "<td width=6% style='text-align:center'>";
                 if (val[index]['obj_modif_data'] > 0) {
                     //repr += "<img src='Images/etiq" + val[index]['obj_modif_data'] + ".png' style='height:20px' />";
                     repr += "<div style='font-size:0.5em'>etiquette</div>";
@@ -103,10 +103,10 @@ function display_fiches(val) {
                 }
                 repr += val[index]['obj_numero'];
                 repr += "</td>";
-                repr += "<td width=8%>";
+                repr += "<td width=10% style='text-align:center'>";
                 repr += val[index]['obj_type'];
                 repr += "</td>";
-                repr += "<td class='maskMobile' width=8%  >";
+                repr += "<td class='maskMobile' width=10% style='padding:0px 5px 0px 5px' >";
                 repr += val[index]['obj_couleur'];
                 repr += "</td>";
                 /*repr += "<td width=10% >";
@@ -115,13 +115,13 @@ function display_fiches(val) {
                 repr += "<td width=10% >";
                 repr += val[index]['obj_pratique'];
                 repr += "</td>";*/
-                repr += "<td class='maskMobile' width=12% title=\"modèle :" + val[index]['obj_modele'] + "\ndesc :" + val[index]['obj_description'] + "\"'>";
+                repr += "<td class='maskMobile' style='padding:0px 5px 0px 5px' width=14% title=\"modèle :" + val[index]['obj_modele'] + "\ndesc :" + val[index]['obj_description'] + "\"'>";
                 repr += val[index]['obj_marque'];
                 repr += "</td>";
-                repr += "<td class='maskMobile' width=14% title=\"mel : " + val[index]['cli_emel'] + "\">";
+                repr += "<td class='maskMobile' style='padding:0px 5px 0px 5px' width=15% title=\"mel : " + val[index]['cli_emel'] + "\">";
                 repr += val[index]['vendeur_nom'];
                 repr += "</td>";
-                repr += "<td width=8% style='text-align:right'>";
+                repr += "<td width=10% style='text-align:center'>";
                 if (val[index]['obj_prix_vente'] == 0) {
                     repr += "<span style='color:RED'>" + val[index]['obj_prix_depot'] + "</span>";
                 } else {
@@ -132,13 +132,13 @@ function display_fiches(val) {
                 }
                 repr += "&nbsp;&euro;";
                 repr += "</td>";
-                repr += "<td width=8% >";
+                repr += "<td width=10% style='text-align:center'>";
                 repr += val[index]['obj_etat'];
                 repr += "</td>";
-                repr += "<td width=8% class='maskMobile' >";
+                repr += "<td width=10% class='maskMobile' style='text-align:center;' >";
                 repr += formatDate(val[index]['obj_date_depot'], false);
                 repr += "</td>";
-                repr += "<td class='maskMobile' width=14% >";
+                repr += "<td class='maskMobile' width=15% style='padding:0px 5px 0px 5px'>";
                 repr += val[index]['acheteur_nom'];
                 repr += "</td>";
                 // repr += "<td class='maskMobile' width=16% title='date vente - date retour'>";

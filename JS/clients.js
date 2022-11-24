@@ -110,13 +110,13 @@ function display_clients(val) {
             } else {
                 repr += chaine;
             }
-            repr += " <span style='font-size:7pt;font-weight: bold;' id=bavs_" + val[index]['cli_id'] + "' title=\"";
-            var virgule = '';
-            for (indexbavs in val[index]['bavs']) {
-                repr += virgule + val[index]['bavs'][indexbavs]['obj_numero_bav'];
-                virgule = ", ";
-            }
-            repr += "\" >[" + sizeof(val[index]['bavs']) + "]</span>"
+            // repr += " <span style='font-size:7pt;font-weight: bold;' id=bavs_" + val[index]['cli_id'] + "' title=\"";
+            // var virgule = '';
+            // for (indexbavs in val[index]['bavs']) {
+            //     repr += virgule + val[index]['bavs'][indexbavs]['obj_numero_bav'];
+            //     virgule = ", ";
+            // }
+            // repr += "\" >[" + sizeof(val[index]['bavs']) + "]</span>"
             repr += " <small>(" + val[index]['cli_code_postal'] + ")</small>";
             repr += "</td>";
             repr += "<td width=15% class='maskmobile' ><small>";

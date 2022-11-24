@@ -8,7 +8,7 @@
 	<tr>
 		<td class="tittab" width=35% colspan="2">
 			<span id='cli_nom' onclick="triColonne('cli_nom')" class="sortable">Nom - Prenom&nbsp;&nbsp;&nbsp;</span>
-			<!--Tous <input type="checkbox" value="1" name="all" onchange="findClients(this.checked ? 1 : 0)" />-->
+			Tous <input type="checkbox" value="1" name="all" onchange="findClients(this.checked ? 1 : 0)" />
 			<input type=text name='cli_nom_<?= rand(1, 100) ?>' placeholder="Tapez au moins les 2 premières lettres"size="20" class="autocomplete" maxlength="100" onkeyup="selectColonne(this.value)" />
 		</td>
 		<td class="tittab maskmobile" width=35%>

@@ -175,7 +175,7 @@ function action_makeClient($data, $mail = true)
     $tabCli = tabToObject(string2Tab($data), "cli");
     $tabCli = makeClient($tabCli);
 
-    if ($mail) {
+    if ($mail == true) {
         // TODO : envoi du mail
         $titreMel = "Pré enregistrement à la " . $INFO_APPLI['titre'];
 

@@ -50,6 +50,15 @@ function display_client(val) {
 
 function unloadPage() {}
 
+// que faire en cas de changement de saisie
+function pageSaisie() {
+    if (startSaisie) {
+        document.clientForm.buttonValideFiche.disabled = false;
+    } else {
+        document.clientForm.buttonValideFiche.disabled = true;
+    }
+}
+
 // ***********************************************************
 // ***********************************************************
 // *****CLIENT
