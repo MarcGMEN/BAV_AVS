@@ -36,7 +36,6 @@ function display_num_max_fiches(val) {
     for (var i = 1; i < val; i += classeur) {
         getElement("pageFiche").innerHTML += "<span class='link' id='cla_" + i + "' onclick='baseNumFiche=" + i + ";x_return_fiches_express(" + i + ", display_fichesExpress)'>" + i + "</span>&nbsp;&nbsp;"
     }
-
     x_return_fiches_express(baseNumFiche, display_fichesExpress);
 }
 
@@ -141,8 +140,10 @@ function afficheLigne(val) {
         // creation du bouton adapté
         // pour le retour, saisir la fiche
 
-        var action = "";
+        var action = "<span title='Imprimer' onclick='imprimeFiche(" + val['obj_id'] + "," + val['obj_numero'] + ")' class='link'>📇</span>";
         var new_etat = "";
+        getElement("action_" + index).className = "";
+
         if (val['obj_etat'] == "CONFIRME") {
             new_etat = "STOCK";
             new_libelle = "Stocker";
@@ -150,27 +151,36 @@ function afficheLigne(val) {
             var actionPrix = "<input type='number' name='obj_prix_vente_" + index + "' min=1 step='0.1' value='" + thePrix + "' />";
             getElement("prix_vente_" + index).innerHTML = actionPrix;
 
-            action = "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\",document.formTabSaisie.obj_prix_vente_" + index + ".value," + val['obj_numero'] + ")' />";
-            getElement("action_" + index).innerHTML = action;
+            action += "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\",document.formTabSaisie.obj_prix_vente_" + index + ".value," + val['obj_numero'] + ")' />";
+
 
         } else if (val['obj_etat'] == "STOCK") {
             new_etat = "RENDU";
             new_libelle = "Rendre";
-            action = "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\"," + val['obj_prix_vente'] + "," + val['obj_numero'] + ")' />";
+            action += "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\"," + val['obj_prix_vente'] + "," + val['obj_numero'] + ")' />";
             new_etat = "VENDU";
             new_libelle = "Vendre";
             action += "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\"," + val['obj_prix_vente'] + "," + val['obj_numero'] + ")' />";
-            getElement("action_" + index).innerHTML = action;
+
         } else if (val['obj_etat'] == "VENDU") {
             new_etat = "PAYE";
             new_libelle = "Payer";
-            action = "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\"," + val['obj_prix_vente'] + "," + val['obj_numero'] + ")' />";
-            getElement("action_" + index).innerHTML = action;
+            action += "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\"," + val['obj_prix_vente'] + "," + val['obj_numero'] + ")' />";
+
         }
+        getElement("action_" + index).innerHTML = action;
+
     } else {
         // console.log("pas d'element [numero_" + index + "]");
     }
 
+}
+
+/** impression de la fiche */
+function imprimeFiche(id, numero) {
+
+    alertModalInfo("Génération de la fiche " + numero + " au format PDF <img src='Images/spinner_white_tiny.gif' />");
+    x_action_makePDF(id, display_openPDF);
 }
 
 function resetLigne(index) {
