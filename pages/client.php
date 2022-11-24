@@ -182,25 +182,33 @@
 <? } ?>
 <table width="100%">
 	<tr>
-		<td class="tittab" width=10%>
+	<td class="tittab" width=7%>
 			<span id='obj_numero' onclick="triColonne('obj_numero')" class="sortable">No&nbsp;&nbsp;&nbsp;</span>
 		</td>
-		<td class="maskmobile tittab" width=20%>
+		<td class="maskmobile tittab" width=5%>
 			<span id='obj_type' onclick="triColonne('obj_type')" class="sortable">Type&nbsp;&nbsp;&nbsp;</span>
 			&nbsp;
 		</td>
-		<td class="maskmobile tittab" width=20%>
+		<td class="maskmobile tittab" width=5%>
+			<span id='obj_taille' onclick="triColonne('obj_taille')" class="sortable">Taille&nbsp;&nbsp;&nbsp;</span>
+			&nbsp;
+		</td>
+		
+		<td class="maskmobile tittab" width=10%>
 			<span id='obj_public' onclick="triColonne('obj_public')" class="sortable">Public&nbsp;&nbsp;&nbsp;</span>
 			&nbsp;
 		</td>
 		<td class="tittab" width=30%>
 			<span id='obj_marque' onclick="triColonne('obj_marque')" class="sortable">Marque&nbsp;&nbsp;&nbsp;</span>
 		</td>
+		<td class="maskmobile tittab" width=10%>
+			<span id='obj_couleur' onclick="triColonne('obj_couleur')" class="sortable">Couleur&nbsp;&nbsp;&nbsp;</span>
+		</td>
 		<td class="tittab" width=10%>
 			<span class="sortable" id='obj_prix_vente' onclick="triColonne('obj_prix_vente')">
 				Prix&nbsp;&nbsp;&nbsp;</span>
 		</td>
-		<td class="tittab" width=10%>
+		<td class="tittab" width=15%>
 			<span id='obj_etat' onclick="triColonne('obj_etat')" class="sortable">Etat&nbsp;&nbsp;&nbsp;</span>
 		</td>
 	</tr>

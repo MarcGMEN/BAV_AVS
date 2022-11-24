@@ -240,17 +240,23 @@ function display_fiches(val, idElement) {
                 repr += "<tr class='tabl0 link' ";
                 repr += " title='accès à la fiche " + val[index]['obj_numero'] + "' ";
                 repr += " onclick='goTo(\"ficheAdmin.php\",\"modif\"," + val[index]['obj_id'] + ",null)'>";
-                repr += "<td width=10% align=center>";
+                repr += "<td width=7% align=center>";
                 repr += val[index]['obj_numero'];
                 repr += "</td>";
-                repr += "<td class='maskmobile' width=20%>";
+                repr += "<td class='maskmobile' width=5%>";
                 repr += val[index]['obj_type'];
                 repr += "</td>";
-                repr += "<td class='maskmobile' width=20% >";
+                repr += "<td class='maskmobile' width=5%>";
+                repr += val[index]['obj_taille'];
+                repr += "</td>";
+                repr += "<td class='maskmobile' width=10% >";
                 repr += val[index]['obj_public'];
                 repr += "</td>";
                 repr += "<td width=30% >";
-                repr += val[index]['obj_marque'];
+                repr += val[index]['obj_marque'] + " " + val[index]['obj_modele'];
+                repr += "</td>";
+                repr += "<td class='maskmobile'  width=10% >";
+                repr += val[index]['obj_couleur'];
                 repr += "</td>";
                 repr += "<td width=10% >";
                 if (val[index]['obj_prix_vente'] == 0) {
@@ -259,8 +265,28 @@ function display_fiches(val, idElement) {
                     repr += val[index]['obj_prix_vente'];
                 }
                 repr += "</td>";
-                repr += "<td width=10% >";
-                repr += val[index]['obj_etat'];
+                repr += "<td width=15% >";
+                if (idElement == "fiches") {
+                    switch (val[index]['obj_etat']) {
+                        case "CONFIRME":
+                            repr += "A déposer";
+                            break;
+                        case "STOCK":
+                            repr += "Non vendu";
+                            break;
+                        case "VENDU":
+                            repr += "Vendu";
+                            break;
+                        case "RENDU":
+                            repr += "Restitué";
+                            break;
+                        case "PAYE":
+                            repr += "Vendu et argent remis";
+                            break;
+                    }
+                } else {
+
+                }
                 repr += "</td>";
                 repr += "</tr>";
             }

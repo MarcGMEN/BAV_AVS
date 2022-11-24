@@ -268,17 +268,17 @@ input.error {
 .edito {
     background-repeat: no-repeat;
     background-position: bottom;
-    height: 95%
+    height: 98%
 }
 
 div.PAGE {
-    width: 95%;
+    width: 98%;
     margin-left: auto;
     margin-right: auto;
 }
 
 div.pied {
-    width: 95%;
+    width: 98%;
     position: fixed;
     margin-right: auto;
     margin-left: auto;
@@ -287,7 +287,7 @@ div.pied {
 }
 
 div.entete {
-    width: 95%;
+    width: 98%;
     position: fixed;
     margin-right: auto;
     margin-left: auto;
