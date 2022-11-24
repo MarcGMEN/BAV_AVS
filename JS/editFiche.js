@@ -17,10 +17,7 @@ function display_modifData(val) {
 
     getElement('nb_fiche_eti').innerHTML = sizeof(val);
     var nbAImprimer = parseInt(parseInt(sizeof(val)) / parseInt(nb_eti_page));
-    getElement('nbAImprimer').innerHTML = nbAImprimer + " page";
-    if (nbAImprimer > 1) {
-        getElement('nbAImprimer').innerHTML = nbAImprimer + " pages";
-    }
+    getElement('nbAImprimer').innerHTML = (nbAImprimer == 0 ? "" : "<b>") + nbAImprimer + " page" + (nbAImprimer == 1 ? "" : "s") + (nbAImprimer == 0 ? "" : "</b>");
     if (nbAImprimer > 0) {
         getElement('btnImprimeEtiquettesPage').disabled = false;
     }
@@ -42,10 +39,7 @@ function display_modifData(val) {
 function display_modifVendeur(val) {
     getElement('nb_fiche_coupon').innerHTML = sizeof(val);
     var nbAImprimer = parseInt(parseInt(sizeof(val)) / parseInt(nb_coupon_page));
-    getElement('nbCouponAImprimer').innerHTML = nbAImprimer + " page";
-    if (nbAImprimer > 1) {
-        getElement('nbCouponAImprimer').innerHTML = nbAImprimer + " pages";
-    }
+    getElement('nbCouponAImprimer').innerHTML = (nbAImprimer == 0 ? "" : "<b>") + nbAImprimer + " page" + (nbAImprimer == 1 ? "" : "s") + (nbAImprimer == 0 ? "" : "</b>");
     if (nbAImprimer > 0) {
         getElement('btnImprimeCouponsPage').disabled = false;
     }
@@ -67,10 +61,7 @@ function display_modifVendeur(val) {
 function display_modifStock(val) {
     getElement('nb_fiche_couponA').innerHTML = sizeof(val);
     var nbAImprimer = parseInt(parseInt(sizeof(val)) / parseInt(nb_coupon_page));
-    getElement('nbCouponAImprimerA').innerHTML = nbAImprimer + " page";
-    if (nbAImprimer > 1) {
-        getElement('nbCouponAImprimerA').innerHTML = nbAImprimer + " pages";
-    }
+    getElement('nbCouponAImprimerA').innerHTML = (nbAImprimer == 0 ? "" : "<b>") + nbAImprimer + " page" + (nbAImprimer == 1 ? "" : "s") + (nbAImprimer == 0 ? "" : "</b>");
     if (nbAImprimer > 0) {
         getElement('btnImprimeCouponsPageA').disabled = false;
     }

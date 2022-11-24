@@ -44,7 +44,7 @@ function return_restant() {
 }
 
 function display_modifStockE(val) {
-    getElement('countModifStock').innerHTML = sizeof(val) + " coupon" + (sizeof(val) > 1 ? "s" : "");
+    getElement('countModifStock').innerHTML = sizeof(val) + " coupon S" + (sizeof(val) > 1 ? "s" : "");
 }
 
 function display_modifDataE(val) {
@@ -52,7 +52,7 @@ function display_modifDataE(val) {
 }
 
 function display_modifVendeurE(val) {
-    getElement('countModifVendeur').innerHTML = sizeof(val) + " coupon" + (sizeof(val) > 1 ? "s" : "");
+    getElement('countModifVendeur').innerHTML = sizeof(val) + " coupon D" + (sizeof(val) > 1 ? "s" : "");
 }
 
 /**

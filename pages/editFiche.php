@@ -38,14 +38,9 @@ $tabInfo = [
 ?>
 <h1>Gestion des éditions</h1>
 <table width="100%" id="tableHTML" style="padding:2 2 2 2 ;">
-	<tr class="tittab">
-		<td width=20%>Fichier</td>
-		<td width=80% colspan="2">Actions</td>
-
-	</tr>
 	<? foreach ($tabInfo as $title => $idText) { ?>
 		<tr class="tabl0" style="border-bottom:1px solid grey">
-			<td>
+			<td width=20%>
 				<? if (!startsWith($title, "VIDE")) {
 					echo $title;
 				} else {
@@ -73,7 +68,7 @@ $tabInfo = [
 					<form style="color:black">
 						<table width=100% border=0>
 							<tr>
-								<td rowspan=5 width=15%><i>Test <input type='checkbox' name="testEtiq" checked></i></td>
+								<td rowspan=5 width=15%><i title='Décocher pour mettre a jour le suivi des editions'>Test <input type='checkbox' name="testEtiq" checked></i></td>
 								<td colspan=2></td>
 								<td rowspan=5 width=20%></td>
 							</tr>
@@ -146,7 +141,7 @@ $tabInfo = [
 					<form style="color:black">
 						<table width=100% border=0>
 							<tr>
-								<td rowspan=5 width=15%><i>Test <input type='checkbox' name="testCoupon" checked /></i></td>
+								<td rowspan=5 width=15%><i title='Décocher pour mettre a jour le suivi des editions'>Test <input type='checkbox' name="testCoupon" checked /></i></td>
 								<td colspan=2></td>
 								<td rowspan=5 width=20%></td>
 							</tr>
@@ -192,7 +187,7 @@ $tabInfo = [
 					<form style="color:black">
 						<table width=100% border=0>
 							<tr>
-								<td rowspan=5 width=15%><i>Test <input type='checkbox' name="testCouponA" checked /></i></td>
+								<td rowspan=5 width=15%><i title='Décocher pour mettre a jour le suivi des editions'>Test <input type='checkbox' name="testCouponA" checked /></i></td>
 								<td colspan=2></td>
 								<td rowspan=5 width=20%></td>
 							</tr>

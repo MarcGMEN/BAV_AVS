@@ -10,7 +10,7 @@
 
 <script src="JS/clientV2.js" type="text/javascript"></script>
 
-<h2> Gérez votre dépot</h2>
+<h2> Gérez votre dépôt</h2>
 <!-- <div id=lesFiches style="visibility: hidden;" />-->
 <div class="alert alert-info">
 	<fieldset class=client>
@@ -127,23 +127,26 @@
 
 <div class="row">
 	<div class="col-sm-12 col-md-12 col-xs-12">
-		<div class="col-sm-3 col-md-3 col-xs-2">
-			<h3>Vos dépots</h3>
-		</div>
 		<div class="col-sm-3 col-md-3 col-xs-4">
-			<? if ($infAppli['CLIENT'] == 1) { ?>
-			<h3><input type=button value="Ajouter ➕" onclick="addDepot(document.clientForm.cli_id_modif.value)" />
-				<h3>
-			<? }?>
+			<h3>Vos dépôts</h3>
 		</div>
-		<div class="col-sm-6 col-md-6 col-xs-6 alert alert-info" >
-			<h5><b>⚠ N'oubliez pas d'imprimer votre fiche de dépôt avant de venir en cliquant sur l'icone :📇</b><h5>
+		<div class="col-sm-3 col-md-3 col-xs-8">
+			<? if ($infAppli['CLIENT'] == 1) { ?>
+				<h3><input type=button value="Ajouter un dépôt ➕" onclick="addDepot(document.clientForm.cli_id_modif.value)" /></h3>
+			<? } ?>
+		</div>
+		<div class="col-sm-6 col-md-6 col-xs-0 alert alert-info maskMobile">
+			<h5><b>⚠ N'oubliez pas d'imprimer votre fiche de dépôt avant de venir en cliquant sur l'icone :📇</b></h5>
 		</div>
 	</div>
 </div>
-
 <div id=fiches></div>
-<hr />
 <!-- uniquement dans les dates de la bav -->
-<h3>Vos achats</h3>
+<div class="row">
+	<div class="col-sm-12 col-md-12 col-xs-12">
+		<div class="col-sm-6 col-md-6 col-xs-6">
+			<h3>Vos achats</h3>
+		</div>
+	</div>
+</div>
 <div id=fichesA></div>
