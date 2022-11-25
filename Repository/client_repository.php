@@ -66,6 +66,7 @@ function getClientsRecap($order, $sens, $tabSel, $all = false)
     // reload
 
     $requete2 .= " FROM bav_client WHERE 1 = 1  ";
+    $requete2 .= " and cli_id > 10";
     foreach ($tabSel as $key => $val) {
         if ($val != "*") {
             // sur le nom on passe en mode like
