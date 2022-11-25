@@ -28,7 +28,7 @@ $maxFiche = 50;
 		</tr>
 		<tr>
 			<td class="tittab" rowspan=3>
-				<span style="font-size:2em" id="obj_numero"></span>
+				<div style="font-size:2em" id="obj_numero"></div>
 				<input type="hidden" name="obj_numero">
 				<input type="hidden" name="obj_id">
 				<input type="hidden" name="cli_id">
@@ -53,6 +53,7 @@ $maxFiche = 50;
 				<input type="hidden" name="action" value="new">
 				<button id="but_action2" tabindex=<?= $tabindex + 9 ?> onsubmit="this.form.action.value='new2'" onclick="this.form.action.value='new2'"></button>
 				<button id="but_actionAno" tabindex=<?= $tabindex + 10 ?> class="error" onsubmit="this.form.action.value='newAno'" onclick="this.form.action.value='newAno'"></button>
+				<div id='actionBis'></div>
 				<input type="hidden" name="obj_etat">
 				<input type="hidden" name="obj_etat_new">
 				<input type="hidden" name="obj_etat_new2">

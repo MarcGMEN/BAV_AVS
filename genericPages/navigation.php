@@ -56,7 +56,7 @@ if ($infAppli['ADMIN']) {
         ],
         'sousMenuAdmin' => [
             'libelle' => 'Admin',
-            //'class' => 'maskMobileBlock',
+            'class' => 'sousMenu',
             'sousMenu' => [
                 'import.php' => [
                     'libelle' => 'Import Client',
