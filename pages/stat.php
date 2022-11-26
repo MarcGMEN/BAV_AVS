@@ -516,6 +516,8 @@
 				getElement('tabCodePostal').innerHTML+="&nbsp;&nbsp;&nbsp;"+i+"=>"+val[i]+rc;
 			}
 		}
+		alertModalInfo("Fin dans "+1200*index/1000+ " secondes");
+
 	}
 
 	function display_countTarifDepot(val) {

@@ -236,7 +236,7 @@ function display_fiche(val) {
     getElement("but_action2").style.display = 'none';
     getElement("but_action").style.display = 'table-cell';
     getElement('actionBis').innerHTML = "";
-    
+
     if (val['obj_etat']) {
         afficheLigne(val);
 
@@ -252,7 +252,7 @@ function display_fiche(val) {
             getElement("but_action").focus();
         }
 
-        
+
         focus = true;
         if (val['obj_etat'] == "INIT") {
             getElement("but_action").innerHTML = "Confirmer";
@@ -266,6 +266,7 @@ function display_fiche(val) {
             val['obj_prix_vente'] = val['obj_prix_depot'];
 
             getElement('actionBis').innerHTML = "<span title='Supprimer' onclick='supprimerFiche(" + val['obj_id'] + "," + val['obj_numero'] + ")' class='link' >❌</span>";
+
         } else if (val['obj_etat'] == "STOCK") {
             getElement("but_action").innerHTML = "Vendre";
 
@@ -308,10 +309,45 @@ function display_fiche(val) {
         val['obj_marque_' + idRamdom] = val['obj_marque'];
 
         display_formulaire(val, document.formSaisieExpress);
-        
+
         getElement("obj_numero").innerHTML += "<div title='Imprimer' style='font-size:0.5em' onclick='imprimeFiche(" + val['obj_id'] + "," + val['obj_numero'] + ")' class='link'><i class='fa fa-print'></i></div>";
-        
+
         x_return_oneClient(val['obj_id_vendeur'], display_infoClientVendeur);
+    } else if (val == 'vide') {
+        val['obj_numero'] = "";
+        val['obj_type'] = "Autre";
+        val['obj_prix_vente'] = "";
+        val['obj_etat_new'] = "";
+        val['obj_etat'] = "";
+        val['obj_id'] = "";
+        val['obj_couleur'] = "";
+        getElement("obj_numero").innerHTML = "";
+        getElement("obj_etat").innerHTML = "";
+
+        document.formSaisieExpress.cli_id.value = "";
+        document.formSaisieExpress.cli_code_postal = "";
+        document.formSaisieExpress.elements.namedItem('cli_nom_' + idRamdom).value = "";
+
+        display_formulaire(val, document.formSaisieExpress);
+
+        document.formSaisieExpress.obj_type.disabled = true;
+        document.formSaisieExpress.obj_prix_vente.disabled = true;
+        document.formSaisieExpress.obj_prix_vente.value = "";
+        document.formSaisieExpress.obj_couleur.disabled = true;
+        document.formSaisieExpress.obj_couleur.value = "";
+        document.formSaisieExpress.elements.namedItem('obj_marque_' + idRamdom).disabled = true;
+        document.formSaisieExpress.elements.namedItem('obj_marque_' + idRamdom).value = "";
+
+        //document.formSaisieExpress.cli_emel.disabled = false;
+        document.formSaisieExpress.elements.namedItem('cli_nom_' + idRamdom).disabled = true;
+        document.formSaisieExpress.cli_code_postal.disabled = true;
+        getElement("but_actionAno").style.display = 'none';
+        getElement("but_action2").style.display = 'none';
+        getElement("but_action").style.display = 'block';
+        getElement("but_action").innerHTML = "";
+
+        document.searchFormFiche.numeroFiche.focus();
+
     } else {
         val['obj_type'] = "Autre";
         val['obj_prix_vente'] = "";
@@ -536,6 +572,8 @@ function display_fin_vente(val) {
 
 function display_fin_delete(val) {
     x_return_fiches_express(baseNumFiche, display_fichesExpress);
+
+    display_fiche("vide");
 }
 
 
