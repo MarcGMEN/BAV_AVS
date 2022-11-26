@@ -23,6 +23,7 @@ function initMap() {
     L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
         // Il est toujours bien de laisser le lien vers la source des données
         attribution: 'données © OpenStreetMap/ODbL - rendu OSM France',
+        fullscreenControl: true,
         minZoom: 1,
         maxZoom: 20
     }).addTo(macarte);
