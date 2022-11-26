@@ -147,15 +147,15 @@
 					countEtatOld[etatLu] = countEtat[etatLu];
 				}
 				ctx.beginPath();
-					ctx.lineWidth = "1";
-					ctx.strokeStyle = "grey"
-					ctx.font = "9px arial";
-					ctx.fillText(jour, Xdebut + pasHour / 2, monCanvas.height);
-					ctx.moveTo(Xdebut + pasHour / 2, hauteurCanvas);
-					ctx.lineTo(Xdebut + pasHour / 2, hauteurCanvas - 10);
+				ctx.lineWidth = "1";
+				ctx.strokeStyle = "grey"
+				ctx.font = "9px arial";
+				ctx.fillText(jour, Xdebut + pasHour / 2, monCanvas.height);
+				ctx.moveTo(Xdebut + pasHour / 2, hauteurCanvas);
+				ctx.lineTo(Xdebut + pasHour / 2, hauteurCanvas - 10);
 
-					ctx.stroke();
-					ctx.closePath();
+				ctx.stroke();
+				ctx.closePath();
 				Xdebut += pasHour;
 			}
 			if (cumul) {
@@ -187,7 +187,7 @@
 	var maxY = 1500;
 
 	function display_statByAnneeBis(val) {
-		
+
 
 		display_statByAnnee(val, colorEtat, monCanvas, ctx)
 	}
@@ -217,8 +217,8 @@
 		ctx.fillText(anneeBav + " vs " + anneeBavSuvi, monCanvas.width / 2, 20);
 		ctx.stroke();
 		ctx.closePath();
-		
-		var maxYCalc=0;
+
+		var maxYCalc = 0;
 		if (sizeof(val) > 0) {
 			if (sizeof(valRef) > 0) {
 				for (var date in val) {
@@ -241,7 +241,7 @@
 		}
 		for (var date in val) {
 			for (var etatRef in val[date]) {
-				maxYCalc= maxYCalc>val[date][etatRef]?maxYCalc:val[date][etatRef];
+				maxYCalc = maxYCalc > val[date][etatRef] ? maxYCalc : val[date][etatRef];
 			}
 		}
 		// console.log(val);
@@ -252,7 +252,7 @@
 			maxY = 1500;
 			pasGrille = 250;
 		} else {
-			maxY = maxYCalc+40;
+			maxY = maxYCalc + 40;
 			pasGrille = 50;
 		}
 
@@ -442,7 +442,9 @@
 			var strCheck = "";
 			if (numeroBAV != anneeBav) {
 				repr += "<input type='radio'  name='annee_statSuvi' id='ck" + numeroBAV + "' value='" + numeroBAV + "' onchange='addStatsuvi(this.value)' " + strCheck + " >" + numeroBAV + "</input>";
-				lastBAV = numeroBAV;
+				if (numeroBAV < anneeBav) {
+					lastBAV = numeroBAV;
+				}
 			}
 		}
 		divCheckbox.innerHTML = repr;
@@ -499,10 +501,19 @@
 	/* Affichage des stats clients sous format map */
 	function display_statClient(val) {
 		// usage example:
+		console.log(val);
 		initMap();
-		for (i in val['count_adresse']) {
+		getElement('tabCodePostal').innerHTML="";
+		var index=0;
+		var rc='';
+		for (i in val) {
 			if (i) {
-				geoPosClient(i, false, false, val['count_adresse'][i]);
+				setTimeout('geoPosClient('+i+','+false+','+false+','+val[i]+')', 1200*index);
+				rc='';
+				if (index++%4 == 0) {
+					rc='<br/>';
+				}
+				getElement('tabCodePostal').innerHTML+="&nbsp;&nbsp;&nbsp;"+i+"=>"+val[i]+rc;
 			}
 		}
 	}
@@ -653,8 +664,6 @@
 		'prixMoyenvente' => 'Prix moyen vente',
 		'nbVeloVendeurvente' => 'Nombre moyen de velo vendu /vendeur ',
 		'nbVeloMaxiVendeurvente' => 'Nombre maxi de vélo vendu / vendeur',
-		'delaiMoyenSV' => 'Delai moyen Stock-Vente',
-		'delaiMinSV' => 'Delai mini Stock-Vente',
 		'nbVeloAcheteur' => 'Nombre moyen de velo par acheteur',
 		'nbVeloMaxiAcheteur' => 'Nombre maxi de velo pour un acheteur'
 	];
@@ -812,6 +821,8 @@
 		<div class="col-sm-8 col-xs-12">
 			<div id=map></div>
 		</div>
+		<div class="col-sm-4 col-xs-12">
+			<div id=tabCodePostal></div>
+		</div>
 	</div>
 </fieldset>
-<hr />

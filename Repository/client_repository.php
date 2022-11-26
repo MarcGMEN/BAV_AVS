@@ -66,6 +66,7 @@ function getClientsRecap($order, $sens, $tabSel, $all = false)
     // reload
 
     $requete2 .= " FROM bav_client WHERE 1 = 1  ";
+    $requete2 .= " and cli_id > 10";
     foreach ($tabSel as $key => $val) {
         if ($val != "*") {
             // sur le nom on passe en mode like
@@ -111,7 +112,7 @@ function getClientsRecap($order, $sens, $tabSel, $all = false)
 function getClients($order, $sens, $tabSel, $all = false)
 {
     $requete2 = "SELECT * from bav_client ";
-    $requete2 .= " where 1 = 1 ";
+    $requete2 .= " where 1 = 1 and cli_id > 10 ";
     if (!$all) {
         $requete2 .= " and (cli_id in (select obj_id_vendeur from bav_objet where (obj_id_vendeur = cli_id)  and obj_numero_bav = 2022) ";
         $requete2 .= " or cli_id in (select obj_id_acheteur from bav_objet where (obj_id_acheteur = cli_id)  and obj_numero_bav = 2022) )";
@@ -150,7 +151,7 @@ function getClients($order, $sens, $tabSel, $all = false)
 function countClient($all)
 {
     $requete2 = "SELECT count(*) from bav_client ";
-    $requete2 .= " where 1 = 1 ";
+    $requete2 .= " where 1 = 1 and cli_id > 10 ";
     if (!$all) {
         $requete2 .= " and (cli_id in (select obj_id_vendeur from bav_objet where (obj_id_vendeur = cli_id)  and obj_numero_bav = 2022) ";
         $requete2 .= " or cli_id in (select obj_id_acheteur from bav_objet where (obj_id_acheteur = cli_id)  and obj_numero_bav = 2022) )";

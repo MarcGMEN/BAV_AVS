@@ -18,40 +18,42 @@ function return_statClient()
     try {
         $tab = getClients(null, 'asc', null, false);
 
-        $tabCount['count_code_postal'] = [];
+        $tabCount = [];
         foreach ($tab as $key => $val) {
             $keyCDP = $val['cli_code_postal'];
-            if (!isset($tabCount['count_code_postal'][$keyCDP])) {
-                $tabCount['count_code_postal'][$keyCDP] = 0;
+            if (!isset($tabCount[$keyCDP])) {
+                $tabCount[$keyCDP] = 0;
             }
-            ++$tabCount['count_code_postal'][$keyCDP];
+            ++$tabCount[$keyCDP];
         }
 
-        $tabCount['count_adresse'] = [];
-        foreach ($tab as $key => $val) {
-            $keyCDP = "";
-            $virgule = "";
-            // if ($val['cli_adresse'] != "") {
-            //     $keyCDP = $val['cli_adresse'];
-            //     $virgule=", ";
-            // }
-            if ($val['cli_code_postal'] != "") {
-                $keyCDP .= $virgule . $val['cli_code_postal'];
-                $virgule = ", ";
-            }
-            // if ($val['cli_ville'] != "") {
-            //     $keyCDP .= $virgule.$val['cli_ville'];
-            //     $virgule=", ";
-            // }
+        // $tabCount[]['count_adresse'] = [];
+        // foreach ($tab as $key => $val) {
+        //     $keyCDP = "";
+        //     $virgule = "";
+        //     // if ($val['cli_adresse'] != "") {
+        //     //     $keyCDP = $val['cli_adresse'];
+        //     //     $virgule=", ";
+        //     // }
+        //     if ($val['cli_code_postal'] != "") {
+        //         $keyCDP .= $virgule . $val['cli_code_postal'];
+        //         $virgule = ", ";
+        //     }
+        //     // if ($val['cli_ville'] != "") {
+        //     //     $keyCDP .= $virgule.$val['cli_ville'];
+        //     //     $virgule=", ";
+        //     // }
 
-            if (!isset($tabCount['count_adresse'][$keyCDP])) {
-                $tabCount['count_adresse'][$keyCDP] = 0;
-            }
-            ++$tabCount['count_adresse'][$keyCDP];
-        }
+        //     if (!isset($tabCount[$keyCDP]['count_adresse'])) {
+        //         $tabCount[$keyCDP]['count_adresse'] = 0;
+        //     }
+        //     ++$tabCount[$keyCDP]['count_adresse'];
+        // }
     } catch (Exception $e) {
         return 'ERREUR ' . $e->getMessage();
     }
+
+    asort($tabCount);
     // print_r($tabCount);
     return $tabCount;
 }

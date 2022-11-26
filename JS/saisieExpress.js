@@ -138,7 +138,7 @@ function afficheLigne(val) {
         // creation du bouton adapté
         // pour le retour, saisir la fiche
 
-        var action = "<span title='Imprimer' onclick='imprimeFiche(" + val['obj_id'] + "," + val['obj_numero'] + ")' class='link'>📇</span>";
+        var action = "";
         var new_etat = "";
         getElement("action_" + index).className = "";
 
@@ -149,7 +149,7 @@ function afficheLigne(val) {
             var actionPrix = "<input type='number' name='obj_prix_vente_" + index + "' min=1 step='0.1' value='" + thePrix + "' />";
             getElement("prix_vente_" + index).innerHTML = actionPrix;
 
-            action += "<span title='Supprimer' onclick='supprimerFiche(" + val['obj_id'] + "," + val['obj_numero'] + ")' class='link' >❌</span>";
+            action += "";
             action += "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\",document.formTabSaisie.obj_prix_vente_" + index + ".value," + val['obj_numero'] + ")' />";
         } else if (val['obj_etat'] == "STOCK") {
             new_etat = "RENDU";
@@ -235,7 +235,8 @@ function display_fiche(val) {
     getElement("but_actionAno").style.display = 'none';
     getElement("but_action2").style.display = 'none';
     getElement("but_action").style.display = 'table-cell';
-
+    getElement('actionBis').innerHTML = "";
+    
     if (val['obj_etat']) {
         afficheLigne(val);
 
@@ -250,6 +251,8 @@ function display_fiche(val) {
         if (focus == 1) {
             getElement("but_action").focus();
         }
+
+        
         focus = true;
         if (val['obj_etat'] == "INIT") {
             getElement("but_action").innerHTML = "Confirmer";
@@ -261,6 +264,8 @@ function display_fiche(val) {
             document.formSaisieExpress.obj_prix_vente.disabled = false;
             document.formSaisieExpress.obj_prix_vente.focus();
             val['obj_prix_vente'] = val['obj_prix_depot'];
+
+            getElement('actionBis').innerHTML = "<span title='Supprimer' onclick='supprimerFiche(" + val['obj_id'] + "," + val['obj_numero'] + ")' class='link' >❌</span>";
         } else if (val['obj_etat'] == "STOCK") {
             getElement("but_action").innerHTML = "Vendre";
 
@@ -303,7 +308,9 @@ function display_fiche(val) {
         val['obj_marque_' + idRamdom] = val['obj_marque'];
 
         display_formulaire(val, document.formSaisieExpress);
-
+        
+        getElement("obj_numero").innerHTML += "<div title='Imprimer' style='font-size:0.5em' onclick='imprimeFiche(" + val['obj_id'] + "," + val['obj_numero'] + ")' class='link'><i class='fa fa-print'></i></div>";
+        
         x_return_oneClient(val['obj_id_vendeur'], display_infoClientVendeur);
     } else {
         val['obj_type'] = "Autre";

@@ -373,6 +373,10 @@ div.SSMENU {
     display: block;
 }
 
+.sousMenu {
+    display: inline-block;
+}
+
 .tdSearch {
     width: 15%;
 }

@@ -14,3 +14,6 @@ CREATE TABLE `bav_counter_access` (
   KEY `bac_counter_access_cas_libelle_IDX` (`cas_page`) USING BTREE,
   KEY `bav_counter_access_cas_numero_bav_IDX` (`cas_numero_bav`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb3;
+
+
+CREATE VIEW v_marque AS SELECT distinct(obj_marque) FROM bav.bav_objet bo;

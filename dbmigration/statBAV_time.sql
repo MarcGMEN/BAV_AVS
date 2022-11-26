@@ -21,3 +21,8 @@ group by 1
 where laDate > "2021111912"
 group by 1
 order by 1
+
+
+-- resultat BAV
+select bc.cli_prix_depot depot, bo.obj_prix_vente prix, case when bo.obj_prix_vente*(bc.cli_taux_com/100) > 100 then 100 else bo.obj_prix_vente*(bc.cli_taux_com/100) end com 
+from bav_objet bo left outer join bav_client bc on bc.cli_id= bo.obj_id_vendeur where bo.obj_numero_bav='2022' and obj_etat IN ('VENDU','PAYE') order by com desc
