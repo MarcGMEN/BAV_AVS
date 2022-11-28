@@ -135,7 +135,7 @@
 				<h3><input type=button value="Ajouter un dépôt ➕" onclick="addDepot(document.clientForm.cli_id_modif.value)" /></h3>
 			<? } ?>
 		</div>
-		<div class="col-sm-6 col-md-6 col-xs-0 alert alert-info maskMobile">
+		<div class="col-sm-6 col-md-6 col-xs-0 alert alert-info maskMobile" id='aideImpression' style="display:none;"> 
 			<h5><b>⚠ N'oubliez pas d'imprimer votre fiche de dépôt avant de venir en cliquant sur l'icone :📇</b></h5>
 		</div>
 	</div>

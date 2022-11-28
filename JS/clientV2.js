@@ -4,7 +4,7 @@
 function initPage() {
     if (!CLIENT && !ADMIN && !BAV_ENCOURS) {
         alertModalInfo("Page non accessible.");
-        setTimeout(function() { goTo() }, 2000);
+        setTimeout(function () { goTo() }, 2000);
     }
 
     if (idClient) {
@@ -18,7 +18,7 @@ function initPage() {
 /*
  * action lors du derchargement de la page
  */
-function unloadPage() {}
+function unloadPage() { }
 
 /**
  *  affichage des infos client
@@ -48,7 +48,7 @@ function display_client(val) {
     }
 }
 
-function unloadPage() {}
+function unloadPage() { }
 
 // que faire en cas de changement de saisie
 function pageSaisie() {
@@ -94,7 +94,7 @@ function display_infoClientVendeur(val) {
     if (val && val['cli_id'] != document.clientForm.cli_id.value) {
         alertModalWarn("Mel deja connu pour :" + val['cli_nom']);
         x_return_oneClient(document.clientForm.cli_id.value, display_client);
-    } else {}
+    } else { }
 }
 
 /**
@@ -107,7 +107,7 @@ function display_infoClientVendeurName(val) {
     if (val['cli_id'] && val['cli_id'] != document.clientForm.cli_id.value) {
         alertModalWarn("Nom deja connu [" + val['cli_id_modif'] + "].");
         x_return_oneClient(document.clientForm.cli_id.value, display_client);
-    } else {}
+    } else { }
 }
 
 // ***********************************************************
@@ -123,7 +123,11 @@ var tabSel = new Array();
 // affichage des fiche de depot
 function display_fiches_depot(val) {
 
-    display_fiches(val, 'fiches');
+    var total = display_fiches(val, 'fiches');
+
+    if (total > 0) {
+        getElement('aideImpression').style.display = 'block';
+    }
 
     if (sens == "asc") {
         classSort = "sortUp";
@@ -201,8 +205,8 @@ function display_fiches(val, idElement) {
                 }
                 repr += "</td>";
                 repr += "</tr>";
+                total = total + 1;
             }
-            total = total + 1;
         }
     }
     repr += "</table>";
