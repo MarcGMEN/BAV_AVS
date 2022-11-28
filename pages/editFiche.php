@@ -11,6 +11,7 @@ $tabInfo = [
 	'Etiquette' => "etiquette",
 	'Coupon de dépôt' => "coupon_vendeur",
 	'Coupon de sortie' => "coupon_acheteur",
+	'Coupon Tombola' => "coupon_tombola",
 	'VIDE4' => " Facturation",
 	'Facture' => 'facture',
 	'VIDE1' => "Les modals de fiche",
@@ -221,9 +222,27 @@ $tabInfo = [
 								<td>
 									- Modifs <span id="nbCouponAImprimerA"></span> (<?= $infAppli['nb_coupon_page'] ?>/page) : <span id="nb_fiche_couponA"></span>
 								</td>
-								<td>
+								<td >
 									<input type=button name='printCouponA' value='Imprimer' disabled id="btnImprimeCouponsPageA" onclick='imprimeCouponsPage(this.form.forceCouponA.checked,this.form.testCouponA.checked?1:0,"coupon_acheteur")'>
 									<input type='checkbox' id="forceCouponA" onchange="this.checked?this.form.printCouponA.disabled=false:this.form.printCouponA.disabled=true">Force
+								</td>
+							</tr>
+						</table>
+
+					</form>
+				<? } ?>
+				<? if ($idText == "coupon_tombola") { ?>
+					<form style="color:black">
+						<table width=100% border=1>
+							<tr class="tabAction">
+								<td width=15%>
+									&nbsp;
+								</td>
+								<td width=50%>
+									- 1 page de vierge
+								</td>
+								<td width=35%>
+									<input type=button value='Imprimer' onclick='imprimeCoupons(-1,-1,0,"coupon_tombola")'>
 								</td>
 							</tr>
 						</table>
