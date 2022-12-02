@@ -137,7 +137,7 @@ $tabNav = array_merge($tabNavAll, $tabNavAdm);
                     <span class="link <?= $val['class']; ?> navigation <?= $className; ?>" id="lib_ss<?= $key; ?>" onclick="inverseDisplay('ss<?= $key; ?>')">
                         <?= $val['libelle']; ?>
                         <img src="Images/arrow.gif" />
-                        <div id="ss<?= $key; ?>" class="SSMENU" style="display:none; position:absolute;width:200px">
+                        <div id="ss<?= $key; ?>" class="SSMENU" style="display:none; position:absolute">
 
                             <?php foreach ($val['sousMenu'] as $keyS => $valS) {
                                 if ($GET_page == $keyS) {
