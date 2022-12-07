@@ -171,9 +171,16 @@ function action_deleteClient($id)
 function action_makeClient($data, $mail = true)
 {
     extract($GLOBALS);
+    $numBAV = $INFO_APPLI['numero_bav'];
+    $par = return_oneParametre($numBAV);
 
     $tabCli = tabToObject(string2Tab($data), "cli");
     $tabCli = makeClient($tabCli);
+
+    $tabCli['cli_taux_com'] = $par['par_taux_3'];
+    $tabCli['cli_prix_depot'] = $par['par_prix_depot_3'];
+    // mise a jour des taux
+    updateClient($tabCli);
 
     if ($mail == true) {
         // TODO : envoi du mail
@@ -216,6 +223,10 @@ function action_redonneCode($mel)
  */
 function makeClient($tabCli)
 {
+
+    extract($GLOBALS);
+    $numBAV = $INFO_APPLI['numero_bav'];
+    $par = return_oneParametre($numBAV);
     if ($tabCli['cli_emel'] != null) {
         //echo "makeClient => recherche par mel";
         $clientSearch =  getOne($tabCli['cli_emel'], "bav_client", "cli_emel");
@@ -229,10 +240,10 @@ function makeClient($tabCli)
         $tabCli['cli_id'] = 0;
         $tabCli['cli_id_modif'] = hash_hmac('md5', $tabCli['cli_nom'] . rand(0, 200000), 'avs44');
         if (!$tabCli['cli_taux_com']) {
-            $tabCli['cli_taux_com'] = 10;
+            $tabCli['cli_taux_com'] = $par['par_taux_1'];
         }
         if (!$tabCli['cli_prix_depot']) {
-            $tabCli['cli_prix_depot'] = 3;
+            $tabCli['cli_prix_depot'] = $par['par_prix_depot_1'];
         }
         $tabCli['cli_id'] = insertClient($tabCli);
 

@@ -48,22 +48,22 @@
 				</tr>
 				<tr>
 					<td class="titrow">Taux <span title="Obligatoire">*<span></td>
-					<td class="tabInput">
+					<td class="tabInput">Client direct
 						<input type=number name="par_taux_1" style="width:20%'" tabindex=<?= $tabindex++ ?> placeholder="Taux 1" onkeyup="setStartSaisie(true);" required min=1 max=100 value="10"/>%
 						<span id="PAR_TAUX_1" class="error"></span>
-						&nbsp;&nbsp;
+						&nbsp;&nbsp;Bénévoles
 						<input type=number name="par_taux_2" style="width:20%'" tabindex=<?= $tabindex++ ?> placeholder="Taux 2" onkeyup="setStartSaisie(true);" min=0 max=100 value="5"/>%
-						&nbsp;&nbsp;
+						&nbsp;&nbsp;Pre-dépôt
 						<input type=number name="par_taux_3" style="width:20%'" tabindex=<?= $tabindex++ ?> placeholder="Taux 3" onkeyup="setStartSaisie(true);" min=0 max=100 value="0"/>%
 					</td>
 				</tr>
 				<tr>
 					<td class="titrow">Depot <span title="Obligatoire">*<span></td>
-					<td class="tabInput">
+					<td class="tabInput">Client direct
 						<input type=number name="par_prix_depot_1" tabindex=<?= $tabindex++ ?> placeholder="00.0" onkeyup="setStartSaisie(true);" required min=1 max=10 size=2 value="3.00"/>&#8364;
-						&nbsp;&nbsp;
+						&nbsp;&nbsp;Bénévoles
 						<input type=number name="par_prix_depot_2" tabindex=<?= $tabindex++ ?> placeholder="00.0" onkeyup="setStartSaisie(true);" min=0 max=10 size=2 value="1.00"/>&#8364;
-						&nbsp;&nbsp;
+						&nbsp;&nbsp;Pre-dépôt
 						<input type=number name="par_prix_depot_3" tabindex=<?= $tabindex++ ?> placeholder="00.0" onkeyup="setStartSaisie(true);" min=0 max=10 size=2 value="0.00"/>&#8364;
 					</td>
 				</tr>
