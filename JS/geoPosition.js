@@ -31,15 +31,10 @@ function initMap() {
     //macarte.addLayer(markerClusters);
 }
 
-
-
 function getGeoPos(adress) {
-
-
     var geoCode = geocoder.geocode(adress + ', France', function(results) {
         return results;
     });
-
 
     return geoCode;
 }
