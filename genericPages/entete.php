@@ -17,7 +17,7 @@
 		</td>
 		<td width="78%">
 			<div class="TITRE_FENETRE_PRINCIPALE">
-				<?= $infAppli['titre']; ?>
+				<?= retraitAccent($infAppli['titre']) ?>
 			</div>
 			<?php if ($infAppli['ADMIN']) {
 				include './genericPages/menuTABLE.php';
