@@ -446,7 +446,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
     foreach ($tabImpression as $key => $value) {
         $etiquettes .= "<hr  />";
         $etiquettes .= $value;
-        if ($index++ % $INFO_APPLI['nb_eti_page'] == 0) {
+        if ($key++ % $INFO_APPLI['nb_eti_page'] == 0) {
             $etiquettes .= "<hr  />";
             $etiquettes .= "<div style='page-break-after:always; clear:both;font-size:10pt;height:10pt'>..........</div>";
         }
@@ -644,21 +644,21 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
     $nbCoupon = $INFO_APPLI['nb_coupon_page'];
     $nbPage = ceil(sizeof($tabCoupons) / $nbCoupon);
 
-    // echo "nb coupon : $nbCoupon ;  nbPage = $nbPage";
+    // echo "nb coupon : $nbCoupon ;  nbPage = $nbPage<br/>";
     $ligne = 1;
     $page = 0;
     $nbCouponTotal = sizeof($tabCoupons);
-    // echo  $nbCouponTotal;
+    // echo  "$nbCouponTotal<br/>";
     foreach ($tabCoupons as $key => $value) {
         $pos = $ligne + $nbCoupon * $page;
-        // echo "$key => $ligne+$nbCoupon*$page => ".($pos)." <br\>";
+        // echo "$key => $ligne+$nbCoupon*$page => ".($pos)." <br/>";
         if ($pos > $nbCouponTotal) {
             $page = 0;
             $ligne++;
             $nbPage--;
             $pos = $ligne + $nbCoupon * $page;
         }
-        // echo "BIS $key => $ligne+$nbCoupon*$page => ".($pos)." <br\>";
+        // echo "BIS $key => $ligne+$nbCoupon*$page => ".($pos)." <br/>";
         $tabImpression[$pos] = $value;
         $page++;
         if ($page >= $nbPage) {
@@ -671,7 +671,7 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
     foreach ($tabImpression as $key => $value) {
         $etiquettes .= $value;
 
-        if ($index++ % $INFO_APPLI['nb_coupon_page'] == 0) {
+        if ($key++ % $INFO_APPLI['nb_coupon_page'] == 0) {
             $etiquettes .= "<div style='page-break-after:always; clear:both'>...</div>";
         } else {
             $etiquettes .= "<hr style='border:1px solid black'/>";
@@ -1099,7 +1099,6 @@ function action_changeEtatFiche($obj)
             $fiche['obj_modif_vendeur'] = 1;
         } elseif ($fiche['obj_etat'] == 'STOCK') {
             // passage en stock
-            // on valide le prix
             $fiche['obj_prix_vente'] = $fiche['obj_prix_depot'];
             // mise a jour de la date
             $fiche['obj_date_depot'] = date('y-m-d H:i:s');
