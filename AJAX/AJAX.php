@@ -1,6 +1,7 @@
 <?php
 error_reporting(E_ERROR);
 
+ini_set("allow_url_fopen", false);
 
 require_once "../Commun/commun_functions.php";
 require_once "../Commun/connect.php";
@@ -15,6 +16,7 @@ require_once "../Repository/counter_access_repository.php";
 require_once "../Commun/Sajax.php";
 require_once "../Commun/mail.php";
 require_once "../Commun/html2pdf.php";
+
 
 // export en GLOBALS des parametres de l'application
 $INFO_APPLI = return_infoAppli();

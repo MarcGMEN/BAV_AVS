@@ -17,8 +17,8 @@ use Spipu\Html2Pdf\Exception\ExceptionFormatter;
 
 try {
     ob_start();
-    include dirname(__FILE__).'/html/fiche_depot.html';
-    // include dirname(__FILE__).'/testPDF.html';
+    //include dirname(__FILE__).'/html/fiche_depot-2021.html';
+    include dirname(__FILE__).'/testPDF.html';
     $content = ob_get_clean();
     $html2pdf = new Html2Pdf('P', 'A4', 'fr', true, 'UTF-8', 3);
     //$html2pdf->setDefaultFont('Arial');
