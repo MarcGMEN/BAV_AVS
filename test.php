@@ -43,6 +43,11 @@ $filename="https://bourseaux1000velos.avs44.com/html/Bav.jpg";
 print_r(getimagesize($filename));
 print_r(fopen($filename,"rb"));
 
+$filename="https://bourseaux1000velos.avs44.com/html/Bav.jpg";
+print_r(getimagesize($filename));
+print_r(fopen($filename,"rb"));
+
+
 //echo password_hash("BAV2019", PASSWORD_DEFAULT);
 // echo "412 2021 random => <br/>".hash_hmac('md5', "412"."2021".$random, 'avs44'.$_COOKIE['NUMERO_BAV']);
 // echo "<br/>";
