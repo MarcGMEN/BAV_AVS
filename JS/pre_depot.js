@@ -49,7 +49,7 @@ function submitFormFA(laForm) {
 
 function display_verif_mail(val) {
     if (val) {
-        alertModalInfo("Votre mail est déjà identifié. Si vous ne disposez plus de code d'accès cliquer sur \"J'ai oublier mon code\".");
+        alertModalInfo("Votre e-mail est déjà identifié. Si vous ne disposez plus de code d'accès cliquer sur \"Code d'accès oublié.\".");
     } else {
         getElement('connexions').style.display = 'none';
         getElement('input_first_connexion').style.display = 'block';
@@ -74,7 +74,7 @@ function submitPreSaisie(laForm) {
 }
 
 function display_preEnregistrement(val) {
-    alertModalInfo("Votre code vous a étés envoye à votre mail " + document.firstAccesForm.new_email_depot.value);
+    alertModalInfo("Votre code vous a étés envoyé par mail " + document.firstAccesForm.new_email_depot.value);
     fermer_PreSaisie();
 }
 
@@ -93,7 +93,7 @@ function fermer_PreSaisie() {
 
 function renvoiCode(laForm) {
     if (laForm.email_depot.value == "") {
-        alertModalWarn("La mail doit être renseigné.");
+        alertModalWarn("Le e-mail doit être renseigné.");
     } else {
         x_return_isClientByMel(laForm.email_depot.value, display_verif_mail_oublie);
     }
@@ -104,7 +104,7 @@ function display_verif_mail_oublie(val) {
         alertModalInfo("On vous envoi le code sur " + document.accesForm.email_depot.value + ".");
         x_action_redonneCode(document.accesForm.email_depot.value, fermer_PreSaisie);
     } else {
-        alertModalInfo("Votre mail n'est pas connu.");
+        alertModalInfo("Votre e-mail n'est pas connu.");
     }
 }
 
@@ -122,6 +122,6 @@ function display_connexion(val) {
     if (val instanceof Object) {
         goToPOST("clientV2.php", "", val['cli_id_modif'], "");
     } else {
-        alertModalWarn("Mail et/ou code accès incorrect.");
+        alertModalWarn("E-mail et/ou code accès incorrect.");
     }
 }

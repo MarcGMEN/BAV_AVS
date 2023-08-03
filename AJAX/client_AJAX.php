@@ -188,6 +188,7 @@ function action_makeClient($data, $mail = true)
 
         $tabCli['cli_code'] = substr($tabCli['cli_id_modif'], 0, 6);
         $tabCli['titre'] = $INFO_APPLI['titre'];
+        $tabCli['URL'] = $CFG_URL;
         // creation du message avec le template
         $message = makeMessage($titreMel, array_merge($tabCli), "mel_pre-enregistrement.html");
 
@@ -207,7 +208,8 @@ function action_redonneCode($mel)
 
     $tabCli['cli_code'] = substr($tabCli['cli_id_modif'], 0, 6);
     $tabCli['titre'] = $INFO_APPLI['titre'];
-    // creation du message avec le template
+    $tabCli['URL'] = $CFG_URL;
+        // creation du message avec le template
     $message = makeMessage($titreMel, array_merge($tabCli), "mel_code_access.html");
 
     // envoi du mel

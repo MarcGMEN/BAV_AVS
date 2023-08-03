@@ -7,7 +7,7 @@
 <? if ($infAppli['CLIENT']) { ?>
 	<div class='alert alert-info' id="informations">
 		<p>Avant de venir déposer votre vélo les à La Soucoupe, nous vous conseillons de remplir la fiche dépôt.</p>
-		<p>- Soit en vous identfiant avec le formulaire ci-dessous, et enuite saisir vos pré-dépôts directement sur le site de la Bourse.</p>
+		<p>- Soit en vous identfiant avec le formulaire ci-dessous et enusite saisir vos pré-dépôts directement sur le site de la Bourse.</p>
 		<ul>
 			<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Il n'est pas nécéssaire de connaitre le prix de vente, <i>vous pourrez le renseigner le jour du dépôt.</i></li>
 			<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vous accèderez au dépôt le vendredi à la Soucoupe via des files prioritaires.</li>
@@ -23,6 +23,7 @@
 			<a href="mailto:bourse1000velos@avs44.com">bourse1000velos@avs44.com</a>
 		</p>
 		<h2 class='alert alert-warning'> Attention , nouvelle Procédure </h2>
+		<h3 class='alert alert-warning'> Vous devez d'abord vous pré-enregistrer avec votre e-mail, puis vous recevrez un mail avec votre code d'accès. <br/>Ensuite dans le partie connexion saisisez votre e-mail et le code d'accès pour accèder à la gestion de votre dépôt. </h3>
 	</div>
 <? } else { ?>
 	<h3> Suivi de votre dépôt</h3>
@@ -40,7 +41,7 @@
 						Pour votre premier pré-dépôt il faut vous enregistrer,
 					</div>
 					<div class="col-sm-10 col-md-10 col-xs-12">
-						<input type='email' width=10% size=30 maxlength="80" name='new_email_depot' required placeholder="Saisissez votre mail" />
+						<input type='email' width=10% size=30 maxlength="80" name='new_email_depot' required placeholder="Saisissez votre e-mail" />
 					</div>
 					<div class="col-sm-2 col-md-2 col-xs-12">
 						<input type='submit' value="S'enregrister" />
@@ -58,7 +59,7 @@
 			<form name="accesForm" method="POST" onsubmit="return submitFormConnex(this)" action="">
 				<div class="col-sm-6 col-md-6 col-xs-12">
 					Vous vous êtes déjà enregister<br/>
-					<input type='email' size=30 maxlength="80" required name='email_depot' placeholder="Saisissez votre mail" />
+					<input type='email' size=30 maxlength="80" required name='email_depot' placeholder="Saisissez votre e-mail" />
 					<p class="link" onclick='renvoiCode(document.accesForm)'>Code d'accès oublié</p>
 				</div>
 				<div class="col-sm-5 col-md-5 col-xs-12">
