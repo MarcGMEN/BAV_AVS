@@ -916,27 +916,36 @@ function action_makeData($id, $test = false)
         'numero_bav' => $numBAV
     );
 
+    error_log("action_makeData");
+    error_log($id);
     // pas de data, on fait un objet vide
     if ($id) {
         $fiche = getOneFiche($id);
         $client = getOneClient($fiche['obj_id_vendeur']);
 
-        if (
-            $fiche['obj_prix_vente'] > 0 && ($fiche['obj_etat'] == 'VENDU' || $fiche['obj_etat'] == 'PAYE')
-        ) {
+        $prixVenteNum = $fiche['obj_prix_vente'];
+        error_log($fiche['obj_prix_vente']);
+        error_log($fiche['obj_prix_depot']);
+
+        if ($fiche['obj_prix_vente'] > 0 && ($fiche['obj_etat'] == 'VENDU' || $fiche['obj_etat'] == 'PAYE')) {
             $client['cli_com'] = getCommission($fiche);
+
+            if ($prixVenteNum != $fiche['obj_prix_depot'] && $prixVenteNum > 0) {
+                $fiche['obj_prix_depot'] = "<s>" . $fiche['obj_prix_depot'] . " &euro;</s><span style='color:RED'>" . $prixVenteNum . "</span>";
+            }
         } else {
             $fiche['obj_prix_vente'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
             $client['cli_com'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>";
         }
 
-        if ($fiche['obj_prix_vente'] != $fiche['obj_prix_depot'] && $fiche['obj_prix_vente'] > 0) {
-            $fiche['obj_prix_depot'] = "<s>" . $fiche['obj_prix_depot'] . " €</s><span style='color:RED'>" . $fiche['obj_prix_vente'] . "</span>";
-        }
-
         if ($fiche['obj_prix_depot'] == 0) {
             $fiche['obj_prix_depot'] = "";
         }
+
+        if ($fiche['obj_prix_achat'] == 0) {
+            $fiche['obj_prix_achat'] = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+        }
+
     } elseif ($test) {
         $client['cli_prix_depot'] = $par['par_prix_depot_1'];
         $client['cli_nom'] = "mr TEST henry";
