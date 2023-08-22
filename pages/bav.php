@@ -79,7 +79,7 @@ $tabInfo = [
 <!-- <table style="width: 100%;" border=1><tr> -->
 <div class="row">
 	<? foreach ($tabInfo as $title => $idText) { ?>
-		<div class="col-sm-2 col-xs-12 titreFiche link" width="<?= (int)(100 / sizeof($tabInfo)) ?>%">
+		<div class="col-sm-2 col-xs-12 titreFiche link maskMobile" width="<?= (int)(100 / sizeof($tabInfo)) ?>%">
 			<A HREF="#tag<?= $idText ?>"><?= $title ?></A>
 		</div>
 	<? } ?>
@@ -98,10 +98,10 @@ $tabInfo = [
 <? } ?>
 
 <?foreach ($tabInfo as $title => $idText) {?>
-	<div id="tag<?= $idText ?>"></div>
+	<div id="tag<?= $idText ?>" ></div>
 	<h3 class="titreFiche">
 		<span><?= $title ?><span>
-				<A HREF="#"><i class="fas fa-level-up-alt"></i></A>
+		<A HREF="#"><i class="fas fa-level-up-alt"></i></A>
 	</h3>
 
 	<div id="<?= $idText ?>"></div>

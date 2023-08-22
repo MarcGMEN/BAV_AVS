@@ -4,15 +4,19 @@
 	<tr height="100%">
 		<td width="12%">
 			<div class="row">
-				<div class="col-sm-6 col-md-6 col-xs-6 menuMobile " style='border: 1px solid blue ;'>
+				<div class="col-sm-6 col-md-6 col-xs-6 menuMobile " style='border:1px solid blue'>
 					<!-- <i class="fas fa-bars"  aria-hidden="true" style="font-size:36px" onclick="menuSel()"></i> -->
-					<div style="font-size:15px; " onclick="menuSel()">-<br/>-</div>
+					<!-- <img src="Images/menuBars.png" height=100 width=100>  -->
+					<div style="font-size:0.5em;color:black " onclick="menuSel()">&boxh;&boxh;&boxh;&boxh;
+						<br/>&boxh;&boxh;&boxh;&boxh;
+						<br/>&boxh;&boxh;&boxh;&boxh;</div>
 				</div>
-				<div class="col-sm-12 col-md-12 col-xs-6 maskMobile">
+				<div class="col-sm-12 col-md-12 col-xs-6 maskMobile" >
 					<img src="Images/BAV_2020.png" id="cycleBAV" class=link onclick="location.href='index.php'" />
 					<!-- <img src="Images/cycleBAV.png" id="cycleBAV" class=link onclick="location.href='index.php'" /> -->
 					<p style="font-size:0.7em" id=timeRestant></p>
 				</div>
+				
 			</div>
 		</td>
 		<td width="78%">
