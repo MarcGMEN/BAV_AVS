@@ -217,7 +217,7 @@ function display_fiches(val, idElement) {
 /** impression de la fiche */
 function imprimeFiche(id, numero) {
 
-    alertModalInfo("Génération de la fiche " + numero + " au format PDF <img src='Images/spinner_white_tiny.gif' />");
+    alertModalInfo("Génération de la fiche " + numero + " au format PDF  <b>pour l'imprimer</b> <img src='Images/spinner_white_tiny.gif' />.");
     x_action_makePDF(id, display_openPDF);
 }
 

@@ -7,9 +7,11 @@
 				<div class="col-sm-6 col-md-6 col-xs-6 menuMobile " style='border:1px solid blue'>
 					<!-- <i class="fas fa-bars"  aria-hidden="true" style="font-size:36px" onclick="menuSel()"></i> -->
 					<!-- <img src="Images/menuBars.png" height=100 width=100>  -->
-					<div style="font-size:0.5em;color:black " onclick="menuSel()">&boxh;&boxh;&boxh;&boxh;
-						<br/>&boxh;&boxh;&boxh;&boxh;
-						<br/>&boxh;&boxh;&boxh;&boxh;</div>
+					<div style="font-size:0.5em;color:black" onclick="menuSel()">
+						&boxh;&boxh;&boxh;&boxh;<br/>
+						&boxh;&boxh;&boxh;&boxh;<br/>
+						&boxh;&boxh;&boxh;&boxh;
+					</div>
 				</div>
 				<div class="col-sm-12 col-md-12 col-xs-6 maskMobile" >
 					<img src="Images/BAV_2020.png" id="cycleBAV" class=link onclick="location.href='index.php'" />
@@ -39,7 +41,7 @@
 					</div>
 				</div>
 			</span>-->
-			<div style="float: left">
+			<div >
 				<img src="Images/logoAVS.png" id="logoAVS" height='80pt'>
 			</div>
 			<div class="link" style="position:absolute; float: right; vertical-align:middle; font-size: 0.5em" onclick="alertModalPass();">

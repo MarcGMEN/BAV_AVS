@@ -131,7 +131,7 @@
 			<h3>Vos dépôts</h3>
 		</div>
 		<div class="col-sm-3 col-md-3 col-xs-8">
-			<? if ($infAppli['CLIENT'] == 1) { ?>
+			<? if ($infAppli['CLIENT'] == 1 || $infAppli['ADMIN'] == 1) { ?>
 				<h3><input type=button value="Ajouter un dépôt ➕" onclick="addDepot(document.clientForm.cli_id_modif.value)" /></h3>
 			<? } ?>
 		</div>

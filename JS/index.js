@@ -32,7 +32,7 @@ function display_openPDF(val) {
     // console.log(val);
     closeModal();
     document.body.style.cursor = 'default';
-    window.open(val, '_blank');
+    win = window.open(val, '_blank');
 }
 
 function openPDF(val) {
