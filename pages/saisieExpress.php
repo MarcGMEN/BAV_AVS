@@ -1,5 +1,5 @@
 <?php $idRamdom = rand(1000, 9999);
-$maxFiche = 50;
+$maxFiche = $infAppli['NB_MODIF'];
 ?>
 
 <script>

@@ -46,7 +46,7 @@
 				</div>
 				<div class="col-sm-4 col-md-4 col-xs-4 tabl1">
 					<span class="alert-info" id="obj_etat_libelle"></span>
-					<input type=button onclick="goTo('saisieExpress.php', '',idFiche,null);" id=BtnSaisieExpress value="Gestion Fiche" style='display: none' />
+					<input type=button onclick="goTo('saisieExpress.php', '',document.ficheForm.obj_numero.value,null);" id=BtnSaisieExpress value="Gestion Fiche" style='display: none' />
 				</div>
 			</div>
 		</h4>

@@ -4,7 +4,8 @@ var baseNumFiche = 1;
 
 function initPage() {
     if (theId != "") {
-        x_return_oneFiche(theId, display_ficheN);
+        searchFicheExpress(theId);
+        //x_return_oneFiche(theId, display_ficheN);
     }
     x_return_num_max_fiches(display_num_max_fiches);
 
@@ -26,7 +27,7 @@ function initPage() {
 }
 
 var maxFiche = 0;
-var classeur = 50;
+var classeur = NB_MODIF;
 
 function display_num_max_fiches(val) {
     maxFiche = val;
@@ -52,6 +53,11 @@ function display_detailpageFiche(val) {
     getElement("cla_" + val[0]).style.color = color;
 }
 
+function display_ficheN_bis(val) {
+    console.log(val);
+    searchFicheExpress(val['obj_numero']);
+}
+
 function searchFicheExpress(num) {
 
     if (num > maxFiche) {
@@ -59,7 +65,7 @@ function searchFicheExpress(num) {
     }
     if (num) {
         baseNumFiche = parseInt((parseInt((parseInt(num) - 1) / parseInt(classeur))) * parseInt(classeur) + 1);
-        // console.log("On est sur la base de " + baseNumFiche + "  via " + num + " pour max " + classeur);
+        console.log("On est sur la base de " + baseNumFiche + "  via " + num + " pour max " + classeur);
         x_return_fiches_express(baseNumFiche, display_fichesExpress);
         setTimeout('x_return_oneFicheByCode(' + num + ', display_ficheN)', 100);
 
@@ -228,6 +234,7 @@ function resetLigne(index) {
 function display_ficheN(val) {
     if (val['obj_numero']) {
         var index = val['obj_numero'] - baseNumFiche + 1;
+        console.log(val['obj_numero'] +" - "+baseNumFiche +"+ 1");
         if (getElement("tr_" + index)) {
             getElement("tr_" + index).scrollIntoViewIfNeeded(true);
             display_fiche(val);

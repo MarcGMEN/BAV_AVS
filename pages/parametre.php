@@ -68,9 +68,9 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="titrow">Nb modif en parallele <span title="Obligatoire">*<span></td>
+					<td class="titrow">Nb fiches par classeur <span title="Obligatoire">*<span></td>
 					<td class="tabInput">
-						<input type=number name="par_nb_modif" tabindex=<?= $tabindex++ ?> placeholder="entre 0 et 10" onkeyup="setStartSaisie(true);" required min=0 max=10 size=2 />
+						<input type=number name="par_nb_modif" tabindex=<?= $tabindex++ ?> placeholder="entre 1 et 100" onkeyup="setStartSaisie(true);" required min=1 max=100 size=2 />
 					</td>
 				</tr>
 				<tr>
