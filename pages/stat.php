@@ -210,7 +210,7 @@
 		colorEtat['RESTI_' + anneeBavSuvi] = 'RED';
 		var monCanvas = getElement("canvasSuivi1");
 		var ctx = monCanvas.getContext("2d");
-		monCanvas.width = screen.width * 0.83;
+		monCanvas.width = screen.width * 0.70;
 
 		ctx.beginPath();
 		ctx.font = "15px arial";
@@ -501,21 +501,37 @@
 	/* Affichage des stats clients sous format map */
 	function display_statClient(val) {
 		// usage example:
+		var tabVal=[];
 		console.log(val);
+		var index=0;
+		for (i in val) {
+			tabVal[index]=[];
+			tabVal[index]['cdp']=i;
+			tabVal[index]['nb']=val[i];
+			index++;
+		}
+		console.log(tabVal);
+		tabVal.sort((a,b) => (a['cdp'] > b['cdp'] ? 1 : a['cdp'] < b['cdp'] ? -1 : 0));
+		console.log(tabVal);
 		initMap();
 		getElement('tabCodePostal').innerHTML="";
-		var index=0;
+		index=1;
 		var rc='';
-		for (i in val) {
-			if (i) {
-				setTimeout('geoPosClient('+i+','+false+','+false+','+val[i]+')', 1200*index);
+		var repr="<table width='100%'><tr>";
+		for (i in tabVal) {
+			if (tabVal[i]['cdp']) {
+				setTimeout('geoPosClient('+tabVal[i]['cdp']+','+false+','+false+','+tabVal[i]['nb']+')', 1200*index);
 				rc='';
 				if (index++%4 == 0) {
-					rc='<br/>';
+					repr+="</tr><tr>";
+					// rc='<br/>';
 				}
-				getElement('tabCodePostal').innerHTML+="&nbsp;&nbsp;&nbsp;"+i+"=>"+val[i]+rc;
+				repr+="<td class='tabl1'>"+tabVal[i]['cdp']+" => "+tabVal[i]['nb']+"</td>";
+				//getElement('tabCodePostal').innerHTML+="&nbsp;&nbsp;&nbsp;"+tabVal[i]['cdp']+" => "+tabVal[i]['nb']+rc;
 			}
 		}
+		repr+="</tr></table>"
+		getElement('tabCodePostal').innerHTML=repr;
 		setTimeout("alertModalInfo('Fin de creation de la carte')", 1200*index);
 	}
 

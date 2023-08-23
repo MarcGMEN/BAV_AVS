@@ -30,11 +30,26 @@ var classeur = 50;
 
 function display_num_max_fiches(val) {
     maxFiche = val;
-    getElement("pageFiche").innerHTML = "Navigation dans les classeurs [" + val + "]&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;";
-    for (var i = 1; i < val; i += classeur) {
-        getElement("pageFiche").innerHTML += "<span class='link' id='cla_" + i + "' onclick='baseNumFiche=" + i + ";x_return_fiches_express(" + i + ", display_fichesExpress)'>" + i + "</span>&nbsp;&nbsp;"
+    getElement("pageFiche").innerHTML = "Navigation dans les classeurs [" + val + "] : ";
+    for (var i = 1; i <= val; i += classeur) {
+        getElement("pageFiche").innerHTML += "<span class='link' id='cla_" + i + "' onclick='baseNumFiche=" + i + ";x_return_fiches_express(" + i + ", display_fichesExpress)'>" + i + "</span>-"
+        x_return_nb_fiche_by_place(i, i + classeur-1, display_detailpageFiche);
     }
     x_return_fiches_express(baseNumFiche, display_fichesExpress);
+}
+
+function display_detailpageFiche(val) {
+    console.log(val);
+    getElement("cla_" + val[0]).title = val[1];
+    var color = "black"
+    if (val[1] > 0) {
+        color = "darkorange";
+    }
+    if (val[1] == classeur) {
+        color = "darkgreen";
+        getElement("cla_" + val[0]).style.fontWeight = "bold";
+    }
+    getElement("cla_" + val[0]).style.color = color;
 }
 
 function searchFicheExpress(num) {

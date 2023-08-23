@@ -27,5 +27,6 @@ sajax_export(
     "action_makeLibreFiche",
     "action_makeHtml",
     "return_nbFichesByDay",
-    "return_nbFichesByDayAvantBAV"
+    "return_nbFichesByDayAvantBAV",
+    "return_nb_fiche_by_place"
 );

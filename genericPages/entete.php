@@ -41,7 +41,7 @@
 					</div>
 				</div>
 			</span>-->
-			<div >
+			<div style="float: left">
 				<img src="Images/logoAVS.png" id="logoAVS" height='80pt'>
 			</div>
 			<div class="link" style="position:absolute; float: right; vertical-align:middle; font-size: 0.5em" onclick="alertModalPass();">

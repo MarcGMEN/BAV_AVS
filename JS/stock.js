@@ -238,8 +238,6 @@ function selectColonne(col, mask) {
 }
 
 function searchColonne(col, mask) {
-
-
     tabSel['obj_search'] = getElement(col).value;
     //tabSel[col] = mask;
     gSearch = getElement(col).value;

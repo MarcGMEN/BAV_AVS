@@ -125,6 +125,21 @@ function getNumMaxFiche()
     return $row['max(obj_numero)'];
 }
 
+function getNbFicheByPlage($min, $max)
+{
+    $row = null;
+    $query = " SELECT count(*) from bav_objet where obj_numero_bav = '" .$GLOBALS['INFO_APPLI']['numero_bav'] . "'";
+    $query .= " and obj_numero >= $min and obj_numero <= $max";
+    // error_log($query);
+    if ($result = $GLOBALS['mysqli']->query($query)) {
+        $row = $result->fetch_assoc();
+        $result->close();
+    } else {
+        throw new Exception("Pb getNumMaxFiche' [$query]" . mysqli_error($result));
+    }
+    return $row['count(*)'];
+}
+
 
 /**
  * recherche des fiches libres pour une BAV a partri d'une base

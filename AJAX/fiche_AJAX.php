@@ -24,6 +24,11 @@ function return_num_max_fiches()
     return getNumMaxFiche();
 }
 
+function return_nb_fiche_by_place($min, $max)
+{
+    return [$min,getNbFicheByPlage($min,$max)];
+}
+
 /**
  * retourne la liste des marques connue pour la BAV, avec une base
  * triée par ordre alpha
