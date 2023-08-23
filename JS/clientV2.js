@@ -2,8 +2,8 @@
  * action lors du chargement de la page
  */
 function initPage() {
-    if (!CLIENT && !ADMIN && !BAV_ENCOURS) {
-        alertModalInfo("Page non accessible.");
+    if (!CLIENT && !ADMIN && !BAV_ENCOURS && modePage != 'createTEST') {
+        alertModalInfo("Page non accessible. "+BAV_ENCOURS+"-"+CLIENT+"-"+modePage);
         setTimeout(function () { goTo() }, 2000);
     }
 

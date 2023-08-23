@@ -4,7 +4,8 @@
 </script>
 <script src="JS/pre_depot.js" type="text/javascript"></script>
 
-<? if ($infAppli['CLIENT']) { ?>
+<? echo $GET_modePage;?>
+<? if ($infAppli['CLIENT'] || $GET_modePage=="createTEST") { ?>
 	<div class='alert alert-info' id="informations">
 		<p>Avant de venir déposer votre vélo les à La Soucoupe, nous vous conseillons de remplir la fiche dépôt.</p>
 		<p>- Soit en vous identfiant avec le formulaire ci-dessous et enusite saisir vos pré-dépôts directement sur le site de la Bourse.</p>
@@ -30,7 +31,7 @@
 <? } ?>
 <div class="row" id="connexions">
 	<div class="col-sm-12 col-md-12 col-xs-12 ">
-		<? if ($infAppli['CLIENT']) { ?>
+		<? if ($infAppli['CLIENT']  || $GET_modePage=="createTEST") { ?>
 			<div class="col-sm-5 col-md-5 col-xs-12 alert alert-info" id='div_first_connexion'>
 				<div class="col-sm-12 col-md-12 col-xs-12 ">
 					<h4>Pré-enregistrement<h4>

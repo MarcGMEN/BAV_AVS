@@ -104,7 +104,7 @@ if ($infAppli['ADMIN']) {
             'libelle' => '🟡🟡',
         ],
         'pre_depot.php' => [
-            'libelle' => '<span class="PRE-DEPOT" >Suivi dépot</span>',
+            'libelle' => '<span class="PRE-DEPOT" >Pour pré-déposer et suivre vos ventes, c\'est ici</span>',
             'mode' => '',
         ],
         'SPACE1' => [

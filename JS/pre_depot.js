@@ -4,6 +4,7 @@
 // 
 
 texteDescription = "";
+test = "";
 
 /*
  * action lors du chargement de la page
@@ -18,7 +19,13 @@ function initPage() {
     // x_return_list_marques(display_list_marques)
     // x_return_list_tailles(display_list_tailles)
 
-    if (!CLIENT && !ADMIN && !BAV_ENCOURS) {
+    if (modePage == "createTEST") {
+        BAV_ENCOURS = 1;
+        CLIENT = 1;
+        test = "createTEST";
+    }
+    
+        if (!CLIENT && !ADMIN && !BAV_ENCOURS) {
         alertModalInfo("Page non accessible.");
         setTimeout(function() { goTo() }, 2000);
     }
@@ -120,7 +127,7 @@ function submitFormConnex(laForm) {
 
 function display_connexion(val) {
     if (val instanceof Object) {
-        goToPOST("clientV2.php", "", val['cli_id_modif'], "");
+        goToPOST("clientV2.php", test, val['cli_id_modif'], "");
     } else {
         alertModalWarn("E-mail et/ou code accès incorrect.");
     }
