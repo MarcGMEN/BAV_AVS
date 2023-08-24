@@ -80,8 +80,8 @@ function getClientsRecap($order, $sens, $tabSel, $all = false)
 
     // si tous on recherche tous le clients
     if (!$all) {
-        $requete2 .= " and (cli_id in (select obj_id_vendeur from bav_objet where (obj_id_vendeur = cli_id)  and obj_numero_bav = 2022) ";
-        $requete2 .= " or cli_id in (select obj_id_acheteur from bav_objet where (obj_id_acheteur = cli_id)  and obj_numero_bav = 2022) )";
+        $requete2 .= " and (cli_id in (select obj_id_vendeur from bav_objet where (obj_id_vendeur = cli_id)  and obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "') ";
+        $requete2 .= " or cli_id in (select obj_id_acheteur from bav_objet where (obj_id_acheteur = cli_id)  and obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "') )";
     }
 
     //$requete2 .= " group by cli_id";
@@ -111,11 +111,14 @@ function getClientsRecap($order, $sens, $tabSel, $all = false)
  */
 function getClients($order, $sens, $tabSel, $all = false)
 {
+
+    extract($GLOBALS);
+
     $requete2 = "SELECT * from bav_client ";
     $requete2 .= " where 1 = 1 and cli_id > 10 ";
     if (!$all) {
-        $requete2 .= " and (cli_id in (select obj_id_vendeur from bav_objet where (obj_id_vendeur = cli_id)  and obj_numero_bav = 2022) ";
-        $requete2 .= " or cli_id in (select obj_id_acheteur from bav_objet where (obj_id_acheteur = cli_id)  and obj_numero_bav = 2022) )";
+        $requete2 .= " and (cli_id in (select obj_id_vendeur from bav_objet where (obj_id_vendeur = cli_id)  and obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "') ";
+        $requete2 .= " or cli_id in (select obj_id_acheteur from bav_objet where (obj_id_acheteur = cli_id)  and obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "') )";
     }
     foreach ($tabSel as $key => $val) {
         if ($val != "*") {
@@ -153,8 +156,8 @@ function countClient($all)
     $requete2 = "SELECT count(*) from bav_client ";
     $requete2 .= " where 1 = 1 and cli_id > 10 ";
     if (!$all) {
-        $requete2 .= " and (cli_id in (select obj_id_vendeur from bav_objet where (obj_id_vendeur = cli_id)  and obj_numero_bav = 2022) ";
-        $requete2 .= " or cli_id in (select obj_id_acheteur from bav_objet where (obj_id_acheteur = cli_id)  and obj_numero_bav = 2022) )";
+        $requete2 .= " and (cli_id in (select obj_id_vendeur from bav_objet where (obj_id_vendeur = cli_id)  and obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "') ";
+        $requete2 .= " or cli_id in (select obj_id_acheteur from bav_objet where (obj_id_acheteur = cli_id)  and obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "') )";
     }
 
     if ($result = $GLOBALS['mysqli']->query($requete2)) {

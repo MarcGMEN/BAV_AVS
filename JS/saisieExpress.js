@@ -41,7 +41,7 @@ function display_num_max_fiches(val) {
 
 function display_detailpageFiche(val) {
     console.log(val);
-    getElement("cla_" + val[0]).title = val[1];
+    getElement("cla_" + val[0]).title = "Nb de fiche du classeur : "+val[1]+" / "+classeur;
     var color = "black"
     if (val[1] > 0) {
         color = "darkorange";
