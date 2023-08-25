@@ -564,8 +564,8 @@ function confirmModal(plus) {
         x_action_deleteFiche(tabObj['obj_id'], display_fin_delete);
     } else {
         var tabAch = recup_formulaire(document.modalForm, 'ach');
-        tabAch['ach_nom'] = document.modalForm.elements.namedItem('ach_nom_' + idRamdom).value;
-        delete tabAch['ach_nom_' + idRamdom];
+        //tabAch['ach_nom'] = document.modalForm.elements.namedItem('ach_nom_' + idRamdom).value;
+        //delete tabAch['ach_nom_' + idRamdom];
         for (i in tabAch) {
             newKey = i.replace("ach_", "cli_");
             tabAch[newKey] = tabAch[i];
