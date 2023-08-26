@@ -1,0 +1,176 @@
+[21-Aug-2023 17:20:54 UTC] html2pdf 111
+[21-Aug-2023 17:20:54 UTC] html2pdf 111
+[21-Aug-2023 17:21:10 UTC] html2pdf 111
+[21-Aug-2023 17:21:10 UTC] html2pdf 111
+[21-Aug-2023 17:21:48 UTC] action_makeData
+[21-Aug-2023 17:21:48 UTC] 
+[21-Aug-2023 17:21:48 UTC] html2pdf 111
+[21-Aug-2023 17:21:48 UTC] html2pdf 111
+[21-Aug-2023 17:22:30 UTC] html2pdf 111
+[21-Aug-2023 17:22:30 UTC] html2pdf 111
+[21-Aug-2023 17:22:37 UTC] html2pdf 111
+[21-Aug-2023 17:22:37 UTC] html2pdf 111
+[21-Aug-2023 17:23:07 UTC] delete from bav_objet  where obj_id = '4330'
+[21-Aug-2023 17:24:41 UTC] html2pdf 111
+[21-Aug-2023 17:24:41 UTC] html2pdf 111
+[21-Aug-2023 17:25:05 UTC] action_makeData
+[21-Aug-2023 17:25:05 UTC] 
+[21-Aug-2023 17:25:05 UTC] html2pdf 111
+[21-Aug-2023 17:25:05 UTC] html2pdf 111
+[21-Aug-2023 19:01:01 UTC] html2pdf 111
+[21-Aug-2023 19:01:01 UTC] html2pdf 111
+[22-Aug-2023 15:36:12 UTC] cli_id = 29
+[22-Aug-2023 15:36:12 UTC] action_makeData
+[22-Aug-2023 15:36:12 UTC] 4331
+[22-Aug-2023 15:36:12 UTC] 0.00
+[22-Aug-2023 15:36:12 UTC] 0.00
+[22-Aug-2023 15:36:13 UTC] html2pdf 111
+[22-Aug-2023 15:36:13 UTC] html2pdf 111
+[22-Aug-2023 15:39:12 UTC] action_makeData
+[22-Aug-2023 15:39:12 UTC] 4331
+[22-Aug-2023 15:39:12 UTC] 0.00
+[22-Aug-2023 15:39:12 UTC] 0.00
+[22-Aug-2023 15:39:12 UTC] html2pdf 111
+[22-Aug-2023 15:39:12 UTC] html2pdf 111
+[22-Aug-2023 15:40:07 UTC] action_makeData
+[22-Aug-2023 15:40:07 UTC] 4331
+[22-Aug-2023 15:40:07 UTC] 0.00
+[22-Aug-2023 15:40:07 UTC] 0.00
+[22-Aug-2023 15:40:07 UTC] html2pdf 111
+[22-Aug-2023 15:40:07 UTC] html2pdf 111
+[22-Aug-2023 15:42:12 UTC] action_makeData
+[22-Aug-2023 15:42:12 UTC] 4331
+[22-Aug-2023 15:42:12 UTC] 0.00
+[22-Aug-2023 15:42:12 UTC] 0.00
+[22-Aug-2023 15:42:12 UTC] html2pdf 111
+[22-Aug-2023 15:42:12 UTC] html2pdf 111
+[22-Aug-2023 15:42:24 UTC] action_makeData
+[22-Aug-2023 15:42:24 UTC] 4331
+[22-Aug-2023 15:42:24 UTC] 0.00
+[22-Aug-2023 15:42:24 UTC] 0.00
+[22-Aug-2023 15:42:24 UTC] html2pdf 111
+[22-Aug-2023 15:42:24 UTC] html2pdf 111
+[22-Aug-2023 15:43:49 UTC] action_makeData
+[22-Aug-2023 15:43:49 UTC] 4331
+[22-Aug-2023 15:43:49 UTC] 0.00
+[22-Aug-2023 15:43:49 UTC] 0.00
+[22-Aug-2023 15:43:49 UTC] html2pdf 111
+[22-Aug-2023 15:43:49 UTC] html2pdf 111
+[22-Aug-2023 15:47:58 UTC] action_makeData
+[22-Aug-2023 15:47:58 UTC] 4331
+[22-Aug-2023 15:47:58 UTC] 0.00
+[22-Aug-2023 15:47:58 UTC] 0.00
+[22-Aug-2023 15:47:58 UTC] html2pdf 111
+[22-Aug-2023 15:47:58 UTC] html2pdf 111
+[22-Aug-2023 15:48:26 UTC] action_makeData
+[22-Aug-2023 15:48:26 UTC] 4331
+[22-Aug-2023 15:48:26 UTC] 0.00
+[22-Aug-2023 15:48:26 UTC] 0.00
+[22-Aug-2023 15:48:26 UTC] html2pdf 111
+[22-Aug-2023 15:48:26 UTC] html2pdf 111
+[22-Aug-2023 15:49:41 UTC] action_makeData
+[22-Aug-2023 15:49:41 UTC] 4331
+[22-Aug-2023 15:49:41 UTC] 1020.00
+[22-Aug-2023 15:49:41 UTC] 1020.00
+[22-Aug-2023 15:49:41 UTC] html2pdf 111
+[22-Aug-2023 15:49:41 UTC] html2pdf 111
+[22-Aug-2023 15:50:30 UTC] cli_id = 29
+[22-Aug-2023 15:50:30 UTC] action_makeData
+[22-Aug-2023 15:50:30 UTC] 4332
+[22-Aug-2023 15:50:30 UTC] 0.00
+[22-Aug-2023 15:50:30 UTC] 0.00
+[22-Aug-2023 15:50:30 UTC] html2pdf 111
+[22-Aug-2023 15:50:30 UTC] html2pdf 111
+[22-Aug-2023 15:50:52 UTC] delete from bav_objet  where obj_id = '4332'
+[23-Aug-2023 12:12:05 UTC] html2pdf 111
+[23-Aug-2023 12:12:06 UTC] html2pdf 111
+[23-Aug-2023 12:29:14 UTC] 4331
+[23-Aug-2023 12:29:14 UTC] [action_makeA4Etiquettes] test 1
+[23-Aug-2023 17:29:36 UTC] html2pdf 111
+[23-Aug-2023 17:29:36 UTC] html2pdf 111
+[23-Aug-2023 17:41:12 UTC] cli_id = 29
+[23-Aug-2023 17:41:12 UTC] action_makeData
+[23-Aug-2023 17:41:12 UTC] 4334
+[23-Aug-2023 17:41:12 UTC] 0.00
+[23-Aug-2023 17:41:12 UTC] 0.00
+[23-Aug-2023 17:41:12 UTC] html2pdf 111
+[23-Aug-2023 17:41:12 UTC] html2pdf 111
+[26-Aug-2023 08:36:40 UTC] <html>
+    <head>
+            <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+            <title>BAV #1001, votre vélo est vendu .</title>
+            <meta name="generator" content="LibreOffice 6.0.5.2 (Linux)"/>
+            <style type="text/css">
+                @page { margin-right: 2.5cm; margin-top: 0.64cm; margin-bottom: 0.95cm }
+                body {font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;}
+            </style>
+    </head>
+<body><p>Bonjour, Marc Garcès</p>
+
+<p>Votre v&eacute;lo N&deg; <strong>1001</strong> est vendu au prix de 1020.00 &euro;.</p>
+
+<p>Vous pouvez d&egrave;s a pr&eacute;sent venir chercher votre ch&egrave;que ou espèce, sans oublier :&nbsp;</p>
+
+<ul>
+	<li>Une pi&egrave;ce d&#39;identit&eacute;</li>
+	<li>La&nbsp;commission&nbsp;de <strong>80</strong>&euro;&nbsp;<small>(sous réserve de confirmation lors du retrait)</small>, en chèque, espèce ou par CB.</li>
+	<li>Votre coupon de d&eacute;p&ocirc;t numéroté (le ticket bleu).</li>
+</ul>
+<br/>
+<p>Merci pour votre confiance.
+<p></p>
+<p><img src="https://bourseaux1000velos.avs44.com//Images/BAV_2020.png" height=20px /> L'équipe de la Bourse Aux Vélos</p> 
+<p>Tel : 06 46 58 06 61</p>
+<A HREF="https://bourseaux1000velos.avs44.com/">https://bourseaux1000velos.avs44.com/</A>&nbsp;
+<A HREF="https://www.instagram.com/bourse.aux.1000.velos/"><img src="https://cdn.icon-icons.com/icons2/2657/PNG/256/instagram_icon_161086.png" width="30pt" ></A>
+<A HREF="https://www.facebook.com/avs44/"><img src="https://cdn.icon-icons.com/icons2/642/PNG/512/facebook_icon-icons.com_59205.png" width="30pt" ></A>
+</body>
+</html>
+[26-Aug-2023 08:42:57 UTC] <html>
+    <head>
+            <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+            <title>BAV #1001, votre vélo est vendu .</title>
+            <meta name="generator" content="LibreOffice 6.0.5.2 (Linux)"/>
+            <style type="text/css">
+                @page { margin-right: 2.5cm; margin-top: 0.64cm; margin-bottom: 0.95cm }
+                body {font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;}
+            </style>
+    </head>
+<body><p>Bonjour, Marc Garcès</p>
+
+<p>Votre v&eacute;lo N&deg; <strong>1001</strong> est vendu au prix de 1020.00 &euro;.</p>
+
+<p>Vous pouvez d&egrave;s a pr&eacute;sent venir chercher votre ch&egrave;que ou espèce, sans oublier :&nbsp;</p>
+
+<ul>
+	<li>Une pi&egrave;ce d&#39;identit&eacute;</li>
+	<li>La&nbsp;commission&nbsp;de <strong>80</strong>&euro;&nbsp;<small>(sous réserve de confirmation lors du retrait)</small>, en chèque, espèce ou par CB.</li>
+	<li>Votre coupon de d&eacute;p&ocirc;t numéroté (le ticket bleu).</li>
+</ul>
+<br/>
+<p>Merci pour votre confiance.
+<p></p>
+<p><img src="https://bourseaux1000velos.avs44.com//Images/BAV_2020.png" height=20px /> L'équipe de la Bourse Aux Vélos</p> 
+<p>Tel : 06 46 58 06 61</p>
+<A HREF="https://bourseaux1000velos.avs44.com/">https://bourseaux1000velos.avs44.com/</A>&nbsp;
+<A HREF="https://www.instagram.com/bourse.aux.1000.velos/"><img src="https://cdn.icon-icons.com/icons2/2657/PNG/256/instagram_icon_161086.png" width="30pt" ></A>
+<A HREF="https://www.facebook.com/avs44/"><img src="https://cdn.icon-icons.com/icons2/642/PNG/512/facebook_icon-icons.com_59205.png" width="30pt" ></A>
+</body>
+</html>
+[26-Aug-2023 08:42:57 UTC] Mail envoyé  BAV #1001, votre vélo est vendu .: marc.garces@free.fr
+[26-Aug-2023 08:44:51 UTC] Mail envoyé  [BAV #1001, votre vélo est vendu .] à marc.garces@free.fr
+[26-Aug-2023 08:46:03 UTC] Mail envoyé  [Pré enregistrement à la 19eme Bourse aux 1000 Velos] à braillou@gmail.com
+[26-Aug-2023 08:47:39 UTC] Mail envoyé  [BAV #1001, votre vélo est vendu .] à marc.garces@free.fr
+[26-Aug-2023 08:49:31 UTC] Mail envoyé  [BAV #2, votre vélo est vendu .] à braillou@gmail.com
+[26-Aug-2023 08:51:31 UTC] Mail envoyé  [BAV #1, votre vélo est vendu .] à romeal.garces@free.fr
+[26-Aug-2023 08:57:05 UTC] Mail envoyé  [Pré enregistrement à la 19eme Bourse aux 1000 Velos] à romael.garces@free.fr
+[26-Aug-2023 09:08:25 UTC] Mail envoyé  [Code d'accès à la 19eme Bourse aux 1000 Velos] à braillou@gmail.com
+[26-Aug-2023 09:09:03 UTC] Mail envoyé  [Code d'accès à la 19eme Bourse aux 1000 Velos] à romael.garces@free.fr
+[26-Aug-2023 09:10:40 UTC] Mail envoyé  [Code d'accès à la 19eme Bourse aux 1000 Velos] à braillou@gmail.com
+[26-Aug-2023 09:10:43 UTC] Mail envoyé  [Code d'accès à la 19eme Bourse aux 1000 Velos] à braillou@gmail.com
+[26-Aug-2023 09:11:01 UTC] Mail envoyé  [Code d'accès à la 19eme Bourse aux 1000 Velos] à braillou@gmail.com
+[26-Aug-2023 09:11:09 UTC] Mail envoyé  [Code d'accès à la 19eme Bourse aux 1000 Velos] à braillou@gmail.com
+[26-Aug-2023 09:12:12 UTC] Mail envoyé  [Code d'accès à la 19eme Bourse aux 1000 Velos] à romael.garces@free.fr
+[26-Aug-2023 09:12:49 UTC] Mail envoyé  [BAV #1, votre vélo est vendu .] à romeal.garces@free.fr
+[26-Aug-2023 09:13:23 UTC] Mail envoyé  [BAV #2, votre vélo est vendu .] à braillou@gmail.com
+[26-Aug-2023 09:39:25 UTC] Mail envoyé  [Bourse aux 1000 vélos : Votre vélo [1] est vendu .] à marc.garces@free.fr

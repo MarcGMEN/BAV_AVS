@@ -13,11 +13,20 @@
 
 require_once 'config.ini';
 require_once 'Commun/commun_functions.php';
+require_once 'Commun/mail.php';
 
 //QRcode::png('PHP QR Code :)');
-// echo "test.php";
+ echo "<h1>test.php</h1>";
+
+echo "envoi de mail a marc.garces@free.fr => ";
 // echo sendMail("test PJ", "braillou@gmail.com", "piece jointe", "/BAV/out/PDF/Fiche_710.pdf");
-//echo sendMail('test ', 'braillou@gmmmmail.com', 'sans piece jointe', null);
+echo sendMail('test ', 'marc.garces@free.fr', 'sans piece jointe', null);
+echo "\n";
+
+// echo sendMail('test ', 'braillou@gmail.com', 'sans piece jointe', null);
+// echo "\n";
+
+
 //print_r($mysqli);
 //echo substr(hash_hmac('md5', 700, 'avs442019'), 0, 5);;
 
@@ -39,23 +48,23 @@ require_once 'Commun/commun_functions.php';
 // }
 // print_r($tabFunction);
 
-$filename="https://bourseaux1000velos.avs44.com/html/Bav.jpg";
-print_r(getimagesize($filename));
-print_r(fopen($filename,"rb"));
+// $filename="https://bourseaux1000velos.avs44.com/html/Bav.jpg";
+// print_r(getimagesize($filename));
+// print_r(fopen($filename,"rb"));
 
-$filename="https://bourseaux1000velos.avs44.com/html/Bav.jpg";
-print_r(getimagesize($filename));
-print_r(fopen($filename,"rb"));
+// $filename="https://bourseaux1000velos.avs44.com/html/Bav.jpg";
+// print_r(getimagesize($filename));
+// print_r(fopen($filename,"rb"));
 
 
 //echo password_hash("BAV2019", PASSWORD_DEFAULT);
 // echo "412 2021 random => <br/>".hash_hmac('md5', "412"."2021".$random, 'avs44'.$_COOKIE['NUMERO_BAV']);
 // echo "<br/>";
 
-$pass="BAV1000_2023";
-echo "$pass => ".password_hash($pass, PASSWORD_DEFAULT);
-echo "<br/>";
-echo "PASS : ".password_verify($pass, $GLOBALS['PASS_ADMIN']);
+// $pass="BAV1000_2023";
+// echo "$pass => ".password_hash($pass, PASSWORD_DEFAULT);
+// echo "<br/>";
+// echo "PASS : ".password_verify($pass, $GLOBALS['PASS_ADMIN']);
 
 // $address   = 'Tempe AZ';
 // $address   = urlencode($address);

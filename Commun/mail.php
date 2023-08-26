@@ -61,7 +61,7 @@ function sendMail($titre, $toMail, $messageMail, $pieceJointe = null, $bcc=false
         $headers .= "Content-type: text/html; charset=utf-8\r\n";
     }
     $headers .= "X-Mailer: PHP/".phpversion()."\r\n";
-    //$headers .= "X-Priority: 1 \n";
+    // $headers .= "X-Priority: 1 \n";
     /* D'autres en-têtes */
     $headers .= "From: <bourse1000velos@avs44.com>\r\n";
     $headers .= "Reply-To: <bourse1000velos@avs44.com>\r\n";
@@ -95,6 +95,7 @@ function sendMail($titre, $toMail, $messageMail, $pieceJointe = null, $bcc=false
             file_put_contents(dirname(__FILE__)."/../mail.html", stripslashes($messageMail));
             error_log("Pb sur mail pour : ".$toMail);
         } else {
+            error_log("Mail envoyé  [$titre] à ".$toMail);
             $erreur=1;
         }
         return $erreur;

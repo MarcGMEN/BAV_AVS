@@ -1213,13 +1213,11 @@ function action_vendFiche($data)
             $tab['cli_com'] = getCommission($theFiche);
 
             // TODO : envoi du mail
-            $titreMel = "BAV #" . $theFiche['obj_numero'] . ", votre vélo est vendu .";
+            $titreMel = "Bourse aux 1000 vélos : Votre vélo [" . $theFiche['obj_numero'] . "] est vendu .";
 
             // creation du message avec le template
             // html/mel_vendu.html
             $message = makeMessage($titreMel, array_merge($theFiche, $cliVend, $tab), "mel_vendu.html");
-
-            error_log($message);
             // envoi du mel
             sendMail($titreMel, $cliVend['cli_emel'], $message);
         }
