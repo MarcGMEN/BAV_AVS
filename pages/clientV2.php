@@ -10,7 +10,7 @@
 
 <script src="JS/clientV2.js" type="text/javascript"></script>
 
-<h2> Gérez votre dépôt</h2>
+<h2> Votre compte</h2>
 <!-- <div id=lesFiches style="visibility: hidden;" />-->
 <div class="alert alert-info">
 	<fieldset class=client>

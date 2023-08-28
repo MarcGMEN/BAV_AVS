@@ -4,7 +4,6 @@
 </script>
 <script src="JS/pre_depot.js" type="text/javascript"></script>
 
-<? echo $GET_modePage;?>
 <? if ($infAppli['CLIENT'] || $GET_modePage=="createTEST") { ?>
 	<div class='alert alert-info' id="informations">
 		<p>Avant de venir déposer votre vélo les à La Soucoupe, nous vous conseillons de remplir la fiche dépôt.</p>
@@ -12,9 +11,9 @@
 		<ul>
 			<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Il n'est pas nécéssaire de connaitre le prix de vente, <i>vous pourrez le renseigner le jour du dépôt.</i></li>
 			<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vous accèderez au dépôt le vendredi à la Soucoupe via des files prioritaires.</li>
-			<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vous pouvez également modifier votre dépôt.</li>
-			<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Vous recevez un mel directement lorsque votre vélo est vendu.</b></li>
-			<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cette fiche dépôt devra être imprimée par vous pour vous rendre à la Bourse, une par dépôt.</li>
+			<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vous pouvez également modifier votre compte.</li>
+			<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Vous recevez un mail directement lorsque votre vélo est vendu.</b></li>
+			<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cette fiche dépôt devra être <b>imprimée par vous</b> pour vous rendre à la Bourse, une par dépôt.</li>
 		</ul>
 		<p>- Soit en téléchargeant, puis en imprimant la fiche dépôt à remplir que vous trouverez ici
 			<A href="downloads/Fiche_BAV_2023.pdf" target="_blank"> <img class="link url" src="Images/pdf.png" height='30px' alt="téléchargement de la fiche" title="téléchargement de la fiche"></A>
@@ -24,10 +23,10 @@
 			<a href="mailto:bourse1000velos@avs44.com">bourse1000velos@avs44.com</a>
 		</p>
 		<h2 class='alert alert-warning'> Attention , nouvelle Procédure </h2>
-		<h3 class='alert alert-warning'> Vous devez d'abord vous pré-enregistrer avec votre e-mail, puis vous recevrez un mail avec votre code d'accès. <br/>Ensuite dans le partie connexion saisisez votre e-mail et le code d'accès pour accèder à la gestion de votre dépôt. </h3>
+		<h3 class='alert alert-warning'> Vous devez d'abord vous pré-enregistrer avec votre e-mail, puis vous recevrez un mail avec votre code d'accès. <br/>Ensuite dans le partie connexion saisisez votre e-mail et le code d'accès pour accèder à la gestion de votre compte. </h3>
 	</div>
 <? } else { ?>
-	<h3> Suivi de votre dépôt</h3>
+	<h3> Accès à votre compte </h3>
 <? } ?>
 <div class="row" id="connexions">
 	<div class="col-sm-12 col-md-12 col-xs-12 ">
@@ -81,7 +80,7 @@
 	<form name="formPreSaisie" method="POST" onsubmit="return submitPreSaisie(this)">
 		<fieldset class=fiche>
 			<legend class="titreFiche" id='legendVendeur'>
-				Vos coordonnées pour vous enregister a la <?= $infAppli['titre'] ?>
+				Vos coordonnées pour vous enregister à la <?= $infAppli['titre'] ?>
 			</legend>
 			<div class="row">
 				<div class="col-sm-6 col-md-6 col-xs-12">

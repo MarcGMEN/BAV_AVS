@@ -81,7 +81,7 @@ function submitPreSaisie(laForm) {
 }
 
 function display_preEnregistrement(val) {
-    alertModalInfo("Votre code vous a étés envoyé par mail " + document.firstAccesForm.new_email_depot.value +  
+t    alertModalInfo("Votre code vous a étés envoyé par mail " + document.firstAccesForm.new_email_depot.value +  
     "<br/><i>En cas de non réception de ce mail merci de nous contacter  : bourse1000velos@avs44.com</i>");
     fermer_PreSaisie();
 }
