@@ -63,7 +63,7 @@
 					<p class="link" onclick='renvoiCode(document.accesForm)'>Code d'accès oublié</p>
 				</div>
 				<div class="col-sm-5 col-md-5 col-xs-12">
-					Code d'accès<br/><input type='password' name='pass_depot' required placeholder="Le code d'accès" />
+					Code d'accès<br/><input type='password'  autocomplete='current-password' name='pass_depot' required placeholder="Le code d'accès" />
 					<p><small>(Reçu par mail lors de l'enregistrement)</small></p>
 				</div>
 				<div class="col-sm-1 col-md-1 col-xs-12">
@@ -73,7 +73,7 @@
 			</form>
 		</div>
 	</div>
-</div>
+	</div>
 
 <!-- ###################################################################################### -->
 <div class="row" id="input_first_connexion" style="display:none;">
