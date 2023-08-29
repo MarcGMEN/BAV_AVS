@@ -412,19 +412,19 @@ div.SSMENU {
     .menuNavigation.responsive {
         position: absolute;
         display: block;
-        background-color: black;
+        background-color: white;
         width: 90%;
     }
     .navigation {
         font-family: Verdana, Arial, Helvetica, sans-serif;
-        color: white;
+        color: black;
         display: block;
         font-size: 1.8em;
         margin: 5pt;
-        background-color: black;
+        background-color: white;
     }
     .navigationSel {
-        color: lightblue;
+        color: darkcyan;
         font-weight: bold;
         font-style: italic;
     }
