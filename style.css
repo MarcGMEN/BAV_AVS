@@ -370,6 +370,7 @@ div.SSMENU {
 .menuMobile {
     display: none;
     cursor: pointer;
+    text-align: center;
 }
 
 .menuNavigation {
@@ -388,7 +389,7 @@ div.SSMENU {
     width: 90%;
 }
 
-#loupe,
+#loupe, 
 #inputSearch {
     font-size: 1.2em;
 }
