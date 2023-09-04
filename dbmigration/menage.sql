@@ -26,6 +26,9 @@ INSERT INTO bav_client (cli_id, cli_id_modif, cli_nom, cli_emel, cli_adresse, cl
 INSERT INTO bav_client (cli_id, cli_id_modif, cli_nom, cli_emel, cli_adresse, cli_adresse1, cli_code_postal, cli_ville, cli_telephone, cli_telephone_bis, cli_taux_com, cli_prix_depot) VALUES(6, 'a1ca58ffe9a3f0118dc85ec596229079', 'Acheteur 2022', 'bourseauxvelosA2022@avs.com', '', '', '', '', '', '', 10.00, 3.00);
 -- => OK le 24/11/2022 
 
+INSERT INTO bav_client (cli_id, cli_id_modif, cli_nom, cli_emel, cli_adresse, cli_adresse1, cli_code_postal, cli_ville, cli_telephone, cli_telephone_bis, cli_taux_com, cli_prix_depot) VALUES(5, '1d9dc5d01174efa148031b68a38761ab', 'Vendeur 2023', 'bourseauxvelosV2023@avs.com', '', '', '', '', '', '', 10.00, 3.00);
+INSERT INTO bav_client (cli_id, cli_id_modif, cli_nom, cli_emel, cli_adresse, cli_adresse1, cli_code_postal, cli_ville, cli_telephone, cli_telephone_bis, cli_taux_com, cli_prix_depot) VALUES(6, 'a1ca58ffe9a3f0117dc85ec59622907b', 'Acheteur 2023', 'bourseauxvelosA2023@avs.com', '', '', '', '', '', '', 10.00, 3.00);
+
 -- purge des clients 2019 : OK le 24/11/2022
 update bav_objet 
 set obj_id_vendeur = 1
@@ -47,11 +50,21 @@ where obj_numero_bav = '2021'
 and (obj_id_acheteur is not null or obj_id_acheteur = 0 or obj_etat in ('PAYE','VENDU') ) ;
 
 -- purge des clients 2022 : OK le 
-update bav_objet 
-set obj_id_acheteur = 5 
-where obj_numero_bav = '2022' 
-and (obj_id_acheteur is not null or obj_id_acheteur = 0 or obj_etat in ('PAYE','VENDU') ) ;
+select  count(*) from bav_objet 
+where obj_numero_bav = '2022';
+--1293
+
+select  count(*) from bav_objet 
+where obj_numero_bav = '2022'
+and (obj_id_acheteur is not null or obj_id_acheteur != 0) and obj_etat in ('PAYE','VENDU')  ;
+-- 793
 
 update bav_objet 
 set obj_id_vendeur = 6
+where obj_numero_bav = '2022';
+
+update bav_objet 
+set obj_id_acheteur = 5 
 where obj_numero_bav = '2022' 
+and (obj_id_acheteur is not null or obj_id_acheteur != 0) and obj_etat in ('PAYE','VENDU')  ;
+
