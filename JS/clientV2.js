@@ -124,8 +124,8 @@ var tabSel = new Array();
 function display_fiches_depot(val) {
 
     var total = display_fiches(val, 'fiches');
-
-    if (total > 0) {
+    
+    if (total == 1) {
         getElement('aideImpression').style.display = 'block';
     }
 
@@ -147,6 +147,7 @@ function display_fiches_achat(val) {
 function display_fiches(val, idElement) {
     // console.log(val);
     var total = 0;
+    var aimprimer = 0;
     var repr = "<table width='100%' spacing=0>";
     for (index in val) {
         if (!isNaN(index)) {
@@ -202,6 +203,7 @@ function display_fiches(val, idElement) {
                     repr += "<span title='Modifier'  onclick='modifierFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link' style='font-size:1.5em'>&nbsp;<i class='link fas fa-edit'></i></span > ";
                     repr += "<span title='Supprimer' onclick='supprimerFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link' style='font-size:1.5em'>&nbsp;❌</span>";
                     repr += "<span title='Imprimer' onclick='imprimeFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link' style='font-size:1.5em'>&nbsp;📇</span>";
+                    aimprimer = 1;
                 }
                 repr += "</td>";
                 repr += "</tr>";
@@ -211,7 +213,7 @@ function display_fiches(val, idElement) {
     }
     repr += "</table>";
     getElement(idElement).innerHTML = repr;
-    return total;
+    return aimprimer;
 }
 
 /** impression de la fiche */

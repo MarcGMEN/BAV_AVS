@@ -126,6 +126,9 @@
 </table>
 
 <div class="row">
+	<div class="col-sm-12 col-md-12 col-xs-12 alert alert-info maskMobile" id='aideImpression' style="display:none;"> 
+		<h5><b>⚠ N'oubliez pas d'imprimer votre fiche de dépôt avant de venir en cliquant sur l'icone :📇</b></h5>
+	</div>
 	<div class="col-sm-12 col-md-12 col-xs-12">
 		<div class="col-sm-3 col-md-3 col-xs-4">
 			<h3>Vos dépôts</h3>
@@ -134,10 +137,10 @@
 			<? if ($infAppli['CLIENT'] == 1 || $infAppli['ADMIN'] == 1 || $GET_modePage == "createTEST") { ?>
 				<h3><input type=button value="Ajouter un dépôt ➕" onclick="addDepot(document.clientForm.cli_id_modif.value)" /></h3>
 			<? } ?>
-		</div>
+		<!-- </div>
 		<div class="col-sm-6 col-md-6 col-xs-0 alert alert-info maskMobile" id='aideImpression' style="display:none;"> 
 			<h5><b>⚠ N'oubliez pas d'imprimer votre fiche de dépôt avant de venir en cliquant sur l'icone :📇</b></h5>
-		</div>
+		</div> -->
 	</div>
 </div>
 <div id=fiches></div>
