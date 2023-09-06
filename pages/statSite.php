@@ -564,6 +564,7 @@
 
 	function unloadPage() {}
 </script>
+<h3 class="titreFiche">Stat d'accès de la BAV <?= $infAppli['numero_bav'] ?></h3>
 <select id="annee_stat" onchange="changeNumeroBAV(this.value)"></select>
 
 <div id="statresult">

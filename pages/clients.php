@@ -1,9 +1,10 @@
 <script src="JS/clients.js" type="text/javascript"></script>
 
-<h2> Recherche des clients  <span id='totalFull'></span></h2>
-<h3>Nb : <span id=total></span>
+
+<h3 class="titreFiche">Recherche des clients  <span id='totalFull'></span></h3>
+<h4>Nb : <span id=total></span>
 	(Vendeurs : <span id=totalVendeur></span>; Acheteurs : <span id=totalAcheteur></span>;
-	Vendeurs-Acheteurs : <span id=totalVendeurEtAcheteur></span>; En attente : <span id=totalAbsent></span>) </h3>
+	Vendeurs-Acheteurs : <span id=totalVendeurEtAcheteur></span>; En attente : <span id=totalAbsent></span>) </h4>
 <table width="100%">
 	<tr>
 		<td class="tittab" width=35% colspan="2">

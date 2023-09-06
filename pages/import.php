@@ -2,7 +2,7 @@
 	var cli_id = '<?= $GET_id ?>';
 </script>
 <script src="JS/import.js" type="text/javascript"></script>
-<h1>Import gros client</h1>
+<h3 class="titreFiche">Import gros client</h3>
 
 <form name="clientForm" method="POST" onsubmit="return submitForm()" action="">
 	<input type=hidden name="cli_id" />

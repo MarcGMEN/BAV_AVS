@@ -38,7 +38,8 @@ $tabInfo = [
 	'Page de l\'organisateur' => 'bav_orga',
 ];
 ?>
-<h1>Gestion des éditions</h1>
+
+<h3 class="titreFiche">Gestion des éditions</h3>
 <table width="100%" id="tableHTML" style="padding:2 2 2 2 ;">
 	<? foreach ($tabInfo as $title => $idText) { ?>
 		<tr class="tabl0" style="border-bottom:1px solid grey">

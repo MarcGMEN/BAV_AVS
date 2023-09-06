@@ -736,6 +736,11 @@ span.ERROR {
     display: table-cell;
 }
 
+.onMobile {
+    display: none;
+}
+
+
 .maskMobileBlock {
     display: inline-block;
 }
@@ -793,6 +798,9 @@ img.logo {
     .titrow {
         font-size: 0.6em;
     }
+    h2 {
+        font-size: 1.3em !important;
+    }
     h3 {
         font-size: 1.2em !important;
     }
@@ -809,6 +817,10 @@ img.logo {
     .maskMobileBlock {
         display: none;
     }
+    .onMobile {
+        display: table-cell;
+    }
+    
     .tabl1,
     .tabl0,
     tr.tabl0 {
@@ -837,7 +849,7 @@ img.logo {
 
 .BH_MODAL,
 .BH_MODAL_ERR {
-    font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
     color: black;
     text-align: center;
     font-weight: bold;

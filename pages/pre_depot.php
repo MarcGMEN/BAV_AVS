@@ -4,9 +4,12 @@
 </script>
 <script src="JS/pre_depot.js" type="text/javascript"></script>
 
+<h3 class="titreFiche">Pré-dépôt en ligne</h3>
+
 <? if ($infAppli['CLIENT'] || $GET_modePage=="createTEST") { ?>
 	<div class='alert alert-info' id="informations">
 		<p>Avant de venir déposer votre vélo les à La Soucoupe, nous vous conseillons de remplir la fiche dépôt.</p>
+		<div class="maskmobile">
 		<p>- Soit en vous identfiant avec le formulaire ci-dessous et enusite saisir vos pré-dépôts directement sur le site de la Bourse.</p>
 		<ul>
 			<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Il n'est pas nécéssaire de connaitre le prix de vente, <i>vous pourrez le renseigner le jour du dépôt.</i></li>
@@ -19,6 +22,7 @@
 			<A href="downloads/Fiche_BAV_2023.pdf" target="_blank"> <img class="link url" src="Images/pdf.png" height='30px' alt="téléchargement de la fiche" title="téléchargement de la fiche"></A>
 			<small><i>Attention aux droits d'ouvertures des popUp, en fonction de votre navigateur.</i></small>
 		</p>
+</div>
 		<p>- Si vous souhaitez déposer plus de 15 vélos, contactez nous pour mettre en place un procédure spéciale.
 			<a href="mailto:bourse1000velos@avs44.com">bourse1000velos@avs44.com</a>
 		</p>
@@ -48,8 +52,8 @@
 					</div>
 				</form>
 			</div>
-			<div class="col-sm-1 col-md-1 col-xs-12 alert alert-warning" style='text-align: center;'>
-				OU
+			<div class="col-sm-1 col-md-1 col-xs-12 alert alert-warning maskmobile" style='text-align: center;'>
+				==>
 			</div>
 		<? } ?>
 		<div class="col-sm-6 col-md-6 col-xs-12 alert alert-info" id='div_connexion'>

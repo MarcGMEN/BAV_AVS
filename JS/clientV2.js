@@ -175,7 +175,7 @@ function display_fiches(val, idElement) {
                     repr += val[index]['obj_prix_vente'];
                 }
                 repr += "</td>";
-                repr += "<td width=15% >";
+                repr += "<td width=12% >";
                 if (idElement == "fiches") {
                     switch (val[index]['obj_etat']) {
                         case "CONFIRME":
@@ -198,10 +198,10 @@ function display_fiches(val, idElement) {
 
                 }
                 repr += "</td>";
-                repr += "<td width=8% style='text-align:center' >";
+                repr += "<td style='text-align:center' >";
                 if (val[index]['obj_etat'] == 'CONFIRME' && idElement == "fiches") {
-                    repr += "<span title='Modifier'  onclick='modifierFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link' style='font-size:1.5em'>&nbsp;<i class='link fas fa-edit'></i></span > ";
-                    repr += "<span title='Supprimer' onclick='supprimerFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link' style='font-size:1.5em'>&nbsp;❌</span>";
+                    repr += "<span title='Modifier'  onclick='modifierFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link' style='font-size:1.5em'><i class='link fas fa-edit'></i>&nbsp;</span > ";
+                    repr += "<span title='Supprimer' onclick='supprimerFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link' style='font-size:1.5em'>&nbsp;❌&nbsp;</span>";
                     repr += "<span title='Imprimer' onclick='imprimeFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link' style='font-size:1.5em'>&nbsp;📇</span>";
                     aimprimer = 1;
                 }

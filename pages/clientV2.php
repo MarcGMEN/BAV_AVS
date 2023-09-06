@@ -10,7 +10,7 @@
 
 <script src="JS/clientV2.js" type="text/javascript"></script>
 
-<h2> Votre compte</h2>
+<h3 class="titreFiche">Votre compte</h3>
 <!-- <div id=lesFiches style="visibility: hidden;" />-->
 <div class="alert alert-info">
 	<fieldset class=client>
@@ -19,15 +19,15 @@
 			<input type=hidden name=cli_id />
 			<input type=hidden name=cli_id_modif />
 			<div class="row">
-				<div class="col-sm-6 col-md-6 col-xs-12">
-					<span class="titrow  col-md-3 col-sm-3 col-xs-3">Emel</span>
-					<span class="tabInput col-md-9 col-sm-9 col-xs-9">
+				<div class="col-sm-6 col-md-6 col-xs-6">
+					<span class="titrow col-md-3 col-sm-3 col-xs-6">Emel</span>
+					<span class="tabInput col-md-9 col-sm-12 col-xs-12">
 						<span id='cli_emel'></span>
 					</span>
 				</div>
-				<div class="col-sm-6 col-md-6 col-xs-12">
-					<span class="titrow  col-md-3 col-sm-3 col-xs-3">Nom/prénom <span title="Obligatoire">*</span></span>
-					<span class="tabInput col-md-9 col-sm-9 col-xs-9">
+				<div class="col-sm-6 col-md-6 col-xs-6">
+					<span class="titrow  col-md-3 col-sm-3 col-xs-6">Nom/prénom <span title="Obligatoire">*</span></span>
+					<span class="tabInput col-md-9 col-sm-9 col-xs-12">
 						<? if ($GET_modePage != 'modif') { ?>
 							<span id='cli_nom'></span>
 						<? } else { ?>
@@ -35,9 +35,9 @@
 						<? } ?>
 					</span>
 				</div>
-				<div class="col-sm-6 col-md-6 col-xs-12">
-					<span class="titrow  col-md-3 col-sm-3 col-xs-3">Adresse</span>
-					<span class="tabInput col-md-9 col-sm-9 col-xs-9">
+				<div class="col-sm-6 col-md-6 col-xs-6">
+					<span class="titrow  col-md-3 col-sm-3 col-xs-6">Adresse</span>
+					<span class="tabInput col-md-9 col-sm-9 col-xs-12">
 						<? if ($GET_modePage != 'modif') { ?>
 							<div id='cli_adresse'></div>
 							<div id='cli_adresse1'></div>
@@ -57,9 +57,9 @@
 				<div id="map">&nbsp;
 				</div>
 			</div>-->
-				<div class="col-sm-6 col-md-6 col-xs-12">
-					<span class="titrow  col-md-3 col-sm-3 col-xs-3">Téléphone</span>
-					<span class="tabInput col-md-9 col-sm-9 col-xs-9">
+				<div class="col-sm-6 col-md-6 col-xs-6">
+					<span class="titrow  col-md-3 col-sm-3 col-xs-6">Téléphone</span>
+					<span class="tabInput col-md-9 col-sm-9 col-xs-12">
 						<? if ($GET_modePage != 'modif') { ?>
 							<div id='cli_telephone'></div>
 							<div id='cli_telephone_bis'></div>
@@ -74,26 +74,31 @@
 			<br />
 			<? if ($GET_modePage == 'modif') { ?>
 				<div class="row fiche">
-					<div class="col-sm-3 col-md-3 col-xs-3 btnAction" id="tdBtnAction">
+					<div class="col-sm-6 col-md-6 col-xs-6 btnAction" id="tdBtnAction">
 						<input type='submit' name="buttonValideFiche" value="Enregistrer" tabindex=<?= $tabindex++ ?> disabled>
 						</button>
 					</div>
-					<div class="col-sm-3 col-md-3 col-xs-3 btnAction">
+					<div class="col-sm-6 col-md-6 col-xs-3 btnAction">
 						<input type=button value="Annuler" onclick='goToPOST("clientV2.php","",this.form.cli_id_modif.value,"")' tabindex=<?= $tabindex++ ?>>
 					</div>
 				</div>
 			<? } else { ?>
 				<div class="row fiche">
-					<div class="col-sm-3 col-md-3 col-xs-3 btnAction" id="tdBtnAction">
-						<button name="buttonValideFiche" tabindex=<?= $tabindex++ ?> onclick='goToPOST("clientV2.php","modif",this.form.cli_id_modif.value,"")'>Modifier
-						</button>
+					<div class="col-sm-12 col-md-12 col-xs-12 btnAction" id="tdBtnAction">
+						<button name="buttonValideFiche" tabindex=<?= $tabindex++ ?> onclick='goToPOST("clientV2.php","modif",this.form.cli_id_modif.value,"")'>Modifier</button>
 					</div>
 				</div>
 			<? } ?>
 		</form>
 	</fieldset>
 </div>
-<table width="100%">
+
+<div class="row">
+	<div class="col-sm-12 col-md-12 col-xs-12 alert alert-info maskMobile" id='aideImpression' style="display:none;"> 
+		<h5><b>⚠ N'oubliez pas d'imprimer votre fiche de dépôt avant de venir en cliquant sur l'icone :📇</b></h5>
+	</div>
+</div>
+<table width="100%" >
 	<tr>
 		<td class="tittab" width=7%>
 			<span id='tri_numero' onclick="triColonne('obj_numero')" class="sortable">No&nbsp;&nbsp;&nbsp;</span>
@@ -116,24 +121,20 @@
 			<span class="sortable" id='tri_prix_vente' onclick="triColonne('obj_prix_vente')">
 				Prix&nbsp;&nbsp;&nbsp;</span>
 		</td>
-		<td class="tittab" width=15%>
+		<td class="tittab" width=12%>
 			<span id='tri_etat' onclick="triColonne('obj_etat')" class="sortable">Etat&nbsp;&nbsp;&nbsp;</span>
 		</td>
-		<td class="tittab" width=8%>
+		<td class="tittab" >
 			Actions</span>
 		</td>
 	</tr>
 </table>
-
 <div class="row">
-	<div class="col-sm-12 col-md-12 col-xs-12 alert alert-info maskMobile" id='aideImpression' style="display:none;"> 
-		<h5><b>⚠ N'oubliez pas d'imprimer votre fiche de dépôt avant de venir en cliquant sur l'icone :📇</b></h5>
-	</div>
 	<div class="col-sm-12 col-md-12 col-xs-12">
-		<div class="col-sm-3 col-md-3 col-xs-4">
+		<div class="col-sm-4 col-md-4 col-xs-4">
 			<h3>Vos dépôts</h3>
 		</div>
-		<div class="col-sm-3 col-md-3 col-xs-8">
+		<div class="col-sm-8 col-md-8 col-xs-8">
 			<? if ($infAppli['CLIENT'] == 1 || $infAppli['ADMIN'] == 1 || $GET_modePage == "createTEST") { ?>
 				<h3><input type=button value="Ajouter un dépôt ➕" onclick="addDepot(document.clientForm.cli_id_modif.value)" /></h3>
 			<? } ?>
@@ -141,14 +142,18 @@
 		<div class="col-sm-6 col-md-6 col-xs-0 alert alert-info maskMobile" id='aideImpression' style="display:none;"> 
 			<h5><b>⚠ N'oubliez pas d'imprimer votre fiche de dépôt avant de venir en cliquant sur l'icone :📇</b></h5>
 		</div> -->
+		</div>
 	</div>
 </div>
 <div id=fiches></div>
 <!-- uniquement dans les dates de la bav -->
 <div class="row">
 	<div class="col-sm-12 col-md-12 col-xs-12">
-		<div class="col-sm-6 col-md-6 col-xs-6">
+		<div class="col-sm-4 col-md-4 col-xs-4">
 			<h3>Vos achats</h3>
+		</div>
+		<div class="col-sm-8 col-md-8 col-xs-8">
+			&nbsp;
 		</div>
 	</div>
 </div>

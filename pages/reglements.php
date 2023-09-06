@@ -63,8 +63,8 @@ if ($GET_modePage == "") {
 
 <table class="BH_CADRE" style="border-spacing:15; padding:15">
 	<tr>
-        <td class="link navigation <?=$GET_modePage == "B" ? "navigationSel" : '';?>" onclick="goTo('reglements.php', 'B', null, null)">Réglement de la bourse aux vélos</td>
-		<td class="link navigation <?=$GET_modePage == "T" ? "navigationSel" : '';?>" onclick="goTo('reglements.php', 'T', null, null)">Réglement de la tombola</td>
+        <td class="titreFiche link navigation <?=$GET_modePage == "B" ? "navigationSel" : '';?>" onclick="goTo('reglements.php', 'B', null, null)">Réglement de la bourse aux vélos</td>
+		<td class="titreFiche link navigation <?=$GET_modePage == "T" ? "navigationSel" : '';?>" onclick="goTo('reglements.php', 'T', null, null)">Réglement de la tombola</td>
 	</tr>
 </table>
 <hr/>
