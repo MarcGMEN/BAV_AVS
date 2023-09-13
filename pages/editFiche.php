@@ -73,7 +73,7 @@ $tabInfo = [
 							<tr>
 								<td rowspan=5 width=15%><i title='Décocher pour mettre a jour le suivi des editions'>Test <input type='checkbox' name="testEtiq" checked></i></td>
 								<td colspan=2></td>
-								<td rowspan=5 width=20%></td>
+								<td rowspan=5 width=20%>Feuille A4 autocollante</td>
 							</tr>
 							<tr class="tabAction">
 								<td width=50%>
@@ -118,7 +118,7 @@ $tabInfo = [
 							<tr>
 								<td rowspan=3 width=15%>&nbsp;</td>
 								<td colspan=2></td>
-								<td rowspan=3 width=20%></td>
+								<td rowspan=3 width=20%>Feuille A4 blanche</td>
 							</tr>
 							<tr class="tabAction">
 								<td width=50%>
@@ -146,7 +146,7 @@ $tabInfo = [
 							<tr>
 								<td rowspan=5 width=15%><i title='Décocher pour mettre a jour le suivi des editions'>Test <input type='checkbox' name="testCoupon" checked /></i></td>
 								<td colspan=2></td>
-								<td rowspan=5 width=20%></td>
+								<td rowspan=5 width=20% style='background-color:RED'>Feuille A4 rouge</td>
 							</tr>
 							<tr class="tabAction">
 								<td width=50%>- De <input type=number min='<?= $infAppli['base_info'] ?>' name=eti0 value='<?= $infAppli['base_info'] ?>' style='width:30%' size=5>
@@ -192,7 +192,7 @@ $tabInfo = [
 							<tr>
 								<td rowspan=5 width=15%><i title='Décocher pour mettre a jour le suivi des editions'>Test <input type='checkbox' name="testCouponA" checked /></i></td>
 								<td colspan=2></td>
-								<td rowspan=5 width=20%></td>
+								<td rowspan=5 width=20%  style='background-color:GREEN'>Feuille A4 verte</td>
 							</tr>
 							<tr class="tabAction">
 								<td width=50%>- De <input type=number min='<?= $infAppli['base_info'] ?>' name=eti0 value='<?= $infAppli['base_info'] ?>' style='width:30%' size=5>
@@ -242,9 +242,11 @@ $tabInfo = [
 								<td width=50%>
 									- 1 page de vierge
 								</td>
-								<td width=35%>
+								<td width=15%>
 									<input type=button value='Imprimer' onclick='imprimeCoupons(-1,-1,0,"coupon_tombola")'>
 								</td>
+								<td width=20%>Feuille A4 blanche</td>
+
 							</tr>
 						</table>
 					</form>
@@ -258,7 +260,7 @@ $tabInfo = [
 								<td width=15%>
 									<input type=button value='Imprimer' onclick='imprimeLibreFiche(this.form.nfac.value,"facture")'>
 								</td>
-								<td width=20%></td>
+								<td width=20%>Feuille A4 blanche</td>
 
 							</tr>
 						</table>
