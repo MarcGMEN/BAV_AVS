@@ -111,6 +111,7 @@ function display_verif_mail_oublie(val) {
     if (val) {
         alertModalInfo("On vous envoi le code sur " + document.accesForm.email_depot.value + ".");
         x_action_redonneCode(document.accesForm.email_depot.value, fermer_PreSaisie);
+        x_add_counter_action("pre_depot.php", "mail_oublie", "", display_rien);
     } else {
         alertModalInfo("Votre e-mail n'est pas connu.");
     }

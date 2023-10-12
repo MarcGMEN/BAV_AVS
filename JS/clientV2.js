@@ -276,6 +276,7 @@ function supprimerFiche(id, numero) {
 
     // creation du message de confirmation de la suppression
     x_get_publiHtml(tabToString(Object.assign({}, tabObj)), 'modal_confirm_supp.html', display_messageConfirmSupp);
+    x_add_counter_action("clientV2.php", "sup_fiche", "", display_rien);
     return false;
 }
 /**
@@ -293,6 +294,8 @@ function modifierFiche(id, numero) {
     tabObj['obj_numero'] = numero;
     x_get_publiHtml(tabToString(Object.assign({}, tabObj)), 'modal_create_fiche.html', display_messageConfirmModif);
     setTimeout('x_return_oneFiche(' + id + ', modalModifFiche)', 200);
+    x_add_counter_action("clientV2.php", "modifier_fiche", "", display_rien);
+ 
 }
 
 function modalModifFiche(val) {
