@@ -31,7 +31,7 @@
 	}
 
 	function display_actions(val) {
-		// console.log(val);
+		console.log(val);
 		var repr = "";
 		var tab = tree(val, "", 0);
 		tabDates.sort();
@@ -63,15 +63,20 @@
 			if (parent == "") {
 				dates = [];
 			}
-			repr += "<ul>";
+			if (!index.match("^(s_)")) {
+				repr += "<ul>";
+			}
 			if (val[index] instanceof Object) {
 				// console.log("tree => "+index);
 				var idHtml = parent + "-" + index;
 
 				var tab = tree(val[index], idHtml, niv + 1);
+
+				// console.log("test index => "+index+ " affiche "+tab['affiche']);
+				
 				if (!index.match("^(s_)")) {
 
-
+					// console.log("Ajout "+index+" en niveau "+niv);
 					var lastDate = new Date(Math.max.apply(null, tab['dates']));
 					var lastDateFR = lastDate.getDate() + "/" + (lastDate.getMonth() +1) +"/" + lastDate.getFullYear();
 					repr += "<div class='row tree" + niv + "'>";
@@ -90,6 +95,7 @@
 					repr += "<div id='div_" + idHtml + "' style=\"display:none\">";
 					repr += tab['repr'];
 					repr += "</div>";
+					affiche=1;
 				}
 				else {
 					// console.log("pas d'affichage de "+index);
@@ -131,7 +137,7 @@
 					tabDatesTimes[idHtml][keyDateTime] += 1;
 				}
 				Array.prototype.push.apply(dates, tab['dates']);
-				// console.log("on au total "+sizeof(dates)+" date");
+				// console.log("on au total "+sizeof(dates)+" date ["+index+"]" );
 				if (!index.match("(s_)")) {
 
 					repr += "<div style='display:none;border:0px blue solid' id='divcanvas" + idHtml + "'>";
@@ -156,7 +162,11 @@
 				affiche=0;
 				// console.log("pas d'affichage de "+index+"  car dates");
 			}
-			repr += "</ul>";
+			if (!index.match("^(s_)")) {
+				repr += "</ul>";
+			}
+			// console.log(index+ "-> "+repr);
+
 		}
 		return {
 			repr,

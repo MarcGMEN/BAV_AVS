@@ -122,7 +122,6 @@ var tabSel = new Array();
 
 // affichage des fiche de depot
 function display_fiches_depot(val) {
-
     var total = display_fiches(val, 'fiches');
     
     if (total == 1) {
@@ -276,7 +275,6 @@ function supprimerFiche(id, numero) {
 
     // creation du message de confirmation de la suppression
     x_get_publiHtml(tabToString(Object.assign({}, tabObj)), 'modal_confirm_supp.html', display_messageConfirmSupp);
-    x_add_counter_action("clientV2.php", "sup_fiche", "", display_rien);
     return false;
 }
 /**
@@ -294,7 +292,7 @@ function modifierFiche(id, numero) {
     tabObj['obj_numero'] = numero;
     x_get_publiHtml(tabToString(Object.assign({}, tabObj)), 'modal_create_fiche.html', display_messageConfirmModif);
     setTimeout('x_return_oneFiche(' + id + ', modalModifFiche)', 200);
-    x_add_counter_action("clientV2.php", "modifier_fiche", "", display_rien);
+    
  
 }
 
@@ -328,13 +326,16 @@ function confirmModal(plus) {
         tabCli['cli_id'] = document.clientForm.cli_id.value;
         var tabData = Object.assign({}, tabObj, tabCli);
         x_action_createFiche(tabToString(tabData), display_fin_create);
+        
     } else if (plus == "Supp") {
         var tabObj = recup_formulaire(document.modalForm, 'obj');
         x_action_deleteFiche(tabObj['obj_id'], display_fin_create);
+        x_add_counter_action("clientV2.php", "delete_fiche", "", display_rien);
     } else if (plus == "Modif") {
         var tabObj = recup_formulaire(document.modalForm, 'obj');
         var tabData = Object.assign({}, tabObj);
         x_action_updateFiche(tabToString(tabData), display_fin_create);
+        x_add_counter_action("clientV2.php", "update_fiche", "", display_rien);
     }
 }
 
