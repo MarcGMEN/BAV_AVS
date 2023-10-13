@@ -220,6 +220,8 @@ function imprimeFiche(id, numero) {
 
     alertModalInfo("Génération de la fiche " + numero + " au format PDF  <b>pour l'imprimer</b> <img src='Images/spinner_white_tiny.gif' />.");
     x_action_makePDF(id, display_openPDF);
+    x_add_counter_action("clientV2.php", "imprime_fiche", "", display_rien);
+
 }
 
 /**
