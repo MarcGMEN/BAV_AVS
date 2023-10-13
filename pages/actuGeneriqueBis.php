@@ -6,8 +6,7 @@
 </script>
 
 <script src="JS/actu.js" type="text/javascript"></script>
-
-Recherche : <input type=text name='search_<?=rand(1, 100)?>' size="20" maxlength="100" onkeyup="search(this.value)" />
+Recherche : <input type=text name='search_<?=rand(1, 100)?>' size="20" maxlength="100" onkeyup="searchActu(this.value)" />
 <hr />
 
 <!-- SHOW Q & A -->
@@ -18,7 +17,7 @@ Recherche : <input type=text name='search_<?=rand(1, 100)?>' size="20" maxlength
 	<a name="formulaire"></a>
 	<legend class=titreFiche>Posez une question</legend>
 	<form method="POST" name="formPresse" onsubmit="return submitActu(this)">
-        <input type=hidden name="act_numero_bav" value="<?=$_COOKIE['NUMERO_BAV']?>"/>
+        <input type=hidden name="act_numero_bav" value="<?=$infAppli['numero_bav']?>"/>
 		<div class="row">
 			<div class="col-sm-12 col-xs-12">
 				<div class="form-group">
@@ -47,6 +46,7 @@ Recherche : <input type=text name='search_<?=rand(1, 100)?>' size="20" maxlength
 					</div>
 				</div>
 			</div>
+
 			<div class="col-sm-12 col-xs-12">
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
