@@ -27,7 +27,7 @@
 			<a href="mailto:bourse1000velos@avs44.com">bourse1000velos@avs44.com</a>
 		</p>
 		<h2 class='alert alert-warning'> Attention , nouvelle Procédure </h2>
-		<h3 class='alert alert-warning'> Vous devez d'abord vous pré-enregistrer avec votre e-mail, puis vous recevrez un mail avec votre code d'accès. <br/>Ensuite dans le partie connexion saisisez votre e-mail et le code d'accès pour accèder à la gestion de votre compte. </h3>
+		<h3 class='alert alert-warning'> Vous devez d'abord vous pré-enregistrer avec votre e-mail, puis vous recevrez un mail avec votre code d'accès. <br/>Ensuite dans le partie connexion saisissez votre e-mail et le code d'accès pour accèder à la gestion de votre compte. </h3>
 	</div>
 <? } else { ?>
 	<h3> Accès à votre compte </h3>
