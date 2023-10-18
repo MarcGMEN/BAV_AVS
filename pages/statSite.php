@@ -123,8 +123,8 @@
 						tabDatesTimes[idHtml] = [];
 					}
 
-					var keyDate = dateLu.getFullYear() + "-" + dateLu.getMonth() + "-" + dateLu.getDate();
-					var keyDateTime = dateLu.getFullYear() + "-" + dateLu.getMonth() + "-" + dateLu.getDate() + "-" + dateLu.getHours();
+					var keyDate = dateLu.getFullYear() + "-" + (dateLu.getMonth()+1) + "-" + dateLu.getDate();
+					var keyDateTime = dateLu.getFullYear() + "-" + (dateLu.getMonth()+1) + "-" + dateLu.getDate() + "-" + dateLu.getHours();
 					if (!tabDates[idHtml][keyDate]) {
 						tabDates[idHtml][keyDate] = 0;
 					}
@@ -201,18 +201,18 @@
 		// console.log("nb row " + nbRow);
 		//var nbRow = sizeof(tabDates[id]);
 		//console.log("initDate de"+id);
-		//console.log(tabDates[id]);
+		// console.log(tabDates[id]);
 		var start = null;
 		var fin = null;
 		var max = 0
 		for (var date in tabDates[id]) {
 			if (start == null) {
 				start = new Date(date);
-				start.setMonth(start.getMonth() + 1);
+				// start.setMonth(start.getMonth() + 1);
 			}
 
 			var finNew = new Date(date);
-			finNew.setMonth(finNew.getMonth() + 1);
+				// finNew.setMonth(finNew.getMonth() + 1);
 			if (finNew > fin) {
 				fin = finNew;
 			}
@@ -223,6 +223,8 @@
 		fin.setDate(fin.getDate() + 1);
 
 		var ecartJour = Math.floor((fin - start) / (60 * 60 * 1000 * 24) + 1);
+
+		// console.log(start);
 		var valueStart = start.toISOString().split('T')[0];
 		// 
 		var ecartMax = 10;
@@ -270,8 +272,10 @@
 		var finHTML = getElement("fin" + id);
 
 		var start = new Date(debutHTML.value);
+		start.setMonth(start.getMonth()+1);
 		start.setHours(0);
 		var fin = new Date(finHTML.value);
+		fin.setMonth(fin.getMonth()+1);
 		fin.setHours(0);
 
 		// console.log(start);
@@ -379,15 +383,17 @@
 		var cptHour = 0;
 		var cptRow = 0;
 		var nbTot=0;
+		var nbTotOS=[];
+
 		while (start < fin) {
 			var keyDate = start.getFullYear() + "-" + start.getMonth() + "-" + start.getDate();
 			var keyDateTime = keyDate + "-" + start.getHours();
-			var laDateStr = start.getDate() + "/" + (start.getMonth() + 1) + "/" + start.getFullYear();
-			var laDateStr2 = start.getDate() + "/" + (start.getMonth() + 1) + "/" + start.getFullYear();
+			var laDateStr = start.getDate() + "/" + (start.getMonth() ) + "/" + start.getFullYear();
+			var laDateStr2 = start.getDate() + "/" + (start.getMonth() ) + "/" + start.getFullYear();
 			if (hour) {
 				var laDate = keyDateTime;
-				laDateStr = start.getDate() + "/" + (start.getMonth() + 1) + "/" + start.getFullYear();
-				laDateStr2 = start.getDate() + "/" + (start.getMonth() + 1) + "/" + start.getFullYear() + " " + start.getHours();
+				laDateStr = start.getDate() + "/" + (start.getMonth() ) + "/" + start.getFullYear();
+				laDateStr2 = start.getDate() + "/" + (start.getMonth() ) + "/" + start.getFullYear() + " " + start.getHours();
 			} else {
 				var laDate = keyDate;
 			}
@@ -405,6 +411,7 @@
 			}
 			nbTot+=nbDate;
 
+
 			for (var OS in tabDataOS) {
 
 				// console.log(OS+" "+laDate);
@@ -412,8 +419,12 @@
 				nb = 0;
 				if (tabDataOS[OS][laDate]) {
 					nb = tabDataOS[OS][laDate];
+					if (!nbTotOS[OS]) {
+						nbTotOS[OS]=0;
+					}
+					nbTotOS[OS]+=nb;
 				}
-
+				
 				// max => 180
 				//  nb =  hc
 				hc = (hauteur - 30) * nb / max;
@@ -434,7 +445,7 @@
 					var Xlettre = decal + largeur/15;
 					var Ylettre = hauteur - hc / 2 - hc_prec -10;
 					if (largeur > 5) {
-						ctx.fillText(nb + " " + OS, Xlettre, Ylettre);
+						ctx.fillText(nb + " " + OS.split("_")[1] , Xlettre, Ylettre);
 					}
 //					console.log("ctx.fillText(" + nb + ", " + Xlettre + ", " + Ylettre + ")");
 				}
@@ -513,6 +524,9 @@
 			start = new Date(newDate);
 			dayBefore = keyDate;
 		}
+
+		var textTot="Total: "+nbTot;
+		
 		Xlettre = decal;
 		ctx.beginPath();
 		// console.log("LAST",Xlettre, Ylettre);
@@ -522,8 +536,14 @@
 		ctx.stroke();
 
 		ctx.font = "15px arial";
-		ctx.fillText("Total: "+nbTot, Xlettre +10 , Ylettre - hauteur/2);
-
+		ctx.fillText(textTot, Xlettre +10 , Ylettre - hauteur/2);
+		var i=1;
+		for (var OS in nbTotOS) {
+			textTot=" "+OS.split("_")[1]+":"+parseInt(nbTotOS[OS]/nbTot*100)+"%";
+			ctx.fillText(textTot, Xlettre , Ylettre - hauteur/2+ i*20);
+			i++;
+}
+		
 		if (largeur < 5) {
 			ctx.beginPath();
 			ctx.font = "12px arial";
