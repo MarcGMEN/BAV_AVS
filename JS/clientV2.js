@@ -268,6 +268,8 @@ function addDepot(cli_id_mod) {
         'obj_numero': ""
     };
     x_get_publiHtml(tabToString(tabData), 'modal_create_fiche.html', display_messageConfirm);
+    x_add_counter_action("clientV2.php", "add_fiche", "", display_rien);
+
 }
 
 function supprimerFiche(id, numero) {

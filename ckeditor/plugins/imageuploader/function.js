@@ -53,10 +53,10 @@ function hideEditBar() {
 
     $(".fileDiv,.fullWidthFileDiv").removeClass("selected");
 
-    if (pluginversion && currentpluginver != pluginversion) {
-        $("#updates").slideDown(150);
-        $("#updates").css("visibility", "visible");
-    };
+    // if (isset(pluginversion) && currentpluginver != pluginversion) {
+    //     $("#updates").slideDown(150);
+    //     $("#updates").css("visibility", "visible");
+    // };
 }
 
 // Use image and overgive image src to ckeditor
@@ -91,12 +91,12 @@ function pluginSettings() {
 }
 
 // check if new version is available
-$(document).ready(function () {
-    if (pluginversion && currentpluginver != pluginversion) {
-        $("#updates").show();
-        $('#updates').html("A new version of " + pluginname + " (" + pluginversion + ") is available. <a target=\"_blank\" href=\"" + plugindwonload + "\">Download it now!</a>");
-    };
-});
+// $(document).ready(function () {
+//     if (pluginversion && currentpluginver != pluginversion) {
+//         $("#updates").show();
+//         $('#updates').html("A new version of " + pluginname + " (" + pluginversion + ") is available. <a target=\"_blank\" href=\"" + plugindwonload + "\">Download it now!</a>");
+//     };
+// });
 
 // call jquery lazy load
 $(function () {

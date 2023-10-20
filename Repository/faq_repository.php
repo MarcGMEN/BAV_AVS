@@ -49,7 +49,7 @@ function getFaqs($selection, $approved = null)
         }
         $result->close();
     } else {
-        throw new Exception("getFaqs' [$requete2]".mysqli_error());
+        throw new Exception("getFaqs' [$requete2]".mysqli_error($result));
     }
     return $tab;
 }

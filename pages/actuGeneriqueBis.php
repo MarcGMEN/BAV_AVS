@@ -42,7 +42,7 @@ Recherche : <input type=text name='search_<?=rand(1, 100)?>' size="20" maxlength
 				<div class="form-group">
 					<label for="email" class="titrow  col-sm-2">* Mail</label>
 					<div class="col-sm-6">
-						<input type="email" name="faq_email"  required />
+						<input type="email" name="act_mail"  required />
 					</div>
 				</div>
 			</div>

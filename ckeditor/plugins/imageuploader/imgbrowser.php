@@ -66,7 +66,7 @@ $_SESSION["username"] = "disabled_pw";
     <link rel="stylesheet" href="styles.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://www.maleck.org/imageuploader/plugininfo.js"></script>
+    <!-- <script src="http://www.maleck.org/imageuploader/plugininfo.js"></script> -->
     <script src="dist/jquery.lazyload.min.js"></script>
     <script src="dist/js.cookie-2.0.3.min.js"></script>
 
@@ -79,11 +79,11 @@ $_SESSION["username"] = "disabled_pw";
         // Plugin version
         var currentpluginver = "<?php echo $currentpluginver; ?>";
         // ajax request to register the plugin for better support
-        $.ajax({
-          method: "POST",
-          url: "http://ibm.bplaced.com/imageuploader/register.php",
-          data: { root: "<?php echo $root; ?>", link: "<?php echo $link; ?>", ver: ""+ currentpluginver +"" }
-        })
+        // $.ajax({
+        //   method: "POST",
+        //   url: "http://ibm.bplaced.com/imageuploader/register.php",
+        //   data: { root: "<?php echo $root; ?>", link: "<?php echo $link; ?>", ver: ""+ currentpluginver +"" }
+        // })
     </script>
 
 </head>

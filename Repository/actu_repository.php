@@ -40,7 +40,12 @@ function getActus($selection, $approved = null, $type = "FAQ")
     if ($approved != null) {
         $requete2 .= " and act_active = $approved ";
     }
-    $requete2 .= " order by act_numero_bav desc, act_date desc";
+    if ($type=="FAQ") {
+        $requete2 .= " order by act_date desc";
+    }
+    else {
+        $requete2 .= " order by act_numero_bav desc, act_date desc";
+    }
     
     //echo $requete2;
 

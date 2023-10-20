@@ -76,8 +76,8 @@ function display_acts(val) {
                 }
             }
             repr += "<div class='alert-info '>";
-            repr += "<h3 id='question_" + val[index]['act_id'] + "' >" + val[index]['act_titre'] +
-                " <i style='font-size:6pt'>(" + formatDate(val[index]['act_date']) + ")</i></h3>";
+            repr += "<h4 id='question_" + val[index]['act_id'] + "' >" + val[index]['act_titre'] +
+                " <i style='font-size:6pt'>(" + formatDate(val[index]['act_date']) + " "+val[index]['act_numero_bav']+")</i></h4>";
             repr += "</div>";
             repr += "<div style='background-color:white' id='reponse_" + val[index]['act_id'] + "'>" + val[index]['act_text'] + "</div>";
             if (ADMIN) {
@@ -109,7 +109,7 @@ function submitActu(laForm) {
     if (CKEDITOR.instances.edit_act_article) {
         tabData['act_text'] = CKEDITOR.instances.edit_act_article.getData();
     }
-    // console.log(tabData);
+    console.log(tabData);
     x_action_insertActu(tabToString(tabData), typeACT, display_create);
     return false;
 }
