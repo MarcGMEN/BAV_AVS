@@ -25,7 +25,7 @@ function initPage() {
         test = "createTEST";
     }
     
-        if (!CLIENT && !ADMIN && !BAV_ENCOURS) {
+    if (!CLIENT && !ADMIN && !BAV_ENCOURS) {
         alertModalInfo("Page non accessible.");
         setTimeout(function() { goTo() }, 2000);
     }

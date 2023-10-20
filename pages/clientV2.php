@@ -135,6 +135,8 @@
 			<h3>Vos dépôts</h3>
 		</div>
 		<div class="col-sm-8 col-md-8 col-xs-8">
+			<!-- Pas d'accès avec la BAV en cours -->
+			<!-- fin CLIENT a 17h -->
 			<? if ($infAppli['CLIENT'] == 1 || $infAppli['ADMIN'] == 1 || $GET_modePage == "createTEST") { ?>
 				<h3><input type=button value="Ajouter un dépôt ➕" onclick="addDepot(document.clientForm.cli_id_modif.value)" /></h3>
 			<? } ?>
