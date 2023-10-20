@@ -15,7 +15,7 @@ function getOneActu($id)
 
 function updateActu($obj)
 {
-    $obj['act_date']=date("Y-m-d H:i:s", mktime());
+    $obj['act_date']=date("Y-m-d H:i:s", time());
     return update("bav_actu", $obj, "act_id");
 }
 
