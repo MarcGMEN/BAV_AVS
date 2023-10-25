@@ -140,9 +140,9 @@ function afficheLigne(val) {
         getElement("type_" + index).innerHTML = val['obj_type'];
 
         getElement("vendeur_" + index).innerHTML = "<span class='link' onclick='goTo(\"client.php\",\"consult\"," + val['cli_id'] + ")'>" + val['vendeur_nom'] + "</span>";
-        if (val['cli_emel']) {
-            getElement("vendeur_" + index).innerHTML += " [" + val['cli_emel'] + "]";
-        }
+        // if (val['cli_emel']) {
+        //     getElement("vendeur_" + index).innerHTML += " [" + val['cli_emel'] + "]";
+        // }
         if (val['acheteur_nom']) {
             getElement("vendeur_" + index).innerHTML += " => Vendu à " + val['acheteur_nom'];
         }
