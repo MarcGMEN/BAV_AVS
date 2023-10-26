@@ -164,8 +164,10 @@ function display_fiches(val) {
         }
         getElement(tri).className = classSort;
 
-        if (getElement('total_vente_stock')) {
+        //if (getElement('total_vente_stock')) {
+        if (val['total_depot']) {
             getElement('total_vente_stock').innerHTML = "0.00";
+            getElement('total_vente_confirme').innerHTML = "0.00";
             getElement('total_vente_vendu').innerHTML = "0.00";
             getElement('total_vente_paye').innerHTML = "0.00";
             getElement('total_vente_depot').innerHTML = "0.00";;
@@ -176,6 +178,9 @@ function display_fiches(val) {
 
             if (val['total_vente_depot']) {
                 getElement('total_vente_depot').innerHTML = val['total_vente_depot'];
+            }
+            if (val['total_vente_CONFIRME']) {
+                getElement('total_vente_confirme').innerHTML = val['total_vente_CONFIRME'];
             }
             if (val['total_vente_STOCK']) {
                 getElement('total_vente_stock').innerHTML = val['total_vente_STOCK'];

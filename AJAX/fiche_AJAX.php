@@ -1349,7 +1349,13 @@ function return_fiches($tri, $sens, $selection, $detail = 1)
 
         foreach ($tab as $key => $val) {
             if ($detail == 1) {
-                $tab['total_vente_' . $val['obj_etat']] += $val['obj_prix_vente'];
+                
+                if ($val['obj_etat'] == "CONFIRME") {
+                    $tab['total_vente_' . $val['obj_etat']] += $val['obj_prix_depot'];
+                }
+                else {
+                    $tab['total_vente_' . $val['obj_etat']] += $val['obj_prix_vente'];
+                }
                 $tab['total_nb_' . $val['obj_etat']]++;
 
                 if ($val['obj_etat'] == "PAYE") {
@@ -1357,9 +1363,7 @@ function return_fiches($tri, $sens, $selection, $detail = 1)
                 } elseif ($val['obj_etat'] == "VENDU") {
                     $tab['total_com_vendu'] += getCommission($val);
                 }
-                if (
-                    $val['obj_etat'] == "STOCK" || $val['obj_etat'] == "VENDU" || $val['obj_etat'] == "RENDU" || $val['obj_etat'] == "PAYE"
-                ) {
+                if ($val['obj_etat'] == "STOCK" || $val['obj_etat'] == "VENDU" || $val['obj_etat'] == "RENDU" || $val['obj_etat'] == "PAYE") {
                     $tab['total_vente_depot'] += $val['obj_prix_vente'];
                     $tab['total_depot'] += $val['cli_prix_depot'];
                 }

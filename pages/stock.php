@@ -30,7 +30,7 @@
 	</tr>
 	<tr>
 		<td></td>
-		<td></td>
+		<td>Confirm</td>
 		<td>Dépôt </td>
 		<td>Com</td>
 		<td>Com recu</td>
@@ -38,7 +38,7 @@
 	</tr>
 	<tr>
 		<td></td>
-		<td></td>
+		<td><b><span id=total_vente_confirme>0.00</span> €</b></td>
 		<td><b><span id=total_depot>0.00</span> €</b></td>
 		<td><b><span id=total_com_vendu>0.00</span> €</b></td>
 		<td><b><span id=total_com_paye>0.00</span> €</b></td>
