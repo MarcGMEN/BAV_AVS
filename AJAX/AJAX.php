@@ -120,6 +120,10 @@ function get_publiHtml($data, $html)
     return makeCorps(string2Tab($data), $html);
 }
 
+function delete_file($file) {
+    unlink("../".$file);
+}
+
 /**
  * Creation d'un PDF a partir d'un html avec en nom le fichier html sans l'extension
  */

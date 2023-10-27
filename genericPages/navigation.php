@@ -81,6 +81,9 @@ if ($infAppli['ADMIN']) {
                     'libelle' => 'Pré-déposer pour TEST',
                     'mode' => 'create',
                 ],
+                'downloads.php' => [
+                    'libelle' => 'Downloads',
+                ],
             ],
         ],
     ];

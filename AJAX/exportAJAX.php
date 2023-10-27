@@ -9,7 +9,8 @@ sajax_export(
     "whatYourName",
     "return_restant",
     "action_menage",
-    "add_counter_action"
+    "add_counter_action",
+    "delete_file"
 );
 
 // $pattern = preg_quote("function ", '/');
