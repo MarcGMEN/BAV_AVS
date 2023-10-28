@@ -75,7 +75,7 @@ if ($infAppli['ADMIN']) {
                 ],
                 'statSite.php' => [
                     'libelle' => 'Stat Access',
-                    'class' => 'maskMobileBlock',
+                    'class' => 'maskMobileBlock'
                 ],
                 'pre_depot.php' => [
                     'libelle' => 'Pré-déposer pour TEST',
@@ -83,6 +83,7 @@ if ($infAppli['ADMIN']) {
                 ],
                 'downloads.php' => [
                     'libelle' => 'Downloads',
+                    'class' => 'maskMobileBlock'
                 ],
             ],
         ],

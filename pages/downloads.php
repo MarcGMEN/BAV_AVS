@@ -32,8 +32,7 @@
 		$path = "./downloads";
 		if ($handle = opendir('./downloads')) {
 			$files = array();
-			while ($files[] = readdir($handle))
-				;
+			while ($files[] = readdir($handle));
 			sort($files);
 			closedir($handle);
 			foreach ($files as $entry) {
@@ -41,7 +40,7 @@
 				if ($entry && $entry != "." && $entry != "..") {
 					$fullName = "$path/$entry"; ?>
 					<div class="col-xs-12 col-sm-6 col-md-6 tabl1">
-						<div class="col-xs-6 col-sm-6 col-md-6">
+						<div class="col-xs-12 col-sm-6 col-md-6">
 							<span title="Supprimer"
 								onclick="supprimerFichier('<?= $fullName ?>')" class="link"
 								style="font-size:1.5em">&nbsp;❌&nbsp;</span>
@@ -56,10 +55,10 @@
 							<?= date('d/m/Y', stat($fullName)['mtime']) ?><br />
 
 						</div>
-						<div class="col-xs-6 col-sm-6 col-md-6">
+						<div class="col-xs-12 col-sm-6 col-md-6">
 							<? //mime_content_type($fullName)?>
 							<object data="<?= $fullName ?>"
-								type="<?= mime_content_type($fullName) ?>" height="100">
+								type="<?= mime_content_type($fullName) ?>" height="100" width="200">
 								<param name="filename" value="<?= $fullName ?>" />
 							</object>
 						</div>

@@ -62,7 +62,7 @@ function setParamVal(val) {
 var gSearch = "";
 
 function display_fiches(val) {
-    // console.log(val);
+    console.log(val);
     if (val instanceof Object) {
 
         var total = 0;
@@ -165,35 +165,34 @@ function display_fiches(val) {
         getElement(tri).className = classSort;
 
         //if (getElement('total_vente_stock')) {
-        if (val['total_depot']) {
-            getElement('total_vente_stock').innerHTML = "0.00";
-            getElement('total_vente_confirme').innerHTML = "0.00";
-            getElement('total_vente_vendu').innerHTML = "0.00";
-            getElement('total_vente_paye').innerHTML = "0.00";
-            getElement('total_vente_depot').innerHTML = "0.00";;
-            getElement('total_com_vendu').innerHTML = "0.00";
-            getElement('total_com_paye').innerHTML = "0.00";
-            getElement('total_depot').innerHTML = "0.00";
-            //getElement('total_vente_rendu').innerHTML = "0.00";
+        if (total > 0) {
+            // getElement('total_vente_confirme').innerHTML = "0.00";
+            // getElement('total_vente_vendu').innerHTML = "0.00";
+            // getElement('total_vente_paye').innerHTML = "0.00";
+            // getElement('total_vente_depot').innerHTML = "0.00";;
+            // getElement('total_com_vendu').innerHTML = "0.00";
+            // getElement('total_com_paye').innerHTML = "0.00";
+            // getElement('total_depot').innerHTML = "0.00";
+            // //getElement('total_vente_rendu').innerHTML = "0.00";
 
             if (val['total_vente_depot']) {
-                getElement('total_vente_depot').innerHTML = val['total_vente_depot'];
+                getElement('total_vente_depot').innerHTML = val['total_vente_depot'].toLocaleString();
             }
             if (val['total_vente_CONFIRME']) {
-                getElement('total_vente_confirme').innerHTML = val['total_vente_CONFIRME'];
+                getElement('total_vente_confirme').innerHTML = val['total_vente_CONFIRME'].toLocaleString();
             }
             if (val['total_vente_STOCK']) {
-                getElement('total_vente_stock').innerHTML = val['total_vente_STOCK'];
-                getElement('total_depot').innerHTML = val['total_depot'];
+                getElement('total_vente_stock').innerHTML = val['total_vente_STOCK'].toLocaleString();
+                getElement('total_depot').innerHTML = val['total_depot'].toLocaleString();
             }
             if (val['total_vente_VENDU']) {
-                getElement('total_vente_vendu').innerHTML = val['total_vente_VENDU'];
-                getElement('total_com_vendu').innerHTML = val['total_com_vendu'];
+                getElement('total_vente_vendu').innerHTML = val['total_vente_VENDU'].toLocaleString();
+                getElement('total_com_vendu').innerHTML = val['total_com_vendu'].toLocaleString();
             }
 
             if (val['total_vente_PAYE']) {
-                getElement('total_vente_paye').innerHTML = val['total_vente_PAYE'];
-                getElement('total_com_paye').innerHTML = val['total_com_paye'];
+                getElement('total_vente_paye').innerHTML = val['total_vente_PAYE'].toLocaleString();
+                getElement('total_com_paye').innerHTML = val['total_com_paye'].toLocaleString();
             }
             // if (val['total_vente_RENDU']) {
             // 	getElement('total_vente_rendu').innerHTML = val['total_vente_RENDU'];
