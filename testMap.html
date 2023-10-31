@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<?
+
 <head>
     <meta charset="utf-8">
     <!-- Nous chargeons les fichiers CDN de Leaflet. Le CSS AVANT le JS -->
@@ -8,7 +8,9 @@
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.css" />
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
 
+    
     <style type="text/css">
         #map {
             /* la carte DOIT avoir une hauteur sinon elle n'apparaît pas */
@@ -22,11 +24,15 @@
     <script type='text/javascript' src='https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js'></script>
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <script src="JS/geoPosition.js"></script>
+    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+
     <script type="text/javascript">
         window.onload = function() {
+
+            console.log(lat, lon);
             initMap();
             geoPosClient('2, rue des judelles, 44117 Saint André des eaux',false, false);
-            geoPosClient('10 rue de la brière, 44117 Saint André des eaux',false, false);
+            geoPosClient('3, rue du balaitous, 65400 argeles gazost',false, false);
         };
     </script>
 </head>
