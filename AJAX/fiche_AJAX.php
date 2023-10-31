@@ -307,7 +307,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
     );
 
 
-    $etiquettes = "";
+    $etiquettes = "<html><body>";
     // TODO : recherche des fiches a imprimer en fonction de la table bav_etiquette.
     // avec une base eti0
     $tabFiche = [];
@@ -449,13 +449,15 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
 
     ksort($tabImpression);
     foreach ($tabImpression as $key => $value) {
-        $etiquettes .= "<hr  />";
+        $etiquettes .= "<hr/>";
         $etiquettes .= $value;
         if ($key++ % $INFO_APPLI['nb_eti_page'] == 0) {
-            $etiquettes .= "<hr  />";
+            $etiquettes .= "<hr/>";
             $etiquettes .= "<div style='page-break-after:always; clear:both;font-size:10pt;height:10pt'>..........</div>";
         }
     }
+
+    $etiquettes .="</body></html>";
 
     $fileHTML = "../out/html/etiquettes_" . $eti0 . "_" . $eti1 . ".html";
 
@@ -583,7 +585,7 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
             $fiche['obj_object'] = trim($fiche['obj_marque']) . " " . trim($fiche['obj_modele']);
 
             $fiche['obj_marque'] = trim($fiche['obj_marque']) == "" ? "<u>$espace100</u>" : $fiche['obj_marque'];
-            $fiche['obj_modele'] = trim($fiche['obj_modele']) == "" ? "<u>$espace75</u>" : $fiche['obj_modele'];
+            $fiche['obj_modele'] = trim($fiche['obj_modele']) == "" ? "<u>$espace50</u>" : $fiche['obj_modele'];
             $fiche['obj_couleur'] = trim($fiche['obj_couleur']) == "" ? "<u>$espace50</u>" : $fiche['obj_couleur'];
 
 
