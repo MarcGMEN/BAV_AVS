@@ -13,6 +13,8 @@ var geocoder = L.Control.Geocoder.nominatim();
 
 var markers = []; // Nous initialisons la liste des marqueurs
 
+var markerBAV;
+
 // Fonction d'initialisation de la carte
 function initMap() {
 
@@ -55,12 +57,21 @@ function initMap() {
         // Il est toujours bien de laisser le lien vers la source des données
         attribution: 'données © OpenStreetMap/ODbL - rendu OSM France',
         // fullscreenControl: true,
-        
+
         // scaleControl: true,
         minZoom: 1,
         maxZoom: 20
     }).addTo(macarte);
 
+
+    var myIconBAV = L.icon({
+        iconUrl: 'Images/BAV_2020.png',
+        iconSize: [30, 30],
+    });
+    markerBAV = L.marker([lat, lon], { icon: myIconBAV });
+    markerBAV.addTo(macarte);
+    L.circle([lat, lon], 30000).addTo(macarte);
+    
     //macarte.addLayer(markerClusters);
 }
 
@@ -75,8 +86,9 @@ function getGeoPos(adress) {
 function geoPosClient(adress, unique = true, group = true, info) {
     var iconBase = 'Images/logoAVS.png';
 
-    widthIcon = 40;
-    heightIcon = 30;
+
+    widthIcon = 30;
+    heightIcon = 20;
     // if  (info && Number.isInteger(info)) {
     //     widthIcon+=info*2;
     //     heightIcon+=info*2;
@@ -87,6 +99,9 @@ function geoPosClient(adress, unique = true, group = true, info) {
         iconAnchor: [widthIcon / 2, heightIcon / 2],
         popupAnchor: [-3, -3],
     });
+
+
+
     //console.log("geoPosClient(" + adress + ") ["+info+"]");
 
     //var results = getGeoPos(adress);
