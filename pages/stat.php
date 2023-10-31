@@ -498,11 +498,13 @@
 			}
 		}
 	}
+
+	var tabCdpNb=[];
 	/* Affichage des stats clients sous format map */
 	function display_statClient(val) {
 		// usage example:
 		var tabVal=[];
-		console.log(val);
+		// console.log(val);
 		var index=0;
 		for (i in val) {
 			tabVal[index]=[];
@@ -510,29 +512,88 @@
 			tabVal[index]['nb']=val[i];
 			index++;
 		}
-		console.log(tabVal);
+		// console.log(lat, lon);
+		// console.log(tabVal);
 		tabVal.sort((a,b) => (a['cdp'] > b['cdp'] ? 1 : a['cdp'] < b['cdp'] ? -1 : 0));
-		console.log(tabVal);
+		// console.log(tabVal);
+
+
 		initMap();
 		getElement('tabCodePostal').innerHTML="";
 		index=1;
 		var rc='';
+		var depOld="";
+		var nbDep=0;
 		var repr="<table width='100%'><tr>";
+
+		var TIME_PAUSE=1200;
 		for (i in tabVal) {
 			if (tabVal[i]['cdp']) {
-				setTimeout('geoPosClient('+tabVal[i]['cdp']+','+false+','+false+','+tabVal[i]['nb']+')', 1200*index);
+
+				var dep = tabVal[i]['cdp'].substr(0,2);
+				
+				setTimeout('geoPosClient('+tabVal[i]['cdp']+','+false+','+false+','+tabVal[i]['nb']+')', TIME_PAUSE*index);
+				setTimeout('rebours('+(sizeof(tabVal)-i)+')', TIME_PAUSE*index);
 				rc='';
 				if (index++%4 == 0) {
 					repr+="</tr><tr>";
 					// rc='<br/>';
 				}
+				// console.log("dep ",dep, depOld);
+				if (depOld != "" && depOld != dep ) {
+					repr+="</tr><tr><td class='tabl0'>"+depOld+" => "+nbDep+"</td></tr><tr>";
+					index=1;
+					nbDep=0;
+				}
+				tabCdpNb[tabVal[i]['cdp']]=tabVal[i]['nb'];
 				repr+="<td class='tabl1'>"+tabVal[i]['cdp']+" => "+tabVal[i]['nb']+"</td>";
 				//getElement('tabCodePostal').innerHTML+="&nbsp;&nbsp;&nbsp;"+tabVal[i]['cdp']+" => "+tabVal[i]['nb']+rc;
+
+				depOld=dep;
+				nbDep+=tabVal[i]['nb'];
 			}
 		}
-		repr+="</tr></table>"
+		repr+="</tr><tr><td class='tabl0'>"+depOld+" => "+nbDep+"</td></tr><tr>";
+
+		// recuperation du tableau des distances
+
+		repr+="</table>"
 		getElement('tabCodePostal').innerHTML=repr;
-		setTimeout("alertModalInfo('Fin de creation de la carte')", 1200*index);
+		console.log('traitement en '+(TIME_PAUSE*sizeof(tabVal)+100)/1000+' secondes');
+		setTimeout("finCreateCarte()", TIME_PAUSE*sizeof(tabVal)+100);
+	}
+
+	function rebours(index) {
+		getElement('km30').innerHTML=index;
+	}
+
+	function finCreateCarte() {
+		alertModalInfo('Fin de creation de la carte');
+		console.log("tabDistanceCDP",tabDistanceCDP);
+
+		var km50= [];
+		for (i in tabDistanceCDP) {
+			var moduleDistance = parseInt(tabDistanceCDP[i]/30);
+			
+			// console.log(tabDistanceCDP[i],moduleDistance);
+			if (!km50[moduleDistance]) {
+				km50[moduleDistance]=0;
+			}
+			km50[moduleDistance]+=tabCdpNb[i];
+		}
+		console.log("km50",km50);
+
+		var repr="0 -> ";
+		var stringKeys = Object.keys(km50);
+		for (let index = 1; index <= stringKeys[stringKeys.length-1]; index++) {
+			var nb=0;
+			if (km50[index]) {
+				nb=km50[index];
+			}
+			repr+=((index)*30)+" = "+nb+ "<br/>"+(((index)*30)+1)+" -> " ;
+		}
+		getElement('km30').innerHTML=repr;
+
 	}
 
 	function display_countTarifDepot(val) {
@@ -839,6 +900,7 @@
 	<div class="row">
 		<div class="col-sm-8 col-xs-12">
 			<div id=map></div>
+			<div id=km30></div>
 		</div>
 		<div class="col-sm-4 col-xs-12">
 			<div id=tabCodePostal></div>
