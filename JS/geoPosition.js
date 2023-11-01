@@ -98,8 +98,6 @@ function geoPosClient(adress) {
                 x_add_cdp(adress, r.properties.lat, r.properties.lon, display_vide);
             }
         });
-    
-    x_add_cdp(adress, 47, -2, display_vide);
 }
 
 function addMarker(lat, lon, adress, info) {
