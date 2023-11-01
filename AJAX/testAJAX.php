@@ -11,11 +11,12 @@
 
 //setcookie('NUMERO_BAV_BIS', date('Y'), time() + (86400 * 30), '/') or die('unable to create cookie');
 
-require_once 'config.ini';
+require_once '../config.ini';
 // require_once 'Commun/commun_functions.php';
 //  require_once 'Commun/mail.php';
-require_once 'AJAX/AJAX.php';
+require_once './AJAX.php';
 
+echo "<h1>testAJAX.php</h1>";
 
 print_r(return_all_lat_lon_cdp());
 for ($i=0; $i < 10;$i++) { 
@@ -24,7 +25,7 @@ for ($i=0; $i < 10;$i++) {
 print_r(return_all_lat_lon_cdp());
 
 //QRcode::png('PHP QR Code :)');
- echo "<h1>test.php</h1>";
+ 
 
 // echo "envoi de mail a marc.garces@free.fr => ";
 // // echo sendMail("test PJ", "braillou@gmail.com", "piece jointe", "/BAV/out/PDF/Fiche_710.pdf");

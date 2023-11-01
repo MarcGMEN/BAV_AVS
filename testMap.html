@@ -27,13 +27,40 @@
     <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
 
     <script type="text/javascript">
+        var tabCdpLatLon = [];
         window.onload = function() {
+
+            x_return_all_lat_lon_cdp(display_latLonCdp);
 
             console.log(lat, lon);
             initMap();
-            geoPosClient('2, rue des judelles, 44117 Saint André des eaux',false, false);
-            geoPosClient('3, rue du balaitous, 65400 argeles gazost',false, false);
+
+            tabVal[0]['cdp']='44600';
+            tabVal[1]['cdp']='65400';
+            tabVal[2]['cdp']='56000';
+				var lat = 0;
+				var lon = 0;
+				if (tabCdpLatLon[tabVal[i]['cdp']]) {
+					console.log(tabCdpLatLon[tabVal[i]['cdp']]);
+					var tabTmp = tabCdpLatLon[tabVal[i]['cdp']].split(',');
+					var lat = tabTmp[0];
+					var lon = tabTmp[1];
+					addMarker(lat, lon, tabVal[i]['cdp']);
+				} else {
+					setTimeout('geoPosClient(' + tabVal[i]['cdp'] + ')', TIME_PAUSE * indexSearch);
+					// setTimeout('addMarkerdecal(' + tabVal[i]['cdp'] + ',' + indexSearch + ')', TIME_PAUSE * indexSearch + 200);
+					indexSearch++;
+				}
         };
+
+        
+	function display_latLonCdp(val) {
+		console.log(val);
+		for (var cdp in val) {
+			tabCdpLatLon[cdp] = val[cdp];
+		}
+		console.log(tabCdpLatLon);
+	}
     </script>
 </head>
 

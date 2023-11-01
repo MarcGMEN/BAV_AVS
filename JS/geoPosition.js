@@ -71,7 +71,7 @@ function initMap() {
     markerBAV = L.marker([lat, lon], { icon: myIconBAV });
     markerBAV.addTo(macarte);
     L.circle([lat, lon], 30000).addTo(macarte);
-    
+
     //macarte.addLayer(markerClusters);
 }
 
@@ -83,9 +83,27 @@ function getGeoPos(adress) {
     return geoCode;
 }
 
-function geoPosClient(adress, unique = true, group = true, info) {
-    var iconBase = 'Images/logoAVS.png';
+function geoPosClient(adress) {
 
+    console.log("geoPosClient(" + adress + ")");
+
+    //var results = getGeoPos(adress);
+    geocoder.geocode(adress + ', France',
+        function (results) {
+            var r = results[0];
+            if (r) {
+                console.log("geoPosClient(" + adress + ") => OK");
+                tabDistanceCDP[adress] = distanceHaversine(lat, lon, r.properties.lat, r.properties.lon);
+                tabCdpLatLon[adress] = r.properties.lat + ","+ r.properties.lon;
+                x_add_cdp(adress, r.properties.lat, r.properties.lon, display_vide);
+            }
+        });
+    
+    x_add_cdp(adress, 47, -2, display_vide);
+}
+
+function addMarker(lat, lon, adress, info) {
+    var iconBase = 'Images/logoAVS.png';
 
     widthIcon = 30;
     heightIcon = 20;
@@ -100,39 +118,25 @@ function geoPosClient(adress, unique = true, group = true, info) {
         popupAnchor: [-3, -3],
     });
 
+    //var marker1 = L.marker(r.center, { icon: myIcon });
+    var marker1 = L.marker([lat, lon], { icon: myIcon });
+    marker1.bindPopup('<strong>' + adress + " : </strong><br/>" + parseInt(tabDistanceCDP[adress]) + ' km').openPopup();
+    markers.push(marker1);
 
+    // if (group) {
+    //     markerClusters.addLayer(marker1);
+    // } else {
+    marker1.addTo(macarte);
+    // }
+    // if (unique) {
+    // macarte.setView([lat, lon], 14);
+    // } else {
+    afficheGroup();
+    // }
 
-    //console.log("geoPosClient(" + adress + ") ["+info+"]");
+}
 
-    //var results = getGeoPos(adress);
-    geocoder.geocode(adress + ', France',
-        function (results) {
-            var r = results[0];
-
-            tabDistanceCDP[adress] = distanceHaversine(lat, lon, r.properties.lat, r.properties.lon);
-
-            if (r) {
-                var marker1 = L.marker(r.center, { icon: myIcon });
-                if (info) {
-                    marker1.bindPopup('<strong>' + adress + " : " + info + '</strong><br/>' + parseInt(tabDistanceCDP[adress]) + ' km').openPopup();
-                } else {
-                    marker1.bindPopup(adress).openPopup();
-                }
-                markers.push(marker1);
-                if (group) {
-                    markerClusters.addLayer(marker1);
-                } else {
-                    marker1.addTo(macarte);
-                }
-                if (unique) {
-                    macarte.setView(r.center, 14);
-                } else {
-                    afficheGroup();
-                }
-            } else {
-                // console.log("pas trouve " + adress);
-            }
-        });
+function display_vide(val) {
 
 }
 

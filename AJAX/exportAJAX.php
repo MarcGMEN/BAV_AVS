@@ -10,7 +10,8 @@ sajax_export(
     "return_restant",
     "action_menage",
     "add_counter_action",
-    "delete_file"
+    "delete_file",
+    "add_cdp","return_lat_lon_cdp","return_all_lat_lon_cdp"
 );
 
 // $pattern = preg_quote("function ", '/');

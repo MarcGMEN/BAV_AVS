@@ -120,8 +120,9 @@ function get_publiHtml($data, $html)
     return makeCorps(string2Tab($data), $html);
 }
 
-function delete_file($file) {
-    unlink("../".$file);
+function delete_file($file)
+{
+    unlink("../" . $file);
 }
 
 /**
@@ -157,25 +158,70 @@ function save_html($html, $data)
     return $html;
 }
 
-function action_menage($fic) {
+function action_menage($fic)
+{
     extract($GLOBALS);
-    $ficSys= str_replace($CFG_URL,"",$fic);
+    $ficSys = str_replace($CFG_URL, "", $fic);
     unlink("../$ficSys");
 }
 
-function add_counter_action($page, $modePage, $type="") {
+function add_counter_action($page, $modePage, $type = "")
+{
     extract($GLOBALS);
-    $cas['cas_page']=$page;
-    $cas['cas_mode_page']=$modePage;
-    $cas['cas_type']=$type;
-    $cas['cas_numero_bav']=$INFO_APPLI['numero_bav'];
+    $cas['cas_page'] = $page;
+    $cas['cas_mode_page'] = $modePage;
+    $cas['cas_type'] = $type;
+    $cas['cas_numero_bav'] = $INFO_APPLI['numero_bav'];
 
-    $cas['cas_navigateur']=getBrowser();
-    $cas['cas_os']=getOSlight();
-    $cas['cas_admin']=$INFO_APPLI['ADMIN'];
-    $cas['cas_ip']=getIp();
+    $cas['cas_navigateur'] = getBrowser();
+    $cas['cas_os'] = getOSlight();
+    $cas['cas_admin'] = $INFO_APPLI['ADMIN'];
+    $cas['cas_ip'] = getIp();
     insertCounterAction($cas);
 }
+
+function add_cdp($cdp, $lat, $lon)
+{
+    $tabCdp = return_all_lat_lon_cdp();
+
+    if (!$tabCdp || !array_search($cdp, array_keys($tabCdp))) {
+        $tabCdp[$cdp] = $lat.",".$lon;
+    }
+    $strFile = "";
+    foreach ($tabCdp as $cdp => $latLon) {
+        // print_r("$cdp => $latLon<br/>");    
+        $strFile.=$cdp."=".$latLon."\n";
+    }
+    // print_r($strFile);
+    // $strFile = implode('\n', $tabCdp);
+    file_put_contents("../Commun/cdp.txt", $strFile);
+}
+
+function return_lat_lon_cdp($cdp)
+{
+    $tabCdp = return_all_lat_lon_cdp();
+
+    if (array_search($cdp, array_keys($tabCdp))) {
+        return $tabCdp[$cdp];
+    }
+}
+
+function return_all_lat_lon_cdp()
+{
+    $strCdp = file_get_contents("../Commun/cdp.txt");
+
+    $tabFile = explode("\n", $strCdp);
+
+    foreach ($tabFile as $key => $value) {
+        // error_log($value);   
+        if ($value) {
+            $tabTmp = explode("=", $value);
+            $tabCdp[$tabTmp[0]] = $tabTmp[1];
+        }
+    }
+    return $tabCdp;
+}
+
 
 sajax_init("");
 // definition des fonction ajax possible
