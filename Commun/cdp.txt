@@ -3,7 +3,10 @@
 22970=48.54121694444444,-3.144253948148148,Ploumagoar- Guingamp- Côtes-d'Armor- 22970- Bretagne- France métropolitaine- France
 25000=47.24372079377358,6.020642064150944,Rue Battant- Besançon- Doubs- 25000- Bourgogne-Franche-Comté- France métropolitaine- France
 29460=48.35017258612245,-4.2223801,Irvillac- Brest- Finistère- 29460- Bretagne- France métropolitaine- France
+35113=48.068521675,-1.3978542,Domagné- Fougères-Vitré- Ille-et-Vilaine- 35113- Bretagne- France métropolitaine- France
+35170=48.02395391566038,-1.7556800071698113,Bruz- Rennes- Ille-et-Vilaine- 35170- Bretagne- France métropolitaine- France
 44000=47.22311488777915,-1.553320772509933,Hauts-Pavés - Saint-Félix- Nantes- Loire-Atlantique- 44000- Pays de la Loire- France métropolitaine- France
+44100=47.211629300769985,-1.5889627627887444,Dervallières - Zola- Nantes- Loire-Atlantique- 44100- Pays de la Loire- France métropolitaine- France
 44110=47.71595932117647,-1.3702764847058824,Châteaubriant- Châteaubriant-Ancenis- Loire-Atlantique- 44110- Pays de la Loire- France métropolitaine- France
 44117=47.376899981818184,-2.2848370818181816,Saint-Joachim- Saint-Nazaire- Loire-Atlantique- 44117- Pays de la Loire- France métropolitaine- France
 44130=47.456554980310884,-1.7632520979274613,Blain- Châteaubriant-Ancenis- Loire-Atlantique- 44130- Pays de la Loire- France métropolitaine- France
@@ -15,6 +18,7 @@
 44260=47.356194739560436,-1.9416661131868131,Savenay- Saint-Nazaire- Loire-Atlantique- 44260- Pays de la Loire- France métropolitaine- France
 44300=47.24633340838746,-1.5388431961031732,44300- France
 44320=47.21573665365602,-2.001141065808445,Saint-Viaud- Saint-Nazaire- Loire-Atlantique- 44320- Pays de la Loire- France métropolitaine- France
+44340=47.17651552559055,-1.6086167500145816,Bouguenais- Nantes- Loire-Atlantique- 44340- Pays de la Loire- France métropolitaine- France
 44350=47.30583819808917,-2.4073586845541404,Guérande- Saint-Nazaire- Loire-Atlantique- 44350- Pays de la Loire- France métropolitaine- France
 44360=47.3032494625,-1.7724114078125,Saint-Étienne-de-Montluc- Nantes- Loire-Atlantique- 44360- Pays de la Loire- France métropolitaine- France
 44380=47.26127722276423,-2.3344080268292684,Pornichet- Saint-Nazaire- Loire-Atlantique- 44380- Pays de la Loire- France métropolitaine- France
@@ -27,6 +31,7 @@
 44500=47.28447809623661,-2.371564872518722,La Baule-Escoublac- Saint-Nazaire- Loire-Atlantique- 44500- Pays de la Loire- France métropolitaine- France
 44510=47.275103129166666,-2.4331521166666668,Le Pouliguen- Saint-Nazaire- Loire-Atlantique- 44510- Pays de la Loire- France métropolitaine- France
 44530=47.512218832425745,-2.037952888861386,Saint-Gildas-des-Bois- Saint-Nazaire- Loire-Atlantique- 44530- Pays de la Loire- France métropolitaine- France
+44540=47.557345739999995,-1.1341650533333334,Freigné- Vallons-de-l'Erdre- Châteaubriant-Ancenis- Loire-Atlantique- 44540- Pays de la Loire- France métropolitaine- France
 44550=47.33478809512195,-2.160619263414634,Montoir-de-Bretagne- Saint-Nazaire- Loire-Atlantique- 44550- Pays de la Loire- France métropolitaine- France
 44570=47.304452767441866,-2.202758146511628,Trignac- Saint-Nazaire- Loire-Atlantique- 44570- Pays de la Loire- France métropolitaine- France
 44580=47.03843192,-1.91573443,Bourgneuf-en-Retz- Villeneuve-en-Retz- Saint-Nazaire- Loire-Atlantique- 44580- Pays de la Loire- France métropolitaine- France
@@ -43,8 +48,10 @@
 49070=47.47305225583126,-0.6613627104218361,Saint-Lambert-la-Potherie- Angers- Maine-et-Loire- 49070- Pays de la Loire- France métropolitaine- France
 49400=47.25563447887931,-0.08094263362068965,Saumur- Maine-et-Loire- 49400- Pays de la Loire- France métropolitaine- France
 49420=47.729642663,-1.155495534,Armaillé- Segré- Maine-et-Loire- 49420- Pays de la Loire- France métropolitaine- France
+56130=47.5169111875969,-2.295325286046512,Nivillac- Vannes- Morbihan- 56130- Bretagne- France métropolitaine- France
 56190=47.553711351898734,-2.4950241006329117,Ambon- Vannes- Morbihan- 56190- Bretagne- France métropolitaine- France
 56390=47.76195960814479,-2.8520713719457014,Grand-Champ- Vannes- Morbihan- 56390- Bretagne- France métropolitaine- France
 56500=47.92327277255575,-2.874377261406518,Remungol- Évellys- Pontivy- Morbihan- 56500- Bretagne- France métropolitaine- France
+56760=47.47971407,-2.47525189,Pénestin- Vannes- Morbihan- 56760- Bretagne- France métropolitaine- France
 85300=46.84169104414414,-1.885985735135135,Challans- Les Sables-d'Olonne- Vendée- 85300- Pays de la Loire- France métropolitaine- France
 85690=46.837081075,-2.11629938125,Notre-Dame-de-Monts- Les Sables-d'Olonne- Vendée- 85690- Pays de la Loire- France métropolitaine- France
