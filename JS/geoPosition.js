@@ -92,10 +92,12 @@ function geoPosClient(adress) {
         function (results) {
             var r = results[0];
             if (r) {
+                // console.log(r);
+                
                 console.log("geoPosClient(" + adress + ") => OK");
                 tabDistanceCDP[adress] = distanceHaversine(latSN, lonSN, r.properties.lat, r.properties.lon);
-                tabCdpLatLon[adress] = r.properties.lat + ","+ r.properties.lon;
-                x_add_cdp(adress, r.properties.lat, r.properties.lon, display_vide);
+                tabCdpLatLon[adress] = r.properties.lat + ","+ r.properties.lon+ ","+ r.name.replaceAll(',','-');
+                x_add_cdp(adress, r.properties.lat, r.properties.lon, r.name.replaceAll(',','-'),display_vide);
             }
         });
 }
@@ -118,7 +120,7 @@ function addMarker(lat, lon, adress, info) {
 
     //var marker1 = L.marker(r.center, { icon: myIcon });
     var marker1 = L.marker([lat, lon], { icon: myIcon });
-    marker1.bindPopup('<strong>' + adress + " : </strong><br/>" + parseInt(tabDistanceCDP[adress]) + ' km').openPopup();
+    marker1.bindPopup("<strong>" + adress + " : </strong><br/>" + parseInt(tabDistanceCDP[adress]) + " km<br/>" + info).openPopup();
     markers.push(marker1);
 
     // if (group) {

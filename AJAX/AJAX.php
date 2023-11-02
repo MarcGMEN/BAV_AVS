@@ -180,17 +180,19 @@ function add_counter_action($page, $modePage, $type = "")
     insertCounterAction($cas);
 }
 
-function add_cdp($cdp, $lat, $lon)
+function add_cdp($cdp, $lat, $lon, $plus)
 {
     $tabCdp = return_all_lat_lon_cdp();
 
     if (!$tabCdp || !array_search($cdp, array_keys($tabCdp))) {
-        $tabCdp[$cdp] = $lat.",".$lon;
+        $tabCdp[$cdp] = $lat.",".$lon.",".utf8_encode($plus);
     }
     $strFile = "";
-    foreach ($tabCdp as $cdp => $latLon) {
+
+    ksort($tabCdp);
+    foreach ($tabCdp as $cdp => $value) {
         // print_r("$cdp => $latLon<br/>");    
-        $strFile.=$cdp."=".$latLon."\n";
+        $strFile.=$cdp."=".$value."\n";
     }
     // print_r($strFile);
     // $strFile = implode('\n', $tabCdp);

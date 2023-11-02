@@ -550,14 +550,15 @@
 					var tabTmp = tabCdpLatLon[tabVal[i]['cdp']].split(',');
 					var lat = tabTmp[0];
 					var lon = tabTmp[1];
+					var info = tabTmp[2];
 					tabDistanceCDP[tabVal[i]['cdp']] = distanceHaversine(latSN, lonSN, lat, lon);
 
-					addMarker(lat, lon, tabVal[i]['cdp']);
+					addMarker(lat, lon, tabVal[i]['cdp'],info);
 
 				} else {
 					// x_add_cdp(tabVal[i]['cdp'],lat, lon, display_vide);
 					setTimeout('geoPosClient(' + tabVal[i]['cdp'] + ')', TIME_PAUSE * indexSearch);
-					setTimeout('addMarkerdecal(' + tabVal[i]['cdp'] + ',' + indexSearch + ')', TIME_PAUSE * indexSearch + 200);
+					setTimeout('addMarkerdecal(' + tabVal[i]['cdp'] + ',' + indexSearch + ')', TIME_PAUSE * indexSearch + 1000);
 					indexSearch++;
 				}
 
@@ -591,11 +592,12 @@
 	}
 
 	function addMarkerdecal(cdp, index) {
+		// console.log("marker decale "+cdp,tabCdpLatLon[cdp]);
 		if (tabCdpLatLon[cdp]) {
 			var tabTmp = tabCdpLatLon[cdp].split(',');
 			var lat = tabTmp[0];
 			var lon = tabTmp[1];
-			addMarker(lat, lon, cdp);
+			addMarker(lat, lon, cdp, tabTmp[2]);
 		}
 
 	}
@@ -621,7 +623,7 @@
 		console.log("km50", km50);
 
 		var kmAV = 0;
-		var repr = "";
+		var repr = "Distance des clients : <br/>";
 		var stringKeys = Object.keys(km50);
 		var indexAff = 1;
 		for (let index = 0; index <= stringKeys[stringKeys.length - 1]; index++) {
@@ -631,7 +633,7 @@
 			}
 			var kmFin = (index + 1) * 30;
 			if (nb > 0) {
-				repr += kmAV + " -> " + kmFin + " = " + nb + "&nbsp;&nbsp;/&nbsp;&nbsp;";
+				repr += kmAV + "km -> " + kmFin + "km = " + nb + "&nbsp;&nbsp;/&nbsp;&nbsp;";
 				
 				if ((indexAff++) % 6 == 0) {
 					repr += "<br/>";
