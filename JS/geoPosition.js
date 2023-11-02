@@ -1,6 +1,6 @@
 // On initialise la latitude et la longitude de st nazaire (centre de la carte)
-var lat = 47.271469;
-var lon = -2.229505;
+var latSN = 47.271469;
+var lonSN = -2.229505;
 var macarte = null;
 var markerClusters;
 
@@ -24,7 +24,7 @@ function initMap() {
     // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
     macarte = L.map('map', {
         fullscreenControl: true,
-    }).setView([lat, lon], 11);
+    }).setView([latSN, lonSN], 11);
 
     // macarte.addControl(new L.Control.Fullscreen());
 
@@ -68,9 +68,9 @@ function initMap() {
         iconUrl: 'Images/BAV_2020.png',
         iconSize: [30, 30],
     });
-    markerBAV = L.marker([lat, lon], { icon: myIconBAV });
+    markerBAV = L.marker([latSN, lonSN], { icon: myIconBAV });
     markerBAV.addTo(macarte);
-    L.circle([lat, lon], 30000).addTo(macarte);
+    L.circle([latSN, lonSN], 30000).addTo(macarte);
 
     //macarte.addLayer(markerClusters);
 }
@@ -93,7 +93,7 @@ function geoPosClient(adress) {
             var r = results[0];
             if (r) {
                 console.log("geoPosClient(" + adress + ") => OK");
-                tabDistanceCDP[adress] = distanceHaversine(lat, lon, r.properties.lat, r.properties.lon);
+                tabDistanceCDP[adress] = distanceHaversine(latSN, lonSN, r.properties.lat, r.properties.lon);
                 tabCdpLatLon[adress] = r.properties.lat + ","+ r.properties.lon;
                 x_add_cdp(adress, r.properties.lat, r.properties.lon, display_vide);
             }

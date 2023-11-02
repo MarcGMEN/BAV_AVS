@@ -546,11 +546,14 @@
 				var lat = 0;
 				var lon = 0;
 				if (tabCdpLatLon[tabVal[i]['cdp']]) {
-					console.log(tabVal[i]['cdp'] +" connu");
+					console.log(tabVal[i]['cdp'] + " connu");
 					var tabTmp = tabCdpLatLon[tabVal[i]['cdp']].split(',');
 					var lat = tabTmp[0];
 					var lon = tabTmp[1];
+					tabDistanceCDP[tabVal[i]['cdp']] = distanceHaversine(latSN, lonSN, lat, lon);
+
 					addMarker(lat, lon, tabVal[i]['cdp']);
+
 				} else {
 					// x_add_cdp(tabVal[i]['cdp'],lat, lon, display_vide);
 					setTimeout('geoPosClient(' + tabVal[i]['cdp'] + ')', TIME_PAUSE * indexSearch);
@@ -617,14 +620,27 @@
 		}
 		console.log("km50", km50);
 
-		var repr = "0 -> ";
+		var kmAV = 0;
+		var repr = "";
 		var stringKeys = Object.keys(km50);
+		var indexAff = 1;
 		for (let index = 0; index <= stringKeys[stringKeys.length - 1]; index++) {
 			var nb = 0;
 			if (km50[index]) {
 				nb = km50[index];
 			}
-			repr += ((index + 1) * 30) + " = " + nb + "<br/>" + (((index + 1) * 30) + 1) + " -> ";
+			var kmFin = (index + 1) * 30;
+			if (nb > 0) {
+				repr += kmAV + " -> " + kmFin + " = " + nb + "&nbsp;&nbsp;/&nbsp;&nbsp;";
+				
+				if ((indexAff++) % 6 == 0) {
+					repr += "<br/>";
+				}
+			}
+			kmAV = ((index + 1) * 30) + 1;
+
+
+			//			repr += ((index + 1) * 30) + " = " + nb + "<br/>" + (((index + 1) * 30) + 1) + " -> ";
 		}
 		getElement('km30').innerHTML = repr;
 
