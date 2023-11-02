@@ -84,8 +84,8 @@ function display_fiches(val) {
                     val[index]['obj_marque'] = val[index]['obj_marque'].replace(reg, "<b style='color:BLUE'>$1</b>");
                 }
 
-                repr += "<tr class='tabl0 " + val[index]['obj_etat'] + " link' style='" + stylePlus + "' onclick='goTo(\"ficheAdmin.php\",\"modif\"," + val[index]['obj_id'] + ")'>";
-                repr += "<td width=6% style='text-align:center'>";
+                repr += "<tr class='tabl0 " + val[index]['obj_etat'] + " link' style='" + stylePlus + "' >";
+                repr += "<td width=6% style='text-align:center' onclick='goTo(\"ficheAdmin.php\",\"modif\"," + val[index]['obj_id'] + ")'>";
                 if (val[index]['obj_modif_data'] > 0) {
                     //repr += "<img src='Images/etiq" + val[index]['obj_modif_data'] + ".png' style='height:20px' />";
                     repr += "<div style='font-size:0.5em'>etiquette</div>";
