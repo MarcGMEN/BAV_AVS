@@ -45,7 +45,7 @@
 
 	</tr>
 </table>
-Recherche générique : <input size=40 id='obj_search' onkeyup="searchColonne('obj_search')"  placeholder="description, modèle, marque, couleur, prix depôt et prix de vente" />
+Recherche générique : <input size=30 id='obj_search' onkeyup="searchColonne('obj_search')"  placeholder="description, modèle, marque, couleur, prix depôt et prix de vente" />
 <!--<small>(description, modèle, marque, couleur, prix depôt et prix de vente)</small>-->
 <table width="100%" >
 	<tr>
