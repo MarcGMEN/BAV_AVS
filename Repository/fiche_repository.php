@@ -210,7 +210,8 @@ function getFiches($order, $sens, $tabSel)
             $requete2 .= " or obj_marque like '%" . addslashes($val) . "%' ";
             $requete2 .= " or obj_couleur like '%" . addslashes($val) . "%' ";
             $requete2 .= " or obj_prix_depot like '" . addslashes($val) . "%' ";
-            $requete2 .= " or obj_prix_vente like '" . addslashes($val) . "%') ";
+            $requete2 .= " or obj_prix_vente like '" . addslashes($val) . "%' ";
+            // $requete2 .= " or obj_taille like '" . addslashes($val) . "%') ";
         } elseif ($key && $val != "*") {
             $requete2 .= " and $key = '" . addslashes($val) . "' ";
         }
