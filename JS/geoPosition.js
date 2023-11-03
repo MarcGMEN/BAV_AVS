@@ -102,7 +102,7 @@ function geoPosClient(adress) {
         });
 }
 
-function addMarker(lat, lon, adress, info) {
+function addMarker(lat, lon, adress,nb,info) {
     var iconBase = 'Images/logoAVS.png';
 
     widthIcon = 30;
@@ -120,13 +120,17 @@ function addMarker(lat, lon, adress, info) {
 
     //var marker1 = L.marker(r.center, { icon: myIcon });
     var marker1 = L.marker([lat, lon], { icon: myIcon });
-    marker1.bindPopup("<strong>" + adress + " : </strong><br/>" + parseInt(tabDistanceCDP[adress]) + " km<br/>" + info).openPopup();
+    marker1.bindPopup("<strong>" + adress + " : "+nb+"</strong><br/>" + parseInt(tabDistanceCDP[adress]) + " km<br/>" + info).openPopup();
     markers.push(marker1);
 
     // if (group) {
     //     markerClusters.addLayer(marker1);
     // } else {
     marker1.addTo(macarte);
+
+    var plusNb = nb > 70 ? 70 : nb;
+    var circlePoid = L.circle([lat, lon], 1000 + plusNb * 100).addTo(macarte);
+    circlePoid.setStyle({color: 'green'});
     // }
     // if (unique) {
     // macarte.setView([lat, lon], 14);

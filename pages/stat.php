@@ -553,12 +553,12 @@
 					var info = tabTmp[2];
 					tabDistanceCDP[tabVal[i]['cdp']] = distanceHaversine(latSN, lonSN, lat, lon);
 
-					addMarker(lat, lon, tabVal[i]['cdp'],info);
+					addMarker(lat, lon, tabVal[i]['cdp'],tabVal[i]['nb'], info);
 
 				} else {
 					// x_add_cdp(tabVal[i]['cdp'],lat, lon, display_vide);
 					setTimeout('geoPosClient(' + tabVal[i]['cdp'] + ')', TIME_PAUSE * indexSearch);
-					setTimeout('addMarkerdecal(' + tabVal[i]['cdp'] + ',' + indexSearch + ')', TIME_PAUSE * indexSearch + 1000);
+					setTimeout('addMarkerdecal(' + tabVal[i]['cdp'] + ',' + indexSearch + ',' + tabVal[i]['nb'] + ')', TIME_PAUSE * indexSearch + 1000);
 					indexSearch++;
 				}
 
@@ -584,20 +584,19 @@
 		repr += "</tr><tr><td class='tabl0'>" + depOld + " => " + nbDep + "</td></tr><tr>";
 
 		// recuperation du tableau des distances
-
 		repr += "</table>"
 		getElement('tabCodePostal').innerHTML = repr;
 		console.log('traitement en ' + (TIME_PAUSE * indexSearch + 100) / 1000 + ' secondes');
 		setTimeout("finCreateCarte()", TIME_PAUSE * indexSearch + 100);
 	}
 
-	function addMarkerdecal(cdp, index) {
+	function addMarkerdecal(cdp, index, nb) {
 		// console.log("marker decale "+cdp,tabCdpLatLon[cdp]);
 		if (tabCdpLatLon[cdp]) {
 			var tabTmp = tabCdpLatLon[cdp].split(',');
 			var lat = tabTmp[0];
 			var lon = tabTmp[1];
-			addMarker(lat, lon, cdp, tabTmp[2]);
+			addMarker(lat, lon, cdp,nb,tabTmp[2]);
 		}
 
 	}
