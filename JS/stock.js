@@ -86,18 +86,22 @@ function display_fiches(val) {
 
                 repr += "<tr class='tabl0 " + val[index]['obj_etat'] + " link' style='" + stylePlus + "' >";
                 repr += "<td width=6% style='text-align:center' onclick='goTo(\"ficheAdmin.php\",\"modif\"," + val[index]['obj_id'] + ")'>";
+                repr += "<div style='font-size:0.5em'>";
                 if (val[index]['obj_modif_data'] > 0) {
                     //repr += "<img src='Images/etiq" + val[index]['obj_modif_data'] + ".png' style='height:20px' />";
-                    repr += "<div style='font-size:0.5em'>etiquette</div>";
+                    // repr += "<div style='font-size:0.5em'>E</div>";
+                    repr += "E&nbsp;";
                 }
                 if (val[index]['obj_modif_vendeur'] > 0) {
                     //repr += "<img src='Images/coupon_vendeur" + val[index]['obj_modif_vendeur'] + ".png' style='height:10px' />";
-                    repr += "<div style='font-size:0.5em'>coupon vendeur</div>";
+                    // repr += "<div style='font-size:0.5em'>CD</div>";
+                    repr += "CD&nbsp;";
                 }
                 if (val[index]['obj_modif_stock'] > 0) {
-                    repr += "<div style='font-size:0.5em'>coupon Stock</div>";
+                    // repr += "<div style='font-size:0.5em'>CS</div>";
+                    repr += "CV";
                 }
-
+                repr += "</div>";
                 if (val[index]['mop_id'] > 0) {
                     repr += "<img src='Images/modifPrix.png' style='height:20px' />";
                 }
