@@ -74,6 +74,9 @@ function display_fiches(val) {
                     stylePlus = "color:DARKRED;font-weight:bold"
                 }
 
+                val['obj_marque_orig'] = val[index]['obj_marque'];
+                val['obj_modele_orig'] = val[index]['obj_modele'];
+
                 if (gSearch) {
                     var reg = new RegExp("(" + gSearch + ")", "gi");
                     val[index]['obj_modele'] = val[index]['obj_modele'].replace(reg, "--$1--");
@@ -122,7 +125,7 @@ function display_fiches(val) {
                 repr += "<td class='maskMobile' style='padding:0px 5px 0px 5px' width=14% title=\"modèle :" + val[index]['obj_modele'] + "\ndesc :" + val[index]['obj_description'] + "\"'>";
                 repr += val[index]['obj_marque'];
                 if (val[index]['obj_modele']) {
-                    repr += "&nbsp<A href='https://www.google.fr/search?tbm=isch&q=" + val[index]['obj_marque'] + " " + val[index]['obj_modele'] + "' target='_blank' ><img src='https://www.we-do-it-better.fr/wp-content/uploads/2019/04/googlesearch.png' height='20px'/></A></span>";
+                    repr += "&nbsp<A href='https://www.google.fr/search?tbm=isch&q=" + val[index]['obj_marque_orig'] + " " + val[index]['obj_modele_orig'] + "' target='_blank' ><img src='https://www.we-do-it-better.fr/wp-content/uploads/2019/04/googlesearch.png' height='20px'/></A></span>";
                 }
                 repr += "</td>";
                 repr += "<td class='maskMobile' style='padding:0px 5px 0px 5px' width=15% title=\"mel : " + val[index]['cli_emel'] + "\">";
