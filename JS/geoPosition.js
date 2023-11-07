@@ -77,6 +77,7 @@ function initMap() {
 
 function getGeoPos(adress) {
     var geoCode = geocoder.geocode(adress + ', France', function (results) {
+        console.log("getGeoPos",results);
         return results;
     });
 
@@ -92,7 +93,7 @@ function geoPosClient(adress) {
         function (results) {
             var r = results[0];
             if (r) {
-                // console.log(r);
+                console.log(r);
                 
                 console.log("geoPosClient(" + adress + ") => OK");
                 tabDistanceCDP[adress] = distanceHaversine(latSN, lonSN, r.properties.lat, r.properties.lon);
