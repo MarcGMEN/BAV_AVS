@@ -511,6 +511,7 @@
 	}
 
 	var tabCdpNb = [];
+	var nbClient = 0;
 	/* Affichage des stats clients sous format map */
 	function display_statClient(val) {
 		// usage example:
@@ -535,6 +536,14 @@
 		var rc = '';
 		var depOld = "";
 		var nbDep = 0;
+		var nbCommune=0;
+		
+		for (i in tabVal) {
+			if (tabVal[i]['cdp']) {
+				nbClient += tabVal[i]['nb'];
+			}
+		}
+		
 		var repr = "<table width='100%'><tr>";
 
 		var TIME_PAUSE = 1200;
@@ -563,25 +572,34 @@
 				}
 
 				rc = '';
-				if (index++ % 4 == 0) {
+				if (index++ % 3 == 0) {
 					repr += "</tr><tr>";
 					// rc='<br/>';
 				}
 				// console.log("dep ",dep, depOld);
 				if (depOld != "" && depOld != dep) {
-					repr += "</tr><tr><td class='tabl0'>" + depOld + " => " + nbDep + "</td></tr><tr>";
+					var pour=nbDep*100/nbClient;
+					repr += "</tr><tr><td class='tabl0' colspan=3 style='background-color:lightgrey'>" + depOld + " => " + nbDep +" ("+pour.toFixed(2)+"%)";
+					repr += "&nbsp;&nbsp;&nbsp;Communes : "+nbCommune+"<br/></td></tr><tr>";
 					index = 1;
 					nbDep = 0;
+					nbCommune=0;
 				}
 				tabCdpNb[tabVal[i]['cdp']] = tabVal[i]['nb'];
-				repr += "<td class='tabl1'>" + tabVal[i]['cdp'] + " => " + tabVal[i]['nb'] + "</td>";
+				var pour=tabVal[i]['nb']*100/nbClient;
+				repr += "<td class='tabl1' width='33%'>" + tabVal[i]['cdp'] + " => " + tabVal[i]['nb'] + " ("+pour.toFixed(2)+"%)</td>";
 				//getElement('tabCodePostal').innerHTML+="&nbsp;&nbsp;&nbsp;"+tabVal[i]['cdp']+" => "+tabVal[i]['nb']+rc;
 
 				depOld = dep;
 				nbDep += tabVal[i]['nb'];
+				nbCommune++;
+				
 			}
 		}
-		repr += "</tr><tr><td class='tabl0'>" + depOld + " => " + nbDep + "</td></tr><tr>";
+		var pour=nbDep*100/nbClient;
+		repr += "</tr><tr><td class='tabl0' colspan=3 style='background-color:lightgrey'>" + depOld + " => " + nbDep +" ("+pour.toFixed(2)+"%)";
+		repr += "&nbsp;&nbsp;&nbsp;Communes : "+nbCommune+"<br/></td></tr><tr>";
+		repr += "</tr><tr><td class='tabl0'><b>Total => " + nbClient + "</b></td></tr><tr>";
 
 		// recuperation du tableau des distances
 		repr += "</table>"
@@ -622,7 +640,7 @@
 		console.log("km50", km50);
 
 		var kmAV = 0;
-		var repr = "Distance des clients : <br/>";
+		var repr = "<div class='tabl0'>Distance des clients : </div>";
 		var stringKeys = Object.keys(km50);
 		var indexAff = 1;
 		for (let index = 0; index <= stringKeys[stringKeys.length - 1]; index++) {
@@ -632,9 +650,11 @@
 			}
 			var kmFin = (index + 1) * 30;
 			if (nb > 0) {
-				repr += kmAV + "km -> " + kmFin + "km = " + nb + "&nbsp;&nbsp;/&nbsp;&nbsp;";
+
+				var pour=nb*100/nbClient;
+				repr += kmAV + "km -> " + kmFin + "km = " + nb + " ("+pour.toFixed(2)+"%)&nbsp;&nbsp;/&nbsp;&nbsp;";
 				
-				if ((indexAff++) % 6 == 0) {
+				if ((indexAff++) % 5 == 0) {
 					repr += "<br/>";
 				}
 			}
