@@ -128,16 +128,17 @@ function getNumMaxFiche()
 function getNbFicheByPlage($min, $max)
 {
     $row = null;
-    $query = " SELECT count(*) from bav_objet where obj_numero_bav = '" .$GLOBALS['INFO_APPLI']['numero_bav'] . "'";
+    $query = " SELECT count(*), obj_etat from bav_objet where obj_numero_bav = '" .$GLOBALS['INFO_APPLI']['numero_bav'] . "'";
     $query .= " and obj_numero >= $min and obj_numero <= $max";
+    $query .= " group by obj_etat";
     // error_log($query);
-    if ($result = $GLOBALS['mysqli']->query($query)) {
-        $row = $result->fetch_assoc();
-        $result->close();
-    } else {
-        throw new Exception("Pb getNumMaxFiche' [$query]" . mysqli_error($result));
+    $tabretour=array();
+    $result = $GLOBALS['mysqli']->query($query);
+    while ($row = $result->fetch_assoc()) {
+        $tabretour[$row['obj_etat']] = $row['count(*)'];
     }
-    return $row['count(*)'];
+    $result->close();
+    return $tabretour;
 }
 
 

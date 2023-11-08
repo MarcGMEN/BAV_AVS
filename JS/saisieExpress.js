@@ -40,16 +40,34 @@ function display_num_max_fiches(val) {
 }
 
 function display_detailpageFiche(val) {
-    //console.log(val);
-    getElement("cla_" + val[0]).title = "Nb de fiche du classeur : "+val[1]+" / "+classeur;
+    // console.log(val);
     var color = "black"
-    if (val[1] > 0) {
+    var nbfiche = 0;
+    getElement("cla_" + val[0]).title = "";
+
+    var payeRendu = 0;
+    for (index in val[1]) {
+        getElement("cla_" + val[0]).title += index + " = " + val[1][index]+"\n";
+        nbfiche += parseInt(val[1][index]);
+        if (index == 'PAYE' || index == 'RENDU') {
+            payeRendu+= parseInt(val[1][index]);
+        }
+    }
+    if (nbfiche > 0) {
         color = "darkorange";
     }
-    if (val[1] == classeur) {
+    if (nbfiche== classeur) {
         color = "darkgreen";
         getElement("cla_" + val[0]).style.fontWeight = "bold";
     }
+    if (payeRendu == nbfiche) {
+        console.log(payeRendu);
+        color = "darkred";
+        getElement("cla_" + val[0]).style.fontWeight = "bold";
+    }
+    
+    
+    getElement("cla_" + val[0]).title += "Nb de fiche du classeur : " + nbfiche + " / " + classeur;
     getElement("cla_" + val[0]).style.color = color;
 }
 
