@@ -60,7 +60,7 @@ function display_detailpageFiche(val) {
         color = "darkgreen";
         getElement("cla_" + val[0]).style.fontWeight = "bold";
     }
-    if (payeRendu == nbfiche) {
+    if (payeRendu > 0 && payeRendu == nbfiche) {
         console.log(payeRendu);
         color = "darkred";
         getElement("cla_" + val[0]).style.fontWeight = "bold";
