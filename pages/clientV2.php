@@ -140,6 +140,9 @@
 			<? if ($infAppli['CLIENT'] == 1 || $infAppli['ADMIN'] == 1 || $GET_modePage == "createTEST") { ?>
 				<h3><input type=button value="Ajouter un dépôt ➕" onclick="addDepot(document.clientForm.cli_id_modif.value)" /></h3>
 			<? } ?>
+			<? if ($infAppli['CLIENT'] == 0 ){?>
+				<h4>Pas d'ajout possible, session clotûrée.</h4>
+			<?}?>
 		<!-- </div>
 		<div class="col-sm-6 col-md-6 col-xs-0 alert alert-info maskMobile" id='aideImpression' style="display:none;"> 
 			<h5><b>⚠ N'oubliez pas d'imprimer votre fiche de dépôt avant de venir en cliquant sur l'icone :📇</b></h5>

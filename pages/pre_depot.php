@@ -58,6 +58,11 @@
 				==>
 			</div>
 		<? } ?>
+		<? if (!$infAppli['CLIENT'] ) { ?>
+			<div class="col-sm-12 col-md-12 col-xs-12 alert alert-info" id='div_first_connexion'>
+			Pas d'ajout possible, session clotûré.
+			</div>
+		<?}?>
 		<div class="col-sm-6 col-md-6 col-xs-12 alert alert-info" id='div_connexion'>
 			<div class="col-sm-12 col-md-12 col-xs-12 ">
 				<h4>Connexion<h4>
