@@ -59,11 +59,9 @@
 	var tabCdpLatLon = [];
 
 	function display_latLonCdp(val) {
-		console.log(val);
 		for (var cdp in val) {
 			tabCdpLatLon[cdp] = val[cdp];
 		}
-		console.log(tabCdpLatLon);
 	}
 
 	function display_statPreDepotByAnneeRef(val) {

@@ -92,6 +92,9 @@ function searchFicheExpress(num) {
 
 function display_list_marques(val) {
     var list = getElement("listMarques");
+    while (list.firstChild) {
+        list.removeChild(list.firstChild);
+    }
     for (index in val) {
         list.appendChild(new Option(val[index], val[index]));
     }
@@ -517,6 +520,8 @@ function submitForm() {
 
     modifEtat(tabObj, tabCli);
 
+
+
     return false;
 }
 
@@ -631,6 +636,12 @@ function display_fin_create(val) {
 
         // on revient sur le numero de fiche en focus
         document.searchFormFiche.numeroFiche.focus();
+
+        // on recharge les nouvelles marques
+        x_return_list_marques(display_list_marques)
+
+        // mise a jour des onglets
+        x_return_num_max_fiches(display_num_max_fiches);
 
     } else {
         alertModalWarn(val);

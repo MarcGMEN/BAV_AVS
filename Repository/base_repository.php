@@ -96,11 +96,16 @@ function recupEnumToArray($table, $champ)
 
 function selectVue($vue, $champ)
 {
+    extract($GLOBALS);
+    $numBAV = $INFO_APPLI['numero_bav'];
     $query = "SELECT $champ ";
     $query .= "from $vue  ";
+    $query .= " where obj_numero_bav = '$numBAV' "; 
     $query .= " order by $champ";
-    //error_log("listUnique ".$query);
+
+    error_log("listUnique ".$query);
     $tab = array();
+    
     if ($result = $GLOBALS['mysqli']->query($query)) {
         $tab = array();
         $index = 0;
