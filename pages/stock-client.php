@@ -10,11 +10,11 @@
 		console.log(vueParc);
 		if (vueParc == '1' || ADMIN) {
 			x_return_enum('bav_objet', 'obj_type', display_list_type);
-			// x_return_enum('bav_objet', 'obj_public', display_list_public);
+			x_return_enum('bav_objet', 'obj_public', display_list_public);
 			//x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);
 
 			x_return_list_marques(display_list_marque)
-			x_return_fiches(tri, sens, tabToString(tabSel), 0, 0,display_fiches);
+			x_return_fiches(tri, sens, tabToString(tabSel), 0, 0, display_fiches);
 		} else {
 			goTo();
 		}
@@ -53,12 +53,12 @@
 		}
 	}
 
-	function unloadPage() {}
+	function unloadPage() { }
 
 	// recuperation des donnees de la BAV
 	function setParamVal(val) {
 		setParamValIndex(val);
-		if (ADMIN) {} else {
+		if (ADMIN) { } else {
 			goTo();
 		}
 	}
@@ -71,16 +71,21 @@
 			var repr = "<table width='100%' border=1>";
 			for (index in val) {
 				if (!isNaN(index)) {
-
 					if (gSearch) {
-						var reg = new RegExp("(" + gSearch + ")", "gi");
-						val[index]['obj_modele'] = val[index]['obj_modele'].replace(reg, "<b style='color:BLUE'>$1</b>");
-						val[index]['obj_description'] = val[index]['obj_description'].replace(reg, "<b style='color:BLUE'>$1</b>");
-						// val[index]['obj_prix_vente'] = val[index]['obj_prix_vente'].replace(reg, "<b style='color:BLUE'>$1</b>");
-						// val[index]['obj_prix_depot'] = val[index]['obj_prix_depot'].replace(reg, "<b style='color:BLUE'>$1</b>");
-						val[index]['obj_couleur']= val[index]['obj_couleur'].replace(reg, "<b style='color:BLUE'>$1</b>");
-						val[index]['obj_marque']= val[index]['obj_marque'].replace(reg, "<b style='color:BLUE'>$1</b>");
-						val[index]['obj_taille']= val[index]['obj_taille'].replace(reg, "<b style='color:BLUE'>$1</b>");
+						var tabSearch = gSearch.replace("%", " ").split(" ");
+						for (i in tabSearch) {
+							if (tabSearch[i] != "") {
+								var reg = new RegExp("(" + tabSearch[i] + ")", "gi");
+								val[index]['obj_modele'] = val[index]['obj_modele'].replace(reg, "<b style='color:BLUE'>$1</b>");
+								val[index]['obj_description'] = val[index]['obj_description'].replace(reg, "<b style='color:BLUE'>$1</b>");
+								// val[index]['obj_prix_vente'] = val[index]['obj_prix_vente'].replace(reg, "<b style='color:BLUE'>$1</b>");
+								// val[index]['obj_prix_depot'] = val[index]['obj_prix_depot'].replace(reg, "<b style='color:BLUE'>$1</b>");
+								val[index]['obj_couleur'] = val[index]['obj_couleur'].replace(reg, "<b style='color:BLUE'>$1</b>");
+								val[index]['obj_public'] = val[index]['obj_public'].replace(reg, "<b style='color:BLUE'>$1</b>");
+								val[index]['obj_marque'] = val[index]['obj_marque'].replace(reg, "<b style='color:BLUE'>$1</b>");
+								val[index]['obj_taille'] = val[index]['obj_taille'].replace(reg, "<b style='color:BLUE'>$1</b>");
+							}
+						}
 					}
 
 					repr += "<tr class='tabl0' >";
@@ -91,15 +96,15 @@
 					repr += val[index]['obj_type'];
 					repr += "</td>";
 					repr += "<td  width=10% >";
-					repr += val[index]['obj_couleur'];
+					repr += val[index]['obj_public'];
 					repr += "</td>";
-					repr += "<td class='maskMobile' width=15% >";
+					repr += "<td  width=15% >";
 					repr += val[index]['obj_marque'];
 					repr += "</td>";
-					repr += "<td class='maskMobile' width=15% >";
+					repr += "<td  width=15% >";
 					repr += val[index]['obj_modele'];
 					repr += "</td>";
-					repr += "<td width=5% >";
+					repr += "<td width=5% class='maskMobile' >";
 					repr += val[index]['obj_taille'];
 					repr += "</td>";
 					repr += "<td class='maskMobile' width=15% >";
@@ -156,14 +161,14 @@
 			sens = "asc";
 		}
 		getElement(tri).className = "sortable";
-		x_return_fiches(col, sens, tabToString(tabSel),0, 0, display_fiches);
+		x_return_fiches(col, sens, tabToString(tabSel), 0, 0, display_fiches);
 		tri = col;
 	}
 
 	function selectColonne(col, mask) {
 		tabSel['obj_type'] = getElement("sel_obj_type").value;
 		tabSel['obj_marque'] = getElement("sel_obj_marque").value;
-		// tabSel['obj_public'] = getElement("sel_obj_public").value;
+		tabSel['obj_public'] = getElement("sel_obj_public").value;
 		//tabSel['obj_pratique'] = getElement("sel_obj_pratique").value;
 		//tabSel[col] = mask;
 
@@ -176,16 +181,18 @@
 	function search(search) {
 		gSearch = search;
 		tabSel['obj_search'] = search;
-		x_return_fiches(tri, sens, tabToString(tabSel), 0, 0,display_fiches);
+		x_return_fiches(tri, sens, tabToString(tabSel), 0, 0, display_fiches);
 	}
 </script>
-
-Recherche : <input type=text class="autocomplete" name='search_<?= rand(1, 100) ?>' size="20" maxlength="100" onkeyup="search(this.value)" />
-<hr />
-
+<br />
 <table width="100%" class="alert alert-info">
 	<tr>
-		<td width=12%>
+		<td width=70%>
+			Recherche : <input type=text class="autocomplete"
+				name='search_<?= rand(1, 100) ?>' size="10" maxlength="100"
+				onkeyup="search(this.value)" />
+		</td>
+		<td width=30%>
 			Nb <span id=total></span>
 		</td>
 	</tr>
@@ -196,33 +203,43 @@ Recherche : <input type=text class="autocomplete" name='search_<?= rand(1, 100) 
 			<span id='obj_numero' onclick="triColonne('obj_numero')" class="sortable">No&nbsp;&nbsp;</span>
 		</td> -->
 		<td class="tittab" width=10%>
-			<span id='obj_type' onclick="triColonne('obj_type')" class="sortable">Type&nbsp;&nbsp;</span>
-			&nbsp;<select id="sel_obj_type" onchange="selectColonne('obj_type', this.value)"></select>
+			<span id='obj_type' onclick="triColonne('obj_type')"
+				class="sortable">Type&nbsp;&nbsp;</span>
+			&nbsp;<select id="sel_obj_type"
+				onchange="selectColonne('obj_type', this.value)"></select>
 		</td>
-		<td class="tittab" width=10%>
+		<!-- <td class="tittab" width=10%>
 			<span id='obj_couleur' onclick="triColonne('obj_couleur')" class="sortable">Couleur&nbsp;&nbsp;&nbsp;</span>
 			&nbsp;
+		</td> -->
+		<td class="tittab" width=10%>
+			<span id='obj_public' onclick="triColonne('obj_public')"
+				class="sortable">Public&nbsp;&nbsp;&nbsp;</span>
+			&nbsp;<select id="sel_obj_public"
+				onchange="selectColonne('obj_public', this.value)"></select>
 		</td>
-		<!--<td class="tittab maskMobile" width=10%>
-			<span id='obj_pratique' onclick="triColonne('obj_pratique')" class="sortable">Pratique&nbsp;&nbsp;&nbsp;</span>
-			&nbsp;<select id="sel_obj_pratique" onchange="selectColonne('obj_pratique', this.value)"></select></td>-->
 
-		<td class="tittab maskMobile" width=15%>
-			<span id='obj_marque' onclick="triColonne('obj_marque')" class="sortable">Marque&nbsp;&nbsp;</span>
-			&nbsp;<select id="sel_obj_marque" onchange="selectColonne('obj_marque', this.value)"></select>
+		<td class="tittab " width=15%>
+			<span id='obj_marque' onclick="triColonne('obj_marque')"
+				class="sortable">Marque&nbsp;&nbsp;</span>
+			&nbsp;<select id="sel_obj_marque"
+				onchange="selectColonne('obj_marque', this.value)"></select>
 		</td>
-		<td class="tittab maskMobile" width=15%>
-			<span id='obj_modele' onclick="triColonne('obj_modele')" class="sortable">Modele&nbsp;&nbsp;
+		<td class="tittab " width=15%>
+			<span id='obj_modele' onclick="triColonne('obj_modele')"
+				class="sortable">Modele&nbsp;&nbsp;
 		</td>
-		<td class="tittab" width=5%>
-			<span id='obj_taille' onclick="triColonne('obj_taille')" class="sortable">Taille&nbsp;&nbsp;&nbsp;</span>
+		<td class="tittab maskMobile" width=5%>
+			<span id='obj_taille' onclick="triColonne('obj_taille')"
+				class="sortable">Taille&nbsp;&nbsp;&nbsp;</span>
 			&nbsp;
 		</td>
-		<td class="tittab" width=15%>
-			<span id='obj_date_achat' onclick="triColonne('obj_date_achat')" class="sortable">Date achat&nbsp;&nbsp;&nbsp;</span>
+		<td class="tittab maskMobile" width=15%>
+			<span id='obj_date_achat' onclick="triColonne('obj_date_achat')"
+				class="sortable">Date achat&nbsp;&nbsp;&nbsp;</span>
 			&nbsp;
 		</td>
-		
+
 		<td class="tittab maskMobile" width=35%>
 			Description</td>
 		<!-- <td class="tittab" width=10%>

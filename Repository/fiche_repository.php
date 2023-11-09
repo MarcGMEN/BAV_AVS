@@ -107,13 +107,13 @@ function makeIdModif(&$objet, $avecRandom = false)
  * retourne la commission pour une fiche
  */
 
- /**
+/**
  * recherche des fiches libres pour une BAV a partri d'une base
  */
 function getNumMaxFiche()
 {
     $row = null;
-    $query = " SELECT max(obj_numero) from bav_objet where obj_numero_bav = '" .$GLOBALS['INFO_APPLI']['numero_bav'] . "'";
+    $query = " SELECT max(obj_numero) from bav_objet where obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "'";
     $query .= " and obj_numero < 5000";
     // error_log($query);
     if ($result = $GLOBALS['mysqli']->query($query)) {
@@ -128,11 +128,11 @@ function getNumMaxFiche()
 function getNbFicheByPlage($min, $max)
 {
     $row = null;
-    $query = " SELECT count(*), obj_etat from bav_objet where obj_numero_bav = '" .$GLOBALS['INFO_APPLI']['numero_bav'] . "'";
+    $query = " SELECT count(*), obj_etat from bav_objet where obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "'";
     $query .= " and obj_numero >= $min and obj_numero <= $max";
     $query .= " group by obj_etat";
     // error_log($query);
-    $tabretour=array();
+    $tabretour = array();
     $result = $GLOBALS['mysqli']->query($query);
     while ($row = $result->fetch_assoc()) {
         $tabretour[$row['obj_etat']] = $row['count(*)'];
@@ -197,7 +197,7 @@ function getOneFicheByCode($id)
  *
  * si "obj_search" dans le tableau de selection, alors recherche en like sur modele et desciription
  */
-function getFiches($order, $sens, $tabSel,$client=true)
+function getFiches($order, $sens, $tabSel, $client = true)
 {
     $requete2 = "SELECT bav_objet.*";
     if ($client) {
@@ -212,13 +212,19 @@ function getFiches($order, $sens, $tabSel,$client=true)
     $requete2 .= " where obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "'";
     foreach ($tabSel as $key => $val) {
         if ($key == "obj_search") {
-            $requete2 .= " and (obj_modele like '%" . addslashes($val) . "%' ";
-            $requete2 .= " or obj_description like '%" . addslashes($val) . "%' ";
-            $requete2 .= " or obj_marque like '%" . addslashes($val) . "%' ";
-            $requete2 .= " or obj_couleur like '%" . addslashes($val) . "%' ";
-            $requete2 .= " or obj_prix_depot like '" . addslashes($val) . "%' ";
-            $requete2 .= " or obj_prix_vente like '" . addslashes($val) . "%' ";
-            $requete2 .= " or obj_taille like '%" . addslashes($val) . "%') ";
+            $tabVal = explode(" ", $val);
+            foreach ($tabVal as $value) {
+                if (trim($value) != "") {
+                    $requete2 .= " and (obj_modele like '%" . addslashes($value) . "%' ";
+                    $requete2 .= " or obj_description like '%" . addslashes($value) . "%' ";
+                    $requete2 .= " or obj_public like '%" . addslashes($value) . "%' ";
+                    $requete2 .= " or obj_marque like '%" . addslashes($value) . "%' ";
+                    $requete2 .= " or obj_couleur like '%" . addslashes($value) . "%' ";
+                    $requete2 .= " or obj_prix_depot like '" . addslashes($value) . "%' ";
+                    $requete2 .= " or obj_prix_vente like '" . addslashes($value) . "%' ";
+                    $requete2 .= " or obj_taille like '%" . addslashes($value) . "%') ";
+                }
+            }
         } elseif ($key && $val != "*") {
             $requete2 .= " and $key = '" . addslashes($val) . "' ";
         }
@@ -230,7 +236,7 @@ function getFiches($order, $sens, $tabSel,$client=true)
             $requete2 .= " order by $order $sens";
         }
     }
-    // error_log("[getFiches] $requete2");
+    error_log("[getFiches] $requete2");
 
     $result = $GLOBALS['mysqli']->query($requete2);
     if ($result) {
@@ -256,7 +262,7 @@ function getFichesExpress($base)
     $requete2 .= " and obj_numero >= $base ";
     $requete2 .= " order by obj_numero";
     $requete2 .= " limit 0,50 ";
-    
+
     $result = $GLOBALS['mysqli']->query($requete2);
     if ($result) {
         $tab = array();

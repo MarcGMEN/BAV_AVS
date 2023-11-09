@@ -78,13 +78,20 @@ function display_fiches(val) {
                 val['obj_modele_orig'] = val[index]['obj_modele'];
 
                 if (gSearch) {
-                    var reg = new RegExp("(" + gSearch + ")", "gi");
-                    val[index]['obj_modele'] = val[index]['obj_modele'].replace(reg, "--$1--");
-                    val[index]['obj_description'] = val[index]['obj_description'].replace(reg, "--$1--");
-                    val[index]['obj_prix_vente'] = val[index]['obj_prix_vente'].replace(reg, "<b style='color:BLUE'>$1</b>");
-                    val[index]['obj_prix_depot'] = val[index]['obj_prix_depot'].replace(reg, "<b style='color:BLUE'>$1</b>");
-                    val[index]['obj_couleur'] = val[index]['obj_couleur'].replace(reg, "<b style='color:BLUE'>$1</b>");
-                    val[index]['obj_marque'] = val[index]['obj_marque'].replace(reg, "<b style='color:BLUE'>$1</b>");
+                    
+                    var tabSearch = gSearch.replace("%", " ").split(" ");
+                    for (i in tabSearch) {
+                        if (tabSearch[i] != "") {
+                            var reg = new RegExp("(" + tabSearch[i] + ")", "gi");
+                            val[index]['obj_modele'] = val[index]['obj_modele'].replace(reg, "--$1--");
+                            val[index]['obj_description'] = val[index]['obj_description'].replace(reg, "--$1--");
+                            val[index]['obj_prix_vente'] = val[index]['obj_prix_vente'].replace(reg, "<b style='color:BLUE'>$1</b>");
+                            val[index]['obj_prix_depot'] = val[index]['obj_prix_depot'].replace(reg, "<b style='color:BLUE'>$1</b>");
+                            val[index]['obj_couleur'] = val[index]['obj_couleur'].replace(reg, "<b style='color:BLUE'>$1</b>");
+                            val[index]['obj_marque'] = val[index]['obj_marque'].replace(reg, "<b style='color:BLUE'>$1</b>");
+                            val[index]['obj_public'] = val[index]['obj_public'].replace(reg, "<b style='color:BLUE'>$1</b>");
+                        }
+                    }
                 }
 
                 repr += "<tr class='tabl0 " + val[index]['obj_etat'] + " link' style='" + stylePlus + "' >";
