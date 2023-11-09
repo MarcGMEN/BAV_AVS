@@ -1344,10 +1344,10 @@ function return_fichesModif($type = 'data')
 /**
  * recherche des fiches
  */
-function return_fiches($tri, $sens, $selection, $detail = 1)
+function return_fiches($tri, $sens, $selection, $detail = 1,$client=true)
 {
     try {
-        $tab = getFiches($tri, $sens, string2Tab($selection));
+        $tab = getFiches($tri, $sens, string2Tab($selection), $client);
 
         foreach ($tab as $key => $val) {
             if ($detail == 1) {

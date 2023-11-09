@@ -51,6 +51,9 @@ if ($infAppli['ADMIN']) {
         'stock.php' => [
             'libelle' => 'Stock',
         ],
+        'stock-client.php' => [
+            'libelle' => 'Les vélos'
+        ],
         'clients.php' => [
             'libelle' => 'Clients',
         ],
@@ -100,6 +103,9 @@ if ($infAppli['ADMIN']) {
         'SPACE1' => [
             'libelle' => '🟡🟡',
         ],
+        // 'stock-client.php' => [
+        //     'libelle' => 'les vélos'
+        // ],
 
     ];
 } elseif ($infAppli['bav_en_cours']) {

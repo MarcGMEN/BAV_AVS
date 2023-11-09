@@ -197,11 +197,17 @@ function getOneFicheByCode($id)
  *
  * si "obj_search" dans le tableau de selection, alors recherche en like sur modele et desciription
  */
-function getFiches($order, $sens, $tabSel)
+function getFiches($order, $sens, $tabSel,$client=true)
 {
-    $requete2 = "SELECT bav_objet.*, ve.*, ve.cli_nom vendeur_nom, ac.cli_nom acheteur_nom from bav_objet ";
-    $requete2 .= "  left outer join bav_client as ve on obj_id_vendeur = ve.cli_id ";
-    $requete2 .= "  left outer join bav_client as ac on obj_id_acheteur = ac.cli_id ";
+    $requete2 = "SELECT bav_objet.*";
+    if ($client) {
+        $requete2 .= ", ve.*, ve.cli_nom vendeur_nom, ac.cli_nom acheteur_nom ";
+    }
+    $requete2 .= "from bav_objet ";
+    if ($client) {
+        $requete2 .= "  left outer join bav_client as ve on obj_id_vendeur = ve.cli_id ";
+        $requete2 .= "  left outer join bav_client as ac on obj_id_acheteur = ac.cli_id ";
+    }
     //$requete2 .= "  left outer join bav_modif_prix as mop on mop_id_obj = obj_id and mop_date_validation is null ";
     $requete2 .= " where obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "'";
     foreach ($tabSel as $key => $val) {
@@ -212,7 +218,7 @@ function getFiches($order, $sens, $tabSel)
             $requete2 .= " or obj_couleur like '%" . addslashes($val) . "%' ";
             $requete2 .= " or obj_prix_depot like '" . addslashes($val) . "%' ";
             $requete2 .= " or obj_prix_vente like '" . addslashes($val) . "%' ";
-            // $requete2 .= " or obj_taille like '" . addslashes($val) . "%') ";
+            $requete2 .= " or obj_taille like '%" . addslashes($val) . "%') ";
         } elseif ($key && $val != "*") {
             $requete2 .= " and $key = '" . addslashes($val) . "' ";
         }
@@ -224,7 +230,7 @@ function getFiches($order, $sens, $tabSel)
             $requete2 .= " order by $order $sens";
         }
     }
-    // error_log("[getFiches] $requete2");
+    error_log("[getFiches] $requete2");
 
     $result = $GLOBALS['mysqli']->query($requete2);
     if ($result) {

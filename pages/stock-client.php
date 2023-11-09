@@ -1,5 +1,5 @@
 <script>
-	var tri = "obj_numero";
+	var tri = "obj_marque";
 	var sens = "asc";
 	var tabSel = {};
 	//tabSel['obj_etat'] = 'STOCK';
@@ -10,11 +10,11 @@
 		console.log(vueParc);
 		if (vueParc == '1' || ADMIN) {
 			x_return_enum('bav_objet', 'obj_type', display_list_type);
-			x_return_enum('bav_objet', 'obj_public', display_list_public);
+			// x_return_enum('bav_objet', 'obj_public', display_list_public);
 			//x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);
 
 			x_return_list_marques(display_list_marque)
-			x_return_fiches(tri, sens, tabToString(tabSel), display_fiches);
+			x_return_fiches(tri, sens, tabToString(tabSel), 0, 0,display_fiches);
 		} else {
 			goTo();
 		}
@@ -64,6 +64,7 @@
 	}
 
 	function display_fiches(val) {
+		console.log(val);
 		if (val instanceof Object) {
 
 			var total = 0;
@@ -75,16 +76,17 @@
 						var reg = new RegExp("(" + gSearch + ")", "gi");
 						val[index]['obj_modele'] = val[index]['obj_modele'].replace(reg, "<b style='color:BLUE'>$1</b>");
 						val[index]['obj_description'] = val[index]['obj_description'].replace(reg, "<b style='color:BLUE'>$1</b>");
-						val[index]['obj_prix_vente'] = val[index]['obj_prix_vente'].replace(reg, "<b style='color:BLUE'>$1</b>");
-						val[index]['obj_prix_depot'] = val[index]['obj_prix_depot'].replace(reg, "<b style='color:BLUE'>$1</b>");
+						// val[index]['obj_prix_vente'] = val[index]['obj_prix_vente'].replace(reg, "<b style='color:BLUE'>$1</b>");
+						// val[index]['obj_prix_depot'] = val[index]['obj_prix_depot'].replace(reg, "<b style='color:BLUE'>$1</b>");
 						val[index]['obj_couleur']= val[index]['obj_couleur'].replace(reg, "<b style='color:BLUE'>$1</b>");
 						val[index]['obj_marque']= val[index]['obj_marque'].replace(reg, "<b style='color:BLUE'>$1</b>");
+						val[index]['obj_taille']= val[index]['obj_taille'].replace(reg, "<b style='color:BLUE'>$1</b>");
 					}
 
 					repr += "<tr class='tabl0' >";
-					repr += "<td width=5% align=center>";
-					repr += val[index]['obj_numero'];
-					repr += "</td>";
+					// repr += "<td width=5% align=center>";
+					// repr += val[index]['obj_numero'];
+					// repr += "</td>";
 					repr += "<td width=10% >";
 					repr += val[index]['obj_type'];
 					repr += "</td>";
@@ -97,22 +99,28 @@
 					repr += "<td class='maskMobile' width=15% >";
 					repr += val[index]['obj_modele'];
 					repr += "</td>";
+					repr += "<td width=5% >";
+					repr += val[index]['obj_taille'];
+					repr += "</td>";
+					repr += "<td class='maskMobile' width=15% >";
+					repr += formatDate(val[index]['obj_date_achat'], false);;
+					repr += "</td>";
 
 					repr += "<td class='maskMobile' width=35% >";
 					repr += val[index]['obj_description'];
 					repr += "</td>";
 
-					repr += "<td width=10% >";
-					if (val[index]['obj_prix_vente'] == 0) {
-						repr += "<span style='color:RED'>" + val[index]['obj_prix_depot'] + "</span>";
-					} else {
-						if (val[index]['obj_prix_depot'] != val[index]['obj_prix_vente']) {
-							repr += '<div style="text-align:left;color:grey;font-size:0.8em;text-decoration:line-through;">' + val[index]['obj_prix_depot'] + ' &euro;</div>';
-						}
-						repr += val[index]['obj_prix_vente'];
-					}
-					repr += "&nbsp;&euro;";
-					repr += "</td>";
+					// repr += "<td width=10% >";
+					// if (val[index]['obj_prix_vente'] == 0) {
+					// 	repr += "<span style='color:RED'>" + val[index]['obj_prix_depot'] + "</span>";
+					// } else {
+					// 	if (val[index]['obj_prix_depot'] != val[index]['obj_prix_vente']) {
+					// 		repr += '<div style="text-align:left;color:grey;font-size:0.8em;text-decoration:line-through;">' + val[index]['obj_prix_depot'] + ' &euro;</div>';
+					// 	}
+					// 	repr += val[index]['obj_prix_vente'];
+					// }
+					// repr += "&nbsp;&euro;";
+					// repr += "</td>";
 					repr += "</tr>";
 
 					total = total + 1;
@@ -148,7 +156,7 @@
 			sens = "asc";
 		}
 		getElement(tri).className = "sortable";
-		x_return_fiches(col, sens, tabToString(tabSel), display_fiches);
+		x_return_fiches(col, sens, tabToString(tabSel),0, 0, display_fiches);
 		tri = col;
 	}
 
@@ -161,14 +169,14 @@
 
 		// console.log(col + "," + sens);
 		// console.log(tabSel);
-		x_return_fiches(col, sens, tabToString(tabSel), 0, display_fiches);
+		x_return_fiches(col, sens, tabToString(tabSel), 0, 0, display_fiches);
 	}
 	var gSearch = ""
 
 	function search(search) {
 		gSearch = search;
 		tabSel['obj_search'] = search;
-		x_return_fiches(tri, sens, tabToString(tabSel), display_fiches);
+		x_return_fiches(tri, sens, tabToString(tabSel), 0, 0,display_fiches);
 	}
 </script>
 
@@ -184,9 +192,9 @@ Recherche : <input type=text class="autocomplete" name='search_<?= rand(1, 100) 
 </table>
 <table width="100%">
 	<tr>
-		<td class="tittab" width=5%>
+		<!-- <td class="tittab" width=5%>
 			<span id='obj_numero' onclick="triColonne('obj_numero')" class="sortable">No&nbsp;&nbsp;</span>
-		</td>
+		</td> -->
 		<td class="tittab" width=10%>
 			<span id='obj_type' onclick="triColonne('obj_type')" class="sortable">Type&nbsp;&nbsp;</span>
 			&nbsp;<select id="sel_obj_type" onchange="selectColonne('obj_type', this.value)"></select>
@@ -206,11 +214,20 @@ Recherche : <input type=text class="autocomplete" name='search_<?= rand(1, 100) 
 		<td class="tittab maskMobile" width=15%>
 			<span id='obj_modele' onclick="triColonne('obj_modele')" class="sortable">Modele&nbsp;&nbsp;
 		</td>
+		<td class="tittab" width=5%>
+			<span id='obj_taille' onclick="triColonne('obj_taille')" class="sortable">Taille&nbsp;&nbsp;&nbsp;</span>
+			&nbsp;
+		</td>
+		<td class="tittab" width=15%>
+			<span id='obj_date_achat' onclick="triColonne('obj_date_achat')" class="sortable">Date achat&nbsp;&nbsp;&nbsp;</span>
+			&nbsp;
+		</td>
+		
 		<td class="tittab maskMobile" width=35%>
 			Description</td>
-		<td class="tittab" width=10%>
+		<!-- <td class="tittab" width=10%>
 			<span class="sortable" id='obj_prix_vente' onclick="triColonne('obj_prix_vente')">Prix vente&nbsp;&nbsp;</span>
-		</td>
+		</td> -->
 	</tr>
 </table>
 <div id=fiches></div>
