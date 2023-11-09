@@ -46,7 +46,7 @@ sajax_handle_client_request();
 	<meta name="description" lang="fr" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<META NAME="Author" LANG="fr" CONTENT="romael">
-	<link REL="SHORTCUT ICON" HREF="Images/BAV.png">
+	<link REL="SHORTCUT ICON" HREF="Images/BAV_2020.png">
 
 	<LINK HREF='style.css' REL='stylesheet' TYPE='text/css'>
 
