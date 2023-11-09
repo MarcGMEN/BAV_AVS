@@ -14,8 +14,8 @@
     <style type="text/css">
         #map {
             /* la carte DOIT avoir une hauteur sinon elle n'apparaît pas */
-            height: 300px;
-            width: 400px;
+            height: 800px;
+            width: 1200px;
         }
     </style>
     <title>Carte</title>
@@ -32,8 +32,18 @@
 
             
             initMap();
-			getGeoPos('44600');
+			geoPosClient('44600');
+            geoPosClient('56130');
+            geoPosClient('nivillac, 56130');
+            geoPosClient('ferel, 56130');
+            geoPosClient('la roche bernard, 56130');
+            
+            geoPosClient('saint-nazaire');
         };
+
+        function x_add_cdp(adress, lat, lon,info) {
+            addMarker(lat, lon, adress,0,info);
+        }
 
     </script>
 </head>

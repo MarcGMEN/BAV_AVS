@@ -21,6 +21,10 @@ function return_statClient()
         $tabCount = [];
         foreach ($tab as $key => $val) {
             $keyCDP = $val['cli_code_postal'];
+            // if ($val['cli_ville'] != "") {
+            //     $keyCDP .= " ".strtoupper(retraitAccent(str_replace('  ',' ',str_replace('-',' ',$val['cli_ville']))));
+            // }
+            
             if (!isset($tabCount[$keyCDP])) {
                 $tabCount[$keyCDP] = 0;
             }

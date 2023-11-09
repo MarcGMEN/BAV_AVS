@@ -564,8 +564,8 @@
 
 				} else {
 					// x_add_cdp(tabVal[i]['cdp'],lat, lon, display_vide);
-					setTimeout('geoPosClient(' + tabVal[i]['cdp'] + ')', TIME_PAUSE * indexSearch);
-					setTimeout('addMarkerdecal(' + tabVal[i]['cdp'] + ',' + indexSearch + ',' + tabVal[i]['nb'] + ')', TIME_PAUSE * indexSearch + 1000);
+					setTimeout('geoPosClient("' + tabVal[i]['cdp'] + '")', TIME_PAUSE * indexSearch);
+					setTimeout('addMarkerdecal("' + tabVal[i]['cdp'] + '",' + indexSearch + ',' + tabVal[i]['nb'] + ')', TIME_PAUSE * indexSearch + 1000);
 					indexSearch++;
 				}
 

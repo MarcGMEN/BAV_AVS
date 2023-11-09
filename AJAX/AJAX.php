@@ -185,16 +185,17 @@ function add_cdp($cdp, $lat, $lon, $plus)
     $tabCdp = return_all_lat_lon_cdp();
 
     if (!$tabCdp || !array_search($cdp, array_keys($tabCdp))) {
-        $tabCdp[$cdp] = $lat.",".$lon.",".utf8_encode($plus);
+        $tabCdp[utf8_encode($cdp)] = $lat . "," . $lon . "," . utf8_encode($plus);
+        // error_log(utf8_encode($cdp) ."=> ".$tabCdp[utf8_encode($cdp)]);    
     }
     $strFile = "";
 
     ksort($tabCdp);
     foreach ($tabCdp as $cdp => $value) {
-        // print_r("$cdp => $latLon<br/>");    
         $strFile.=$cdp."=".$value."\n";
+        // error_log("$cdp => $value");    
     }
-    // print_r($strFile);
+    
     // $strFile = implode('\n', $tabCdp);
     file_put_contents("../Commun/cdp.txt", $strFile);
 }

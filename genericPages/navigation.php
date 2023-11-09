@@ -104,7 +104,7 @@ if ($infAppli['ADMIN']) {
             'libelle' => '🟡🟡',
         ],
         // 'stock-client.php' => [
-        //     'libelle' => 'les vélos'
+        //     'libelle' => 'Les vélos'
         // ],
 
     ];
