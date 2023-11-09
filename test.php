@@ -1,5 +1,4 @@
-<pre>
-<?php
+<pre><?php
  //echo "fiche 64"."<br/>";
  $fiche = 64;
 //  echo dechex(64)."<br/>";
@@ -14,14 +13,14 @@
 require_once 'config.ini';
 // require_once 'Commun/commun_functions.php';
 //  require_once 'Commun/mail.php';
-require_once 'AJAX/AJAX.php';
+// require_once 'AJAX/AJAX.php';
 
 
-print_r(return_all_lat_lon_cdp());
-for ($i=0; $i < 10;$i++) { 
-    add_cdp('4460'.$i,120+$i, 10+$i);
-}
-print_r(return_all_lat_lon_cdp());
+// print_r(return_all_lat_lon_cdp());
+// for ($i=0; $i < 10;$i++) { 
+//     // add_cdp('4460'.$i,120+$i, 10+$i);
+// }
+// print_r(return_all_lat_lon_cdp());
 
 //QRcode::png('PHP QR Code :)');
  echo "<h1>test.php</h1>";
@@ -33,6 +32,12 @@ print_r(return_all_lat_lon_cdp());
 
 // echo sendMail('test ', 'braillou@gmail.com', 'sans piece jointe', null);
 // echo "\n";
+
+$text="sgfkJHFBJFBJHVFjz";
+print_r($text);
+echo "<br/>";
+print_r(ucfirst(strtolower($text)));
+
 
 
 //print_r($mysqli);
