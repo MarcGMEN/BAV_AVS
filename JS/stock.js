@@ -135,7 +135,10 @@ function display_fiches(val) {
                     repr += "&nbsp<A href='https://www.google.fr/search?tbm=isch&q=" + val['obj_marque_orig'] + " " + val['obj_modele_orig'] + "' target='_blank' ><img src='https://www.we-do-it-better.fr/wp-content/uploads/2019/04/googlesearch.png' height='20px'/></A></span>";
                 }
                 repr += "</td>";
-                repr += "<td class='maskMobile' style='padding:0px 5px 0px 5px' width=15% title=\"mel : " + val[index]['cli_emel'] + "\">";
+                repr += "<td class='maskMobile' style='padding:0px 5px 0px 5px' width=15% ";
+                repr += " title =\"mel : " + val[index]['cli_emel'];
+                repr += " \nadresse : " + val[index]['cli_code_postal'] + " " + val[index]['cli_ville'] + "\"";
+                repr += ">";
                 repr += val[index]['vendeur_nom'];
                 repr += "</td>";
                 repr += "<td width=10% style='text-align:center'>";
