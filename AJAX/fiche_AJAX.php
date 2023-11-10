@@ -982,7 +982,7 @@ function action_makeData($id, $test = false)
         $ach['ach_telephone'] = "02 55 55 55 55 78 98 78";
         $ach['ach_telephone_bis'] = "";
 
-        $fiche['obj_numero'] = "1000";
+        $fiche['obj_numero'] = "1160";
         $fiche['obj_id_modif'] = "be49226b2150c567adf4f090c21be17f";
         $fiche['obj_type'] = "VTT";
         $fiche['obj_public'] = "Homme";
@@ -993,7 +993,7 @@ function action_makeData($id, $test = false)
         $fiche['obj_accessoire'] = "";
         $fiche['obj_description'] = "ceci est un texte long pour essayer de prendre de la place sur une ligne avec un maximun de place, allez on saute une ligne<br/>une ligne<br/> et encore une<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9";
         $fiche['obj_prix_vente'] = "130";
-        $fiche['obj_prix_depot'] = "150";
+        $fiche['obj_prix_depot'] = "160";
         $fiche['obj_id_acheteur'] = 999999;
         $fiche['obj_etat'] = "VENDU";
         $fiche['obj_taille'] = "XL";
