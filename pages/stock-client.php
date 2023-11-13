@@ -3,10 +3,10 @@
 	var sens = "asc";
 	var tabSel = {};
 	if (CLIENT) {
-		// tabSel['obj_etat'] = 'CONFIRME';
+		tabSel['obj_etat'] = 'CONFIRME';
 	}
 	else {
-		// tabSel['obj_etat'] = 'STOCK';
+		tabSel['obj_etat'] = 'STOCK';
 	}
 	// tabSel['obj_etat'] = 'RENDU';
 	var vueParc = "<?= $infAppli['vue_parc'] ?>";
@@ -77,6 +77,9 @@
 			var repr = "<table width='100%' border=1>";
 			for (index in val) {
 				if (!isNaN(index)) {
+
+					val['obj_marque_orig'] = val[index]['obj_marque'];
+					val['obj_modele_orig'] = val[index]['obj_modele'];
 					if (gSearch) {
 						var tabSearch = gSearch.replace("%", " ").split(" ");
 						for (i in tabSearch) {
@@ -104,21 +107,22 @@
 					repr += "<td  width=10% >";
 					repr += val[index]['obj_public'];
 					repr += "</td>";
-					repr += "<td  width=15% >";
+					repr += "<td  width=30% >";
 					repr += val[index]['obj_marque'];
-					repr += "</td>";
-					repr += "<td  width=15% >";
-					repr += val[index]['obj_modele'];
+					if (val[index]['obj_modele']) {
+						repr += " "+val[index]['obj_modele'];
+						repr += "&nbsp<A href='https://www.google.fr/search?tbm=isch&q=" + val['obj_marque_orig'] + " " + val['obj_modele_orig'] + "' target='_blank' ><img src='https://www.we-do-it-better.fr/wp-content/uploads/2019/04/googlesearch.png' height='20px'/></A></span>";
+					}
 					repr += "</td>";
 					repr += "<td width=5% class='maskMobile' >";
 					repr += val[index]['obj_taille'];
 					repr += "</td>";
 					repr += "<td class='maskMobile' style='text-align:center;width:15%' >";
 					if (val[index]['obj_date_achat']) {
-						var year=new Date(val[index]['obj_date_achat']).getFullYear();
+						var year = new Date(val[index]['obj_date_achat']).getFullYear();
 						repr += year;
 					}
-					
+
 					repr += "</td>";
 
 					repr += "<td class='maskMobile' width=35% >";
@@ -194,6 +198,7 @@
 		x_return_fiches(tri, sens, tabToString(tabSel), 0, 0, display_fiches);
 	}
 </script>
+<h2>Liste des vélos disponibles à la <?=$infAppli['titre']?></h2>
 <br />
 <table width="100%" class="alert alert-info">
 	<tr>
@@ -229,16 +234,16 @@
 				onchange="selectColonne('obj_public', this.value)"></select>
 		</td>
 
-		<td class="tittab " width=15%>
+		<td class="tittab " width=30%>
 			<span id='obj_marque' onclick="triColonne('obj_marque')"
 				class="sortable">Marque&nbsp;&nbsp;</span>
 			&nbsp;<select id="sel_obj_marque"
 				onchange="selectColonne('obj_marque', this.value)"></select>
 		</td>
-		<td class="tittab " width=15%>
+		<!-- <td class="tittab " width=15%>
 			<span id='obj_modele' onclick="triColonne('obj_modele')"
 				class="sortable">Modèle&nbsp;&nbsp;
-		</td>
+		</td> -->
 		<td class="tittab maskMobile" width=5%>
 			<span id='obj_taille' onclick="triColonne('obj_taille')"
 				class="sortable">Taille&nbsp;&nbsp;&nbsp;</span>
