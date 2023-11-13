@@ -203,7 +203,7 @@ function getFiches($order, $sens, $tabSel, $client = true)
     if ($client) {
         $requete2 .= ", ve.*, ve.cli_nom vendeur_nom, ac.cli_nom acheteur_nom ";
     }
-    $requete2 .= "from bav_objet ";
+    $requete2 .= " from bav_objet ";
     if ($client) {
         $requete2 .= "  left outer join bav_client as ve on obj_id_vendeur = ve.cli_id ";
         $requete2 .= "  left outer join bav_client as ac on obj_id_acheteur = ac.cli_id ";

@@ -93,6 +93,9 @@ if ($infAppli['ADMIN']) {
     ];
 } elseif ($infAppli['CLIENT']) {
     $tabNavAdm = [
+        'stock-client.php' => [
+            'libelle' => 'Les vélos'
+        ],
         'SPACE0' => [
             'libelle' => '🟡🟡',
         ],
@@ -103,18 +106,22 @@ if ($infAppli['ADMIN']) {
         'SPACE1' => [
             'libelle' => '🟡🟡',
         ],
-        // 'stock-client.php' => [
-        //     'libelle' => 'Les vélos'
+        // 'STOCK-CLIENT.PHP' => [
+        //     'LIBELLE' => 'LES VÉLOS'
         // ],
+        
 
     ];
-} elseif ($infAppli['bav_en_cours']) {
+} elseif ($infAppli['bav_en_cours'] && !$infAppli['CLIENT']) {
     $tabNavAdm = [
+        'stock-client.php' => [
+            'libelle' => 'Les vélos'
+        ],
         'SPACE0' => [
             'libelle' => '🟡🟡',
         ],
         'pre_depot.php' => [
-            'libelle' => '<span class="PRE-DEPOT" >Pour pré-déposer et suivre vos ventes, c\'est ici</span>',
+            'libelle' => '<span class="PRE-DEPOT" >Pour suivre vos ventes, c\'est ici</span>',
             'mode' => '',
         ],
         'SPACE1' => [

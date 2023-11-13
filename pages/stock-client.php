@@ -2,7 +2,13 @@
 	var tri = "obj_marque";
 	var sens = "asc";
 	var tabSel = {};
-	//tabSel['obj_etat'] = 'STOCK';
+	if (CLIENT) {
+		// tabSel['obj_etat'] = 'CONFIRME';
+	}
+	else {
+		// tabSel['obj_etat'] = 'STOCK';
+	}
+	// tabSel['obj_etat'] = 'RENDU';
 	var vueParc = "<?= $infAppli['vue_parc'] ?>";
 
 	function initPage() {
@@ -107,8 +113,12 @@
 					repr += "<td width=5% class='maskMobile' >";
 					repr += val[index]['obj_taille'];
 					repr += "</td>";
-					repr += "<td class='maskMobile' width=15% >";
-					repr += formatDate(val[index]['obj_date_achat'], false);;
+					repr += "<td class='maskMobile' style='text-align:center;width:15%' >";
+					if (val[index]['obj_date_achat']) {
+						var year=new Date(val[index]['obj_date_achat']).getFullYear();
+						repr += year;
+					}
+					
 					repr += "</td>";
 
 					repr += "<td class='maskMobile' width=35% >";
@@ -227,7 +237,7 @@
 		</td>
 		<td class="tittab " width=15%>
 			<span id='obj_modele' onclick="triColonne('obj_modele')"
-				class="sortable">Modele&nbsp;&nbsp;
+				class="sortable">Modèle&nbsp;&nbsp;
 		</td>
 		<td class="tittab maskMobile" width=5%>
 			<span id='obj_taille' onclick="triColonne('obj_taille')"
@@ -236,7 +246,7 @@
 		</td>
 		<td class="tittab maskMobile" width=15%>
 			<span id='obj_date_achat' onclick="triColonne('obj_date_achat')"
-				class="sortable">Date achat&nbsp;&nbsp;&nbsp;</span>
+				class="sortable">Année modèle&nbsp;&nbsp;&nbsp;</span>
 			&nbsp;
 		</td>
 

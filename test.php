@@ -33,12 +33,6 @@ require_once 'config.ini';
 // echo sendMail('test ', 'braillou@gmail.com', 'sans piece jointe', null);
 // echo "\n";
 
-$text="sgfkJHFBJFBJHVFjz";
-print_r($text);
-echo "<br/>";
-print_r(ucfirst(strtolower($text)));
-
-
 
 //print_r($mysqli);
 //echo substr(hash_hmac('md5', 700, 'avs442019'), 0, 5);;
