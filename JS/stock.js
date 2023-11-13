@@ -135,7 +135,10 @@ function display_fiches(val) {
                     repr += "&nbsp<A href='https://www.google.fr/search?tbm=isch&q=" + val['obj_marque_orig'] + " " + val['obj_modele_orig'] + "' target='_blank' ><img src='https://www.we-do-it-better.fr/wp-content/uploads/2019/04/googlesearch.png' height='20px'/></A></span>";
                 }
                 repr += "</td>";
-                repr += "<td class='maskMobile' style='padding:0px 5px 0px 5px' width=15% title=\"mel : " + val[index]['cli_emel'] + "\">";
+                repr += "<td class='maskMobile' style='padding:0px 5px 0px 5px' width=15% ";
+                repr += " title =\"mel : " + val[index]['cli_emel'];
+                repr += " \nadresse : " + val[index]['cli_code_postal'] + " " + val[index]['cli_ville'] + "\"";
+                repr += ">";
                 repr += val[index]['vendeur_nom'];
                 repr += "</td>";
                 repr += "<td width=10% style='text-align:center'>";
@@ -153,7 +156,12 @@ function display_fiches(val) {
                 repr += val[index]['obj_etat'];
                 repr += "</td>";
                 repr += "<td width=10% class='maskMobile' style='text-align:center;' >";
-                repr += formatDate(val[index]['obj_date_depot'], false);
+                if (val[index]['obj_etat'] == "CONFIRME") {
+                    repr += formatDate(val[index]['obj_date_depot'], true);
+                }
+                else {
+                    repr += formatDate(val[index]['obj_date_depot'], false);
+                }
                 repr += "</td>";
                 repr += "<td class='maskMobile' width=15% style='padding:0px 5px 0px 5px'>";
                 repr += val[index]['acheteur_nom'];

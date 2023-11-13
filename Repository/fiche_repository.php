@@ -203,7 +203,7 @@ function getFiches($order, $sens, $tabSel, $client = true)
     if ($client) {
         $requete2 .= ", ve.*, ve.cli_nom vendeur_nom, ac.cli_nom acheteur_nom ";
     }
-    $requete2 .= "from bav_objet ";
+    $requete2 .= " from bav_objet ";
     if ($client) {
         $requete2 .= "  left outer join bav_client as ve on obj_id_vendeur = ve.cli_id ";
         $requete2 .= "  left outer join bav_client as ac on obj_id_acheteur = ac.cli_id ";
@@ -217,6 +217,7 @@ function getFiches($order, $sens, $tabSel, $client = true)
                 if (trim($value) != "") {
                     $requete2 .= " and (obj_modele like '%" . addslashes($value) . "%' ";
                     $requete2 .= " or obj_description like '%" . addslashes($value) . "%' ";
+                    $requete2 .= " or obj_type like '%" . addslashes($value) . "%' ";
                     $requete2 .= " or obj_public like '%" . addslashes($value) . "%' ";
                     $requete2 .= " or obj_marque like '%" . addslashes($value) . "%' ";
                     $requete2 .= " or obj_couleur like '%" . addslashes($value) . "%' ";

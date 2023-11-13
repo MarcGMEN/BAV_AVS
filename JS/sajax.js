@@ -16,13 +16,18 @@
 				sajax_asynchro['return_restant']=1;
 				sajax_asynchro['action_menage']=1;
 				sajax_asynchro['add_counter_action']=1;
-				sajax_asynchro['return_oneActu']=1;
-				sajax_asynchro['action_createActu']=1;
-				sajax_asynchro['action_deleteActu']=1;
-				sajax_asynchro['action_updateActu']=1;
-				sajax_asynchro['action_insertActu']=1;
-				sajax_asynchro['action_insertActuPRESSE']=1;
-				sajax_asynchro['return_actus']=1;
+				sajax_asynchro['delete_file']=1;
+				sajax_asynchro['add_cdp']=1;
+				sajax_asynchro['return_lat_lon_cdp']=1;
+				sajax_asynchro['return_all_lat_lon_cdp']=1;
+				sajax_asynchro['return_oneFaq']=1;
+				sajax_asynchro['action_createFaq']=1;
+				sajax_asynchro['action_deleteFaq']=1;
+				sajax_asynchro['action_updateFaq']=1;
+				sajax_asynchro['action_insertFaq']=1;
+				sajax_asynchro['return_faqs']=1;
+				sajax_asynchro['return_countByPage']=1;
+				sajax_asynchro['return_byTree']=1;
 				sajax_asynchro['return_oneClient']=1;
 				sajax_asynchro['action_updateClient']=1;
 				sajax_asynchro['action_makeClient']=1;
@@ -39,14 +44,20 @@
 				sajax_asynchro['return_isClientByMel']=1;
 				sajax_asynchro['connect_client']=1;
 				sajax_asynchro['action_redonneCode']=1;
-				sajax_asynchro['return_countByPage']=1;
-				sajax_asynchro['return_byTree']=1;
-				sajax_asynchro['return_oneFaq']=1;
-				sajax_asynchro['action_createFaq']=1;
-				sajax_asynchro['action_deleteFaq']=1;
-				sajax_asynchro['action_updateFaq']=1;
-				sajax_asynchro['action_insertFaq']=1;
-				sajax_asynchro['return_faqs']=1;
+				sajax_asynchro['return_statByType']=1;
+				sajax_asynchro['return_statRepartition']=1;
+				sajax_asynchro['return_statDelais']=1;
+				sajax_asynchro['return_graphCount']=1;
+				sajax_asynchro['return_histoCount']=1;
+				sajax_asynchro['return_statClient']=1;
+				sajax_asynchro['return_countByTarifSup']=1;
+				sajax_asynchro['return_oneActu']=1;
+				sajax_asynchro['action_createActu']=1;
+				sajax_asynchro['action_deleteActu']=1;
+				sajax_asynchro['action_updateActu']=1;
+				sajax_asynchro['action_insertActu']=1;
+				sajax_asynchro['action_insertActuPRESSE']=1;
+				sajax_asynchro['return_actus']=1;
 				sajax_asynchro['return_list_marques']=1;
 				sajax_asynchro['return_list_modeles']=1;
 				sajax_asynchro['return_list_tailles']=1;
@@ -75,6 +86,7 @@
 				sajax_asynchro['action_makeHtml']=1;
 				sajax_asynchro['return_nbFichesByDay']=1;
 				sajax_asynchro['return_nbFichesByDayAvantBAV']=1;
+				sajax_asynchro['return_nb_fiche_by_place']=1;
 				sajax_asynchro['return_countMailing']=1;
 				sajax_asynchro['return_countMailingAEnvoyer']=1;
 				sajax_asynchro['return_countMailingEnvoye']=1;
@@ -91,13 +103,6 @@
 				sajax_asynchro['return_infoAppli']=1;
 				sajax_asynchro['return_depotsBAV']=1;
 				sajax_asynchro['return_tauxBAV']=1;
-				sajax_asynchro['return_statByType']=1;
-				sajax_asynchro['return_statRepartition']=1;
-				sajax_asynchro['return_statDelais']=1;
-				sajax_asynchro['return_graphCount']=1;
-				sajax_asynchro['return_histoCount']=1;
-				sajax_asynchro['return_statClient']=1;
-				sajax_asynchro['return_countByTarifSup']=1;
 				
 		function sajax_debug(text) {
 			if (sajax_debug_mode)
@@ -359,52 +364,87 @@
 		}
 		
 				
-		// wrapper for return_oneActu		
-		function x_return_oneActu() {
-			sajax_do_call("return_oneActu",
-				x_return_oneActu.arguments);
+		// wrapper for delete_file		
+		function x_delete_file() {
+			sajax_do_call("delete_file",
+				x_delete_file.arguments);
 		}
 		
 				
-		// wrapper for action_createActu		
-		function x_action_createActu() {
-			sajax_do_call("action_createActu",
-				x_action_createActu.arguments);
+		// wrapper for add_cdp		
+		function x_add_cdp() {
+			sajax_do_call("add_cdp",
+				x_add_cdp.arguments);
 		}
 		
 				
-		// wrapper for action_deleteActu		
-		function x_action_deleteActu() {
-			sajax_do_call("action_deleteActu",
-				x_action_deleteActu.arguments);
+		// wrapper for return_lat_lon_cdp		
+		function x_return_lat_lon_cdp() {
+			sajax_do_call("return_lat_lon_cdp",
+				x_return_lat_lon_cdp.arguments);
 		}
 		
 				
-		// wrapper for action_updateActu		
-		function x_action_updateActu() {
-			sajax_do_call("action_updateActu",
-				x_action_updateActu.arguments);
+		// wrapper for return_all_lat_lon_cdp		
+		function x_return_all_lat_lon_cdp() {
+			sajax_do_call("return_all_lat_lon_cdp",
+				x_return_all_lat_lon_cdp.arguments);
 		}
 		
 				
-		// wrapper for action_insertActu		
-		function x_action_insertActu() {
-			sajax_do_call("action_insertActu",
-				x_action_insertActu.arguments);
+		// wrapper for return_oneFaq		
+		function x_return_oneFaq() {
+			sajax_do_call("return_oneFaq",
+				x_return_oneFaq.arguments);
 		}
 		
 				
-		// wrapper for action_insertActuPRESSE		
-		function x_action_insertActuPRESSE() {
-			sajax_do_call("action_insertActuPRESSE",
-				x_action_insertActuPRESSE.arguments);
+		// wrapper for action_createFaq		
+		function x_action_createFaq() {
+			sajax_do_call("action_createFaq",
+				x_action_createFaq.arguments);
 		}
 		
 				
-		// wrapper for return_actus		
-		function x_return_actus() {
-			sajax_do_call("return_actus",
-				x_return_actus.arguments);
+		// wrapper for action_deleteFaq		
+		function x_action_deleteFaq() {
+			sajax_do_call("action_deleteFaq",
+				x_action_deleteFaq.arguments);
+		}
+		
+				
+		// wrapper for action_updateFaq		
+		function x_action_updateFaq() {
+			sajax_do_call("action_updateFaq",
+				x_action_updateFaq.arguments);
+		}
+		
+				
+		// wrapper for action_insertFaq		
+		function x_action_insertFaq() {
+			sajax_do_call("action_insertFaq",
+				x_action_insertFaq.arguments);
+		}
+		
+				
+		// wrapper for return_faqs		
+		function x_return_faqs() {
+			sajax_do_call("return_faqs",
+				x_return_faqs.arguments);
+		}
+		
+				
+		// wrapper for return_countByPage		
+		function x_return_countByPage() {
+			sajax_do_call("return_countByPage",
+				x_return_countByPage.arguments);
+		}
+		
+				
+		// wrapper for return_byTree		
+		function x_return_byTree() {
+			sajax_do_call("return_byTree",
+				x_return_byTree.arguments);
 		}
 		
 				
@@ -520,59 +560,101 @@
 		}
 		
 				
-		// wrapper for return_countByPage		
-		function x_return_countByPage() {
-			sajax_do_call("return_countByPage",
-				x_return_countByPage.arguments);
+		// wrapper for return_statByType		
+		function x_return_statByType() {
+			sajax_do_call("return_statByType",
+				x_return_statByType.arguments);
 		}
 		
 				
-		// wrapper for return_byTree		
-		function x_return_byTree() {
-			sajax_do_call("return_byTree",
-				x_return_byTree.arguments);
+		// wrapper for return_statRepartition		
+		function x_return_statRepartition() {
+			sajax_do_call("return_statRepartition",
+				x_return_statRepartition.arguments);
 		}
 		
 				
-		// wrapper for return_oneFaq		
-		function x_return_oneFaq() {
-			sajax_do_call("return_oneFaq",
-				x_return_oneFaq.arguments);
+		// wrapper for return_statDelais		
+		function x_return_statDelais() {
+			sajax_do_call("return_statDelais",
+				x_return_statDelais.arguments);
 		}
 		
 				
-		// wrapper for action_createFaq		
-		function x_action_createFaq() {
-			sajax_do_call("action_createFaq",
-				x_action_createFaq.arguments);
+		// wrapper for return_graphCount		
+		function x_return_graphCount() {
+			sajax_do_call("return_graphCount",
+				x_return_graphCount.arguments);
 		}
 		
 				
-		// wrapper for action_deleteFaq		
-		function x_action_deleteFaq() {
-			sajax_do_call("action_deleteFaq",
-				x_action_deleteFaq.arguments);
+		// wrapper for return_histoCount		
+		function x_return_histoCount() {
+			sajax_do_call("return_histoCount",
+				x_return_histoCount.arguments);
 		}
 		
 				
-		// wrapper for action_updateFaq		
-		function x_action_updateFaq() {
-			sajax_do_call("action_updateFaq",
-				x_action_updateFaq.arguments);
+		// wrapper for return_statClient		
+		function x_return_statClient() {
+			sajax_do_call("return_statClient",
+				x_return_statClient.arguments);
 		}
 		
 				
-		// wrapper for action_insertFaq		
-		function x_action_insertFaq() {
-			sajax_do_call("action_insertFaq",
-				x_action_insertFaq.arguments);
+		// wrapper for return_countByTarifSup		
+		function x_return_countByTarifSup() {
+			sajax_do_call("return_countByTarifSup",
+				x_return_countByTarifSup.arguments);
 		}
 		
 				
-		// wrapper for return_faqs		
-		function x_return_faqs() {
-			sajax_do_call("return_faqs",
-				x_return_faqs.arguments);
+		// wrapper for return_oneActu		
+		function x_return_oneActu() {
+			sajax_do_call("return_oneActu",
+				x_return_oneActu.arguments);
+		}
+		
+				
+		// wrapper for action_createActu		
+		function x_action_createActu() {
+			sajax_do_call("action_createActu",
+				x_action_createActu.arguments);
+		}
+		
+				
+		// wrapper for action_deleteActu		
+		function x_action_deleteActu() {
+			sajax_do_call("action_deleteActu",
+				x_action_deleteActu.arguments);
+		}
+		
+				
+		// wrapper for action_updateActu		
+		function x_action_updateActu() {
+			sajax_do_call("action_updateActu",
+				x_action_updateActu.arguments);
+		}
+		
+				
+		// wrapper for action_insertActu		
+		function x_action_insertActu() {
+			sajax_do_call("action_insertActu",
+				x_action_insertActu.arguments);
+		}
+		
+				
+		// wrapper for action_insertActuPRESSE		
+		function x_action_insertActuPRESSE() {
+			sajax_do_call("action_insertActuPRESSE",
+				x_action_insertActuPRESSE.arguments);
+		}
+		
+				
+		// wrapper for return_actus		
+		function x_return_actus() {
+			sajax_do_call("return_actus",
+				x_return_actus.arguments);
 		}
 		
 				
@@ -772,6 +854,13 @@
 		}
 		
 				
+		// wrapper for return_nb_fiche_by_place		
+		function x_return_nb_fiche_by_place() {
+			sajax_do_call("return_nb_fiche_by_place",
+				x_return_nb_fiche_by_place.arguments);
+		}
+		
+				
 		// wrapper for return_countMailing		
 		function x_return_countMailing() {
 			sajax_do_call("return_countMailing",
@@ -881,55 +970,6 @@
 		function x_return_tauxBAV() {
 			sajax_do_call("return_tauxBAV",
 				x_return_tauxBAV.arguments);
-		}
-		
-				
-		// wrapper for return_statByType		
-		function x_return_statByType() {
-			sajax_do_call("return_statByType",
-				x_return_statByType.arguments);
-		}
-		
-				
-		// wrapper for return_statRepartition		
-		function x_return_statRepartition() {
-			sajax_do_call("return_statRepartition",
-				x_return_statRepartition.arguments);
-		}
-		
-				
-		// wrapper for return_statDelais		
-		function x_return_statDelais() {
-			sajax_do_call("return_statDelais",
-				x_return_statDelais.arguments);
-		}
-		
-				
-		// wrapper for return_graphCount		
-		function x_return_graphCount() {
-			sajax_do_call("return_graphCount",
-				x_return_graphCount.arguments);
-		}
-		
-				
-		// wrapper for return_histoCount		
-		function x_return_histoCount() {
-			sajax_do_call("return_histoCount",
-				x_return_histoCount.arguments);
-		}
-		
-				
-		// wrapper for return_statClient		
-		function x_return_statClient() {
-			sajax_do_call("return_statClient",
-				x_return_statClient.arguments);
-		}
-		
-				
-		// wrapper for return_countByTarifSup		
-		function x_return_countByTarifSup() {
-			sajax_do_call("return_countByTarifSup",
-				x_return_countByTarifSup.arguments);
 		}
 		
 		

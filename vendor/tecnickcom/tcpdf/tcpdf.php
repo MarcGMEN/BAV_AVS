@@ -5063,7 +5063,9 @@ class TCPDF {
 	 */
 	protected function getCellCode($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=false, $link='', $stretch=0, $ignore_min_height=false, $calign='T', $valign='M') {
 		// replace 'NO-BREAK SPACE' (U+00A0) character with a simple space
-		$txt = str_replace(TCPDF_FONTS::unichr(160, $this->isunicode), ' ', $txt);
+
+		// EVO MG
+		// $txt = str_replace(TCPDF_FONTS::unichr(160, $this->isunicode), ' ', $txt);
 		$prev_cell_margin = $this->cell_margin;
 		$prev_cell_padding = $this->cell_padding;
 		$txt = TCPDF_STATIC::removeSHY($txt, $this->isunicode);
