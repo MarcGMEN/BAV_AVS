@@ -217,6 +217,7 @@ function getFiches($order, $sens, $tabSel, $client = true)
                 if (trim($value) != "") {
                     $requete2 .= " and (obj_modele like '%" . addslashes($value) . "%' ";
                     $requete2 .= " or obj_description like '%" . addslashes($value) . "%' ";
+                    $requete2 .= " or obj_type like '%" . addslashes($value) . "%' ";
                     $requete2 .= " or obj_public like '%" . addslashes($value) . "%' ";
                     $requete2 .= " or obj_marque like '%" . addslashes($value) . "%' ";
                     $requete2 .= " or obj_couleur like '%" . addslashes($value) . "%' ";

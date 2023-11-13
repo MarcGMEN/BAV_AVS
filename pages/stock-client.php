@@ -15,10 +15,10 @@
 
 		console.log(vueParc);
 		if (vueParc == '1' || ADMIN) {
-			x_return_enum('bav_objet', 'obj_type', display_list_type);
-			x_return_enum('bav_objet', 'obj_public', display_list_public);
+			// x_return_enum('bav_objet', 'obj_type', display_list_type);
+			// x_return_enum('bav_objet', 'obj_public', display_list_public);
 			//x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);
-
+// 
 			x_return_list_marques(display_list_marque)
 			x_return_fiches(tri, sens, tabToString(tabSel), 0, 0, display_fiches);
 		} else {
@@ -91,6 +91,7 @@
 								// val[index]['obj_prix_depot'] = val[index]['obj_prix_depot'].replace(reg, "<b style='color:BLUE'>$1</b>");
 								val[index]['obj_couleur'] = val[index]['obj_couleur'].replace(reg, "<b style='color:BLUE'>$1</b>");
 								val[index]['obj_public'] = val[index]['obj_public'].replace(reg, "<b style='color:BLUE'>$1</b>");
+								val[index]['obj_type'] = val[index]['obj_type'].replace(reg, "<b style='color:BLUE'>$1</b>");
 								val[index]['obj_marque'] = val[index]['obj_marque'].replace(reg, "<b style='color:BLUE'>$1</b>");
 								val[index]['obj_taille'] = val[index]['obj_taille'].replace(reg, "<b style='color:BLUE'>$1</b>");
 							}
@@ -103,9 +104,8 @@
 					// repr += "</td>";
 					repr += "<td width=10% >";
 					repr += val[index]['obj_type'];
-					repr += "</td>";
-					repr += "<td  width=10% >";
-					repr += val[index]['obj_public'];
+					repr += " "
+					repr += val[index]['obj_public'] != "Autre" ? val[index]['obj_public'] : "";
 					repr += "</td>";
 					repr += "<td  width=30% >";
 					repr += val[index]['obj_marque'];
@@ -198,7 +198,7 @@
 		x_return_fiches(tri, sens, tabToString(tabSel), 0, 0, display_fiches);
 	}
 </script>
-<h2>Liste des vélos disponibles à la <?=$infAppli['titre']?></h2>
+<h3>Liste des vélos disponibles.</h3>
 <br />
 <table width="100%" class="alert alert-info">
 	<tr>
@@ -219,20 +219,20 @@
 		</td> -->
 		<td class="tittab" width=10%>
 			<span id='obj_type' onclick="triColonne('obj_type')"
-				class="sortable">Type&nbsp;&nbsp;</span>
-			&nbsp;<select id="sel_obj_type"
-				onchange="selectColonne('obj_type', this.value)"></select>
+				class="sortable">Type</span>
+			<!-- &nbsp;<select id="sel_obj_type"
+				onchange="selectColonne('obj_type', this.value)"></select> -->
 		</td>
 		<!-- <td class="tittab" width=10%>
 			<span id='obj_couleur' onclick="triColonne('obj_couleur')" class="sortable">Couleur&nbsp;&nbsp;&nbsp;</span>
 			&nbsp;
 		</td> -->
-		<td class="tittab" width=10%>
+		<!-- <td class="tittab" width=10%>
 			<span id='obj_public' onclick="triColonne('obj_public')"
 				class="sortable">Public&nbsp;&nbsp;&nbsp;</span>
 			&nbsp;<select id="sel_obj_public"
-				onchange="selectColonne('obj_public', this.value)"></select>
-		</td>
+				onchange="selectColonne('obj_public', this.value)"></select> -->
+		<!-- </td> --> 
 
 		<td class="tittab " width=30%>
 			<span id='obj_marque' onclick="triColonne('obj_marque')"
