@@ -95,7 +95,9 @@
 
 <div class="row">
 	<div class="col-sm-12 col-md-12 col-xs-12 alert alert-info maskMobile" id='aideImpression' style="display:none;"> 
-		<h5><b>⚠ N'oubliez pas d'imprimer votre fiche de dépôt avant de venir en cliquant sur l'icone :📇</b> <br/><small>(Attention au droit d'ouverture des popup ou nouvel onglet avec votre navigateur)</small></h5>
+		<h5><b>⚠ N'oubliez pas d'imprimer votre fiche de dépôt avant de venir en cliquant sur l'icone :📇</b></h5>
+		<h6>(Attention au droit d'ouverture des popup ou nouvel onglet avec votre navigateur)
+		<br/><b>Merci de priviligiers les navigateur Chrome ou Firefox pour l'impression des fiches.</b></h6>
 	</div>
 </div>
 <table width="100%" >
