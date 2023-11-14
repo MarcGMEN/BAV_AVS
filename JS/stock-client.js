@@ -96,20 +96,20 @@
 					repr += "</td>";
 					repr += "<td  width=30% >";
 					repr += val[index]['obj_marque'];
+					var year = "";
+					if (val[index]['obj_date_achat']) {
+						year = new Date(val[index]['obj_date_achat']).getFullYear();
+					}
 					if (val[index]['obj_modele']) {
 						repr += " "+val[index]['obj_modele'];
-						repr += "&nbsp<A href='https://www.google.fr/search?tbm=isch&q=" + val['obj_marque_orig'] + " " + val['obj_modele_orig'] + "' target='_blank' ><img src='https://www.we-do-it-better.fr/wp-content/uploads/2019/04/googlesearch.png' height='20px'/></A></span>";
+						repr += "&nbsp<A href='https://www.google.fr/search?tbm=isch&q=" + val['obj_marque_orig'] + " " + val['obj_modele_orig'] + " "+year+"' target='_blank' ><img src='https://www.we-do-it-better.fr/wp-content/uploads/2019/04/googlesearch.png' height='20px'/></A></span>";
 					}
 					repr += "</td>";
 					repr += "<td width=5% class='maskMobile' >";
 					repr += val[index]['obj_taille'];
 					repr += "</td>";
 					repr += "<td class='maskMobile' style='text-align:center;width:15%' >";
-					if (val[index]['obj_date_achat']) {
-						var year = new Date(val[index]['obj_date_achat']).getFullYear();
-						repr += year;
-					}
-
+					repr += year;
 					repr += "</td>";
 
 					repr += "<td class='maskMobile' width=35% >";
