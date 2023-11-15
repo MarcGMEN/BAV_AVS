@@ -1,0 +1,4 @@
+RewriteEngine on
+RewriteBase /bourseauxvelos
+RewriteCond %{SERVER_PORT} !=443
+RewriteRule .* https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
