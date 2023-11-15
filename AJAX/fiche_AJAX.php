@@ -1315,7 +1315,7 @@ function action_updateFiche($data)
         strtoupper($fiche['obj_taille']) != strtoupper($ficheOld['obj_taille']) ||
         strtoupper($fiche['obj_date_achat']) != strtoupper($ficheOld['obj_date_achat']) ||
         strtoupper($fiche['obj_prix_achat']) != strtoupper($ficheOld['obj_prix_achat']) ||
-        //strtoupper($fiche['obj_description']) != strtoupper($ficheOld['obj_description']) ||
+        strtoupper($fiche['obj_description']) != strtoupper($ficheOld['obj_description']) ||
         strtoupper($fiche['obj_prix_depot']) != strtoupper($ficheOld['obj_prix_depot'])
     ) {
         $modifFiche = 1;
