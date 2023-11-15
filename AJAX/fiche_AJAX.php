@@ -803,6 +803,16 @@ function action_makeA4Fiches($eti0, $eti1)
         'numero_bav' => $INFO_APPLI['numero_bav']
     );
     try {
+        $etiquettes = "<html>";
+        $etiquettes .= "<head>";
+        $etiquettes .= "<style>body {font-family:  Verdana, Arial, Helvetica, sans-serif;
+            color: BLACK;
+            font-size: 10pt;}</style>";
+        // $etiquettes .= "<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css' integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU' crossorigin='anonymous'>";
+        // $etiquettes .= "<link rel='stylesheet' href='https://unpkg.com/leaflet@1.3.1/dist/leaflet.css' integrity='sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==' crossorigin='' />";
+        $etiquettes .= "</head>";
+        $etiquettes .= "<body>";
+        
         for ($numFiche = $eti0; $numFiche <= $eti1; $numFiche++) {
             $fiche = return_oneFicheByCode($numFiche);
             if ($fiche != null && $fiche['obj_id'] != '') {
@@ -814,20 +824,19 @@ function action_makeA4Fiches($eti0, $eti1)
                 // regroupement de la description
                 $fiche['obj_description'] = concatDescription($fiche['obj_description']);
 
-                if (
-                    $fiche['obj_prix_vente'] > 0 && ($fiche['obj_etat'] == 'VENDU' || $fiche['obj_etat'] == 'PAYE')
-                ) {
+                if ($fiche['obj_prix_vente'] != $fiche['obj_prix_depot'] && $fiche['obj_prix_vente'] > 0.00) {
+                    $fiche['obj_prix_depot'] = "<s>" . $fiche['obj_prix_depot'] . " €</s><span style='color:RED'>" . $fiche['obj_prix_vente'] . "</span>";
+                }
+
+                if ($fiche['obj_prix_vente'] > 0.00 && ($fiche['obj_etat'] == 'VENDU' || $fiche['obj_etat'] == 'PAYE')) {
                     $client['cli_com'] = getCommission($fiche);
                 } else {
                     $fiche['obj_prix_vente'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>";
                     $client['cli_com'] = "<u style='color:blue'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>";
                 }
 
-                if ($fiche['obj_prix_vente'] != $fiche['obj_prix_depot'] && $fiche['obj_prix_vente'] > 0) {
-                    $fiche['obj_prix_depot'] = "<s>" . $fiche['obj_prix_depot'] . " €</s><span style='color:RED'>" . $fiche['obj_prix_vente'] . "</span>";
-                }
 
-                if ($fiche['obj_prix_depot'] == 0) {
+                if ($fiche['obj_prix_depot'] == 0.00) {
                     $fiche['obj_prix_depot'] = "";
                 }
                 // MISE EN FORME DE LA FICHE
@@ -840,6 +849,7 @@ function action_makeA4Fiches($eti0, $eti1)
             }
         }
 
+        $etiquettes .= "</body></html>";
         // fichier HTML resultant
         $fileHTML = "../out/html/fiches_" . $eti0 . "_" . $eti1 . ".html";
 
