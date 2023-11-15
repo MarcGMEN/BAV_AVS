@@ -67,6 +67,10 @@ if (isset($_POST['cli_id']) && $_POST['cli_id'] != '') {
 
                             $fiche['obj_id_vendeur'] = $_POST['cli_id'];
 
+                            $fiche['obj_modif_data'] = 1;
+                            $fiche['obj_modif_vendeur'] = 1;
+                            $fiche['obj_modif_stock'] = 1;
+
                             insertFiche($fiche);
                             $nbFiche++;
                             $textePlus .= $fiche['obj_numero'] . ",";

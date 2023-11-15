@@ -167,9 +167,9 @@
 	}
 
 	function selectColonne(col, mask) {
-		tabSel['obj_type'] = getElement("sel_obj_type").value;
+		// tabSel['obj_type'] = getElement("sel_obj_type").value;
 		tabSel['obj_marque'] = getElement("sel_obj_marque").value;
-		tabSel['obj_public'] = getElement("sel_obj_public").value;
+		// tabSel['obj_public'] = getElement("sel_obj_public").value;
 		//tabSel['obj_pratique'] = getElement("sel_obj_pratique").value;
 		//tabSel[col] = mask;
 
