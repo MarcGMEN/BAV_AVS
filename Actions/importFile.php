@@ -71,7 +71,9 @@ if (isset($_POST['cli_id']) && $_POST['cli_id'] != '') {
                             $fiche['obj_modif_vendeur'] = 1;
                             $fiche['obj_modif_stock'] = 1;
 
-                            insertFiche($fiche);
+                            $idfiche =insertFiche($fiche);
+
+                            action_makePDF($idfiche);
                             $nbFiche++;
                             $textePlus .= $fiche['obj_numero'] . ",";
                         } catch (Exception $e) {

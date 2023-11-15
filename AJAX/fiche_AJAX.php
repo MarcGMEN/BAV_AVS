@@ -1082,7 +1082,6 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false, $format 
     extract($GLOBALS);
     $data = action_makeData($id, $test);
     try {
-
         $filePDF = html2pdf($data, $html, basename($html, ".html") . "_" . $data['obj_numero'], $format);
     } catch (Exception $e) {
         print_r($e);
