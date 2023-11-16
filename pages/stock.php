@@ -7,20 +7,18 @@
 
 </script>
 <script src="JS/stock.js" ></script>
-<table width="100%" class="alert alert-info">
+<div class='link' id='vucpt' onclick="getElement('tableCpt').style.display='table';this.style.display='none';getElement('cachecpt').style.display=''">+</div>
+<div class='link' id='cachecpt' onclick="getElement('tableCpt').style.display='none';this.style.display='none';getElement('vucpt').style.display=''" style="display:none">-</div>
+<table width="100%" class="alert alert-info" style="display:none" id='tableCpt'>
 	<tr>
-		<td width=12%>
-			Nb
-		</td>
+		<td width=12%>Nb</td>
 		<td width=22%>Total</td>
 		<td width=22%>Stock</td>
 		<td width=22%>Vendu</td>
 		<td width=22%>Payé</td>
 	</tr>
 	<tr>
-		<td>
-			<span id=total></span>
-		</td>
+		<td><span id=total></span></td>
 		<td><b><span id=total_vente_depot>0.00</span> €</b></td>
 		<td><b><span id=total_vente_stock>0.00</span> €</b></td>
 		<td><b><span id=total_vente_vendu>0.00</span> €</b></td>
