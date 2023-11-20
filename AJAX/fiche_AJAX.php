@@ -1330,6 +1330,7 @@ function action_updateFiche($data)
 
     // en mode CONFIRME
     // on recherche le vendeur
+    error_log($fiche['obj_etat']);
     if ($fiche['obj_etat'] == "CONFIRME") {
         // error_log("test cli_nom  " . strtoupper($client['cli_nom']) . " != " . strtoupper($cliOld['cli_nom']));
         // si modification de client de la fiche
@@ -1351,7 +1352,7 @@ function action_updateFiche($data)
                 strtoupper($fiche['obj_taille']) != strtoupper($ficheOld['obj_taille']) ||
                 strtoupper($fiche['obj_date_achat']) != strtoupper($ficheOld['obj_date_achat']) ||
                 strtoupper($fiche['obj_prix_achat']) != strtoupper($ficheOld['obj_prix_achat']) ||
-                //strtoupper($fiche['obj_description']) != strtoupper($ficheOld['obj_description']) ||
+                strtoupper($fiche['obj_description']) != strtoupper($ficheOld['obj_description']) ||
                 strtoupper($fiche['obj_prix_depot']) != $ficheOld['obj_prix_depot'])
         ) {
             $fiche['obj_modif_data'] = 2;
@@ -1376,7 +1377,8 @@ function action_updateFiche($data)
         strtoupper($fiche['obj_date_achat']) != strtoupper($ficheOld['obj_date_achat']) ||
         strtoupper($fiche['obj_prix_achat']) != strtoupper($ficheOld['obj_prix_achat']) ||
         strtoupper($fiche['obj_description']) != strtoupper($ficheOld['obj_description']) ||
-        strtoupper($fiche['obj_prix_depot']) != strtoupper($ficheOld['obj_prix_depot'])
+        strtoupper($fiche['obj_prix_depot']) != strtoupper($ficheOld['obj_prix_depot']) ||
+        strtoupper($fiche['obj_accessoire']) != strtoupper($ficheOld['obj_accessoire'])
     ) {
         $modifFiche = 1;
     }
