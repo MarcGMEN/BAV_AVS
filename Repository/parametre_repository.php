@@ -30,12 +30,17 @@ function return_infoAppli()
     $infos['NB_MODIF'] = $par['par_nb_modif'];
     $dateFin=strtotime($par['par_client_date_fin']);
     $dateFin17=mktime(17, 0, 0, date('m',$dateFin), date('d',$dateFin), date('Y',$dateFin));
-    if (strtotime($par['par_client_date_debut']) < $today && $today <$dateFin17) {
+    $dateFin17=mktime(22, 38, 0, date('m',$dateFin), date('d',$dateFin), date('Y',$dateFin));
+    
+    if (strtotime($par['par_client_date_debut']) < $today && $today < $dateFin17) {
         $infos['CLIENT'] = 1;
     } else {
         $infos['message'] = "Session pas encore ouverte";
     }
-
+    $infos['dateFinClient'] = date("d/m/Y H:I:s",$dateFin17 );
+    //$infos['dateFinClient'] = date("d/m/Y H:I:s",$dateFin17 );
+    // $infos['dateFinClient'] = date("d/m/Y H:I:s",$today-$dateFin17 );
+    
     foreach ($tabIpsAdmin as $ipOk) {
         if (trim($ipOk) == trim($ipLu)) {
             $infos['ADMIN'] = 1;

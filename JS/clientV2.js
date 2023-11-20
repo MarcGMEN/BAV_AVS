@@ -2,10 +2,10 @@
  * action lors du chargement de la page
  */
 function initPage() {
-    if (!CLIENT && !ADMIN && !BAV_ENCOURS && modePage != 'createTEST') {
-        alertModalInfo("Page non accessible. "+BAV_ENCOURS+"-"+CLIENT+"-"+modePage);
-        setTimeout(function () { goTo() }, 2000);
-    }
+    // if (!CLIENT && !ADMIN && !BAV_ENCOURS && modePage != 'createTEST') {
+    //     alertModalInfo("Page non accessible. "+BAV_ENCOURS+"-"+CLIENT+"-"+modePage);
+    //     setTimeout(function () { goTo() }, 2000);
+    // }
 
     if (idClient) {
         // recherche du client

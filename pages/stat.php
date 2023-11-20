@@ -514,6 +514,10 @@
 	var nbClient = 0;
 	/* Affichage des stats clients sous format map */
 	function display_statClient(val) {
+
+		tabCdpNb = [];
+		tabDistanceCDP=[];
+		nbClient = 0;
 		// usage example:
 		var tabVal = [];
 		// console.log(val);

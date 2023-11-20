@@ -266,7 +266,7 @@ $tabInfo = [
 							</tr>
 							<tr class="tabAction">
 								<td> - Modifs <span id="nbEAaImprimer"></span> (
-									<?= $infAppli['nb_eti_page'] ?>/page) : <span
+									<?= $infAppli['nb_coupon_page'] ?>/page) : <span
 										id="nb_ea_eti"></span>
 									[C: <b><span id="nb_ea_new"></span></b>;
 									M:<b><span id="nb_ea_modif"></span></b>]

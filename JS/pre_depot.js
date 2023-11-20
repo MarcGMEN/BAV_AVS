@@ -24,18 +24,12 @@ function initPage() {
         CLIENT = 1;
         test = "createTEST";
     }
-    
-    if (!CLIENT && !ADMIN && !BAV_ENCOURS) {
-        alertModalInfo("Page non accessible.");
-        setTimeout(function() { goTo() }, 2000);
-    }
 
-    // if (modePage != "create") {
-    //     goTo();
+    // if (!CLIENT && !ADMIN && !BAV_ENCOURS) {
+    //     alertModalInfo("Page non accessible.");
+    //     setTimeout(function() { goTo() }, 10000);
     // }
 }
-
-
 
 // PRE ENREGISTREMENT
 // PRE ENREGISTREMENT

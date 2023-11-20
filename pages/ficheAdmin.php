@@ -1,4 +1,3 @@
-<? $idRamdom = rand(1000, 9999); ?>
 <script>
 	var idFiche = '<?= $GET_id ?>';
 	// pour rendre le champ nom du client unique
@@ -219,8 +218,7 @@
 				<span class="col-md-12 col-sm-12 col-xs-12">
 					<div id="aide_descript" style="visibility: hidden;"
 						class=' help'>
-						<small>Saisisez ici les accessoires, les révisions
-							(transmission, pneus, freins..), et autres</small>
+						<small>Saisissez ici les révisions (transmission, pneus, freins..), et autres</small>
 					</div>
 				</span>
 			</div>
@@ -260,7 +258,7 @@
 
 						name="obj_accessoire" maxlength="250"
 						onkeyup="MaxLengthTextarea(this, 250);setStartSaisie(true);this.value = this.value.toUpperCase();"
-						placeholder=""></textarea>
+						placeholder="Saisissez les accessoires que vous déposerez avec votre vélo : compteur, roues, pneus, chargeur...."></textarea>
 				</span>
 			</div>
 
