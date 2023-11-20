@@ -1,7 +1,7 @@
 <?
 //require "SO_Post_Get.php";
 
-session_start();
+// session_start();
 
 if (isset($_GET)) {
 	extract($_GET,EXTR_PREFIX_ALL,'GET');
