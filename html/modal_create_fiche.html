@@ -90,11 +90,12 @@
 			<span class="help link" onmouseover="Aff_layer('aide_descript')" onmouseout="Cache_layer('aide_descript')">?</span>
         </span>
         <span class="tabInput col-md-10 col-sm-10 col-xs-9">
-			<textarea rows="4" cols="100" tabindex=10 style="resize:none;overflow: none;" name="obj_description" maxlength="250" onkeyup="MaxLengthTextarea(this, 250);" placeholder="Accessoires, révision (transmission, pneus, freins..)"></textarea>
+			<textarea rows="4" cols="100" tabindex=10 style="resize:none;overflow: none;" name="obj_description" maxlength="250" onkeyup="MaxLengthTextarea(this, 250);" 
+					placeholder="Saisissez les informations qui apparaitrons sur l'étiquette de votre vélo. Révision (transmission, pneus, freins..), ulitilisation... "></textarea>
 		</span>
         <span class="col-md-12 col-sm-12 col-xs-12">
 			<div id="aide_descript" style="visibility: hidden;" class=' help'>
-				<small>Saisisez ici les accessoires, les révisions (transmission, pneus, freins..), et autres</small>
+				<small>Saisissez ici les révisions (transmission, pneus, freins..), et autres</small>
 			</div>
 		</span>
     </div>
@@ -103,6 +104,18 @@
         <span class="titrow col-md-2 col-sm-2 col-xs-3">Prix</span>
         <span class="tabInput col-md-10 col-sm-10 col-xs-9">
 			<input type=number name="obj_prix_depot" size=5 maxlength="10" tabindex=11  step="0.1" min="0" title="Prix vente, vous pouvez le laisser vide et le renseigner le jour du dépôt." placeholder="00.00" />&#8364;
+		</span>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6 col-xs-12">
+        <!-- Accessoires -->
+        <span class="titrow col-md-2 col-sm-2 col-xs-3">Liste des accessoires <small>(facultative)</small>
+        </span>
+        <span class="tabInput col-md-10 col-sm-10 col-xs-9">
+			<textarea rows="4" cols="100" tabindex=10 style="color:red;resize:none;overflow: none;" 
+				name="obj_accessoire" maxlength="250" onkeyup="MaxLengthTextarea(this, 250);this.value = this.value.toUpperCase();" 
+				placeholder="Saisissez les accessoires que vous déposerez avec votre vélo : compteur, roues, pneus, chargeur...."></textarea>
 		</span>
     </div>
 </div>

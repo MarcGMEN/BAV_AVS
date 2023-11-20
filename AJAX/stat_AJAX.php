@@ -13,10 +13,10 @@ include '../jpGraph/src/jpgraph_bar.php';
 /**
  * retour d'un table avec le code postal en clef et le nb d'occurences
  */
-function return_statClient()
+function return_statClient($qui)
 {
     try {
-        $tab = getClients(null, 'asc', null, false);
+        $tab = getClients(null, 'asc', null, $qui);
 
         $tabCount = [];
         foreach ($tab as $key => $val) {

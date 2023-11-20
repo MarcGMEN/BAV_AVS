@@ -102,6 +102,9 @@ function display_fiches(val) {
                     // repr += "<div style='font-size:0.5em'>E</div>";
                     repr += "E&nbsp;";
                 }
+                if (val[index]['obj_modif_accessoire'] > 0) {
+                    repr += "EA&nbsp;";
+                }
                 if (val[index]['obj_modif_vendeur'] > 0) {
                     //repr += "<img src='Images/coupon_vendeur" + val[index]['obj_modif_vendeur'] + ".png' style='height:10px' />";
                     // repr += "<div style='font-size:0.5em'>CD</div>";

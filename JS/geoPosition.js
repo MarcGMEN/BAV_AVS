@@ -12,65 +12,69 @@ var geocoder = L.Control.Geocoder.nominatim();
 // Nous définissons le dossier qui contiendra les marqueurs
 
 var markers = []; // Nous initialisons la liste des marqueurs
+var markersvert  = [];
 
 var markerBAV;
 
 // Fonction d'initialisation de la carte
 function initMap() {
 
-    markerClusters = L.markerClusterGroup(); // Nous initialisons les groupes de marqueurs
-    // Nous définissons le dossier qui contiendra les marqueurs
+    if (macarte == null) {
 
-    // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
-    macarte = L.map('map', {
-        fullscreenControl: true,
-    }).setView([latSN, lonSN], 11);
+        markerClusters = L.markerClusterGroup(); // Nous initialisons les groupes de marqueurs
+        // Nous définissons le dossier qui contiendra les marqueurs
 
-    // macarte.addControl(new L.Control.Fullscreen());
+        // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
+        macarte = L.map('map', {
+            fullscreenControl: true,
+        }).setView([latSN, lonSN], 11);
 
-    // // create a fullscreen button and add it to the map
-    // L.control.fullscreen({
-    //     position: 'topleft', // change the position of the button can be topleft, topright, bottomright or bottomleft, default topleft
-    //     title: 'Show me the fullscreen !', // change the title of the button, default Full Screen
-    //     titleCancel: 'Exit fullscreen mode', // change the title of the button when fullscreen is on, default Exit Full Screen
-    //     content: null, // change the content of the button, can be HTML, default null
-    //     forceSeparateButton: true, // force separate button to detach from zoom buttons, default false
-    //     forcePseudoFullscreen: true, // force use of pseudo full screen even if full screen API is available, default false
-    //     fullscreenElement: false // Dom element to render in full screen, false by default, fallback to map._container
-    // }).addTo(map);
+        // macarte.addControl(new L.Control.Fullscreen());
 
-    // // events are fired when entering or exiting fullscreen.
-    // macarte.on('enterFullscreen', function () {
-    //     console.log('entered fullscreen');
-    // });
+        // // create a fullscreen button and add it to the map
+        // L.control.fullscreen({
+        //     position: 'topleft', // change the position of the button can be topleft, topright, bottomright or bottomleft, default topleft
+        //     title: 'Show me the fullscreen !', // change the title of the button, default Full Screen
+        //     titleCancel: 'Exit fullscreen mode', // change the title of the button when fullscreen is on, default Exit Full Screen
+        //     content: null, // change the content of the button, can be HTML, default null
+        //     forceSeparateButton: true, // force separate button to detach from zoom buttons, default false
+        //     forcePseudoFullscreen: true, // force use of pseudo full screen even if full screen API is available, default false
+        //     fullscreenElement: false // Dom element to render in full screen, false by default, fallback to map._container
+        // }).addTo(map);
 
-    // macarte.on('exitFullscreen', function () {
-    //     console.log('exited fullscreen');
-    // });
+        // // events are fired when entering or exiting fullscreen.
+        // macarte.on('enterFullscreen', function () {
+        //     console.log('entered fullscreen');
+        // });
 
-    // // you can also toggle fullscreen from map object
-    // macarte.toggleFullscreen();
+        // macarte.on('exitFullscreen', function () {
+        //     console.log('exited fullscreen');
+        // });
 
-
-    // Leaflet ne récupère pas les cartes (tiles) sur un serveur par défaut. Nous devons lui préciser où nous souhaitons les récupérer. Ici, openstreetmap.fr
-    L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-        // Il est toujours bien de laisser le lien vers la source des données
-        attribution: 'données © OpenStreetMap/ODbL - rendu OSM France',
-        // fullscreenControl: true,
-
-        // scaleControl: true,
-        minZoom: 1,
-        maxZoom: 20
-    }).addTo(macarte);
+        // // you can also toggle fullscreen from map object
+        // macarte.toggleFullscreen();
 
 
-    var myIconBAV = L.icon({
-        iconUrl: 'Images/BAV_2020.png',
-        iconSize: [30, 30],
-    });
-    markerBAV = L.marker([latSN, lonSN], { icon: myIconBAV });
-    markerBAV.addTo(macarte);
-    L.circle([latSN, lonSN], 30000).addTo(macarte);
+        // Leaflet ne récupère pas les cartes (tiles) sur un serveur par défaut. Nous devons lui préciser où nous souhaitons les récupérer. Ici, openstreetmap.fr
+        L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+            // Il est toujours bien de laisser le lien vers la source des données
+            attribution: 'données © OpenStreetMap/ODbL - rendu OSM France',
+            // fullscreenControl: true,
+
+            // scaleControl: true,
+            minZoom: 1,
+            maxZoom: 20
+        }).addTo(macarte);
+
+
+        var myIconBAV = L.icon({
+            iconUrl: 'Images/BAV_2020.png',
+            iconSize: [30, 30],
+        });
+        markerBAV = L.marker([latSN, lonSN], { icon: myIconBAV });
+        markerBAV.addTo(macarte);
+        L.circle([latSN, lonSN], 30000).addTo(macarte);
+    }
 
     //macarte.addLayer(markerClusters);
 }
@@ -94,16 +98,25 @@ function geoPosClient(adress) {
             var r = results[0];
             if (r) {
                 // console.log(r);
-                
+
                 console.log("geoPosClient(" + adress + ") => OK");
                 tabDistanceCDP[adress] = distanceHaversine(latSN, lonSN, r.properties.lat, r.properties.lon);
-                tabCdpLatLon[adress] = r.properties.lat + ","+ r.properties.lon+ ","+ r.name.replaceAll(',','-');
-                x_add_cdp(adress, r.properties.lat, r.properties.lon, r.name.replaceAll(',','-'),display_vide);
+                tabCdpLatLon[adress] = r.properties.lat + "," + r.properties.lon + "," + r.name.replaceAll(',', '-');
+                x_add_cdp(adress, r.properties.lat, r.properties.lon, r.name.replaceAll(',', '-'), display_vide);
             }
         });
 }
 
-function addMarker(lat, lon, adress,nb,info) {
+function purgeMarkers() {
+    markers.forEach(element => {
+        macarte.removeLayer(element);
+    });
+    markersvert.forEach(element => {
+        macarte.removeLayer(element);
+    });
+}
+
+function addMarker(lat, lon, adress, nb, info) {
     var iconBase = 'Images/logoAVS.png';
 
     widthIcon = 30;
@@ -121,7 +134,7 @@ function addMarker(lat, lon, adress,nb,info) {
 
     //var marker1 = L.marker(r.center, { icon: myIcon });
     var marker1 = L.marker([lat, lon], { icon: myIcon });
-    marker1.bindPopup("<strong>" + adress + " : "+nb+"</strong><br/>" + parseInt(tabDistanceCDP[adress]) + " km<br/>" + info).openPopup();
+    marker1.bindPopup("<strong>" + adress + " : " + nb + "</strong><br/>" + parseInt(tabDistanceCDP[adress]) + " km<br/>" + info).openPopup();
     markers.push(marker1);
 
     // if (group) {
@@ -131,7 +144,8 @@ function addMarker(lat, lon, adress,nb,info) {
 
     var plusNb = nb > 70 ? 70 : nb;
     var circlePoid = L.circle([lat, lon], 1000 + plusNb * 100).addTo(macarte);
-    circlePoid.setStyle({color: 'green'});
+    circlePoid.setStyle({ color: 'green' });
+    markersvert.push(circlePoid);
     // }
     // if (unique) {
     // macarte.setView([lat, lon], 14);

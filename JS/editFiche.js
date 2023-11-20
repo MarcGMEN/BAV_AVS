@@ -5,6 +5,7 @@ function initPage() {
         x_return_fichesModif('data', display_modifData);
         x_return_fichesModif('vendeur', display_modifVendeur);
         x_return_fichesModif('stock', display_modifStock);
+        x_return_fichesModif('accessoire', display_modifEtiquetteAccessoire);
     } else {
         goTo();
     }
@@ -33,6 +34,28 @@ function display_modifData(val) {
     }
     getElement('nb_fiche_modif').innerHTML = nbModif;
     getElement('nb_fiche_new').innerHTML = nbNew;
+}
+
+function display_modifEtiquetteAccessoire(val) {
+
+    getElement('nb_ea_eti').innerHTML = sizeof(val);
+    var nbAImprimer = parseInt(parseInt(sizeof(val)) / parseInt(nb_eti_page));
+    getElement('nbEAaImprimer').innerHTML = (nbAImprimer == 0 ? "" : "<b>") + nbAImprimer + " page" + (nbAImprimer == 1 ? "" : "s") + (nbAImprimer == 0 ? "" : "</b>");
+    if (nbAImprimer > 0) {
+        getElement('btnImprimeEAsPage').disabled = false;
+    }
+    var nbModif = 0;
+    var nbNew = 0
+    for (i in val) {
+        if (val[i]['obj_modif_accessoire'] == 1) {
+            nbNew++;
+        }
+        if (val[i]['obj_modif_accessoire'] == 2) {
+            nbModif++;
+        }
+    }
+    getElement('nb_ea_modif').innerHTML = nbModif;
+    getElement('nb_ea_new').innerHTML = nbNew;
 }
 
 // affichage des la repartition des impression pour les data de la fiche et du coupon vendeur
@@ -119,18 +142,18 @@ function viewPdf(idtext, format) {
     x_action_makePDF(new Array(), idtext + ".html", true, format, display_openPDF);
 }
 
-function imprimeEtiquettes(eti0, eti1, test) {
+function imprimeEtiquettes(eti0, eti1, test,nameEti) {
     if (eti0 != "" && eti1 != "") {
-        alertModalInfo("Génération des étiquettes de " + eti0 + " a " + eti1 + " au format HTML <img src='Images/spinner_white_tiny.gif' />");
-        x_action_makeA4Etiquettes(eti0, eti1, test, display_openHTML);
+        alertModalInfo("Génération des étiquettes ("+nameEti+") de " + eti0 + " a " + eti1 + " au format HTML <img src='Images/spinner_white_tiny.gif' />");
+        x_action_makeA4Etiquettes(eti0, eti1, test, nameEti, display_openHTML);
     } else {
         alertModalWarn("Numero de fiche début et fin obligatoire");
     }
 }
 
-function imprimeEtiquettesPage(force, test) {
-    alertModalInfo("Génération des étiquettes par page [" + force + "] au format HTML <img src='Images/spinner_white_tiny.gif' />");
-    x_action_makeA4Etiquettes(0, force, test, display_openHTML);
+function imprimeEtiquettesPage(force, test,nameEti) {
+    alertModalInfo("Génération des étiquettes ("+nameEti+") par page [" + force + "] au format HTML <img src='Images/spinner_white_tiny.gif' />");
+    x_action_makeA4Etiquettes(0, force, test, nameEti,display_openHTML);
 }
 
 

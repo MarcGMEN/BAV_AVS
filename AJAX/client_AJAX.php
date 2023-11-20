@@ -20,7 +20,7 @@ function return_listClientByMel($mel = null)
  */
 function return_listClientByName($nom = null)
 {
-    return getClients("cli_nom", "asc", ['cli_nom' => $nom], true);
+    return getClients("cli_nom", "asc", ['cli_nom' => $nom], "tous");
 }
 
 
@@ -87,7 +87,7 @@ function return_oneClientByIdModif($mid)
 /**
  * retourne tous les clients 
  */
-function return_clients($tri, $sens, $selection, $all = false)
+function return_clients($tri, $sens, $selection, $all = "")
 {
     $tab = getClients($tri, $sens, string2Tab($selection), $all);
     return $tab;
@@ -96,7 +96,7 @@ function return_clients($tri, $sens, $selection, $all = false)
 /**
  * retourne les clients avec les infos de confirme, stock, vente, paye, rendu et achat
  */
-function return_clientsRecap($tri, $sens, $selection, $all = false)
+function return_clientsRecap($tri, $sens, $selection, $all = "false")
 {
     $tab = getClientsRecap($tri, $sens, string2Tab($selection), $all);
     return $tab;

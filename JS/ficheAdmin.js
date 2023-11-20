@@ -352,6 +352,7 @@ function modifFiche() {
     delete tabObj['obj_marque_' + idRamdom];
 
     var tabData = Object.assign({}, tabObj, tabCli, tabAch);
+    console.log(tabData);
     x_action_updateFiche(tabToString(tabData), display_fin_modif);
     return false;
 

@@ -22,7 +22,7 @@ function countByPage($numBav)
         }
         $result->close();
     } else {
-        throw new Exception("getClients' [$requete2]" . $GLOBALS['mysqli']->error);
+        throw new Exception("countByPage' [$requete2]" . $GLOBALS['mysqli']->error);
     }
     return $tab;
 }
@@ -73,7 +73,7 @@ function getByTree($numBav)
         }
         $result->close();
     } else {
-        throw new Exception("getClients' [$requete2]" . $GLOBALS['mysqli']->error);
+        throw new Exception("getByTree' [$requete2]" . $GLOBALS['mysqli']->error);
     }
     return $tab;
 }
@@ -98,7 +98,7 @@ function getByDay($numBav)
         }
         $result->close();
     } else {
-        throw new Exception("getClients' [$requete2]" . $GLOBALS['mysqli']->error);
+        throw new Exception("getByDay' [$requete2]" . $GLOBALS['mysqli']->error);
     }
     return $tab;
 }

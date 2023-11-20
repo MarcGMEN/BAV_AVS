@@ -26,7 +26,7 @@ function return_num_max_fiches()
 
 function return_nb_fiche_by_place($min, $max)
 {
-    return [$min,getNbFicheByPlage($min,$max)];
+    return [$min, getNbFicheByPlage($min, $max)];
 }
 
 /**
@@ -36,9 +36,39 @@ function return_nb_fiche_by_place($min, $max)
 function return_list_marques()
 {
     $tabMarques = [
-        'TREK', 'SCOTT', 'CANNONDALE', 'GITANE', 'PEUGEOT', 'MERCIER', 'SUNN', 'GT', 'EXS', 'CERVELO', 'BIANCHI',
-        'COLNAGO', 'KUOTA', 'BH', 'BMC', 'B\'TWIN', 'DECATHLON', 'CANYON', 'CKT', 'COMMENCAL', 'DIAMONDBACK', 'GIANT', 'KONA',
-        'KTM', 'MBK', 'MERIDA', 'ORBEA', 'PINARELLO', 'RIDLEY', 'SPECIALIZED', 'TIME', 'WILLIER', 'LOOK'
+        'TREK',
+        'SCOTT',
+        'CANNONDALE',
+        'GITANE',
+        'PEUGEOT',
+        'MERCIER',
+        'SUNN',
+        'GT',
+        'EXS',
+        'CERVELO',
+        'BIANCHI',
+        'COLNAGO',
+        'KUOTA',
+        'BH',
+        'BMC',
+        'B\'TWIN',
+        'DECATHLON',
+        'CANYON',
+        'CKT',
+        'COMMENCAL',
+        'DIAMONDBACK',
+        'GIANT',
+        'KONA',
+        'KTM',
+        'MBK',
+        'MERIDA',
+        'ORBEA',
+        'PINARELLO',
+        'RIDLEY',
+        'SPECIALIZED',
+        'TIME',
+        'WILLIER',
+        'LOOK'
     ];
     $tabRetour = array_merge($tabMarques, selectVue("v_marque", "obj_marque"));
     $tabRetour = array_unique($tabRetour);
@@ -164,7 +194,10 @@ function action_createFiche($data)
             $tabObj['obj_modif_data'] = 1;
             $tabObj['obj_modif_vendeur'] = 1;
             $tabObj['obj_modif_stock'] = 1;
-            
+
+            if (trim($tabObj['obj_accesoire']) != "") {
+                $tabObj['obj_modif_accessoire'] = 1;
+            }
 
             $tabObj['obj_id'] = insertFiche($tabObj);
 
@@ -267,7 +300,7 @@ function action_createFicheExpress($data)
         $tabObj['obj_numero_bav'] = $INFO_APPLI['numero_bav'];
 
         // insertion dans la base
-        if ($id  = insertFiche($tabObj)) {
+        if ($id = insertFiche($tabObj)) {
             $retour = $tabObj;
             $retour['obj_id'] = $id;
         } else {
@@ -291,7 +324,7 @@ function action_deleteFiche($id)
  * creation des etiquetes sur une feuille A4
  * parametre : le numero de depart, la mise a jour de l'impression, le nombre de page
  */
-function action_makeA4Etiquettes($eti0, $eti1, $test = true)
+function action_makeA4Etiquettes($eti0, $eti1, $test = true, $nameEti = 'etiquette')
 {
     extract($GLOBALS);
 
@@ -312,14 +345,25 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
     // avec une base eti0
     $tabFiche = [];
     $index = 1;
+
+    $nbCoupon = $INFO_APPLI['nb_eti_page'];
+    if ($nameEti == 'coupon_accessoire') {
+        $nbCoupon = $INFO_APPLI['nb_coupon_page'];;
+    }
+    // error_log("[action_makeA4Etiquettes] $nameEti => $nbCoupon");
     if ($eti0 == 0) {
         //recherche des fiches modifié ou crée, regroupé par page
         // $eti1 => 1 force ; 0 : normal
-        $fiches = getFichesModif('data');
+        if ($nameEti == 'etiquette') {
+            $fiches = getFichesModif('data');
+        }
+        else {
+            $fiches = getFichesModif('accessoire');
+        }
         $nbEtiq = 10000;
         if ($eti1 == "false") {
             //limite le tableau au modulo par page            
-            $nbEtiq = ((int) (sizeof($fiches) / $INFO_APPLI['nb_eti_page'])) * $INFO_APPLI['nb_eti_page'];
+            $nbEtiq = ((int) (sizeof($fiches) / $nbCoupon)) * $nbCoupon;
         }
         if ($nbEtiq > 0) {
             foreach ($fiches as $fiche) {
@@ -334,7 +378,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
             $tabFiche[$index++] = $numFiche;
         }
     } else if ($eti0 == -1) {
-        for ($numFiche = 0; $numFiche < $INFO_APPLI['nb_eti_page']; $numFiche++) {
+        for ($numFiche = 0; $numFiche < $nbCoupon; $numFiche++) {
             $tabFiche[$index++] = $numFiche;
         }
     }
@@ -343,11 +387,15 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
     foreach ($tabFiche as $numFiche) {
         $fiche = [];
         if ($eti0 >= 0 && $fiche = getOneFicheByCode($numFiche)) {
-            error_log($fiche['obj_id']);
+            // error_log($fiche['obj_id']);
             if ($fiche['obj_id']) {
-                error_log("[action_makeA4Etiquettes] test $test");
-                if (!$test) {
+                // error_log("[action_makeA4Etiquettes] test $test");
+                if (!$test && $nameEti = 'etiquette') {
                     $fiche['obj_modif_data'] = 0;
+                    updateFiche($fiche);
+                }
+                if (!$test && $nameEti = 'coupon_accessoire') {
+                    $fiche['obj_modif_accessoire'] = 0;
                     updateFiche($fiche);
                 }
 
@@ -417,11 +465,10 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
         }
 
         if (sizeof($fiche) > 0) {
-            $tabCoupons[$index++] = makeCorps(array_merge($fiche, $data), 'etiquette.html');
+            $tabCoupons[$index++] = makeCorps(array_merge($fiche, $data), $nameEti.".html");
         }
     }
-
-    $nbCoupon = $INFO_APPLI['nb_eti_page'];
+    
     $nbPage = ceil(sizeof($tabCoupons) / $nbCoupon);
 
     // echo "nb coupon : $nbCoupon ;  nbPage = $nbPage";
@@ -451,15 +498,16 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
     foreach ($tabImpression as $key => $value) {
         $etiquettes .= "<hr/>";
         $etiquettes .= $value;
-        if ($key++ % $INFO_APPLI['nb_eti_page'] == 0) {
+        if ($key++ % $nbCoupon == 0) {
             $etiquettes .= "<hr/>";
             $etiquettes .= "<div style='page-break-after:always; clear:both;font-size:10pt;height:10pt'>..........</div>";
         }
     }
 
-    $etiquettes .="</body></html>";
+    $etiquettes .= "</body></html>";
 
-    $fileHTML = "../out/html/etiquettes_" . $eti0 . "_" . $eti1 . ".html";
+
+    $fileHTML = "../out/html/".$nameEti."_" . $eti0 . "_" . $eti1 . ".html";
 
     file_put_contents($fileHTML, utf8_decode($etiquettes));
 
@@ -469,7 +517,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true)
     //     return  $CFG_URL . $filePDF;
     // }
     // else {
-    return  $CFG_URL . "/out/html/etiquettes_" . $eti0 . "_" . $eti1 . ".html";
+    return $CFG_URL . "/out/html/".$nameEti."_" . $eti0 . "_" . $eti1 . ".html";
     // }
 
 
@@ -506,7 +554,7 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
         if ($nameCoupon == "coupon_vendeur") {
             $fiches = getFichesModif('vendeur');
         } else {
-            $fiches =  getFichesModif('stock');
+            $fiches = getFichesModif('stock');
             //$fiches = getFichesModif('vendeur');
         }
         $nbEtiq = 10000;
@@ -594,14 +642,17 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
         } else {
             $client['cli_prix_depot'] = "";
             $client['cli_nom1'] = "<u>$espace50</u>";
-            $client['cli_nom'] = "<u>$espace50</u>";;
+            $client['cli_nom'] = "<u>$espace50</u>";
+            ;
             $client['cli_prenom'] = "<u>$espace50</u>";
             $client['cli_emel'] = "<u>$espace50</u>";
             $client['cli_adresse'] = "";
             $client['cli_adresse1'] = "";
             $client['cli_code_postal'] = "";
-            $client['cli_ville'] = "<u>$espace50</u>";;
-            $client['cli_telephone'] = "<u>$espace50</u>";;
+            $client['cli_ville'] = "<u>$espace50</u>";
+            ;
+            $client['cli_telephone'] = "<u>$espace50</u>";
+            ;
             $client['cli_telephone_bis'] = "";
             $client['cli_taux_com'] = "10";
             $client['cli_id_modif'] = "";
@@ -691,7 +742,7 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
     $etiquettes .= "</body></html>";
     file_put_contents($fileHTML, utf8_decode($etiquettes));
 
-    return  $CFG_URL . "/out/html/" . $nameCoupon . "_" . $eti0 . "_" . $eti1 . ".html";
+    return $CFG_URL . "/out/html/" . $nameCoupon . "_" . $eti0 . "_" . $eti1 . ".html";
     // $filePDF = html2pdf("", $fileHTML, "coupon_vendeur_" . $eti0 . "_" . $eti1, "L");
     // unlink($fileHTML);
 
@@ -775,11 +826,11 @@ function action_makeLibreFiche($eti, $nameFdp)
             $fileHTML = "../out/html/" . $nameFdp . "_" . $eti . ".html";
 
             // enregistrement du fichier html
-            file_put_contents($fileHTML,  utf8_decode($etiquettes));
+            file_put_contents($fileHTML, utf8_decode($etiquettes));
 
-            return  $CFG_URL . "/out/html/" . $nameFdp . "_" . $eti . ".html";
+            return $CFG_URL . "/out/html/" . $nameFdp . "_" . $eti . ".html";
         } else {
-            return  "Fiche $eti non trouvé.";
+            return "Fiche $eti non trouvé.";
         }
     } catch (Exception $e) {
         return "ERREUR " . $e->getMessage();
@@ -812,7 +863,7 @@ function action_makeA4Fiches($eti0, $eti1)
         // $etiquettes .= "<link rel='stylesheet' href='https://unpkg.com/leaflet@1.3.1/dist/leaflet.css' integrity='sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==' crossorigin='' />";
         $etiquettes .= "</head>";
         $etiquettes .= "<body>";
-        
+
         for ($numFiche = $eti0; $numFiche <= $eti1; $numFiche++) {
             $fiche = return_oneFicheByCode($numFiche);
             if ($fiche != null && $fiche['obj_id'] != '') {
@@ -854,7 +905,7 @@ function action_makeA4Fiches($eti0, $eti1)
         $fileHTML = "../out/html/fiches_" . $eti0 . "_" . $eti1 . ".html";
 
         // enregistrement du fichier html
-        file_put_contents($fileHTML,  utf8_decode($etiquettes));
+        file_put_contents($fileHTML, utf8_decode($etiquettes));
 
         // // generation du PDF
         // $filePDF = html2pdf("", $fileHTML, "fiches_" . $eti0 . "_" . $eti1);
@@ -864,7 +915,7 @@ function action_makeA4Fiches($eti0, $eti1)
 
         // return  $CFG_URL . $filePDF;
 
-        return  $CFG_URL . "/out/html/fiches_" . $eti0 . "_" . $eti1 . ".html";
+        return $CFG_URL . "/out/html/fiches_" . $eti0 . "_" . $eti1 . ".html";
     } catch (Exception $e) {
         return "ERREUR " . $e->getMessage();
     }
@@ -1000,7 +1051,7 @@ function action_makeData($id, $test = false)
         $fiche['obj_marque'] = "Décathlon";
         $fiche['obj_modele'] = "RockRider Super Star";
         $fiche['obj_couleur'] = "Noir et rouge";
-        $fiche['obj_accessoire'] = "";
+        $fiche['obj_accessoire'] = "TEST DES ACCESSOIRES";
         $fiche['obj_description'] = "ceci est un texte long pour essayer de prendre de la place sur une ligne avec un maximun de place, allez on saute une ligne<br/>une ligne<br/> et encore une<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9";
         $fiche['obj_prix_vente'] = "130";
         $fiche['obj_prix_depot'] = "160";
@@ -1084,7 +1135,7 @@ function action_makeHtml($id, $html, $test)
 {
     $data = action_makeData($id, $test);
     error_log($html);
-    return  makeCorps($data, $html);
+    return makeCorps($data, $html);
 }
 
 function action_makePDF($id, $html = 'fiche_depot.html', $test = false, $format = "P")
@@ -1282,8 +1333,10 @@ function action_updateFiche($data)
     if ($fiche['obj_etat'] == "CONFIRME") {
         // error_log("test cli_nom  " . strtoupper($client['cli_nom']) . " != " . strtoupper($cliOld['cli_nom']));
         // si modification de client de la fiche
-        if ($ficheOld['obj_modif_vendeur'] == 0 && (strtoupper($fiche['obj_marque']) != strtoupper($ficheOld['obj_marque']) ||
-            strtoupper($fiche['obj_modele']) != strtoupper($ficheOld['obj_modele']))) {
+        if (
+            $ficheOld['obj_modif_vendeur'] == 0 && (strtoupper($fiche['obj_marque']) != strtoupper($ficheOld['obj_marque']) ||
+                strtoupper($fiche['obj_modele']) != strtoupper($ficheOld['obj_modele']))
+        ) {
             $fiche['obj_modif_vendeur'] = 2;
         }
 
@@ -1299,10 +1352,17 @@ function action_updateFiche($data)
                 strtoupper($fiche['obj_date_achat']) != strtoupper($ficheOld['obj_date_achat']) ||
                 strtoupper($fiche['obj_prix_achat']) != strtoupper($ficheOld['obj_prix_achat']) ||
                 //strtoupper($fiche['obj_description']) != strtoupper($ficheOld['obj_description']) ||
-                strtoupper($fiche['obj_prix_depot']) != strtoupper($ficheOld['obj_prix_depot']))
+                strtoupper($fiche['obj_prix_depot']) != $ficheOld['obj_prix_depot'])
         ) {
             $fiche['obj_modif_data'] = 2;
         }
+        if (
+            $ficheOld['obj_modif_accessoire'] == 0 &&
+            strtoupper($fiche['obj_accessoire']) != strtoupper($ficheOld['obj_accessoire'])
+        ) {
+            $fiche['obj_modif_accessoire'] = 2;
+        }
+
     }
 
     $modifFiche = 0;
@@ -1353,18 +1413,17 @@ function return_fichesModif($type = 'data')
 /**
  * recherche des fiches
  */
-function return_fiches($tri, $sens, $selection, $detail = 1,$client=true)
+function return_fiches($tri, $sens, $selection, $detail = 1, $client = true)
 {
     try {
         $tab = getFiches($tri, $sens, string2Tab($selection), $client);
 
         foreach ($tab as $key => $val) {
             if ($detail == 1) {
-                
+
                 if ($val['obj_etat'] == "CONFIRME") {
                     $tab['total_vente_' . $val['obj_etat']] += $val['obj_prix_depot'];
-                }
-                else {
+                } else {
                     $tab['total_vente_' . $val['obj_etat']] += $val['obj_prix_vente'];
                 }
                 $tab['total_nb_' . $val['obj_etat']]++;
@@ -1391,7 +1450,7 @@ function return_fiches($tri, $sens, $selection, $detail = 1,$client=true)
  */
 function return_fiches_express($base)
 {
-    return  getFichesExpress($base);
+    return getFichesExpress($base);
 }
 
 

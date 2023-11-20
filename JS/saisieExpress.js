@@ -643,6 +643,9 @@ function display_fin_create(val) {
         // mise a jour des onglets
         x_return_num_max_fiches(display_num_max_fiches);
 
+        x_return_listClientByName(display_listVendeurName);
+
+
     } else {
         alertModalWarn(val);
     }

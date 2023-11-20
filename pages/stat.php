@@ -6,6 +6,8 @@
 	var anneeBavActive = '<?= $infAppli['numero_bav_active'] ?>';
 	var anneeBavSuvi = '';
 	var cumul = 1;
+
+	var mapQui='tous';
 	// var anneeBavActive = '2021';
 
 	function initPage() {
@@ -24,7 +26,7 @@
 			x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);
 
 			// retour de stat client
-			x_return_statClient(display_statClient);
+			x_return_statClient(mapQui,display_statClient);
 
 			// retour de stat de delais
 			// x_return_statDelais(display_formulaire);
@@ -529,6 +531,7 @@
 
 
 		initMap();
+		purgeMarkers();
 		getElement('tabCodePostal').innerHTML = "";
 		index = 1;
 		var rc = '';
@@ -967,6 +970,11 @@
 <fieldset class=fiche>
 	<legend class=titreFiche>Repartition</legend>
 	<div class="row">
+		<div class="col-sm-12 col-xs-12">
+			<input type='radio' name='choixMap' onclick='x_return_statClient("tous",display_statClient);' checked>Tous</input>
+			<input type='radio' name='choixMap' onclick='x_return_statClient("vendeur",display_statClient);' >Vendeur</input>
+			<input type='radio' name='choixMap' onclick='x_return_statClient("acheteur",display_statClient);' >Acheteur</input>
+		</div>
 		<div class="col-sm-8 col-xs-12">
 			<div id=map></div>
 			<div id=km30></div>

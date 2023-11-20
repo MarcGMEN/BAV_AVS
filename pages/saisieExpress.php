@@ -80,7 +80,7 @@ $maxFiche = $infAppli['NB_MODIF'];
 				<datalist id="listVendeurName"></datalist>
 			</td>
 			<td>
-				<input type=text name='cli_code_postal' placeholder="Code postal" tabindex=7 size="7" maxlength="5">
+				<input type=text name='cli_code_postal' placeholder="Code postal " title="5 chiffres" tabindex=7 size="5" maxlength="5" pattern="[0-9]{5}">
 			</td>
 
 		</tr>

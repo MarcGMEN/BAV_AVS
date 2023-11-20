@@ -109,17 +109,31 @@ function getClientsRecap($order, $sens, $tabSel, $all = false)
 /**
  * recherche des clients pour une BAV ou pass
  */
-function getClients($order, $sens, $tabSel, $all = false)
+function getClients($order, $sens, $tabSel, $qui = "")
 {
 
     extract($GLOBALS);
 
     $requete2 = "SELECT * from bav_client ";
     $requete2 .= " where 1 = 1 and cli_id > 10 ";
-    if (!$all) {
-        $requete2 .= " and (cli_id in (select obj_id_vendeur from bav_objet where (obj_id_vendeur = cli_id)  and obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "') ";
-        $requete2 .= " or cli_id in (select obj_id_acheteur from bav_objet where (obj_id_acheteur = cli_id)  and obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "') )";
+    if ($qui) {
+        if ($qui == "vendeur" || $qui =="tous") {
+            $requete2 .= " and (cli_id in (select obj_id_vendeur from bav_objet where (obj_id_vendeur = cli_id)  and obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "') ";
+            if ($qui == "vendeur") {
+                $requete2 .= ")";
+            }
+        }
+        if ($qui == "acheteur" || $qui == "tous") {
+            if ($qui == "acheteur") {
+                $requete2 .= " and (";    
+            }
+            else {
+                $requete2 .= " or ";
+            }
+            $requete2 .= " cli_id in (select obj_id_acheteur from bav_objet where (obj_id_acheteur = cli_id)  and obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "') )";
+        }
     }
+
     foreach ($tabSel as $key => $val) {
         if ($val != "*") {
             if ($key == 'cli_nom') {
@@ -132,12 +146,13 @@ function getClients($order, $sens, $tabSel, $all = false)
     if ($order != null) {
         $requete2 .= " order by $order $sens";
     }
-    //echo $requete2;
+    // echo $requete2;
 
     if ($result = $GLOBALS['mysqli']->query($requete2)) {
         $tab = array();
         $index = 0;
         while ($row = $result->fetch_assoc()) {
+            $row['qui'] = $qui;
             $tab[$index++] = $row;
         }
         $result->close();

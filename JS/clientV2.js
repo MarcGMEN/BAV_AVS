@@ -339,6 +339,7 @@ function confirmModal(plus) {
     } else if (plus == "Modif") {
         var tabObj = recup_formulaire(document.modalForm, 'obj');
         var tabData = Object.assign({}, tabObj);
+        console.log(tabData);
         x_action_updateFiche(tabToString(tabData), display_fin_create);
         x_add_counter_action("clientV2.php", "update_fiche", "", display_rien);
     }
