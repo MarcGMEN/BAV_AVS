@@ -624,10 +624,6 @@
 
 	}
 
-	function rebours(index) {
-		getElement('km30').innerHTML = index;
-	}
-
 	function finCreateCarte() {
 		// alertModalInfo('Fin de creation de la carte');
 		console.log("tabDistanceCDP", tabDistanceCDP);

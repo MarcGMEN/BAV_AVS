@@ -73,7 +73,11 @@ function initMap() {
         });
         markerBAV = L.marker([latSN, lonSN], { icon: myIconBAV });
         markerBAV.addTo(macarte);
+
         L.circle([latSN, lonSN], 30000).addTo(macarte);
+
+        var circle60 = L.circle([latSN, lonSN], 60000).addTo(macarte);
+        circle60.setStyle({ color: 'salmon' });
     }
 
     //macarte.addLayer(markerClusters);
