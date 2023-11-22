@@ -243,19 +243,17 @@
 						title="Prix vente" required step="0.1" min="0"
 						placeholder="00.00" />&nbsp;&#8364;
 				</div>
-				<div>
-					<div>Si vous souhaitez que votre vélo soit négociable, merci
-						de
-						saisir votre prix minimun ci-dessous.</div>
-					<span class="titrow col-md-2 col-sm-2 col-xs-3">Prix
-						mini</span>
-					<span class="tabInput col-md-10 col-sm-10 col-xs-9">
-						<input type=number name="obj_prix_nego" size=5
-							maxlength="10" tabindex=12 step="0.1" min="0"
-							title="Prix minimun pour la négociation."
-							placeholder="00.00" />&#8364;
-					</span>
-				</div>
+
+			</div>
+			<div class="col-sm-6 col-xs-12" style="vertical-align: bottom;">
+				<span class="titrow col-md-2 col-sm-2 col-xs-3">Prix
+					de négociation</span>
+				<span class="tabInput col-md-10 col-sm-10 col-xs-9">
+					<input type=number name="obj_prix_nego" size=5
+						maxlength="10" tabindex=12 step="0.1" min="0"
+						title="Prix minimun pour la négociation."
+						placeholder="00.00" />&#8364;
+				</span>
 			</div>
 		</div>
 

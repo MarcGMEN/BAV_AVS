@@ -255,7 +255,7 @@ function display_fiche(val) {
             document.ficheForm.obj_prix_nego.disabled = false;
             document.ficheForm.buttonValideFiche.disabled = false;
             document.ficheForm.obj_accessoire.disabled = false;
-            // document.ficheForm.obj_modif_accessoire.disabled = false;
+            document.ficheForm.obj_modif_accessoire.disabled = false;
 
             val['obj_etat_libelle'] = "Présent sur le parc";
             // document.ficheForm.obj_prix_vente.disabled = true
