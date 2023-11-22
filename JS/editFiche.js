@@ -244,6 +244,7 @@ function display_detailpageFicheEF(val) {
         option.text = val[0] + "-> " + nbfiche;
         if (val[1] && sizeof(val[1]) > 0) {
             option.text += " *";
+            nbClasseurPret += 1;
         }
         option.value = val[0];
         selectCla.appendChild(option);
@@ -264,7 +265,7 @@ function display_detailpageFicheEF(val) {
         for (i = 0; i < itemsArr.length; ++i) {
             selectCla.appendChild(itemsArr[i]);
         }
-        nbClasseurPret += 1;
+        
         getElement('nbClasseurPret').innerHTML = nbClasseurPret;
     // }
 
@@ -305,7 +306,7 @@ function finFiches() {
     repr += "</head><body>";
     repr += "<h3 style='background-color:grey; text-align:center'>Check classeur " + firstKey + " -> " + ((NB_MODIF) + parseInt(firstKey) - 1) + "</h3>";
     repr += "<table border=1 style='border:2px black solid; width:100%'>";
-    repr += "<tr><th width=10%>Numéro</th>";
+    repr += "<tr style='background-color:lightgrey;'><th width=10%>Numéro</th>";
     if (firstKey >= base_info) {
         repr += "<th width=10 %> Prix</th > <th width=10 %> Table</th > <th width=10 %> Info</th > ";
     }
