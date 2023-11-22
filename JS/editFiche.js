@@ -236,34 +236,37 @@ var nbClasseurPret = 0;
 function display_detailpageFicheEF(val) {
     var selectCla = getElement('classeurs');
     var nbfiche = 0;
-    if (val[1] && sizeof(val[1]) > 0) {
-        for (index in val[1]) {
-            nbfiche += parseInt(val[1][index]);
-        }
-        var option = document.createElement("option");
-        option.text = val[0] + "-> " + nbfiche;
-        option.value = val[0];
-        selectCla.appendChild(option);
-        var items = selectCla.childNodes;
-        var itemsArr = [];
-        for (var i in items) {
-            if (items[i].nodeType == 1) { // get rid of the whitespace text nodes
-                itemsArr.push(items[i]);
-            }
-        }
-
-        itemsArr.sort(function (a, b) {
-            return parseInt(a.value) == parseInt(b.value)
-                ? 0
-                : (parseInt(a.value) > parseInt(b.value) ? 1 : -1);
-        });
-        selectCla.childNodes=  new Array();
-        for (i = 0; i < itemsArr.length; ++i) {
-            selectCla.appendChild(itemsArr[i]);
-        }
-        nbClasseurPret += 1;
-        getElement('nbClasseurPret').innerHTML=nbClasseurPret;
+    // if (val[1] && sizeof(val[1]) > 0) {
+    for (index in val[1]) {
+        nbfiche += parseInt(val[1][index]);
     }
+    var option = document.createElement("option");
+    option.text = val[0] + "-> " + nbfiche;
+    if (val[1] && sizeof(val[1]) > 0) {
+        option.text += " *";
+    }
+    option.value = val[0];
+    selectCla.appendChild(option);
+    var items = selectCla.childNodes;
+    var itemsArr = [];
+    for (var i in items) {
+        if (items[i].nodeType == 1) { // get rid of the whitespace text nodes
+            itemsArr.push(items[i]);
+        }
+    }
+
+    itemsArr.sort(function (a, b) {
+        return parseInt(a.value) == parseInt(b.value)
+            ? 0
+            : (parseInt(a.value) > parseInt(b.value) ? 1 : -1);
+    });
+    selectCla.childNodes = new Array();
+    for (i = 0; i < itemsArr.length; ++i) {
+        selectCla.appendChild(itemsArr[i]);
+    }
+    nbClasseurPret += 1;
+    getElement('nbClasseurPret').innerHTML = nbClasseurPret;
+    // }
 
 }
 var fichesNego = new Map();
@@ -290,9 +293,9 @@ function finFiches() {
     // });
     // console.log(fichesNego);
     var map1 = new Map([...fichesNego.entries()].sort((function (a, b) {
-            return parseInt(a) == parseInt(b)
-                ? 0
-                : (parseInt(a) > parseInt(b) ? 1 : -1);
+        return parseInt(a) == parseInt(b)
+            ? 0
+            : (parseInt(a) > parseInt(b) ? 1 : -1);
     })));
     // console.log(map1);
 
@@ -300,35 +303,44 @@ function finFiches() {
     const [firstKey] = map1.keys();
     var repr = "<html><head>";
     repr += "</head><body>";
-    repr += "<h3>Check classeur "+firstKey+"</h3>";
-    repr += "<table border=1 width=100%>";
-    repr += "<tr><td width=10%>Numéro</td><td>Prix négo</td><td>Numéro</td><td>Prix négo</td></tr>";
-    
+    repr += "<h3 style='background-color:grey; text-align:center'>Check classeur " + firstKey + " -> " + ((NB_MODIF) + parseInt(firstKey) - 1) + "</h3>";
+    repr += "<table border=1 style='border:2px black solid; width:100%'>";
+    repr += "<tr><th width=10%>Numéro</th><th width=10%>Prix</th><th width=10%>Table</th><th width=10%>Info</th><th width=10%>Prix négo</th>";
+    repr += "<th width=10%>Numéro</th><th width=10%>Prix</th><th width=10%>Table</th><th width=10%>Info</th><th width=10%>Prix négo</th></tr>";
+
     // console.log(firstKey, ((NB_MODIF / 2) + parseInt(firstKey)));
-    for (var i = firstKey; i < ((NB_MODIF/2)+ parseInt(firstKey)) ; i++) {
-        
-        repr += "<tr><td width=10%>";
-        repr += i;
-        repr += "</td><td width=40%>";
-        repr += map1.get(i) ? map1.get(i) : "/////////////";
+    for (var i = firstKey; i < ((NB_MODIF / 2) + parseInt(firstKey)); i++) {
+        repr += "<tr style='border:2px black solid;'><td style='background-color:grey; text-align:center'>";
+        repr += i
+        repr += "</td><td>";
+        var prix = map1.get(i)[0]
+        repr += prix == undefined ? "" : prix == "0.00" ? "" : prix;
+        repr += "</td><td>";
+        repr += "</td><td>";
+        repr += "</td><td>";
+        repr += map1.get(i)[1] == undefined ? "" : map1.get(i)[1];
         repr += "</td>";
-        repr += "<td width=10%>";
+        repr += "<td style='background-color:grey; text-align:center'>";
         var j = parseInt(parseInt(i) + (NB_MODIF / 2));
-        console.log(i,map1.get(i), j, map1.get(j));
         repr += j;
-        repr += "</td><td width=40%>";
-        repr += map1.get(j) ? map1.get(j) : "/////////////";
+        repr += "</td><td>";
+        prix = map1.get(j)[0]
+        repr += prix == undefined ? "" : prix == "0.00" ? "" : prix;
+        repr += "</td><td>";
+        repr += "</td><td>";
+        repr += "</td><td>";
+        repr += map1.get(j)[1] == undefined ? "" : map1.get(j)[1];
         repr += "</td></tr>";
     }
     repr += "</table>";
     repr += "</body></html>";
 
-    var newWindow = window.open("", "Fiches du check", "width=800,height=400,scrollbars=1,resizable=1")
+    var newWindow = window.open("", "Fiches du check", "width=1200,height=600,scrollbars=1,resizable=1")
     newWindow.document.open()
     newWindow.document.write(repr)
     newWindow.document.close()
 }
 
 function display_fichePC(val) {
-    fichesNego.set(parseInt(val['obj_numero']) ,val['obj_prix_nego']);
+    fichesNego.set(parseInt(val['obj_numero']), [val['obj_prix_depot'], val['obj_prix_nego']]);
 }
