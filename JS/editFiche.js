@@ -237,35 +237,35 @@ function display_detailpageFicheEF(val) {
     var selectCla = getElement('classeurs');
     var nbfiche = 0;
     // if (val[1] && sizeof(val[1]) > 0) {
-    for (index in val[1]) {
-        nbfiche += parseInt(val[1][index]);
-    }
-    var option = document.createElement("option");
-    option.text = val[0] + "-> " + nbfiche;
-    if (val[1] && sizeof(val[1]) > 0) {
-        option.text += " *";
-    }
-    option.value = val[0];
-    selectCla.appendChild(option);
-    var items = selectCla.childNodes;
-    var itemsArr = [];
-    for (var i in items) {
-        if (items[i].nodeType == 1) { // get rid of the whitespace text nodes
-            itemsArr.push(items[i]);
+        for (index in val[1]) {
+            nbfiche += parseInt(val[1][index]);
         }
-    }
+        var option = document.createElement("option");
+        option.text = val[0] + "-> " + nbfiche;
+        if (val[1] && sizeof(val[1]) > 0) {
+            option.text += " *";
+        }
+        option.value = val[0];
+        selectCla.appendChild(option);
+        var items = selectCla.childNodes;
+        var itemsArr = [];
+        for (var i in items) {
+            if (items[i].nodeType == 1) { // get rid of the whitespace text nodes
+                itemsArr.push(items[i]);
+            }
+        }
 
-    itemsArr.sort(function (a, b) {
-        return parseInt(a.value) == parseInt(b.value)
-            ? 0
-            : (parseInt(a.value) > parseInt(b.value) ? 1 : -1);
-    });
-    selectCla.childNodes = new Array();
-    for (i = 0; i < itemsArr.length; ++i) {
-        selectCla.appendChild(itemsArr[i]);
-    }
-    nbClasseurPret += 1;
-    getElement('nbClasseurPret').innerHTML = nbClasseurPret;
+        itemsArr.sort(function (a, b) {
+            return parseInt(a.value) == parseInt(b.value)
+                ? 0
+                : (parseInt(a.value) > parseInt(b.value) ? 1 : -1);
+        });
+        selectCla.childNodes = new Array();
+        for (i = 0; i < itemsArr.length; ++i) {
+            selectCla.appendChild(itemsArr[i]);
+        }
+        nbClasseurPret += 1;
+        getElement('nbClasseurPret').innerHTML = nbClasseurPret;
     // }
 
 }
@@ -305,31 +305,49 @@ function finFiches() {
     repr += "</head><body>";
     repr += "<h3 style='background-color:grey; text-align:center'>Check classeur " + firstKey + " -> " + ((NB_MODIF) + parseInt(firstKey) - 1) + "</h3>";
     repr += "<table border=1 style='border:2px black solid; width:100%'>";
-    repr += "<tr><th width=10%>Numéro</th><th width=10%>Prix</th><th width=10%>Table</th><th width=10%>Info</th><th width=10%>Prix négo</th>";
-    repr += "<th width=10%>Numéro</th><th width=10%>Prix</th><th width=10%>Table</th><th width=10%>Info</th><th width=10%>Prix négo</th></tr>";
+    repr += "<tr><th width=10%>Numéro</th>";
+    if (firstKey >= base_info) {
+        repr += "<th width=10 %> Prix</th > <th width=10 %> Table</th > <th width=10 %> Info</th > ";
+    }
+    repr += "<th width=10 %> Prix négo</th > ";
+    repr += "<th width=10%>Numéro</th>";
+    if (firstKey >= base_info) {
+        repr += "<th width=10 %> Prix</th > <th width=10 %> Table</th > <th width=10 %> Info</th > ";
+    }
+    repr += "<th width=10 %> Prix négo</th ></tr> ";
 
     // console.log(firstKey, ((NB_MODIF / 2) + parseInt(firstKey)));
     for (var i = firstKey; i < ((NB_MODIF / 2) + parseInt(firstKey)); i++) {
         repr += "<tr style='border:2px black solid;'><td style='background-color:grey; text-align:center'>";
         repr += i
         repr += "</td><td>";
-        var prix = map1.get(i)[0]
-        repr += prix == undefined ? "" : prix == "0.00" ? "" : prix;
-        repr += "</td><td>";
-        repr += "</td><td>";
-        repr += "</td><td>";
-        repr += map1.get(i)[1] == undefined ? "" : map1.get(i)[1];
+        if (firstKey >= base_info) {
+            var prix = map1.get(i)[0]
+            var etat = map1.get(i)[2]
+            repr += prix == undefined ? "" : prix == "0.00" ? "" : prix;
+            repr += "</td><td  style='text-align:center'>";
+            repr += etat == undefined ? "" : etat != "CONFIRME" ? "V" : "";
+            repr += "</td><td style='text-align:center'>";
+            repr += etat == undefined ? "" : etat != "CONFIRME" ? "V" : "";
+            repr += "</td><td>";
+            repr += map1.get(i)[1] == undefined ? "" : map1.get(i)[1];
+        }
         repr += "</td>";
         repr += "<td style='background-color:grey; text-align:center'>";
         var j = parseInt(parseInt(i) + (NB_MODIF / 2));
         repr += j;
         repr += "</td><td>";
-        prix = map1.get(j)[0]
-        repr += prix == undefined ? "" : prix == "0.00" ? "" : prix;
-        repr += "</td><td>";
-        repr += "</td><td>";
-        repr += "</td><td>";
-        repr += map1.get(j)[1] == undefined ? "" : map1.get(j)[1];
+        if (firstKey >= base_info) {
+            prix = map1.get(j)[0]
+            etat = map1.get(j)[2]
+            repr += prix == undefined ? "" : prix == "0.00" ? "" : prix;
+            repr += "</td><td style='text-align:center'>";
+            repr += etat == undefined ? "" : etat != "CONFIRME" ? "V" : "";
+            repr += "</td><td style='text-align:center'>";
+            repr += etat == undefined ? "" : etat != "CONFIRME" ? "V" : "";
+            repr += "</td><td>";
+            repr += map1.get(j)[1] == undefined ? "" : map1.get(j)[1];
+        }
         repr += "</td></tr>";
     }
     repr += "</table>";
@@ -342,5 +360,5 @@ function finFiches() {
 }
 
 function display_fichePC(val) {
-    fichesNego.set(parseInt(val['obj_numero']), [val['obj_prix_depot'], val['obj_prix_nego']]);
+    fichesNego.set(parseInt(val['obj_numero']), [val['obj_prix_depot'], val['obj_prix_nego'], val['obj_etat']]);
 }

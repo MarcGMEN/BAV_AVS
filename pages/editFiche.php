@@ -1,6 +1,8 @@
 <script>
 	var nb_eti_page = '<?= $infAppli['nb_eti_page'] ?>';
 	var nb_coupon_page = '<?= $infAppli['nb_coupon_page'] ?>';
+	var base_info = '<?= $infAppli['base_info'] ?>';
+	
 </script>
 
 <script src="JS/editFiche.js"></script>
