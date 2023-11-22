@@ -91,17 +91,13 @@ $tabInfo = [
 							</tr>
 							<tr class="tabAction">
 								<td width=50%>
-									- De <input type=number
-										min='<?= $infAppli['base_info'] ?>' name=eti0
-										value='<?= $infAppli['base_info'] ?>'
+									- De <input type=text
+										name=eti0 placeholder="NN-NN ou NN,NN,NN"
 										style='width:30%' size=5>
-									a <input type=number name=eti1 size=5
-										style='width:30%'
-										min='<?= $infAppli['base_info'] ?>'>
 								</td>
 								<td width=15%>
 									<input type=button value='Imprimer'
-										onclick='imprimeEtiquettes(this.form.eti0.value,this.form.eti1.value,this.form.testEtiq.checked?1:0,"etiquette")'>
+										onclick='imprimeEtiquettes(this.form.eti0.value,"",this.form.testEtiq.checked?1:0,"etiquette")'>
 								</td>
 							</tr>
 							<tr class="tabAction">
@@ -142,17 +138,20 @@ $tabInfo = [
 							</tr>
 							<tr class="tabAction">
 								<td width=50%>
-									- De <input type=number
+									- De <input type=text
+										name=eti0 placeholder="NN-NN ou NN,NN,NN"
+										style='width:30%' size=5>
+										<!-- <input  type=number
 										min='<?= $infAppli['base_info'] ?>' name=eti0
 										value='<?= $infAppli['base_info'] ?>'
 										style='width:30%' size=5>
 									a <input type=number name=eti1 size=5
 										style='width:30%'
-										min='<?= $infAppli['base_info'] ?>'>
+										min='<?= $infAppli['base_info'] ?>'> -->
 								</td>
 								<td width=15%>
 									<input type=button value='Imprimer'
-										onclick='imprimeFiches(this.form.eti0.value,this.form.eti1.value)'>
+										onclick='imprimeFiches(this.form.eti0.value,"")'>
 								</td>
 							</tr>
 							<tr class="tabAction">
@@ -180,17 +179,15 @@ $tabInfo = [
 									Feuille A4 orange</td>
 							</tr>
 							<tr class="tabAction">
-								<td width=50%>- De <input type=number
-										min='<?= $infAppli['base_info'] ?>' name=eti0
-										value='<?= $infAppli['base_info'] ?>'
+								<td width=50%>- De <input type=text
+										name=eti0 placeholder="NN-NN ou NN,NN,NN"
 										style='width:30%' size=5>
-									à <input type=number name=eti1 size=5
-										style='width:30%'
-										min='<?= $infAppli['base_info'] ?>'>
+									<!-- à <input type=number name=eti1 size=5
+										style='width:30%'> -->
 								</td>
 								<td width=15%>
 									<input type=button value='Imprimer'
-										onclick='imprimeCoupons(this.form.eti0.value,this.form.eti1.value,this.form.testCoupon.checked?1:0,"coupon_vendeur")'>
+										onclick='imprimeCoupons(this.form.eti0.value,"",this.form.testCoupon.checked?1:0,"coupon_vendeur")'>
 								</td>
 
 							</tr>
@@ -245,17 +242,13 @@ $tabInfo = [
 									Feuille A4 autocollante</td>
 							</tr>
 							<tr class="tabAction">
-								<td width=50%>- De <input type=number
-										min='<?= $infAppli['base_info'] ?>' name=eti0
-										value='<?= $infAppli['base_info'] ?>'
+								<td width=50%>- De <input type=text
+										name=eti0 placeholder="NN-NN ou NN,NN,NN"
 										style='width:30%' size=5>
-									à <input type=number name=eti1 size=5
-										style='width:30%'
-										min='<?= $infAppli['base_info'] ?>'>
 								</td>
 								<td width=15%>
 									<input type=button value='Imprimer'
-										onclick='imprimeEtiquettesPage(this.form.eti0.value,this.form.eti1.value,this.form.testCoupon.checked?1:0,"coupon_accessoire")'>
+										onclick='imprimeEtiquettes(this.form.eti0.value,"",this.form.testEA.checked?1:0,"coupon_accessoire")'>
 								</td>
 
 							</tr>
@@ -301,17 +294,16 @@ $tabInfo = [
 									Feuille A4 bleu</td>
 							</tr>
 							<tr class="tabAction">
-								<td width=50%>- De <input type=number
-										min='<?= $infAppli['base_info'] ?>' name=eti0
-										value='<?= $infAppli['base_info'] ?>'
+								<td width=50%>- De <input type=text
+										name=eti0 placeholder="NN-NN ou NN,NN,NN"
 										style='width:30%' size=5>
-									à <input type=number name=eti1 size=5
+									<!-- à <input type=number name=eti1 size=5
 										style='width:30%'
-										min='<?= $infAppli['base_info'] ?>'>
+										min='<?= $infAppli['base_info'] ?>'> -->
 								</td>
 								<td width=15%>
 									<input type=button value='Imprimer'
-										onclick='imprimeCoupons(this.form.eti0.value,this.form.eti1.value,this.form.testCouponA.checked?1:0,"coupon_acheteur")'>
+										onclick='imprimeCoupons(this.form.eti0.value,"",this.form.testCouponA.checked?1:0,"coupon_acheteur")'>
 								</td>
 
 							</tr>

@@ -349,7 +349,6 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true, $nameEti = 'etiquet
     $nbCoupon = $INFO_APPLI['nb_eti_page'];
     if ($nameEti == 'coupon_accessoire') {
         $nbCoupon = $INFO_APPLI['nb_coupon_page'];
-        ;
     }
     // error_log("[action_makeA4Etiquettes] $nameEti => $nbCoupon");
     if ($eti0 == 0) {
@@ -373,16 +372,41 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true, $nameEti = 'etiquet
                 }
             }
         }
-    } else if ($eti0 > 0) {
-        for ($numFiche = $eti0; $numFiche <= $eti1; $numFiche++) {
-            $tabFiche[$index++] = $numFiche;
-        }
     } else if ($eti0 == -1) {
         for ($numFiche = 0; $numFiche < $nbCoupon; $numFiche++) {
             $tabFiche[$index++] = $numFiche;
         }
+    } else if ($eti0 != "") {
+        $tab = explode("-", $eti0);
+        if (sizeof($tab) == 2) {
+            $eti0 = $tab[0];
+            $eti1 = $tab[1];
+            if ($eti1 < $eti0) {
+                return "Le deuxième choix $eti1 est inférieur au premier $eti0.";
+            } else {
+                for ($numFiche = $eti0; $numFiche <= $eti1; $numFiche++) {
+                    $tabFiche[$index++] = $numFiche;
+                }
+            }
+
+        } else if (sizeof($tab) > 2) {
+            return "Pas plus d'un - par selection.";
+        } else {
+            $tab = explode(",", $eti0);
+            if (sizeof($tab) >= 2) {
+                foreach ($tab as $value) {
+                    $tabFiche[$index++] = $value;
+                    $eti1 = $value;
+                }
+                $eti0 = $tab[0];
+
+            } else {
+                $eti1 = $eti0;
+            }
+        }
     }
 
+    $tabCoupons = array();
     $index = 1;
     foreach ($tabFiche as $numFiche) {
         $fiche = [];
@@ -475,6 +499,8 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true, $nameEti = 'etiquet
     $ligne = 1;
     $page = 0;
     $nbCouponTotal = sizeof($tabCoupons);
+
+    $tabImpression=array();
     // echo  $nbCouponTotal;
     foreach ($tabCoupons as $key => $value) {
         $pos = $ligne + $nbCoupon * $page;
@@ -570,15 +596,41 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
                 }
             }
         }
-    } else if ($eti0 > 0) {
-        for ($numFiche = $eti0; $numFiche <= $eti1; $numFiche++) {
-            $tabFiche[$index++] = $numFiche;
-        }
     } else if ($eti0 == -1) {
         for ($numFiche = 0; $numFiche < $INFO_APPLI['nb_coupon_page']; $numFiche++) {
             $tabFiche[$index++] = $numFiche;
         }
+    } else if ($eti0 != "") {
+        $tab = explode("-", $eti0);
+        if (sizeof($tab) == 2) {
+            $eti0 = $tab[0];
+            $eti1 = $tab[1];
+            if ($eti1 < $eti0) {
+                return "Le deuxième choix $eti1 est inférieur au premier $eti0.";
+            } else {
+                for ($numFiche = $eti0; $numFiche <= $eti1; $numFiche++) {
+                    $tabFiche[$index++] = $numFiche;
+                }
+            }
+
+        } else if (sizeof($tab) > 2) {
+            return "Pas plus d'un - par selection.";
+        } else {
+            $tab = explode(",", $eti0);
+            if (sizeof($tab) >= 2) {
+                foreach ($tab as $value) {
+                    $tabFiche[$index++] = $value;
+                    $eti1 = $value;
+                }
+                $eti0 = $tab[0];
+
+            } else {
+                $eti1 = $eti0;
+            }
+
+        }
     }
+
     $espace75 = "";
     for ($i = 0; $i <= 60; $i++) {
         $espace75 .= "&nbsp;";
@@ -853,6 +905,37 @@ function action_makeA4Fiches($eti0, $eti1)
         'URL' => $CFG_URL,
         'numero_bav' => $INFO_APPLI['numero_bav']
     );
+
+    if ($eti0 != "") {
+        $tab = explode("-", $eti0);
+        if (sizeof($tab) == 2) {
+            $eti0 = $tab[0];
+            $eti1 = $tab[1];
+            if ($eti1 < $eti0) {
+                return "Le deuxième choix $eti1 est inférieur au premier $eti0.";
+            } else {
+                for ($numFiche = $eti0; $numFiche <= $eti1; $numFiche++) {
+                    $tabFiche[$index++] = $numFiche;
+                }
+            }
+
+        } else if (sizeof($tab) > 2) {
+            return "Pas plus d'un - par selection.";
+        } else {
+            $tab = explode(",", $eti0);
+            if (sizeof($tab) >= 2) {
+                foreach ($tab as $value) {
+                    $tabFiche[$index++] = $value;
+                    $eti1 = $value;
+                }
+                $eti0 = $tab[0];
+
+            } else {
+                $eti1 = $eti0;
+            }
+
+        }
+    }
     try {
         $etiquettes = "<html>";
         $etiquettes .= "<head>";
@@ -864,7 +947,8 @@ function action_makeA4Fiches($eti0, $eti1)
         $etiquettes .= "</head>";
         $etiquettes .= "<body>";
 
-        for ($numFiche = $eti0; $numFiche <= $eti1; $numFiche++) {
+        foreach ($tabFiche as $numFiche) {
+            //for ($numFiche = $eti0; $numFiche <= $eti1; $numFiche++) {
             $fiche = return_oneFicheByCode($numFiche);
             if ($fiche != null && $fiche['obj_id'] != '') {
                 // refaire les descriptions, pas de retour chariots et limite.
