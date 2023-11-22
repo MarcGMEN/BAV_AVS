@@ -252,11 +252,15 @@ function display_fiche(val) {
 
             // TODO : blocage de la fiche, sauf admin
             document.ficheForm.obj_prix_depot.disabled = false;
+            document.ficheForm.obj_prix_nego.disabled = false;
+            document.ficheForm.buttonValideFiche.disabled = false;
+            document.ficheForm.obj_accessoire.disabled = false;
+            // document.ficheForm.obj_modif_accessoire.disabled = false;
 
             val['obj_etat_libelle'] = "Présent sur le parc";
             // document.ficheForm.obj_prix_vente.disabled = true
 
-            getElement("tdBtnAction").style.display = 'none';
+            // getElement("tdBtnAction").style.display = 'none';
             getElement("fieldSetAcheteur").style.display = 'none';
         }
         if (val['obj_etat'] == "VENDU") {
@@ -276,7 +280,7 @@ function display_fiche(val) {
 
             getElement("fieldSetAcheteur").style.display = 'block';
             document.ficheForm.ach_nom.required = false;
-            document.ficheForm.obj_prix_depot.disabled = true;
+            // document.ficheForm.obj_prix_depot.disabled = true;
             x_return_oneClient(val['obj_id_acheteur'], display_infoClientAcheteur);
             x_return_listClientByName(display_listAcheteurName);
         }
@@ -288,7 +292,7 @@ function display_fiche(val) {
             getElement("tdBtnPdf").style.display = 'block';
             getElement("tdBtnSup").style.display = 'block';
 
-            document.ficheForm.obj_prix_depot.disabled = true;
+            // document.ficheForm.obj_prix_depot.disabled = true;
             document.ficheForm.obj_prix_vente.disabled = false
 
             if (val['obj_etat'] == "RENDU") {

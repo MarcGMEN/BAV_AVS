@@ -218,7 +218,8 @@
 				<span class="col-md-12 col-sm-12 col-xs-12">
 					<div id="aide_descript" style="visibility: hidden;"
 						class=' help'>
-						<small>Saisissez ici les révisions (transmission, pneus, freins..), et autres</small>
+						<small>Saisissez ici les révisions (transmission, pneus,
+							freins..), et autres</small>
 					</div>
 				</span>
 			</div>
@@ -242,6 +243,19 @@
 						title="Prix vente" required step="0.1" min="0"
 						placeholder="00.00" />&nbsp;&#8364;
 				</div>
+				<div>
+					<div>Si vous souhaitez que votre vélo soit négociable, merci
+						de
+						saisir votre prix minimun ci-dessous.</div>
+					<span class="titrow col-md-2 col-sm-2 col-xs-3">Prix
+						mini</span>
+					<span class="tabInput col-md-10 col-sm-10 col-xs-9">
+						<input type=number name="obj_prix_nego" size=5
+							maxlength="10" tabindex=12 step="0.1" min="0"
+							title="Prix minimun pour la négociation."
+							placeholder="00.00" />&#8364;
+					</span>
+				</div>
 			</div>
 		</div>
 
@@ -255,7 +269,6 @@
 				<span class="tabInput col-md-10 col-sm-10 col-xs-9">
 					<textarea rows="4" cols="100" tabindex=<?= $tabindex++ ?>
 						style="resize:none;overflow: none;color:red;"
-
 						name="obj_accessoire" maxlength="250"
 						onkeyup="MaxLengthTextarea(this, 250);setStartSaisie(true);this.value = this.value.toUpperCase();"
 						placeholder="Saisissez les accessoires que vous déposerez avec votre vélo : compteur, roues, pneus, chargeur...."></textarea>

@@ -7,117 +7,158 @@
     <div class="col-sm-4 col-md-4 col-xs-12">
         <span class="titrow col-md-3 col-sm-3 col-xs-3" width=20%>Type</span>
         <span class="tabInput col-md-9 col-sm-9 col-xs-9">
-			<select name='obj_type' tabindex=1></select>
-		</span>
+            <select name='obj_type' tabindex=1></select>
+        </span>
     </div>
     <!-- public -->
     <div class="col-sm-4 col-md-4 col-xs-12">
         <span class="titrow  col-md-3 col-sm-3 col-xs-3">Public</span>
         <span class="tabInput col-md-9 col-sm-9 col-xs-9">
-			<select name='obj_public' tabindex=2>
-			</select>
-		</span>
+            <select name='obj_public' tabindex=2>
+            </select>
+        </span>
     </div>
     <!-- pratique -->
     <div class="col-sm-4 col-md-4 col-xs-12">
         <span class="titrow col-md-3 col-sm-3 col-xs-3">Pratique</span>
         <span class="tabInput col-md-9 col-sm-9 col-xs-9">
-			<select name='obj_pratique' tabindex=3>
-			</select>
-		</span>
+            <select name='obj_pratique' tabindex=3>
+            </select>
+        </span>
     </div>
     <!-- NEw LINE -->
     <!-- marque -->
     <div class="col-sm-4 col-md-4 col-xs-12">
-        <span class="titrow  col-md-3 col-sm-3 col-xs-3">Marque <span title="Obligatoire">*</span>
+        <span class="titrow  col-md-3 col-sm-3 col-xs-3">Marque <span
+                title="Obligatoire">*</span>
         </span>
         <span class="tabInput col-md-9 col-sm-9 col-xs-9">
-			<input type=text list="listMarques" name="obj_marque" size=30 maxlength="50" tabindex=4 style="text-transform:uppercase" placeholder="Marque du vélo" onblur="x_return_list_modeles(this.value,display_list_modeles)" required />
-			<datalist id="listMarques"></datalist>
+            <input type=text list="listMarques" name="obj_marque" size=30
+                maxlength="50" tabindex=4 style="text-transform:uppercase"
+                placeholder="Marque du vélo"
+                onblur="x_return_list_modeles(this.value,display_list_modeles)"
+                required />
+            <datalist id="listMarques"></datalist>
         </span>
     </div>
     <!-- Modele -->
     <div class="col-sm-4 col-md-4 col-xs-12">
         <span class="titrow  col-md-3 col-sm-3 col-xs-3">Mod&egrave;le</span>
         <span class="tabInput col-md-9 col-sm-9 col-xs-9">
-			<input type=text name="obj_modele" size=25 maxlength="30" tabindex=5 style="text-transform:uppercase" list="listModeles" placeholder="Nom du vélo"  />
-			<datalist id="listModeles"></datalist>
-		</span>
+            <input type=text name="obj_modele" size=25 maxlength="30" tabindex=5
+                style="text-transform:uppercase" list="listModeles"
+                placeholder="Nom du vélo" />
+            <datalist id="listModeles"></datalist>
+        </span>
     </div>
     <!-- Couleur -->
     <div class="col-sm-4 col-md-4 col-xs-12">
-        <span class="titrow  col-md-3 col-sm-3 col-xs-3">Couleur <span title="Obligatoire">*</span></span>
+        <span class="titrow  col-md-3 col-sm-3 col-xs-3">Couleur <span
+                title="Obligatoire">*</span></span>
         <span class="tabInput col-md-9 col-sm-9 col-xs-9">
-			<input type=text name="obj_couleur" size=20 maxlength="30" tabindex=6 style="text-transform:uppercase" placeholder="Couleurs dominantes" required />
-		</span>
+            <input type=text name="obj_couleur" size=20 maxlength="30"
+                tabindex=6 style="text-transform:uppercase"
+                placeholder="Couleurs dominantes" required />
+        </span>
     </div>
 
     <!-- NEw LINE -->
     <!-- Date achat -->
     <div class="col-sm-4 col-md-4 col-xs-12">
-        <span class="titrow  col-md-3 col-sm-3 col-xs-3">Date achat 
-			<span class="help link" onmouseover="Aff_layer('aide_date_achat')" onmouseout="Cache_layer('aide_date_achat')">?</span>
-        <br/>
+        <span class="titrow  col-md-3 col-sm-3 col-xs-3">Date achat
+            <span class="help link" onmouseover="Aff_layer('aide_date_achat')"
+                onmouseout="Cache_layer('aide_date_achat')">?</span>
+            <br />
         </span>
         <span class="tabInput col-md-9 col-sm-9 col-xs-9">
-			<input type=date  name="obj_date_achat" tabindex=7 placeholder="Date achat"  />
-		</span>
+            <input type=date name="obj_date_achat" tabindex=7
+                placeholder="Date achat" />
+        </span>
         <span class="col-md-12 col-sm-12 col-xs-12 ">
-			<div id="aide_date_achat" style="visibility: hidden;" class='help'>
-				<small>Saisisez 01/01/AAAA si vous ne connaissez pas la date exacte.</small>
-			</div>
-		</span>
+            <div id="aide_date_achat" style="visibility: hidden;" class='help'>
+                <small>Saisisez 01/01/AAAA si vous ne connaissez pas la date
+                    exacte.</small>
+            </div>
+        </span>
     </div>
     <!-- prix achat -->
     <div class="col-sm-4 col-md-4 col-xs-12">
         <span class="titrow  col-md-3 col-sm-3 col-xs-3">Prix achat</span>
         <span class="tabInput col-md-9 col-sm-9 col-xs-9">
-		<input type=number name="obj_prix_achat" size=5 maxlength="10" tabindex=8  step="0.1" min="0" title="Prix d'achat de votre vélo" placeholder="00.00" />&#8364;
-		</span>
+            <input type=number name="obj_prix_achat" size=5 maxlength="10"
+                tabindex=8 step="0.1" min="0" title="Prix d'achat de votre vélo"
+                placeholder="00.00" />&#8364;
+        </span>
     </div>
     <!-- Taille -->
     <div class="col-sm-4 col-md-4 col-xs-12">
         <span class="titrow  col-md-3 col-sm-3 col-xs-3">Taille </span>
         <span class="tabInput col-md-9 col-sm-9 col-xs-9">
-		<input type=text name="obj_taille" size=25 maxlength="30" tabindex=9 style="text-transform:uppercase" list="listTailles" placeholder="Taille du vélo"  />
-			<datalist id="listTailles"></datalist>
-		</span>
+            <input type=text name="obj_taille" size=25 maxlength="30" tabindex=9
+                style="text-transform:uppercase" list="listTailles"
+                placeholder="Taille du vélo" />
+            <datalist id="listTailles"></datalist>
+        </span>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-6 col-xs-12">
         <!-- Descpription -->
-        <span class="titrow col-md-2 col-sm-2 col-xs-3">Description <small>(facultative)</small>
-			<span class="help link" onmouseover="Aff_layer('aide_descript')" onmouseout="Cache_layer('aide_descript')">?</span>
+        <span class="titrow col-md-2 col-sm-2 col-xs-3">Description
+            <small>(facultative)</small>
+            <span class="help link" onmouseover="Aff_layer('aide_descript')"
+                onmouseout="Cache_layer('aide_descript')">?</span>
         </span>
         <span class="tabInput col-md-10 col-sm-10 col-xs-9">
-			<textarea rows="4" cols="100" tabindex=10 style="resize:none;overflow: none;" name="obj_description" maxlength="250" onkeyup="MaxLengthTextarea(this, 250);" 
-					placeholder="Saisissez les informations qui apparaitrons sur l'étiquette de votre vélo. Révision (transmission, pneus, freins..), ulitilisation... "></textarea>
-		</span>
+            <textarea rows="4" cols="100" tabindex=10
+                style="resize:none;overflow: none;" name="obj_description"
+                maxlength="250" onkeyup="MaxLengthTextarea(this, 250);"
+                placeholder="Saisissez les informations qui apparaitrons sur l'étiquette de votre vélo. Révision (transmission, pneus, freins..), ulitilisation... "></textarea>
+        </span>
         <span class="col-md-12 col-sm-12 col-xs-12">
-			<div id="aide_descript" style="visibility: hidden;" class=' help'>
-				<small>Saisissez ici les révisions (transmission, pneus, freins..), et autres</small>
-			</div>
-		</span>
+            <div id="aide_descript" style="visibility: hidden;" class=' help'>
+                <small>Saisissez ici les révisions (transmission, pneus,
+                    freins..), et autres</small>
+            </div>
+        </span>
     </div>
     <!-- prix depot -->
     <div class="col-sm-6 col-xs-12">
-        <span class="titrow col-md-2 col-sm-2 col-xs-3">Prix</span>
-        <span class="tabInput col-md-10 col-sm-10 col-xs-9">
-			<input type=number name="obj_prix_depot" size=5 maxlength="10" tabindex=11  step="0.1" min="0" title="Prix vente, vous pouvez le laisser vide et le renseigner le jour du dépôt." placeholder="00.00" />&#8364;
-		</span>
+        <div>
+            <span class="titrow col-md-2 col-sm-2 col-xs-3">Prix</span>
+            <span class="tabInput col-md-10 col-sm-10 col-xs-9">
+                <input type=number name="obj_prix_depot" size=5 maxlength="10"
+                    tabindex=11 step="0.1" min="0"
+                    title="Prix vente, vous pouvez le laisser vide et le renseigner le jour du dépôt."
+                    placeholder="00.00" />&#8364;
+            </span>
+        </div>
+        <div>
+            <div>Si vous souhaitez que votre vélo soit négociable, merci de
+                saisir votre prix minimun ci-dessous.</div>
+            <span class="titrow col-md-2 col-sm-2 col-xs-3">Prix mini</span>
+            <span class="tabInput col-md-10 col-sm-10 col-xs-9">
+                <input type=number name="obj_prix_nego" size=5 maxlength="10"
+                    tabindex=12 step="0.1" min="0"
+                    title="Prix minimun pour la négociation."
+                    placeholder="00.00" />&#8364;
+            </span>
+        </div>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-6 col-xs-12">
         <!-- Accessoires -->
-        <span class="titrow col-md-2 col-sm-2 col-xs-3">Liste des accessoires <small>(facultative)</small>
+        <span class="titrow col-md-2 col-sm-2 col-xs-3">Liste des accessoires
+            <small>(facultative)</small>
         </span>
         <span class="tabInput col-md-10 col-sm-10 col-xs-9">
-			<textarea rows="4" cols="100" tabindex=10 style="color:red;resize:none;overflow: none;" 
-				name="obj_accessoire" maxlength="250" onkeyup="MaxLengthTextarea(this, 250);this.value = this.value.toUpperCase();" 
-				placeholder="Saisissez les accessoires que vous déposerez avec votre vélo : compteur, roues, pneus, chargeur...."></textarea>
-		</span>
+            <textarea rows="4" cols="100" tabindex=10
+                style="color:red;resize:none;overflow: none;"
+                name="obj_accessoire" maxlength="250"
+                onkeyup="MaxLengthTextarea(this, 250);this.value = this.value.toUpperCase();"
+                placeholder="Saisissez les accessoires que vous déposerez avec votre vélo : compteur, roues, pneus, chargeur...."></textarea>
+        </span>
     </div>
 </div>
 <p>&nbsp;</p>

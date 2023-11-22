@@ -348,7 +348,8 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true, $nameEti = 'etiquet
 
     $nbCoupon = $INFO_APPLI['nb_eti_page'];
     if ($nameEti == 'coupon_accessoire') {
-        $nbCoupon = $INFO_APPLI['nb_coupon_page'];;
+        $nbCoupon = $INFO_APPLI['nb_coupon_page'];
+        ;
     }
     // error_log("[action_makeA4Etiquettes] $nameEti => $nbCoupon");
     if ($eti0 == 0) {
@@ -356,8 +357,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true, $nameEti = 'etiquet
         // $eti1 => 1 force ; 0 : normal
         if ($nameEti == 'etiquette') {
             $fiches = getFichesModif('data');
-        }
-        else {
+        } else {
             $fiches = getFichesModif('accessoire');
         }
         $nbEtiq = 10000;
@@ -465,10 +465,10 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true, $nameEti = 'etiquet
         }
 
         if (sizeof($fiche) > 0) {
-            $tabCoupons[$index++] = makeCorps(array_merge($fiche, $data), $nameEti.".html");
+            $tabCoupons[$index++] = makeCorps(array_merge($fiche, $data), $nameEti . ".html");
         }
     }
-    
+
     $nbPage = ceil(sizeof($tabCoupons) / $nbCoupon);
 
     // echo "nb coupon : $nbCoupon ;  nbPage = $nbPage";
@@ -507,7 +507,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true, $nameEti = 'etiquet
     $etiquettes .= "</body></html>";
 
 
-    $fileHTML = "../out/html/".$nameEti."_" . $eti0 . "_" . $eti1 . ".html";
+    $fileHTML = "../out/html/" . $nameEti . "_" . $eti0 . "_" . $eti1 . ".html";
 
     file_put_contents($fileHTML, utf8_decode($etiquettes));
 
@@ -517,7 +517,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true, $nameEti = 'etiquet
     //     return  $CFG_URL . $filePDF;
     // }
     // else {
-    return $CFG_URL . "/out/html/".$nameEti."_" . $eti0 . "_" . $eti1 . ".html";
+    return $CFG_URL . "/out/html/" . $nameEti . "_" . $eti0 . "_" . $eti1 . ".html";
     // }
 
 
@@ -1357,14 +1357,17 @@ function action_updateFiche($data)
         ) {
             $fiche['obj_modif_data'] = 2;
         }
-        if (
-            $ficheOld['obj_modif_accessoire'] == 0 &&
-            strtoupper($fiche['obj_accessoire']) != strtoupper($ficheOld['obj_accessoire'])
-        ) {
-            $fiche['obj_modif_accessoire'] = 2;
-        }
 
     }
+
+    if (
+        $ficheOld['obj_modif_accessoire'] == 0 &&
+        strtoupper($fiche['obj_accessoire']) != strtoupper($ficheOld['obj_accessoire'])
+    ) {
+        error_log('modif accessoire');
+        $fiche['obj_modif_accessoire'] = 2;
+    }
+
 
     $modifFiche = 0;
     if (
