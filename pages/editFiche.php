@@ -174,8 +174,8 @@ $tabInfo = [
 										<input type='checkbox' name="testCoupon"
 											checked /></i></td>
 								<td colspan=2></td>
-								<td rowspan=5 width=20% style='background-color:RED'>
-									Feuille A4 rouge</td>
+								<td rowspan=5 width=20% style='background-color:ORANGE'>
+									Feuille A4 orange</td>
 							</tr>
 							<tr class="tabAction">
 								<td width=50%>- De <input type=number
@@ -295,8 +295,8 @@ $tabInfo = [
 										<input type='checkbox' name="testCouponA"
 											checked /></i></td>
 								<td colspan=2></td>
-								<td rowspan=5 width=20% style='background-color:GREEN'>
-									Feuille A4 verte</td>
+								<td rowspan=5 width=20% style='background-color:LIGHTBLUE'>
+									Feuille A4 bleu</td>
 							</tr>
 							<tr class="tabAction">
 								<td width=50%>- De <input type=number
