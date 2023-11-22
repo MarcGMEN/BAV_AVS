@@ -13,6 +13,8 @@ $tabInfo = [
 	'Coupon de dépôt' => "coupon_vendeur",
 	'Coupon de sortie' => "coupon_acheteur",
 	'Coupon Tombola' => "coupon_tombola",
+	'VIDE5' => " Listing",
+	'Pre-check' => 'pre-check',
 	'VIDE4' => " Facturation",
 	'Facture' => 'facture',
 	'VIDE1' => "Les modals de fiche",
@@ -377,6 +379,24 @@ $tabInfo = [
 								<td width=15%>
 									<input type=button value='Imprimer'
 										onclick='imprimeLibreFiche(this.form.nfac.value,"facture")'>
+								</td>
+								<td width=20%>Feuille A4 blanche</td>
+
+							</tr>
+						</table>
+					</form>
+				<? } ?>
+				<? if ($idText == "pre-check") { ?>
+					<form style="color:black">
+						<table width=100% border=1>
+							<tr class="tabAction">
+								<td width=15%></td>
+								<td> Classeur(s) (<span id='nbClasseurPret'></span>)
+									<select id=classeurs name='classeurs' style='width:150px'>
+									</select>
+								<td width=15%>
+									<input type=button value='Imprimer'
+										onclick='imprimePreCheck(this.form.classeurs.value)'>
 								</td>
 								<td width=20%>Feuille A4 blanche</td>
 
