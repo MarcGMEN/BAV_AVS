@@ -62,7 +62,7 @@ function setParamVal(val) {
 var gSearch = "";
 
 function display_fiches(val) {
-    console.log(val);
+    // console.log(val);
     if (val instanceof Object) {
 
         var total = 0;
@@ -211,6 +211,8 @@ function display_fiches(val) {
             }
             if (val['total_vente_STOCK']) {
                 getElement('total_vente_stock').innerHTML = val['total_vente_STOCK'].toLocaleString();
+            }
+            if (val['total_depot']) {
                 getElement('total_depot').innerHTML = val['total_depot'].toLocaleString();
             }
             if (val['total_vente_VENDU']) {

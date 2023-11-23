@@ -26,6 +26,9 @@
 			if (val['obj_etat'] == "RENDU") {
 				val['etat_str'] = "<div class='alert alert-success' style='font-size:20px'>Récupérer</div>";
 			}
+			if (val['obj_etat'] == "PAYE") {
+				val['etat_str'] = "<div class='alert alert-success' style='font-size:20px'>Payé au vendeur</div>";
+			}
 
 			if (modePage == "Etiquette") {
 				var j = 0;
