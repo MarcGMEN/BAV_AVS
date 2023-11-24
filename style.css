@@ -61,7 +61,7 @@ a:hover {
 .link:hover {
     font-weight: bold;
     font-style: italic;
-    border: 1px solid #fff200;
+    border: 1px solid darkblue;
 }
 
 img.link:hover {
@@ -336,11 +336,15 @@ div.SSMENU {
 
 .url {
     font-family: Verdana, Arial, Helvetica, sans-serif;
-    color: black;
-    border: 1px;
+    color: darkblue;
+    border-bottom: 0px;
+    border-right: 0px;
+    border-top: 0px;
+    border-left: 0px;
     border-color: #AAA;
     border-style: solid;
     font-size: 0.8em;
+    font-weight: bold;
     padding: 1px 1px 1px 1px;
 }
 
@@ -348,7 +352,10 @@ div.SSMENU {
 .ssnavigation {
     font-family: Tahoma, Arial, Helvetica, sans-serif;
     color: black;
-    border: 1px;
+    border-bottom: 1px;
+    border-right: 1px;
+    border-top: 0px;
+    border-left: 0px;
     border-color: #AAA;
     border-style: solid;
     font-size: 1em;
@@ -398,6 +405,10 @@ div.SSMENU {
     width: 70%
 }
 
+.noDesk {
+    display: none;
+}
+
 @media screen and (max-width: 768px) {
     .alert {
         font-size: 1em;
@@ -407,8 +418,11 @@ div.SSMENU {
         top: 10;
         left: 10;
     }
-    .menuNavigation {
+    .menuNavigation  {
         display: none;
+    }
+    .noDesk  {
+        display: block;
     }
     .menuNavigation.responsive {
         position: absolute;

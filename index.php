@@ -13,7 +13,7 @@ $time_start = microtime(true);
 
 error_reporting(E_ERROR);
 if (!isset($GET_page)) {
-	$GET_page = "bav.php";
+	$GET_page = "news.php";
 }
 
 /*if ($GET_page != "stat.php") {

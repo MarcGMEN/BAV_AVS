@@ -12,6 +12,9 @@
 <?php
 // print_r($infAppli);
 $tabNavAll = [
+    'news.php' => [
+        'libelle' => 'News',
+    ],
     'bav.php' => [
         'libelle' => 'La Bourse',
     ],
@@ -27,9 +30,9 @@ $tabNavAll = [
         'libelle' => 'F.A.Q.',
         'notif' => "FAQ"
     ],
-    'venir.php' => [
-        'libelle' => 'Contacts',
-    ],
+    // 'venir.php' => [
+    //     'libelle' => 'Contacts',
+    // ],
     'presse.php' => [
         'libelle' => 'Presse',
         'notif' => "PRESSE"
