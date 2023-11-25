@@ -34,13 +34,13 @@ function display_num_max_fiches(val) {
     getElement("pageFiche").innerHTML = "Navigation dans les classeurs [" + val + "] : ";
     for (var i = 1; i <= val; i += classeur) {
         getElement("pageFiche").innerHTML += "<span class='link' id='cla_" + i + "' onclick='baseNumFiche=" + i + ";x_return_fiches_express(" + i + ", display_fichesExpress)'>" + i + "</span>-"
-        x_return_nb_fiche_by_place(i, i + classeur-1, display_detailpageFiche);
+        x_return_nb_fiche_by_place(i, i + classeur - 1, display_detailpageFiche);
     }
     x_return_fiches_express(baseNumFiche, display_fichesExpress);
 }
 
 function display_detailpageFiche(val) {
-    console.log(val);
+    // console.log(val);
     var color = "black"
     var nbfiche = 0;
     getElement("cla_" + val[0]).title = "";
@@ -62,12 +62,12 @@ function display_detailpageFiche(val) {
             getElement("cla_" + val[0]).style.fontWeight = "bold";
         }
         if (payeRendu > 0 && payeRendu == nbfiche) {
-            console.log(payeRendu);
+            // console.log(payeRendu);
             color = "darkred";
             getElement("cla_" + val[0]).style.fontWeight = "bold";
         }
-    
-    
+
+
         getElement("cla_" + val[0]).title += "Nb de fiche du classeur : " + nbfiche + " / " + classeur;
         getElement("cla_" + val[0]).style.color = color;
     }
@@ -77,7 +77,7 @@ function display_detailpageFiche(val) {
 }
 
 function display_ficheN_bis(val) {
-    console.log(val);
+    // console.log(val);
     searchFicheExpress(val['obj_numero']);
 }
 
@@ -88,7 +88,7 @@ function searchFicheExpress(num) {
     }
     if (num) {
         baseNumFiche = parseInt((parseInt((parseInt(num) - 1) / parseInt(classeur))) * parseInt(classeur) + 1);
-        console.log("On est sur la base de " + baseNumFiche + "  via " + num + " pour max " + classeur);
+        // console.log("On est sur la base de " + baseNumFiche + "  via " + num + " pour max " + classeur);
         x_return_fiches_express(baseNumFiche, display_fichesExpress);
         setTimeout('x_return_oneFicheByCode(' + num + ', display_ficheN)', 100);
 
@@ -159,6 +159,7 @@ function display_fichesExpress(val) {
 function afficheLigne(val) {
     // on dispose de ligne de 1 a maxFiche (50);
     // donc le 1 = numero fiche  -  base
+    // console.log(val);
     var index = parseInt(val['obj_numero']) - baseNumFiche + 1;
     if (getElement("numero_" + index)) {
         getElement("tr_" + index).style = "";
@@ -179,7 +180,15 @@ function afficheLigne(val) {
 
         getElement("tr_" + index).className = "tabl0 " + val['obj_etat'];
 
-        getElement("prix_vente_" + index).innerHTML = val['obj_prix_vente'];
+        if (val['obj_prix_vente'] != 0 && val['obj_prix_vente'] != val['obj_prix_depot']) {
+            getElement("prix_vente_" + index).innerHTML = "<s>"+val['obj_prix_depot']+"</s> "+val['obj_prix_vente'];
+        }
+        else {
+            getElement("prix_vente_" + index).innerHTML = val['obj_prix_vente'];
+        }
+        
+        getElement("prix_nego_" + index).innerHTML = val['obj_prix_nego'];
+        getElement("tel_" + index).innerHTML = val['cli_telephone'];
 
         getElement("action_" + index).innerHTML = "";
         // creation du bouton adapté
@@ -195,9 +204,17 @@ function afficheLigne(val) {
             var thePrix = val['obj_prix_depot'];
             var actionPrix = "<input type='number' name='obj_prix_vente_" + index + "' min=1 step='0.1' value='" + thePrix + "' />";
             getElement("prix_vente_" + index).innerHTML = actionPrix;
+            var thePrixN = val['obj_prix_nego'];
+            var actionPrixNego = "<input type='number' name='obj_prix_nego_" + index + "' min=0 step='0.1' value='" + thePrixN + "' />";
+            getElement("prix_nego_" + index).innerHTML = actionPrixNego;
 
-            action += "";
+            var actionTel = "<input type='text' name='cli_telephone_" + index + "'  value='" + val['cli_telephone'] + "' />";
+            getElement("tel_" + index).innerHTML = actionTel;
+
             action += "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\",document.formTabSaisie.obj_prix_vente_" + index + ".value," + val['obj_numero'] + ")' />";
+
+            action += "<span title='Modifier'  onclick='modifData(" + val['obj_id'] + "," + val['cli_id'] + ",document.formTabSaisie, " + index + ")' class='link' style='font-size:1.5em'><i class='link fas fa-edit'></i>&nbsp;</span >";
+            
         } else if (val['obj_etat'] == "STOCK") {
             new_etat = "RENDU";
             new_libelle = "Rendre";
@@ -205,6 +222,14 @@ function afficheLigne(val) {
             new_etat = "VENDU";
             new_libelle = "Vendre";
             action += "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\"," + val['obj_prix_vente'] + "," + val['obj_numero'] + ")' />";
+
+            var thePrixN = val['obj_prix_nego'];
+            var actionPrixNego = "<input type='number' name='obj_prix_nego_" + index + "' min=0 step='0.1' value='" + thePrixN + "' />";
+            getElement("prix_nego_" + index).innerHTML = actionPrixNego;
+            var actionTel = "<input type='text' name='cli_telephone_" + index + "'  value='" + val['cli_telephone'] + "' />";
+            getElement("tel_" + index).innerHTML = actionTel;
+
+            action += "<span title='Modifier'  onclick='modifData(" + val['obj_id'] + "," + val['cli_id'] + ",document.formTabSaisie, " + index + ")' class='link' style='font-size:1.5em'><i class='link fas fa-edit'></i>&nbsp;</span >";
 
         } else if (val['obj_etat'] == "VENDU") {
             new_etat = "PAYE";
@@ -253,6 +278,7 @@ function resetLigne(index) {
         getElement("etat_" + index).innerHTML = "";
         getElement("zoom_" + index).innerHTML = "";
         getElement("prix_vente_" + index).innerHTML = "";
+        getElement("prix_nego_" + index).innerHTML = "";
         getElement("action_" + index).innerHTML = "";
     }
 }
@@ -260,7 +286,7 @@ function resetLigne(index) {
 function display_ficheN(val) {
     if (val['obj_numero']) {
         var index = val['obj_numero'] - baseNumFiche + 1;
-        console.log(val['obj_numero'] +" - "+baseNumFiche +"+ 1");
+        // console.log(val['obj_numero'] +" - "+baseNumFiche +"+ 1");
         if (getElement("tr_" + index)) {
             getElement("tr_" + index).scrollIntoViewIfNeeded(true);
             display_fiche(val);
@@ -570,6 +596,36 @@ function modifEtat(tabObj, tabCli) {
     }
 }
 
+function modifData(idobj, idcli, form, index) {
+    var tabObj = {};
+
+    if (document.getElementsByName("obj_prix_nego_" + index).length > 0) {
+        tabObj['obj_prix_nego'] = document.getElementsByName("obj_prix_nego_" + index)[0].value;
+        tabObj['obj_id'] = idobj;
+    }
+    if (document.getElementsByName("obj_prix_vente_" + index).length > 0) {
+        tabObj['obj_prix_depot'] = document.getElementsByName("obj_prix_vente_" + index)[0].value;
+        tabObj['obj_id'] = idobj;
+    }
+
+    console.log(tabObj.obj_id);
+    
+    if (tabObj.obj_id ) {
+        x_action_updateFiche(tabToString(tabObj), display_fin_create);
+    }
+
+    var tabCli = {};
+
+    if (document.getElementsByName("cli_telephone_" + index).length > 0) {
+        tabCli['cli_id'] = idcli;
+        tabCli['cli_telephone'] = document.getElementsByName("cli_telephone_" + index)[0].value;
+    }
+    console.log(tabCli);
+    if (tabCli.cli_id) {
+        x_action_updateClient(tabToString(tabCli), display_fin_create);
+    }
+}
+
 function display_fiche_vente(val) {
     val['random'] = idRamdom;
     x_get_publiHtml(tabToString(val), 'modal_confirm_vendre.html', display_messageConfirmChangeEtatForm);
@@ -622,12 +678,12 @@ function display_fin_vente(val) {
 
 function display_fin_delete(val) {
     x_return_fiches_express(baseNumFiche, display_fichesExpress);
-
     display_fiche("vide");
 }
 
 
 function display_fin_create(val) {
+    console.log(val);
     if (val instanceof Object) {
         // if (document.formSaisieExpress.cli_id.value != '') {
         //     x_return_oneClient(document.formSaisieExpress.cli_id.value, display_infoClientVendeur);
@@ -656,7 +712,7 @@ function display_fin_create(val) {
     }
 }
 
-function unloadPage() {}
+function unloadPage() { }
 
 
 /**

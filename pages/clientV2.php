@@ -48,7 +48,7 @@
 							<br />
 							<input type=text name="cli_adresse1" size=50 maxlength='100' tabindex=<?= $tabindex++ ?> placeholder="Complement adresse" onkeyup="setStartSaisie(true);" />
 							<br />
-							<input type=text name="cli_code_postal" size=5 maxlength='10' tabindex=<?= $tabindex++ ?> placeholder="Code postal" onkeyup="setStartSaisie(true);" />
+							<input type=text name="cli_code_postal" size="5" maxlength="5" pattern="[0-9]{5}" tabindex=<?= $tabindex++ ?> title="Code postal sur 5 chiffres" placeholder="Code postal (5 chiffres)" onkeyup="setStartSaisie(true);" />
 							<input type=text name="cli_ville" size=40 maxlength='100' tabindex=<?= $tabindex++ ?> placeholder="Ville" onkeyup="setStartSaisie(true)" />
 						<? } ?>
 					</span>

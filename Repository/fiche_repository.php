@@ -409,7 +409,7 @@ function getOneFiche($id)
     $requete2 .= "  left outer join bav_client as ac on obj_id_acheteur = ac.cli_id ";
     $requete2 .= " where obj_id  = $id";
 
-    $result = $GLOBALS['mysqli']->query($requete2);
+    $result = $GLOBALS['mysqli']->query($requete2) or die ("--Pb d'update [$requete2]   ===> " . $GLOBALS['mysqli']->error);
     if ($result) {
         $row = $result->fetch_assoc();
         $result->close();

@@ -16,13 +16,12 @@ $maxFiche = $infAppli['NB_MODIF'];
 
 <form name="formSaisieExpress" onsubmit="return submitForm()">
 
-	<table width='100%'>
+	<table width='100%' >
 		<tr>
 			<td class='tittab' width=5%>No</td>
 			<td class='tittab' width=10%>Type</td>
 			<td class='tittab' width=10%>Marque</td>
-			<td class='tittab' width=35%>Couleur</td>
-			<td class='tittab' width=10%></td>
+			<td class='tittab' colspan=2 width=35%>Couleur</td>
 			<td class='tittab' width=10%>Etat</td>
 			<td class='tittab' width=10%>Actions</td>
 		</tr>
@@ -38,21 +37,20 @@ $maxFiche = $infAppli['NB_MODIF'];
 				</select>
 			</td>
 			<td>
-				<input type=text list="listMarques" disabled name="obj_marque_<?= $idRamdom ?>" size=30 maxlength="50" tabindex=3 style="text-transform:uppercase" placeholder="Marque du vélo"  required/>
+				<input type=text list="listMarques" disabled name="obj_marque_<?= $idRamdom ?>" size=30 maxlength="50" tabindex=3 style="text-transform:uppercase" placeholder="Marque du vélo" required />
 				<datalist id="listMarques"></datalist>
 			</td>
-			<td>
-				<input type=text name="obj_couleur" size=20 maxlength="30" disabled tabindex=4 style="text-transform:uppercase" placeholder="Couleurs dominantes" required/>
-			</td>
-			<td>
+			<td colspan=2>
+				<input type=text name="obj_couleur" size=20 maxlength="30" disabled 
+							tabindex=4 style="width:200px;text-transform:uppercase" placeholder="Couleurs dominantes" required >
 			</td>
 			<td id="obj_etat" rowspan=3 class="tittab" style="text-align:center;vertical-align:middle">
 			</td>
 			<td rowspan=3 class="tittab" style="text-align:center;vertical-align:middle">
-				<button id="but_action" tabindex=<?= $tabindex + 8 ?> onsubmit="this.form.action.value='new'" onclick="this.form.action.value='new'"></button>
+				<button id="but_action" tabindex=10 onsubmit="this.form.action.value='new'" onclick="this.form.action.value='new'"></button>
 				<input type="hidden" name="action" value="new">
-				<button id="but_action2" tabindex=<?= $tabindex + 9 ?> onsubmit="this.form.action.value='new2'" onclick="this.form.action.value='new2'"></button>
-				<button id="but_actionAno" tabindex=<?= $tabindex + 10 ?> class="error" onsubmit="this.form.action.value='newAno'" onclick="this.form.action.value='newAno'"></button>
+				<button id="but_action2" tabindex=11 onsubmit="this.form.action.value='new2'" onclick="this.form.action.value='new2'"></button>
+				<button id="but_actionAno" tabindex=12 class="error" onsubmit="this.form.action.value='newAno'" onclick="this.form.action.value='newAno'"></button>
 				<div id='actionBis'></div>
 				<input type="hidden" name="obj_etat">
 				<input type="hidden" name="obj_etat_new">
@@ -61,8 +59,8 @@ $maxFiche = $infAppli['NB_MODIF'];
 			</td>
 		</tr>
 		<tr>
-			<td class='tittab' width=10%>Prix vente</td>
-			<td class='tittab' width=55% colspan=3>Vendeur</td>
+			<td class='tittab'>Prix vente</td>
+			<td class='tittab' colspan=3>Vendeur</td>
 		</tr>
 		<tr>
 			<td>
@@ -75,14 +73,13 @@ $maxFiche = $infAppli['NB_MODIF'];
 					onblur='searchByMel(this.value)' list="listVendeur">
 				<datalist id="listVendeur"></datalist>
 			</td>-->
-			<td colspan=2>
-				<input type=text name='cli_nom_<?= $idRamdom ?>' disabled tabindex=6 placeholder="Nom et prénom" size="50" maxlength="100" required onblur='searchByName(this.value)' list="listVendeurName">
+			<td colspan=2	>
+				<input type=text name='cli_nom_<?= $idRamdom ?>' disabled tabindex=7 placeholder="Nom et prénom" size="30" maxlength="100" required  style="text-transform:uppercase" onblur='searchByName(this.value)' list="listVendeurName" style='width:300px'>
 				<datalist id="listVendeurName"></datalist>
 			</td>
 			<td>
-				<input type=text name='cli_code_postal' placeholder="Code postal " title="5 chiffres" tabindex=7 size="5" maxlength="5" pattern="[0-9]{5}">
+				<input type=text name='cli_code_postal' placeholder="Code postal " title="5 chiffres" tabindex=8 size="5" maxlength="5" pattern="[0-9]{5}" style='width:100px'>
 			</td>
-
 		</tr>
 	</table>
 </form>
@@ -92,28 +89,33 @@ $maxFiche = $infAppli['NB_MODIF'];
 
 <table width='100%'>
 	<tr>
-		<td class='tittab' width=12%>Action</td>
+		<td class='tittab' width=11%>Action</td>
 		<td class='tittab' width=5%>No</td>
 		<td class='tittab' width=10%>Type</td>
 		<td class='tittab' width=10%>Prix vente</td>
-		<td class='tittab' width=50%>Vendeur</td>
+		<td class='tittab' width=10%>Prix négo</td>
+		<td class='tittab' width=30%>Vendeur</td>
+		<td class='tittab' width=10%>Tél</td>
 		<td class='tittab' width=10%>Etat</td>
-		<td class='tittab' width=3%></td>
+		<td class='tittab' width=4%></td>
 	</tr>
 </table>
 <div style="overflow-y: scroll; height:55%" id="divscroll">
 	<form name=formTabSaisie onSubmit='return false'>
-		<table width='100%' id='tableFiches'>
+		<table width='100%' id='tableFiches' border=1>
 			<?php for ($index = 1; $index <= $maxFiche; $index++) { ?>
 				<tr class='tabl0' id="tr_<?= $index ?>">
-					<td width=13% id="action_<?= $index ?>"></td>
-					<td width=5% id="numero_<?= $index ?>" onclick="x_return_oneFicheByCode(getElement('numero_<?=$index?>').innerHTML, display_fiche)"><span style="color: GREEN"><?= $index ?></span>
+					<td width=11% id="action_<?= $index ?>"></td>
+					<td width=5% id="numero_<?= $index ?>" onclick="x_return_oneFicheByCode(getElement('numero_<?= $index ?>').innerHTML, display_fiche)">
+						<span style="color: GREEN"><?= $index ?></span>
 					</td>
 					<td width=10% id="type_<?= $index ?>"></td>
 					<td width=10% id="prix_vente_<?= $index ?>"></td>
-					<td width=50% id="vendeur_<?= $index ?>"></td>
+					<td width=10% id="prix_nego_<?= $index ?>"></td>
+					<td width=30% id="vendeur_<?= $index ?>"></td>
+					<td width=10% id="tel_<?= $index ?>"></td>
 					<td width=10% id="etat_<?= $index ?>"></td>
-					<td width=1% id="zoom_<?= $index ?>"></td>
+					<td width=3% id="zoom_<?= $index ?>"></td>
 				</tr>
 			<?php } ?>
 		</table>

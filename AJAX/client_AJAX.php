@@ -127,7 +127,9 @@ function action_updateClient($obj)
     // // TODO : test cohérence object
     try {
         // on verifie que le mel n'est pas utilisé
-        if ($tab['cli_emel']) {
+        if ($tab['cli_id'] && !$tab['cli_emel'] && !$tab['cli_nom'])   { 
+        }
+        else if ($tab['cli_emel']) {
             $climel = getOneClientByMel($tab['cli_emel']);
             if ($climel['cli_id'] &&  $climel['cli_id'] != $tab['cli_id']) {
                 return "Mel déja utilisé pour " . $climel['cli_nom'];
@@ -229,7 +231,11 @@ function makeClient($tabCli)
     extract($GLOBALS);
     $numBAV = $INFO_APPLI['numero_bav'];
     $par = return_oneParametre($numBAV);
-    if ($tabCli['cli_emel'] != null) {
+    if ($tabCli['cli_id'] != null) {
+        //echo "makeClient => recherche par mel";
+        $clientSearch =  getOne($tabCli['cli_id'], "bav_client", "cli_id");
+    }
+    if ($clientSearch == null && $tabCli['cli_emel'] != null) {
         //echo "makeClient => recherche par mel";
         $clientSearch =  getOne($tabCli['cli_emel'], "bav_client", "cli_emel");
     }
