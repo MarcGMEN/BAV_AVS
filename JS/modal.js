@@ -5,7 +5,7 @@
  */
 function alertModalWarnTimeout(message, timeSec) {
     alertModalWarn(message);
-    setTimeout(function() { closeModal() }, timeSec * 1000);
+    setTimeout(function () { closeModal() }, timeSec * 1000);
 }
 /**
  * modal d'un warn avec fermeture par la croix
@@ -32,7 +32,7 @@ function alertModalWarn(message) {
  */
 function alertModalInfoTimeout(message, timeSec) {
     alertModalInfo(message);
-    setTimeout(function() { closeModal() }, timeSec * 1000);
+    setTimeout(function () { closeModal() }, timeSec * 1000);
 }
 
 /**
@@ -107,7 +107,7 @@ function alertModalConfirm(message, plus = '', titre = "Confirmation") {
 
     }
 
-    document.modalForm.onsubmit = function() {
+    document.modalForm.onsubmit = function () {
         searchStyle();
         confirmModal(plus);
         closeModal();
@@ -136,6 +136,7 @@ function submitFormModal() {
 }
 
 function display_getFicheVente(val) {
+    console.log(val);
     if (val instanceof Object && val['obj_id'] != undefined) {
         if (val['obj_etat'] == 'VENDU' || val['obj_etat'] == 'PAYE') {
 
@@ -150,7 +151,15 @@ function display_getFicheVente(val) {
             messageVente = "<div class='alert alert-danger'><b>Votre vélo numéro " + val['obj_numero'] + " vous a été rendu.</b></div>";
         } else {
             messageVente = "<div class='alert alert-danger'><b>Votre vélo numéro " + val['obj_numero'] + " n\'a pas encore été vendu.<br/> Veuillez re-essayer ultérieurement.</b></div>";
+
+            if (GetCookie('CAFFARD_BAV')) {
+                messageVente += "<div class='alert alert-info'><div>Le prix de négo de ce vélo est de " + val['obj_prix_nego'] + "&euro;</div>";
+                messageVente += "<div> Le vendeur est :" + val['cli_nom'] + "</div>";
+                messageVente += "<div >Le numéro de téléphone du vendeur " + val['cli_telephone'] + " ou " + val['cli_telephone_bis'] + "</div>"
+                messageVente += "</div> ";
+            }
         }
+
 
         if (messageVente != "") {
             alertModalInfo(messageVente);

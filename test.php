@@ -11,7 +11,8 @@
 //setcookie('NUMERO_BAV_BIS', date('Y'), time() + (86400 * 30), '/') or die('unable to create cookie');
 
 require_once 'config.ini';
-// require_once 'Commun/commun_functions.php';
+require_once 'Commun/commun_functions.php';
+include('vendor/phpqrcode/qrlib.php');
 //  require_once 'Commun/mail.php';
 // require_once 'AJAX/AJAX.php';
 
@@ -22,8 +23,10 @@ require_once 'config.ini';
 // }
 // print_r(return_all_lat_lon_cdp());
 
-//QRcode::png('PHP QR Code :)');
- echo "<h1>test.php</h1>";
+QRcode::png('https://bourseaux1000velos.avs44.com/Actions/rest.php?a=P','./out/QRCODE_CAFFARD.png',QR_ECLEVEL_L, 3);
+echo "<img src='./out/QRCODE_CAFFARD.png' />";
+// QRcode::png('http://http://127.0.0.1/edsa-BAV/Actions/rest.php?a=P');
+echo "<h1>test.php</h1>";
 
 // echo "envoi de mail a marc.garces@free.fr => ";
 // // echo sendMail("test PJ", "braillou@gmail.com", "piece jointe", "/BAV/out/PDF/Fiche_710.pdf");

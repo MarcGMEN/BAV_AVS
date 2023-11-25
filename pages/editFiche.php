@@ -35,12 +35,12 @@ $tabInfo = [
 	// 'MAIL CONFIRME' => "mel_confirme",
 	'Mail d\'information de la vente' => "mel_vendu",
 	'VIDE5' => "La page d'accueil",
-	'Page d\'actualité' => 'bav_actu',
+	'Page de news' => 'bav_actu',
 	'Page La Bourse' => "bav_bourse",
-	'Page de Quoi vendre' => 'bav_vendre',
-	'Page des statsitiques' => 'bav_statistique',
-	'Page du programme' => 'bav_programme',
-	'Page de l\'organisateur' => 'bav_orga',
+	// 'Page de Quoi vendre' => 'bav_vendre',
+	// 'Page des statsitiques' => 'bav_statistique',
+	// 'Page du programme' => 'bav_programme',
+	// 'Page de l\'organisateur' => 'bav_orga',
 ];
 ?>
 

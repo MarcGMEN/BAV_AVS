@@ -14,9 +14,14 @@ function initEntete() {
         //}
         getElement('tdSearch').style.display = "table-cell";
 
+
     } else if (CLIENT) {
         //getElement('tdSearch').style.display = "table-cell";
     }
+    if (GetCookie('CAFFARD_BAV')) {
+        getElement('connex').innerHTML += "Caffard";
+    }
+
     return_restant();
 }
 

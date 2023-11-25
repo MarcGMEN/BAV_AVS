@@ -105,6 +105,12 @@
 						repr += "&nbsp<A href='https://www.google.fr/search?tbm=isch&q=" + val['obj_marque_orig'] + " " + val['obj_modele_orig'] + " "+year+"' target='_blank' ><img src='https://www.we-do-it-better.fr/wp-content/uploads/2019/04/googlesearch.png' height='20px'/></A></span>";
 					}
 					repr += "</td>";
+					if (GetCookie('CAFFARD_BAV')) {
+						repr += "<td width=20% >";
+						repr += val[index]['obj_prix_depot']+" -> "+val[index]['obj_prix_nego'];
+						repr += "</td>";
+					}
+
 					repr += "<td width=5% class='maskMobile' >";
 					repr += val[index]['obj_taille'];
 					repr += "</td>";

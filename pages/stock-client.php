@@ -57,10 +57,13 @@
 			&nbsp;<select id="sel_obj_marque"
 				onchange="selectColonne('obj_marque', this.value)"></select>
 		</td>
-		<!-- <td class="tittab " width=15%>
-			<span id='obj_modele' onclick="triColonne('obj_modele')"
-				class="sortable">Modèle&nbsp;&nbsp;
-		</td> -->
+
+		<? if (isset($_COOKIE['CAFFARD_BAV'])) { ?>
+		<td class="tittab " width=20%>
+			Prix/ prix négo
+		</td>
+		<?}?>
+
 		<td class="tittab maskMobile" width=5%>
 			<span id='obj_taille' onclick="triColonne('obj_taille')"
 				class="sortable">Taille&nbsp;&nbsp;&nbsp;</span>

@@ -14,7 +14,7 @@
 	function searchVente(numero) {
 		x_add_counter_action("searchVente", ADMIN ? 'ADMIN' : 'VISITEUR', numero, display_rien);
 		x_return_oneFicheByCode(numero, display_getFicheVente);
-		document.bavFormFiche.inputSearch.value = "";
+		document.bavFormFiche.inputSearchBAV.value = "";
 		return false;
 	}
 </script>
