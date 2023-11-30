@@ -237,7 +237,7 @@ function getFiches($order, $sens, $tabSel, $client = true)
             $requete2 .= " order by $order $sens";
         }
     }
-    error_log("[getFiches] $requete2");
+    // error_log("[getFiches] $requete2");
 
     $result = $GLOBALS['mysqli']->query($requete2);
     if ($result) {

@@ -397,7 +397,7 @@ function display_fiches_feuille(val) {
                 (val[index]['obj_etat'] == 'VENDU' || val[index]['obj_etat'] == 'PAYE')) {
                 var comFiche = parseFloat(val[index]['obj_prix_vente'] * val[index]['cli_taux_com'] / 100)
                 if (comFiche > 100) comFiche = 100;
-                if (val[index]['cli_taux_com'] == 5 && comFiche > 100) comFiche = 80;
+                if (parseInt(val[index]['cli_taux_com']) == 5 && comFiche >= 100) comFiche = 80;
                 repr += comFiche + " &euro;";
                 total += parseFloat(val[index]['obj_prix_vente']);
                 totalCom += comFiche;

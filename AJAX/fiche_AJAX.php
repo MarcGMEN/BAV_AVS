@@ -1011,6 +1011,7 @@ function action_makeA4Fiches($eti0, $eti1)
  */
 function getCommission($fiche)
 {
+    // error_log($fiche);
     $commission = 0;
     if ($fiche['obj_id_vendeur']) {
         $client = getOneClient($fiche['obj_id_vendeur']);
@@ -1019,7 +1020,8 @@ function getCommission($fiche)
                 $commission = $fiche['obj_prix_vente'] * ($client['cli_taux_com'] / 100);
             } else {
                 // TODO : parametre en fonction du taux
-                if ($client['cli_taux_com'] == 5) {
+                
+                if ((int)$client['cli_taux_com'] == 5.00) {
                     $commission = 80;
                 } else {
                     $commission = 100;
@@ -1031,6 +1033,7 @@ function getCommission($fiche)
     } else {
         $commission = 0;
     }
+    // error_log($commission);
     return $commission;
 }
 
