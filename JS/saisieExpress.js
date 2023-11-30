@@ -180,6 +180,10 @@ function afficheLigne(val) {
 
         getElement("tr_" + index).className = "tabl0 " + val['obj_etat'];
 
+        if (val['obj_prix_vente'] == 0) {
+            val['obj_prix_vente'] = val['obj_prix_depot'];
+        }
+
         if (val['obj_prix_vente'] != 0 && val['obj_prix_vente'] != val['obj_prix_depot']) {
             getElement("prix_vente_" + index).innerHTML = "<s>"+val['obj_prix_depot']+"</s> "+val['obj_prix_vente'];
         }
@@ -188,8 +192,7 @@ function afficheLigne(val) {
         }
         
         getElement("prix_nego_" + index).innerHTML = val['obj_prix_nego'];
-        getElement("tel_" + index).innerHTML = val['cli_telephone'];
-
+        
         getElement("action_" + index).innerHTML = "";
         // creation du bouton adapté
         // pour le retour, saisir la fiche
@@ -208,9 +211,6 @@ function afficheLigne(val) {
             var actionPrixNego = "<input type='number' name='obj_prix_nego_" + index + "' min=0 step='0.1' value='" + thePrixN + "' />";
             getElement("prix_nego_" + index).innerHTML = actionPrixNego;
 
-            var actionTel = "<input type='text' name='cli_telephone_" + index + "'  value='" + val['cli_telephone'] + "' />";
-            getElement("tel_" + index).innerHTML = actionTel;
-
             action += "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\",document.formTabSaisie.obj_prix_vente_" + index + ".value," + val['obj_numero'] + ")' />";
 
             action += "<span title='Modifier'  onclick='modifData(" + val['obj_id'] + "," + val['cli_id'] + ",document.formTabSaisie, " + index + ")' class='link' style='font-size:1.5em'><i class='link fas fa-edit'></i>&nbsp;</span >";
@@ -226,8 +226,6 @@ function afficheLigne(val) {
             var thePrixN = val['obj_prix_nego'];
             var actionPrixNego = "<input type='number' name='obj_prix_nego_" + index + "' min=0 step='0.1' value='" + thePrixN + "' />";
             getElement("prix_nego_" + index).innerHTML = actionPrixNego;
-            var actionTel = "<input type='text' name='cli_telephone_" + index + "'  value='" + val['cli_telephone'] + "' />";
-            getElement("tel_" + index).innerHTML = actionTel;
 
             action += "<span title='Modifier'  onclick='modifData(" + val['obj_id'] + "," + val['cli_id'] + ",document.formTabSaisie, " + index + ")' class='link' style='font-size:1.5em'><i class='link fas fa-edit'></i>&nbsp;</span >";
 
@@ -321,6 +319,7 @@ function display_fiche(val) {
         //document.formSaisieExpress.cli_emel.disabled = true;
         document.formSaisieExpress.elements.namedItem('cli_nom_' + idRamdom).disabled = true;
         document.formSaisieExpress.cli_code_postal.disabled = true;
+        document.formSaisieExpress.cli_telephone.disabled = true;
 
         if (focus == 1) {
             getElement("but_action").focus();
@@ -399,7 +398,8 @@ function display_fiche(val) {
         getElement("obj_etat").innerHTML = "";
 
         document.formSaisieExpress.cli_id.value = "";
-        document.formSaisieExpress.cli_code_postal = "";
+        document.formSaisieExpress.cli_code_postal.value = "";
+        document.formSaisieExpress.cli_telephone.value = "";
         document.formSaisieExpress.elements.namedItem('cli_nom_' + idRamdom).value = "";
 
         display_formulaire(val, document.formSaisieExpress);
@@ -415,6 +415,7 @@ function display_fiche(val) {
         //document.formSaisieExpress.cli_emel.disabled = false;
         document.formSaisieExpress.elements.namedItem('cli_nom_' + idRamdom).disabled = true;
         document.formSaisieExpress.cli_code_postal.disabled = true;
+        document.formSaisieExpress.cli_telephone.disabled = true;
         getElement("but_actionAno").style.display = 'none';
         getElement("but_action2").style.display = 'none';
         getElement("but_action").style.display = 'block';
@@ -431,7 +432,8 @@ function display_fiche(val) {
         val['obj_couleur'] = "";
 
         document.formSaisieExpress.cli_id.value = "";
-        document.formSaisieExpress.cli_code_postal = "";
+        document.formSaisieExpress.cli_code_postal.value = "";
+        document.formSaisieExpress.cli_telephone.value = "";
         document.formSaisieExpress.elements.namedItem('cli_nom_' + idRamdom).value = "";
 
         display_formulaire(val, document.formSaisieExpress);
@@ -446,6 +448,7 @@ function display_fiche(val) {
         //document.formSaisieExpress.cli_emel.disabled = false;
         document.formSaisieExpress.elements.namedItem('cli_nom_' + idRamdom).disabled = false;
         document.formSaisieExpress.cli_code_postal.disabled = false;
+        document.formSaisieExpress.cli_telephone.disabled = false;
         getElement("but_actionAno").style.display = 'none';
         getElement("but_action2").style.display = 'none';
         getElement("but_action").style.display = 'block';
@@ -503,6 +506,7 @@ function display_infoClientVendeur(val, base) {
         // }
         display_formulaire(val, document.formSaisieExpress);
         document.formSaisieExpress.cli_code_postal.disabled = true;
+        document.formSaisieExpress.cli_telephone.disabled = true;
     } else {
         // reset des champs cli
         // saug cli_emel pour ne pas le perdre
@@ -518,6 +522,7 @@ function display_infoClientVendeur(val, base) {
             // val['cli_emel'] = "";
         }
         val['cli_code_postal'] = "";
+        val['cli_telephone'] = "";
 
         // nouveau client
 
@@ -614,16 +619,16 @@ function modifData(idobj, idcli, form, index) {
         x_action_updateFiche(tabToString(tabObj), display_fin_create);
     }
 
-    var tabCli = {};
+    // var tabCli = {};
 
-    if (document.getElementsByName("cli_telephone_" + index).length > 0) {
-        tabCli['cli_id'] = idcli;
-        tabCli['cli_telephone'] = document.getElementsByName("cli_telephone_" + index)[0].value;
-    }
-    console.log(tabCli);
-    if (tabCli.cli_id) {
-        x_action_updateClient(tabToString(tabCli), display_fin_create);
-    }
+    // if (document.getElementsByName("cli_telephone_" + index).length > 0) {
+    //     tabCli['cli_id'] = idcli;
+    //     tabCli['cli_telephone'] = document.getElementsByName("cli_telephone_" + index)[0].value;
+    // }
+    // console.log(tabCli);
+    // if (tabCli.cli_id) {
+    //     x_action_updateClient(tabToString(tabCli), display_fin_create);
+    // }
 }
 
 function display_fiche_vente(val) {

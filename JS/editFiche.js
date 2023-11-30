@@ -145,7 +145,7 @@ function viewPdf(idtext, format) {
 }
 
 function imprimeEtiquettes(eti0, eti1, test, nameEti) {
-    if (eti0 != "" ) {
+    if (eti0 != "") {
         alertModalInfo("Génération des étiquettes (" + nameEti + ") de " + eti0 + " a " + eti1 + " au format HTML <img src='Images/spinner_white_tiny.gif' />");
         x_action_makeA4Etiquettes(eti0, eti1, test, nameEti, display_openHTML);
     } else {
@@ -161,7 +161,7 @@ function imprimeEtiquettesPage(force, test, nameEti) {
 
 
 function imprimeCoupons(eti0, eti1, test, nameCoupon) {
-    if (eti0 != "" ) {
+    if (eti0 != "") {
         alertModalInfo("Génération des " + nameCoupon + " de " + eti0 + " a " + eti1 + " au format HTML <img src='Images/spinner_white_tiny.gif' />");
         x_action_makeA4Coupons(eti0, eti1, test, nameCoupon, display_openHTML);
     } else {
@@ -186,7 +186,7 @@ function imprimeCouponsPage(force, test, nameCoupon) {
 }
 
 function imprimeFiches(eti0, eti1) {
-    if (eti0 != "" ) {
+    if (eti0 != "") {
         alertModalInfo("Génération des fiches de " + eti0 + " a " + eti1 + " au format HTML <img src='Images/spinner_white_tiny.gif' />");
         x_action_makeA4Fiches(eti0, eti1, display_openHTML);
     } else {
@@ -236,36 +236,36 @@ function display_detailpageFicheEF(val) {
     var selectCla = getElement('classeurs');
     var nbfiche = 0;
     // if (val[1] && sizeof(val[1]) > 0) {
-        for (index in val[1]) {
-            nbfiche += parseInt(val[1][index]);
+    for (index in val[1]) {
+        nbfiche += parseInt(val[1][index]);
+    }
+    var option = document.createElement("option");
+    option.text = val[0] + "-> " + nbfiche;
+    if (val[1] && sizeof(val[1]) > 0) {
+        option.text += " *";
+        nbClasseurPret += 1;
+    }
+    option.value = val[0];
+    selectCla.appendChild(option);
+    var items = selectCla.childNodes;
+    var itemsArr = [];
+    for (var i in items) {
+        if (items[i].nodeType == 1) { // get rid of the whitespace text nodes
+            itemsArr.push(items[i]);
         }
-        var option = document.createElement("option");
-        option.text = val[0] + "-> " + nbfiche;
-        if (val[1] && sizeof(val[1]) > 0) {
-            option.text += " *";
-            nbClasseurPret += 1;
-        }
-        option.value = val[0];
-        selectCla.appendChild(option);
-        var items = selectCla.childNodes;
-        var itemsArr = [];
-        for (var i in items) {
-            if (items[i].nodeType == 1) { // get rid of the whitespace text nodes
-                itemsArr.push(items[i]);
-            }
-        }
+    }
 
-        itemsArr.sort(function (a, b) {
-            return parseInt(a.value) == parseInt(b.value)
-                ? 0
-                : (parseInt(a.value) > parseInt(b.value) ? 1 : -1);
-        });
-        selectCla.childNodes = new Array();
-        for (i = 0; i < itemsArr.length; ++i) {
-            selectCla.appendChild(itemsArr[i]);
-        }
-        
-        getElement('nbClasseurPret').innerHTML = nbClasseurPret;
+    itemsArr.sort(function (a, b) {
+        return parseInt(a.value) == parseInt(b.value)
+            ? 0
+            : (parseInt(a.value) > parseInt(b.value) ? 1 : -1);
+    });
+    selectCla.childNodes = new Array();
+    for (i = 0; i < itemsArr.length; ++i) {
+        selectCla.appendChild(itemsArr[i]);
+    }
+
+    getElement('nbClasseurPret').innerHTML = nbClasseurPret;
     // }
 
 }
@@ -330,8 +330,8 @@ function finFiches() {
             repr += "</td><td style='text-align:center'>";
             repr += etat == undefined ? "" : etat != "CONFIRME" ? "V" : "";
             repr += "</td><td>";
-            repr += map1.get(i)[1] == undefined ? "" : map1.get(i)[1];
         }
+        repr += map1.get(i)[1] == undefined ? "" : map1.get(i)[1] == "0.00" ? "" : map1.get(i)[1] ;
         repr += "</td>";
         repr += "<td style='background-color:grey; text-align:center'>";
         var j = parseInt(parseInt(i) + (NB_MODIF / 2));
@@ -346,8 +346,8 @@ function finFiches() {
             repr += "</td><td style='text-align:center'>";
             repr += etat == undefined ? "" : etat != "CONFIRME" ? "V" : "";
             repr += "</td><td>";
-            repr += map1.get(j)[1] == undefined ? "" : map1.get(j)[1];
         }
+        repr += map1.get(j)[1] == undefined ? "" : map1.get(j)[1] == "0.00" ? "" : map1.get(j)[1] ;
         repr += "</td></tr>";
     }
     repr += "</table>";

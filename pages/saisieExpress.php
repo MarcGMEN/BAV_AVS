@@ -21,7 +21,7 @@ $maxFiche = $infAppli['NB_MODIF'];
 			<td class='tittab' width=5%>No</td>
 			<td class='tittab' width=10%>Type</td>
 			<td class='tittab' width=10%>Marque</td>
-			<td class='tittab' colspan=2 width=35%>Couleur</td>
+			<td class='tittab' colspan=3 width=35%>Couleur</td>
 			<td class='tittab' width=10%>Etat</td>
 			<td class='tittab' width=10%>Actions</td>
 		</tr>
@@ -40,7 +40,7 @@ $maxFiche = $infAppli['NB_MODIF'];
 				<input type=text list="listMarques" disabled name="obj_marque_<?= $idRamdom ?>" size=30 maxlength="50" tabindex=3 style="text-transform:uppercase" placeholder="Marque du vélo" required />
 				<datalist id="listMarques"></datalist>
 			</td>
-			<td colspan=2>
+			<td colspan=3>
 				<input type=text name="obj_couleur" size=20 maxlength="30" disabled 
 							tabindex=4 style="width:200px;text-transform:uppercase" placeholder="Couleurs dominantes" required >
 			</td>
@@ -60,7 +60,7 @@ $maxFiche = $infAppli['NB_MODIF'];
 		</tr>
 		<tr>
 			<td class='tittab'>Prix vente</td>
-			<td class='tittab' colspan=3>Vendeur</td>
+			<td class='tittab' colspan=4>Vendeur</td>
 		</tr>
 		<tr>
 			<td>
@@ -78,8 +78,12 @@ $maxFiche = $infAppli['NB_MODIF'];
 				<datalist id="listVendeurName"></datalist>
 			</td>
 			<td>
-				<input type=text name='cli_code_postal' placeholder="Code postal " title="5 chiffres" tabindex=8 size="5" maxlength="5" pattern="[0-9]{5}" style='width:100px'>
+				<input type=text name='cli_code_postal' disabled placeholder="Code postal " title="5 chiffres" tabindex=8 size="5" maxlength="5" pattern="[0-9]{5}" style='width:100px'>
 			</td>
+			<td>
+				<input type=text name='cli_telephone' disabled placeholder="téléphone" title="téléphone" tabindex=9 size="10" maxlength="13" style='width:100px'>
+			</td>
+
 		</tr>
 	</table>
 </form>
@@ -95,7 +99,6 @@ $maxFiche = $infAppli['NB_MODIF'];
 		<td class='tittab' width=10%>Prix vente</td>
 		<td class='tittab' width=10%>Prix négo</td>
 		<td class='tittab' width=30%>Vendeur</td>
-		<td class='tittab' width=10%>Tél</td>
 		<td class='tittab' width=10%>Etat</td>
 		<td class='tittab' width=4%></td>
 	</tr>
@@ -113,7 +116,6 @@ $maxFiche = $infAppli['NB_MODIF'];
 					<td width=10% id="prix_vente_<?= $index ?>"></td>
 					<td width=10% id="prix_nego_<?= $index ?>"></td>
 					<td width=30% id="vendeur_<?= $index ?>"></td>
-					<td width=10% id="tel_<?= $index ?>"></td>
 					<td width=10% id="etat_<?= $index ?>"></td>
 					<td width=3% id="zoom_<?= $index ?>"></td>
 				</tr>

@@ -258,7 +258,7 @@ function display_fiche(val) {
             document.ficheForm.obj_modif_accessoire.disabled = false;
 
             val['obj_etat_libelle'] = "Présent sur le parc";
-            // document.ficheForm.obj_prix_vente.disabled = true
+            document.ficheForm.obj_prix_vente.disabled = false;
 
             // getElement("tdBtnAction").style.display = 'none';
             getElement("fieldSetAcheteur").style.display = 'none';
