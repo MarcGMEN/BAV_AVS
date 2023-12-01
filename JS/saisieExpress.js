@@ -213,7 +213,7 @@ function afficheLigne(val) {
 
             action += "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\",document.formTabSaisie.obj_prix_vente_" + index + ".value," + val['obj_numero'] + ")' />";
 
-            action += "<span title='Modifier'  onclick='modifData(" + val['obj_id'] + "," + val['cli_id'] + ",document.formTabSaisie, " + index + ")' class='link' style='font-size:1.5em'><i class='link fas fa-edit'></i>&nbsp;</span >";
+            action += "&nbsp;<span title='Modifier'  onclick='modifData(" + val['obj_id'] + "," + val['cli_id'] + ",document.formTabSaisie, " + index + ")' class='link' ><i class='link fas fa-edit'></i>&nbsp;</span >";
             
         } else if (val['obj_etat'] == "STOCK") {
             new_etat = "RENDU";
@@ -221,13 +221,15 @@ function afficheLigne(val) {
             action += "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\"," + val['obj_prix_vente'] + "," + val['obj_numero'] + ")' />";
             new_etat = "VENDU";
             new_libelle = "Vendre";
-            action += "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\"," + val['obj_prix_vente'] + "," + val['obj_numero'] + ")' />";
+            action += "&nbsp;<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\"," + val['obj_prix_vente'] + "," + val['obj_numero'] + ")' />";
 
+            
             var thePrixN = val['obj_prix_nego'];
-            var actionPrixNego = "<input type='number' name='obj_prix_nego_" + index + "' min=0 step='0.1' value='" + thePrixN + "' />";
+            var actionPrixNego = "<input type='number' name='obj_prix_nego_" + index + "' min=0 step='0.1' value='" + thePrixN + "' style='width:100px' />";
+            actionPrixNego += "&nbsp;&nbsp;<span title='Modifier'  onclick='modifData(" + val['obj_id'] + "," + val['cli_id'] + ",document.formTabSaisie, " + index + ")' class='link' ><i class='link fas fa-edit'></i>&nbsp;</span >";
+
             getElement("prix_nego_" + index).innerHTML = actionPrixNego;
 
-            action += "<span title='Modifier'  onclick='modifData(" + val['obj_id'] + "," + val['cli_id'] + ",document.formTabSaisie, " + index + ")' class='link' style='font-size:1.5em'><i class='link fas fa-edit'></i>&nbsp;</span >";
 
         } else if (val['obj_etat'] == "VENDU") {
             new_etat = "PAYE";
