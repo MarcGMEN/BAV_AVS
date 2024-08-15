@@ -24,7 +24,10 @@
 		</td>
 		<td width="78%">
 			<div class="TITRE_FENETRE_PRINCIPALE">
-				<?= retraitAccent($infAppli['titre']) ?>
+				<? $titreFen = retraitAccent($infAppli['titre']); 
+				// 20eme 
+				echo str_replace('20eme','<img src="./Images/20eme.png" alt="20eme" height="40px">', $titreFen);
+				?>
 			</div>
 			<?php if ($infAppli['ADMIN']) {
 				include './genericPages/menuTABLE.php';

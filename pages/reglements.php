@@ -6,7 +6,9 @@ if ($GET_modePage == "") {
 		'date1'=>date('d', $infAppli['date_j1']),
 		'date2'=>date('d', $infAppli['date_j2']),
 		'date3'=>date('d', $infAppli['date_j3']),
-		'mois'=>moisFrench(date('m', $infAppli['date_j2'])),
+		'mois1' => moisFrench(date('m', $infAppli['date_j1'])),
+		'mois2' => moisFrench(date('m', $infAppli['date_j1'])),
+		'mois3' => moisFrench(date('m', $infAppli['date_j3'])),
 		'annee'=>date('Y', $infAppli['date_j2']),
 		'URL'=>$CFG_URL,
 		'TITRE' => $infAppli['titre']

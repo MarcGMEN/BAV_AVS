@@ -146,7 +146,7 @@ function return_html($html)
 {
     extract($GLOBALS);
     //$data = ['URL' => $CFG_URL];
-    return makeCorps($data, '../html/' . $html . '.html');
+    return makeCorps("", '../html/' . $html . '.html');
 }
 
 /**

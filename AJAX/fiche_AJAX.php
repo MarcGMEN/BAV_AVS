@@ -6,6 +6,20 @@ include('../vendor/phpqrcode/qrlib.php');
 /**************************************/
 /**************************************/
 
+$data = array(
+    'date1' => date('d', $INFO_APPLI['date_j1']),
+    'date2' => date('d', $INFO_APPLI['date_j2']),
+    'date3' => date('d', $INFO_APPLI['date_j3']),
+    'mois1' => moisFrench(date('m', $INFO_APPLI['date_j1'])),
+    'mois2' => moisFrench(date('m', $INFO_APPLI['date_j1'])),
+    'mois3' => moisFrench(date('m', $INFO_APPLI['date_j3'])),
+    'annee' => date('Y', $INFO_APPLI['date_j2']),
+    'titre' => $INFO_APPLI['titre'],
+    'URL' => $CFG_URL,
+    'numero_bav' => $INFO_APPLI['numero_bav'],
+    'today' => date('d/m/Y')
+);
+
 /**
  * appel AJAX pour le comptage par etat
  */
@@ -327,18 +341,7 @@ function action_deleteFiche($id)
 function action_makeA4Etiquettes($eti0, $eti1, $test = true, $nameEti = 'etiquette')
 {
     extract($GLOBALS);
-
-    $data = array(
-        'date1' => date('d', $INFO_APPLI['date_j1']),
-        'date2' => date('d', $INFO_APPLI['date_j2']),
-        'date3' => date('d', $INFO_APPLI['date_j3']),
-        'mois' => date('M', $INFO_APPLI['date_j2']),
-        'annee' => date('Y', $INFO_APPLI['date_j2']),
-        'titre' => $INFO_APPLI['titre'],
-        'URL' => $CFG_URL,
-        'numero_bav' => $INFO_APPLI['numero_bav']
-    );
-
+    extract($data);
 
     $etiquettes = "<html><body>";
     // TODO : recherche des fiches a imprimer en fonction de la table bav_etiquette.
@@ -388,7 +391,6 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true, $nameEti = 'etiquet
                     $tabFiche[$index++] = $numFiche;
                 }
             }
-
         } else if (sizeof($tab) > 2) {
             return "Pas plus d'un - par selection.";
         } else {
@@ -399,7 +401,6 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true, $nameEti = 'etiquet
                     $eti1 = $value;
                 }
                 $eti0 = $tab[0];
-
             } else {
                 $eti1 = $eti0;
             }
@@ -500,7 +501,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true, $nameEti = 'etiquet
     $page = 0;
     $nbCouponTotal = sizeof($tabCoupons);
 
-    $tabImpression=array();
+    $tabImpression = array();
     // echo  $nbCouponTotal;
     foreach ($tabCoupons as $key => $value) {
         $pos = $ligne + $nbCoupon * $page;
@@ -557,16 +558,18 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
 {
     extract($GLOBALS);
 
-    $data = array(
-        'date1' => date('d', $INFO_APPLI['date_j1']),
-        'date2' => date('d', $INFO_APPLI['date_j2']),
-        'date3' => date('d', $INFO_APPLI['date_j3']),
-        'mois' => date('M', $INFO_APPLI['date_j2']),
-        'annee' => date('Y', $INFO_APPLI['date_j2']),
-        'titre' => $INFO_APPLI['titre'],
-        'URL' => $CFG_URL,
-        'numero_bav' => $INFO_APPLI['numero_bav']
-    );
+    // $data = array(
+    //     'date1' => date('d', $INFO_APPLI['date_j1']),
+    //     'date2' => date('d', $INFO_APPLI['date_j2']),
+    //     'date3' => date('d', $INFO_APPLI['date_j3']),
+    //     'mois1' => date('M', $INFO_APPLI['date_j1']),
+    //     'mois2' => date('M', $INFO_APPLI['date_j2']),
+    //     'mois3' => date('M', $INFO_APPLI['date_j3']),
+    //     'annee' => date('Y', $INFO_APPLI['date_j2']),
+    //     'titre' => $INFO_APPLI['titre'],
+    //     'URL' => $CFG_URL,
+    //     'numero_bav' => $INFO_APPLI['numero_bav']
+    // );
 
     $etiquettes = "<html><head><link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'              integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous'></head><body>";
 
@@ -612,7 +615,6 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
                     $tabFiche[$index++] = $numFiche;
                 }
             }
-
         } else if (sizeof($tab) > 2) {
             return "Pas plus d'un - par selection.";
         } else {
@@ -623,11 +625,9 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
                     $eti1 = $value;
                 }
                 $eti0 = $tab[0];
-
             } else {
                 $eti1 = $eti0;
             }
-
         }
     }
 
@@ -694,17 +694,14 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
         } else {
             $client['cli_prix_depot'] = "";
             $client['cli_nom1'] = "<u>$espace50</u>";
-            $client['cli_nom'] = "<u>$espace50</u>";
-            ;
+            $client['cli_nom'] = "<u>$espace50</u>";;
             $client['cli_prenom'] = "<u>$espace50</u>";
             $client['cli_emel'] = "<u>$espace50</u>";
             $client['cli_adresse'] = "";
             $client['cli_adresse1'] = "";
             $client['cli_code_postal'] = "";
-            $client['cli_ville'] = "<u>$espace50</u>";
-            ;
-            $client['cli_telephone'] = "<u>$espace50</u>";
-            ;
+            $client['cli_ville'] = "<u>$espace50</u>";;
+            $client['cli_telephone'] = "<u>$espace50</u>";;
             $client['cli_telephone_bis'] = "";
             $client['cli_taux_com'] = "10";
             $client['cli_id_modif'] = "";
@@ -807,17 +804,20 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
 function action_makeLibreFiche($eti, $nameFdp)
 {
     extract($GLOBALS);
-    $data = array(
-        'date1' => date('d', $INFO_APPLI['date_j1']),
-        'date2' => date('d', $INFO_APPLI['date_j2']),
-        'date3' => date('d', $INFO_APPLI['date_j3']),
-        'mois' => date('M', $INFO_APPLI['date_j2']),
-        'annee' => date('Y', $INFO_APPLI['date_j2']),
-        'titre' => $INFO_APPLI['titre'],
-        'URL' => $CFG_URL,
-        'numero_bav' => $INFO_APPLI['numero_bav'],
-        'today' => date('d/m/Y')
-    );
+    // $data = array(
+    //     'date1' => date('d', $INFO_APPLI['date_j1']),
+    //     'date2' => date('d', $INFO_APPLI['date_j2']),
+    //     'date3' => date('d', $INFO_APPLI['date_j3']),
+    //     'mois1' => date('M', $INFO_APPLI['date_j1']),
+    //     'mois2' => date('M', $INFO_APPLI['date_j1']),
+    //     'mois3' => date('M', $INFO_APPLI['date_j3']),
+    //     'annee' => date('Y', $INFO_APPLI['date_j2']),
+    //     'titre' => $INFO_APPLI['titre'],
+    //     'titreSI' => strip_tags($INFO_APPLI['titre']),
+    //     'URL' => $CFG_URL,
+    //     'numero_bav' => $INFO_APPLI['numero_bav'],
+    //     'today' => date('d/m/Y')
+    // );
     try {
         $fiche = return_oneFicheByCode($eti);
         error_log("-" . $fiche['obj_id'] . "-");
@@ -895,16 +895,18 @@ function action_makeLibreFiche($eti, $nameFdp)
 function action_makeA4Fiches($eti0, $eti1)
 {
     extract($GLOBALS);
-    $data = array(
-        'date1' => date('d', $INFO_APPLI['date_j1']),
-        'date2' => date('d', $INFO_APPLI['date_j2']),
-        'date3' => date('d', $INFO_APPLI['date_j3']),
-        'mois' => date('M', $INFO_APPLI['date_j2']),
-        'annee' => date('Y', $INFO_APPLI['date_j2']),
-        'titre' => $INFO_APPLI['titre'],
-        'URL' => $CFG_URL,
-        'numero_bav' => $INFO_APPLI['numero_bav']
-    );
+    // $data = array(
+    //     'date1' => date('d', $INFO_APPLI['date_j1']),
+    //     'date2' => date('d', $INFO_APPLI['date_j2']),
+    //     'date3' => date('d', $INFO_APPLI['date_j3']),
+    //     'mois1' => date('M', $INFO_APPLI['date_j1']),
+    //     'mois2' => date('M', $INFO_APPLI['date_j2']),
+    //     'mois3' => date('M', $INFO_APPLI['date_j3']),
+    //     'annee' => date('Y', $INFO_APPLI['date_j2']),
+    //     'titre' => $INFO_APPLI['titre'],
+    //     'URL' => $CFG_URL,
+    //     'numero_bav' => $INFO_APPLI['numero_bav']
+    // );
 
     if ($eti0 != "") {
         $tab = explode("-", $eti0);
@@ -918,7 +920,6 @@ function action_makeA4Fiches($eti0, $eti1)
                     $tabFiche[$index++] = $numFiche;
                 }
             }
-
         } else if (sizeof($tab) > 2) {
             return "Pas plus d'un - par selection.";
         } else {
@@ -929,11 +930,9 @@ function action_makeA4Fiches($eti0, $eti1)
                     $eti1 = $value;
                 }
                 $eti0 = $tab[0];
-
             } else {
                 $eti1 = $eti0;
             }
-
         }
     }
     try {
@@ -1020,7 +1019,7 @@ function getCommission($fiche)
                 $commission = $fiche['obj_prix_vente'] * ($client['cli_taux_com'] / 100);
             } else {
                 // TODO : parametre en fonction du taux
-                
+
                 if ((int)$client['cli_taux_com'] == 5.00) {
                     $commission = 80;
                 } else {
@@ -1060,16 +1059,19 @@ function action_makeData($id, $test = false)
     $numBAV = $INFO_APPLI['numero_bav'];
     $par = return_oneParametre($numBAV);
 
-    $data = array(
-        'date1' => date('d', $INFO_APPLI['date_j1']),
-        'date2' => date('d', $INFO_APPLI['date_j2']),
-        'date3' => date('d', $INFO_APPLI['date_j3']),
-        'mois' => date('M', $INFO_APPLI['date_j2']),
-        'annee' => date('Y', $INFO_APPLI['date_j2']),
-        'titre' => $INFO_APPLI['titre'],
-        'URL' => $CFG_URL,
-        'numero_bav' => $numBAV
-    );
+    // $data = array(
+    //     'date1' => date('d', $INFO_APPLI['date_j1']),
+    //     'date2' => date('d', $INFO_APPLI['date_j2']),
+    //     'date3' => date('d', $INFO_APPLI['date_j3']),
+    //     'mois1' => date('M', $INFO_APPLI['date_j1']),
+    //     'mois2' => date('M', $INFO_APPLI['date_j2']),
+    //     'mois3' => date('M', $INFO_APPLI['date_j3']),
+    //     'annee' => date('Y', $INFO_APPLI['date_j2']),
+    //     'titre' => $INFO_APPLI['titre'],
+    //     'titreSI' => strip_tags($INFO_APPLI['titre']),
+    //     'URL' => $CFG_URL,
+    //     'numero_bav' => $numBAV
+    // );
 
     error_log("action_makeData");
     error_log($id);
@@ -1100,7 +1102,6 @@ function action_makeData($id, $test = false)
         if ($fiche['obj_prix_achat'] == 0) {
             $fiche['obj_prix_achat'] = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
         }
-
     } elseif ($test) {
         $client['cli_prix_depot'] = $par['par_prix_depot_1'];
         $client['cli_nom'] = "mr TEST henry";
@@ -1317,16 +1318,18 @@ function action_changeEtatFiche($obj)
 function action_vendFiche($data)
 {
     extract($GLOBALS);
-    $tab = array(
-        'date1' => date('d', $INFO_APPLI['date_j1']),
-        'date2' => date('d', $INFO_APPLI['date_j2']),
-        'date3' => date('d', $INFO_APPLI['date_j3']),
-        'mois' => date('M', $INFO_APPLI['date_j2']),
-        'annee' => date('Y', $INFO_APPLI['date_j2']),
-        'titre' => $INFO_APPLI['titre'],
-        'URL' => $CFG_URL,
-        'numero_bav' => $numBAV
-    );
+    // $tab = array(
+    //     'date1' => date('d', $INFO_APPLI['date_j1']),
+    //     'date2' => date('d', $INFO_APPLI['date_j2']),
+    //     'date3' => date('d', $INFO_APPLI['date_j3']),
+    //     'mois1' => date('M', $INFO_APPLI['date_j1']),
+    //     'mois2' => date('M', $INFO_APPLI['date_j2']),
+    //     'mois3' => date('M', $INFO_APPLI['date_j3']),
+    //     'annee' => date('Y', $INFO_APPLI['date_j2']),
+    //     'titre' => $INFO_APPLI['titre'],
+    //     'URL' => $CFG_URL,
+    //     'numero_bav' => $numBAV
+    // );
     try {
         $fiche = tabToObject(string2Tab($data), "obj");
         $client = tabToObject(string2Tab($data), "cli");
@@ -1444,7 +1447,6 @@ function action_updateFiche($data)
         ) {
             $fiche['obj_modif_data'] = 2;
         }
-
     }
 
     if (

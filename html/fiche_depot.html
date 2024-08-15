@@ -18,9 +18,9 @@
                     </tbody>
                 </table>
             </td>
-            <td style="background-color:lightgrey; text-align:right; vertical-align:middle; width:30%">
-												<span style="font-size:22px">No</span><span style="font-size:40px">
-												<strong><span style="background-color:#ddf0ec; ">--obj_numero--&nbsp;</span></strong>
+            <td style="background-color:lightgrey; text-align:right; vertical-align:middle; width:30%; border:2px solid black">
+												<span style="font-size:22px">N°</span><span style="font-size:40px">
+												<strong><span style="background-color:#ddf0ec; ">--obj_numero--</span></strong>
                 </span>
             </td>
         </tr>
@@ -82,14 +82,15 @@
         </tr>
         <tr>
             <td style="border-bottom:1px solid blue; width:50%">Nom/prénom : <strong>--cli_nom--</strong></td>
-            <td style="border-bottom:1px solid blue">Code Postal : <strong>--cli_code_postal-- </strong>Ville : <strong>--cli_ville--</strong></td>
+           <td style="border-bottom:1px solid blue; width:50%">Téléphone : <strong>--cli_telephone-- --cli_telephone_bis--</strong></td>
+        </tr>
+        <tr>
+            <td style="border-bottom:1px solid blue">Mél : <strong>--cli_emel--</strong></td>
+						<td style="border-bottom:1px solid blue">Code Postal : <strong>--cli_code_postal-- </strong></td>
         </tr>
         <tr>
             <td style="border-bottom:1px solid blue">Adresse : <strong>--cli_adresse-- --cli_adresse1--</strong></td>
-            <td style="border-bottom:1px solid blue">Téléphone : <strong>--cli_telephone-- --cli_telephone_bis--</strong></td>
-        </tr>
-        <tr>
-            <td style="border-bottom:1px solid blue; width:50%">Mél : <strong>--cli_emel--</strong></td>
+					<td style="border-bottom:1px solid blue">Ville: <strong>--cli_ville--</strong></td>
         </tr>
     </tbody>
 </table>
@@ -114,7 +115,8 @@
                             <td style="width:30%">Date :<span style="border-bottom:1px solid blue; color:#3498db">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br/>
                             </td>
 													<td>
-															<p>Pièce d'identité : (C.I. - P.C. - Passeport )<br/>N° __________________________________</p>
+															<p>Pièce d'identité : (C.N.I. - P.C. - Passeport )<br/>Date d'obtention   _____/______/__________
+																<br/>N° __________________________________</p>
 													</td>
                         </tr>
                     </tbody>
@@ -155,15 +157,16 @@
             </td>
         </tr>
         <tr>
-            <td style="background-color:#ddf0ec;font-size:14px">Nom/prénom :</td>
-            <td style="background-color:#ddf0ec;font-size:14px">Code Postal :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ville :</td>
-        </tr>
-        <tr>
-            <td style="background-color:#ddf0ec;font-size:14px">Adresse :</td>
-            <td style="background-color:#ddf0ec;font-size:14px">Téléphone :</td>
+            <td style="background-color:#ddf0ec;font-size:14px; width:50%">Nom/prénom :</td>
+	          <td style="background-color:#ddf0ec;font-size:14px; width:50%">Téléphone :</td>
         </tr>
         <tr>
             <td style="background-color:#ddf0ec;font-size:14px">Mél :</td>
+						<td style="background-color:#ddf0ec;font-size:14px">Code Postal :</td>
+        </tr>
+        <tr>
+            <td style="background-color:#ddf0ec;font-size:14px">Adresse :</td>
+						<td style="background-color:#ddf0ec;font-size:14px">Ville :</td>
         </tr>
     </tbody>
 </table>
@@ -175,7 +178,7 @@
                 <table border="0" cellpadding="0" cellspacing="0" style="width:100%">
                     <tbody>
                         <tr>
-                            <td colspan=2>Payé la somme de --obj_prix_vente-- &euro;<br /> en espèce - par chèque <strong>à l'ordre du vendeur</strong>.</td>
+                            <td colspan=2>Payé la somme de --obj_prix_vente-- &euro;<br /> en Espèces&nbsp;&nbsp;ou&nbsp;&nbsp;Chèque <strong>à l'ordre du vendeur</strong>.</td>
                         </tr>
                         <tr>
                             <td colspan=2><br /> Signature avec la mention <strong>« lu et approuvé »</strong> :</td>
@@ -184,7 +187,9 @@
                             <td style='width:30%'>Date :<span style="border-bottom:1px solid blue; color:#3498db">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>
                                 </span>
                             </td>
-														<td><p>Pièce d'identité : (C.I. - P.C. - Passeport )<br/>N° __________________________________</p></td>
+														<td><p>Pièce d'identité : (C.N.I. - P.C. - Passeport )<br/>Date d'obtention   _____/______/__________
+																<br/>N° __________________________________</p>
+													</td>
                         </tr>
                     </tbody>
                 </table>
@@ -233,7 +238,7 @@
                             <td>Commission due par le vendeur : <strong>--cli_com--</strong> &euro;</td>
                         </tr>
                         <tr>
-                            <td>Payée par : espèces - cb - chèque <strong>(à l'ordre de l'AVS)</strong><br/>&nbsp;</td>
+                            <td>Payée par : Espèces&nbsp;&nbsp;-&nbsp;&nbsp;CB&nbsp;&nbsp;-&nbsp;&nbsp;Chèque <strong><br/>(à l'ordre de l'AVS)</strong><br/>&nbsp;</td>
                         </tr>
                         <tr>
                             <td>
