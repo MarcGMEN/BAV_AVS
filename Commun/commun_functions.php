@@ -448,3 +448,8 @@ function retraitAccent($MaChaine) {
 	return str_replace($search, $replace, $MaChaine);
 }
 
+
+
+
+
+

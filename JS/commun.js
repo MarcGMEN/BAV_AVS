@@ -576,3 +576,24 @@ const isValidUrl = urlString => {
         return false;
     }
 }
+
+let currentIndex = 0;
+
+function showNextImage(idCarrousel) {
+    // console.log(idCarrousel);
+    const images = document.querySelectorAll("."+idCarrousel+'-images  img');
+    const totalImages = images.length;
+    currentIndex++;
+    if (currentIndex >= totalImages) {
+        currentIndex = 0;
+    }
+    updateCarousel(idCarrousel);
+}
+
+function updateCarousel(idCarrousel) {
+    const offset = -currentIndex * 100;  // Assumes all images have equal width
+    const carouselImages = document.querySelector("."+idCarrousel+'-images'     );
+    carouselImages.style.transform = `translateX(${offset}%)`;
+
+    setTimeout("showNextImage('"+idCarrousel+"')", 2000);
+}

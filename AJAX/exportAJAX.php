@@ -11,7 +11,8 @@ sajax_export(
     "action_menage",
     "add_counter_action",
     "delete_file",
-    "add_cdp","return_lat_lon_cdp","return_all_lat_lon_cdp"
+    "add_cdp","return_lat_lon_cdp","return_all_lat_lon_cdp",
+    "makeCarroussel"
 );
 
 // $pattern = preg_quote("function ", '/');

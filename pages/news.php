@@ -5,11 +5,21 @@
 
 
 	function display_bav_actu(val) {
-
 		getElement('bav_actu').innerHTML = val;
+		x_makeCarroussel('carroussel', display_carroussel);
+		
 	}
-	function unloadPage() {}
+	function unloadPage() {
+		
+	}
 
+	function display_carroussel(val) {
+		if (getElement('carroussel')) {
+
+			getElement('carroussel').innerHTML = val;
+			showNextImage('carroussel');
+		}
+	}
 
 	function searchVente(numero) {
 		x_add_counter_action("searchVente", ADMIN ? 'ADMIN' : 'VISITEUR', numero, display_rien);
@@ -33,6 +43,7 @@ $data = array(
 	<? foreach ($data as $key => $val) {
 		echo "data2PDF['$key']='$val';\n";
 	} ?>
+	
 </script>
 <? if ($infAppli['bav_en_cours'] || $infAppli['ADMIN']) { ?>
 	<form name="bavFormFiche" action="#" onsubmit='return searchVente(document.bavFormFiche.inputSearchBAV.value)'>
