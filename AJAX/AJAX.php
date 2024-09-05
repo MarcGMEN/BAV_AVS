@@ -258,7 +258,7 @@ $theCarroussel ="<style>
 }
 
 .$id-images img {
-    width: 250;
+    width: 250px;
     flex-shrink: 0;
 }</style>";
 

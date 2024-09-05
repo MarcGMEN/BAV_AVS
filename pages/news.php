@@ -3,23 +3,28 @@
 		x_return_html('bav_actu', display_bav_actu);
 	}
 
-
 	function display_bav_actu(val) {
 		getElement('bav_actu').innerHTML = val;
 		x_makeCarroussel('carroussel', display_carroussel);
-		
+		x_makeCarroussel('carroussel1', display_carroussel1);
 	}
 	function unloadPage() {
-		
 	}
 
 	function display_carroussel(val) {
 		if (getElement('carroussel')) {
-
 			getElement('carroussel').innerHTML = val;
 			showNextImage('carroussel');
 		}
 	}
+
+	function display_carroussel1(val) {
+		if (getElement('carroussel1')) {
+			getElement('carroussel1').innerHTML = val;
+			showNextImage('carroussel1');
+		}
+	}
+	
 
 	function searchVente(numero) {
 		x_add_counter_action("searchVente", ADMIN ? 'ADMIN' : 'VISITEUR', numero, display_rien);

@@ -576,24 +576,28 @@ const isValidUrl = urlString => {
         return false;
     }
 }
-
-let currentIndex = 0;
-
-function showNextImage(idCarrousel) {
+let currentsindex=[]; 
+function showNextImage(idCarrousel,first) {
     // console.log(idCarrousel);
+
+    
     const images = document.querySelectorAll("."+idCarrousel+'-images  img');
     const totalImages = images.length;
-    currentIndex++;
-    if (currentIndex >= totalImages) {
-        currentIndex = 0;
+    if (!currentsindex[idCarrousel]) {
+        currentsindex[idCarrousel] = 0;
+    }
+    currentsindex[idCarrousel]++;
+    console.log(currentsindex);
+    if (currentsindex[idCarrousel] >= totalImages) {
+        currentsindex[idCarrousel] = 0;
     }
     updateCarousel(idCarrousel);
 }
 
 function updateCarousel(idCarrousel) {
-    const offset = -currentIndex * 100;  // Assumes all images have equal width
+    const offset = -currentsindex[idCarrousel] * 100;  // Assumes all images have equal width
     const carouselImages = document.querySelector("."+idCarrousel+'-images'     );
     carouselImages.style.transform = `translateX(${offset}%)`;
 
-    setTimeout("showNextImage('"+idCarrousel+"')", 2000);
+    setTimeout("showNextImage('"+idCarrousel+"',0)", 2000);
 }
