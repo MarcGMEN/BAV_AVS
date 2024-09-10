@@ -587,7 +587,7 @@ function showNextImage(idCarrousel,first) {
         currentsindex[idCarrousel] = 0;
     }
     currentsindex[idCarrousel]++;
-    console.log(currentsindex);
+    // console.log(currentsindex);
     if (currentsindex[idCarrousel] >= totalImages) {
         currentsindex[idCarrousel] = 0;
     }

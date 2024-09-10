@@ -192,10 +192,10 @@ function add_cdp($cdp, $lat, $lon, $plus)
 
     ksort($tabCdp);
     foreach ($tabCdp as $cdp => $value) {
-        $strFile.=$cdp."=".$value."\n";
+        $strFile .= $cdp . "=" . $value . "\n";
         // error_log("$cdp => $value");    
     }
-    
+
     // $strFile = implode('\n', $tabCdp);
     file_put_contents("../Commun/cdp.txt", $strFile);
 }
@@ -225,25 +225,26 @@ function return_all_lat_lon_cdp()
     return $tabCdp;
 }
 
-function makeCarroussel($id) {
-	// Chemin du répertoire contenant les images
-	$imagesDir = "./Images/$id";
+function makeCarroussel($id)
+{
+    // Chemin du répertoire contenant les images
+    $imagesDir = "./Images/$id";
     $imagesDirSearch = "../Images/$id";
 
-// Ouvre le répertoire et récupère la liste des fichiers
-if (is_dir($imagesDirSearch)) {
-    $files = scandir($imagesDirSearch);
-} else {
-    die('Erreur : Le répertoire '.$imagesDirSearch.' des images n\'existe pas.');
-}
+    // Ouvre le répertoire et récupère la liste des fichiers
+    if (is_dir($imagesDirSearch)) {
+        $files = scandir($imagesDirSearch);
+    } else {
+        die('Erreur : Le répertoire ' . $imagesDirSearch . ' des images n\'existe pas.');
+    }
 
-// Filtre les fichiers pour ne garder que les images (jpg, jpeg, png, gif)
-$imageFiles = array_filter($files, function($file) use ($imagesDirSearch) {
-    $filePath = $imagesDirSearch . '/' . $file;
-    return is_file($filePath) && preg_match('/\.(jpg|jpeg|png|gif)$/i', $file);
-});
+    // Filtre les fichiers pour ne garder que les images (jpg, jpeg, png, gif)
+    $imageFiles = array_filter($files, function ($file) use ($imagesDirSearch) {
+        $filePath = $imagesDirSearch . '/' . $file;
+        return is_file($filePath) && preg_match('/\.(jpg|jpeg|png|gif)$/i', $file);
+    });
 
-$theCarroussel ="<style>
+    $theCarroussel = "<style>
 .$id {
     width: 250px;
     /* max-width: 600px; */
@@ -263,16 +264,16 @@ $theCarroussel ="<style>
 }</style>";
 
 
-// Génère les balises <img> pour chaque image
-$theCarroussel .= "<div class='".$id."-images' >";
-foreach ($imageFiles as $file) {
-    $imgStr="<img src=".$imagesDir."/".$file."  />";
-    $theCarroussel .= "
-        <img src='".$imagesDir."/".$file."' alt='". pathinfo($file, PATHINFO_FILENAME) ."' 
-        onclick=\"alertModalInfo('".$imgStr."')\">";
-}
-$theCarroussel .= "</div>";
-return $theCarroussel; 
+    // Génère les balises <img> pour chaque image
+    $theCarroussel .= "<div class='" . $id . "-images' >";
+    foreach ($imageFiles as $file) {
+        $imgStr = "<img src=" . $imagesDir . "/" . $file . "  />";
+        $theCarroussel .= "
+        <img src='" . $imagesDir . "/" . $file . "' alt='" . pathinfo($file, PATHINFO_FILENAME) . "' 
+        onclick=\"alertModalInfo('" . $imgStr . "')\">";
+    }
+    $theCarroussel .= "</div>";
+    return $theCarroussel;
 }
 
 
