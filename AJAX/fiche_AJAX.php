@@ -10,9 +10,6 @@ $data = array(
     'date1' => date('d', $INFO_APPLI['date_j1']),
     'date2' => date('d', $INFO_APPLI['date_j2']),
     'date3' => date('d', $INFO_APPLI['date_j3']),
-    'mois1' => moisFrench(date('m', $INFO_APPLI['date_j1'])),
-    'mois2' => moisFrench(date('m', $INFO_APPLI['date_j1'])),
-    'mois3' => moisFrench(date('m', $INFO_APPLI['date_j3'])),
     'annee' => date('Y', $INFO_APPLI['date_j2']),
     'titre' => $INFO_APPLI['titre'],
     'URL' => $CFG_URL,
@@ -168,15 +165,15 @@ function return_oneFiche($id)
  * en mode ADMIN :  creation directe et mise en STOCK
  * en mode CLIENT : creation en INIT avec un numero dans le 5000 et envoi d'un mail pour confirmer la creation
  */
-function action_createFiche($data)
+function action_createFiche($dataFiche)
 {
     extract($GLOBALS);
     $ADMIN = $INFO_APPLI['ADMIN'];
 
     $retour = [];
     try {
-        $tabObj = tabToObject(string2Tab($data), "obj");
-        $tabCli = tabToObject(string2Tab($data), "cli");
+        $tabObj = tabToObject(string2Tab($dataFiche), "obj");
+        $tabCli = tabToObject(string2Tab($dataFiche), "cli");
 
         // creation du client, si mel ou nom OK, on le recupere
         // on en normalement avec le mel uniquement
@@ -280,14 +277,14 @@ function action_reMelConfirme($id)
 /**
  * creation expres
  */
-function action_createFicheExpress($data)
+function action_createFicheExpress($dataFiche)
 {
     extract($GLOBALS);
 
     $retour = "";
     try {
-        $tabObj = tabToObject(string2Tab($data), "obj");
-        $tabCli = tabToObject(string2Tab($data), "cli");
+        $tabObj = tabToObject(string2Tab($dataFiche), "obj");
+        $tabCli = tabToObject(string2Tab($dataFiche), "cli");
 
         // creation mais pas modification
         // on recoit un mel et ou un nom
