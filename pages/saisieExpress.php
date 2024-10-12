@@ -74,7 +74,7 @@ $maxFiche = $infAppli['NB_MODIF'];
 				<datalist id="listVendeur"></datalist>
 			</td>-->
 			<td colspan=2	>
-				<input type=text name='cli_nom_<?= $idRamdom ?>' disabled tabindex=7 placeholder="Nom et prénom" size="30" maxlength="100" required  style="text-transform:uppercase" onblur='searchByName(this.value)' list="listVendeurName" style='width:300px'>
+				<input type=text name='cli_nom_<?= $idRamdom ?>' disabled tabindex=7 placeholder="Nom et prénom" size="30" maxlength="100" required  style="text-transform:uppercase" onblur='searchByName(this.value)' list="listVendeurName" style='width:300px' >
 				<datalist id="listVendeurName"></datalist>
 			</td>
 			<td>

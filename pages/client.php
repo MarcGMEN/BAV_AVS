@@ -54,7 +54,8 @@
 					<? } else { ?>
 						<input type=text name='cli_nom' tabindex=<?= $tabindex++ ?> size="50" maxlength="100" required 
 						onkeyup="setStartSaisie(true);" 
-						onblur='searchByName(this.value)' />
+						onblur='searchByName(this.value)' 
+						style="text-transform:uppercase"/>
 					<? } ?>
 				</span>
 			</div>

@@ -33,7 +33,7 @@ function display_openPDF(val) {
     closeModal();
     document.body.style.cursor = 'default';
     setTimeout(() => {
-        window.open(val, '_blank');
+        window.open(val, '_blank',"noopener,noreferrer");
     });
     
 }

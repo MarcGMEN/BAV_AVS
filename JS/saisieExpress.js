@@ -150,7 +150,9 @@ function display_fichesExpress(val) {
     for (var i = 1; i < maxFiche; i += classeur) {
         getElement("cla_" + i).className = 'link';
     }
-    getElement("cla_" + baseNumFiche).className = 'navigation navigationSel';
+    if (getElement("cla_" + baseNumFiche)) {
+        getElement("cla_" + baseNumFiche).className = 'navigation navigationSel';
+    }
 }
 /**
  * affichage d'un ligne
@@ -463,7 +465,7 @@ function display_fiche(val) {
  * @param {} value 
  */
 function searchByName(value) {
-    // console.log("searchByName " + value);
+    console.log("saisieExpress.js!searchByName " + value);
     if (value != "") {
         x_return_oneClientByName(value, display_infoClientVendeurName);
     }

@@ -29,17 +29,17 @@ function return_infoAppli()
     $infos['ADMIN'] = $_COOKIE['AADD'] == $GLOBALS['PASS_ADMIN'] ? 1 : 0;
     $infos['NB_MODIF'] = $par['par_nb_modif'];
     $dateFin=strtotime($par['par_client_date_fin']);
-    $dateFin17=mktime(17, 0, 0, date('m',$dateFin), date('d',$dateFin), date('Y',$dateFin));
-    $dateFin17=mktime(22, 38, 0, date('m',$dateFin), date('d',$dateFin), date('Y',$dateFin));
+    // $dateFin17=mktime(17, 0, 0, date('m',$dateFin), date('d',$dateFin), date('Y',$dateFin));
+    $dateFin17=mktime(23, 50, 0, date('m',$dateFin), date('d',$dateFin), date('Y',$dateFin));
     
     if (strtotime($par['par_client_date_debut']) < $today && $today < $dateFin17) {
         $infos['CLIENT'] = 1;
     } else {
         $infos['message'] = "Session pas encore ouverte";
     }
-    $infos['dateFinClient'] = date("d/m/Y H:I:s",$dateFin17 );
-    //$infos['dateFinClient'] = date("d/m/Y H:I:s",$dateFin17 );
-    // $infos['dateFinClient'] = date("d/m/Y H:I:s",$today-$dateFin17 );
+    $infos['dateFinClient'] = date("d/m/Y H:i:s",$dateFin17 );
+    //$infos['dateFinClient'] = date("d/m/Y H:i:s",$dateFin17 );
+    // $infos['dateFinClient'] = date("d/m/Y H:i:s",$today-$dateFin17 );
     
     foreach ($tabIpsAdmin as $ipOk) {
         if (trim($ipOk) == trim($ipLu)) {
@@ -65,7 +65,7 @@ function return_infoAppli()
 
     $infos['par_date_debut_depot_FR'] =  formateDateMYSQLtoFR($par['par_date_debut_depot'], true);
     $infos['par_date_debut_vente_FR'] =  formateDateMYSQLtoFR($par['par_date_debut_vente'], true);
-    $infos['par_date_fin_bav_FR'] =  formateDateMYSQLtoFR($par['par_date_fin_bav'], true);
+    $infos['par_date_fin_bav_FR'] =  formateDateMYSQLtoFR($par['H:I:s'], true);
     
     $infos['date_j1'] = strtotime($par['par_date_debut_depot']);
     $infos['date_j2'] = strtotime($par['par_date_debut_vente']);

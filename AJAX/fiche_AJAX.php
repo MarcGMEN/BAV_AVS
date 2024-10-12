@@ -291,7 +291,6 @@ function action_createFicheExpress($dataFiche)
         // en cas de mel, on ignore le nom
         // en cas de nom, pas de mel a priori
         $tabCli = makeClient($tabCli);
-
         $tabObj['obj_prix_depot'] = $tabObj['obj_prix_vente'];
 
         $tabObj['obj_id_vendeur'] = $tabCli['cli_id'];
@@ -953,6 +952,7 @@ function action_makeA4Fiches($eti0, $eti1)
                 // MISE EN FORME DE LA FICHE
                 // MISE EN FORME DE LA FICHE
                 // regroupement de la description
+                // $fiche['obj_numero'] = "&nbsp;&nbsp;&nbsp;".$fiche['obj_numero'];
                 $fiche['obj_description'] = concatDescription($fiche['obj_description']);
 
                 if ($fiche['obj_prix_vente'] != $fiche['obj_prix_depot'] && $fiche['obj_prix_vente'] > 0.00) {
@@ -1228,6 +1228,7 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false, $format 
     extract($GLOBALS);
     $data = action_makeData($id, $test);
     try {
+        $random = rand($data['obj_numero'], $data['obj_numero'] + 2000);
         $filePDF = html2pdf($data, $html, basename($html, ".html") . "_" . $data['obj_numero'], $format);
     } catch (Exception $e) {
         print_r($e);

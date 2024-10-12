@@ -140,6 +140,7 @@ function action_updateClient($obj)
                 return "Nom déja utilisé pour " . $climel['cli_id_modif'];
             }
         }
+        $tab['cli_nom'] =strtoupper($tab['cli_nom']);
         updateClient($tab);
         return $tab;
     } catch (Exception $e) {
@@ -257,6 +258,7 @@ function makeClient($tabCli)
 
         $clientSearch = $tabCli;
     }
+    $clientSearch['cli_nom'] =strtoupper($clientSearch['cli_nom']);
 
     return $clientSearch;
 }

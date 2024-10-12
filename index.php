@@ -97,7 +97,7 @@ sajax_handle_client_request();
 		var ADMIN = <?= $infAppli['ADMIN'] ? 1 : 0 ?>;
 		var CLIENT = <?= $infAppli['CLIENT'] ? 1 : 0 ?>;
 		var BAV_ENCOURS = <?= $infAppli['bav_en_cours'] ? 1 : 0 ?>;
-		var dateFinclient = '<?= $infAppli['dateFinClient'] ?>';
+		var dateFinClient = '<?= $infAppli['dateFinClient'] ?>';
 
 		// date d'ouverture du depot
 		var DATE_J1 = <?= $infAppli['date_j1'] ?>;
