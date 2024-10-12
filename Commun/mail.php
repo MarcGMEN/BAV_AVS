@@ -11,13 +11,13 @@ function makeEntete($titre)
     return  $messageMail;
 }
 
-function makeMessage($titre, $data, $fileHTML)
+function makeMessage($titre, $dataMess, $fileHTML)
 {
     extract($GLOBALS);
     $messageMail="";
     
     $messageMail.=makeEntete($titre);
-    $messageMail.=makeCorps($data, $fileHTML);
+    $messageMail.=makeCorps($dataMess, $fileHTML);
     $messageMail.=makePied();
     
     return  $messageMail;

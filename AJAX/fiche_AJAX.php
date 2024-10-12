@@ -1218,18 +1218,18 @@ function action_makeData($id, $test = false)
 
 function action_makeHtml($id, $html, $test)
 {
-    $data = action_makeData($id, $test);
+    $dataL = action_makeData($id, $test);
     error_log($html);
-    return makeCorps($data, $html);
+    return makeCorps($dataL, $html);
 }
 
 function action_makePDF($id, $html = 'fiche_depot.html', $test = false, $format = "P")
 {
     extract($GLOBALS);
-    $data = action_makeData($id, $test);
+    $dataL = action_makeData($id, $test);
     try {
-        $random = rand($data['obj_numero'], $data['obj_numero'] + 2000);
-        $filePDF = html2pdf($data, $html, basename($html, ".html") . "_" . $data['obj_numero'], $format);
+        $random = rand($dataL['obj_numero'], $dataL['obj_numero'] + 2000);
+        $filePDF = html2pdf($dataL, $html, basename($html, ".html") . "_" . $dataL['obj_numero'], $format);
     } catch (Exception $e) {
         print_r($e);
         return "ERREUR " . $e->getMessage();
@@ -1313,7 +1313,7 @@ function action_changeEtatFiche($obj)
 /**
  * mise en vente
  */
-function action_vendFiche($data)
+function action_vendFiche($dataL)
 {
     extract($GLOBALS);
     // $tab = array(
@@ -1329,8 +1329,8 @@ function action_vendFiche($data)
     //     'numero_bav' => $numBAV
     // );
     try {
-        $fiche = tabToObject(string2Tab($data), "obj");
-        $client = tabToObject(string2Tab($data), "cli");
+        $fiche = tabToObject(string2Tab($dataL), "obj");
+        $client = tabToObject(string2Tab($dataL), "cli");
 
         // creation de l'acheteur (ATTENTION : on re recherche l'agent)
         // on recoit un mel et ou un nom
@@ -1381,11 +1381,11 @@ function action_vendFiche($data)
 /**
  * mise a jour de la fiche
  */
-function action_updateFiche($data)
+function action_updateFiche($dataL)
 {
-    $fiche = tabToObject(string2Tab($data), "obj");
-    $client = tabToObject(string2Tab($data), "cli");
-    $acheteur = tabToObject(string2Tab($data), "ach");
+    $fiche = tabToObject(string2Tab($dataL), "obj");
+    $client = tabToObject(string2Tab($dataL), "cli");
+    $acheteur = tabToObject(string2Tab($dataL), "ach");
 
     if ($acheteur) {
         $clientAcheteur = [];

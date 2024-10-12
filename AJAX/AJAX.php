@@ -42,9 +42,9 @@ function whatYourName($pass)
 /**
  * tranformation d'un tableau en object PHP
  */
-function tabToObject($data, $trigramme)
+function tabToObject($dataObj, $trigramme)
 {
-    foreach ($data as $key => $val) {
+    foreach ($dataObj as $key => $val) {
         if (substr($key, 0, 4) == $trigramme . '_') {
             $obj[$key] = $val;
         }
@@ -115,9 +115,9 @@ function return_list_unique($table, $champ)
  * Appel Ajax pour meetre jour une page HTML avec des datas
  * date  au format --data-- dans le html
  */
-function get_publiHtml($data, $html)
+function get_publiHtml($dataLC, $html)
 {
-    return makeCorps(string2Tab($data), $html);
+    return makeCorps(string2Tab($dataLC), $html);
 }
 
 function delete_file($file)
@@ -128,13 +128,13 @@ function delete_file($file)
 /**
  * Creation d'un PDF a partir d'un html avec en nom le fichier html sans l'extension
  */
-function action_makePDFFromHtml($data, $html)
+function action_makePDFFromHtml($dataPDF, $html)
 {
     extract($GLOBALS);
     $tabSplit = explode(".", $html);
     $ext = $tabSplit[sizeof($tabSplit) - 1];
     $nameBase = str_replace("." . $ext, "", $html);
-    $filePDF = html2pdf(string2Tab($data), "../html/$html", $nameBase);
+    $filePDF = html2pdf(string2Tab($dataPDF), "../html/$html", $nameBase);
 
     return $CFG_URL . $filePDF;
 }
@@ -152,9 +152,9 @@ function return_html($html)
 /**
  * sauvegarde d'un fichier HTML
  */
-function save_html($html, $data)
+function save_html($html, $dataPDF)
 {
-    file_put_contents('../html/' . $html . '.html', utf8_encode($data));
+    file_put_contents('../html/' . $html . '.html', utf8_encode($dataPDF));
     return $html;
 }
 

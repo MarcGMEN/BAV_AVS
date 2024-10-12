@@ -124,24 +124,29 @@ input[type=submit],
 input[type=reset],
 input[type=file] {
     font-family: Verdana, Arial, Helvetica, sans-serif !important;
-    font-weight: normal;
-    /*font-weight: bold;*/
-    background-color: lightblue;
+    /*  */
+    /* font-weight: bold; */
+    /* background-color: lightblue; */
+    background-color: whitesmoke;
     text-align: center;
     cursor: pointer;
     border-width: 1px;
-    border-color: #fff200;
+    border-top-width: 0px;
+    border-left-width: 0px;
+    /*border-color: #fff200;*/
     border-style: solid;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    padding: 0.2em;
+    padding: 0.5em;
     font-size: 0.9em;
 }
 
 button:hover,
+input[type=submit]:hover,
 input[type=button]:hover {
-    background-color: #fff200;
+    background-color:lightyellow ;
     color: #1161a2;
+    /* font-weight: bold; */
     border-style: inset;
 }
 
@@ -210,6 +215,9 @@ select:invalid {
 input:valid,
 textarea:valid,
 select:valid {
+    border-width: 1px;
+    border-top-width: 0px;
+    border-left-width: 0px;
     border-color: blue;
 }
 

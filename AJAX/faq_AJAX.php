@@ -23,9 +23,9 @@ function action_deleteFaq($id)
     deleteFaq($id);
 }
 
-function action_updateFaq($data)
+function action_updateFaq($dataFaq)
 {
-    $faq = tabToObject(string2Tab($data), "faq");
+    $faq = tabToObject(string2Tab($dataFaq), "faq");
 
     try {
         updateFaq($faq);

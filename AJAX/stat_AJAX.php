@@ -400,11 +400,11 @@ function return_statRepartition()
  * data : client ou objetVente ou objetDepot
  * trie par defaut par la clef
  */
-function return_graphCount($by, $data = '')
+function return_graphCount($by, $dataGraph = '')
 {
-    if ($data == 'client') {
+    if ($dataGraph == 'client') {
         $tabCount = return_statClient();
-    } else if ($data == 'vente') {
+    } else if ($dataGraph == 'vente') {
         $tabCount = return_statByType(null, "vente");
     } else {
         $tabCount = return_statByType(null, "depot");
@@ -453,11 +453,11 @@ function return_graphCount($by, $data = '')
  * data : client ou objetVente ou objetDepot
  * minima : valeur mininale a afficher, pour retire les 1 par ex
  */
-function return_histoCount($selectoin, $by, $width = 400, $height = 250, $sort = 0, $data = '', $minima = 0)
+function return_histoCount($selectoin, $by, $width = 400, $height = 250, $sort = 0, $dataGraph = '', $minima = 0)
 {
-    if ($data == 'client') {
+    if ($dataGraph == 'client') {
         $tabCount = return_statClient();
-    } else if ($data == 'vente') {
+    } else if ($dataGraph == 'vente') {
         $tabCount = return_statByType($selectoin, "vente");
     } else {
         $tabCount = return_statByType($selectoin, "depot");
@@ -535,8 +535,8 @@ function return_histoCount($selectoin, $by, $width = 400, $height = 250, $sort =
         $graph->xaxis->SetLabelAngle(45);
 
         // Provoquer l'affichage (renvoie directement l'image au navigateur)
-        $graph->Stroke("../out/img/histo_" . $by . "_" . $data . ".png");
-        return "./out/img/histo_" . $by . "_" . $data . ".png";
+        $graph->Stroke("../out/img/histo_" . $by . "_" . $dataGraph . ".png");
+        return "./out/img/histo_" . $by . "_" . $dataGraph . ".png";
     } else {
         return "./Images/avs.png";
     }

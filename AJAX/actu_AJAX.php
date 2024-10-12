@@ -22,9 +22,9 @@ function action_deleteActu($id)
     deleteActu($id);
 }
 
-function action_updateActu($data)
+function action_updateActu($dataLc)
 {
-    $act =tabToObject(string2Tab($data), "act");
+    $act =tabToObject(string2Tab($dataLc), "act");
         
     try {
         updateActu($act);

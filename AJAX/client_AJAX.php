@@ -171,13 +171,13 @@ function action_deleteClient($id)
 /**
  * creation d'un client
  */
-function action_makeClient($data, $mail = true)
+function action_makeClient($dataClient, $mail = true)
 {
     extract($GLOBALS);
     $numBAV = $INFO_APPLI['numero_bav'];
     $par = return_oneParametre($numBAV);
 
-    $tabCli = tabToObject(string2Tab($data), "cli");
+    $tabCli = tabToObject(string2Tab($dataClient), "cli");
     $tabCli = makeClient($tabCli);
 
     $tabCli['cli_taux_com'] = $par['par_taux_3'];
@@ -228,10 +228,10 @@ function action_redonneCode($mel)
  */
 function makeClient($tabCli)
 {
-
     extract($GLOBALS);
     $numBAV = $INFO_APPLI['numero_bav'];
     $par = return_oneParametre($numBAV);
+    $tabCli['cli_nom'] =strtoupper($tabCli['cli_nom']);
     if ($tabCli['cli_id'] != null) {
         //echo "makeClient => recherche par mel";
         $clientSearch =  getOne($tabCli['cli_id'], "bav_client", "cli_id");
@@ -254,11 +254,11 @@ function makeClient($tabCli)
         if (!$tabCli['cli_prix_depot']) {
             $tabCli['cli_prix_depot'] = $par['par_prix_depot_1'];
         }
+
         $tabCli['cli_id'] = insertClient($tabCli);
 
         $clientSearch = $tabCli;
     }
-    $clientSearch['cli_nom'] =strtoupper($clientSearch['cli_nom']);
 
     return $clientSearch;
 }

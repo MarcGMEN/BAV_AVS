@@ -298,13 +298,13 @@ function is_date($value, $format = 'yyyy-mm-dd'){
 //echo "\n";
 //echo  date('d/m/Y H:i:s',dateMysqlInt("2001-06-12"));
 
-function makeCorps($data, $fileHTML)
+function makeCorps($dataLC, $fileHTML)
 {
     $messageMail="";
 
 	$messageMail.=file_get_contents(dirname(__FILE__)."/../html/$fileHTML");
-    foreach ($data as $key => $val) {
-        //echo "publipost de $key avec $val\n";
+    foreach ($dataLC as $key => $val) {
+        // echo "publipost de [$key] avec [$val]      ";
         $messageMail=str_replace("--$key--",nl2br($val), $messageMail);
     }
     return  $messageMail;
