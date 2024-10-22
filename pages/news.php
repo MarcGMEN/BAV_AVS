@@ -50,7 +50,7 @@ $data = array(
 	} ?>
 	
 </script>
-<? if ($infAppli['bav_en_cours'] || $infAppli['ADMIN']) { ?>
+<? if ($infAppli['bav_en_cours'] || $infAppli['ADMIN'] ||  (isset($_COOKIE['CAFFARD_BAV']))) { ?>
 	<form name="bavFormFiche" action="#" onsubmit='return searchVente(document.bavFormFiche.inputSearchBAV.value)'>
 		<h3>Votre vélo est il vendu ? 
 			<input type="text" name="numeroFiche" size="8" maxlength="50" title="Saisisez le numéro de fiche" placeholder="N° fiche" id="inputSearchBAV" onsubmit='searchVente(this.value)' style='background-color:LIGHTGREEN;font-weight: bold;width:200px' autofocus />

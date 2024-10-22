@@ -153,9 +153,13 @@ function display_getFicheVente(val) {
             messageVente = "<div class='alert alert-danger'><b>Votre vélo numéro " + val['obj_numero'] + " n\'a pas encore été vendu.<br/> Veuillez re-essayer ultérieurement.</b></div>";
 
             if (GetCookie('CAFFARD_BAV')) {
-                messageVente += "<div class='alert alert-info'><div>Le prix de négo de ce vélo est de " + val['obj_prix_nego'] + "&euro;</div>";
-                messageVente += "<div> Le vendeur est :" + val['cli_nom'] + "</div>";
-                messageVente += "<div >Le numéro de téléphone du vendeur " + val['cli_telephone'] + " ou " + val['cli_telephone_bis'] + "</div>"
+                messageVente += "<div class='alert alert-info'><div>Le prix de négo : " + val['obj_prix_nego'] + "&euro;</div>";
+                messageVente += "<div> Le vendeur est : " + val['cli_nom'] + "</div>";
+                messageVente += "<div >Le téléphone du vendeur " + val['cli_telephone'];
+                if (val['cli_telephone_bis'] != "") {
+                    messageVente += " ou " + val['cli_telephone_bis'] 
+                }
+                messageVente += "</div>"
                 messageVente += "</div> ";
             }
         }

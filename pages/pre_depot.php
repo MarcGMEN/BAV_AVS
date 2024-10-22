@@ -19,7 +19,7 @@
 			<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cette fiche dépôt devra être <b>imprimée par vous</b> pour vous rendre à la Bourse, une par dépôt.</li>
 		</ul>
 		<p>- Soit en téléchargeant, puis en imprimant la fiche dépôt à remplir que vous trouverez ici
-			<A href="downloads/Fiche_BAV_2023.pdf" target="_blank"> <img class="link url" src="Images/pdf.png" height='30px' alt="téléchargement de la fiche" title="téléchargement de la fiche"></A>
+			<A href="downloads/Fiche_BAV_2024.pdf" target="_blank"> <img class="link url" src="Images/pdf.png" height='30px' alt="téléchargement de la fiche" title="téléchargement de la fiche"></A>
 			<small><i>Attention aux droits d'ouvertures des popUp, en fonction de votre navigateur.</i></small>
 		</p>
 		</div>
@@ -27,7 +27,6 @@
 			<a href="mailto:bourse1000velos@avs44.com">bourse1000velos@avs44.com</a>
 		</p>
 		<div class='alert alert-warning'>
-		<h3> Attention , nouvelle Procédure </h3>
 		<h4> Vous devez d'abord vous pré-enregistrer avec votre e-mail, puis vous recevrez un mail avec votre code d'accès. 
 			<br/>Ensuite dans le partie connexion saisissez votre e-mail et le code d'accès pour accèder à la gestion de votre compte. 
 			<br/>En cas de non réception du mail, contactez nous à <a href="mailto:bourse1000velos@avs44.com">bourse1000velos@avs44.com</a>
