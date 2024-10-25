@@ -12,8 +12,8 @@
 		<div class="maskmobile">
 		<p>- Soit en vous identfiant avec le formulaire ci-dessous et enusite saisir vos pré-dépôts directement sur le site de la Bourse.</p>
 		<ul>
-			<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Il n'est pas nécéssaire de connaitre le prix de vente, <i>vous pourrez le renseigner le jour du dépôt.</i></li>
-			<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vous accèderez au dépôt le vendredi à la Soucoupe via des files prioritaires.</li>
+			<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Il n'est pas nécessaire de connaître le prix de vente, <i>vous pourrez le renseigner le jour du dépôt.</i></li>
+			<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vous accéderez au dépôt le vendredi à la Soucoupe via des files prioritaires.</li>
 			<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vous pouvez également modifier votre compte.</li>
 			<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Vous recevez un mail directement lorsque votre vélo est vendu.</b></li>
 			<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cette fiche dépôt devra être <b>imprimée par vous</b> pour vous rendre à la Bourse, une par dépôt.</li>
