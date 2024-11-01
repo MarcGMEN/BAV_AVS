@@ -425,7 +425,7 @@ div.SSMENU {
         display: block;
         top: 10;
         left: 10;
-    }
+    }   
     .menuNavigation  {
         display: none;
     }
@@ -483,8 +483,8 @@ table.PP {
 }
 
 .PRE-DEPOT {
-    font-size: 1.5em;
-    color: BLUE;
+    font-size: 1.3em;
+    color: DARKBLUE;
 }
 
 

@@ -12,6 +12,25 @@
 <script>
 	function initPage() {
 		x_return_html('bav_bourse', display_bav_bourse);
+		x_makeCarroussel('carroussel', display_carroussel);
+		x_makeCarroussel('carroussel1', display_carroussel1);
+	}
+	
+	function unloadPage() {
+	}
+
+	function display_carroussel(val) {
+		if (getElement('carroussel')) {
+			getElement('carroussel').innerHTML = val;
+			showNextImage('carroussel');
+		}
+	}
+
+	function display_carroussel1(val) {
+		if (getElement('carroussel1')) {
+			getElement('carroussel1').innerHTML = val;
+			showNextImage('carroussel1');
+		}
 	}
 
 	function display_bav_bourse(val) {

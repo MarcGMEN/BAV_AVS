@@ -206,7 +206,7 @@ function action_createFiche($dataFiche)
             $tabObj['obj_modif_vendeur'] = 1;
             $tabObj['obj_modif_stock'] = 1;
 
-            if (trim($tabObj['obj_accesoire']) != "") {
+            if (trim($tabObj['obj_accessoire']) != "") {
                 $tabObj['obj_modif_accessoire'] = 1;
             }
 

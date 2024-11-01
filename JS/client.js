@@ -68,7 +68,8 @@ function display_client(val) {
     // console.log(val);
     if (val instanceof Object) {
 
-        display_formulaire(val, document.clientForm);
+        val['code'] = val['cli_id_modif'].substr(0,6);
+        sdisplay_formulaire(val, document.clientForm);
 
         cli_id = val['cli_id'];
 

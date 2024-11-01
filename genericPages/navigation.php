@@ -99,16 +99,16 @@ if ($infAppli['ADMIN']) {
         'stock-client.php' => [
             'libelle' => 'Les vélos'
         ],
-        'SPACE0' => [
-            'libelle' => '🟡🟡',
-        ],
+        // 'SPACE0' => [
+        //     'libelle' => '🟡🟡',
+        // ],
         'pre_depot.php' => [
-            'libelle' => '<span class="PRE-DEPOT" >Pour pré-déposer c\'est ici</span>',
+            'libelle' => '<span class="PRE-DEPOT" >Pour pré-déposer.</span>',
             'mode' => 'create',
         ],
-        'SPACE1' => [
-            'libelle' => '🟡🟡',
-        ],
+        // 'SPACE1' => [
+        //     'libelle' => '🟡🟡',
+        // ],
         // 'STOCK-CLIENT.PHP' => [
         //     'LIBELLE' => 'LES VÉLOS'
         // ],
@@ -120,16 +120,16 @@ if ($infAppli['ADMIN']) {
         'stock-client.php' => [
             'libelle' => 'Les vélos'
         ],
-        'SPACE0' => [
-            'libelle' => '🟡🟡',
-        ],
+        // 'SPACE0' => [
+        //     'libelle' => '🟡🟡',
+        // ],
         'pre_depot.php' => [
-            'libelle' => '<span class="PRE-DEPOT" >Pour suivre vos ventes, c\'est ici</span>',
+            'libelle' => '<span class="PRE-DEPOT" >Pour suivre vos ventes.</span>',
             'mode' => '',
         ],
-        'SPACE1' => [
-            'libelle' => '🟡🟡',
-        ],
+        // 'SPACE1' => [
+        //     'libelle' => '🟡🟡',
+        // ],
 
     ];
 }

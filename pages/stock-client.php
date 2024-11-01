@@ -51,14 +51,14 @@
 				onchange="selectColonne('obj_public', this.value)"></select> -->
 		<!-- </td> -->
 
-		<td class="tittab " width=30%>
+		<td class="tittab " width=20%>
 			<span id='obj_marque' onclick="triColonne('obj_marque')"
 				class="sortable">Marque&nbsp;&nbsp;</span>
 			&nbsp;<select id="sel_obj_marque"
 				onchange="selectColonne('obj_marque', this.value)"></select>
 		</td>
 
-		<? if (isset($_COOKIE['CAFFARD_BAV'])) { ?>
+		<? if (isset($_COOKIE['CAFFARD_BAV']) || $infAppli['ADMIN']) { ?>
 		<td class="tittab " width=20%>
 			Prix/ prix négo
 		</td>
@@ -69,13 +69,13 @@
 				class="sortable">Taille&nbsp;&nbsp;&nbsp;</span>
 			&nbsp;
 		</td>
-		<td class="tittab maskMobile" width=15%>
+		<td class="tittab maskMobile" width=10%>
 			<span id='obj_date_achat' onclick="triColonne('obj_date_achat')"
 				class="sortable">Année modèle&nbsp;&nbsp;&nbsp;</span>
 			&nbsp;
 		</td>
 
-		<td class="tittab maskMobile" width=35%>
+		<td class="tittab maskMobile" width=50%>
 			Description</td>
 		<!-- <td class="tittab" width=10%>
 			<span class="sortable" id='obj_prix_vente' onclick="triColonne('obj_prix_vente')">Prix vente&nbsp;&nbsp;</span>

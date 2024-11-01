@@ -8,6 +8,7 @@
 		x_makeCarroussel('carroussel', display_carroussel);
 		x_makeCarroussel('carroussel1', display_carroussel1);
 	}
+	
 	function unloadPage() {
 	}
 
