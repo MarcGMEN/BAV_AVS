@@ -35,7 +35,7 @@ if (isset($_POST['cli_id']) && $_POST['cli_id'] != '') {
             if (strlen(trim($ligne)) > 0) {
                 $val = explode("|", $ligne);
 
-                if (sizeof($val) == 11) {
+                if (sizeof($val) == 12) {
                     if ($val[0] != 'Type') {
                         try {
                             if (array_search($val[0], $tabType)) {
@@ -61,6 +61,7 @@ if (isset($_POST['cli_id']) && $_POST['cli_id'] != '') {
                             $fiche['obj_taille'] = $val[8];
                             $fiche['obj_description'] = $val[9];
                             $fiche['obj_prix_depot'] = $val[10];
+                            $fiche['obj_prix_nego'] = $val[11];
                             
                             makeNumeroFiche($_POST['base'], $fiche);
                             $fiche['obj_etat'] = 'CONFIRME';
