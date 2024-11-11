@@ -27,7 +27,7 @@ body {
     font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
     color: BLACK;
     margin: 0px;
-    font-size: 10pt;
+    font-size: 9pt;
     /*background-image: url("Images/AVS_bandeau_01.jpg");
 	background-repeat: no-repeat;
 	background-position: top left;
@@ -54,7 +54,7 @@ a:hover {
     border: 0.5px
 }
 
-.link {
+.link,.link0 {
     cursor: pointer;
 }
 
@@ -591,7 +591,7 @@ table {
     border-width: 0.5px;
     font-weight: bold;
     text-align: center;
-    font-size: 0.9em;
+    font-size: 0.8em;
 }
 
 .tittab:hover {
@@ -610,6 +610,7 @@ table {
     border-color: black;
     -moz-border-radius: 1px;
     border-radius: 1px;
+    font-size: 0.8em;
 }
 
 .titrow {
@@ -629,13 +630,15 @@ table {
     color: #1161a2;
     border: 0px;
     padding: 2pt 2pt 2pt 2pt;
-    /*font-size: 0.8em;*/
 }
 
 tr.tabl0 {
     border-bottom: 0.5px solid grey;
     padding: 2pt;
-    font-size: 1em;
+    
+}
+td.tabl0 {
+    font-size: 0.7em;
 }
 
 .tabAction:hover {
@@ -656,7 +659,7 @@ tr.tabl0 {
 
 td.tabl1 {
     padding: 2pt;
-    font-size: 0.8em;
+    font-size: 0.7em;
 }
 
 .tabl1:hover {
@@ -688,7 +691,11 @@ span.STOCK {
 }
 
 #countModifData {
-    background-color: lightgreen;
+    background-color: lightgray;
+}
+
+#countModifStock {
+    background-color: lightblue ;
 }
 
 tr.VENDU,
@@ -982,3 +989,7 @@ img.logo {
     font-size: 1.2em;
 }
 
+div.tree0:hover {
+    border-top:1px solid black;
+    border-bottom:1px solid black;
+}

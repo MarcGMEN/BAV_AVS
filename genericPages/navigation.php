@@ -37,16 +37,23 @@ $tabNavAll = [
         'libelle' => 'Presse',
         'notif' => "PRESSE"
     ],
+    // 'avis.php' => [
+    //     'libelle' => 'Avis'
+    // ],
+
 ];
 
 $tabNavAdm = [];
 
 if ($infAppli['ADMIN']) {
     $tabNavAdm = [
+        'avis.php' => [
+            'libelle' => 'Avis'
+        ],
         'SPACE' => [
             'libelle' => '&nbsp;&nbsp;&nbsp;',
         ],
-        
+
         'saisieExpress.php' => [
             'libelle' => 'Gestion fiches',
             'class' => 'maskMobileBlock',
@@ -96,9 +103,9 @@ if ($infAppli['ADMIN']) {
     ];
 } elseif ($infAppli['CLIENT']) {
     $tabNavAdm = [
-        'stock-client.php' => [
-            'libelle' => 'Les vélos'
-        ],
+        //     'stock-client.php' => [
+        //         'libelle' => 'Les vélos'
+        //     ],
         // 'SPACE0' => [
         //     'libelle' => '🟡🟡',
         // ],
@@ -112,8 +119,6 @@ if ($infAppli['ADMIN']) {
         // 'STOCK-CLIENT.PHP' => [
         //     'LIBELLE' => 'LES VÉLOS'
         // ],
-        
-
     ];
 } elseif ($infAppli['bav_en_cours'] && !$infAppli['CLIENT']) {
     $tabNavAdm = [
@@ -130,7 +135,9 @@ if ($infAppli['ADMIN']) {
         // 'SPACE1' => [
         //     'libelle' => '🟡🟡',
         // ],
-
+        'avis.php' => [
+            'libelle' => 'Avis'
+        ],
     ];
 }
 
@@ -149,11 +156,11 @@ $tabNav = array_merge($tabNavAll, $tabNavAdm);
             if (isset($val['notif']) && actusRecente($val['notif'])) {
                 $notif = 1;
             }
-            if (startsWith($key,"SPACE")) {?>
-                <?= $val['libelle'];?>
-            <?} else {
+            if (startsWith($key, "SPACE")) { ?>
+                <?= $val['libelle']; ?>
+                <? } else {
                 $ext = explode('.', $key);
-                if ($ext[1] == '') {?>
+                if ($ext[1] == '') { ?>
                     <span class="link <?= $val['class']; ?> navigation <?= $className; ?>" id="lib_ss<?= $key; ?>" onclick="inverseDisplay('ss<?= $key; ?>')">
                         <?= $val['libelle']; ?>
                         <img src="Images/arrow.gif" />
@@ -183,7 +190,7 @@ $tabNav = array_merge($tabNavAll, $tabNavAdm);
                             echo "<img src='Images/notif.png' width=15pt title='Nouveau post' alt='new post'>";
                         } ?>
                     </span>
-            <?php }
+        <?php }
             }
         } ?>
     </div>

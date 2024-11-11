@@ -12,7 +12,8 @@ sajax_export(
     "add_counter_action",
     "delete_file",
     "add_cdp","return_lat_lon_cdp","return_all_lat_lon_cdp",
-    "makeCarroussel"
+    "makeCarroussel",
+    "add_avis","get_avis","get_countAvis","delete_avis"
 );
 
 // $pattern = preg_quote("function ", '/');

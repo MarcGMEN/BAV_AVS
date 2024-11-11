@@ -1,7 +1,7 @@
 
 function initPage() {
-
-	if (vueParc == '1' || ADMIN) {
+	//console.log(vueParc + "== '1' || " + ADMIN + " || " + GetCookie('CAFFARD_BAV'));
+	if (vueParc == '1' || ADMIN || GetCookie('CAFFARD_BAV') ) {
 		// x_return_enum('bav_objet', 'obj_type', display_list_type);
 		// x_return_enum('bav_objet', 'obj_public', display_list_public);
 		//x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);
@@ -94,7 +94,7 @@ function display_fiches(val) {
 				repr += " "
 				repr += val[index]['obj_public'] != "Autre" ? val[index]['obj_public'] : "";
 				repr += "</td>";
-				repr += "<td  width=20% >";
+				repr += "<td  width=25% >";
 				repr += val[index]['obj_marque'];
 				var year = "";
 				if (val[index]['obj_date_achat']) {
@@ -102,11 +102,11 @@ function display_fiches(val) {
 				}
 				if (val[index]['obj_modele']) {
 					repr += " " + val[index]['obj_modele'];
-					repr += "&nbsp<A href='https://www.google.fr/search?tbm=isch&q=" + val['obj_marque_orig'] + " " + val['obj_modele_orig'] + " " + year + "' target='_blank' ><img src='https://www.we-do-it-better.fr/wp-content/uploads/2019/04/googlesearch.png' height='20px'/></A></span>";
+					repr += "&nbsp<A href='https://www.google.fr/search?tbm=isch&q=" + val['obj_marque_orig'] + " " + val['obj_modele_orig'] + " " + year + "' target='_blank' class='maskMobile' ><img src='https://www.we-do-it-better.fr/wp-content/uploads/2019/04/googlesearch.png' height='20px'/></A>";
 				}
 				repr += "</td>";
 				if (GetCookie('CAFFARD_BAV') || ADMIN) {
-					repr += "<td width=20% >";
+					repr += "<td width=15% >";
 					repr += val[index]['obj_prix_depot'];
 					if (val[index]['obj_prix_nego'] != "0.00") {
 						repr += " -> " + val[index]['obj_prix_nego'];

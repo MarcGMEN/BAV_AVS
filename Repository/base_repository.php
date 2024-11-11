@@ -262,7 +262,7 @@ function insert($table, $obj)
         }
     }
     $req .= ")";
-   // error_log($req);
+    error_log($req);
 
     if (!$GLOBALS['mysqli']->query($req)) {
         error_log("Pb d'insert' [$req]" . $GLOBALS['mysqli']->error);

@@ -411,11 +411,11 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true, $nameEti = 'etiquet
             // error_log($fiche['obj_id']);
             if ($fiche['obj_id']) {
                 // error_log("[action_makeA4Etiquettes] test $test");
-                if (!$test && $nameEti = 'etiquette') {
+                if (!$test && $nameEti == 'etiquette') {
                     $fiche['obj_modif_data'] = 0;
                     updateFiche($fiche);
                 }
-                if (!$test && $nameEti = 'coupon_accessoire') {
+                if (!$test && $nameEti == 'coupon_accessoire') {
                     $fiche['obj_modif_accessoire'] = 0;
                     updateFiche($fiche);
                 }

@@ -51,7 +51,7 @@
 				onchange="selectColonne('obj_public', this.value)"></select> -->
 		<!-- </td> -->
 
-		<td class="tittab " width=20%>
+		<td class="tittab " width=25%>
 			<span id='obj_marque' onclick="triColonne('obj_marque')"
 				class="sortable">Marque&nbsp;&nbsp;</span>
 			&nbsp;<select id="sel_obj_marque"
@@ -59,7 +59,7 @@
 		</td>
 
 		<? if (isset($_COOKIE['CAFFARD_BAV']) || $infAppli['ADMIN']) { ?>
-		<td class="tittab " width=20%>
+		<td class="tittab " width=15%>
 			Prix/ prix négo
 		</td>
 		<?}?>

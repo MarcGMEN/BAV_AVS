@@ -27,9 +27,14 @@
 		<div class="row">
 			<div class="col-sm-6 col-md-6 col-xs-12">
 				<span class="titrow  col-md-3 col-sm-3 col-xs-3">Code</span>
-				<span class="tabInput col-md-9 col-sm-9 col-xs-9">
+				<span class="tabInput col-md-8 col-sm-8 col-xs-8">
 					<span id='code'></span>
 				</span>
+				<? if ($infAppli['ADMIN']) { ?>
+					<span class="tabInput col-md-1 col-sm-1 col-xs-1">
+						<a id=mailCode href="#" target="_blank"><big>@</big></a>&nbsp;&nbsp;
+					</span>
+				<? } ?>
 			</div>
 			<div class="row">
 			</div>

@@ -72,9 +72,11 @@
 <fieldset class=fiche>
 	<legend class="titreFiche">Le Fichier</legend>
 	<div class="alert alert-info">
-		<b>Format attendu :</b> Type | Public | Pratique | Marque | Modèle | Couleur | Date achat | Prix achat | Taille | Description | Prix | Prix négociation
+		<b>Format attendu :</b> Type | Public | Pratique | Marque | Modèle | Couleur | Date achat | Prix achat | Taille | Description | Prix | Prix négociation<br/>
+		Sans le ligne de titre et d'exemple.
 	</div>
-	<form action="Actions/importFile.php" method="post" enctype="multipart/form-data" name=fileForm>
+	<form action="Actions/importFile.php" method="post" enctype="multipart/form-data" 
+		name=fileForm >
 		<input type=hidden name="cli_id" required />
 		<div class="row fiche ">
 			<div class="col-sm-3 col-md-3 col-xs-12 btnAction">

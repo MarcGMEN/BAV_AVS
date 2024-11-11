@@ -95,6 +95,7 @@
 49420=47.729642663,-1.155495534,Armaillé- Segré- Maine-et-Loire- 49420- Pays de la Loire- France métropolitaine- France
 50300=48.67969212295082,-1.3563793811475409,Avranches- Manche- 50300- Normandie- France métropolitaine- France
 53100=48.294328705651104,-0.6279640287469287,Mayenne- 53100- Pays de la Loire- France métropolitaine- France
+56000=47.65771205,-2.755508786290628,56000- Centre - Le Port- Vannes- Morbihan- Bretagne- France métropolitaine- France
 56130=47.5169111875969,-2.295325286046512,Nivillac- Vannes- Morbihan- 56130- Bretagne- France métropolitaine- France
 56190=47.553711351898734,-2.4950241006329117,Ambon- Vannes- Morbihan- 56190- Bretagne- France métropolitaine- France
 56390=47.76195960814479,-2.8520713719457014,Grand-Champ- Vannes- Morbihan- 56390- Bretagne- France métropolitaine- France

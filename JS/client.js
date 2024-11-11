@@ -69,9 +69,15 @@ function display_client(val) {
     if (val instanceof Object) {
 
         val['code'] = val['cli_id_modif'].substr(0,6);
-        sdisplay_formulaire(val, document.clientForm);
+        display_formulaire(val, document.clientForm);
 
         cli_id = val['cli_id'];
+        if (val['cli_emel']) {
+            getElement("mailCode").href = "mailto:" + val['cli_emel'] + "?subject=Code d'accès à la bourse aux 1000 vélos. BAV&body=Bonjour " + val['cli_nom'] + ".%0D%0DVoici votre code pour l'accès à la bourse aux 1000 vélos : [" + val['code'] + "] qui est lié à votre adresse mail.%0D%0DCdt.%0DLe bureau de la Bourse aux 1000 vélos.";
+        }
+        else {
+            getElement("mailCode").innerHTML = "";
+        }
 
         var tabSel = {
             "obj_id_vendeur": val['cli_id']

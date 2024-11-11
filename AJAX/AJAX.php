@@ -13,6 +13,7 @@ require_once "../Repository/client_repository.php";
 require_once "../Repository/faq_repository.php";
 require_once "../Repository/actu_repository.php";
 require_once "../Repository/counter_access_repository.php";
+require_once "../Repository/avis_repository.php";
 require_once "../Commun/Sajax.php";
 require_once "../Commun/mail.php";
 require_once "../Commun/html2pdf.php";
@@ -275,6 +276,30 @@ function makeCarroussel($id)
     $theCarroussel .= "</div>";
     return $theCarroussel;
 }
+
+function add_avis($note, $commentaire)
+{
+    extract($GLOBALS);
+    $cas['avs_note'] = $note;
+    $cas['avs_commentaire'] = utf8_encode($commentaire);
+    $cas['avs_numero_bav'] = $INFO_APPLI['numero_bav'];
+    insertAvis($cas);
+
+    return $cas;
+}
+
+function get_avis($withBav=false,$note=null) {
+    return getAllAvisForBav($withBav,$note);
+}
+
+function get_countAvis($withBav=false) {
+    return getCountByNote($withBav);
+}
+
+function delete_avis($id) {
+    return deleteAvis($id);
+}
+
 
 
 sajax_init("");
