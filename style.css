@@ -728,6 +728,12 @@ span.ERROR {
     color: white;
 }
 
+tr.WARN,
+span.WARN {
+    background-color: red;
+    color: white;
+}
+
 .tabInput {
     font-size: 1em;
     font-family: Verdana, Arial, Helvetica, sans-serif;

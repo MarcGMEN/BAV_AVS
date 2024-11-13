@@ -38,11 +38,13 @@ function makePied()
 
 function sendMailTEST($titre, $toMail, $message, $pieceJointe = null)
 {
+    $entetedate  = date("D, j M Y H:i:s -0600"); // Offset horaire
     $headers  = "MIME-Version: 1.0\r\n";
     $headers .= "Content-type: text/html; charset=utf-8\r\n";
     $headers .= "Content-Transfer-Encoding:8bit \r\n";
-    $headers .= "From: avs.vtt@gmail.com\r\n";
-    $headers .= "Reply-To: avs.vtt@gmail.com\r\n";
+    $headers .= "From: bourse1000velos@avs44.com\r\n";
+    $headers .= "Reply-To: bourse1000velos@avs44.com\r\n";
+    $headers .= "Date: $entetedate \n";
     return mail($toMail, $titre, stripslashes($message), $headers);
 }
 /**
@@ -50,6 +52,7 @@ function sendMailTEST($titre, $toMail, $message, $pieceJointe = null)
  */
 function sendMail($titre, $toMail, $messageMail, $pieceJointe = null, $bcc=false)
 {
+    $entetedate  = date("D, j M Y H:i:s -0600"); // Offset horaire
     //extract($GLOBALS);
     $erreur="";
     $boundary = md5(uniqid(time()));
@@ -65,8 +68,9 @@ function sendMail($titre, $toMail, $messageMail, $pieceJointe = null, $bcc=false
     /* D'autres en-têtes */
     $headers .= "From: <bourse1000velos@avs44.com>\r\n";
     $headers .= "Reply-To: <bourse1000velos@avs44.com>\r\n";
+    // $headers .= "Date: $entetedate \n";
     //if ($bcc==true) {
-       // $headers .= "Bcc: <bourse1000velos@avs44.com>\r\n";
+    //    $headers .= "Bcc: <bourse1000velos@avs44.com>\r\n";
     //}
     /* et hop, à la poste */
     try {

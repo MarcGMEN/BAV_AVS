@@ -2,10 +2,11 @@
 require_once 'config.ini';
 include('vendor/phpqrcode/qrlib.php');
 
-QRcode::png('https://bourseaux1000velos.avs44.com/Actions/rest.php?a=P','./out/QRCODE_CAFFARD.png',QR_ECLEVEL_L, 3);
-echo "<img src='./out/QRCODE_CAFFARD1.png' width=400px/>";
-echo "<h1>QRCODE accès BAV vendeur sur bourseaux1000velos.avs44.com</h1>";
+QRcode::png('https://bourseaux1000velos.avs44.com/index.php?page=avis.php','./out/QRCODE_AVIS.png',QR_ECLEVEL_L, 3);
+echo "<h1>Laissez nous votre avis sur<br/>la Bourse aux 1000 vélos</h1>";
 
+echo "<img src='./out/QRCODE_AVIS.png' width=400px /><br/> ";
+echo "<img src='https://bourseaux1000velos.avs44.com/Images/BAV_2020.png' width=400px />";
 // echo "<hr/>";
 // QRcode::png('https://http://127.0.0.1/edsa-BAV/Actions/rest.php?a=P','./out/QRCODE_CAFFARD2.png',QR_ECLEVEL_L, 3);
 // echo "<img src='./out/QRCODE_CAFFARD2.png' />";

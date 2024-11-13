@@ -67,17 +67,22 @@ function getClientsRecap($order, $sens, $tabSel, $all = false)
 
     $requete2 .= " FROM bav_client WHERE 1 = 1  ";
     $requete2 .= " and cli_id > 10";
+    $requete2 .= " and (0=1 ";
     foreach ($tabSel as $key => $val) {
         if ($val != "*") {
             // sur le nom on passe en mode like
-            if ($key == 'cli_nom') {
-                $requete2 .= " and $key like '%$val%' ";
+            if ($key == 'cli_nom' || $key == 'cli_emel') {
+                $requete2 .= " OR $key like '%$val%' ";
             } else {
-                $requete2 .= " and $key = '$val' ";
+                $requete2 .= " OR $key = '$val' ";
             }
         }
+        else {
+            $requete2 .= " OR $key is not null ";
+        }     
     }
-
+    $requete2 .= " ) ";
+   
     // si tous on recherche tous le clients
     if (!$all) {
         $requete2 .= " and (cli_id in (select obj_id_vendeur from bav_objet where (obj_id_vendeur = cli_id)  and obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "') ";
@@ -89,7 +94,7 @@ function getClientsRecap($order, $sens, $tabSel, $all = false)
         $requete2 .= " order by $order $sens";
     }
 
-    //echo $requete2;
+   error_log($requete2);
 
     if ($result = $GLOBALS['mysqli']->query($requete2)) {
         $tab = array();

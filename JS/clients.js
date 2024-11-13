@@ -51,6 +51,9 @@ function display_clients(val) {
         var indVendeur = false;
         var indAcheteur = false;
         if (!isNaN(index)) {
+            if (val[index]['CONFIRME'] > 0) {
+                totalClient += parseInt(val[index]['CONFIRME']);
+            }
             if (val[index]['STOCK'] > 0) {
                 totalClient += parseInt(val[index]['STOCK']);
                 indVendeur = true;
@@ -78,10 +81,10 @@ function display_clients(val) {
                 indAcheteur = true;
                 classPlus = "ACHAT";
             }
-            if (totalClient == 0) {
-                classPlus = "WARN"
-            }
             classPlus = "";
+            if (totalClient == 0) {
+                classPlus = "CONFIRME"
+            }
 
             if (val[index]['cli_taux_com'] == 0) {
                 classPlus = "ERROR"
@@ -124,7 +127,13 @@ function display_clients(val) {
             repr += "</small></td>";
 
             repr += "<td width=35% class='maskmobile'>";
-            repr += val[index]['cli_emel'];
+            //repr += val[index]['cli_emel'];
+            chaine = val[index]['cli_emel'];
+            if (selection.cli_nom != "*") {
+                repr += chaine.replace(reg, "<b>$1</b>");
+            } else {
+                repr += chaine;
+            }
             repr += "</td>";
 
             repr += "<td width=15% class='maskmobile'>";
@@ -229,7 +238,7 @@ function selectColonne(mask) {
         getElement('totalVendeur').innerHTML = "...";
         getElement('totalVendeurEtAcheteur').innerHTML = "...";
         getElement('totalAbsent').innerHTML = "...";
-        selection = { 'cli_nom': mask };
+        selection = { 'cli_nom': mask ,'cli_emel' : mask};
         x_return_clientsRecap(tri, sens, tabToString(selection), allG, display_clients);
     } else if (mask.length == 0) {
         selection = { 'cli_nom': "*" };
