@@ -82,7 +82,7 @@ $tabInfo = [
 					<form style="color:black">
 						<table width=100% border=0>
 							<tr>
-								<td rowspan=5 width=15%><i
+								<td rowspan=5 width=10%><i
 										title='Décocher pour mettre a jour le suivi des editions'>Test
 										<input type='checkbox' name="testEtiq"
 											checked></i></td>
@@ -121,8 +121,8 @@ $tabInfo = [
 										value='Imprimer' disabled
 										id="btnImprimeEtiquettesPage"
 										onclick='imprimeEtiquettesPage(this.form.forceEtiquette.checked,this.form.testEtiq.checked?1:0,"etiquette")'>
-									<input type='checkbox' id="forceEtiquette"
-										onchange="this.checked?this.form.printEtiquette.disabled=false:this.form.printEtiquette.disabled=true">Force
+									<input type='checkbox' id="forceEtiquette" title="Forcer l'édition"
+										onchange="this.checked?this.form.printEtiquette.disabled=false:this.form.printEtiquette.disabled=true">
 								</td>
 							</tr>
 						</table>
@@ -132,7 +132,7 @@ $tabInfo = [
 					<form style="color:black">
 						<table width=100% border=0>
 							<tr>
-								<td rowspan=3 width=15%>&nbsp;</td>
+								<td rowspan=3 width=10%>&nbsp;</td>
 								<td colspan=2></td>
 								<td rowspan=3 width=20%>Feuille A4 blanche</td>
 							</tr>
@@ -170,13 +170,13 @@ $tabInfo = [
 					<form style="color:black">
 						<table width=100% border=0>
 							<tr>
-								<td rowspan=5 width=15%><i
+								<td rowspan=5 width=10%><i
 										title='Décocher pour mettre a jour le suivi des editions'>Test
 										<input type='checkbox' name="testCoupon"
 											checked /></i></td>
 								<td colspan=2></td>
-								<td rowspan=5 width=20% style='background-color:ORANGE'>
-									Feuille A4 orange</td>
+								<td rowspan=5 width=20% style='background-color:PINK'>
+									Feuille A4 rose</td>
 							</tr>
 							<tr class="tabAction">
 								<td width=50%>- De <input type=text
@@ -221,8 +221,8 @@ $tabInfo = [
 										value='Imprimer' disabled
 										id="btnImprimeCouponsPage"
 										onclick='imprimeCouponsPage(this.form.forceCoupon.checked,this.form.testCoupon.checked?1:0,"coupon_vendeur")'>
-									<input type='checkbox' id="forceCoupon"
-										onchange="this.checked?this.form.printCoupon.disabled=false:this.form.printCoupon.disabled=true">Force
+									<input type='checkbox' id="forceCoupon" title="Forcer l'édition"
+										onchange="this.checked?this.form.printCoupon.disabled=false:this.form.printCoupon.disabled=true">
 								</td>
 							</tr>
 
@@ -233,7 +233,7 @@ $tabInfo = [
 					<form style="color:black">
 						<table width=100% border=0>
 							<tr>
-								<td rowspan=5 width=15%><i
+								<td rowspan=5 width=10%><i
 										title='Décocher pour mettre a jour le suivi des editions'>Test
 										<input type='checkbox' name="testEA"
 											checked /></i></td>
@@ -272,9 +272,9 @@ $tabInfo = [
 									<input type=button name='printEA'
 										value='Imprimer' disabled
 										id="btnImprimeEAsPage"
-										onclick='imprimeEtiquettesPage(this.form.testEA.checked,this.form.testEA.checked?1:0,"coupon_accessoire")'>
-									<input type='checkbox' id="forceAccessoire"
-										onchange="this.checked?this.form.printEA.disabled=false:this.form.printEA.disabled=true">Force
+										onclick='imprimeEtiquettesPage(this.form.forceAccessoire.checked,this.form.testEA.checked?1:0,"coupon_accessoire")'>
+									<input type='checkbox' id="forceAccessoire" title="Forcer l'édition"
+										onchange="this.checked?this.form.printEA.disabled=false:this.form.printEA.disabled=true">
 								</td>
 							</tr>
 
@@ -285,7 +285,7 @@ $tabInfo = [
 					<form style="color:black">
 						<table width=100% border=0>
 							<tr>
-								<td rowspan=5 width=15%><i
+								<td rowspan=5 width=10%><i
 										title='Décocher pour mettre a jour le suivi des editions'>Test
 										<input type='checkbox' name="testCouponA"
 											checked /></i></td>
@@ -335,8 +335,8 @@ $tabInfo = [
 										value='Imprimer' disabled
 										id="btnImprimeCouponsPageA"
 										onclick='imprimeCouponsPage(this.form.forceCouponA.checked,this.form.testCouponA.checked?1:0,"coupon_acheteur")'>
-									<input type='checkbox' id="forceCouponA"
-										onchange="this.checked?this.form.printCouponA.disabled=false:this.form.printCouponA.disabled=true">Force
+									<input type='checkbox' id="forceCouponA" title="Forcer l'édition"
+										onchange="this.checked?this.form.printCouponA.disabled=false:this.form.printCouponA.disabled=true">
 								</td>
 							</tr>
 						</table>
@@ -347,7 +347,7 @@ $tabInfo = [
 					<form style="color:black">
 						<table width=100% border=1>
 							<tr class="tabAction">
-								<td width=15%>
+								<td width=10%>
 									&nbsp;
 								</td>
 								<td width=50%>
@@ -367,8 +367,8 @@ $tabInfo = [
 					<form style="color:black">
 						<table width=100% border=1>
 							<tr class="tabAction">
-								<td width=15%></td>
-								<td> Numero <input type=number style='width:30%'
+								<td width=10%></td>
+								<td width=50%> Numero <input type=number style='width:30%'
 										name=nfac size=5></td>
 								<td width=15%>
 									<input type=button value='Imprimer'
@@ -384,8 +384,8 @@ $tabInfo = [
 					<form style="color:black">
 						<table width=100% border=1>
 							<tr class="tabAction">
-								<td width=15%></td>
-								<td> Classeur(s) (<span id='nbClasseurPret'></span>)
+								<td width=10%></td>
+								<td width=50%> Classeur(s) (<span id='nbClasseurPret'></span>)
 									<select id=classeurs name='classeurs' style='width:150px'>
 									</select>
 								<td width=15%>
