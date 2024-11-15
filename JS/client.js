@@ -3,13 +3,15 @@
  */
 function initPage() {
     if (idClient) {
+
+
         // chargement des com
         x_return_tauxBAV(display_list_taux_com);
         // chargement des depot
         x_return_depotsBAV(display_list_prix_depot);
-
+        
         // recherche du client
-        x_return_oneClient(idClient, display_client);
+        setTimeout('x_return_oneClient(idClient, display_client)',200);
 
         if (ADMIN) {
             x_return_bavsClient(idClient, display_parametres);
@@ -68,7 +70,8 @@ function display_client(val) {
     // console.log(val);
     if (val instanceof Object) {
 
-        val['code'] = val['cli_id_modif'].substr(0,6);
+        val['code'] = val['cli_id_modif'].substr(0, 6);
+        // val['cli_prix_depot_b'] = val['cli_prix_depot'];
         display_formulaire(val, document.clientForm);
 
         cli_id = val['cli_id'];

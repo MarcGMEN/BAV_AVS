@@ -60,8 +60,8 @@ if (isset($_POST['cli_id']) && $_POST['cli_id'] != '') {
                             $fiche['obj_prix_achat'] = $val[7];
                             $fiche['obj_taille'] = $val[8];
                             $fiche['obj_description'] = $val[9];
-                            $fiche['obj_prix_depot'] = $val[10];
-                            $fiche['obj_prix_nego'] = $val[11];
+                            $fiche['obj_prix_depot'] = $val[10] == "" ? 0 : $val[10];
+                            $fiche['obj_prix_nego'] = $val[11] == "" ? 0 : $val[11];
                             
                             makeNumeroFiche($_POST['base'], $fiche);
                             $fiche['obj_etat'] = 'CONFIRME';
@@ -84,7 +84,7 @@ if (isset($_POST['cli_id']) && $_POST['cli_id'] != '') {
                     }
                 } else {
                     $nbFicheKo++;
-                    $textePlusKo .= "$noLigne (Nombre de champ incorrect " . sizeof($val) . " != 11),";
+                    $textePlusKo .= "$noLigne (Nombre de champ incorrect " . sizeof($val) . " != 12),";
                 }
                 $noLigne++;
             }

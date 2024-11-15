@@ -49,7 +49,7 @@ function countByEtat($idVendeur = null)
 /**
  * comptage des fiches d'une BAV en fonction d'un critere
  */
-function countBy($tabSel, $selS, $search = "=", $valS, $etats = "'STOCK','RENDU'")
+function countBy($tabSel, $selS, $search = "=", $valS="*", $etats = "'STOCK','RENDU'")
 {
     $requete2 = "SELECT count(*) from bav_objet ";
     $requete2 .= "where obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "'";

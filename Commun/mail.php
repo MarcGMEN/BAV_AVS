@@ -63,6 +63,7 @@ function sendMail($titre, $toMail, $messageMail, $pieceJointe = null, $bcc=false
     } else {
         $headers .= "Content-type: text/html; charset=utf-8\r\n";
     }
+    $headers .= "List-Unsubscribe: <mailto:bourse1000velos@avs44.com?subject=unsubscribe>\r\n";
     $headers .= "X-Mailer: PHP/".phpversion()."\r\n";
     // $headers .= "X-Priority: 1 \n";
     /* D'autres en-têtes */

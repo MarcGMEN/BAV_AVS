@@ -72,7 +72,7 @@
 <fieldset class=fiche>
 	<legend class="titreFiche">Le Fichier</legend>
 	<div class="alert alert-info">
-		<b>Format attendu :</b> Type | Public | Pratique | Marque | Modèle | Couleur | Date achat | Prix achat | Taille | Description | Prix | Prix négociation<br/>
+		<b>Format attendu :</b> Type | Public | Pratique | Marque | Modèle | Couleur | Date achat 'AAAA-MM-JJ'| Prix achat | Taille | Description | Prix | Prix négociation (0 si vide)<br/>
 		Sans le ligne de titre et d'exemple.
 	</div>
 	<form action="Actions/importFile.php" method="post" enctype="multipart/form-data" 
