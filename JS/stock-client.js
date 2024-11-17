@@ -6,8 +6,8 @@ function initPage() {
 		// x_return_enum('bav_objet', 'obj_public', display_list_public);
 		//x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);
 		// 
-		x_return_list_marques(display_list_marque)
-		x_return_fiches(tri, sens, tabToString(tabSel), 0, 0, display_fiches);
+		// x_return_list_marques(display_list_marque)
+		x_return_fiches(tri, sens, tabToString(tabSel), 0, 0, display_fiches_2);
 	} else {
 		goTo();
 	}
@@ -86,9 +86,11 @@ function display_fiches(val) {
 				}
 
 				repr += "<tr class='tabl0' >";
-				// repr += "<td width=5% align=center>";
-				// repr += val[index]['obj_numero'];
-				// repr += "</td>";
+				if (GetCookie('CAFFARD_BAV') || ADMIN) {
+					repr += "<td width=5% align=center>";
+					repr += val[index]['obj_numero'];
+					repr += "</td>";
+				}	
 				repr += "<td width=10% >";
 				repr += val[index]['obj_type'];
 				repr += " "
@@ -105,7 +107,7 @@ function display_fiches(val) {
 					repr += "&nbsp<A href='https://www.google.fr/search?tbm=isch&q=" + val['obj_marque_orig'] + " " + val['obj_modele_orig'] + " " + year + "' target='_blank' class='maskMobile' ><img src='https://www.we-do-it-better.fr/wp-content/uploads/2019/04/googlesearch.png' height='20px'/></A>";
 				}
 				repr += "</td>";
-				if (GetCookie('CAFFARD_BAV') || ADMIN) {
+				if (ADMIN) {
 					repr += "<td width=15% >";
 					repr += val[index]['obj_prix_depot'];
 					if (val[index]['obj_prix_nego'] != "0.00") {
@@ -156,6 +158,98 @@ function display_fiches(val) {
 	} else {
 		alertModalWarn(val);
 	}
+}
+
+function display_fiches_2(val) {
+	//console.log(val);
+	if (val instanceof Object) {
+
+		var total = 0;
+		var repr = "<div class='row'>";
+		for (index in val) {
+			if (!isNaN(index)) {
+
+				val['obj_marque_orig'] = val[index]['obj_marque'];
+				val['obj_modele_orig'] = val[index]['obj_modele'];
+				if (gSearch) {
+					var tabSearch = gSearch.replace("%", " ").split(" ");
+					for (i in tabSearch) {
+						if (tabSearch[i] != "") {
+							var reg = new RegExp("(" + tabSearch[i] + ")", "gi");
+							val[index]['obj_modele'] = val[index]['obj_modele'].replace(reg, "<b style='color:BLUE'>$1</b>");
+							val[index]['obj_description'] = val[index]['obj_description'].replace(reg, "<b style='color:BLUE'>$1</b>");
+							// val[index]['obj_prix_vente'] = val[index]['obj_prix_vente'].replace(reg, "<b style='color:BLUE'>$1</b>");
+							// val[index]['obj_prix_depot'] = val[index]['obj_prix_depot'].replace(reg, "<b style='color:BLUE'>$1</b>");
+							val[index]['obj_couleur'] = val[index]['obj_couleur'].replace(reg, "<b style='color:BLUE'>$1</b>");
+							val[index]['obj_public'] = val[index]['obj_public'].replace(reg, "<b style='color:BLUE'>$1</b>");
+							val[index]['obj_type'] = val[index]['obj_type'].replace(reg, "<b style='color:BLUE'>$1</b>");
+							val[index]['obj_marque'] = val[index]['obj_marque'].replace(reg, "<b style='color:BLUE'>$1</b>");
+							val[index]['obj_taille'] = val[index]['obj_taille'].replace(reg, "<b style='color:BLUE'>$1</b>");
+						}
+					}
+				}
+
+				repr += "<div class='col-md-4 col-sm-6 col-xs-12 fiche_0'>";
+				// if (GetCookie('CAFFARD_BAV') || ADMIN) {
+					repr += "<div class='titreFiche'>N° "+val[index]['obj_numero']+"</div>";
+				// }	
+				repr += "<div class='row'>";
+				repr += "<div  class='col-md-4 col-sm-4 col-xs-4' >";
+				repr += val[index]['obj_type'];
+				repr += " - ";
+				repr += val[index]['obj_public'] != "Autre" ? val[index]['obj_public'] : "";
+
+				repr += "</div>";
+				repr += "<div class='col-md-8 col-sm-8 col-xs-8' style='text-align: right;font-size:1.5em'>";
+				if (ADMIN) {
+					repr += val[index]['obj_prix_depot']+" &euro;";
+					if (val[index]['obj_prix_nego'] != "0.00") {
+						repr += " -> " + val[index]['obj_prix_nego']+" &euro;";
+					}
+				}
+				repr += "</div>";
+				repr += "</div>";
+				
+				
+				repr += "<div class='fiche_1'>";
+				if (val[index]['obj_marque']) {
+					repr += val[index]['obj_marque'];
+					repr += " - ";
+				}
+				if (val[index]['obj_modele']) {
+					repr += " " + val[index]['obj_modele'];
+					repr += " - Taille : ";
+				}
+				if (val[index]['obj_taille']) {
+					repr += val[index]['obj_taille'];
+				}
+				repr += "</div>";
+				
+
+				if (val[index]['obj_description']) {
+					repr += "<div class='fiche_desc'>";
+					repr += val[index]['obj_description'];
+					repr += "</div>";
+				}
+				repr += "</div>";
+				total = total + 1;
+			}
+		}
+		repr += "</div>";
+
+		getElement('fiches').innerHTML = repr;
+
+		getElement('total').innerHTML = total;
+
+		// if (sens == "asc") {
+		// 	classSort = "sortUp";
+		// } else {
+		// 	classSort = "sortDown";
+		// }
+		// getElement(tri).className = classSort;
+	} else {
+		alertModalWarn(val);
+	}
 
 
 }
@@ -191,5 +285,5 @@ var gSearch = ""
 function search(search) {
 	gSearch = search;
 	tabSel['obj_search'] = search;
-	x_return_fiches(tri, sens, tabToString(tabSel), 0, 0, display_fiches);
+	x_return_fiches(tri, sens, tabToString(tabSel), 0, 0, display_fiches_2);
 }

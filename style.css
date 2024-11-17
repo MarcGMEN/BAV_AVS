@@ -679,6 +679,29 @@ span.STOCK {
     color: BLACK;
 }
 
+div.fiche_0 {
+    vertical-align: top;
+    /* display: grid; */
+    height: 150pt;
+    padding: 10pt;
+    text-align: left;
+    border: 2px;
+    border-color: #AAA;
+    border-style: outset;
+    margin-top: 10pt;
+    margin-bottom: 10pt;
+}
+div.fiche_1 {
+    font-weight: bold;
+}
+
+div.fiche_desc {
+    flex:1;
+    border: 0.5pt grey solid;
+    background-color: lightgray;
+    padding: 2pt 2pt 2pt 2pt;
+}
+
 #countModifStock,
 #countModifData,
 #countModifVendeur {
@@ -865,6 +888,9 @@ img.logo {
     #countModifData,
     #countModifVendeur {
         display: none;
+    }
+    div.fiche_0 {
+        height: unset;
     }
 }
 

@@ -47,6 +47,9 @@ $tabNavAdm = [];
 
 if ($infAppli['ADMIN']) {
     $tabNavAdm = [
+        'stock-client.php' => [
+            'libelle' => 'Les vélos'
+        ],
         'avis.php' => [
             'libelle' => 'Avis'
         ],
@@ -138,6 +141,13 @@ if ($infAppli['ADMIN']) {
         'avis.php' => [
             'libelle' => 'Avis'
         ],
+    ];
+}
+
+if (isset($_COOKIE['CAFFARD_BAV']) &&  !$infAppli['ADMIN']) {
+    $tabNavAdm = ['stock-client.php' => [
+        'libelle' => 'Les vélos'
+        ]
     ];
 }
 
