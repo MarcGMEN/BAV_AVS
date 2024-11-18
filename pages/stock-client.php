@@ -15,7 +15,7 @@
 </script>
 <script src="JS/stock-client.js"></script>
 
-<h3>Liste des vélos disponibles.</h3>
+<h3>Liste des vélos disponibles triés par marque.</h3>
 <br />
 <table width="100%" class="alert alert-info">
 	<tr>

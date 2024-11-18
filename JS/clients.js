@@ -106,7 +106,7 @@ function display_clients(val) {
             }
 
             repr += "<tr class='tabl0 link " + classPlus + "' onclick='goTo(\"client.php\",\"select\"," + val[index]['cli_id'] + ")'>";
-            repr += "<td width=20% >";
+            repr += "<td width=33% >";
             chaine = val[index]['cli_nom'];
             if (selection.cli_nom != "*") {
                 repr += chaine.replace(reg, "<b>$1</b>");
@@ -121,12 +121,11 @@ function display_clients(val) {
             // }
             // repr += "\" >[" + sizeof(val[index]['bavs']) + "]</span>"
             repr += " <small>(" + val[index]['cli_code_postal'] + ")</small>";
-            repr += "</td>";
-            repr += "<td width=15% class='maskmobile' ><small>";
+            repr += "<span class='maskmobile' ><small>";
             repr += val[index]['cli_taux_com'] + " % -- " + val[index]['cli_prix_depot'] + " €";
             repr += "</small></td>";
 
-            repr += "<td width=35% class='maskmobile'>";
+            repr += "<td width=30% class='maskmobile'>";
             //repr += val[index]['cli_emel'];
             chaine = val[index]['cli_emel'];
             if (selection.cli_nom != "*") {
@@ -136,31 +135,31 @@ function display_clients(val) {
             }
             repr += "</td>";
 
-            repr += "<td width=15% class='maskmobile'>";
+            repr += "<td width=12% class='maskmobile'>";
             repr += val[index]['cli_telephone'];
             repr += "</td>";
-            repr += "<th width=2% style='text-align: center'>";
+            repr += "<th width=4% style='text-align: center'>";
             if (val[index]['CONFIRME'] && val[index]['CONFIRME'] != 0) {
                 repr += val[index]['CONFIRME'];
             } else {
                 repr += "";
             }
             repr += "</th>";
-            repr += "<th width=2% style='text-align: center'>";
+            repr += "<th width=4% style='text-align: center'>";
             if (val[index]['STOCK'] && val[index]['STOCK'] != 0) {
                 repr += val[index]['STOCK'];
             } else {
                 repr += "";
             }
             repr += "</th>";
-            repr += "<th width=2% style='text-align: center'>";
+            repr += "<th width=4% style='text-align: center'>";
             if (val[index]['VENDU'] && val[index]['VENDU'] != 0) {
                 repr += val[index]['VENDU'];
             } else {
                 repr += "";
             }
             repr += "</th>";
-            repr += "<th width=2% style='text-align: center'>";
+            repr += "<th width=4% style='text-align: center'>";
             if (val[index]['PAYE'] && val[index]['PAYE'] != 0) {
                 repr += val[index]['PAYE'];
             } else {
@@ -168,7 +167,7 @@ function display_clients(val) {
             }
             repr += "</th>";
 
-            repr += "<th width=2% style='text-align: center'>";
+            repr += "<th width=4% style='text-align: center'>";
             if (val[index]['RENDU'] && val[index]['RENDU'] != 0) {
                 repr += val[index]['RENDU'];
             } else {
@@ -176,7 +175,7 @@ function display_clients(val) {
             }
             repr += "</th>";
 
-            repr += "<th width=2% style='text-align: center'>";
+            repr += "<th width=4% style='text-align: center'>";
             if (val[index]['ACHAT'] && val[index]['ACHAT'] != 0) {
                 repr += val[index]['ACHAT'];
             } else {
