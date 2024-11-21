@@ -44,7 +44,6 @@
 				<div class="col-sm-12 col-md-12 col-xs-12 ">
 					<h4>Pré-enregistrement<h4>
 				</div>
-
 				<form name="firstAccesForm" method="POST" onsubmit="return submitFormFA(this)" action="#">
 					<div class="col-sm-12 col-md-12 col-xs-12 ">
 						Pour votre premier pré-dépôt il faut vous enregistrer,

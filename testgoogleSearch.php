@@ -5,7 +5,7 @@
 <div class="gcse-search"></div> -->
 <?
 // Construction de la requête Google Custom Search
-$libelles="scott spark 930";
+$libelles="bike scott spark 930";
 $apiKey = 'AIzaSyABMdW__fbyBDjd0aBBCY_im7rejFftkDQ';
 $cx = 'b423b843faa5744b2';
 $url = 'https://www.googleapis.com/customsearch/v1?key=' . $apiKey . '&cx=' . $cx . '&q=' . urlencode($libelles);
@@ -18,17 +18,17 @@ $url = 'https://www.googleapis.com/customsearch/v1?key=' . $apiKey . '&cx=' . $c
 
 
 $fp = fopen($url, 'r');
-
-$meta_data = stream_get_meta_data($fp);
-foreach ($meta_data['wrapper_data'] as $response) {
-
-    /* Avons-nous été redirigés ? */
-    if (strtolower(substr($response, 0, 10)) == 'location: ') {
-
-        /* mise à jour de $url avec le chemin après redirection */
-        $url = substr($response, 10);
+$res= file_get_contents($url);
+$results = json_decode($res, true);
+$cpt=0;
+foreach ($results['items'] as $item) {
+    if ($cpt > 10) {
+        break;
     }
-
+    if (isset($item['pagemap']['cse_thumbnail']) && isset($item['pagemap']['cse_thumbnail'][0]['src'])) {
+        echo '<img src="' . $item['pagemap']['cse_thumbnail'][0]['src'] . '">'; 
+        $cpt++;
+    }
 }
 // // Envoi de la requête et récupération des résultats
 // $client = new GuzzleHttp\Client();
@@ -36,6 +36,3 @@ foreach ($meta_data['wrapper_data'] as $response) {
 // $results = json_decode($response->getBody(), true);
 
 // Affichage des résultats (exemple simplifié)
-// foreach ($results['items'] as $item) {
-    // echo '<img src="' . $item['link'] . '">';
-// }

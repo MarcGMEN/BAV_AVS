@@ -70,9 +70,12 @@ $tabInfo = [
 							onclick='viewPdf("<?= $idText ?>","<?= $format ?>");'
 							title="Génération du PDF" )>PDF</span>
 					<? } ?>
+					<? if ($idText != "pre-check") { ?>
 					<i class="fas fa-edit"
 						onclick="x_return_html('<?= $idText ?>', display_html_file);idText='<?= $idText ?>';getElement('html_file_title').innerHTML='<?= addslashes($title) ?>'  "
 						title="Modification du document"></i>
+					<? } ?>
+					
 				</td>
 			<? } ?>
 

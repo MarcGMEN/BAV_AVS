@@ -155,6 +155,11 @@ function return_oneFiche($id)
         $row['obj_date_achat_FR'] = formateDateMYSQLtoFR($row['obj_date_achat'], false);
 
         $row['cli_com'] = getCommission($row);
+
+        $tabImg=getImage($row['obj_type']." ".$row['obj_marque']." ".$row['obj_modele']." ".$row['obj_couleur'],4);
+        if ($tabImg[0]) {
+           $row['image']=$tabImg;
+        }
     }
     return $row;
 }
@@ -181,7 +186,7 @@ function action_createFiche($dataFiche)
         //makeClient($tabCli);
 
         error_log("cli_id = " . $tabCli['cli_id']);
-        if ($tabCli['cli_id'] != 0) {
+        if ($tabCli['cli_id'] && $tabCli['cli_id'] != 0) {
 
             // en cas de creation, on reforce un update
             // en cas de client trouve par mel ou nom on prend compte les modifs possible
@@ -291,30 +296,35 @@ function action_createFicheExpress($dataFiche)
         // en cas de mel, on ignore le nom
         // en cas de nom, pas de mel a priori
         $tabCli = makeClient($tabCli);
-        $tabObj['obj_prix_depot'] = $tabObj['obj_prix_vente'];
 
-        $tabObj['obj_id_vendeur'] = $tabCli['cli_id'];
-        // creation de la clef unique REST
-        $tabObj['obj_id_modif'] = hash_hmac(
-            'md5',
-            $tabObj['obj_numero'] . $GLOBALS['INFO_APPLI']['numero_bav'],
-            'avs44'
-        );
-        $tabObj['obj_id'] = 0;
+        if ($tabCli['cli_id'] && $tabCli['cli_id'] != 0) {
+            $tabObj['obj_prix_depot'] = $tabObj['obj_prix_vente'];
 
-        // on pousse la marque et le modele en capitale
-        $tabObj['obj_marque'] = strtoupper($tabObj['obj_marque']);
-        $tabObj['obj_couleur'] = strtoupper($tabObj['obj_couleur']);
+            $tabObj['obj_id_vendeur'] = $tabCli['cli_id'];
+            // creation de la clef unique REST
+            $tabObj['obj_id_modif'] = hash_hmac(
+                'md5',
+                $tabObj['obj_numero'] . $GLOBALS['INFO_APPLI']['numero_bav'],
+                'avs44'
+            );
+            $tabObj['obj_id'] = 0;
 
-        // affectationa la BAV
-        $tabObj['obj_numero_bav'] = $INFO_APPLI['numero_bav'];
+            // on pousse la marque et le modele en capitale
+            $tabObj['obj_marque'] = strtoupper($tabObj['obj_marque']);
+            $tabObj['obj_couleur'] = strtoupper($tabObj['obj_couleur']);
 
-        // insertion dans la base
-        if ($id = insertFiche($tabObj)) {
-            $retour = $tabObj;
-            $retour['obj_id'] = $id;
+            // affectationa la BAV
+            $tabObj['obj_numero_bav'] = $INFO_APPLI['numero_bav'];
+
+            // insertion dans la base
+            if ($id = insertFiche($tabObj)) {
+                $retour = $tabObj;
+                $retour['obj_id'] = $id;
+            } else {
+                return "Oups problème de mise a jour";
+            }
         } else {
-            return "Oups problème de mise a jour";
+            return "Oups problème de création du client..";
         }
     } catch (Exception $e) {
         return "ERREUR " . $e->getMessage();
@@ -398,6 +408,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true, $nameEti = 'etiquet
                 }
                 $eti0 = $tab[0];
             } else {
+                $tabFiche[$index++] = $eti0;
                 $eti1 = $eti0;
             }
         }
@@ -622,6 +633,7 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
                 }
                 $eti0 = $tab[0];
             } else {
+                $tabFiche[$index++] = $eti0;
                 $eti1 = $eti0;
             }
         }
@@ -1447,10 +1459,7 @@ function action_updateFiche($dataL)
         }
     }
 
-    if (
-        $ficheOld['obj_modif_accessoire'] == 0 &&
-        strtoupper($fiche['obj_accessoire']) != strtoupper($ficheOld['obj_accessoire'])
-    ) {
+    if ($ficheOld['obj_modif_accessoire'] == 0 && strtoupper($fiche['obj_accessoire']) != strtoupper($ficheOld['obj_accessoire'])) {
         error_log('modif accessoire');
         $fiche['obj_modif_accessoire'] = 2;
     }

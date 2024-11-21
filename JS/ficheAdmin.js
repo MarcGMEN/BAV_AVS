@@ -216,6 +216,7 @@ function display_fiche(val) {
         getElement("tdBtnEmel").style.display = 'none';
 
         console.log(val['obj_etat']);
+        console.log(val);
 
         if (val['obj_etat'] == "INIT") {
             getElement("tdBtnSup").style.display = 'block';
@@ -304,6 +305,19 @@ function display_fiche(val) {
                 x_return_oneClient(val['obj_id_acheteur'], display_infoClientAcheteur);
                 x_return_listClientByName(display_listAcheteurName);
             }
+        }
+
+        if (val['image']) {
+            var imageHtml = "";
+            for (i in val['image']) {
+                imageHtml += "<div class='col-sm-2 col-xs-12'>"; 
+                imageHtml += "<img src='" + val['image'][i] + "' height='200px'/>";
+                imageHtml += "</div>"; 
+            }
+            imageHtml += "<div class='col-sm-2 col-xs-12'>"; 
+            imageHtml += "Votre choix";
+            imageHtml += "</div>"; 
+        getElement('imagesFiche').innerHTML = imageHtml;
         }
         display_formulaire(val, document.ficheForm);
     } else {

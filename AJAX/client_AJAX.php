@@ -20,7 +20,7 @@ function return_listClientByMel($mel = null)
  */
 function return_listClientByName($nom = null)
 {
-    return getClients("cli_nom", "asc", ['cli_nom' => $nom], "tous");
+    return getClients("cli_nom", "asc", ['cli_nom' => $nom], "");
 }
 
 

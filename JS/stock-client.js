@@ -189,7 +189,7 @@ function display_fiches_2(val) {
 					}
 				}
 
-				repr += "<div class='col-md-4 col-sm-6 col-xs-12 fiche_0'>";
+				repr += "<div class='col-md-3 col-sm-6 col-xs-12 fiche_0'>";
 				// if (GetCookie('CAFFARD_BAV') || ADMIN) {
 					repr += "<div class='titreFiche'>N° "+val[index]['obj_numero']+"</div>";
 				// }	
@@ -206,6 +206,8 @@ function display_fiches_2(val) {
 					if (val[index]['obj_prix_nego'] != "0.00") {
 						repr += " -> " + val[index]['obj_prix_nego']+" &euro;";
 					}
+				}else if (GetCookie('CAFFARD_BAV')) {
+					repr += val[index]['obj_prix_depot']+" &euro;";
 				}
 				repr += "</div>";
 				repr += "</div>";
@@ -224,7 +226,6 @@ function display_fiches_2(val) {
 					repr += val[index]['obj_taille'];
 				}
 				repr += "</div>";
-				
 
 				if (val[index]['obj_description']) {
 					repr += "<div class='fiche_desc'>";

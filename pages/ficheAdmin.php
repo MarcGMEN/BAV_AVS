@@ -259,7 +259,7 @@
 
 		<div class="row">
 			<div class="col-sm-6 col-xs-12">
-				<!-- Descpription -->
+				<!-- Accessoire -->
 				<span class="titrow col-md-2 col-sm-2 col-xs-3">Accessoires
 					<small>(facultative)</small>
 					<br />
@@ -272,8 +272,8 @@
 						placeholder="Saisissez les accessoires que vous déposerez avec votre vélo : compteur, roues, pneus, chargeur...."></textarea>
 				</span>
 			</div>
-
 		</div>
+		<div id='imagesFiche' class='row'></div>
 	</fieldset>
 
 	<!-- VENDEUR -->

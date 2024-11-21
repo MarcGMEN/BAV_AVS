@@ -42,7 +42,7 @@ function display_modifData(val) {
 function display_modifEtiquetteAccessoire(val) {
 
     getElement('nb_ea_eti').innerHTML = sizeof(val);
-    var nbAImprimer = parseInt(parseInt(sizeof(val)) / parseInt(nb_eti_page));
+    var nbAImprimer = parseInt(parseInt(sizeof(val)) / parseInt(nb_coupon_page));
     getElement('nbEAaImprimer').innerHTML = (nbAImprimer == 0 ? "" : "<b>") + nbAImprimer + " page" + (nbAImprimer == 1 ? "" : "s") + (nbAImprimer == 0 ? "" : "</b>");
     if (nbAImprimer > 0) {
         getElement('btnImprimeEAsPage').disabled = false;
@@ -277,7 +277,7 @@ var fichesNego = new Map();
 function imprimePreCheck(debutClasseur) {
     fichesNego = new Map();
     var fin = parseInt(debutClasseur) + parseInt(NB_MODIF) - 1;
-    console.log(debutClasseur + " -> " + fin);
+    // console.log(debutClasseur + " -> " + fin);
     // recherche des fiches du classeur
     for (var i = debutClasseur; i <= fin; i++) {
         // console.log("x_return_oneFicheByCode de " + i);
@@ -287,9 +287,9 @@ function imprimePreCheck(debutClasseur) {
     setTimeout('finFiches()', 1000);
 }
 function finFiches() {
-    while (fichesNego.length < NB_MODIF) {
-        console.log(fichesNego.length + " en cours");
-    }
+    // while (fichesNego.length < NB_MODIF) {
+    //     console.log(fichesNego.length + " en cours");
+    // }
     // fichesNego.sort(function (a, b) {
     //     return parseInt(a) == parseInt(b)
     //         ? 0
@@ -308,50 +308,60 @@ function finFiches() {
     var repr = "<html><head>";
     repr += "</head><body>";
     repr += "<h3 style='background-color:grey; text-align:center'>Check classeur " + firstKey + " -> " + ((NB_MODIF) + parseInt(firstKey) - 1) + "</h3>";
-    repr += "<table border=1 style='border:2px black solid; width:100%'>";
+    repr += "<table style='border:2px black solid; width:100%'>";
     repr += "<tr style='background-color:lightgrey;'><th width=10%>Numéro</th>";
     if (firstKey >= base_info) {
-        repr += "<th width=10 %> Prix</th > <th width=10 %> Table</th > <th width=10 %> Info</th > ";
+        repr += "<th width=10 %> Prix</th > ";
     }
     repr += "<th width=10 %> Prix négo</th > ";
+    if (firstKey >= base_info) {
+        repr += "<th width=10 %> Table</th > <th width=10 %> Info</th > ";
+    }
     repr += "<th width=10%>Numéro</th>";
     if (firstKey >= base_info) {
-        repr += "<th width=10 %> Prix</th > <th width=10 %> Table</th > <th width=10 %> Info</th > ";
+        repr += "<th width=10 %> Prix</th > ";
     }
-    repr += "<th width=10 %> Prix négo</th ></tr> ";
-
+    repr += "<th width=10 %> Prix négo</th >";
+    if (firstKey >= base_info) {
+        repr += "<th width=10 %> Table</th > <th width=10 %> Info</th > ";
+    }
+    repr += "</tr>";
     // console.log(firstKey, ((NB_MODIF / 2) + parseInt(firstKey)));
     for (var i = firstKey; i < ((NB_MODIF / 2) + parseInt(firstKey)); i++) {
         repr += "<tr style='border:2px black solid;'><td style='background-color:grey; text-align:center'>";
         repr += i
-        repr += "</td><td>";
+        repr += "</td><td style='text-align:left;border-bottom:1px black solid;border-right:1px grey solid'>";
         if (firstKey >= base_info) {
             var prix = map1.get(i)[0]
-            var etat = map1.get(i)[2]
-            repr += prix == undefined ? "" : prix == "0.00" ? "" : prix;
-            repr += "</td><td  style='text-align:center'>";
-            repr += etat == undefined ? "" : etat != "CONFIRME" ? "V" : "";
-            repr += "</td><td style='text-align:center'>";
-            repr += etat == undefined ? "" : etat != "CONFIRME" ? "V" : "";
-            repr += "</td><td>";
+            repr += prix == undefined ? "" : prix == "0.00" ? "" : prix+" &euro;";
+            repr += "</td><td  style='text-align:left;border-bottom:1px black solid'>";
         }
-        repr += map1.get(i)[1] == undefined ? "" : map1.get(i)[1] == "0.00" ? "" : map1.get(i)[1] ;
+        repr += map1.get(i)[1] == undefined ? "" : map1.get(i)[1] == "0.00" ? "" : map1.get(i)[1]+" &euro;";
+        if (firstKey >= base_info) {
+            var etat = map1.get(i)[2]
+            repr += "</td><td style='text-align:center;border-bottom:1px black solid;border-left:1px grey solid'>";
+            repr += etat == undefined ? "" : etat != "CONFIRME" ? "V" : "";
+            repr += "</td><td style='text-align:center;border-bottom:1px black solid;border-left:1px grey solid'>";
+            repr += etat == undefined ? "" : etat != "CONFIRME" ? etat : "";
+        }
         repr += "</td>";
         repr += "<td style='background-color:grey; text-align:center'>";
         var j = parseInt(parseInt(i) + (NB_MODIF / 2));
         repr += j;
-        repr += "</td><td>";
+        repr += "</td><td style='text-align:left;border-bottom:1px black solid;border-right:1px grey solid'>";
         if (firstKey >= base_info) {
             prix = map1.get(j)[0]
-            etat = map1.get(j)[2]
-            repr += prix == undefined ? "" : prix == "0.00" ? "" : prix;
-            repr += "</td><td style='text-align:center'>";
-            repr += etat == undefined ? "" : etat != "CONFIRME" ? "V" : "";
-            repr += "</td><td style='text-align:center'>";
-            repr += etat == undefined ? "" : etat != "CONFIRME" ? "V" : "";
-            repr += "</td><td>";
+            repr += prix == undefined ? "" : prix == "0.00" ? "" : prix+" &euro;";
+            repr += "</td><td style='text-align:left;border-bottom:1px black solid'>";
         }
-        repr += map1.get(j)[1] == undefined ? "" : map1.get(j)[1] == "0.00" ? "" : map1.get(j)[1] ;
+        repr += map1.get(j)[1] == undefined ? "" : map1.get(j)[1] == "0.00" ? "" : map1.get(j)[1]+" &euro;" ;
+        if (firstKey >= base_info) {
+            etat = map1.get(j)[2]
+            repr += "</td><td style='text-align:center;border-bottom:1px black solid;border-left:1px grey solid'>";
+            repr += etat == undefined ? "" : etat != "CONFIRME" ? "V" : "";
+            repr += "</td><td style='text-align:center;border-bottom:1px black solid;border-left:1px grey solid'>";
+            repr += etat == undefined ? "" : etat != "CONFIRME" ? etat : "";
+        }
         repr += "</td></tr>";
     }
     repr += "</table>";

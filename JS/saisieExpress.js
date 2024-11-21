@@ -16,7 +16,7 @@ function initPage() {
     // x_return_listClientByMel(display_listVendeur);
 
     // chargement de la liste des client par mel
-    x_return_listClientByName(display_listVendeurName);
+    x_return_listClientByName("*",display_listVendeurName);
 
     // recuperation de la liste des marques
     x_return_list_marques(display_list_marques)

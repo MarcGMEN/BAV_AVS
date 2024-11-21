@@ -20,7 +20,8 @@
 <table width="100%" class="alert alert-info">
 	<tr>
 		<td width=80%>
-			Recherche : <input type=text class="autocomplete" name='search_<?= rand(1, 100) ?>' size="10" maxlength="100" onkeyup="search(this.value)" style='width:50%'/>
+			Recherche : <input type=text class="autocomplete" name='search_<?= rand(1, 100) ?>' size="10" maxlength="100" onkeyup="search(this.value)" style='width:50%'
+			placeholder="Recherche avec plusieurs mots possible."/>
 		</td>
 		<td width=20%>
 			Nb <span id=total></span>
