@@ -122,6 +122,7 @@ function display_fiches(val) {
                 repr += "</td>";
                 repr += "<td width=10% style='text-align:center'>";
                 repr += val[index]['obj_type'];
+                repr +="<div class='onMobile'>"+ val[index]['obj_marque']+" "+val[index]['obj_modele']+"</div>";
                 repr += "</td>";
                 repr += "<td class='maskMobile' width=10% style='padding:0px 5px 0px 5px' >";
                 repr += val[index]['obj_couleur'];
@@ -144,7 +145,7 @@ function display_fiches(val) {
                 repr += ">";
                 repr += val[index]['vendeur_nom'];
                 repr += "</td>";
-                repr += "<td width=10% style='text-align:center'>";
+                repr += "<td width=5% style='text-align:center'>";
                 if (val[index]['obj_prix_vente'] == 0) {
                     repr += "<span style='color:RED'>" + val[index]['obj_prix_depot'] + "</span>";
                 } else {
@@ -155,8 +156,11 @@ function display_fiches(val) {
                 }
                 repr += "&nbsp;&euro;";
                 repr += "</td>";
-                repr += "<td width=10% style='text-align:center'>";
+                repr += "<td width=10% style='text-align:center'  class='maskMobile'>";
                 repr += val[index]['obj_etat'];
+                repr += "</td>";
+                repr += "<td width=5% style='text-align:center'  class='onMobile'>";
+                repr += val[index]['obj_etat'][0];
                 repr += "</td>";
                 repr += "<td width=10% class='maskMobile' style='text-align:center;' >";
                 if (val[index]['obj_etat'] == "CONFIRME") {

@@ -53,7 +53,8 @@ Recherche générique : <input size=30 id='obj_search' onkeyup="searchColonne('o
 		</td>
 		<td class="tittab" width=10%>
 			<span id='obj_type' onclick="triColonne('obj_type')" class="sortable">Type&nbsp;&nbsp;</span>
-			&nbsp;<select id="sel_obj_type" onchange="selectColonne('obj_type', this.value)"></select></td>
+			<!-- &nbsp;<select id="sel_obj_type" onchange="selectColonne('obj_type', this.value)"></select> -->
+			</td>
 		<td class="tittab maskMobile" width=10%>
 			<span id='obj_couleur' onclick="triColonne('obj_couleur')" class="sortable ">Couleur&nbsp;&nbsp;&nbsp;</span>
 			&nbsp;</td>
@@ -74,12 +75,15 @@ Recherche générique : <input size=30 id='obj_search' onkeyup="searchColonne('o
 				list=listVendeur />
 			<datalist id="listVendeur"></datalist>-->
 		</td>
-		<td class="tittab" width=10%>
+		<td class="tittab" width=5%>
 			<span class="sortable" id='obj_prix_vente' onclick="triColonne('obj_prix_vente')">Prix vente&nbsp;</span>
 			&nbsp;</td>
-		<td class="tittab" width=10%>
+		<td class="tittab maskMobile" width=10%>
 			<span id='obj_etat' onclick="triColonne('obj_etat')" class="sortable">Etat&nbsp;&nbsp;</span>
 			&nbsp;<select id="sel_obj_etat" onchange="selectColonne('obj_etat', this.value)"></select></td>
+		<td class="tittab onMobile" width=5%>
+		<span id='obj_etat' onclick="triColonne('obj_etat')" class="sortable">Etat&nbsp;&nbsp;</span>
+		</td>
 		<td class="tittab maskMobile" width=10%>
 			<span class="sortable" id='obj_date_depot' onclick="triColonne('obj_date_depot')">Date depot&nbsp;</span></td>
 		<td class="tittab maskMobile" width=15%>

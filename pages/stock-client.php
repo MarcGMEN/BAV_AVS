@@ -2,25 +2,24 @@
 	var tri = "obj_marque";
 	var sens = "asc";
 	var tabSel = {};
-	if (CLIENT) {
-		tabSel['obj_etat'] = 'CONFIRME';
-	} else {
+	if (BAV_ENCOURS) {
 		tabSel['obj_etat'] = 'STOCK';
+	} else {
+		tabSel['obj_etat'] = 'CONFIRME';
 	}
-
 	// tabSel['obj_etat'] = 'RENDU';
 	var vueParc = "<?= $infAppli['vue_parc'] ?>";
 </script>
 <script src="JS/stock-client.js"></script>
 
 <h3>Liste des vélos disponibles triés par marque.</h3>
+Cliquez sur l'icone google <img src='https://www.we-do-it-better.fr/wp-content/uploads/2019/04/googlesearch.png' height='20px'/> pour visualer le vélo.
 <br />
 <div class='row alert alert-info'>
 	<div class='col-md-3 col-sm-3 col-xs-12'>
 		Recherche des vélos avec un prix compris :
 		<input type=radio name="range"
 			onclick="searchRange(0,10000)" checked>Tous
-	
 	</div>
 	<div class='col-md-9 col-sm-9 col-xs-12 maskMobile'>
 		<input type=radio name="range"

@@ -159,6 +159,7 @@ function display_getFicheVente(val) {
                 if (val['cli_telephone_bis'] != "") {
                     messageVente += " ou " + val['cli_telephone_bis'] 
                 }
+                messageVente += "<div style='color:red'> Accessoire  : " + val['obj_accessoire'] + "</div>";
                 messageVente += "</div>"
                 messageVente += "</div> ";
             }
