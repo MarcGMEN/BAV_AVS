@@ -156,7 +156,7 @@ function return_oneFiche($id)
 
         $row['cli_com'] = getCommission($row);
 
-        $tabImg=getImage($row['obj_type']." ".$row['obj_marque']." ".$row['obj_modele']." ".$row['obj_couleur'],4);
+        $tabImg=getImage("vélo ".$row['obj_type']." ".$row['obj_marque']." ".$row['obj_modele']." ".$row['obj_couleur'],4);
         if ($tabImg[0]) {
            $row['image']=$tabImg;
         }

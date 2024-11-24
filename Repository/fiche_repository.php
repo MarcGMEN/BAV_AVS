@@ -49,7 +49,7 @@ function countByEtat($idVendeur = null)
 /**
  * comptage des fiches d'une BAV en fonction d'un critere
  */
-function countBy($tabSel, $selS, $search = "=", $valS="*", $etats = "'STOCK','RENDU'")
+function countBy($tabSel, $selS, $search = "=", $valS = "*", $etats = "'STOCK','RENDU'")
 {
     $requete2 = "SELECT count(*) from bav_objet ";
     $requete2 .= "where obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "'";
@@ -221,11 +221,15 @@ function getFiches($order, $sens, $tabSel, $client = true)
                     $requete2 .= " or obj_public like '%" . addslashes($value) . "%' ";
                     $requete2 .= " or obj_marque like '%" . addslashes($value) . "%' ";
                     $requete2 .= " or obj_couleur like '%" . addslashes($value) . "%' ";
-                    $requete2 .= " or obj_prix_depot like '" . addslashes($value) . "%' ";
-                    $requete2 .= " or obj_prix_vente like '" . addslashes($value) . "%' ";
+                    // $requete2 .= " or obj_prix_depot like '" . addslashes($value) . "%' ";
+                    // $requete2 .= " or obj_prix_vente like '" . addslashes($value) . "%' ";
                     $requete2 .= " or obj_taille like '%" . addslashes($value) . "%') ";
                 }
             }
+        } elseif ($key == "obj_deb_prix") {
+            $requete2 .= " and obj_prix_depot >= " . $val . " ";
+        } elseif ($key == "obj_fin_prix") {
+            $requete2 .= " and obj_prix_depot < " . $val . " ";
         } elseif ($key && $val != "*") {
             $requete2 .= " and $key = '" . addslashes($val) . "' ";
         }
@@ -409,7 +413,7 @@ function getOneFiche($id)
     $requete2 .= "  left outer join bav_client as ac on obj_id_acheteur = ac.cli_id ";
     $requete2 .= " where obj_id  = $id";
 
-    $result = $GLOBALS['mysqli']->query($requete2) or die ("--Pb d'update [$requete2]   ===> " . $GLOBALS['mysqli']->error);
+    $result = $GLOBALS['mysqli']->query($requete2) or die("--Pb d'update [$requete2]   ===> " . $GLOBALS['mysqli']->error);
     if ($result) {
         $row = $result->fetch_assoc();
         $result->close();

@@ -499,7 +499,7 @@ function getImage($libelle, $limit=1)
 {
 	$apiKey = 'AIzaSyABMdW__fbyBDjd0aBBCY_im7rejFftkDQ';
 	$cx = 'b423b843faa5744b2';
-	$url = 'https://www.googleapis.com/customsearch/v1?key=' . $apiKey . '&cx=' . $cx . '&q=' . urlencode($libelle);
+	$url = 'https://www.googleapis.com/customsearch/v1?key=' . $apiKey . '&cx=' . $cx . '&q=' . urlencode($libelle)."&udm=2";
 
 	$tabImg= array();
 	$res = file_get_contents($url);

@@ -106,9 +106,9 @@ if ($infAppli['ADMIN']) {
     ];
 } elseif ($infAppli['CLIENT']) {
     $tabNavAdm = [
-        //     'stock-client.php' => [
-        //         'libelle' => 'Les vélos'
-        //     ],
+            'stock-client.php' => [
+                'libelle' => 'Les vélos'
+            ],
         // 'SPACE0' => [
         //     'libelle' => '🟡🟡',
         // ],

@@ -869,7 +869,7 @@
 	<hr />
 	<table width="100%">
 		<tr class='tabl1'>
-			<td class="tittab">Nombre de velo superieur a
+			<td class="tittab">Nombre de vélos superieur à
 				<input type=range oninput="getElement('resultRangeDepot').innerHTML=this.value" onchange="x_return_countByTarifSup(tabToString(tabSel),this.value,'depot', display_countByTarifSupDepot);" min=0 max=3500 range=50 value=500 list="tickmarksDepot" />
 				<datalist id="tickmarksDepot">
 					<option value="0">
