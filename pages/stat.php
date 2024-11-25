@@ -549,8 +549,9 @@
 			}
 		}
 		
-		var repr = "<table width='100%'><tr>";
+		var repr = "";
 
+		repr += "<div class='row'>";
 		var TIME_PAUSE = 1200;
 		var indexSearch = 1;
 		for (i in tabVal) {
@@ -584,16 +585,21 @@
 				// console.log("dep ",dep, depOld);
 				if (depOld != "" && depOld != dep) {
 					var pour=nbDep*100/nbClient;
-					repr += "</tr><tr><td class='tabl0' colspan=3 style='background-color:lightgrey'>" + depOld + " => " + nbDep +" ("+pour.toFixed(2)+"%)";
-					repr += "&nbsp;&nbsp;&nbsp;Communes : "+nbCommune+"<br/></td></tr><tr>";
+					repr += "<div class='col-md-12 col-sm-12 col-xs-12 tabl0'  style='background-color:lightgrey'>";
+					repr += depOld + " => " + nbDep +" ("+pour.toFixed(2)+"%)";
+					repr += "&nbsp;&nbsp;&nbsp;Communes : "+nbCommune;
+					repr += "</div>";
 					index = 1;
 					nbDep = 0;
 					nbCommune=0;
 				}
 				tabCdpNb[tabVal[i]['cdp']] = tabVal[i]['nb'];
 				var pour=tabVal[i]['nb']*100/nbClient;
-				repr += "<td class='tabl1' width='33%'>" + tabVal[i]['cdp'] + " => " + tabVal[i]['nb'] + " ("+pour.toFixed(2)+"%)</td>";
+				repr += "<div class='col-md-4 col-sm-5 col-xs-6 tabl1' >";
+				repr += tabVal[i]['cdp'] + " => " + tabVal[i]['nb'] + " ("+pour.toFixed(1)+"%)";
 				//getElement('tabCodePostal').innerHTML+="&nbsp;&nbsp;&nbsp;"+tabVal[i]['cdp']+" => "+tabVal[i]['nb']+rc;
+				repr += "</div>";
+
 
 				depOld = dep;
 				nbDep += tabVal[i]['nb'];
@@ -602,12 +608,14 @@
 			}
 		}
 		var pour=nbDep*100/nbClient;
-		repr += "</tr><tr><td class='tabl0' colspan=3 style='background-color:lightgrey'>" + depOld + " => " + nbDep +" ("+pour.toFixed(2)+"%)";
-		repr += "&nbsp;&nbsp;&nbsp;Communes : "+nbCommune+"<br/></td></tr><tr>";
-		repr += "</tr><tr><td class='tabl0'><b>Total => " + nbClient + "</b></td></tr><tr>";
+		repr += "<div class='col-md-12 col-sm-12 col-xs-12 tabl0'  style='background-color:lightgrey'>";
+		repr += depOld + " => " + nbDep +" ("+pour.toFixed(2)+"%)";
+		repr += "&nbsp;&nbsp;&nbsp;Communes : "+nbCommune;
+		repr += "</div>";
+		repr += "<div class='col-md-12 col-sm-12 col-xs-12 tabl0'  >";
+		repr += "</div>";
 
 		// recuperation du tableau des distances
-		repr += "</table>"
 		getElement('tabCodePostal').innerHTML = repr;
 		console.log('traitement en ' + (TIME_PAUSE * indexSearch + 100) / 1000 + ' secondes');
 		setTimeout("finCreateCarte()", TIME_PAUSE * indexSearch + 100);
@@ -641,7 +649,8 @@
 		console.log("km50", km50);
 
 		var kmAV = 0;
-		var repr = "<div class='tabl0'>Distance des clients : </div>";
+		var repr = "";
+		repr += "<div class='row'>";
 		var stringKeys = Object.keys(km50);
 		var indexAff = 1;
 		for (let index = 0; index <= stringKeys[stringKeys.length - 1]; index++) {
@@ -653,11 +662,9 @@
 			if (nb > 0) {
 
 				var pour=nb*100/nbClient;
-				repr += kmAV + "km -> " + kmFin + "km = " + nb + " ("+pour.toFixed(2)+"%)&nbsp;&nbsp;/&nbsp;&nbsp;";
-				
-				if ((indexAff++) % 5 == 0) {
-					repr += "<br/>";
-				}
+				repr += "<div class='col-md-2 col-sm-4 col-xs-6'>";
+				repr += kmAV + "km -> " + kmFin + "km = " + nb + " ("+pour.toFixed(1)+"%)&nbsp;&nbsp;&nbsp;";
+				repr +="</div>";
 			}
 			kmAV = ((index + 1) * 30) + 1;
 
@@ -781,7 +788,7 @@
 			<input type=checkbox onchange='cumul=cumul == 1 ? 0 : 1;x_return_nbFichesByDay(anneeBav, display_statByAnneeRef);'> No cumul</input>
 		</div>
 	</div>
-	<canvas id="canvasSuivi1" height="200">Votre navigateur est trop vieux</canvas>
+	<canvas id="canvasSuivi1" height="200" style='width:100%;max-width: 100%';>Votre navigateur est trop vieux</canvas>
 </div>
 
 <fieldset class=fiche>
@@ -977,9 +984,11 @@
 		</div>
 		<div class="col-sm-8 col-xs-12">
 			<div id=map></div>
+			<h3 class=tittab>Distances</h3>
 			<div id=km30></div>
 		</div>
 		<div class="col-sm-4 col-xs-12">
+			<h3 class=tittab>Communes</h3>
 			<div id=tabCodePostal></div>
 		</div>
 	</div>
