@@ -109,7 +109,7 @@ if ($infAppli['ADMIN']) {
             'stock-client.php' => [
                 'libelle' => 'Les vélos'
             ],
-        // 'SPACE0' => [
+        // 'SPACE0' => [s
         //     'libelle' => '🟡🟡',
         // ],
         'pre_depot.php' => [

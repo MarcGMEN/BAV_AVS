@@ -152,7 +152,7 @@ function display_getFicheVente(val) {
         } else {
             messageVente = "<div class='alert alert-danger'><b>Votre vélo numéro " + val['obj_numero'] + " n\'a pas encore été vendu.<br/> Veuillez re-essayer ultérieurement.</b></div>";
 
-            if (GetCookie('CAFFARD_BAV')) {
+            if (GetCookie('CAFFARD_BAV') || ADMIN) {
                 messageVente += "<div class='alert alert-info'><div>Le prix de négo : " + val['obj_prix_nego'] + "&euro;</div>";
                 messageVente += "<div> Le vendeur est : " + val['cli_nom'] + "</div>";
                 messageVente += "<div >Le téléphone du vendeur " + val['cli_telephone'];

@@ -190,7 +190,11 @@ function display_fiches_2(val) {
 
 				repr += "<div class='col-md-3 col-sm-6 col-xs-12 fiche_0'>";
 				// if (GetCookie('CAFFARD_BAV') || ADMIN) {
-				repr += "<div class='titreFiche'>N° " + val[index]['obj_numero'];
+				repr += "<div class='titreFiche' ";
+				if (GetCookie('CAFFARD_BAV') || ADMIN) {
+					repr += "onclick = 'x_return_oneFicheByCode(" + val[index]['obj_numero'] + ", display_getFicheVente);'";
+				}
+				repr += "> N° " + val[index]['obj_numero'];
 				if (val[index]['obj_modele']) {
 					repr += "&nbsp<A href='https://www.google.fr/search?tbm=isch&q=" + val['obj_marque_orig'] + " " + val['obj_modele_orig'] + "' target='_blank' ><img src='https://www.we-do-it-better.fr/wp-content/uploads/2019/04/googlesearch.png' height='20px'/></A></span>";
 				}
