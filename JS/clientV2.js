@@ -199,7 +199,9 @@ function display_fiches(val, idElement) {
                 repr += "</td>";
                 repr += "<td style='text-align:center' >";
                 if (val[index]['obj_etat'] == 'CONFIRME' && idElement == "fiches") {
-                    repr += "<span title='Modifier'  onclick='modifierFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link' style='font-size:1.5em'><i class='link fas fa-edit'></i>&nbsp;</span > ";
+                    if (CLIENT) {
+                        repr += "<span title='Modifier'  onclick='modifierFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link' style='font-size:1.5em'><i class='link fas fa-edit'></i>&nbsp;</span > ";
+                    }   
                     repr += "<span title='Supprimer' onclick='supprimerFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link' style='font-size:1.5em'>&nbsp;❌&nbsp;</span>";
                     // repr += "<span title='Imprimer' onclick='imprimeFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link' style='font-size:1.5em'>&nbsp;📇</span>";
                     repr += "<span title='Imprimer'><a href='../out/PDF/fiche_depot_"+ val[index]['obj_numero'] + ".pdf' class='link' target='blank' style='font-size:1.5em'>&nbsp;📇</span>";

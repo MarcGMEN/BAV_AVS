@@ -10,6 +10,7 @@
 </script>
 
 <?php
+$today=mktime(0,0,0,date('m'),date('d'),date('Y'));
 // print_r($infAppli);
 $tabNavAll = [
     'news.php' => [
@@ -123,21 +124,15 @@ if ($infAppli['ADMIN']) {
         //     'LIBELLE' => 'LES VÉLOS'
         // ],
     ];
-} elseif ($infAppli['bav_en_cours'] && !$infAppli['CLIENT']) {
+} elseif ($infAppli['bav_en_cours'] || $infAppli['date_j1']==$today) {
     $tabNavAdm = [
         'stock-client.php' => [
             'libelle' => 'Les vélos'
         ],
-        // 'SPACE0' => [
-        //     'libelle' => '🟡🟡',
-        // ],
         'pre_depot.php' => [
             'libelle' => '<span class="PRE-DEPOT" >Pour suivre vos ventes.</span>',
             'mode' => '',
         ],
-        // 'SPACE1' => [
-        //     'libelle' => '🟡🟡',
-        // ],
         'avis.php' => [
             'libelle' => 'Avis'
         ],

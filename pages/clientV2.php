@@ -84,9 +84,11 @@
 				</div>
 			<? } else { ?>
 				<div class="row fiche">
+					<? if ($infAppli['CLIENT'] == 1 ) {?>
 					<div class="col-sm-12 col-md-12 col-xs-12 btnAction" id="tdBtnAction">
 						<button name="buttonValideFiche" tabindex=<?= $tabindex++ ?> onclick='goToPOST("clientV2.php","modif",this.form.cli_id_modif.value,"")'>Modifier</button>
 					</div>
+					<? }  ?>
 				</div>
 			<? } ?>
 		</form>
