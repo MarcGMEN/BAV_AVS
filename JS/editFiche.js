@@ -23,7 +23,7 @@ function display_modifData(val) {
     getElement('nbAImprimer').innerHTML = (nbAImprimer == 0 ? "" : "<b>") + nbAImprimer + " page" + (nbAImprimer == 1 ? "" : "s") + (nbAImprimer == 0 ? "" : "</b>");
     if (nbAImprimer > 0) {
         getElement('btnImprimeEtiquettesPage').disabled = false;
-        getElement('forceEtiquette').disabled = true;
+        //getElement('forceEtiquette').disabled = true;
     }
     var nbModif = 0;
     var nbNew = 0
@@ -46,7 +46,7 @@ function display_modifEtiquetteAccessoire(val) {
     getElement('nbEAaImprimer').innerHTML = (nbAImprimer == 0 ? "" : "<b>") + nbAImprimer + " page" + (nbAImprimer == 1 ? "" : "s") + (nbAImprimer == 0 ? "" : "</b>");
     if (nbAImprimer > 0) {
         getElement('btnImprimeEAsPage').disabled = false;
-        getElement('forceAccessoire').disabled = true;
+        // getElement('forceAccessoire').disabled = true;
     }
     var nbModif = 0;
     var nbNew = 0
@@ -69,7 +69,7 @@ function display_modifVendeur(val) {
     getElement('nbCouponAImprimer').innerHTML = (nbAImprimer == 0 ? "" : "<b>") + nbAImprimer + " page" + (nbAImprimer == 1 ? "" : "s") + (nbAImprimer == 0 ? "" : "</b>");
     if (nbAImprimer > 0) {
         getElement('btnImprimeCouponsPage').disabled = false;
-        getElement('forceCoupon').disabled = true;
+        // getElement('forceCoupon').disabled = true;
     }
     var nbModif = 0;
     var nbNew = 0
@@ -92,7 +92,7 @@ function display_modifStock(val) {
     getElement('nbCouponAImprimerA').innerHTML = (nbAImprimer == 0 ? "" : "<b>") + nbAImprimer + " page" + (nbAImprimer == 1 ? "" : "s") + (nbAImprimer == 0 ? "" : "</b>");
     if (nbAImprimer > 0) {
         getElement('btnImprimeCouponsPageA').disabled = false;
-        getElement('forceCouponA').disabled = true;
+        // getElement('forceCouponA').disabled = true;
     }
     var nbModif = 0;
     var nbNew = 0
