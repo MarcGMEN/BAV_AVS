@@ -4,7 +4,7 @@
 </script>
 <script src="JS/avis.js"></script>
 <br/>
-<? if ($infAppli['bav_en_cours'] || $infAppli['ADMIN']) { ?>
+<? // if ($infAppli['bav_en_cours'] || $infAppli['ADMIN']) { ?>
 <h3 class="titreFiche">Laissez votre avis sur la Bourse aux 1000 vélos</h3>
 <form method="post" action="#">
 	<div class="row">
@@ -29,7 +29,7 @@
 		
 	</div>
 </form>
-<? }?>
+<? //}?>
 <h3 class="titreFiche">Les avis</h3>
 <div id=avisCount></div>
 <hr/>

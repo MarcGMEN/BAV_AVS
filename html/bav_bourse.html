@@ -1,3 +1,12 @@
+<style>
+.iframe-container {
+            width: 100%; /* Prend toute la largeur disponible */
+            max-width: 100%; /* Ne dépasse pas la largeur de l'écran */
+            overflow: hidden; /* Évite les débordements */
+            position: relative; /* Nécessaire pour le ratio d'aspect */
+            padding-top: 56.25%; /* Ratio d'aspect 16:9 (ajustez selon vos besoins) */
+        }
+</style>
 <div class="row" style="padding: 20px">
   <!-- QUAND -->
   <!-- <div class="col-md-12 col-sm-12 col-md-12" style="padding: 20px"> -->
@@ -5,12 +14,12 @@
       style="vertical-align: middle;font-size:2em;">
       Quand ?
     </div>
-    <div class="col-md-6 col-sm-6 col-xs-10" style="font-size: 1.2em;">
-      <li />Le vendredi --date1-- Novembre --annee-- de 17h à 20h, pour déposer
-      <li />Le samedi --date2-- Novembre --annee-- de 8h à 19h, pour déposer et acheter
-      <li />Le dimanche --date3-- Décembre --annee-- de 9h à 18h, pour acheter
+    <div class="col-md-6 col-sm-6 col-xs-12" >
+      <li />Le vendredi --date1-- --mois1-- --annee-- de 17h à 20h, pour déposer
+      <li />Le samedi --date2-- --mois2-- --annee-- de 8h à 19h, pour déposer et acheter
+      <li />Le dimanche --date3-- --mois3-- --annee-- de 9h à 18h, pour acheter
     </div>
-    <div class="col-md-2 col-sm-2 col-xs-2" style="font-size: 1.2em;">
+    <div class="col-md-2 col-sm-2 col-xs-2 maskmobile" >
       <img src="./downloads/calendar.png" height="100px" />
     </div>
   </div>
@@ -23,10 +32,10 @@
       style="vertical-align: middle;font-size:2em;">
       Où ?
     </div>
-    <div class="col-md-2 col-sm-2 col-xs-2" style="font-size: 1.2em;">
+    <div class="col-md-2 col-sm-2 col-xs-2 maskmobile">
       <img src="./downloads/soucoupe.jpeg" height="auto"/>
     </div>
-    <div class="col-md-6 col-sm-6 col-xs-10" style="font-size: 1.2em;">
+    <div class="col-md-6 col-sm-6 col-xs-12" >
       Lieu : <span class="link url" onclick='goTo("venir.php",null, null, null)'
         )>Soucoupe</span>,
       avenue Léo Lagrange, Saint-Nazaire
@@ -63,17 +72,21 @@
       style="vertical-align: middle;font-size:2em;">
       Quoi Vendre ?
     </div>
-    <div class="col-md-6 col-sm-6 col-xs-10" style="font-size: 1.2em;">
+    <div class="col-md-8 col-sm-8 col-xs-12" >
       Tous les types de vélos sont acceptés, pourvus qu'ils soient <b>propres</b>
       et <b>en parfait état de fonctionnement.</b><br />
       Vous déposez votre vélo pour 4&euro; et nous nous occupons de la vente des
       vélos sur les 2 jours.<br />
       En cas de vente seulement, une commission de 10% vous sera demandée, dans la limite de 100&euro;.
-      <br /> Pour plus d'informations, télécharger <span class="link url"
-        onclick='loadReglement("bav.php","B")' )>le règlement</span>.
+      <br /> Pour plus d'informations, télécharger <A href="out/PDF/reglementB.pdf" target="_blank"
+          class="link url">le règlement</A>.
+			<div class="tabAction">
+				Nos 8 conseils pour préparer votre vélo pour la bourse => 
+				<a class="link url" href="#" onclick="openPDF('dowloads/Révisions.pdf')">Les 8 conseils de l'AVS</A>
+			</div>
     </div>
-    <div class="col-md-2 col-sm-2 col-xs-2" style="font-size: 1.2em;">
-				<img src="./downloads/20231117_215518.jpg" />	
+    <div class="col-md-12 col-sm-12 col-xs-12" >
+			<div id="carroussel" class="carroussel"></div>
     </div>
   </div>
   <!-- PRE DEPOT -->
@@ -83,20 +96,20 @@
     <div class="col-md-4 col-sm-4 col-xs-12 titreFiche noDesk"
       style="vertical-align: middle;font-size:2em;"> Pré-déposer
     </div>
-    <div class="col-md-2 col-sm-2 col-xs-2" style="font-size: 1.2em;">
+    <div class="col-md-2 col-sm-2 col-xs-2 maskmobile" >
       <img src="Images/fastPAss.jpg" alt="fastPASS" height='auto'>
     </div>
-    <div class="col-md-6 col-sm-6 col-xs-10"
-      style="vertical-align: middle;font-size: 1.2em;">
+    <div class="col-md-6 col-sm-6 col-xs-12"
+      style="vertical-align: middle;">
       Pour plus de rapidité le jour du dépot, le vendredi soir ou le samedi,
-      <br />pensez au pré-dépot <!--(<span class="link url"
+      <br />pensez au pré-dépot (<span class="link url"
         onclick='goTo("pre_depot.php","create", null, null)'>Cliquez
-        ici</span>)-->.<br />Fermeture du pré-depot le jeudi soir avant la bourse.
+        ici</span>).<br />Fermeture du pré-depot le jeudi soir avant la bourse.
       <br />Et profitez d'un suivi en direct de vos ventes.
-      <p>Sinon vous pouvez toujours télécharger<!--, puis imprimer la
-        <A href="downloads/Fiche_BAV_2023.pdf" target="_blank"
+      <p>Sinon vous pouvez toujours télécharger, puis imprimer la
+        <A href="downloads/Fiche_BAV_2024.pdf" target="_blank"
           class="link url">fiche dépôt</A> et la
-        remplir-->.<br />
+        remplir.<br />
       </p>
     </div>
     <div class="col-md-4 col-sm-4 col-xs-12 titreFiche maskmobile"
@@ -110,14 +123,14 @@
       style="vertical-align: middle;font-size:2em;">
       Quoi acheter ?
     </div>
-    <div class="col-md-6 col-sm-6 col-xs-10" style="font-size: 1.2em;">
+    <div class="col-md-6 col-sm-6 col-xs-12" >
       Depuis 20 ans, nous proposons des vélos pour tous le monde : enfants, balades,
       vélo de travail et performances.<br />
-      De Tous styles : VTC, route, VTT, VAE, gravel, cargo....
+      De tous les styles : VTC, route, VTT, VAE, gravel, cargo....
     </div>
-    <div class="col-md-12 col-sm-2 col-xs-2" style="font-size: 1.2em;">
+    <div class="col-md-2 col-sm-2 col-xs-2 maskmobile">
       <img src="./downloads/showRoom.jpg" height='auto' />
-    </div> 
+    </div>
   </div>
 
   <!-- STAT -->
@@ -128,12 +141,12 @@
       style="vertical-align: middle;font-size:2em;">
       En chiffres
     </div>
-    <div class="col-md-4 col-sm-4 col-xs-4" style="font-size: 1.2em;">
+    <div class="col-md-4 col-sm-4 col-xs-6">
       <img src="./downloads/statsBAV.png" class="link imgBAV"
         onclick='alertModalInfo("<img width=70% height=auto src=\"./downloads/statsBAV.png\" alt=\"statistique BAV\" />")' />
     </div>
 
-    <div class="col-md-4 col-sm-4 col-xs-4" style="font-size: 1.2em;">
+    <div class="col-md-4 col-sm-4 col-xs-6" >
       <img src="./downloads/statBAV2023.png" class="imgBAV" alt="stat 2023" />
     </div>
     <div class="col-md-4 col-sm-4 col-xs-12 titreFiche maskmobile"
@@ -149,7 +162,7 @@
       style="vertical-align: middle;font-size:2em;">
       Les plus de la BAV
     </div>
-    <div class="col-md-6 col-sm-6 col-xs-10" style="font-size: 1.2em;">
+    <div class="col-md-6 col-sm-6 col-xs-12" >
       <div style='padding:5px'><span class="label label-warning">Un espace performances</span> Un
         showroom de 300m2 en mezzanine dédié uniquement aux vélos pour une
         pratique plus engagée.
@@ -166,19 +179,19 @@
       </div>
       <div style='padding:5px'>
         <span class="label label-warning">Une Tombola gratuite </span>
-        <span class="link url" onclick='loadReglement("bav.php","T")'>
-          Télécharger le règlement de la tombola
-        </span>
-<br/>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/RqVJFT2RsXM?si=1F_De6S7zqJ-R_uZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
+        Télécharger <A href="out/PDF/reglementT.pdf" target="_blank" class="link url">le règlement</A> de la tombola
       </div>
+<br/>
+<iframe  height="300" src="https://www.youtube.com/embed/RqVJFT2RsXM?si=1F_De6S7zqJ-R_uZ" 
+	title="YouTube video player" 
+	frameborder="0" 
+	allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
-    <div class="col-md-2 col-sm-2 col-xs-2" style="font-size: 1.2em;">
+    <div class="col-md-2 col-sm-2 col-xs-2 maskmobile" >
       <img src="./downloads/EspritClubDisque.png" alt="EspritClub"
         height='auto'>
     </div>
-  </div>
+</div>
 
   <!-- CONTACT -->
   <div class="row"
@@ -187,11 +200,11 @@
       style="vertical-align: middle;font-size:2em;">
       Contact ?
     </div>
-    <div class="col-md-2 col-sm-2 col-xs-2" style="font-size: 1.2em;">
+    <div class="col-md-2 col-sm-2 col-xs-2 maskmobile" >
       <img src="./downloads/Phone_Icon_clip_art_medium.png" height='100px'/>
     </div>
-    <div class="col-md-6 col-sm-6 col-xs-10" style="font-size: 1.2em;">
-      <p>En cas de question concernant veuillez d'abord consulter notre
+    <div class="col-md-6 col-sm-6 col-xs-12" >
+      <p>Pour toutes question concernant la Bourse, veuillez d'abord consulter notre
         <span class="link url" onclick='goTo("faq.php",null, null, null)'
           )>Foire Aux Questions</span>
       <p>Pour toute autre demande, contactez-nous directement :</p>
@@ -202,6 +215,9 @@
       </p>
       <p><span class="label label-info">Tél</span>
         <span style="font-size: 16px;">06.46.58.06.61</span>
+      </p>
+			<p><span class="label label-info">Instagram</span>
+				<a href="https://www.instagram.com/bourse.aux.1000.velos/"  class="url" target="_blank">@bourse.aux.1000.velos</a> 
       </p>
     </div>
     <div class="col-md-4 col-sm-4 col-xs-12 titreFiche maskmobile"
@@ -217,8 +233,8 @@
       style="vertical-align: middle;font-size:2em;">
       Qui fait çà ?
     </div>
-    <div class="col-md-6 col-sm-6 col-xs-10" style="font-size: 1.2em;">
-        <h3><b>A</b>tlantique <b>V</b>élo <b>S</b>port</h>
+    <div class="col-md-6 col-sm-6 col-xs-12" >
+        <h3><b>A</b>tlantique <b>V</b>élo <b>S</b>port</h3>
         <p>Organisateur de la Bourse aux 1000 vélos, L'Atlantique Vélo Sport
           est un club VTT de Saint Nazaire en Loire Atlantique, qui a plus de
           60 ans d'existence.<br />Les pratiques VTT sont présentes sous
@@ -227,10 +243,11 @@
         <p>Le club organise plusieurs sorties annuelles, notamment en
           montagne, pour partir à la découverte d'autres horizons. </p>
         <p>Le club est affilié à la FFVelo.</p>
-        <a
-          href="mailto:avs.vtt@gmail.com?subject=Contact via BAV">avs.vtt@gmail.com</a>
+        <a href="mailto:avs.vtt@gmail.com?subject=Contact via BAV"><big>@</big></a>&nbsp;&nbsp;
+				<a href="https://www.facebook.com/avs44" target="_blank"><img src="../Images/iconeFacebok.png" width="30pt"></a>&nbsp;&nbsp;
+				<a href="https://www.instagram.com/atlantique.velo.sport.44/" target="_blank"><img src="../Images/iconeInstagram.png" width="30pt"></a>
     </div>
-    <div class="col-md-2 col-sm-2 col-xs-2" style="font-size: 1.2em;">
+    <div class="col-md-2 col-sm-2 col-xs-2 maskmobile" >
       <img src="Images/AVS_bandeau_01.jpg" height='250px' />
     </div>
   </div>
