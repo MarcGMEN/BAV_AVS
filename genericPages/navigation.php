@@ -38,9 +38,9 @@ $tabNavAll = [
         'libelle' => 'Presse',
         'notif' => "PRESSE"
     ],
-    // 'avis.php' => [
-    //     'libelle' => 'Avis'
-    // ],
+    'avis.php' => [
+            'libelle' => 'Avis'
+        ],
 
 ];
 

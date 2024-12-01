@@ -642,7 +642,7 @@ function display_fiche_vente(val) {
 
 function display_messageConfirmChangeEtatForm(val) {
     alertModalConfirm(val);
-    document.modalForm.obj_prix_vente.focus();
+   document.modalForm.obj_prix_vente.focus();
 
     // chargement de la liste des client par mel
     //x_return_listClientByMel(display_listAcheteur);

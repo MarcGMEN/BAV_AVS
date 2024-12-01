@@ -16,3 +16,5 @@ echo "<h1>QRCODE accès BAV vendeur sur bourseaux1000velos.avs44.com</h1>";
 // echo "<img src='./out/QRCODE_CAFFARD3.png' />";
 // echo "<h1>QRCODE accès BAV vendeur sur localhost</h1>";
 
+
+
