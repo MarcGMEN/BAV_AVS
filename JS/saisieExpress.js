@@ -209,13 +209,14 @@ function afficheLigne(val) {
             var thePrix = val['obj_prix_depot'];
             var actionPrix = "<input type='number' name='obj_prix_vente_" + index + "' min=1 step='0.1' value='" + thePrix + "' />";
             getElement("prix_vente_" + index).innerHTML = actionPrix;
+            
             var thePrixN = val['obj_prix_nego'];
-            var actionPrixNego = "<input type='number' name='obj_prix_nego_" + index + "' min=0 step='0.1' value='" + thePrixN + "' />";
+            var actionPrixNego = "<input type='number' name='obj_prix_nego_" + index + "' min=0 step='0.1' value='" + thePrixN + "' style='width:70%' ' onfocus='focusNego(this," + val['obj_id'] + ")' onblur='blurNego(this,"  +val['obj_id'] + ","+index + ")'/>";
+            actionPrixNego += "&nbsp;&nbsp;<span title='Modifier'  onclick='modifData(" + val['obj_id'] + ", " + index + ")' class='link' style='visibility:hidden' id='btNego_" + val['obj_id'] + "' ><i class='link fas fa-edit'></i>&nbsp;</span >";
+
             getElement("prix_nego_" + index).innerHTML = actionPrixNego;
 
-            action += "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\",document.formTabSaisie.obj_prix_vente_" + index + ".value," + val['obj_numero'] + ")' />";
-
-            action += "&nbsp;<span title='Modifier'  onclick='modifData(" + val['obj_id'] + "," + val['cli_id'] + ",document.formTabSaisie, " + index + ")' class='link' ><i class='link fas fa-edit'></i>&nbsp;</span >";
+            action += "&nbsp;<span title='Modifier'  onclick='modifData(" + val['obj_id'] + ", " + index + ")' class='link' style='visibility:hidden' ><i class='link fas fa-edit'></i>&nbsp;</span >";
             
         } else if (val['obj_etat'] == "STOCK") {
             new_etat = "RENDU";
@@ -227,8 +228,8 @@ function afficheLigne(val) {
 
             
             var thePrixN = val['obj_prix_nego'];
-            var actionPrixNego = "<input type='number' name='obj_prix_nego_" + index + "' min=0 step='0.1' value='" + thePrixN + "' style='width:100px' />";
-            actionPrixNego += "&nbsp;&nbsp;<span title='Modifier'  onclick='modifData(" + val['obj_id'] + "," + val['cli_id'] + ",document.formTabSaisie, " + index + ")' class='link' ><i class='link fas fa-edit'></i>&nbsp;</span >";
+            var actionPrixNego = "<input type='number' name='obj_prix_nego_" + index + "' min=0 step='0.1' value='" + thePrixN + "' style='width:70%' ' onfocus='focusNego(this," + val['obj_id'] + ")' onblur='blurNego(this,"  +val['obj_id'] + ","+index + ")'/>";
+            actionPrixNego += "&nbsp;&nbsp;<span title='Modifier'  onclick='modifData(" + val['obj_id'] + ", " + index + ")' class='link' style='visibility:hidden' id='btNego_" + val['obj_id'] + "' ><i class='link fas fa-edit'></i>&nbsp;</span >";
 
             getElement("prix_nego_" + index).innerHTML = actionPrixNego;
 
@@ -245,6 +246,22 @@ function afficheLigne(val) {
         // console.log("pas d'element [numero_" + index + "]");
     }
 
+}
+
+function focusNego(element, id) {
+    element.style = "background-color:yellow;width:70%";
+    getElement("btNego_" + id).style ='visibility : visible';
+
+}
+
+function blurNego(element, id, index) {
+    element.style = "background-color:;width:70%";
+    modifData(id, index);
+
+    getElement("btNego_" + id).innerHTML = "<i class='link fas fa-check'>";
+    setTimeout('getElement("btNego_' + id+'").innerHTML = \'<i class=\"link fas fa-edit\">\'',500);
+    setTimeout('getElement("btNego_' + id+'").style =\"visibility : hidden\"',500);
+    
 }
 
 function supprimerFiche(id, numero) {
@@ -436,7 +453,7 @@ function display_fiche(val) {
         val['obj_couleur'] = "";
 
         document.formSaisieExpress.cli_id.value = "";
-        document.formSaisieExpress.cli_code_postal.value = "";
+        document.formSaisieExpress.cli_code_postal.value = "44600";
         document.formSaisieExpress.cli_telephone.value = "";
         document.formSaisieExpress.elements.namedItem('cli_nom_' + idRamdom).value = "";
 
@@ -605,7 +622,7 @@ function modifEtat(tabObj, tabCli) {
     }
 }
 
-function modifData(idobj, idcli, form, index) {
+function modifData(idobj,index) {
     var tabObj = {};
 
     if (document.getElementsByName("obj_prix_nego_" + index).length > 0) {
@@ -616,11 +633,9 @@ function modifData(idobj, idcli, form, index) {
         tabObj['obj_prix_depot'] = document.getElementsByName("obj_prix_vente_" + index)[0].value;
         tabObj['obj_id'] = idobj;
     }
-
-    console.log(tabObj.obj_id);
     
     if (tabObj.obj_id ) {
-        x_action_updateFiche(tabToString(tabObj), display_fin_create);
+        x_action_updateFiche(tabToString(tabObj), display_rien);
     }
 
     // var tabCli = {};
@@ -642,7 +657,7 @@ function display_fiche_vente(val) {
 
 function display_messageConfirmChangeEtatForm(val) {
     alertModalConfirm(val);
-   document.modalForm.obj_prix_vente.focus();
+    document.modalForm.obj_prix_vente.focus();
 
     // chargement de la liste des client par mel
     //x_return_listClientByMel(display_listAcheteur);

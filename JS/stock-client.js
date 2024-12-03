@@ -170,76 +170,78 @@ function display_fiches_2(val) {
 			if (!isNaN(index)) {
 				val['obj_marque_orig'] = val[index]['obj_marque'].replaceAll(/'/g, "");
 				val['obj_modele_orig'] = val[index]['obj_modele'].replaceAll(/'/g, "");
-				if (gSearch) {
-					var tabSearch = gSearch.replace("%", " ").split(" ");
-					for (i in tabSearch) {
-						if (tabSearch[i] != "") {
-							var reg = new RegExp("(" + tabSearch[i] + ")", "gi");
-							val[index]['obj_modele'] = val[index]['obj_modele'].replace(reg, "<b style='color:BLUE'>$1</b>");
-							val[index]['obj_description'] = val[index]['obj_description'].replace(reg, "<b style='color:BLUE'>$1</b>");
-							// val[index]['obj_prix_vente'] = val[index]['obj_prix_vente'].replace(reg, "<b style='color:BLUE'>$1</b>");
-							// val[index]['obj_prix_depot'] = val[index]['obj_prix_depot'].replace(reg, "<b style='color:BLUE'>$1</b>");
-							val[index]['obj_couleur'] = val[index]['obj_couleur'].replace(reg, "<b style='color:BLUE'>$1</b>");
-							val[index]['obj_public'] = val[index]['obj_public'].replace(reg, "<b style='color:BLUE'>$1</b>");
-							val[index]['obj_type'] = val[index]['obj_type'].replace(reg, "<b style='color:BLUE'>$1</b>");
-							val[index]['obj_marque'] = val[index]['obj_marque'].replace(reg, "<b style='color:BLUE'>$1</b>");
-							val[index]['obj_taille'] = val[index]['obj_taille'].replace(reg, "<b style='color:BLUE'>$1</b>");
+				if (val[index]['obj_marque']) {
+					if (gSearch) {
+						var tabSearch = gSearch.replace("%", " ").split(" ");
+						for (i in tabSearch) {
+							if (tabSearch[i] != "") {
+								var reg = new RegExp("(" + tabSearch[i] + ")", "gi");
+								val[index]['obj_modele'] = val[index]['obj_modele'].replace(reg, "<b style='color:BLUE'>$1</b>");
+								val[index]['obj_description'] = val[index]['obj_description'].replace(reg, "<b style='color:BLUE'>$1</b>");
+								// val[index]['obj_prix_vente'] = val[index]['obj_prix_vente'].replace(reg, "<b style='color:BLUE'>$1</b>");
+								// val[index]['obj_prix_depot'] = val[index]['obj_prix_depot'].replace(reg, "<b style='color:BLUE'>$1</b>");
+								val[index]['obj_couleur'] = val[index]['obj_couleur'].replace(reg, "<b style='color:BLUE'>$1</b>");
+								val[index]['obj_public'] = val[index]['obj_public'].replace(reg, "<b style='color:BLUE'>$1</b>");
+								val[index]['obj_type'] = val[index]['obj_type'].replace(reg, "<b style='color:BLUE'>$1</b>");
+								val[index]['obj_marque'] = val[index]['obj_marque'].replace(reg, "<b style='color:BLUE'>$1</b>");
+								val[index]['obj_taille'] = val[index]['obj_taille'].replace(reg, "<b style='color:BLUE'>$1</b>");
+							}
 						}
 					}
-				}
 
-				repr += "<div class='col-md-3 col-sm-6 col-xs-12 fiche_0'>";
-				// if (GetCookie('CAFFARD_BAV') || ADMIN) {
-				repr += "<div class='titreFiche' ";
-				if (GetCookie('CAFFARD_BAV') || ADMIN) {
-					repr += "onclick = 'x_return_oneFicheByCode(" + val[index]['obj_numero'] + ", display_getFicheVente);'";
-				}
-				repr += "> N° " + val[index]['obj_numero'];
-				if (val[index]['obj_modele']) {
-					repr += "&nbsp<A href='https://www.google.fr/search?tbm=isch&q=" + val['obj_marque_orig'] + " " + val['obj_modele_orig'] + "' target='_blank' ><img src='https://www.we-do-it-better.fr/wp-content/uploads/2019/04/googlesearch.png' height='20px'/></A></span>";
-				}
-				repr += "</div>";
-				// }	
-				repr += "<div class='row'>";
-				repr += "<div  class='col-md-4 col-sm-4 col-xs-4' >";
-				repr += val[index]['obj_type'];
-				repr += " - ";
-				repr += val[index]['obj_public'] != "Autre" ? val[index]['obj_public'] : "";
-
-				repr += "</div>";
-				repr += "<div class='col-md-8 col-sm-8 col-xs-8' style='text-align: right;font-size:1.5em'>";
-				if (ADMIN) {
-					repr += val[index]['obj_prix_depot'] + " &euro;";
-					if (val[index]['obj_prix_nego'] != "0.00") {
-						repr += " -> " + val[index]['obj_prix_nego'] + " &euro;";
+					repr += "<div class='col-md-3 col-sm-6 col-xs-12 fiche_0'>";
+					// if (GetCookie('CAFFARD_BAV') || ADMIN) {
+					repr += "<div class='titreFiche' ";
+					if (GetCookie('CAFFARD_BAV') || ADMIN) {
+						repr += "onclick = 'x_return_oneFicheByCode(" + val[index]['obj_numero'] + ", display_getFicheVente);'";
 					}
-				} else if (GetCookie('CAFFARD_BAV')) {
-					repr += val[index]['obj_prix_depot'] + " &euro;";
-				}
-				repr += "</div>";
-				repr += "</div>";
-
-
-				repr += "<div class='fiche_1'>";
-				if (val[index]['obj_marque']) {
-					repr += val[index]['obj_marque'];
+					repr += "> N° " + val[index]['obj_numero'];
+					if (val[index]['obj_modele']) {
+						repr += "&nbsp<A href='https://www.google.fr/search?tbm=isch&q=" + val['obj_marque_orig'] + " " + val['obj_modele_orig'] + "' target='_blank' ><img src='https://www.we-do-it-better.fr/wp-content/uploads/2019/04/googlesearch.png' height='20px'/></A></span>";
+					}
+					repr += "</div>";
+					// }	
+					repr += "<div class='row'>";
+					repr += "<div  class='col-md-4 col-sm-4 col-xs-4' >";
+					repr += val[index]['obj_type'];
 					repr += " - ";
-				}
-				if (val[index]['obj_modele']) {
-					repr += " " + val[index]['obj_modele'];
-					repr += " - Taille : ";
-				}
-				if (val[index]['obj_taille']) {
-					repr += val[index]['obj_taille'];
-				}
-				repr += "</div>";
+					repr += val[index]['obj_public'] != "Autre" ? val[index]['obj_public'] : "";
 
-				if (val[index]['obj_description']) {
-					repr += "<div class='fiche_desc'>";
-					repr += val[index]['obj_description'];
+					repr += "</div>";
+					repr += "<div class='col-md-8 col-sm-8 col-xs-8' style='text-align: right;font-size:1.5em'>";
+					if (ADMIN) {
+						repr += val[index]['obj_prix_depot'] + " &euro;";
+						if (val[index]['obj_prix_nego'] != "0.00") {
+							repr += " -> " + val[index]['obj_prix_nego'] + " &euro;";
+						}
+					} else if (GetCookie('CAFFARD_BAV')) {
+						repr += val[index]['obj_prix_depot'] + " &euro;";
+					}
+					repr += "</div>";
+					repr += "</div>";
+
+
+					repr += "<div class='fiche_1'>";
+					if (val[index]['obj_marque']) {
+						repr += val[index]['obj_marque'];
+						repr += " - ";
+					}
+					if (val[index]['obj_modele']) {
+						repr += " " + val[index]['obj_modele'];
+						repr += " - Taille : ";
+					}
+					if (val[index]['obj_taille']) {
+						repr += val[index]['obj_taille'];
+					}
+					repr += "</div>";
+
+					if (val[index]['obj_description']) {
+						repr += "<div class='fiche_desc'>";
+						repr += val[index]['obj_description'];
+						repr += "</div>";
+					}
 					repr += "</div>";
 				}
-				repr += "</div>";
 				total = total + 1;
 			}
 		}
@@ -250,7 +252,7 @@ function display_fiches_2(val) {
 		getElement('total').innerHTML = total;
 
 		// if (sens == "asc") {
-		// 	classSort = "sortUp";
+		// 	classSort = "sortUp
 		// } else {
 		// 	classSort = "sortDown";
 		// }

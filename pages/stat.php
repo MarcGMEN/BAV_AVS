@@ -7,7 +7,7 @@
 	var anneeBavSuvi = '';
 	var cumul = 1;
 
-	var mapQui='tous';
+	var mapQui = 'tous';
 	// var anneeBavActive = '2021';
 
 	function initPage() {
@@ -26,7 +26,7 @@
 			x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);
 
 			// retour de stat client
-			x_return_statClient(mapQui,display_statClient);
+			x_return_statClient(mapQui, display_statClient);
 
 			// retour de stat de delais
 			// x_return_statDelais(display_formulaire);
@@ -219,6 +219,15 @@
 		colorEtat['DEPOT_' + anneeBavSuvi] = 'ORANGE';
 		colorEtat['VENTE_' + anneeBavSuvi] = 'GREEN';
 		colorEtat['RESTI_' + anneeBavSuvi] = 'RED';
+
+		var typeLigneEtatInit = [];
+		var typeLigneEtat = [];
+		typeLigneEtat['DEPOT_' + anneeBav] = [];
+		typeLigneEtat['VENTE_' + anneeBav] = [];
+		typeLigneEtat['RESTI_' + anneeBav] = [];
+		typeLigneEtat['DEPOT_' + anneeBavSuvi] = [5, 10];
+		typeLigneEtat['VENTE_' + anneeBavSuvi] = [5, 10];
+		typeLigneEtat['RESTI_' + anneeBavSuvi] = [5, 10];
 		var monCanvas = getElement("canvasSuivi1");
 		var ctx = monCanvas.getContext("2d");
 		monCanvas.width = screen.width * 0.70;
@@ -347,6 +356,7 @@
 						ctx.beginPath();
 						ctx.lineWidth = "2";
 						ctx.strokeStyle = colorEtat[etatLu];
+						ctx.setLineDash(typeLigneEtat[etatLu]); // type ligne en fonction etat
 						var Y = countEtatOld[etatLu] * hauteurCanvas / maxY;
 						ctx.moveTo(Xdebut, hauteurCanvas - Y);
 
@@ -355,16 +365,26 @@
 						ctx.lineTo(Xdebut + pasHour, hauteurCanvas - Y2);
 						// console.log("=>", countEtat[etatLu], Xdebut+pasHour,200-Y2)
 						ctx.stroke();
+						ctx.setLineDash(typeLigneEtatInit);
 						ctx.closePath();
 
 						if (heure == 12 && cumul) {
 							ctx.beginPath();
 							ctx.lineWidth = "2";
 							ctx.fillStyle = colorEtat[etatLu];
+							ctx.setLineDash(typeLigneEtat[etatLu]); // type ligne en fonction etat
 							var Y = countEtatOld[etatLu] * hauteurCanvas / maxY;
-							ctx.fillText(countEtat[etatLu], Xdebut + pasHour - 10, hauteurCanvas - Y - 10);
+							if (etatLu.includes(anneeBavSuvi)) {
+								ctx.fillText(countEtat[etatLu], Xdebut + pasHour - 10, hauteurCanvas - Y + 10);
+								ctx.font = "11px arial";
+							} else {
+								ctx.font = "bold 11px arial";
+								ctx.fillText(countEtat[etatLu], Xdebut + pasHour - 10, hauteurCanvas - Y - 10);
+							}
+
 							// console.log("=>", countEtat[etatLu], Xdebut+pasHour,200-Y2)
 							ctx.stroke();
+							ctx.setLineDash(typeLigneEtatInit);
 							ctx.closePath();
 						}
 					} else {
@@ -372,10 +392,12 @@
 							ctx.beginPath();
 							ctx.lineWidth = "2";
 							ctx.fillStyle = colorEtat[etatLu];
+							ctx.setLineDash(typeLigneEtat[etatLu]); // type ligne en fonction etat
 							var Y = countEtatOld[etatLu] * hauteurCanvas / maxY;
 							ctx.fillText(countEtat[etatLu], Xdebut - 10, hauteurCanvas - Y);
 							// console.log("=>", countEtat[etatLu], Xdebut+pasHour,200-Y2)
 							ctx.stroke();
+							ctx.setLineDash(typeLigneEtatInit);
 							ctx.closePath();
 						}
 					}
@@ -430,11 +452,19 @@
 					if (etatLu.startsWith('RESTI')) {
 						Y2 += 10;
 					}
+					
 					ctx.fillStyle = colorEtat[etatLu];
 					ctx.beginPath();
 					ctx.font = "12px arial";
 					// console.log(etatLu + " (" + countEtat[etatLu] + ")", Xdebut - 120, Y2);
-					ctx.fillText(etatLu + " (" + countEtat[etatLu] + ")", Xdebut - 120, Y2);
+					if (etatLu.includes(anneeBavSuvi)) {
+						ctx.fillText(etatLu + " (" + countEtat[etatLu] + ")", Xdebut - 120, Y2 + 20);
+						ctx.font = "12px arial";
+					} else {
+						ctx.font = "bold 12px arial";
+						ctx.fillText(etatLu + " (" + countEtat[etatLu] + ")", Xdebut - 120, Y2 );
+					}
+					
 					ctx.stroke();
 					ctx.closePath();
 				}
@@ -516,7 +546,7 @@
 	function display_statClient(val) {
 
 		tabCdpNb = [];
-		tabDistanceCDP=[];
+		tabDistanceCDP = [];
 		nbClient = 0;
 		// usage example:
 		var tabVal = [];
@@ -541,14 +571,14 @@
 		var rc = '';
 		var depOld = "";
 		var nbDep = 0;
-		var nbCommune=0;
-		
+		var nbCommune = 0;
+
 		for (i in tabVal) {
 			if (tabVal[i]['cdp']) {
 				nbClient += tabVal[i]['nb'];
 			}
 		}
-		
+
 		var repr = "";
 
 		repr += "<div class='row'>";
@@ -568,7 +598,7 @@
 					var info = tabTmp[2];
 					tabDistanceCDP[tabVal[i]['cdp']] = distanceHaversine(latSN, lonSN, lat, lon);
 
-					addMarker(lat, lon, tabVal[i]['cdp'],tabVal[i]['nb'], info);
+					addMarker(lat, lon, tabVal[i]['cdp'], tabVal[i]['nb'], info);
 
 				} else {
 					// x_add_cdp(tabVal[i]['cdp'],lat, lon, display_vide);
@@ -584,19 +614,19 @@
 				}
 				// console.log("dep ",dep, depOld);
 				if (depOld != "" && depOld != dep) {
-					var pour=nbDep*100/nbClient;
+					var pour = nbDep * 100 / nbClient;
 					repr += "<div class='col-md-12 col-sm-12 col-xs-12 tabl0'  style='background-color:lightgrey'>";
-					repr += depOld + " => " + nbDep +" ("+pour.toFixed(2)+"%)";
-					repr += "&nbsp;&nbsp;&nbsp;Communes : "+nbCommune;
+					repr += depOld + " => " + nbDep + " (" + pour.toFixed(2) + "%)";
+					repr += "&nbsp;&nbsp;&nbsp;Communes : " + nbCommune;
 					repr += "</div>";
 					index = 1;
 					nbDep = 0;
-					nbCommune=0;
+					nbCommune = 0;
 				}
 				tabCdpNb[tabVal[i]['cdp']] = tabVal[i]['nb'];
-				var pour=tabVal[i]['nb']*100/nbClient;
+				var pour = tabVal[i]['nb'] * 100 / nbClient;
 				repr += "<div class='col-md-4 col-sm-5 col-xs-6 tabl1' >";
-				repr += tabVal[i]['cdp'] + " => " + tabVal[i]['nb'] + " ("+pour.toFixed(1)+"%)";
+				repr += tabVal[i]['cdp'] + " => " + tabVal[i]['nb'] + " (" + pour.toFixed(1) + "%)";
 				//getElement('tabCodePostal').innerHTML+="&nbsp;&nbsp;&nbsp;"+tabVal[i]['cdp']+" => "+tabVal[i]['nb']+rc;
 				repr += "</div>";
 
@@ -604,13 +634,13 @@
 				depOld = dep;
 				nbDep += tabVal[i]['nb'];
 				nbCommune++;
-				
+
 			}
 		}
-		var pour=nbDep*100/nbClient;
+		var pour = nbDep * 100 / nbClient;
 		repr += "<div class='col-md-12 col-sm-12 col-xs-12 tabl0'  style='background-color:lightgrey'>";
-		repr += depOld + " => " + nbDep +" ("+pour.toFixed(2)+"%)";
-		repr += "&nbsp;&nbsp;&nbsp;Communes : "+nbCommune;
+		repr += depOld + " => " + nbDep + " (" + pour.toFixed(2) + "%)";
+		repr += "&nbsp;&nbsp;&nbsp;Communes : " + nbCommune;
 		repr += "</div>";
 		repr += "<div class='col-md-12 col-sm-12 col-xs-12 tabl0'  >";
 		repr += "</div>";
@@ -627,7 +657,7 @@
 			var tabTmp = tabCdpLatLon[cdp].split(',');
 			var lat = tabTmp[0];
 			var lon = tabTmp[1];
-			addMarker(lat, lon, cdp,nb,tabTmp[2]);
+			addMarker(lat, lon, cdp, nb, tabTmp[2]);
 		}
 
 	}
@@ -661,10 +691,10 @@
 			var kmFin = (index + 1) * 30;
 			if (nb > 0) {
 
-				var pour=nb*100/nbClient;
+				var pour = nb * 100 / nbClient;
 				repr += "<div class='col-md-2 col-sm-4 col-xs-6'>";
-				repr += kmAV + "km -> " + kmFin + "km = " + nb + " ("+pour.toFixed(1)+"%)&nbsp;&nbsp;&nbsp;";
-				repr +="</div>";
+				repr += kmAV + "km -> " + kmFin + "km = " + nb + " (" + pour.toFixed(1) + "%)&nbsp;&nbsp;&nbsp;";
+				repr += "</div>";
 			}
 			kmAV = ((index + 1) * 30) + 1;
 
@@ -788,7 +818,7 @@
 			<input type=checkbox onchange='cumul=cumul == 1 ? 0 : 1;x_return_nbFichesByDay(anneeBav, display_statByAnneeRef);'> No cumul</input>
 		</div>
 	</div>
-	<canvas id="canvasSuivi1" height="200" style='width:100%;max-width: 100%';>Votre navigateur est trop vieux</canvas>
+	<canvas id="canvasSuivi1" height="200" style='width:100%;max-width: 100%' ;>Votre navigateur est trop vieux</canvas>
 </div>
 
 <fieldset class=fiche>
@@ -979,8 +1009,8 @@
 	<div class="row">
 		<div class="col-sm-12 col-xs-12">
 			<input type='radio' name='choixMap' onclick='x_return_statClient("tous",display_statClient);' checked>Tous</input>
-			<input type='radio' name='choixMap' onclick='x_return_statClient("vendeur",display_statClient);' >Vendeur</input>
-			<input type='radio' name='choixMap' onclick='x_return_statClient("acheteur",display_statClient);' >Acheteur</input>
+			<input type='radio' name='choixMap' onclick='x_return_statClient("vendeur",display_statClient);'>Vendeur</input>
+			<input type='radio' name='choixMap' onclick='x_return_statClient("acheteur",display_statClient);'>Acheteur</input>
 		</div>
 		<div class="col-sm-8 col-xs-12">
 			<div id=map></div>

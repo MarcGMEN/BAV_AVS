@@ -32,8 +32,12 @@
 		$path = "./downloads";
 		if ($handle = opendir('./downloads')) {
 			$files = array();
-			while ($files[] = readdir($handle));
-			sort($files);
+			while ($files[] = readdir($handle));	
+			usort($files, function($a, $b) {
+				global $path;
+				return filemtime($path."/".$b) - filemtime($path."/".$a);
+			});
+			// echo "coucou";
 			closedir($handle);
 			foreach ($files as $entry) {
 				//while (false !== ($entry = readdir($handle))) {
@@ -56,9 +60,9 @@
 
 						</div>
 						<div class="col-xs-12 col-sm-6 col-md-6">
-							<? //mime_content_type($fullName)?>
+							<?//mime_content_type($fullName)?>
 							<object data="<?= $fullName ?>"
-								type="<?= mime_content_type($fullName) ?>" height="100" width="200">
+								 height="100" width="200">
 								<param name="filename" value="<?= $fullName ?>" />
 							</object>
 						</div>

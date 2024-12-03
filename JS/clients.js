@@ -74,17 +74,17 @@ function display_clients(val) {
                 indVendeur = true;
                 classPlus = "RENDU";
             }
-
+            
             if (val[index]['ACHAT'] > 0) {
-                totalClient += parseInt(val[index]['ACHAT']);
+                // totalClient += parseInt(val[index]['ACHAT']);
                 totalAcheteur++;
                 indAcheteur = true;
                 classPlus = "ACHAT";
             }
-            classPlus = "";
-            if (totalClient == 0) {
+            else if (totalClient == 0) {
                 classPlus = "CONFIRME"
             }
+
 
             if (val[index]['cli_taux_com'] == 0) {
                 classPlus = "ERROR"
@@ -125,7 +125,7 @@ function display_clients(val) {
             repr += val[index]['cli_taux_com'] + " % -- " + val[index]['cli_prix_depot'] + " €";
             repr += "</small></td>";
 
-            repr += "<td width=30% class='maskmobile'>";
+            repr += "<td width=26% class='maskmobile'>";
             //repr += val[index]['cli_emel'];
             chaine = val[index]['cli_emel'];
             if (selection.cli_nom != "*") {
@@ -138,6 +138,11 @@ function display_clients(val) {
             repr += "<td width=12% class='maskmobile'>";
             repr += val[index]['cli_telephone'];
             repr += "</td>";
+
+            repr += "<th width=4% style='text-align: center'>";
+            repr += totalClient;
+            repr += "</th>";
+            
             repr += "<th width=4% style='text-align: center'>";
             if (val[index]['CONFIRME'] && val[index]['CONFIRME'] != 0) {
                 repr += val[index]['CONFIRME'];

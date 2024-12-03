@@ -1,6 +1,6 @@
 function initPage() {
     if (ADMIN) {
-        x_return_enum('bav_objet', 'obj_type', display_list_type);
+        // x_return_enum('bav_objet', 'obj_type', display_list_type);
         //x_return_enum('bav_objet', 'obj_public', display_list_public);
         //x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);
 
@@ -266,9 +266,9 @@ function isEdit() {
     }
     x_return_fiches(tri, sens, tabToString(tabSel), 0, display_fiches);
 }
-
+s
 function selectColonne(col, mask) {
-    tabSel['obj_type'] = getElement("sel_obj_type").value;
+    // tabSel['obj_type'] = getElement("sel_obj_type").value;
     tabSel['obj_marque'] = getElement("sel_obj_marque").value;
     tabSel['obj_etat'] = getElement("sel_obj_etat").value;
 

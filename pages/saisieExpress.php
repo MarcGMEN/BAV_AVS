@@ -37,12 +37,13 @@ $maxFiche = $infAppli['NB_MODIF'];
 				</select>
 			</td>
 			<td>
-				<input type=text list="listMarques" disabled name="obj_marque_<?= $idRamdom ?>" size=30 maxlength="50" tabindex=3 style="text-transform:uppercase" placeholder="Marque du vélo" required />
+				<input type=text list="listMarques" disabled name="obj_marque_<?= $idRamdom ?>" size=30 maxlength="50" tabindex=3 style="text-transform:uppercase" placeholder="Marque du vélo" required 
+				pattern=".*\S.*"/>
 				<datalist id="listMarques"></datalist>
 			</td>
 			<td colspan=3>
 				<input type=text name="obj_couleur" size=20 maxlength="30" disabled 
-							tabindex=4 style="width:200px;text-transform:uppercase" placeholder="Couleurs dominantes" required >
+							tabindex=4 style="width:200px;text-transform:uppercase" placeholder="Couleurs dominantes" required pattern=".*\S.*">
 			</td>
 			<td id="obj_etat" rowspan=3 class="tittab" style="text-align:center;vertical-align:middle">
 			</td>

@@ -11,7 +11,7 @@
 			Tous <input type="checkbox" value="1" name="all" onchange="findClients(this.checked ? 1 : 0)" />
 			<br/><input type=text name='cli_nom_<?= rand(1, 100) ?>' placeholder="Tapez au moins les 2 premières lettres" size="20" class="autocomplete" maxlength="100" onkeyup="selectColonne(this.value)" style='width: 50%';/>
 		</td>
-		<td class="tittab maskmobile" width=30%>
+		<td class="tittab maskmobile" width=26%>
 			<span id='cli_emel' onclick="triColonne('cli_emel')" class="sortable">Emel&nbsp;&nbsp;&nbsp;</span>
 		</td>
 		<td class="tittab maskmobile" width=12%>
@@ -19,25 +19,28 @@
 		</td>
 
 		<th class="tittab " width=4%>
-			<span id="CONFIRME" onclick="triColonne('CONFIRME')" class="sortable">C&nbsp;</span>
+			<span id="1" onclick="triColonne('1')" class="sortable" title="Total">T&nbsp;&nbsp;</span>
+		</th>
+		<th class="tittab " width=4%>
+			<span id="CONFIRME" onclick="triColonne('CONFIRME')" class="sortable"  title="Confirmé">C&nbsp;&nbsp;</span>
 		</th>
 
 		<th class="tittab " width=4%>
-			<span id="STOCK" onclick="triColonne('STOCK')" class="sortable">D&nbsp;</span>
+			<span id="STOCK" onclick="triColonne('STOCK')" class="sortable"  title="En stock">D&nbsp;&nbsp;</span>
 		</th>
 
 		<th class="tittab" width=4%>
-			<span id="VENDU" onclick="triColonne('VENDU')" class="sortable">V&nbsp;</span>
+			<span id="VENDU" onclick="triColonne('VENDU')" class="sortable" title="Vendu">V&nbsp;&nbsp;</span>
 		</th>
 		<th class="tittab" width=4%>
-			<span id="PAYE" onclick="triColonne('PAYE')" class="sortable">P&nbsp;</span>
+			<span id="PAYE" onclick="triColonne('PAYE')" class="sortable" title="Payé">P&nbsp;&nbsp;</span>
 		</th>
 
 		<th class="tittab" width=4%>
-			<span id="RENDU" onclick="triColonne('RENDU')" class="sortable">R&nbsp;</span>
+			<span id="RENDU" onclick="triColonne('RENDU')" class="sortable" title="Rendu">R&nbsp;&nbsp;</span>
 		</th>
 		<th class="tittab" width=4%>
-			<span id="ACHAT" onclick="triColonne('ACHAT')" class="sortable">A&nbsp;</span>
+			<span id="ACHAT" onclick="triColonne('ACHAT')" class="sortable" title="Acheté">A&nbsp;&nbsp;</span>
 		</th>
 	
 	</tr>
