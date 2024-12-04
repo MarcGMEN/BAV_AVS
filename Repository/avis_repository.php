@@ -11,7 +11,7 @@ function getAllAvisForBav($withBAV,$note=null)
         $requete2 .= " and avs_note = $note ";
     }
     
-    $requete2 .= " order by avs_numero_bav, avs_date limit 50";
+    $requete2 .= " order by avs_numero_bav desc, avs_date desc limit 50";
     // echo $requete2;
 
     if ($result = $GLOBALS['mysqli']->query($requete2)) {

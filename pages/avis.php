@@ -20,11 +20,14 @@
 
 			<? } ?>
 			<input type='hidden' id="note" value='0' />&nbsp;&nbsp;&nbsp;
-			<button type="button" onclick='valideStar(this.form)'>Voter</button>
+			
 		</div>
 		<div class="col-sm-12 col-md-12 col-xs-12">
 			<label for="commentaire">Commentaire :</label><br />
 			<textarea name="commentaire" id="commentaire" rows="4" cols="150" required placeholder="Un commentaire (facultatif)"></textarea><br><br>
+		</div>
+		<div class="col-sm-12 col-md-12 col-xs-12">
+		<button type="button" onclick='valideStar(this.form)'>Voter</button>
 		</div>
 		
 	</div>

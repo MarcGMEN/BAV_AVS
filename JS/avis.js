@@ -50,7 +50,9 @@ function display_all(val) {
         for (index in val) {
             repr += "<div class='row' style='border:1px solid #ddd; padding:10px; margin:10px 0;'>";
             repr += "<div class='col-sm-8 col-md-8 col-xs-8'>";
-            repr += "<span title='Supprimer' onclick='supprimerAvis(" + val[index]['avs_id'] + ")' class='link' style='font-size:1.5em'>&nbsp;❌&nbsp;</span>";
+            if (ADMIN) {
+                repr += "<span title='Supprimer' onclick='supprimerAvis(" + val[index]['avs_id'] + ")' class='link' style='font-size:1.5em'>&nbsp;❌&nbsp;</span>";
+            }
             repr += "<strong>Note : </strong>";
             for (i = 0; i < parseInt(val[index]['avs_note']);i++) {
                 repr += "<span style='font-size:2em;color: GOLD;'>★</span>";
