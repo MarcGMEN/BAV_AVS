@@ -215,8 +215,8 @@ function display_fiche(val) {
         // etat INIT
         getElement("tdBtnEmel").style.display = 'none';
 
-        console.log(val['obj_etat']);
-        console.log(val);
+        // console.log(val['obj_etat']);
+        // console.log(val);
 
         if (val['obj_etat'] == "INIT") {
             getElement("tdBtnSup").style.display = 'block';
@@ -231,7 +231,6 @@ function display_fiche(val) {
             getElement("tdBtnSup").style.display = 'block';
             document.ficheForm.buttonValideFiche.innerHTML = "Modifier";
 
-            document.ficheForm.cli_emel.disabled = true;
             if (getElement("obj_prix_vente")) {
                 getElement("obj_prix_vente").innerHTML = val['obj_prix_depot'];
             }
@@ -257,8 +256,11 @@ function display_fiche(val) {
             document.ficheForm.buttonValideFiche.disabled = false;
             document.ficheForm.obj_accessoire.disabled = false;
 
+            document.ficheForm.cli_nom.disabled = false;
+            document.ficheForm.cli_emel.disabled = false;
+
             val['obj_etat_libelle'] = "Présent sur le parc";
-            document.ficheForm.obj_prix_vente.disabled = false;
+            document.ficheForm.obj_prix_vente.disabled =true;
 
             // getElement("tdBtnAction").style.display = 'none';
             getElement("fieldSetAcheteur").style.display = 'none';
@@ -269,16 +271,19 @@ function display_fiche(val) {
             disable_formulaire(document.ficheForm, "obj");
             disable_formulaire(document.ficheForm, "cli");
 
-            getElement("tdBtnAction").style.display = 'none';
+            // getElement("tdBtnAction").style.display = 'none';
 
             val['obj_etat_libelle'] = "Vendu le [" + formatDate(val['obj_date_vente']) + "]";
 
             document.ficheForm.obj_prix_vente.disabled = false
+            document.ficheForm.cli_nom.disabled = false;
+            document.ficheForm.cli_emel.disabled = false;
 
             getElement("tdBtnPdf").style.display = 'block';
 
+
             getElement("fieldSetAcheteur").style.display = 'block';
-            document.ficheForm.ach_nom.required = false;
+            document.ficheForm.ach_nom.required = true;
             // document.ficheForm.obj_prix_depot.disabled = true;
             x_return_oneClient(val['obj_id_acheteur'], display_infoClientAcheteur);
             x_return_listClientByName(display_listAcheteurName);
@@ -294,6 +299,7 @@ function display_fiche(val) {
             // document.ficheForm.obj_prix_depot.disabled = true;
             document.ficheForm.obj_prix_vente.disabled = false
 
+
             if (val['obj_etat'] == "RENDU") {
                 val['obj_etat_libelle'] = "Rendu au vendeur<br/>le [" + formatDate(val['obj_date_retour']) + "]";
             } else {
@@ -307,18 +313,18 @@ function display_fiche(val) {
             }
         }
 
-        if (val['image']) {
-            var imageHtml = "";
-            for (i in val['image']) {
-                imageHtml += "<div class='col-sm-2 col-xs-12'>"; 
-                imageHtml += "<img src='" + val['image'][i] + "' height='200px'/>";
-                imageHtml += "</div>"; 
-            }
-            imageHtml += "<div class='col-sm-2 col-xs-12'>"; 
-            imageHtml += "Votre choix";
-            imageHtml += "</div>"; 
-        getElement('imagesFiche').innerHTML = imageHtml;
-        }
+        // if (val['image']) {
+        //     var imageHtml = "";
+        //     for (i in val['image']) {
+        //         imageHtml += "<div class='col-sm-2 col-xs-12'>"; 
+        //         imageHtml += "<img src='" + val['image'][i] + "' height='200px'/>";
+        //         imageHtml += "</div>"; 
+        //     }
+        //     imageHtml += "<div class='col-sm-2 col-xs-12'>"; 
+        //     imageHtml += "Votre choix";
+        //     imageHtml += "</div>"; 
+        // getElement('imagesFiche').innerHTML = imageHtml;
+        // }
         display_formulaire(val, document.ficheForm);
     } else {
         // console.log("Fiche inconnue.");

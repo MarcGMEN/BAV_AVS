@@ -57,29 +57,29 @@ function display_clients(val) {
             if (val[index]['STOCK'] > 0) {
                 totalClient += parseInt(val[index]['STOCK']);
                 indVendeur = true;
-                classPlus = "STOCK";
+                // classPlus = "STOCK";
             }
             if (val[index]['VENDU'] > 0) {
                 totalClient += parseInt(val[index]['VENDU']);
                 indVendeur = true;
-                classPlus = "VENDU";
+                // classPlus = "VENDU";
             }
             if (val[index]['PAYE'] > 0) {
                 totalClient += parseInt(val[index]['PAYE']);
                 indVendeur = true;
-                classPlus = "PAYE";
+                // classPlus = "PAYE";
             }
             if (val[index]['RENDU'] > 0) {
                 totalClient += parseInt(val[index]['RENDU']);
                 indVendeur = true;
-                classPlus = "RENDU";
+                // classPlus = "RENDU";
             }
             
             if (val[index]['ACHAT'] > 0) {
                 // totalClient += parseInt(val[index]['ACHAT']);
                 totalAcheteur++;
                 indAcheteur = true;
-                classPlus = "ACHAT";
+                // classPlus = "ACHAT";
             }
             else if (totalClient == 0) {
                 classPlus = "CONFIRME"

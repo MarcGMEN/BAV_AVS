@@ -1431,7 +1431,7 @@ function action_updateFiche($dataL)
 
     // en mode CONFIRME
     // on recherche le vendeur
-    error_log($fiche['obj_etat']);
+    // error_log($fiche['obj_etat']);
     if ($fiche['obj_etat'] == "CONFIRME") {
         // error_log("test cli_nom  " . strtoupper($client['cli_nom']) . " != " . strtoupper($cliOld['cli_nom']));
         // si modification de client de la fiche

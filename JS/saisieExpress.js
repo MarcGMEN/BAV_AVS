@@ -605,7 +605,7 @@ function modifEtat(tabObj, tabCli) {
         tabObj['obj_etat'] = 'STOCK'
         var tabData = Object.assign({}, tabObj, tabCli);
         // console.log("demande de creation express");
-        tabData['obj_modif_stock'] = 1
+       // tabData['obj_modif_stock'] = 1
         x_action_createFicheExpress(tabToString(tabData), display_fin_create);
     } else if (tabObj['obj_etat_new'] == 'VENDU') {
         x_return_oneFiche(tabObj['obj_id'], display_fiche_vente);
