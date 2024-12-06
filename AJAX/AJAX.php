@@ -118,7 +118,11 @@ function return_list_unique($table, $champ)
  */
 function get_publiHtml($dataLC, $html)
 {
-    return makeCorps(string2Tab($dataLC), $html);
+    extract($GLOBALS);
+    $theTab = string2Tab($dataLC);
+    $theTab +=array_merge($theTab, $INFO_APPLI);
+    $theTab['URL'] = $CFG_URL;
+    return makeCorps($theTab, $html);
 }
 
 function delete_file($file)

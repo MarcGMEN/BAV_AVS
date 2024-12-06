@@ -23,6 +23,7 @@ function display_count(val) {
 }
 
 function findClients(all) {
+    console.log(tri+" "+sens);
     allG = all;
     getElement('total').innerHTML = "...";
     getElement('totalAcheteur').innerHTML = "...";
@@ -231,8 +232,9 @@ function triColonne(col) {
         sens = "asc";
     }
     getElement(tri).className = "sortable";
-    findClients(allG);
     tri = col;
+    findClients(allG);
+   
 }
 
 function selectColonne(mask) {

@@ -425,3 +425,54 @@ function display_fiches_feuille(val) {
     newWindow.document.write(repr)
     newWindow.document.close()
 }
+
+function factureClient(id) {
+    var tabSel = {
+        "obj_id_vendeur": id
+    };
+    x_return_fiches(tri, sens, tabToString(tabSel), 0, display_fiches_facture);
+}
+
+function display_fiches_facture(val) {
+    //dans val on a les fiches
+    var data = {};
+    var total = 0;
+    var totalCom = 0;
+    var nb = 0;
+    for (index in val) {
+        if (val[index]['obj_prix_vente'] > 0 &&
+            (val[index]['obj_etat'] == 'VENDU' || val[index]['obj_etat'] == 'PAYE')) {
+            var comFiche = parseFloat(val[index]['obj_prix_vente'] * val[index]['cli_taux_com'] / 100)
+            if (comFiche > 100) comFiche = 100;
+            if (parseInt(val[index]['cli_taux_com']) == 5 && comFiche > 80) comFiche = 80;
+            total += parseFloat(val[index]['obj_prix_vente']);
+            totalCom += comFiche;
+            nb++;
+           
+        }
+        data['cli_nom'] = val[index]['cli_nom'];
+        data['cli_taux_com'] = val[index]['cli_taux_com'];
+        data['cli_adresse'] = val[index]['cli_adresse'];
+        data['cli_adresse1'] = val[index]['cli_adresse1'];
+        data['cli_code_postal'] = val[index]['cli_code_postal'];
+        data['cli_ville'] = val[index]['cli_ville'];
+        data['cli_code'] = val[index]['cli_id_modif'].substr(0, 6);
+    }
+    data['total'] = total;
+    data['totalCom'] = totalCom;
+    data['nb'] = nb;
+    var today = new Date();
+    data['numFac'] = data['cli_code'] + "-" + today.getMinutes()+today.getMilliseconds();
+    data['today'] = formatDate(today.toISOString(), false);
+
+    console.log(tabToString(data));
+ 
+    x_get_publiHtml(tabToString(data), 'factureCom.html', display_viewHTML);
+}
+
+function display_viewHTML(val) {
+    var newWindow = window.open("", "Facture du client", "width=800,height=400,scrollbars=1,resizable=1")
+    newWindow.document.open();
+    newWindow.document.write(val);
+    newWindow.document.close();
+}

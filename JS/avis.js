@@ -1,7 +1,7 @@
 
 function initPage() {
-    x_get_avis(true,display_all);
-    x_get_countAvis(true,display_allCount);
+    x_get_avis(false,display_all);
+    x_get_countAvis(false,display_allCount);
 }
 
 function unloadPage() {

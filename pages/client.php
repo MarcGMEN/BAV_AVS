@@ -129,19 +129,22 @@
 		<br />
 		<? if ($GET_modePage == 'modif') { ?>
 			<div class="row fiche">
-				<div class="col-sm-3 col-md-3 col-xs-3 btnAction" id="tdBtnAction">
+				<div class="col-sm-2 col-md-2 col-xs-4 btnAction" id="tdBtnAction">
 					<button name="buttonValideFiche" tabindex=<?= $tabindex++ ?> disabled>Enregistrer
 					</button>
 				</div>
-				<div class="col-sm-3 col-md-3 col-xs-3 btnAction">
+				<div class="col-sm-2 col-md-2 col-xs-4 btnAction">
 					<input type=button value="Annuler" onclick="fermerCRUD()" tabindex=<?= $tabindex++ ?>>
 				</div>
-				<div class="col-sm-3 col-md-3 col-xs-3 btnAction" id="tdBtnSup">
+				<div class="col-sm-2 col-md-2 col-xs-4 btnAction" id="tdBtnSup">
 					<input type=button value="Supprimer" name="buttonSupprimeFiche" onclick="supprimerClient(this.form.cli_id.value)" tabindex=<?= $tabindex++ ?> />
 				</div>
 				<? if ($infAppli['ADMIN']) { ?>
-				<div class="col-sm-3 col-md-3 col-xs-3 btnAction" id="tdBtnFeuille">
+				<div class="col-sm-3 col-md-3 col-xs-6 btnAction" id="tdBtnFeuille">
 					<input type=button value="Feuille commissions" name="buttonFeuilleFiche" onclick="fichesClient(this.form.cli_id.value)" tabindex=<?= $tabindex++ ?> />
+				</div>
+				<div class="col-sm-3 col-md-3 col-xs-6 btnAction" id="tdBtnFacture">
+					<input type=button value="Facture commissions" name="buttonFactureFiche" onclick="factureClient(this.form.cli_id.value)" tabindex=<?= $tabindex++ ?> />
 				</div>
 				<?}?>
 			</div>

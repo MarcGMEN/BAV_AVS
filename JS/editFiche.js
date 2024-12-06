@@ -314,17 +314,17 @@ function finFiches() {
         repr += "<th width=10 %> Prix</th > ";
     }
     repr += "<th width=10 %> Prix négo</th > ";
-    if (firstKey >= base_info) {
+    // if (firstKey >= base_info) {
         repr += "<th width=10 %> Table</th > <th width=10 %> Info</th > ";
-    }
+    // }
     repr += "<th width=10%>Numéro</th>";
     if (firstKey >= base_info) {
         repr += "<th width=10 %> Prix</th > ";
     }
     repr += "<th width=10 %> Prix négo</th >";
-    if (firstKey >= base_info) {
+    // if (firstKey >= base_info) {
         repr += "<th width=10 %> Table</th > <th width=10 %> Info</th > ";
-    }
+    // }
     repr += "</tr>";
     // console.log(firstKey, ((NB_MODIF / 2) + parseInt(firstKey)));
     for (var i = firstKey; i < ((NB_MODIF / 2) + parseInt(firstKey)); i++) {
@@ -337,13 +337,13 @@ function finFiches() {
             repr += "</td><td  style='text-align:left;border-bottom:1px black solid'>";
         }
         repr += map1.get(i)[1] == undefined ? "" : map1.get(i)[1] == "0.00" ? "" : map1.get(i)[1]+" &euro;";
-        if (firstKey >= base_info) {
+        // if (firstKey >= base_info) {
             var etat = map1.get(i)[2]
             repr += "</td><td style='text-align:center;border-bottom:1px black solid;border-left:1px grey solid'>";
             repr += etat == undefined ? "" : etat != "CONFIRME" ? "V" : "";
             repr += "</td><td style='text-align:center;border-bottom:1px black solid;border-left:1px grey solid'>";
             repr += etat == undefined ? "" : etat != "CONFIRME" ? etat : "";
-        }
+        // }
         repr += "</td>";
         repr += "<td style='background-color:grey; text-align:center'>";
         var j = parseInt(parseInt(i) + (NB_MODIF / 2));
@@ -355,13 +355,13 @@ function finFiches() {
             repr += "</td><td style='text-align:left;border-bottom:1px black solid'>";
         }
         repr += map1.get(j)[1] == undefined ? "" : map1.get(j)[1] == "0.00" ? "" : map1.get(j)[1]+" &euro;" ;
-        if (firstKey >= base_info) {
+        // if (firstKey >= base_info) {
             etat = map1.get(j)[2]
             repr += "</td><td style='text-align:center;border-bottom:1px black solid;border-left:1px grey solid'>";
             repr += etat == undefined ? "" : etat != "CONFIRME" ? "V" : "";
             repr += "</td><td style='text-align:center;border-bottom:1px black solid;border-left:1px grey solid'>";
             repr += etat == undefined ? "" : etat != "CONFIRME" ? etat : "";
-        }
+        // }
         repr += "</td></tr>";
     }
     repr += "</table>";
