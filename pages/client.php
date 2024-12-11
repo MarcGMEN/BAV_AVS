@@ -189,6 +189,7 @@
 
 		</tr>
 	</table>
+	<div class='titreFiche' id='theCreneau'></div>
 <? } ?>
 <table width="100%">
 	<tr>

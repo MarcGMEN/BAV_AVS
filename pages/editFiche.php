@@ -390,11 +390,11 @@ $tabInfo = [
 							<tr class="tabAction">
 								<td width=10%></td>
 								<td width=50%> Classeur(s) (<span id='nbClasseurPret'></span>)
-									<select id=classeurs name='classeurs' style='width:150px'>
+									<select id=classeurs name='classeurs' style='width:150px' multiple>
 									</select>
 								<td width=15%>
 									<input type=button value='Imprimer'
-										onclick='imprimePreCheck(this.form.classeurs.value)'>
+										onclick='imprimePreCheck(this.form.classeurs.options)'>
 								</td>
 								<td width=20%>Feuille A4 blanche</td>
 

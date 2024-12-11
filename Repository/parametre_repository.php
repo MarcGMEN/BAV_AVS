@@ -71,6 +71,8 @@ function return_infoAppli()
     $infos['date_j2'] = strtotime($par['par_date_debut_vente']);
     $infos['date_j3'] = strtotime($par['par_date_fin_bav']);
 
+    $infos['temps_depot'] = $par['par_temps_depot'];
+
 	$today=mktime(0,0,0,date('m'),date('d'),date('Y'));
     $infos['bav_en_cours']=0;
     if ($today >= $infos['date_j2'] && $today <= $infos['date_j3']) {

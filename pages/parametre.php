@@ -97,11 +97,17 @@
 						<small>Date d'ouverture des pré-dépôts et fermeture le <?= $infAppli['dateFinClient'] ?></small>
 					</td>
 				</tr>
-				<tr>
+				<!-- <tr>
 					<td class="titrow">IPs Admin <span title="Obligatoire">*<span></td>
 					<td class="tabInput" colspan=2>
 						<input type=text name="par_admin_id_mac" style="width:80%"
 							size=50 maxlength="600" tabindex=<?= $tabindex++ ?> placeholder="Adresse ips pour accés admin, séparé d'une virgule" onkeyup="setStartSaisie(true);" required value="localhost, 127:0:0:1, ::1" />
+					</td>
+				</tr> -->
+				<tr>
+					<td class="titrow">Temps par dépôts (minutes)</td>
+					<td class="tabInput" colspan=2>
+						<input type=number name="par_temps_depot" value="4" onkeyup="setStartSaisie(true);"  />
 					</td>
 				</tr>
 				<tr>

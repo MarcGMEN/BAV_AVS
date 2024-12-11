@@ -96,11 +96,15 @@
 </div>
 
 <div class="row">
-	<div class="col-sm-12 col-md-12 col-xs-12 alert alert-info maskMobile" id='aideImpression' style="display:none;"> 
-		<h5><b>⚠ N'oubliez pas d'imprimer votre fiche de dépôt avant de venir en cliquant sur l'icone :📇</b></h5>
+	<div class="col-sm-6 col-md-6 col-xs-12 alert alert-info maskMobile" id='aideImpression' style="display:none;"> 
+		<h5><b><span style='font-size: 1.5em'>⚠</span> N'oubliez pas d'imprimer votre fiche de dépôt avant de venir en cliquant sur l'icone :📇</b></h5>
 		<h6>(Attention au droit d'ouverture des popup ou nouvel onglet avec votre navigateur)
 		<br/><b>Merci de privilégier les navigateurs Chrome ou Firefox pour l'impression des fiches.</b></h6>
 	</div>
+	<div class="col-sm-6 col-md-6 col-xs-12 alert alert-info"  > 
+			<H6>Choissisez un créneau pour venir déposer votre ou vos vélos : </h6>
+			<div id=creneaux></div>
+		</div>
 </div>
 <table width="100%" >
 	<tr>
@@ -134,11 +138,11 @@
 	</tr>
 </table>
 <div class="row">
-	<div class="col-sm-12 col-md-12 col-xs-12">
-		<div class="col-sm-4 col-md-4 col-xs-4">
+	
+		<div class="col-sm-3 col-md-3 col-xs-6">
 			<h3>Vos dépôts</h3>
 		</div>
-		<div class="col-sm-8 col-md-8 col-xs-8">
+		<div class="col-sm-3 col-md-3 col-xs-6">
 			<!-- Pas d'accès avec la BAV en cours -->
 			<!-- fin CLIENT a 17h -->
 			<? if ($infAppli['CLIENT'] == 1 || $infAppli['ADMIN'] == 1 || $GET_modePage == "createTEST") { ?>
@@ -147,12 +151,9 @@
 			<? if ($infAppli['CLIENT'] == 0 ){?>
 				<h4>Pas d'ajout possible, session clotûrée.</h4>
 			<?}?>
-		<!-- </div>
-		<div class="col-sm-6 col-md-6 col-xs-0 alert alert-info maskMobile" id='aideImpression' style="display:none;"> 
-			<h5><b>⚠ N'oubliez pas d'imprimer votre fiche de dépôt avant de venir en cliquant sur l'icone :📇</b></h5>
-		</div> -->
 		</div>
-	</div>
+		
+
 </div>
 <div id=fiches></div>
 <!-- uniquement dans les dates de la bav -->

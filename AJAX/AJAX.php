@@ -14,6 +14,7 @@ require_once "../Repository/faq_repository.php";
 require_once "../Repository/actu_repository.php";
 require_once "../Repository/counter_access_repository.php";
 require_once "../Repository/avis_repository.php";
+require_once "../Repository/creneau_repository.php";
 require_once "../Commun/Sajax.php";
 require_once "../Commun/mail.php";
 require_once "../Commun/html2pdf.php";
@@ -281,6 +282,7 @@ function makeCarroussel($id)
     return $theCarroussel;
 }
 
+/* *************************** AVSI ******************************* */
 function add_avis($note, $commentaire)
 {
     extract($GLOBALS);
@@ -303,7 +305,6 @@ function get_countAvis($withBav=false) {
 function delete_avis($id) {
     return deleteAvis($id);
 }
-
 
 
 sajax_init("");

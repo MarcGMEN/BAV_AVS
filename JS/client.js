@@ -67,7 +67,7 @@ function display_list_prix_depot(val) {
  * 
  */
 function display_client(val) {
-    // console.log(val);
+    console.log(val);
     if (val instanceof Object) {
 
         val['code'] = val['cli_id_modif'].substr(0, 6);
@@ -91,6 +91,8 @@ function display_client(val) {
             "obj_id_acheteur": val['cli_id']
         };
         x_return_fiches(tri, sens, tabToString(tabSelA), display_fiches_achat);
+
+        x_get_creneau(val['cli_id_cre'], display_creneau);
 
     } else {
         goTo(null, null, null, "Client inconnue.");
@@ -136,6 +138,28 @@ function display_fin_modif(val) {
 function searchByMel(value) {
     if (value != "") {
         x_return_oneClientByMel(value, display_infoClientVendeur);
+    }
+}
+
+function display_creneau(val) {
+    console.log(val);
+    if (val['cre_id']) {
+        var repr = "Lié au créneau de dépôt du " + formatDate(val['cre_debut'], true);
+        repr += "<span title='Supprimer' onclick='supprimerCrenau(" + val['cre_id'] + ")' class='link' >❌</span>";
+        getElement("theCreneau").innerHTML = repr;
+    }
+    else {
+        getElement("theCreneau").innerHTML = "Pas de créneau de dépôt choisit."
+    }
+}
+
+function supprimerCrenau(id) {
+    if (confirm("Suppression de ce creneau ? ")) {
+
+        var tabCli = recup_formulaire(document.clientForm, 'cli');
+        tabCli['cli_id_cre'] = "0";
+        
+        x_action_updateClient(tabToString(tabCli), display_creneau);
     }
 }
 /**
@@ -196,6 +220,8 @@ function display_fiches_depot(val) {
 
     var total = display_fiches(val, 'fiches');
 
+    
+
     if (sens == "asc") {
         classSort = "sortUp";
     } else {
@@ -233,6 +259,8 @@ function display_fiches_depot(val) {
         }
     }
 
+   
+
 }
 
 function display_fiches_achat(val) {
@@ -242,6 +270,8 @@ function display_fiches_achat(val) {
 function display_fiches(val, idElement) {
 
     // console.log(val);
+
+    var numeroCreneau=0;
     var total = 0;
     var repr = "<table width='100%'>";
     for (index in val) {
@@ -299,6 +329,8 @@ function display_fiches(val, idElement) {
                 }
                 repr += "</td>";
                 repr += "</tr>";
+
+                
             }
             total = total + 1;
         }
@@ -309,9 +341,12 @@ function display_fiches(val, idElement) {
 
     getElement('total' + idElement).innerHTML = total;
 
+    
+
     // console.log('total'+idElement);
     return total;
 }
+
 
 function triColonne(col) {
     if (col == tri) {

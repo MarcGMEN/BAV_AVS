@@ -6,10 +6,14 @@ function initPage() {
     //     alertModalInfo("Page non accessible. "+BAV_ENCOURS+"-"+CLIENT+"-"+modePage);
     //     setTimeout(function () { goTo() }, 2000);
     // }
+    if (!BAV_ENCOURS) {
+        x_get_creneaux(display_allcreneaux);
+    }
 
     if (idClient) {
         // recherche du client
-        x_return_oneClientByIdModif(idClient, display_client);
+        setTimeout('x_return_oneClientByIdModif(idClient, display_client)', 500);
+
     } else {
         goTo();
     }
@@ -20,6 +24,75 @@ function initPage() {
  */
 function unloadPage() { }
 
+function display_allcreneaux(val) {
+    if (val instanceof Object) {
+        var nbCre = 0;
+        // var nbCreDay = [];
+        for (index in val) {
+            var dateLu = new Date(val[index]['cre_debut']);
+            var dayCre = dateLu.getDay();
+            // if (!nbCreDay[dayCre]) nbCreDay[dayCre] = 0;
+            // nbCreDay[dayCre]++;
+        }
+        tailleCre = parseInt(100 / nbCre);
+        var dayCre = -1;
+        var repr = "";
+        for (index in val) {
+
+            var dateLu = new Date(val[index]['cre_debut']);
+            var dayLu = dateLu.getDay();
+            if (dayCre != dayLu) {
+                if (dayCre != "") {
+                    repr += "</div>";
+                }
+                repr += "Le " + getJourDate(dateLu) + " " + dateLu.getDate() + " " + getMoisDate(dateLu) + " " + dateLu.getFullYear();
+                repr += " à partir de <div class='row' style='text-align:center'>";
+            }
+            dayCre = dayLu;
+            repr += "<div class='col-sm-3 col-md-3 col-xs-3 link' ";
+            repr += " id = 'cre_" + val[index]['cre_id'] + "' title = 'Fluide' ";
+            repr += " onclick='updateCreneau(" + val[index]['cre_id'] + ")' ";
+            repr += " style = 'border:green 1px solid;margin:7px;text-align:center;background-color:GREEN;color:WHITE' >";
+            repr += val[index]['cre_debut'].substr(11, 5);
+            repr += "</div > "
+
+        }
+        repr += "</div>";
+
+    } else {
+        repr += "<p>Aucun créneaux pour le moment.</p>";
+    }
+
+    getElement("creneaux").innerHTML = repr;
+
+}
+function updateCreneau(idCre) {
+    // console.log("update de " + cli_id + " sur le creneau " + idCre);
+
+    x_get_creneaux(display_allcreneaux);
+    var tabCli = {};
+    tabCli['cli_id'] = cli_id;
+    tabCli['cli_id_cre'] = idCre;
+    tabCli['cli_id_modif'] = idClient
+
+    x_action_updateClient(tabToString(tabCli), display_fin_modif_creneau);
+}
+
+function display_fin_modif_creneau(val) {
+
+    x_get_count_creneaux_for_fiche(numeroCreneau, display_creneau_client);
+
+    display_sonCreneau(val['cli_id_cre']);
+
+}
+
+function display_sonCreneau(id) {
+    if (id != 0) {
+        getElement("cre_" + id).style.filter = "brightness(1.5)";
+        // getElement("cre_" +id).title = "Votre créneau.";
+        getElement("cre_" + id).innerHTML += "<b> ✓ </b>";
+    }
+}
 /**
  *  affichage des infos client
  */
@@ -43,6 +116,10 @@ function display_client(val) {
             "obj_id_acheteur": val['cli_id']
         };
         x_return_fiches(tri, sens, tabToString(tabSelA), display_fiches_achat);
+
+
+        display_sonCreneau(val['cli_id_cre']);
+
     } else {
         goTo(null, null, null, "Client inconnue.");
     }
@@ -123,7 +200,8 @@ var tabSel = new Array();
 // affichage des fiche de depot
 function display_fiches_depot(val) {
     var total = display_fiches(val, 'fiches');
-    
+    console.log(total);
+    // console.log(getElement('aideImpression').className.includes('maskMobile'));
     if (total == 1) {
         getElement('aideImpression').style.display = 'block';
     }
@@ -142,6 +220,7 @@ function display_fiches_achat(val) {
     display_fiches(val, 'fichesA');
 }
 
+var numeroCreneau = 0;
 // affichage tableau
 function display_fiches(val, idElement) {
     // console.log(val);
@@ -201,21 +280,58 @@ function display_fiches(val, idElement) {
                 if (val[index]['obj_etat'] == 'CONFIRME' && idElement == "fiches") {
                     if (CLIENT) {
                         repr += "<span title='Modifier'  onclick='modifierFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link' style='font-size:1.5em'><i class='link fas fa-edit'></i>&nbsp;</span > ";
-                    }   
+                    }
                     repr += "<span title='Supprimer' onclick='supprimerFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link' style='font-size:1.5em'>&nbsp;❌&nbsp;</span>";
                     // repr += "<span title='Imprimer' onclick='imprimeFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link' style='font-size:1.5em'>&nbsp;📇</span>";
-                    repr += "<span title='Imprimer'><a href='../out/PDF/fiche_depot_"+ val[index]['obj_numero'] + ".pdf' class='link' target='blank' style='font-size:1.5em'>&nbsp;📇</span>";
+                    repr += "<span title='Imprimer'><a href='../out/PDF/fiche_depot_" + val[index]['obj_numero'] + ".pdf' class='link' target='blank' style='font-size:1.5em'>&nbsp;📇</span>";
                     aimprimer = 1;
                 }
                 repr += "</td>";
                 repr += "</tr>";
                 total = total + 1;
+
+                if (numeroCreneau == 0 && val[index]['obj_numero'] >= NB_MODIF) {
+                    numeroCreneau = val[index]['obj_numero'];
+                }
             }
         }
     }
     repr += "</table>";
     getElement(idElement).innerHTML = repr;
+
+    if (numeroCreneau > 0) {
+        x_get_count_creneaux_for_fiche(numeroCreneau, display_creneau_client);
+    }
     return aimprimer;
+}
+
+function display_creneau_client(val) {
+    // console.log("display_creneau_client");
+    // console.log(val);
+
+    for (numCre in val) {
+        if (numCre != "numero_deb") {
+            var charge = parseInt(val[numCre]['cpt'] * 100 / val[numCre]['max_nb']);
+            var color = "Green";
+            var colorText = "White";
+            var etat = "Fluide";
+            if (charge > 60) {
+                color = 'orange'
+                colorText = "black";
+                etat = "Chargé";
+
+            }
+            if (charge > 80) {
+                color = 'RED'
+                etat = "Encombré";
+            }
+
+            var divCre = getElement("cre_" + numCre);
+            divCre.title = etat;
+            divCre.style.backgroundColor = color;
+            divCre.style.color = colorText;
+        }
+    }
 }
 
 /** impression de la fiche */
@@ -299,8 +415,8 @@ function modifierFiche(id, numero) {
     tabObj['obj_numero'] = numero;
     x_get_publiHtml(tabToString(Object.assign({}, tabObj)), 'modal_create_fiche.html', display_messageConfirmModif);
     setTimeout('x_return_oneFiche(' + id + ', modalModifFiche)', 200);
-    
- 
+
+
 }
 
 function modalModifFiche(val) {
@@ -333,7 +449,7 @@ function confirmModal(plus) {
         tabCli['cli_id'] = document.clientForm.cli_id.value;
         var tabData = Object.assign({}, tabObj, tabCli);
         x_action_createFiche(tabToString(tabData), display_fin_create);
-        
+
     } else if (plus == "Supp") {
         var tabObj = recup_formulaire(document.modalForm, 'obj');
         x_action_deleteFiche(tabObj['obj_id'], display_fin_create);

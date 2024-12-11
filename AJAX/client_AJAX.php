@@ -124,12 +124,12 @@ function return_oneClient($id)
 function action_updateClient($obj)
 {
     $tab = string2Tab($obj);
+    // print_r($tab);
     // // TODO : test cohérence object
     try {
         // on verifie que le mel n'est pas utilisé
-        if ($tab['cli_id'] && !$tab['cli_emel'] && !$tab['cli_nom'])   { 
-        }
-        else if ($tab['cli_emel']) {
+        if ($tab['cli_id'] && !$tab['cli_emel'] && !$tab['cli_nom']) {
+        } else if ($tab['cli_emel']) {
             $climel = getOneClientByMel($tab['cli_emel']);
             if ($climel['cli_id'] &&  $climel['cli_id'] != $tab['cli_id']) {
                 return "Mel déja utilisé pour " . $climel['cli_nom'];
@@ -140,7 +140,9 @@ function action_updateClient($obj)
                 return "Nom déja utilisé pour " . $climel['cli_id_modif'];
             }
         }
-        $tab['cli_nom'] =strtoupper($tab['cli_nom']);
+        if ($tab['cli_nom']) {
+            $tab['cli_nom'] = strtoupper($tab['cli_nom']);
+        }
         updateClient($tab);
         return $tab;
     } catch (Exception $e) {
@@ -212,7 +214,7 @@ function action_redonneCode($mel)
     $tabCli['cli_code'] = substr($tabCli['cli_id_modif'], 0, 6);
     $tabCli['titre'] = $INFO_APPLI['titre'];
     $tabCli['URL'] = $CFG_URL;
-        // creation du message avec le template
+    // creation du message avec le template
     $message = makeMessage($titreMel, array_merge($tabCli), "mel_code_access.html");
 
     // envoi du mel
@@ -231,7 +233,7 @@ function makeClient($tabCli)
     extract($GLOBALS);
     $numBAV = $INFO_APPLI['numero_bav'];
     $par = return_oneParametre($numBAV);
-    $tabCli['cli_nom'] =strtoupper($tabCli['cli_nom']);
+    $tabCli['cli_nom'] = strtoupper($tabCli['cli_nom']);
     if ($tabCli['cli_id'] != null) {
         //echo "makeClient => recherche par mel";
         $clientSearch =  getOne($tabCli['cli_id'], "bav_client", "cli_id");

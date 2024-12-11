@@ -274,28 +274,48 @@ function display_detailpageFicheEF(val) {
 
 }
 var fichesNego = new Map();
-function imprimePreCheck(debutClasseur) {
+function imprimePreCheck(options) {
+    // console.log(options)
+
+    var classeurs = [];
+    var index = 0;
+    for (i in options) {
+        if (options[i].selected) {
+            classeurs[index++] = options[i].value;
+        }
+    }
+    // console.log(classeurs);
     fichesNego = new Map();
-    var fin = parseInt(debutClasseur) + parseInt(NB_MODIF) - 1;
+
     // console.log(debutClasseur + " -> " + fin);
     // recherche des fiches du classeur
-    for (var i = debutClasseur; i <= fin; i++) {
-        // console.log("x_return_oneFicheByCode de " + i);
-        x_return_oneFicheByCode(i, display_fichePC);
+    for (var j in classeurs) {
+        var debutClasseur = classeurs[j];
+        var fin = parseInt(debutClasseur) + parseInt(NB_MODIF) - 1;
+        for (var i = debutClasseur; i <= fin; i++) {
+            // console.log("x_return_oneFicheByCode de " + i);
+            x_return_oneFicheByCode(i, display_fichePC);
+        }
     }
-
-    setTimeout('finFiches()', 1000);
+    // console.log(classeurs.length);
+    var delai = 2 * classeurs.length;
+    setTimeout(' finFiches();',delai*1000);
+    alertModalInfoTimeout('Attente de ' + delai + " secondes....", delai);
+   
 }
 function finFiches() {
-    // while (fichesNego.length < NB_MODIF) {
-    //     console.log(fichesNego.length + " en cours");
+    
+    // var index = lectureTaleFichesNego();
+    // console.log(index + " < " + NB_MODIF);
+    // while (index < NB_MODIF) {
+    //     index = lectureTaleFichesNego();
+    //     console.log(index+" en cours");
     // }
     // fichesNego.sort(function (a, b) {
     //     return parseInt(a) == parseInt(b)
     //         ? 0
     //         : (parseInt(a) > parseInt(b) ? 1 : -1);
     // });
-    // console.log(fichesNego);
     var map1 = new Map([...fichesNego.entries()].sort((function (a, b) {
         return parseInt(a) == parseInt(b)
             ? 0
@@ -303,68 +323,97 @@ function finFiches() {
     })));
     // console.log(map1);
 
-
-    const [firstKey] = map1.keys();
     var repr = "<html><head>";
     repr += "</head><body>";
-    repr += "<h3 style='background-color:grey; text-align:center'>Check classeur " + firstKey + " -> " + ((NB_MODIF) + parseInt(firstKey) - 1) + "</h3>";
-    repr += "<table style='border:2px black solid; width:100%'>";
-    repr += "<tr style='background-color:lightgrey;'><th width=10%>Numéro</th>";
-    if (firstKey >= base_info) {
-        repr += "<th width=10 %> Prix</th > ";
-    }
-    repr += "<th width=10 %> Prix négo</th > ";
-    // if (firstKey >= base_info) {
-        repr += "<th width=10 %> Table</th > <th width=10 %> Info</th > ";
-    // }
-    repr += "<th width=10%>Numéro</th>";
-    if (firstKey >= base_info) {
-        repr += "<th width=10 %> Prix</th > ";
-    }
-    repr += "<th width=10 %> Prix négo</th >";
-    // if (firstKey >= base_info) {
-        repr += "<th width=10 %> Table</th > <th width=10 %> Info</th > ";
-    // }
-    repr += "</tr>";
-    // console.log(firstKey, ((NB_MODIF / 2) + parseInt(firstKey)));
-    for (var i = firstKey; i < ((NB_MODIF / 2) + parseInt(firstKey)); i++) {
-        repr += "<tr style='border:2px black solid;'><td style='background-color:grey; text-align:center'>";
-        repr += i
-        repr += "</td><td style='text-align:left;border-bottom:1px black solid;border-right:1px grey solid'>";
+
+    // console.log("modulo " + map1.size / NB_MODIF)
+    const theKeys = map1.keys()
+    var [nextKey] = theKeys;
+    for (var page = 0; page < map1.size / NB_MODIF; page++) {
+        firstKey = nextKey;
+        console.log(firstKey);
+        repr += "<h3 style='background-color:grey; text-align:center'>Check classeur " + firstKey + " -> " + ((NB_MODIF) + parseInt(firstKey) - 1) + "</h3>";
+        repr += "<table style='border:2px black solid; width:100%'>";
+        repr += "<tr style='background-color:lightgrey;'><th width=10%>Numéro</th>";
         if (firstKey >= base_info) {
-            var prix = map1.get(i)[0]
-            repr += prix == undefined ? "" : prix == "0.00" ? "" : prix+" &euro;";
-            repr += "</td><td  style='text-align:left;border-bottom:1px black solid'>";
+            repr += "<th width=10%> Prix</th > ";
         }
-        repr += map1.get(i)[1] == undefined ? "" : map1.get(i)[1] == "0.00" ? "" : map1.get(i)[1]+" &euro;";
+        repr += "<th width=10%> Prix négo</th > ";
         // if (firstKey >= base_info) {
-            var etat = map1.get(i)[2]
+        repr += "<th width=5%> Table</th > <th width=5%> Info</th > ";
+        if (firstKey >= base_info) {
+            repr += "<th width=10 %> Creneau</th > ";
+        }
+        // }
+        repr += "<th width=10%>Numéro</th>";
+        if (firstKey >= base_info) {
+            repr += "<th width=10%> Prix</th > ";
+        }
+        repr += "<th width=10%> Prix négo</th >";
+        // if (firstKey >= base_info) {
+        repr += "<th width=5%> Table</th > <th width=5%> Info</th > ";
+        if (firstKey >= base_info) {
+            repr += "<th width=10 %> Creneau</th > ";
+        }
+        // }
+        repr += "</tr>";
+
+        // console.log(firstKey, ((NB_MODIF / 2) + parseInt(firstKey)));
+        for (var i = firstKey; i < ((NB_MODIF / 2) + parseInt(firstKey)); i++) {
+            repr += "<tr style='border:2px black solid;'><td style='background-color:grey; text-align:center'>";
+            repr += i
+            repr += "</td><td style='text-align:left;border-bottom:1px black solid;border-right:1px grey solid'>";
+            if (firstKey >= base_info) {
+                var prix = map1.get(i)[0];
+                repr += prix == undefined ? "" : prix == "0.00" ? "" : prix + " &euro;";
+                repr += "</td><td  style='text-align:left;border-bottom:1px black solid'>";
+            }
+            repr += map1.get(i)[1] == undefined ? "" : map1.get(i)[1] == "0.00" ? "" : map1.get(i)[1] + " &euro;";
+            // if (firstKey >= base_info) {
+            var etat = map1.get(i)[2];
             repr += "</td><td style='text-align:center;border-bottom:1px black solid;border-left:1px grey solid'>";
             repr += etat == undefined ? "" : etat != "CONFIRME" ? "V" : "";
             repr += "</td><td style='text-align:center;border-bottom:1px black solid;border-left:1px grey solid'>";
             repr += etat == undefined ? "" : etat != "CONFIRME" ? etat : "";
-        // }
-        repr += "</td>";
-        repr += "<td style='background-color:grey; text-align:center'>";
-        var j = parseInt(parseInt(i) + (NB_MODIF / 2));
-        repr += j;
-        repr += "</td><td style='text-align:left;border-bottom:1px black solid;border-right:1px grey solid'>";
-        if (firstKey >= base_info) {
-            prix = map1.get(j)[0]
-            repr += prix == undefined ? "" : prix == "0.00" ? "" : prix+" &euro;";
-            repr += "</td><td style='text-align:left;border-bottom:1px black solid'>";
-        }
-        repr += map1.get(j)[1] == undefined ? "" : map1.get(j)[1] == "0.00" ? "" : map1.get(j)[1]+" &euro;" ;
-        // if (firstKey >= base_info) {
+            // }
+            repr += "</td>";
+            if (firstKey >= base_info) {
+                repr += "<td style='text-align:center;border-bottom:1px black solid;border-left:1px grey solid'>";
+                repr += map1.get(i)[3] == undefined ? "" : map1.get(i)[3] == "" ? "" : map1.get(i)[3];
+                repr += "</td>";
+            }
+            theKeys.next().value;
+
+            repr += "<td style='background-color:grey; text-align:center'>";
+            var j = parseInt(parseInt(i) + (NB_MODIF / 2));
+            repr += j;
+            repr += "</td><td style='text-align:left;border-bottom:1px black solid;border-right:1px grey solid'>";
+            if (firstKey >= base_info) {
+                prix = map1.get(j)[0]
+                repr += prix == undefined ? "" : prix == "0.00" ? "" : prix + " &euro;";
+                repr += "</td><td style='text-align:left;border-bottom:1px black solid'>";
+            }
+            repr += map1.get(j)[1] == undefined ? "" : map1.get(j)[1] == "0.00" ? "" : map1.get(j)[1] + " &euro;";
+            // if (firstKey >= base_info) {
             etat = map1.get(j)[2]
             repr += "</td><td style='text-align:center;border-bottom:1px black solid;border-left:1px grey solid'>";
             repr += etat == undefined ? "" : etat != "CONFIRME" ? "V" : "";
             repr += "</td><td style='text-align:center;border-bottom:1px black solid;border-left:1px grey solid'>";
             repr += etat == undefined ? "" : etat != "CONFIRME" ? etat : "";
-        // }
-        repr += "</td></tr>";
+            // }
+            repr += "</td>";
+            if (firstKey >= base_info) {
+                repr += "<td style='text-align:center;border-bottom:1px black solid;border-left:1px grey solid'>";
+                repr += map1.get(j)[3] == undefined ? "" : map1.get(j)[3] == "" ? "" : map1.get(j)[3];
+                repr += "</td>";
+            }
+            repr +="</tr > ";
+            nextKey = theKeys.next().value;
+        }
+        repr += "</table>";
+        repr += "<div style='page-break-after:always; clear:both;font-size:10pt;height:10pt'>..........</div>";
+
     }
-    repr += "</table>";
     repr += "</body></html>";
 
     var newWindow = window.open("", "Fiches du check", "width=1200,height=600,scrollbars=1,resizable=1")
@@ -374,5 +423,16 @@ function finFiches() {
 }
 
 function display_fichePC(val) {
-    fichesNego.set(parseInt(val['obj_numero']), [val['obj_prix_depot'], val['obj_prix_nego'], val['obj_etat']]);
+    // console.log(val);
+    var creneau = "";
+    if (val['cre_debut']) {
+        var dateLu = new Date(val['cre_debut']);
+        creneau = getJourDate(dateLu) + " " + dateLu.getDate() + "<br/>à " + val['cre_debut'].substr(11, 5);
+    }
+    fichesNego.set(parseInt(val['obj_numero']), [val['obj_prix_depot'], val['obj_prix_nego'], val['obj_etat'], creneau]);
+
+}
+
+function lectureTaleFichesNego() {
+    return fichesNego.size;
 }

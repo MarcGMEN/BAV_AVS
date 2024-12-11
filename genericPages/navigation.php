@@ -10,7 +10,7 @@
 </script>
 
 <?php
-$today=mktime(0,0,0,date('m'),date('d'),date('Y'));
+$today = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
 // print_r($infAppli);
 $tabNavAll = [
     'news.php' => [
@@ -39,8 +39,9 @@ $tabNavAll = [
         'notif' => "PRESSE"
     ],
     'avis.php' => [
-            'libelle' => 'Avis'
-        ],
+        'libelle' => 'Avis'
+    ],
+
 
 ];
 
@@ -87,6 +88,9 @@ if ($infAppli['ADMIN']) {
                     'libelle' => 'Paramètres',
                     'class' => 'maskMobileBlock',
                 ],
+                'creneau.php' => [
+                    'libelle' => 'Créneaux'
+                ],
                 'stat.php' => [
                     'libelle' => 'Stats',
                 ],
@@ -107,9 +111,9 @@ if ($infAppli['ADMIN']) {
     ];
 } elseif ($infAppli['CLIENT']) {
     $tabNavAdm = [
-            'stock-client.php' => [
-                'libelle' => 'Les vélos'
-            ],
+        'stock-client.php' => [
+            'libelle' => 'Les vélos'
+        ],
         // 'SPACE0' => [s
         //     'libelle' => '🟡🟡',
         // ],
@@ -124,7 +128,7 @@ if ($infAppli['ADMIN']) {
         //     'LIBELLE' => 'LES VÉLOS'
         // ],
     ];
-} elseif ($infAppli['bav_en_cours'] || $infAppli['date_j1']==$today) {
+} elseif ($infAppli['bav_en_cours'] || $infAppli['date_j1'] == $today) {
     $tabNavAdm = [
         'stock-client.php' => [
             'libelle' => 'Les vélos'
@@ -140,8 +144,9 @@ if ($infAppli['ADMIN']) {
 }
 
 if (isset($_COOKIE['CAFFARD_BAV']) &&  !$infAppli['ADMIN']) {
-    $tabNavAdm = ['stock-client.php' => [
-        'libelle' => 'Les vélos'
+    $tabNavAdm = [
+        'stock-client.php' => [
+            'libelle' => 'Les vélos'
         ]
     ];
 }

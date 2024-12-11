@@ -1,0 +1,1 @@
+ tail -f EasyPHP-Devserver-17/eds-binaries/httpserver/apache2425vc11x86x201109112305/logs/error.log

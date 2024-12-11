@@ -172,9 +172,10 @@ function getOneFicheByCode($id)
 {
     $row = null;
     if (isset($id)) {
-        $requete2 = "SELECT bav_objet.*, ve.*, ve.cli_nom vendeur_nom, ac.cli_nom acheteur_nom from bav_objet ";
+        $requete2 = "SELECT bav_objet.*, ve.*, cr.*, ve.cli_nom vendeur_nom, ac.cli_nom acheteur_nom from bav_objet ";
         $requete2 .= "  left outer join bav_client as ve on obj_id_vendeur = ve.cli_id ";
         $requete2 .= "  left outer join bav_client as ac on obj_id_acheteur = ac.cli_id ";
+        $requete2 .= "  left outer join bav_creneau as cr on cr.cre_id = ve.cli_id_cre ";
         $requete2 .= " where obj_numero = '" . $id . "'";
         $requete2 .= " and  obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "'";
         $result = $GLOBALS['mysqli']->query($requete2);

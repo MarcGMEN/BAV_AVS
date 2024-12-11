@@ -1,0 +1,12 @@
+<?php
+sajax_export(
+    "addCreneau",
+    "get_creneaux",
+    "delete_creneau",
+    "get_count_creneaux",
+    "get_count_creneaux_by_classeur",
+    "get_count_creneaux_by_classeur_reel",
+    "get_init_creneaux_by_classeur",
+    "get_count_creneaux_for_fiche",
+   "get_creneau"
+);

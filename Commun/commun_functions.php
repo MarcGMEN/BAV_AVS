@@ -263,6 +263,9 @@ function formateDateMYSQLtoFR($date, $heure = false)
 	return $dateR;
 }
 
+/**
+ * attente de AAAA-MM-JJ HH:II:SS
+ */
 function dateMysqlInt($date)
 {
 	$tab_date = array();

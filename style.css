@@ -794,7 +794,8 @@ span.WARN {
     display: table-cell;
 }
 
-.onMobile {
+.onMobile,
+.onMobileBlock {
     display: none;
 }
 
@@ -877,6 +878,9 @@ img.logo {
     }
     .onMobile {
         display: table-cell;
+    }
+    .onMobileBlock {
+        display: inline-block;
     }
     
     .tabl1,
