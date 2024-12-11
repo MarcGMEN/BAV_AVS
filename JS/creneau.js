@@ -32,7 +32,7 @@ function display_all(val) {
             repr += "<span class='onMobileBlock'>" + getJourDate(dateLu).substr(0,2) + "</span>";
             repr += " " + dateLu.getDate()
             repr += "<span class='maskMobileBlock' title='Supprimer' onclick='supprimerCrenau(" + val[index]['cre_id'] + ")' class='link' >❌</span>";
-            repr += "<br/><span class='maskMobileBlock'>à partir de </span>"+val[index]['cre_debut'].substr(11, 5);
+            repr += "<br/><span class='maskMobileBlock'>à partir de</span> "+val[index]['cre_debut'].substr(11, 5);
             repr += "<br/><span class='maskMobileBlock'>Temps de :" + val[index]['delta'] + "min</span>";
             repr += "</td > ";
             tabIdCre.push(val[index]['cre_id']);
