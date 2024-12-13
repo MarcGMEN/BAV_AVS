@@ -79,15 +79,13 @@ function display_initClasseur(val) {
                 var numCre = tabIdCre[index];
                 repr += "<td  width='" + tailleCre + "%'class='tabl1'>";
                 if (val[idClass][numCre]) {
-                    repr += " <div style='width:100%;height:40px;background-color:WHITE' id='" + idClass + "_" + numCre + "_prevu'></div>";
-                    repr += "<div style='width:100%;height:4px;background-color:lightgrey' ></div>";
-                    repr += " <div style='width:100%;height:20px;background-color:WHITE' id='" + idClass + "_" + numCre + "_reel'></div>";
+                    repr += " <div style='text-align:center;width:100%;height:40px;background-color:WHITE' id='" + idClass + "_" + numCre + "_prevu'></div>";
                 }
                 else {
                     repr += "<div style='width:100%;height:40px;background-color:GREEN'>&nbsp;</div>";
-                    repr += "<div style='width:100%;height:4px;background-color:lightgrey' ></div>";
-                    repr += " <div style='width:100%;height:20px;background-color:WHITE' id='" + idClass + "_" + numCre + "_reel'></div>";
                 }
+                repr += "<div style='width:100%;height:4px;background-color:lightgrey' ></div>";
+                repr += " <div style='text-align:center;width:100%;height:40px;background-color:WHITE' id='" + idClass + "_" + numCre + "_reel'></div>";
                 repr + "</td>";
             }
             repr += "</tr>";
@@ -127,10 +125,12 @@ function display_countClasseur(val) {
                     
                     // console.log(idClass + "_" + numCre + "_prevu");
                     if (getElement(idDiv)) {
-                        getElement(idDiv).style = "text-align:center;width:100%;height:40px;background-color:" + color + ";color:" + colorText;
-                        repr += val[idClass][numCre]['cpt'] + ' / ' + val[idClass][numCre]['max_nb'];
-                        repr += "  en min : "
-                        repr += val[idClass][numCre]['charge_tps'] + "' / " + val[idClass][numCre]['max_tps'] + "'";
+                        getElement(idDiv).style.backgroundColor = color;
+                        getElement(idDiv).style.color= colorText;
+                        
+                        repr += "prévu :<br/>"+val[idClass][numCre]['cpt'] + ' / ' + val[idClass][numCre]['max_nb'];
+                        /*repr += "<span class='maskMobile'>  en min : "
+                        repr += val[idClass][numCre]['charge_tps'] + "' / " + val[idClass][numCre]['max_tps'] + "'</span>";*/
                         getElement(idDiv).innerHTML = repr;
                     }
                 }
@@ -154,7 +154,7 @@ function display_countClasseur_reel(val) {
             if (index != "numero_deb") {
                 // console.log(idClass + "_" + index + "_reel");
                 if (getElement(idClass + "_" + index + "_reel")) {
-                    getElement(idClass + "_" + index + "_reel").innerHTML = "info :" + val[idClass][index]['cpt'] + " / " + val[idClass][index]['max_nb'];
+                    getElement(idClass + "_" + index + "_reel").innerHTML = "info :<br/>" + val[idClass][index]['cpt'] + " / " + val[idClass][index]['max_nb'];
                     var charge = parseInt(val[idClass][index]['cpt'] * 100 / val[idClass][index]['max_nb']);
                     if (!totalCre[index]) {
                         totalCre[index] = 0;
@@ -169,7 +169,8 @@ function display_countClasseur_reel(val) {
                     if (charge > 80) {
                         color = 'salmon'
                     }
-                    getElement(idClass + "_" + index + "_reel").style = "text-align:center;width:100%;height:20px;background-color:" + color + ";color:" + colorText;
+                    getElement(idClass + "_" + index + "_reel").style.backgroundColor = color;
+                    getElement(idClass + "_" + index + "_reel").style.color= colorText;
                 }
             }
         }

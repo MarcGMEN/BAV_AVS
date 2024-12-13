@@ -82,7 +82,7 @@ function display_fin_modif_creneau(val) {
 
     x_get_count_creneaux_for_fiche(numeroCreneau, display_creneau_client);
 
-    display_sonCreneau(val['cli_id_cre']);
+    setTimeout("display_sonCreneau("+val['cli_id_cre']+")",300);
 
 }
 
@@ -116,8 +116,6 @@ function display_client(val) {
             "obj_id_acheteur": val['cli_id']
         };
         x_return_fiches(tri, sens, tabToString(tabSelA), display_fiches_achat);
-
-
         display_sonCreneau(val['cli_id_cre']);
 
     } else {
