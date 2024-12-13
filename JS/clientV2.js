@@ -200,7 +200,7 @@ var tabSel = new Array();
 // affichage des fiche de depot
 function display_fiches_depot(val) {
     var total = display_fiches(val, 'fiches');
-    console.log(total);
+    // console.log(total);
     // console.log(getElement('aideImpression').className.includes('maskMobile'));
     if (total == 1) {
         getElement('aideImpression').style.display = 'block';
@@ -290,15 +290,16 @@ function display_fiches(val, idElement) {
                 repr += "</tr>";
                 total = total + 1;
 
-                if (numeroCreneau == 0 && val[index]['obj_numero'] >= NB_MODIF) {
+                if (numeroCreneau == 0 && parseInt(val[index]['obj_numero']) >= parseInt(base_info) && idElement == "fiches") {
                     numeroCreneau = val[index]['obj_numero'];
+                    // console.log("maj snumeroCreneau "+base_info+":"+numeroCreneau);
                 }
             }
         }
     }
     repr += "</table>";
     getElement(idElement).innerHTML = repr;
-
+    // console.log("numeroCreneau :"+numeroCreneau);
     if (numeroCreneau > 0) {
         x_get_count_creneaux_for_fiche(numeroCreneau, display_creneau_client);
     }

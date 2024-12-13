@@ -6,6 +6,7 @@
 	var idRamdom = "<?= $idRamdom ?>";
 	var modePage = '<?= $GET_modePage ?>';
 	var anneeBav = '<?= $infAppli['numero_bav'] ?>';
+	var base_info = '<?= $infAppli['base_info'] ?>';
 </script>
 
 <script src="JS/clientV2.js" type="text/javascript"></script>
