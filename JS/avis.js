@@ -1,7 +1,7 @@
 
 function initPage() {
-    x_get_avis(false,display_all);
-    x_get_countAvis(false,display_allCount);
+    x_get_avis(0,display_all);
+    x_get_countAvis(0,display_allCount);
 }
 
 function unloadPage() {
@@ -43,33 +43,38 @@ function display_allCount(val) {
 }
 
 function display_all(val) {
-    console.log(val);
+    var repr = "";
     if (val instanceof Object) {
         var total = 0;
         var repr = "";
-        for (index in val) {
-            repr += "<div class='row' style='border:1px solid #ddd; padding:10px; margin:10px 0;'>";
-            repr += "<div class='col-sm-8 col-md-8 col-xs-8'>";
-            if (ADMIN) {
-                repr += "<span title='Supprimer' onclick='supprimerAvis(" + val[index]['avs_id'] + ")' class='link' style='font-size:1.5em'>&nbsp;❌&nbsp;</span>";
-            }
-            repr += "<strong>Note : </strong>";
-            for (i = 0; i < parseInt(val[index]['avs_note']);i++) {
-                repr += "<span style='font-size:2em;color: GOLD;'>★</span>";
-            }
-            repr += "</div>"
-            repr += "<div class='col-sm-4 col-md-4 col-xs-4'>";
-            repr += "<em>Publié le : </em>" +formatDate(val[index]['avs_date'], true);
-            repr += "</div>";
-            repr += "<div class='col-sm-12 col-md-12 col-xs-12'>";
-            repr += "<strong>Commentaire : </strong>" +val[index]["avs_commentaire"];
-            repr += "</div>"
-            repr += "</div>";
+        // console.log(sizeof(val));
+        if (sizeof(val) == 0) {
+            repr += "<p>Aucun commentaire.</p>";
         }
-        
-        total++;
+        else {
+            for (index in val) {
+                repr += "<div class='row' style='border:1px solid #ddd; padding:10px; margin:10px 0;'>";
+                repr += "<div class='col-sm-8 col-md-8 col-xs-8'>";
+                if (ADMIN) {
+                    repr += "<span title='Supprimer' onclick='supprimerAvis(" + val[index]['avs_id'] + ")' class='link' style='font-size:1.5em'>&nbsp;❌&nbsp;</span>";
+                }
+                repr += "<strong>Note : </strong>";
+                for (i = 0; i < parseInt(val[index]['avs_note']); i++) {
+                    repr += "<span style='font-size:2em;color: GOLD;'>★</span>";
+                }
+                repr += "</div>"
+                repr += "<div class='col-sm-4 col-md-4 col-xs-4'>";
+                repr += "<em>Publié le : </em>" + formatDate(val[index]['avs_date'], true);
+                repr += "</div>";
+                repr += "<div class='col-sm-12 col-md-12 col-xs-12'>";
+                repr += "<strong>Commentaire : </strong>" + val[index]["avs_commentaire"];
+                repr += "</div>"
+                repr += "</div>";
+                total++;
+            }
+        }
     } else {
-        repr += "<p>Aucun avis pour le moment.</p>";
+        repr += "<p>Aucun avis.</p>";
     }
 
     getElement("avis").innerHTML = repr;
@@ -112,7 +117,7 @@ function display_create(val) {
 }
 
 function getAvisFromNote(note) {
-    x_get_avis(true,note,display_all);
+    x_get_avis(0,note,display_all);
 }
 
 function supprimerAvis(id) {

@@ -917,7 +917,11 @@ function action_makeA4Fiches($eti0, $eti1)
     // );
 
     if ($eti0 != "") {
+        $tabFiche = [];
+        $index = 0;
+        
         $tab = explode("-", $eti0);
+        // print_r($tab);
         if (sizeof($tab) == 2) {
             $eti0 = $tab[0];
             $eti1 = $tab[1];
@@ -940,6 +944,7 @@ function action_makeA4Fiches($eti0, $eti1)
                 $eti0 = $tab[0];
             } else {
                 $eti1 = $eti0;
+                $tabFiche[$index++] = $eti0;
             }
         }
     }
@@ -953,11 +958,13 @@ function action_makeA4Fiches($eti0, $eti1)
         // $etiquettes .= "<link rel='stylesheet' href='https://unpkg.com/leaflet@1.3.1/dist/leaflet.css' integrity='sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==' crossorigin='' />";
         $etiquettes .= "</head>";
         $etiquettes .= "<body>";
-
+        $one=false;
         foreach ($tabFiche as $numFiche) {
             //for ($numFiche = $eti0; $numFiche <= $eti1; $numFiche++) {
             $fiche = return_oneFicheByCode($numFiche);
+            
             if ($fiche != null && $fiche['obj_id'] != '') {
+                $one=true;
                 // refaire les descriptions, pas de retour chariots et limite.
                 $client = getOneClient($fiche['obj_id_vendeur']);
 
@@ -990,6 +997,10 @@ function action_makeA4Fiches($eti0, $eti1)
                 $etiquettes .= makeCorps(array_merge($fiche, $client, $data), 'fiche_depot.html');
                 $etiquettes .= "<div style='page-break-after:always; clear:both'>...</div>";
             }
+        }
+
+        if (!$one) {
+             $etiquettes .= "<h1>Aucune fiche trouvée.</h1>";
         }
 
         $etiquettes .= "</body></html>";
@@ -1239,9 +1250,11 @@ function action_makeHtml($id, $html, $test)
 function action_makePDF($id, $html = 'fiche_depot.html', $test = false, $format = "P")
 {
     extract($GLOBALS);
+    //echo "  action_makePDF($id, $html, $test, $format);<br/>";
     $dataL = action_makeData($id, $test);
     try {
-        $random = rand($dataL['obj_numero'], $dataL['obj_numero'] + 2000);
+        //$random = rand($dataL['obj_numero'], $dataL['obj_numero'] + 2000);
+      //  echo "html2pdf($dataL, $html, basename($html, '.html') . '_' . ".$dataL['obj_numero'].", $format);";
         $filePDF = html2pdf($dataL, $html, basename($html, ".html") . "_" . $dataL['obj_numero'], $format);
     } catch (Exception $e) {
         print_r($e);

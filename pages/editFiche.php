@@ -11,7 +11,7 @@ $tabInfo = [
 	'VIDE0' => "Les papiers",
 	'Fiche de dépôt' => "fiche_depot",
 	'Etiquette' => "etiquette",
-	'Etiquette des accessoires' => "coupon_accessoire",
+	// 'Etiquette des accessoires' => "coupon_accessoire",
 	'Coupon de dépôt' => "coupon_vendeur",
 	'Coupon de sortie' => "coupon_acheteur",
 	'Coupon Tombola' => "coupon_tombola",
@@ -179,8 +179,9 @@ $tabInfo = [
 										<input type='checkbox' name="testCoupon"
 											checked /></i></td>
 								<td colspan=2></td>
-								<td rowspan=5 width=20% style='background-color:PINK'>
-									Feuille A4 rose</td>
+								<td rowspan=5 width=20% style='background-color:ORANGE'>
+									Feuille A4 orange<br/>
+									70%</td>
 							</tr>
 							<tr class="tabAction">
 								<td width=50%>- De <input type=text

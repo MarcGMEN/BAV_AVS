@@ -1,10 +1,11 @@
 <?php
-function getAllAvisForBav($withBAV,$note=null)
+function getAllAvisForBav($withBAV=false,$note=null)
 {
     extract($GLOBALS);
     $requete2 = "SELECT * from bav_avis ";
     $requete2 .= " where avs_commentaire != '' ";
-    if ($withBAV) {
+    // echo $withBAV; 
+    if ($withBAV == true) {
         $requete2 .= " and avs_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] ."'";
     }
     if ($note) {
@@ -12,7 +13,7 @@ function getAllAvisForBav($withBAV,$note=null)
     }
     
     $requete2 .= " order by avs_numero_bav desc, avs_date desc limit 50";
-    // echo $requete2;
+    //echo $requete2;
 
     if ($result = $GLOBALS['mysqli']->query($requete2)) {
         $tab = array();
@@ -32,7 +33,7 @@ function getCountByNote($withBAV=false)
     extract($GLOBALS);
     $requete2 = "SELECT count(*) cpt, avs_note from bav_avis ";
     $requete2 .= " where 1=1";
-    if ($withBAV) {
+    if ($withBAV == true) {
         $requete2 .= " and avs_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] ."'";
     }
     $requete2 .= " group by avs_note";

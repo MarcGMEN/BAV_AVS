@@ -2,12 +2,12 @@
 -- recherche des clients sans fiche
 SELECT cli_nom, cli_emel FROM `bav_client` 
 where not exists (select obj_id_vendeur from bav_objet where obj_id_vendeur = cli_id OR obj_id_acheteur = cli_id )
-and cli_id > 10
+and cli_id > 15
 
 -- suppression des clients sans fiche
 delete from  `bav_client` 
 where not exists (select obj_id_vendeur from bav_objet where obj_id_vendeur = cli_id OR obj_id_acheteur = cli_id )
-and cli_id > 10;
+and cli_id > 15;
 
 
 update bav_objet set obj_type = 'Route' where obj_type  ='Demi-course';  
@@ -28,6 +28,8 @@ INSERT INTO bav_client (cli_id, cli_id_modif, cli_nom, cli_emel, cli_adresse, cl
 
 INSERT INTO bav_client (cli_id, cli_id_modif, cli_nom, cli_emel, cli_adresse, cli_adresse1, cli_code_postal, cli_ville, cli_telephone, cli_telephone_bis, cli_taux_com, cli_prix_depot) VALUES(7 '1d9dc5d01174efa148031b68a38761ab', 'Vendeur 2023', 'bourseauxvelosV2023@avs.com', '', '', '', '', '', '', 10.00, 3.00);
 INSERT INTO bav_client (cli_id, cli_id_modif, cli_nom, cli_emel, cli_adresse, cli_adresse1, cli_code_postal, cli_ville, cli_telephone, cli_telephone_bis, cli_taux_com, cli_prix_depot) VALUES(8, 'a1ca58ffe9a3f0117dc85ec59622907b', 'Acheteur 2023', 'bourseauxvelosA2023@avs.com', '', '', '', '', '', '', 10.00, 3.00);
+
+
 
 -- purge des clients 2019 : OK le 24/11/2022
 update bav_objet 
@@ -87,3 +89,21 @@ set obj_id_acheteur = 8
 where obj_numero_bav = '2023' 
 and (obj_id_acheteur is not null or obj_id_acheteur != 0) and obj_etat in ('PAYE','VENDU')  ;
 
+-- purge des clients 2024 : OK le 13/09/2025
+select  count(*) from bav_objet 
+where obj_numero_bav = '2024';
+--1354
+
+select  count(*) from bav_objet 
+where obj_numero_bav = '2024'
+and (obj_id_acheteur is not null or obj_id_acheteur != 0) and obj_etat in ('PAYE','VENDU')  ;
+--728
+
+update bav_objet 
+set obj_id_vendeur = 9
+where obj_numero_bav = '2024';
+
+update bav_objet 
+set obj_id_acheteur = 10     
+where obj_numero_bav = '2024' 
+and (obj_id_acheteur is not null or obj_id_acheteur != 0) and obj_etat in ('PAYE','VENDU')  ;

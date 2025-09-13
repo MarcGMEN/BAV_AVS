@@ -3,7 +3,12 @@ require_once 'config.ini';
 include('vendor/phpqrcode/qrlib.php');
 
 QRcode::png('https://bourseaux1000velos.avs44.com/Actions/rest.php?a=P','./out/QRCODE_CAFFARD.png',QR_ECLEVEL_L, 3);
-echo "<img src='./out/QRCODE_CAFFARD1.png' width=400px/>";
+echo "<img src='./out/QRCODE_CAFFARD.png' width=400px/>";
+echo "<h1>QRCODE accès BAV vendeur sur bourseaux1000velos.avs44.com</h1>";
+
+
+QRcode::png('https://bourseaux1000velos.avs44.com','./out/QRCODE_BAV.png',QR_ECLEVEL_L, 3);
+echo "<img src='./out/QRCODE_BAV.png' width=400px/>";
 echo "<h1>QRCODE accès BAV vendeur sur bourseaux1000velos.avs44.com</h1>";
 
 // echo "<hr/>";

@@ -12,8 +12,7 @@
 <script>
 	function initPage() {
 		x_return_html('bav_bourse', display_bav_bourse);
-		x_makeCarroussel('carroussel', display_carroussel);
-		x_makeCarroussel('carroussel1', display_carroussel1);
+	
 	}
 	
 	function unloadPage() {
@@ -44,6 +43,9 @@
 		val =val.replaceAll("--mois3--",'<?=$data['mois3']?>');
 
 		getElement('bav_bourse').innerHTML = val;
+
+		x_makeCarroussel('carroussel', display_carroussel);
+		x_makeCarroussel('carroussel1', display_carroussel1);
 
 	}
 
