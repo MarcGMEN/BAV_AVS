@@ -28,10 +28,14 @@ if ($GET_a == "P") {
         
         setcookie('CAFFARD_BAV', $INFO_APPLI['numero_bav'], $expir, '/') or die('unable to create cookie');
 
-        echo "<html><body>";
-        echo "<H1>Bonjour,<br/> Votre téléphone est paramétré pour un accès vendeur à la BAV jusqu'au : ".date("d M Y H:i:s",$expir )."</h1>";
-        echo "<h1><a href='https://bourseaux1000velos.avs44.com/' >https://bourseaux1000velos.avs44.com</a>";
-        echo "</body></html>";
+        $message = "Votre téléphone est paramétré pour un accès vendeur à la BAV jusqu'au : ".date("d M Y H:i:s",$expir );
+        // echo "<html><body>";
+        // echo "<H1>Bonjour,<br/> Votre téléphone est paramétré pour un accès vendeur à la BAV jusqu'au : ".date("d M Y H:i:s",$expir )."</h1>";
+        // echo "<h1><a href='https://bourseaux1000velos.avs44.com/' >https://bourseaux1000velos.avs44.com</a>";
+        // echo "</body></html>";
+
+        $page_src = "location:../index.php?page=stock-client.php&message=" . addslashes($message);
+        header($page_src);
 
     } catch (Exception $e) {
     }

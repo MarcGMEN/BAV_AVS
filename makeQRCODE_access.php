@@ -6,10 +6,11 @@ QRcode::png('https://bourseaux1000velos.avs44.com/Actions/rest.php?a=P','./out/Q
 echo "<img src='./out/QRCODE_CAFFARD.png' width=400px/>";
 echo "<h1>QRCODE accès BAV vendeur sur bourseaux1000velos.avs44.com</h1>";
 
+echo "URL test : <A href='./Actions/rest.php?a=P'>./Actions/rest.php?a=P</A>";
 
-QRcode::png('https://bourseaux1000velos.avs44.com','./out/QRCODE_BAV.png',QR_ECLEVEL_L, 3);
-echo "<img src='./out/QRCODE_BAV.png' width=400px/>";
-echo "<h1>QRCODE accès BAV vendeur sur bourseaux1000velos.avs44.com</h1>";
+// QRcode::png('https://bourseaux1000velos.avs44.com','./out/QRCODE_BAV.png',QR_ECLEVEL_L, 3);
+// echo "<img src='./out/QRCODE_BAV.png' width=400px/>";
+// echo "<h1>QRCODE accès BAV vendeur sur bourseaux1000velos.avs44.com</h1>";
 
 // echo "<hr/>";
 // QRcode::png('https://http://127.0.0.1/edsa-BAV/Actions/rest.php?a=P','./out/QRCODE_CAFFARD2.png',QR_ECLEVEL_L, 3);

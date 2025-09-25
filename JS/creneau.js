@@ -12,7 +12,7 @@ function unloadPage() {
 var tabIdCre = [];
 var tailleCre = 0;
 function display_all(val) {
-    // console.log(val);
+    console.log(val);
     if (val instanceof Object) {
         var total = 0;
         var repr = "<table width=100%>";

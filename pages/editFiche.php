@@ -2,7 +2,6 @@
 	var nb_eti_page = '<?= $infAppli['nb_eti_page'] ?>';
 	var nb_coupon_page = '<?= $infAppli['nb_coupon_page'] ?>';
 	var base_info = '<?= $infAppli['base_info'] ?>';
-	
 </script>
 
 <script src="JS/editFiche.js"></script>
@@ -72,11 +71,11 @@ $tabInfo = [
 							title="Génération du PDF" )>PDF</span>
 					<? } ?>
 					<? if ($idText != "pre-check") { ?>
-					<i class="fas fa-edit"
-						onclick="x_return_html('<?= $idText ?>', display_html_file);idText='<?= $idText ?>';getElement('html_file_title').innerHTML='<?= addslashes($title) ?>'  "
-						title="Modification du document"></i>
+						<i class="fas fa-edit"
+							onclick="x_return_html('<?= $idText ?>', display_html_file);idText='<?= $idText ?>';getElement('html_file_title').innerHTML='<?= addslashes($title) ?>'  "
+							title="Modification du document"></i>
 					<? } ?>
-					
+
 				</td>
 			<? } ?>
 
@@ -86,12 +85,16 @@ $tabInfo = [
 					<form style="color:black">
 						<table width=100% border=0>
 							<tr>
-								<td rowspan=5 width=10%><i
-										title='Décocher pour mettre a jour le suivi des editions'>Test
+								<td rowspan=5 width=10%>
+									<i title='Décocher pour mettre a jour le suivi des editions'>Test
 										<input type='checkbox' name="testEtiq"
-											checked></i></td>
+											checked></i><br/>
+									<i title='Tri Massicot ou croissant'>Tri
+										<input type='checkbox' name="triEtiq" value='Massicot'
+											checked></i>
+								</td>
 								<td colspan=2></td>
-								<td rowspan=5 width=20%>Feuille A4 autocollante</td>
+								<td rowspan=5 width=20%><small>Feuille A4 autocollante<br/>Si Prédécoupé, alors mettre les marges :  droite et gauche de 3.00cm, haute 2.35cm, zoom à 102%</small></td>
 							</tr>
 							<tr class="tabAction">
 								<td width=50%>
@@ -100,8 +103,9 @@ $tabInfo = [
 										style='width:30%' size=5>
 								</td>
 								<td width=15%>
+
 									<input type=button value='Imprimer'
-										onclick='imprimeEtiquettes(this.form.eti0.value,"",this.form.testEtiq.checked?1:0,"etiquette")'>
+										onclick='imprimeEtiquettes(this.form.eti0.value,"",this.form.testEtiq.checked?1:0,"etiquette",this.form.triEtiq.checked?"Massicot":"")'>
 								</td>
 							</tr>
 							<tr class="tabAction">
@@ -110,7 +114,7 @@ $tabInfo = [
 								</td>
 								<td>
 									<input type=button value='Imprimer'
-										onclick='imprimeEtiquettes(-1,-1,0,"etiquette")'>
+										onclick='imprimeEtiquettes(-1,-1,0,"etiquette","")'>
 								</td>
 							</tr>
 							<tr class="tabAction">
@@ -124,7 +128,7 @@ $tabInfo = [
 									<input type=button name='printEtiquette'
 										value='Imprimer' disabled
 										id="btnImprimeEtiquettesPage"
-										onclick='imprimeEtiquettesPage(this.form.forceEtiquette.checked,this.form.testEtiq.checked?1:0,"etiquette")'>
+										onclick='imprimeEtiquettesPage(this.form.forceEtiquette.checked,this.form.testEtiq.checked?1:0,"etiquette",this.form.triEtiq.checked?"Massicot":"")'>
 									<input type='checkbox' id="forceEtiquette" title="Forcer l'édition"
 										onchange="this.checked?this.form.printEtiquette.disabled=false:this.form.printEtiquette.disabled=true">
 								</td>
@@ -145,17 +149,20 @@ $tabInfo = [
 									- De <input type=text
 										name=eti0 placeholder="NN-NN ou NN,NN,NN"
 										style='width:30%' size=5>
-										<!-- <input  type=number
+									<!-- <input  type=number
 										min='<?= $infAppli['base_info'] ?>' name=eti0
 										value='<?= $infAppli['base_info'] ?>'
 										style='width:30%' size=5>
 									a <input type=number name=eti1 size=5
 										style='width:30%'
 										min='<?= $infAppli['base_info'] ?>'> -->
+
+									<input type=text placeholder="Numéro de la pièce d'identité"
+										name=pieceid style='width:40%' size=20>
 								</td>
 								<td width=15%>
 									<input type=button value='Imprimer'
-										onclick='imprimeFiches(this.form.eti0.value,"")'>
+										onclick='imprimeFiches(this.form.eti0.value,"",this.form.pieceid.value)'>
 								</td>
 							</tr>
 							<tr class="tabAction">
@@ -177,10 +184,15 @@ $tabInfo = [
 								<td rowspan=5 width=10%><i
 										title='Décocher pour mettre a jour le suivi des editions'>Test
 										<input type='checkbox' name="testCoupon"
-											checked /></i></td>
+											checked /></i>
+										<br/>
+									<i title='Tri Massicot ou croissant'>Tri
+										<input type='checkbox' name="triCoupon" value='Massicot'
+											checked></i>
+								</td>
 								<td colspan=2></td>
 								<td rowspan=5 width=20% style='background-color:ORANGE'>
-									Feuille A4 orange<br/>
+									Feuille A4 orange<br />
 									70%</td>
 							</tr>
 							<tr class="tabAction">
@@ -192,7 +204,7 @@ $tabInfo = [
 								</td>
 								<td width=15%>
 									<input type=button value='Imprimer'
-										onclick='imprimeCoupons(this.form.eti0.value,"",this.form.testCoupon.checked?1:0,"coupon_vendeur")'>
+										onclick='imprimeCoupons(this.form.eti0.value,"",this.form.testCoupon.checked?1:0,"coupon_vendeur",this.form.triCoupon.checked?"Massicot":"")'>
 								</td>
 
 							</tr>
@@ -210,7 +222,7 @@ $tabInfo = [
 								</td>
 								<td>
 									<input type=button value='Imprimer'
-										onclick='imprimeCoupons(-1,-1,0,"coupon_vendeur")'>
+										onclick='imprimeCoupons(-1,-1,0,"coupon_vendeur","")'>
 								</td>
 							</tr>
 							<tr class="tabAction">
@@ -225,7 +237,7 @@ $tabInfo = [
 									<input type=button name='printCoupon'
 										value='Imprimer' disabled
 										id="btnImprimeCouponsPage"
-										onclick='imprimeCouponsPage(this.form.forceCoupon.checked,this.form.testCoupon.checked?1:0,"coupon_vendeur")'>
+										onclick='imprimeCouponsPage(this.form.forceCoupon.checked,this.form.testCoupon.checked?1:0,"coupon_vendeur",this.form.triCoupon.checked?"Massicot":"")'>
 									<input type='checkbox' id="forceCoupon" title="Forcer l'édition"
 										onchange="this.checked?this.form.printCoupon.disabled=false:this.form.printCoupon.disabled=true">
 								</td>
@@ -241,9 +253,10 @@ $tabInfo = [
 								<td rowspan=5 width=10%><i
 										title='Décocher pour mettre a jour le suivi des editions'>Test
 										<input type='checkbox' name="testEA"
-											checked /></i></td>
+											checked /></i>
+										</td>
 								<td colspan=2></td>
-								<td rowspan=5 width=20% >
+								<td rowspan=5 width=20%>
 									Feuille A4 autocollante</td>
 							</tr>
 							<tr class="tabAction">
@@ -293,7 +306,11 @@ $tabInfo = [
 								<td rowspan=5 width=10%><i
 										title='Décocher pour mettre a jour le suivi des editions'>Test
 										<input type='checkbox' name="testCouponA"
-											checked /></i></td>
+											checked /></i>
+										<br/>
+									<i title='Tri Massicot ou croissant'>Tri
+										<input type='checkbox' name="triCouponA" value='Massicot'
+											checked></i></td>
 								<td colspan=2></td>
 								<td rowspan=5 width=20% style='background-color:LIGHTBLUE'>
 									Feuille A4 bleu</td>
@@ -308,7 +325,7 @@ $tabInfo = [
 								</td>
 								<td width=15%>
 									<input type=button value='Imprimer'
-										onclick='imprimeCoupons(this.form.eti0.value,"",this.form.testCouponA.checked?1:0,"coupon_acheteur")'>
+										onclick='imprimeCoupons(this.form.eti0.value,"",this.form.testCouponA.checked?1:0,"coupon_acheteur",this.form.triCouponA.checked?"Massicot":"")'>
 								</td>
 
 							</tr>
@@ -326,7 +343,7 @@ $tabInfo = [
 								</td>
 								<td>
 									<input type=button value='Imprimer'
-										onclick='imprimeCoupons(-1,-1,0,"coupon_acheteur")'>
+										onclick='imprimeCoupons(-1,-1,0,"coupon_acheteur","")'>
 								</td>
 							</tr>
 							<tr class="tabAction">
@@ -339,7 +356,7 @@ $tabInfo = [
 									<input type=button name='printCouponA'
 										value='Imprimer' disabled
 										id="btnImprimeCouponsPageA"
-										onclick='imprimeCouponsPage(this.form.forceCouponA.checked,this.form.testCouponA.checked?1:0,"coupon_acheteur")'>
+										onclick='imprimeCouponsPage(this.form.forceCouponA.checked,this.form.testCouponA.checked?1:0,"coupon_acheteur",this.form.triCouponA.checked?"Massicot":"")'>
 									<input type='checkbox' id="forceCouponA" title="Forcer l'édition"
 										onchange="this.checked?this.form.printCouponA.disabled=false:this.form.printCouponA.disabled=true">
 								</td>

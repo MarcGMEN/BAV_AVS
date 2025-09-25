@@ -156,7 +156,7 @@ function return_oneFiche($id)
 
         $row['cli_com'] = getCommission($row);
 
-       /* $tabImg=getImage($row['obj_marque']." ".$row['obj_modele']." ".$row['obj_couleur'],4);
+        /* $tabImg=getImage($row['obj_marque']." ".$row['obj_modele']." ".$row['obj_couleur'],4);
         if ($tabImg[0]) {
            $row['image']=$tabImg;
         }*/
@@ -344,7 +344,7 @@ function action_deleteFiche($id)
  * creation des etiquetes sur une feuille A4
  * parametre : le numero de depart, la mise a jour de l'impression, le nombre de page
  */
-function action_makeA4Etiquettes($eti0, $eti1, $test = true, $nameEti = 'etiquette')
+function action_makeA4Etiquettes($eti0, $eti1, $test = true, $nameEti = 'etiquette', $tri = 'Massicot')
 {
     extract($GLOBALS);
     extract($data);
@@ -508,25 +508,33 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true, $nameEti = 'etiquet
     $page = 0;
     $nbCouponTotal = sizeof($tabCoupons);
 
+
     $tabImpression = array();
-    // echo  $nbCouponTotal;
-    foreach ($tabCoupons as $key => $value) {
-        $pos = $ligne + $nbCoupon * $page;
-        // echo "$key => $ligne+$nbCoupon*$page => ".($pos)." <br\>";
-        if ($pos > $nbCouponTotal) {
-            $page = 0;
-            $ligne++;
-            $nbPage--;
+    // echo $tri;  
+    if ($tri == 'Massicot') {
+
+        // echo  $nbCouponTotal;
+        foreach ($tabCoupons as $key => $value) {
             $pos = $ligne + $nbCoupon * $page;
+            // echo "$key => $ligne+$nbCoupon*$page => ".($pos)." <br\>";
+            if ($pos > $nbCouponTotal) {
+                $page = 0;
+                $ligne++;
+                $nbPage--;
+                $pos = $ligne + $nbCoupon * $page;
+            }
+            // echo "BIS $key => $ligne+$nbCoupon*$page => ".($pos)." <br\>";
+            $tabImpression[$pos] = $value;
+            $page++;
+            if ($page >= $nbPage) {
+                $page = 0;
+                $ligne++;
+            }
         }
-        // echo "BIS $key => $ligne+$nbCoupon*$page => ".($pos)." <br\>";
-        $tabImpression[$pos] = $value;
-        $page++;
-        if ($page >= $nbPage) {
-            $page = 0;
-            $ligne++;
-        }
+    } else {
+        $tabImpression = $tabCoupons;
     }
+
 
     ksort($tabImpression);
     foreach ($tabImpression as $key => $value) {
@@ -561,7 +569,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true, $nameEti = 'etiquet
  * creation des etiquetes sur une feuille A4
  * parametre : le numero de depart, la mise a jour de l'impression, le nombre de page
  */
-function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_vendeur")
+function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_vendeur", $tri = "Massicot")
 {
     extract($GLOBALS);
 
@@ -577,8 +585,17 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
     //     'URL' => $CFG_URL,
     //     'numero_bav' => $INFO_APPLI['numero_bav']
     // );
+    $style="";  
+    if ($nameCoupon == "coupon_vendeur") {
+        $style = " style='background-color:ORANGE' ";
+    }
+    if ($nameCoupon == "coupon_acheteur") {
+        $style = " style='background-color:LIGHTBLUE' ";
+    }
 
-    $etiquettes = "<html><head><link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'              integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous'></head><body>";
+    $etiquettes = "<html><head><link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'              integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous'></head><body $style>";
+
+
 
     // TODO : recherche des fiches a imprimer en fonction de la table bav_etiquette.
     // avec une base eti0
@@ -758,28 +775,32 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
 
     $nbCoupon = $INFO_APPLI['nb_coupon_page'];
     $nbPage = ceil(sizeof($tabCoupons) / $nbCoupon);
-
-    // echo "nb coupon : $nbCoupon ;  nbPage = $nbPage<br/>";
-    $ligne = 1;
-    $page = 0;
-    $nbCouponTotal = sizeof($tabCoupons);
-    // echo  "$nbCouponTotal<br/>";
-    foreach ($tabCoupons as $key => $value) {
-        $pos = $ligne + $nbCoupon * $page;
-        // echo "$key => $ligne+$nbCoupon*$page => ".($pos)." <br/>";
-        if ($pos > $nbCouponTotal) {
-            $page = 0;
-            $ligne++;
-            $nbPage--;
+    // echo $tri;
+    if ($tri == "Massicot") {
+        // echo "nb coupon : $nbCoupon ;  nbPage = $nbPage<br/>";
+        $ligne = 1;
+        $page = 0;
+        $nbCouponTotal = sizeof($tabCoupons);
+        // echo  "$nbCouponTotal<br/>";
+        foreach ($tabCoupons as $key => $value) {
             $pos = $ligne + $nbCoupon * $page;
+            // echo "$key => $ligne+$nbCoupon*$page => ".($pos)." <br/>";
+            if ($pos > $nbCouponTotal) {
+                $page = 0;
+                $ligne++;
+                $nbPage--;
+                $pos = $ligne + $nbCoupon * $page;
+            }
+            // echo "BIS $key => $ligne+$nbCoupon*$page => ".($pos)." <br/>";
+            $tabImpression[$pos] = $value;
+            $page++;
+            if ($page >= $nbPage) {
+                $page = 0;
+                $ligne++;
+            }
         }
-        // echo "BIS $key => $ligne+$nbCoupon*$page => ".($pos)." <br/>";
-        $tabImpression[$pos] = $value;
-        $page++;
-        if ($page >= $nbPage) {
-            $page = 0;
-            $ligne++;
-        }
+    } else {
+        $tabImpression = $tabCoupons;
     }
 
     ksort($tabImpression);
@@ -837,6 +858,7 @@ function action_makeLibreFiche($eti, $nameFdp)
             if ($fiche['obj_id_acheteur']) {
                 $acheteur = getOneClient($fiche['obj_id_acheteur']);
             }
+           
 
             if (!is_array($acheteur)) {
                 $acheteur = array();
@@ -900,7 +922,7 @@ function action_makeLibreFiche($eti, $nameFdp)
 /**
  * accumulation des fiches dans un seul fichiers pour impression rapide
  */
-function action_makeA4Fiches($eti0, $eti1)
+function action_makeA4Fiches($eti0, $eti1,$piece="")
 {
     extract($GLOBALS);
     // $data = array(
@@ -919,7 +941,7 @@ function action_makeA4Fiches($eti0, $eti1)
     if ($eti0 != "") {
         $tabFiche = [];
         $index = 0;
-        
+
         $tab = explode("-", $eti0);
         // print_r($tab);
         if (sizeof($tab) == 2) {
@@ -958,13 +980,13 @@ function action_makeA4Fiches($eti0, $eti1)
         // $etiquettes .= "<link rel='stylesheet' href='https://unpkg.com/leaflet@1.3.1/dist/leaflet.css' integrity='sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==' crossorigin='' />";
         $etiquettes .= "</head>";
         $etiquettes .= "<body>";
-        $one=false;
+        $one = false;
         foreach ($tabFiche as $numFiche) {
             //for ($numFiche = $eti0; $numFiche <= $eti1; $numFiche++) {
             $fiche = return_oneFicheByCode($numFiche);
-            
+
             if ($fiche != null && $fiche['obj_id'] != '') {
-                $one=true;
+                $one = true;
                 // refaire les descriptions, pas de retour chariots et limite.
                 $client = getOneClient($fiche['obj_id_vendeur']);
 
@@ -989,6 +1011,14 @@ function action_makeA4Fiches($eti0, $eti1)
                 if ($fiche['obj_prix_depot'] == 0.00) {
                     $fiche['obj_prix_depot'] = "";
                 }
+
+                if (trim($piece)) {
+                    $fiche['cli_piece_dep'] = "<b>".$piece."</b>";
+                    $fiche['cli_date_dep'] = "<b>".$INFO_APPLI['par_date_debut_depot_FR']."</b>";
+                } else {
+                    $fiche['cli_piece_dep'] ="__________________________________";
+                    $fiche['cli_date_dep'] = "<span style='border-bottom:1px solid blue; color:#3498db'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>"; 
+                }
                 // MISE EN FORME DE LA FICHE
                 // MISE EN FORME DE LA FICHE
 
@@ -1000,7 +1030,7 @@ function action_makeA4Fiches($eti0, $eti1)
         }
 
         if (!$one) {
-             $etiquettes .= "<h1>Aucune fiche trouvée.</h1>";
+            $etiquettes .= "<h1>Aucune fiche trouvée.</h1>";
         }
 
         $etiquettes .= "</body></html>";
@@ -1101,8 +1131,11 @@ function action_makeData($id, $test = false)
         $client = getOneClient($fiche['obj_id_vendeur']);
 
         $prixVenteNum = $fiche['obj_prix_vente'];
-        error_log($fiche['obj_prix_vente']);
-        error_log($fiche['obj_prix_depot']);
+        // error_log($fiche['obj_prix_vente']);
+        // error_log($fiche['obj_prix_depot']);
+
+         $client['cli_piece_dep'] ="__________________________________";
+        $client['cli_date_dep'] = "<span style='border-bottom:1px solid blue; color:#3498db'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>"; 
 
         if ($fiche['obj_prix_vente'] > 0 && ($fiche['obj_etat'] == 'VENDU' || $fiche['obj_etat'] == 'PAYE')) {
             $client['cli_com'] = getCommission($fiche);
@@ -1140,6 +1173,8 @@ function action_makeData($id, $test = false)
         $client['cli_taux_com'] = $par['par_taux_1'];
         $client['cli_id_modif'] = "";
         $client['cli_com'] = "1.3";
+        $client['cli_piece_dep']="________NNI Vendeur______________";
+        $client['cli_date_dep'] = "<span style='border-bottom:1px solid blue; color:#3498db'>11/11/2011</span>";
 
         $ach['ach_nom'] = "TEST acheteur";
         $ach['ach_id_modif'] = "be49226b2150c567adf4f090c21be17f";
@@ -1203,6 +1238,8 @@ function action_makeData($id, $test = false)
         $client['cli_telephone_bis'] = "";
         $client['cli_taux_com'] = $par['par_taux_1'];
         $client['cli_id_modif'] = "";
+        $client['cli_piece_dep']="__________________________________";
+        $client['cli_date_dep'] = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 
         $fiche['obj_numero'] = "_______";
         $fiche['obj_type'] = "<span style='font-size:11px'><i>VTT&nbsp;&nbsp;Route&nbsp;&nbsp;VTC&nbsp;&nbsp;Ville&nbsp;&nbsp;VAE&nbsp;&nbsp;Enfant&nbsp;&nbsp;Autre</i></span>";
@@ -1254,7 +1291,7 @@ function action_makePDF($id, $html = 'fiche_depot.html', $test = false, $format 
     $dataL = action_makeData($id, $test);
     try {
         //$random = rand($dataL['obj_numero'], $dataL['obj_numero'] + 2000);
-      //  echo "html2pdf($dataL, $html, basename($html, '.html') . '_' . ".$dataL['obj_numero'].", $format);";
+        //  echo "html2pdf($dataL, $html, basename($html, '.html') . '_' . ".$dataL['obj_numero'].", $format);";
         $filePDF = html2pdf($dataL, $html, basename($html, ".html") . "_" . $dataL['obj_numero'], $format);
     } catch (Exception $e) {
         print_r($e);

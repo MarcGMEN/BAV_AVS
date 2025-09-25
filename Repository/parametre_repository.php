@@ -29,8 +29,8 @@ function return_infoAppli()
     $infos['ADMIN'] = $_COOKIE['AADD'] == $GLOBALS['PASS_ADMIN'] ? 1 : 0;
     $infos['NB_MODIF'] = $par['par_nb_modif'];
     $dateFin=strtotime($par['par_client_date_fin']);
-    // $dateFin17=mktime(17, 0, 0, date('m',$dateFin), date('d',$dateFin), date('Y',$dateFin));
-    $dateFin17=mktime(23, 50, 0, date('m',$dateFin), date('d',$dateFin), date('Y',$dateFin));
+    $dateFin17=mktime(18, 0, 0, date('m',$dateFin), date('d',$dateFin), date('Y',$dateFin));
+    // $dateFin17=mktime(23, 50, 0, date('m',$dateFin), date('d',$dateFin), date('Y',$dateFin));
     
     if (strtotime($par['par_client_date_debut']) < $today && $today < $dateFin17) {
         $infos['CLIENT'] = 1;

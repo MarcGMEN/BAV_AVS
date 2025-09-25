@@ -5,7 +5,7 @@ function initPage() {
         x_return_fichesModif('data', display_modifData);
         x_return_fichesModif('vendeur', display_modifVendeur);
         x_return_fichesModif('stock', display_modifStock);
-        x_return_fichesModif('accessoire', display_modifEtiquetteAccessoire);
+        // x_return_fichesModif('accessoire', display_modifEtiquetteAccessoire);
 
         x_return_num_max_fiches(display_num_max_fichesEF);
     } else {
@@ -148,26 +148,26 @@ function viewPdf(idtext, format) {
     x_action_makePDF(new Array(), idtext + ".html", true, format, display_openPDF);
 }
 
-function imprimeEtiquettes(eti0, eti1, test, nameEti) {
+function imprimeEtiquettes(eti0, eti1, test, nameEti,tri) {
     if (eti0 != "") {
         alertModalInfo("Génération des étiquettes (" + nameEti + ") de " + eti0 + " a " + eti1 + " au format HTML <img src='Images/spinner_white_tiny.gif' />");
-        x_action_makeA4Etiquettes(eti0, eti1, test, nameEti, display_openHTML);
+        x_action_makeA4Etiquettes(eti0, eti1, test, nameEti, tri, display_openHTML);
     } else {
         alertModalWarn("Numero de fiche début et fin obligatoire");
     }
 }
 
-function imprimeEtiquettesPage(force, test, nameEti) {
+function imprimeEtiquettesPage(force, test, nameEti,tri) {
     alertModalInfo("Génération des étiquettes (" + nameEti + ") par page [" + force + "] au format HTML <img src='Images/spinner_white_tiny.gif' />");
-    x_action_makeA4Etiquettes(0, force, test, nameEti, display_openHTML);
+    x_action_makeA4Etiquettes(0, force, test, nameEti, tri, display_openHTML);
 }
 
 
 
-function imprimeCoupons(eti0, eti1, test, nameCoupon) {
+function imprimeCoupons(eti0, eti1, test, nameCoupon,tri) {
     if (eti0 != "") {
         alertModalInfo("Génération des " + nameCoupon + " de " + eti0 + " a " + eti1 + " au format HTML <img src='Images/spinner_white_tiny.gif' />");
-        x_action_makeA4Coupons(eti0, eti1, test, nameCoupon, display_openHTML);
+        x_action_makeA4Coupons(eti0, eti1, test, nameCoupon, tri,display_openHTML);
     } else {
         alertModalWarn("Numero de fiche début et fin obligatoire");
     }
@@ -184,15 +184,15 @@ function imprimeLibreFiche(eti, nameFdp) {
     }
 }
 
-function imprimeCouponsPage(force, test, nameCoupon) {
+function imprimeCouponsPage(force, test, nameCoupon,tri) {
     alertModalInfo("Génération des coupons par page [" + force + "] au format HTML <img src='Images/spinner_white_tiny.gif' />");
-    x_action_makeA4Coupons(0, force, test, nameCoupon, display_openHTML);
+    x_action_makeA4Coupons(0, force, test, nameCoupon,tri, display_openHTML);
 }
 
-function imprimeFiches(eti0, eti1) {
+function imprimeFiches(eti0, eti1, piece) {
     if (eti0 != "") {
         alertModalInfo("Génération des fiches de " + eti0 + " a " + eti1 + " au format HTML <img src='Images/spinner_white_tiny.gif' />");
-        x_action_makeA4Fiches(eti0, eti1, display_openHTML);
+        x_action_makeA4Fiches(eti0, eti1,piece, display_openHTML);
     } else {
         alertModalWarn("Numero de fiche début.");
     }
@@ -427,7 +427,8 @@ function display_fichePC(val) {
     var creneau = "";
     if (val['cre_debut']) {
         var dateLu = new Date(val['cre_debut']);
-        creneau = getJourDate(dateLu) + " " + dateLu.getDate() + "<br/>à " + val['cre_debut'].substr(11, 5);
+        // creneau = getJourDate(dateLu) + " " + dateLu.getDate() + "<br/>à " + val['cre_debut'].substr(11, 5);
+        creneau = "Le "+dateLu.getDate() + " à " + val['cre_debut'].substr(11, 5);
     }
     fichesNego.set(parseInt(val['obj_numero']), [val['obj_prix_depot'], val['obj_prix_nego'], val['obj_etat'], creneau]);
 
