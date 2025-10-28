@@ -182,8 +182,8 @@ function action_makeClient($dataClient, $mail = true)
     $tabCli = tabToObject(string2Tab($dataClient), "cli");
     $tabCli = makeClient($tabCli);
 
-    $tabCli['cli_taux_com'] = $par['par_taux_3'];
-    $tabCli['cli_prix_depot'] = $par['par_prix_depot_3'];
+    // $tabCli['cli_taux_com'] = $par['par_taux_3'];
+    // $tabCli['cli_prix_depot'] = $par['par_prix_depot_3'];
     // mise a jour des taux
     updateClient($tabCli);
 
