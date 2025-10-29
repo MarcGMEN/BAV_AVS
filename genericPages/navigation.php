@@ -202,6 +202,6 @@ $tabNav = array_merge($tabNavAll, $tabNavAdm);
                     </span>
         <?php }
             }
-        } ?>
+        }?>
     </div>
 </div>

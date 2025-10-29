@@ -231,7 +231,7 @@ function display_html_file(val) {
 var classeur = NB_MODIF;
 
 function display_num_max_fichesEF(val) {
-    for (var i = 1; i <= val; i += NB_MODIF) {
+    for (var i = 1001; i <= val; i += NB_MODIF) {
         x_return_nb_fiche_by_place(i, i + classeur - 1, display_detailpageFicheEF);
     }
 }
@@ -331,83 +331,112 @@ function finFiches() {
     var [nextKey] = theKeys;
     for (var page = 0; page < map1.size / NB_MODIF; page++) {
         firstKey = nextKey;
-        console.log(firstKey);
+        // console.log(firstKey);
         repr += "<h3 style='background-color:grey; text-align:center'>Check classeur " + firstKey + " -> " + ((NB_MODIF) + parseInt(firstKey) - 1) + "</h3>";
         repr += "<table style='border:2px black solid; width:100%'>";
         repr += "<tr style='background-color:lightgrey;'><th width=10%>Numéro</th>";
         if (firstKey >= base_info) {
-            repr += "<th width=10%> Prix</th > ";
+            repr += "<th width=8%> Prix</th > ";
         }
-        repr += "<th width=10%> Prix négo</th > ";
+        repr += "<th width=8%> Prix négo</th > ";
         // if (firstKey >= base_info) {
         repr += "<th width=5%> Table</th > <th width=5%> Info</th > ";
         if (firstKey >= base_info) {
-            repr += "<th width=10 %> Creneau</th > ";
+            repr += "<th width=13 %> Creneau</th > ";
         }
         // }
         repr += "<th width=10%>Numéro</th>";
         if (firstKey >= base_info) {
-            repr += "<th width=10%> Prix</th > ";
+            repr += "<th width=8%> Prix</th > ";
         }
-        repr += "<th width=10%> Prix négo</th >";
+        repr += "<th width=8%> Prix négo</th >";
         // if (firstKey >= base_info) {
         repr += "<th width=5%> Table</th > <th width=5%> Info</th > ";
         if (firstKey >= base_info) {
-            repr += "<th width=10 %> Creneau</th > ";
+            repr += "<th width=13 %> Creneau</th > ";
         }
         // }
         repr += "</tr>";
-
+        var cli_L="";
+        var cli_R="";
+        var color=[];
+        color[0]="WHITE";
+        color[1]="LIGHTGREY";
+        var colorClassL=color[0];
+        var colorClassR=color[0];
+        var nbCli_L=0;
+        var nbCli_R=0;
+        
         // console.log(firstKey, ((NB_MODIF / 2) + parseInt(firstKey)));
         for (var i = firstKey; i < ((NB_MODIF / 2) + parseInt(firstKey)); i++) {
+            if (cli_L !=  map1.get(i)[4] && map1.get(i)[4]) {
+                colorClassL=color[nbCli_L++ % 2];
+            }
+            if (map1.get(i)[4] == undefined ) {
+                colorClassL=color[0];
+
+            }
+            var styleL="background-color:"+colorClassL+";text-align:left;border-bottom:1px black solid;border-right:1px grey solid"
             repr += "<tr style='border:2px black solid;'><td style='background-color:grey; text-align:center'>";
             repr += i
-            repr += "</td><td style='text-align:left;border-bottom:1px black solid;border-right:1px grey solid'>";
+            repr += "</td><td style='"+styleL+"'>";
             if (firstKey >= base_info) {
                 var prix = map1.get(i)[0];
                 repr += prix == undefined ? "" : prix == "0.00" ? "" : prix + " &euro;";
-                repr += "</td><td  style='text-align:left;border-bottom:1px black solid'>";
+                repr += "</td><td  style='"+styleL+"'>";
             }
             repr += map1.get(i)[1] == undefined ? "" : map1.get(i)[1] == "0.00" ? "" : map1.get(i)[1] + " &euro;";
             // if (firstKey >= base_info) {
             var etat = map1.get(i)[2];
-            repr += "</td><td style='text-align:center;border-bottom:1px black solid;border-left:1px grey solid'>";
+            repr += "</td><td style='"+styleL+"'>";
             repr += etat == undefined ? "" : etat != "CONFIRME" ? "V" : "";
-            repr += "</td><td style='text-align:center;border-bottom:1px black solid;border-left:1px grey solid'>";
+            repr += "</td><td style='"+styleL+"'>";
             repr += etat == undefined ? "" : etat != "CONFIRME" ? etat : "";
             // }
             repr += "</td>";
             if (firstKey >= base_info) {
-                repr += "<td style='text-align:center;border-bottom:1px black solid;border-left:1px grey solid'>";
+                repr += "<td style='"+styleL+"'>";
                 repr += map1.get(i)[3] == undefined ? "" : map1.get(i)[3] == "" ? "" : map1.get(i)[3];
                 repr += "</td>";
             }
+            cli_L=map1.get(i)[4];
+
             theKeys.next().value;
 
             repr += "<td style='background-color:grey; text-align:center'>";
             var j = parseInt(parseInt(i) + (NB_MODIF / 2));
+            if (cli_R !=  map1.get(j)[4] && map1.get(j)[4]) {
+                colorClassR=color[nbCli_R++ % 2];
+            }
+            if (map1.get(j)[4] == undefined ) {
+                colorClassR=color[0];
+
+            }
+            var styleR="background-color:"+colorClassR+";text-align:left;border-bottom:1px black solid;border-right:1px grey solid"
             repr += j;
-            repr += "</td><td style='text-align:left;border-bottom:1px black solid;border-right:1px grey solid'>";
+            repr += "</td><td style='"+styleR+"'>";
             if (firstKey >= base_info) {
                 prix = map1.get(j)[0]
                 repr += prix == undefined ? "" : prix == "0.00" ? "" : prix + " &euro;";
-                repr += "</td><td style='text-align:left;border-bottom:1px black solid'>";
+                repr += "</td><td style='"+styleR+"'>";
             }
             repr += map1.get(j)[1] == undefined ? "" : map1.get(j)[1] == "0.00" ? "" : map1.get(j)[1] + " &euro;";
             // if (firstKey >= base_info) {
             etat = map1.get(j)[2]
-            repr += "</td><td style='text-align:center;border-bottom:1px black solid;border-left:1px grey solid'>";
+            repr += "</td><td style='"+styleR+"'>";
             repr += etat == undefined ? "" : etat != "CONFIRME" ? "V" : "";
-            repr += "</td><td style='text-align:center;border-bottom:1px black solid;border-left:1px grey solid'>";
+            repr += "</td><td style='"+styleR+"'>";
             repr += etat == undefined ? "" : etat != "CONFIRME" ? etat : "";
             // }
             repr += "</td>";
             if (firstKey >= base_info) {
-                repr += "<td style='text-align:center;border-bottom:1px black solid;border-left:1px grey solid'>";
+                repr += "<td style='"+styleR+"'>";
                 repr += map1.get(j)[3] == undefined ? "" : map1.get(j)[3] == "" ? "" : map1.get(j)[3];
                 repr += "</td>";
+
             }
             repr +="</tr > ";
+            cli_R=map1.get(j)[4];
             nextKey = theKeys.next().value;
         }
         repr += "</table>";
@@ -423,14 +452,14 @@ function finFiches() {
 }
 
 function display_fichePC(val) {
-    // console.log(val);
+    //console.log(val);
     var creneau = "";
     if (val['cre_debut']) {
         var dateLu = new Date(val['cre_debut']);
         // creneau = getJourDate(dateLu) + " " + dateLu.getDate() + "<br/>à " + val['cre_debut'].substr(11, 5);
         creneau = "Le "+dateLu.getDate() + " à " + val['cre_debut'].substr(11, 5);
     }
-    fichesNego.set(parseInt(val['obj_numero']), [val['obj_prix_depot'], val['obj_prix_nego'], val['obj_etat'], creneau]);
+    fichesNego.set(parseInt(val['obj_numero']), [val['obj_prix_depot'], val['obj_prix_nego'], val['obj_etat'], creneau, val['cli_id']]);
 
 }
 

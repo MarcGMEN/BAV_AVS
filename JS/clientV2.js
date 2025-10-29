@@ -305,8 +305,8 @@ function display_fiches(val, idElement) {
 }
 
 function display_creneau_client(val) {
-    // console.log("display_creneau_client");
-    // console.log(val);
+    //console.log("display_creneau_client");
+    //console.log(val);
 
     for (numCre in val) {
         if (numCre != "numero_deb") {

@@ -7,7 +7,7 @@ services:
     volumes:
       - ..:/var/www/html
     ports:
-      - "8080:80"
+      - "8090:80"
     depends_on:
       - db
 
@@ -29,7 +29,7 @@ services:
     container_name: phpmyadmin
     restart: always
     ports:
-      - "8085:80"
+      - "8091:80"
     environment:
       PMA_HOST: db
       PMA_USER: root

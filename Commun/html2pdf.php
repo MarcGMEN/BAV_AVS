@@ -27,7 +27,7 @@ function html2pdf($data, $html, $fileOut, $format = "P")
         $formatter = new ExceptionFormatter($e);
         print_r($message);
         print_r($formatter);
-        throw $formatter;
+        throw new Exception($formatter->getMessage());
     } catch (Exception $e) {
         print_r($e);
         throw $e;

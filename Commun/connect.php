@@ -16,12 +16,11 @@ if (isset($_FILES)) {
 	extract($_FILES,EXTR_PREFIX_ALL,'FILE');
 }
 
-echo $_SERVER['SERVER_NAME'];
 if ($_SERVER['SERVER_NAME'] == "avs44.com" || $_SERVER['SERVER_NAME'] == "bourseaux1000velos.avs44.com") {
 	$mysqli = mysqli_connect('db2463.1and1.fr','dbo326893785','randovtt' , 'db326893785');
 }
 else if ($_SERVER['SERVER_NAME'] == "localhost") {
-	$mysqli = mysqli_connect('localhost','bav','AVS44b@v!' , 'BAV');
+	$mysqli = mysqli_connect('db','bav','AVS44b@v!' , 'bav');
 	// $mysqli = mysqli_connect('db2463.1and1.fr','dbo326893785','randovtt' , 'db326893785');
 }
 else {

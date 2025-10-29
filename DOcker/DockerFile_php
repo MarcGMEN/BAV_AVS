@@ -1,4 +1,25 @@
+# Dockerfile_php
 FROM php:8.2-apache
 
-# Installer mysqli et pdo_mysql
-RUN docker-php-ext-install mysqli pdo pdo_mysql
+# Installer les extensions nécessaires
+RUN apt-get update && apt-get install -y \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libpng-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd mysqli pdo pdo_mysql
+
+# Installer Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+RUN mkdir -p /var/www/html/out/PDF 
+RUN mkdir -p /var/www/html/out/html
+RUN chown -R www-data:www-data /var/www/html/out 
+
+# Activer mod_rewrite (utile pour frameworks)
+RUN a2enmod rewrite
+
+WORKDIR /var/www/html
+
+EXPOSE 80
+

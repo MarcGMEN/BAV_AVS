@@ -28,6 +28,9 @@ select bc.cli_prix_depot depot, bo.obj_prix_vente prix, case when bo.obj_prix_ve
 from bav_objet bo left outer join bav_client bc on bc.cli_id= bo.obj_id_vendeur where bo.obj_numero_bav='2024' and obj_etat IN ('VENDU','PAYE') order by com desc
 
 -- pre depot
-SELECT count(*), date(obj_date_depot) 
-FROM `bav_objet` WHERE obj_numero_bav = '2024'
-group by date(obj_date_depot)
+select DATE_FORMAT(bo.obj_date_depot, "%Y%m%d") laDate, count(*) "pre-depot"
+from bav_objet bo 
+where bo.obj_numero_bav ='2025'
+and bo.obj_date_depot is not null
+group by 1
+order by bo.obj_date_depot asc
