@@ -231,7 +231,7 @@ function display_html_file(val) {
 var classeur = NB_MODIF;
 
 function display_num_max_fichesEF(val) {
-    for (var i = 1001; i <= val; i += NB_MODIF) {
+    for (var i = BASE_INFO; i <= val; i += NB_MODIF) {
         x_return_nb_fiche_by_place(i, i + classeur - 1, display_detailpageFicheEF);
     }
 }
@@ -334,26 +334,28 @@ function finFiches() {
         // console.log(firstKey);
         repr += "<h3 style='background-color:grey; text-align:center'>Check classeur " + firstKey + " -> " + ((NB_MODIF) + parseInt(firstKey) - 1) + "</h3>";
         repr += "<table style='border:2px black solid; width:100%'>";
-        repr += "<tr style='background-color:lightgrey;'><th width=10%>Numéro</th>";
+        repr += "<tr style='background-color:lightgrey;'><th width=5%>Numéro</th>";
         if (firstKey >= base_info) {
             repr += "<th width=8%> Prix</th > ";
         }
         repr += "<th width=8%> Prix négo</th > ";
         // if (firstKey >= base_info) {
-        repr += "<th width=5%> Table</th > <th width=5%> Info</th > ";
+        repr += "<th width=4%> Table</th > <th width=4%> Info</th > ";
         if (firstKey >= base_info) {
-            repr += "<th width=13 %> Creneau</th > ";
+            repr += "<th width=8%> Creneau</th > ";
+            repr += "<th width=12%> Client</th > ";
         }
         // }
-        repr += "<th width=10%>Numéro</th>";
+        repr += "<th width=5%>Numéro</th>";
         if (firstKey >= base_info) {
             repr += "<th width=8%> Prix</th > ";
         }
         repr += "<th width=8%> Prix négo</th >";
         // if (firstKey >= base_info) {
-        repr += "<th width=5%> Table</th > <th width=5%> Info</th > ";
+        repr += "<th width=4%> Table</th > <th width=4%> Info</th > ";
         if (firstKey >= base_info) {
-            repr += "<th width=13 %> Creneau</th > ";
+            repr += "<th width=8%> Creneau</th > ";
+            repr += "<th width=12%> Client</th > ";
         }
         // }
         repr += "</tr>";
@@ -395,8 +397,11 @@ function finFiches() {
             // }
             repr += "</td>";
             if (firstKey >= base_info) {
-                repr += "<td style='"+styleL+"'>";
+                repr += "<td style='"+styleL+";font-size:7pt'>";
                 repr += map1.get(i)[3] == undefined ? "" : map1.get(i)[3] == "" ? "" : map1.get(i)[3];
+                repr += "</td>";
+                repr += "<td style='"+styleL+";font-size:7pt'>";
+                repr += map1.get(i)[4] == undefined ? "" : map1.get(i)[4] == "" ? "" : map1.get(i)[4];
                 repr += "</td>";
             }
             cli_L=map1.get(i)[4];
@@ -430,10 +435,12 @@ function finFiches() {
             // }
             repr += "</td>";
             if (firstKey >= base_info) {
-                repr += "<td style='"+styleR+"'>";
+                repr += "<td style='"+styleR+";font-size:7pt'>";
                 repr += map1.get(j)[3] == undefined ? "" : map1.get(j)[3] == "" ? "" : map1.get(j)[3];
                 repr += "</td>";
-
+                repr += "<td style='"+styleR+";font-size:7pt'>";
+                repr += map1.get(j)[4] == undefined ? "" : map1.get(j)[4] == "" ? "" : map1.get(j)[4];
+                repr += "</td>";
             }
             repr +="</tr > ";
             cli_R=map1.get(j)[4];
@@ -459,7 +466,7 @@ function display_fichePC(val) {
         // creneau = getJourDate(dateLu) + " " + dateLu.getDate() + "<br/>à " + val['cre_debut'].substr(11, 5);
         creneau = "Le "+dateLu.getDate() + " à " + val['cre_debut'].substr(11, 5);
     }
-    fichesNego.set(parseInt(val['obj_numero']), [val['obj_prix_depot'], val['obj_prix_nego'], val['obj_etat'], creneau, val['cli_id']]);
+    fichesNego.set(parseInt(val['obj_numero']), [val['obj_prix_depot'], val['obj_prix_nego'], val['obj_etat'], creneau, val['cli_nom']]);
 
 }
 

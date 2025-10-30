@@ -104,6 +104,7 @@ sajax_handle_client_request();
 		var DATE_J2 = <?= $infAppli['date_j2'] ?>;
 
 		var NB_MODIF = <?= $infAppli['NB_MODIF'] ?>;
+		var BASE_INFO = <?= $infAppli['base_info'] ?>;
 		var modePage = '<?= $GET_modePage ?>';
 		var id = '<?= $GET_id ?>';
 		var type = '<?= $GET_type ?>';
