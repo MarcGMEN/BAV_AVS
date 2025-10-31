@@ -82,15 +82,16 @@ function display_fin_modif_creneau(val) {
 
     x_get_count_creneaux_for_fiche(numeroCreneau, display_creneau_client);
 
-    setTimeout("display_sonCreneau("+val['cli_id_cre']+")",300);
+    setTimeout("display_sonCreneau("+val['cli_id_cre']+")",500);
 
 }
 
 function display_sonCreneau(id) {
-    if (id != 0) {
+    if (id != 0 && getElement("cre_" + id) ) {
         getElement("cre_" + id).style.filter = "brightness(1.5)";
         // getElement("cre_" +id).title = "Votre créneau.";
         getElement("cre_" + id).innerHTML += "<b> ✓ </b>";
+        getElement("cre_" + id).innerHTML += "<i>"+tabCreneau[id]+"</i>";
     }
 }
 /**
@@ -116,7 +117,8 @@ function display_client(val) {
             "obj_id_acheteur": val['cli_id']
         };
         x_return_fiches(tri, sens, tabToString(tabSelA), display_fiches_achat);
-        display_sonCreneau(val['cli_id_cre']);
+        setTimeout("display_sonCreneau("+val['cli_id_cre']+")",500);
+        //display_sonCreneau(val['cli_id_cre']);
 
     } else {
         goTo(null, null, null, "Client inconnue.");
@@ -304,32 +306,40 @@ function display_fiches(val, idElement) {
     return aimprimer;
 }
 
+var tabCreneau=[];
 function display_creneau_client(val) {
     //console.log("display_creneau_client");
-    //console.log(val);
+    // console.log(val);
 
+    tabCreneau=[];
+    var etatPlus="";
     for (numCre in val) {
         if (numCre != "numero_deb") {
             var charge = parseInt(val[numCre]['cpt'] * 100 / val[numCre]['max_nb']);
             var color = "Green";
             var colorText = "White";
-            var etat = "Fluide";
+            var etat = "";
+            etatPlus=etat;
             if (charge > 60) {
                 color = 'orange'
                 colorText = "black";
                 etat = "Chargé";
-
+                etatPlus=etat;
             }
             if (charge > 80) {
                 color = 'RED'
                 etat = "Encombré";
+                etatPlus=etat+"<br/><b>merci de changer de créneau.</b>"
             }
+
+            tabCreneau[numCre]=etatPlus;
 
             var divCre = getElement("cre_" + numCre);
             divCre.title = etat;
             divCre.style.backgroundColor = color;
             divCre.style.color = colorText;
         }
+        
     }
 }
 
