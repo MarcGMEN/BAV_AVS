@@ -379,7 +379,8 @@ function finFiches() {
 
             }
             var styleL="background-color:"+colorClassL+";text-align:left;border-bottom:1px black solid;border-right:1px grey solid"
-            repr += "<tr style='border:2px black solid;'><td style='background-color:grey; text-align:center'>";
+            repr += "<tr style='border:2px black solid;font-size:8pt;height:23px'>";
+            repr += "<td style='background-color:grey; text-align:center;font-size:12pt;color:WHITE'>";
             repr += i
             repr += "</td><td style='"+styleL+"'>";
             if (firstKey >= base_info) {
@@ -397,10 +398,10 @@ function finFiches() {
             // }
             repr += "</td>";
             if (firstKey >= base_info) {
-                repr += "<td style='"+styleL+";font-size:7pt'>";
+                repr += "<td style='"+styleL+"'>";
                 repr += map1.get(i)[3] == undefined ? "" : map1.get(i)[3] == "" ? "" : map1.get(i)[3];
                 repr += "</td>";
-                repr += "<td style='"+styleL+";font-size:7pt'>";
+                repr += "<td style='"+styleL+"'>";
                 repr += map1.get(i)[4] == undefined ? "" : map1.get(i)[4] == "" ? "" : map1.get(i)[4];
                 repr += "</td>";
             }
@@ -408,7 +409,7 @@ function finFiches() {
 
             theKeys.next().value;
 
-            repr += "<td style='background-color:grey; text-align:center'>";
+            repr += "<td style='background-color:grey; text-align:center;font-size:12pt;color:WHITE'>";
             var j = parseInt(parseInt(i) + (NB_MODIF / 2));
             if (cli_R !=  map1.get(j)[4] && map1.get(j)[4]) {
                 colorClassR=color[nbCli_R++ % 2];
