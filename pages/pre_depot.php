@@ -71,7 +71,7 @@
 			</div>
 			<form name="accesForm" method="POST" onsubmit="return submitFormConnex(this)" action="">
 				<div class="col-sm-5 col-md-4 col-xs-12">
-					Vous êtes déjà enregister<br/>
+					Vous êtes déjà enregistré.<br/>
 					<input type='email' size=30 maxlength="80" required name='email_depot' placeholder="Saisissez votre e-mail" />
 					<p class="link" onclick='renvoiCode(document.accesForm)'>Code d'accès oublié</p>
 				</div>
