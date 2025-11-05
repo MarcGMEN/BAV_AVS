@@ -74,6 +74,7 @@ if (isset($_POST['cli_id']) && $_POST['cli_id'] != '') {
 
                             $idfiche =insertFiche($fiche);
 
+                            // attention au temps de traitement
                             action_makePDF($idfiche);
                             $nbFiche++;
                             $textePlus .= $fiche['obj_numero'] . ",";

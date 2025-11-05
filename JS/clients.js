@@ -92,7 +92,7 @@ function display_clients(val) {
             } else {
                 if (val[index]['cli_taux_com'] == 5) {
                     classPlus = "STOCK"
-                } else if (val[index]['cli_prix_depot'] == 0) {
+                } else if (val[index]['cli_prix_depot'] == 2) {
                     classPlus = "ACHAT"
                 }
             }

@@ -231,6 +231,10 @@ function display_html_file(val) {
 var classeur = NB_MODIF;
 
 function display_num_max_fichesEF(val) {
+    var selectCla = getElement('classeurs');
+    while (selectCla.firstChild) {
+         selectCla.removeChild(selectCla.firstChild);
+    }
     for (var i = BASE_INFO; i <= val; i += NB_MODIF) {
         x_return_nb_fiche_by_place(i, i + classeur - 1, display_detailpageFicheEF);
     }
