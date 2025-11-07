@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
     <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
 
-    
+
     <style type="text/css">
         #map {
             /* la carte DOIT avoir une hauteur sinon elle n'apparaît pas */
@@ -27,24 +27,41 @@
     <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
 
     <script type="text/javascript">
-        var tabCdpLatLon=[];
+        var tabCdpLatLon = [];
         window.onload = function() {
 
-            
+
             initMap();
-			geoPosClient('44600');
-            geoPosClient('56130');
-            geoPosClient('nivillac, 56130');
-            geoPosClient('ferel, 56130');
-            geoPosClient('la roche bernard, 56130');
-            
-            geoPosClient('saint-nazaire');
+            geoPosClient2('44600');
+            geoPosClient2('56130');
+            geoPosClient2('nivillac, 56130');
+            geoPosClient2('22350');
+            geoPosClient2('la roche bernard, 56130');
+
+            geoPosClient2('saint-nazaire');
         };
 
-        function x_add_cdp(adress, lat, lon,info) {
-            addMarker(lat, lon, adress,0,info);
+        function x_add_cdp(adress, lat, lon, info) {
+            addMarker(lat, lon, adress, 0, info);
         }
 
+        function geocode(address) {
+            const url = 'https://nominatim.openstreetmap.org/search?format=json&q=' +
+                encodeURIComponent(address + ', France');
+
+            fetch(url)
+                .then(response => response.json())
+                .then(results => {
+                    if (results.length > 0) {
+                        const r = results[0];
+                        console.log('Résultat :', r.display_name);
+                        console.log('Coordonnées :', r.lat, r.lon);
+                    } else {
+                        console.log('Aucun résultat');
+                    }
+                })
+                .catch(err => console.error('Erreur géocodage :', err));
+        }
     </script>
 </head>
 

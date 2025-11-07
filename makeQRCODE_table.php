@@ -1,0 +1,26 @@
+<pre><?php
+require_once 'config.ini';
+include('vendor/phpqrcode/qrlib.php');
+
+QRcode::png('https://bourseaux1000velos.avs44.com/Actions/rest.php?a=T','./out/QRCODE_TABLE.png',QR_ECLEVEL_L, 3);
+echo "<img src='./out/QRCODE_TABLE.png' width=400px/>";
+echo "<h1>QRCODE accès BAV table sur bourseaux1000velos.avs44.com</h1>";
+
+echo "URL test : <A href='./Actions/rest.php?a=T'>./Actions/rest.php?a=T</A>";
+
+// QRcode::png('https://bourseaux1000velos.avs44.com','./out/QRCODE_BAV.png',QR_ECLEVEL_L, 3);
+// echo "<img src='./out/QRCODE_BAV.png' width=400px/>";
+// echo "<h1>QRCODE accès BAV vendeur sur bourseaux1000velos.avs44.com</h1>";
+
+// echo "<hr/>";
+// QRcode::png('https://http://127.0.0.1/edsa-BAV/Actions/rest.php?a=P','./out/QRCODE_CAFFARD2.png',QR_ECLEVEL_L, 3);
+// echo "<img src='./out/QRCODE_CAFFARD2.png' />";
+// echo "<h1>QRCODE accès BAV vendeur sur 127.0.0.1</h1>";
+
+// echo "<hr/>";
+// QRcode::png('https:/.localhost/bourseauxvelos/Actions/rest.php?a=P','./out/QRCODE_CAFFARD3.png',QR_ECLEVEL_L, 3);
+// echo "<img src='./out/QRCODE_CAFFARD3.png' />";
+// echo "<h1>QRCODE accès BAV vendeur sur localhost</h1>";
+
+
+
