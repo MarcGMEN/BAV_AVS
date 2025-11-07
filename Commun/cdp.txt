@@ -91,8 +91,7 @@
 44560=47.28318913366907,-2.0364359657553956,Saint-Père-en-Retz- Saint-Nazaire- Loire-Atlantique- 44560- Pays de la Loire- France métropolitaine- France
 44570=47.304452767441866,-2.202758146511628,Trignac- Saint-Nazaire- Loire-Atlantique- 44570- Pays de la Loire- France métropolitaine- France
 44580=47.03843192,-1.91573443,Bourgneuf-en-Retz- Villeneuve-en-Retz- Saint-Nazaire- Loire-Atlantique- 44580- Pays de la Loire- France métropolitaine- France
-44600=47.27744916370558,-2.227086095685279,Saint-Nazaire- Loire-Atlantique- 44600- Pays de la Loire- France métropolitaine- France
-44620=47.18723754527464,-1.68351495177706,La Montagne- Nantes- Loire-Atlantique- 44620- Pays de la Loire- France métropolitaine- France
+44600=47.2768874,-2.2407694,44600- Villeneuve- Saint-Nazaire- Loire-Atlantique- Pays de la Loire- France métropolitaine- France
 44630=47.53972550450281,-1.8850034746716697,Plessé- Châteaubriant-Ancenis- Loire-Atlantique- 44630- Pays de la Loire- France métropolitaine- France
 44640=47.1944609560654,-1.7631667152162447,Le Pellerin- Nantes- Loire-Atlantique- 44640- Pays de la Loire- France métropolitaine- France
 44680=47.10551554673868,-1.800569830120482,Sainte-Pazanne- Nantes- Loire-Atlantique- 44680- Pays de la Loire- France métropolitaine- France
@@ -158,4 +157,3 @@
 91230=48.703049205,2.45712775625,Montgeron- Évry- Essonne- 91230- Île-de-France- France métropolitaine- France
 92170=48.821846980000004,2.2891966399999997,92170- Vanves- Boulogne-Billancourt- Hauts-de-Seine- Île-de-France- France métropolitaine- France
 92300=48.89273753255814,2.2893956720930233,Levallois-Perret- Nanterre- Hauts-de-Seine- 92300- Île-de-France- France métropolitaine- France
-446000=44.7936698,-0.668297,France- France Alouette- Pessac- Bordeaux- Gironde- Nouvelle-Aquitaine- France métropolitaine- 33600- France

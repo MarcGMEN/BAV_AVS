@@ -12,7 +12,7 @@ var geocoder = L.Control.Geocoder.nominatim();
 // Nous définissons le dossier qui contiendra les marqueurs
 
 var markers = []; // Nous initialisons la liste des marqueurs
-var markersvert  = [];
+var markersvert = [];
 
 var markerBAV;
 
@@ -84,7 +84,7 @@ function initMap() {
 }
 
 function getGeoPos(adress) {
-    var geoCode = geocoder.geocode(adress + ', France', function (results) {
+    var geoCode = geocoder.geocode(adress + ', France', function(results) {
         // console.log("getGeoPos",results);
         return results;
     });
@@ -97,18 +97,47 @@ function geoPosClient(adress) {
     console.log("geoPosClient(" + adress + ")");
 
     //var results = getGeoPos(adress);
+    console.log(geocoder);
     geocoder.geocode(adress + ', France',
-        function (results) {
-            var r = results[0];
-            if (r) {
-                // console.log(r);
-
-                console.log("geoPosClient(" + adress + ") => OK");
-                tabDistanceCDP[adress] = distanceHaversine(latSN, lonSN, r.properties.lat, r.properties.lon);
-                tabCdpLatLon[adress] = r.properties.lat + "," + r.properties.lon + "," + r.name.replaceAll(',', '-');
-                x_add_cdp(adress, r.properties.lat, r.properties.lon, r.name.replaceAll(',', '-'), display_vide);
+        function(results, status) {
+            console.log(status);
+            if (status === 'OK') {
+                var r = results[0];
+                if (r) {
+                    //console.log(r);
+                    console.log("geoPosClient(" + adress + ") => OK");
+                    tabDistanceCDP[adress] = distanceHaversine(latSN, lonSN, r.properties.lat, r.properties.lon);
+                    tabCdpLatLon[adress] = r.properties.lat + "," + r.properties.lon + "," + r.name.replaceAll(',', '-');
+                    x_add_cdp(adress, r.properties.lat, r.properties.lon, r.name.replaceAll(',', '-'), display_vide);
+                }
+            } else {
+                console.error("geoPosClient(" + adress + ") => NOK");
             }
         });
+}
+
+function geoPosClient2(address) {
+    console.log("geoPosClient2(" + address + ")");
+    const url = 'https://nominatim.openstreetmap.org/search?format=json&q=' +
+        encodeURIComponent(address + ', France');
+
+    fetch(url)
+        .then(response => response.json())
+        .then(results => {
+            if (results.length > 0) {
+                const r = results[0];
+                // console.log(r);
+                // console.log('Résultat :', r.display_name);
+                // console.log('Coordonnées :', r.lat, r.lon);
+
+                tabDistanceCDP[address] = distanceHaversine(latSN, lonSN, r.lat, r.lon);
+                tabCdpLatLon[address] = r.lat + "," + r.lon + "," + r.display_name.replaceAll(',', '-');
+                x_add_cdp(address, r.lat, r.lon, r.display_name.replaceAll(',', '-'), display_vide);
+            } else {
+                console.log("geoPosClient2(" + address + ") Aucun résultat ");
+            }
+        })
+        .catch(err => console.error('Erreur géocodage :', err));
 }
 
 function purgeMarkers() {

@@ -531,7 +531,6 @@
 
 	function display_list(val, row) {
 		var select = getElement("sel_obj_" + row);
-		select.options[select.options.length] = new Option("Choix", "*");
 		for (index in val) {
 			select.options[select.options.length] = new Option(val[index], val[index]);
 			if (tabSel['obj_' + row] != null && tabSel['obj_' + row] == val[index]) {
@@ -591,7 +590,7 @@
 				var lat = 0;
 				var lon = 0;
 				if (tabCdpLatLon[tabVal[i]['cdp']]) {
-					console.log(tabVal[i]['cdp'] + " connu");
+					// console.log(tabVal[i]['cdp'] + " connu");
 					var tabTmp = tabCdpLatLon[tabVal[i]['cdp']].split(',');
 					var lat = tabTmp[0];
 					var lon = tabTmp[1];
@@ -602,7 +601,7 @@
 
 				} else {
 					// x_add_cdp(tabVal[i]['cdp'],lat, lon, display_vide);
-					setTimeout('geoPosClient("' + tabVal[i]['cdp'] + '")', TIME_PAUSE * indexSearch);
+					setTimeout('geoPosClient2("' + tabVal[i]['cdp'] + '")', TIME_PAUSE * indexSearch);
 					setTimeout('addMarkerdecal("' + tabVal[i]['cdp'] + '",' + indexSearch + ',' + tabVal[i]['nb'] + ')', TIME_PAUSE * indexSearch + 1000);
 					indexSearch++;
 				}
@@ -652,7 +651,7 @@
 	}
 
 	function addMarkerdecal(cdp, index, nb) {
-		// console.log("marker decale "+cdp,tabCdpLatLon[cdp]);
+		console.log("marker decale "+cdp,tabCdpLatLon[cdp]);
 		if (tabCdpLatLon[cdp]) {
 			var tabTmp = tabCdpLatLon[cdp].split(',');
 			var lat = tabTmp[0];
@@ -664,7 +663,7 @@
 
 	function finCreateCarte() {
 		// alertModalInfo('Fin de creation de la carte');
-		console.log("tabDistanceCDP", tabDistanceCDP);
+		// console.log("tabDistanceCDP", tabDistanceCDP);
 
 		var km50 = [];
 		for (i in tabDistanceCDP) {
@@ -676,7 +675,7 @@
 			}
 			km50[moduleDistance] += tabCdpNb[i];
 		}
-		console.log("km50", km50);
+		// console.log("km50", km50);
 
 		var kmAV = 0;
 		var repr = "";
