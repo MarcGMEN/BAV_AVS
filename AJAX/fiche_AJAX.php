@@ -543,6 +543,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true, $nameEti = 'etiquet
         if ($key++ % $nbCoupon == 0) {
             $etiquettes .= "<hr/>";
             $etiquettes .= "<div style='page-break-after:always; clear:both;font-size:10pt;height:10pt'>..........</div>";
+            $etiquettes .= "<div style='font-size:1pt;height:1pt'>&nbsp;</div>";
         }
     }
 
