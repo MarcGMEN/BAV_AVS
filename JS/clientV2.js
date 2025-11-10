@@ -22,7 +22,7 @@ function initPage() {
 /*
  * action lors du derchargement de la page
  */
-function unloadPage() { }
+function unloadPage() {}
 
 function display_allcreneaux(val) {
     if (val instanceof Object) {
@@ -66,6 +66,7 @@ function display_allcreneaux(val) {
     getElement("creneaux").innerHTML = repr;
 
 }
+
 function updateCreneau(idCre) {
     // console.log("update de " + cli_id + " sur le creneau " + idCre);
 
@@ -82,16 +83,16 @@ function display_fin_modif_creneau(val) {
 
     x_get_count_creneaux_for_fiche(numeroCreneau, display_creneau_client);
 
-    setTimeout("display_sonCreneau("+val['cli_id_cre']+")",500);
+    setTimeout("display_sonCreneau(" + val['cli_id_cre'] + ")", 500);
 
 }
 
 function display_sonCreneau(id) {
-    if (id != 0 && getElement("cre_" + id) ) {
+    if (id != 0 && getElement("cre_" + id)) {
         getElement("cre_" + id).style.filter = "brightness(1.5)";
         // getElement("cre_" +id).title = "Votre créneau.";
         getElement("cre_" + id).innerHTML += "<b> ✓ </b>";
-        getElement("cre_" + id).innerHTML += "<i>"+tabCreneau[id]+"</i>";
+        getElement("cre_" + id).innerHTML += "<i>" + tabCreneau[id] + "</i>";
     }
 }
 /**
@@ -117,7 +118,7 @@ function display_client(val) {
             "obj_id_acheteur": val['cli_id']
         };
         x_return_fiches(tri, sens, tabToString(tabSelA), display_fiches_achat);
-        setTimeout("display_sonCreneau("+val['cli_id_cre']+")",500);
+        setTimeout("display_sonCreneau(" + val['cli_id_cre'] + ")", 500);
         //display_sonCreneau(val['cli_id_cre']);
 
     } else {
@@ -125,7 +126,7 @@ function display_client(val) {
     }
 }
 
-function unloadPage() { }
+function unloadPage() {}
 
 // que faire en cas de changement de saisie
 function pageSaisie() {
@@ -171,7 +172,7 @@ function display_infoClientVendeur(val) {
     if (val && val['cli_id'] != document.clientForm.cli_id.value) {
         alertModalWarn("Mel deja connu pour :" + val['cli_nom']);
         x_return_oneClient(document.clientForm.cli_id.value, display_client);
-    } else { }
+    } else {}
 }
 
 /**
@@ -184,7 +185,7 @@ function display_infoClientVendeurName(val) {
     if (val['cli_id'] && val['cli_id'] != document.clientForm.cli_id.value) {
         alertModalWarn("Nom deja connu [" + val['cli_id_modif'] + "].");
         x_return_oneClient(document.clientForm.cli_id.value, display_client);
-    } else { }
+    } else {}
 }
 
 // ***********************************************************
@@ -306,40 +307,41 @@ function display_fiches(val, idElement) {
     return aimprimer;
 }
 
-var tabCreneau=[];
+var tabCreneau = [];
+
 function display_creneau_client(val) {
     //console.log("display_creneau_client");
     // console.log(val);
 
-    tabCreneau=[];
-    var etatPlus="";
+    tabCreneau = [];
+    var etatPlus = "";
     for (numCre in val) {
         if (numCre != "numero_deb") {
             var charge = parseInt(val[numCre]['cpt'] * 100 / val[numCre]['max_nb']);
             var color = "Green";
             var colorText = "White";
             var etat = "";
-            etatPlus=etat;
+            etatPlus = etat;
             if (charge > 60) {
                 color = 'orange'
                 colorText = "black";
                 etat = "Chargé";
-                etatPlus=etat;
+                etatPlus = etat;
             }
             if (charge > 80) {
                 color = 'RED'
                 etat = "Encombré";
-                etatPlus=etat+"<br/><b>merci de changer de créneau.</b>"
+                etatPlus = etat + "<br/><b>merci de changer de créneau.</b>"
             }
 
-            tabCreneau[numCre]=etatPlus;
+            tabCreneau[numCre] = etatPlus;
 
             var divCre = getElement("cre_" + numCre);
             divCre.title = etat;
             divCre.style.backgroundColor = color;
             divCre.style.color = colorText;
         }
-        
+
     }
 }
 
@@ -466,7 +468,6 @@ function confirmModal(plus) {
     } else if (plus == "Modif") {
         var tabObj = recup_formulaire(document.modalForm, 'obj');
         var tabData = Object.assign({}, tabObj);
-        console.log(tabData);
         x_action_updateFiche(tabToString(tabData), display_fin_create);
         x_add_counter_action("clientV2.php", "update_fiche", "", display_rien);
     }

@@ -1554,6 +1554,26 @@ function action_updateFiche($dataL)
     }
 }
 
+function  action_updatePrix($dataL)
+{
+    $ficheJSON = tabToObject(string2Tab($dataL), "obj");
+
+    $fiche = getOneFiche($ficheJSON['obj_id']);
+
+    if (isset($ficheJSON['obj_prix_nego'])) {
+        $fiche['obj_prix_nego']=$ficheJSON['obj_prix_nego'];
+    }
+    if (isset($ficheJSON['obj_prix_depot'])) {
+        $fiche['obj_prix_depot']=$ficheJSON['obj_prix_depot'];
+    }
+    
+    updateFiche($fiche);
+
+    $fiche = getOneFiche($fiche['obj_id']);
+    return $fiche;
+
+}
+
 function return_fichesModif($type = 'data')
 {
     try {

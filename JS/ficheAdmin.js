@@ -207,7 +207,7 @@ function display_fiche(val) {
         getElement('BtnSaisieExpress').style.display = 'inline';
 
         val['obj_marque_' + idRamdom] = val['obj_marque'];
-        
+
         x_return_oneClient(val['obj_id_vendeur'], display_infoClientVendeur);
 
         getElement("trTitreFiche").style.display = 'block';
@@ -244,7 +244,7 @@ function display_fiche(val) {
 
             disable_formulaire(document.ficheForm, "cli");
             disable_formulaire(document.ficheForm, "obj");
-            
+
             getElement("tdBtnPdf").style.display = 'block';
             document.ficheForm.buttonValideFiche.innerHTML = "Modifier";
 
@@ -260,7 +260,7 @@ function display_fiche(val) {
             document.ficheForm.cli_emel.disabled = false;
 
             val['obj_etat_libelle'] = "Présent sur le parc";
-            document.ficheForm.obj_prix_vente.disabled =true;
+            document.ficheForm.obj_prix_vente.disabled = true;
 
             // getElement("tdBtnAction").style.display = 'none';
             getElement("fieldSetAcheteur").style.display = 'none';
@@ -382,7 +382,6 @@ function modifFiche() {
     delete tabObj['obj_marque_' + idRamdom];
 
     var tabData = Object.assign({}, tabObj, tabCli, tabAch);
-    console.log(tabData);
     x_action_updateFiche(tabToString(tabData), display_fin_modif);
     return false;
 

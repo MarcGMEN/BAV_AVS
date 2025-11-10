@@ -16,7 +16,7 @@ function initPage() {
     // x_return_listClientByMel(display_listVendeur);
 
     // chargement de la liste des client par mel
-    x_return_listClientByName("*",display_listVendeurName);
+    x_return_listClientByName("*", display_listVendeurName);
 
     // recuperation de la liste des marques
     x_return_list_marques(display_list_marques)
@@ -70,8 +70,7 @@ function display_detailpageFiche(val) {
 
         getElement("cla_" + val[0]).title += "Nb de fiche du classeur : " + nbfiche + " / " + classeur;
         getElement("cla_" + val[0]).style.color = color;
-    }
-    else {
+    } else {
         getElement("cla_" + val[0]).style.display = 'none';
     }
 }
@@ -187,14 +186,13 @@ function afficheLigne(val) {
         }
 
         if (val['obj_prix_vente'] != 0 && val['obj_prix_vente'] != val['obj_prix_depot']) {
-            getElement("prix_vente_" + index).innerHTML = "<s>"+val['obj_prix_depot']+"</s> "+val['obj_prix_vente'];
-        }
-        else {
+            getElement("prix_vente_" + index).innerHTML = "<s>" + val['obj_prix_depot'] + "</s> " + val['obj_prix_vente'];
+        } else {
             getElement("prix_vente_" + index).innerHTML = val['obj_prix_vente'];
         }
-        
+
         getElement("prix_nego_" + index).innerHTML = val['obj_prix_nego'];
-        
+
         getElement("action_" + index).innerHTML = "";
         // creation du bouton adapté
         // pour le retour, saisir la fiche
@@ -209,15 +207,15 @@ function afficheLigne(val) {
             var thePrix = val['obj_prix_depot'];
             var actionPrix = "<input type='number' name='obj_prix_vente_" + index + "' min=1 step='0.1' value='" + thePrix + "' />";
             getElement("prix_vente_" + index).innerHTML = actionPrix;
-            
+
             var thePrixN = val['obj_prix_nego'];
-            var actionPrixNego = "<input type='number' name='obj_prix_nego_" + index + "' min=0 step='0.1' value='" + thePrixN + "' style='width:70%' ' onfocus='focusNego(this," + val['obj_id'] + ")' onblur='blurNego(this,"  +val['obj_id'] + ","+index + ")'/>";
+            var actionPrixNego = "<input type='number' name='obj_prix_nego_" + index + "' min=0 step='0.1' value='" + thePrixN + "' style='width:70%' ' onfocus='focusNego(this," + val['obj_id'] + ")' onblur='blurNego(this," + val['obj_id'] + "," + index + ")'/>";
             actionPrixNego += "&nbsp;&nbsp;<span title='Modifier'  onclick='modifData(" + val['obj_id'] + ", " + index + ")' class='link' style='visibility:hidden' id='btNego_" + val['obj_id'] + "' ><i class='link fas fa-edit'></i>&nbsp;</span >";
 
             getElement("prix_nego_" + index).innerHTML = actionPrixNego;
 
             action += "&nbsp;<span title='Modifier'  onclick='modifData(" + val['obj_id'] + ", " + index + ")' class='link' style='visibility:hidden' ><i class='link fas fa-edit'></i>&nbsp;</span >";
-            
+
         } else if (val['obj_etat'] == "STOCK") {
             new_etat = "RENDU";
             new_libelle = "Rendre";
@@ -226,9 +224,9 @@ function afficheLigne(val) {
             new_libelle = "Vendre";
             action += "&nbsp;<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\"," + val['obj_prix_vente'] + "," + val['obj_numero'] + ")' />";
 
-            
+
             var thePrixN = val['obj_prix_nego'];
-            var actionPrixNego = "<input type='number' name='obj_prix_nego_" + index + "' min=0 step='0.1' value='" + thePrixN + "' style='width:70%' ' onfocus='focusNego(this," + val['obj_id'] + ")' onblur='blurNego(this,"  +val['obj_id'] + ","+index + ")'/>";
+            var actionPrixNego = "<input type='number' name='obj_prix_nego_" + index + "' min=0 step='0.1' value='" + thePrixN + "' style='width:70%' ' onfocus='focusNego(this," + val['obj_id'] + ")' onblur='blurNego(this," + val['obj_id'] + "," + index + ")'/>";
             actionPrixNego += "&nbsp;&nbsp;<span title='Modifier'  onclick='modifData(" + val['obj_id'] + ", " + index + ")' class='link' style='visibility:hidden' id='btNego_" + val['obj_id'] + "' ><i class='link fas fa-edit'></i>&nbsp;</span >";
 
             getElement("prix_nego_" + index).innerHTML = actionPrixNego;
@@ -250,7 +248,7 @@ function afficheLigne(val) {
 
 function focusNego(element, id) {
     element.style = "background-color:yellow;width:70%";
-    getElement("btNego_" + id).style ='visibility : visible';
+    getElement("btNego_" + id).style = 'visibility : visible';
 
 }
 
@@ -259,9 +257,9 @@ function blurNego(element, id, index) {
     modifData(id, index);
 
     getElement("btNego_" + id).innerHTML = "<i class='link fas fa-check'>";
-    setTimeout('getElement("btNego_' + id+'").innerHTML = \'<i class=\"link fas fa-edit\">\'',500);
-    setTimeout('getElement("btNego_' + id+'").style =\"visibility : hidden\"',500);
-    
+    setTimeout('getElement("btNego_' + id + '").innerHTML = \'<i class=\"link fas fa-edit\">\'', 500);
+    setTimeout('getElement("btNego_' + id + '").style =\"visibility : hidden\"', 500);
+
 }
 
 function supprimerFiche(id, numero) {
@@ -605,7 +603,7 @@ function modifEtat(tabObj, tabCli) {
         tabObj['obj_etat'] = 'STOCK'
         var tabData = Object.assign({}, tabObj, tabCli);
         // console.log("demande de creation express");
-       // tabData['obj_modif_stock'] = 1
+        // tabData['obj_modif_stock'] = 1
         x_action_createFicheExpress(tabToString(tabData), display_fin_create);
     } else if (tabObj['obj_etat_new'] == 'VENDU') {
         x_return_oneFiche(tabObj['obj_id'], display_fiche_vente);
@@ -622,7 +620,7 @@ function modifEtat(tabObj, tabCli) {
     }
 }
 
-function modifData(idobj,index) {
+function modifData(idobj, index) {
     var tabObj = {};
 
     if (document.getElementsByName("obj_prix_nego_" + index).length > 0) {
@@ -633,9 +631,8 @@ function modifData(idobj,index) {
         tabObj['obj_prix_depot'] = document.getElementsByName("obj_prix_vente_" + index)[0].value;
         tabObj['obj_id'] = idobj;
     }
-    
-    if (tabObj.obj_id ) {
-        x_action_updateFiche(tabToString(tabObj), display_rien);
+    if (tabObj.obj_id) {
+        x_action_updatePrix(tabToString(tabObj), display_rien);
     }
 
     // var tabCli = {};
@@ -657,7 +654,7 @@ function display_fiche_vente(val) {
 
 function display_messageConfirmChangeEtatForm(val) {
     alertModalConfirm(val);
-    document.modalForm.obj_prix_vente.focus();
+    document.modalForm.obj_prix_depot.focus();
 
     // chargement de la liste des client par mel
     //x_return_listClientByMel(display_listAcheteur);
@@ -736,7 +733,7 @@ function display_fin_create(val) {
     }
 }
 
-function unloadPage() { }
+function unloadPage() {}
 
 
 /**

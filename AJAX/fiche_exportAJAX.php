@@ -5,6 +5,7 @@ sajax_export(
     "return_list_tailles",
     "return_oneFiche",
     "action_updateFiche",
+    "action_updatePrix",
     "action_deleteFiche",
     "return_oneFicheByIdModif",
     "return_oneFicheByCode",
