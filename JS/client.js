@@ -9,9 +9,9 @@ function initPage() {
         x_return_tauxBAV(display_list_taux_com);
         // chargement des depot
         x_return_depotsBAV(display_list_prix_depot);
-        
+
         // recherche du client
-        setTimeout('x_return_oneClient(idClient, display_client)',200);
+        setTimeout('x_return_oneClient(idClient, display_client)', 200);
 
         if (ADMIN) {
             x_return_bavsClient(idClient, display_parametres);
@@ -77,8 +77,7 @@ function display_client(val) {
         cli_id = val['cli_id'];
         if (val['cli_emel']) {
             getElement("mailCode").href = "mailto:" + val['cli_emel'] + "?subject=Code d'accès à la bourse aux 1000 vélos. BAV&body=Bonjour " + val['cli_nom'] + ".%0D%0DVoici votre code pour l'accès à la bourse aux 1000 vélos : [" + val['code'] + "] qui est lié à votre adresse mail.%0D%0DCdt.%0DLe bureau de la Bourse aux 1000 vélos.";
-        }
-        else {
+        } else {
             getElement("mailCode").innerHTML = "";
         }
 
@@ -147,8 +146,7 @@ function display_creneau(val) {
         var repr = "Lié au créneau de dépôt du " + formatDate(val['cre_debut'], true);
         repr += "<span title='Supprimer' onclick='supprimerCrenau(" + val['cre_id'] + ")' class='link' >❌</span>";
         getElement("theCreneau").innerHTML = repr;
-    }
-    else {
+    } else {
         getElement("theCreneau").innerHTML = "Pas de créneau de dépôt choisit."
     }
 }
@@ -158,7 +156,7 @@ function supprimerCrenau(id) {
 
         var tabCli = recup_formulaire(document.clientForm, 'cli');
         tabCli['cli_id_cre'] = "0";
-        
+
         x_action_updateClient(tabToString(tabCli), display_creneau);
     }
 }
@@ -220,7 +218,7 @@ function display_fiches_depot(val) {
 
     var total = display_fiches(val, 'fiches');
 
-    
+
 
     if (sens == "asc") {
         classSort = "sortUp";
@@ -259,7 +257,7 @@ function display_fiches_depot(val) {
         }
     }
 
-   
+
 
 }
 
@@ -271,7 +269,7 @@ function display_fiches(val, idElement) {
 
     // console.log(val);
 
-    var numeroCreneau=0;
+    var numeroCreneau = 0;
     var total = 0;
     var repr = "<table width='100%'>";
     for (index in val) {
@@ -330,7 +328,7 @@ function display_fiches(val, idElement) {
                 repr += "</td>";
                 repr += "</tr>";
 
-                
+
             }
             total = total + 1;
         }
@@ -341,7 +339,7 @@ function display_fiches(val, idElement) {
 
     getElement('total' + idElement).innerHTML = total;
 
-    
+
 
     // console.log('total'+idElement);
     return total;
@@ -474,6 +472,9 @@ function display_fiches_facture(val) {
     var total = 0;
     var totalCom = 0;
     var nb = 0;
+
+    var totalDepot = 0;
+    var nbD = 0;
     for (index in val) {
         if (val[index]['obj_prix_vente'] > 0 &&
             (val[index]['obj_etat'] == 'VENDU' || val[index]['obj_etat'] == 'PAYE')) {
@@ -483,10 +484,13 @@ function display_fiches_facture(val) {
             total += parseFloat(val[index]['obj_prix_vente']);
             totalCom += comFiche;
             nb++;
-           
         }
+        nbD++;
+        totalDepot += parseFloat(val[index]['cli_prix_depot']);;
+
         data['cli_nom'] = val[index]['cli_nom'];
         data['cli_taux_com'] = val[index]['cli_taux_com'];
+        data['cli_prix_depot'] = val[index]['cli_prix_depot'];
         data['cli_adresse'] = val[index]['cli_adresse'];
         data['cli_adresse1'] = val[index]['cli_adresse1'];
         data['cli_code_postal'] = val[index]['cli_code_postal'];
@@ -496,12 +500,17 @@ function display_fiches_facture(val) {
     data['total'] = total;
     data['totalCom'] = totalCom;
     data['nb'] = nb;
+
+    data['totalDepot'] = totalDepot;
+    data['totalComDepot'] = totalDepot + totalCom;
+    data['nbD'] = nbD;
+
     var today = new Date();
-    data['numFac'] = data['cli_code'] + "-" + today.getMinutes()+today.getMilliseconds();
+    data['numFac'] = data['cli_code'] + "-" + today.getMinutes() + today.getMilliseconds();
     data['today'] = formatDate(today.toISOString(), false);
 
     console.log(tabToString(data));
- 
+
     x_get_publiHtml(tabToString(data), 'factureCom.html', display_viewHTML);
 }
 

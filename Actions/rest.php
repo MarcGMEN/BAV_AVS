@@ -48,7 +48,7 @@ if ($GET_a == "T") {
         
         setcookie('TABLE_BAV', $INFO_APPLI['numero_bav'], $expir, '/') or die('unable to create cookie');
 
-        $message = "Votre téléphone est paramétré pour un accès vendeur à la BAV jusqu'au : ".date("d M Y H:i:s",$expir );
+        $message = "Votre téléphone est paramétré pour un accès table à la BAV jusqu'au : ".date("d M Y H:i:s",$expir );
         // echo "<html><body>";
         // echo "<H1>Bonjour,<br/> Votre téléphone est paramétré pour un accès vendeur à la BAV jusqu'au : ".date("d M Y H:i:s",$expir )."</h1>";
         // echo "<h1><a href='https://bourseaux1000velos.avs44.com/' >https://bourseaux1000velos.avs44.com</a>";

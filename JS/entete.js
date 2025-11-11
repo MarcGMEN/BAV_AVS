@@ -21,6 +21,9 @@ function initEntete() {
     if (GetCookie('CAFFARD_BAV')) {
         getElement('connex').innerHTML += "Caffard";
     }
+    if (GetCookie('TABLE_BAV')) {
+        getElement('connex').innerHTML += "Table";
+    }
 
     return_restant();
 }

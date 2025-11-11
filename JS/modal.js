@@ -5,7 +5,7 @@
  */
 function alertModalWarnTimeout(message, timeSec) {
     alertModalWarn(message);
-    setTimeout(function () { closeModal() }, timeSec * 1000);
+    setTimeout(function() { closeModal() }, timeSec * 1000);
 }
 /**
  * modal d'un warn avec fermeture par la croix
@@ -32,7 +32,7 @@ function alertModalWarn(message) {
  */
 function alertModalInfoTimeout(message, timeSec) {
     alertModalInfo(message);
-    setTimeout(function () { closeModal() }, timeSec * 1000);
+    setTimeout(function() { closeModal() }, timeSec * 1000);
 }
 
 /**
@@ -107,7 +107,7 @@ function alertModalConfirm(message, plus = '', titre = "Confirmation") {
 
     }
 
-    document.modalForm.onsubmit = function () {
+    document.modalForm.onsubmit = function() {
         searchStyle();
         confirmModal(plus);
         closeModal();
@@ -157,7 +157,7 @@ function display_getFicheVente(val) {
                 messageVente += "<div> Le vendeur est : " + val['cli_nom'] + "</div>";
                 messageVente += "<div >Le téléphone du vendeur " + val['cli_telephone'];
                 if (val['cli_telephone_bis'] != "") {
-                    messageVente += " ou " + val['cli_telephone_bis'] 
+                    messageVente += " ou " + val['cli_telephone_bis']
                 }
                 messageVente += "<div style='color:red'> Accessoire  : " + val['obj_accessoire'] + "</div>";
                 messageVente += "</div>"
