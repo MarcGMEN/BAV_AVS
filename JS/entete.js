@@ -67,10 +67,11 @@ function display_modifVendeurE(val) {
 var totalFiche = 0;
 
 function display_counter(val) {
+    console.log(val);
     if (val instanceof Object) {
         for (key in val) {
-            if (getElement(key)) {
-                getElement(key).innerHTML = val[key];
+            if (getElement("e_"+key)) {
+                getElement("e_"+key).innerHTML = val[key];
             }
         }
 
@@ -91,10 +92,10 @@ function display_counter(val) {
             totalVente += parseInt(val['PAYE']);
         }
 
-        getElement('TOTAL').innerHTML = totalFiche;
+        getElement('e_TOTAL').innerHTML = totalFiche;
 
         getElement('statVendu').innerHTML = parseInt((totalVente / totalFiche) * 100) + "%";
-        getElement('VENDU').innerHTML = totalVente;
+        getElement('e_VENDU').innerHTML = totalVente;
         if (val['RENDU']) {
             getElement('statRendu').innerHTML = parseInt((parseInt(val['RENDU']) / totalFiche) * 100) + "%";
         } else {
