@@ -22,8 +22,9 @@ function return_infoAppli()
     $ipLu = $_SERVER['REMOTE_ADDR'];
 
     $par = return_parametreActif();
-
+    date_default_timezone_set('Europe/Paris');
     $tabIpsAdmin = explode(",", $par['par_admin_id_mac']);
+    $today = mktime(date('H'),date('i'),date('s'),date('m'),date('d'),date('Y'));
     $today = time();
     $infos['CLIENT'] = 0;
     $infos['ADMIN'] = $_COOKIE['AADD'] == $GLOBALS['PASS_ADMIN'] ? 1 : 0;
