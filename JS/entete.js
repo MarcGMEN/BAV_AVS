@@ -52,15 +52,15 @@ function return_restant() {
 }
 
 function display_modifStockE(val) {
-    getElement('countModifStock').innerHTML = sizeof(val) + " coupon" + (sizeof(val) > 1 ? "s" : "");
+    getElement('countModifStock').innerHTML = sizeof(val) + " cpn" + (sizeof(val) > 1 ? "s" : "");
 }
 
 function display_modifDataE(val) {
-    getElement('countModifData').innerHTML = sizeof(val) + " étiquette" + (sizeof(val) > 1 ? "s" : "");
+    getElement('countModifData').innerHTML = sizeof(val) + " étq" + (sizeof(val) > 1 ? "s" : "");
 }
 
 function display_modifVendeurE(val) {
-    getElement('countModifVendeur').innerHTML = sizeof(val) + " coupon" + (sizeof(val) > 1 ? "s" : "");
+    getElement('countModifVendeur').innerHTML = sizeof(val) + " cpn" + (sizeof(val) > 1 ? "s" : "");
 }
 
 /**

@@ -13,6 +13,7 @@ sajax_export(
     "delete_file",
     "add_cdp","return_lat_lon_cdp","return_all_lat_lon_cdp",
     "makeCarroussel",
+    "makeCarrousselGrand",
     "add_avis","get_avis","get_countAvis","delete_avis"
 );
 

@@ -66,6 +66,10 @@
     resize: none;
 }
 
+#visu_html {
+    overflow: auto;
+    /* white-space: nowrap; */
+}
 
 /* Paragraphs; First Image */
 

@@ -402,10 +402,10 @@ function finFiches() {
             // }
             repr += "</td>";
             if (firstKey >= base_info) {
-                repr += "<td style='"+styleL+"'>";
+                repr += "<td style='"+styleL+";font-size:7pt'>";
                 repr += map1.get(i)[3] == undefined ? "" : map1.get(i)[3] == "" ? "" : map1.get(i)[3];
                 repr += "</td>";
-                repr += "<td style='"+styleL+"'>";
+                repr += "<td style='"+styleL+";font-size:7pt'>";
                 repr += map1.get(i)[4] == undefined ? "" : map1.get(i)[4] == "" ? "" : map1.get(i)[4];
                 repr += "</td>";
             }
