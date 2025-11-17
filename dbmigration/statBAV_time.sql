@@ -34,16 +34,3 @@ where bo.obj_numero_bav ='2025'
 and bo.obj_date_depot is not null
 group by 1
 order by bo.obj_date_depot asc
-
-
--- comptage par type de vélo
-select count(*), obj_type, obj_numero_bav
-from bav_objet
-where obj_id_acheteur != null
-group by obj_numero_bav, obj_type
-
--- Comptage par modification de prix
-select count(*), obj_numero_bav
-from bav_objet
-where obj_prix_depot != obj_prix_vente
-GROUP by obj_numero_bav

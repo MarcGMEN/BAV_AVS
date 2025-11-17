@@ -282,60 +282,6 @@ function makeCarroussel($id)
     return $theCarroussel;
 }
 
-function makeCarrousselGrand($id)
-{
-    // Chemin du répertoire contenant les images
-    $imagesDir = "./Images/$id";
-    $imagesDirSearch = "../Images/$id";
-
-    // Ouvre le répertoire et récupère la liste des fichiers
-    if (is_dir($imagesDirSearch)) {
-        $files = scandir($imagesDirSearch);
-    } else {
-        die('Erreur : Le répertoire ' . $imagesDirSearch . ' des images n\'existe pas.');
-    }
-
-    // Filtre les fichiers pour ne garder que les images (jpg, jpeg, png, gif)
-    $imageFiles = array_filter($files, function ($file) use ($imagesDirSearch) {
-        $filePath = $imagesDirSearch . '/' . $file;
-        return is_file($filePath) && preg_match('/\.(jpg|jpeg|png|gif)$/i', $file);
-    });
-
-    $theCarroussel = "<style>
-.$id {
-    width: 90%;
-    height:100%vh;
-    /* max-width: 600px; */
-    overflow: hidden;
-    margin: 0;
-    position: fixed;  
-    z-index:-1
-}
-
-.$id-images {
-    display: flex;
-    transition: transform 1s ease-in-out;
-    opacity: 0.4;
-}
-
-.$id-images img {
-    width: 100%;
-    flex-shrink: 0;
-}</style>";
-
-    $theCarroussel .=" <div class=" . $id . " >";
-    // Génère les balises <img> pour chaque image
-    $theCarroussel .= "<div class='" . $id . "-images' >";
-    foreach ($imageFiles as $file) {
-        $imgStr = "<img src=" . $imagesDir . "/" . $file . "  />";
-        $theCarroussel .= "
-        <img src='" . $imagesDir . "/" . $file . "' alt='" . pathinfo($file, PATHINFO_FILENAME) . "' >";
-    }
-    $theCarroussel .= "</div>";
-    $theCarroussel .= "</div>";
-    return $theCarroussel;
-}
-
 /* *************************** AVSI ******************************* */
 function add_avis($note, $commentaire)
 {

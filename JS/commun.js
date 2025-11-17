@@ -629,5 +629,5 @@ function updateCarousel(idCarrousel) {
     const carouselImages = document.querySelector("."+idCarrousel+'-images'     );
     carouselImages.style.transform = `translateX(${offset}%)`;
 
-    setTimeout("showNextImage('"+idCarrousel+"',0)", 4000);
+    setTimeout("showNextImage('"+idCarrousel+"',0)", 2000);
 }

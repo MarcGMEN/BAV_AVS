@@ -83,7 +83,6 @@ $maxFiche = $infAppli['NB_MODIF'];
 			</td>
 			<td>
 				<input type=text name='cli_telephone' disabled placeholder="téléphone" title="téléphone" tabindex=9 size="10" maxlength="13" style='width:100px'>
-				<div style="font-size:0.6em">Facultatif</div>
 			</td>
 
 		</tr>

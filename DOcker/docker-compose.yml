@@ -1,19 +1,19 @@
 services:
-  php_bav:
+  php:
     build:
       context: .
       dockerfile: DockerFile_php
-    container_name: php_app_bav
+    container_name: php_app
     volumes:
       - ..:/var/www/html
     ports:
       - "8090:80"
     depends_on:
-      - db_bav
+      - db
 
-  db_bav:
+  db:
     image: mysql:8.0
-    container_name: mysql_db_bav
+    container_name: mysql_db
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -24,9 +24,9 @@ services:
       #- db_data:/var/lib/mysql
       - ../dbmigration/init_db:/docker-entrypoint-initdb.d:ro   # monte tout le dossier db
       # Docker exécutera tous les .sql dans ce dossier dans l'ordre alphabétique
-  phpmyadmin_bav:
+  phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin_bav
+    container_name: phpmyadmin
     restart: always
     ports:
       - "8091:80"
