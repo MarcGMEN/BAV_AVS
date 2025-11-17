@@ -3,17 +3,17 @@ services:
     build:
       context: .
       dockerfile: DockerFile_php
-    container_name: php_app
+    container_name: php_app_bav
     volumes:
       - ..:/var/www/html
     ports:
       - "8090:80"
     depends_on:
-      - db
+      - db_bav
 
   db_bav:
     image: mysql:8.0
-    container_name: mysql_db
+    container_name: mysql_db_bav
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -26,7 +26,7 @@ services:
       # Docker exécutera tous les .sql dans ce dossier dans l'ordre alphabétique
   phpmyadmin_bav:
     image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
+    container_name: phpmyadmin_bav
     restart: always
     ports:
       - "8091:80"

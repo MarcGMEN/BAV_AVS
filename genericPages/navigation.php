@@ -14,19 +14,19 @@ $today = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
 // print_r($infAppli);
 $tabNavAll = [
     'news.php' => [
-        'libelle' => 'News',
+        'libelle' => 'Accueil',
     ],
     'bav.php' => [
-        'libelle' => 'La Bourse',
+        'libelle' => 'A propos',
     ],
     'animations.php' => [
         'libelle' => 'Animations',
         'notif' => "ANIM"
     ],
-    'reglements.php' => [
-        'libelle' => 'Réglements',
-        'mode' => 'B',
-    ],
+    // 'reglements.php' => [
+    //     'libelle' => 'Réglements',
+    //     'mode' => 'B',
+    // ],
     'faq.php' => [
         'libelle' => 'F.A.Q.',
         'notif' => "FAQ"

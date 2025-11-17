@@ -71,7 +71,7 @@ $tabInfo = [
 							title="Génération du PDF" )>PDF</span>
 					<? } ?>
 					<? if ($idText != "pre-check") { ?>
-						<i class="fas fa-edit"
+						<i class="fas fa-edit link"
 							onclick="x_return_html('<?= $idText ?>', display_html_file);idText='<?= $idText ?>';getElement('html_file_title').innerHTML='<?= addslashes($title) ?>'  "
 							title="Modification du document"></i>
 					<? } ?>
@@ -415,7 +415,6 @@ $tabInfo = [
 										onclick='imprimePreCheck(this.form.classeurs.options)'>
 								</td>
 								<td width=20%>Feuille A4 blanche</td>
-
 							</tr>
 						</table>
 					</form>
@@ -450,25 +449,38 @@ $tabInfo = [
 		<!-- <textarea style="width:100%" rows=150 id="editor_html_file" contenteditable="true"></textarea> -->
 		<!-- <textarea style="width:100%;heigth:40%" rows=25 id="editor_html_file"></textarea> -->
 
-
-		<div style="height: 250px;position: relative;">
-			<textarea placeholder="Enter HTML Source Code" id="editing"
-				spellcheck="false"
-				oninput="update(this.value); sync_scroll(this);"
-				onscroll="sync_scroll(this);"
-				onkeydown="check_tab(this, event);"
-				onkeyup="getElement('visu_html').innerHTML=this.value">
-			</textarea>
-			<pre id="highlighting" aria-hidden="true">
-				<code class="language-html" id="highlighting-content">
-				</code>
-			</pre>
-		</div>
+		<table width=100%>
+			<tr>
+				<td width=45% style='vertical-align: top'>
+					<div style="width:100%;height:600px;position: relative">
+						<textarea placeholder="Enter HTML Source Code" id="editing"
+							spellcheck="false"
+							oninput="update(this.value); sync_scroll(this);"
+							onscroll="sync_scroll(this);"
+							onkeydown="check_tab(this, event);"
+							onkeyup="getElement('visu_html').innerHTML=this.value">
+					</textarea>
+						<pre id="highlighting" aria-hidden="true">
+							<code class="language-html" id="highlighting-content">
+							</code>
+						</pre>
+					</div>
+				</td>
+				<td style='vertical-align: top; max-height:65%'>
 		<!-- <textarea style="width:100%; height: 200px;" rows=150 id="editor_html_file" onkeyup="getElement('visu_html').innerHTML=this.value"></textarea> -->
-		<div id="visu_html" style="border:1px black solid">
-		</div>
+					<div id="visu_html" style="border:1px black solid;height: 600px;;width:100%">
+					</div>
+				</td>
+			</tr>
+		</table>
+
 	</div>
 	<script src="JS/prism.js"></script>
 	<script src="JS/editor.js"></script>
 
 </form>
+
+&nbsp;<br/>
+&nbsp;<br/>
+&nbsp;<br/>
+&nbsp;<br/>
