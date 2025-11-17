@@ -1,5 +1,5 @@
 services:
-  php:
+  php_bav:
     build:
       context: .
       dockerfile: DockerFile_php
@@ -11,7 +11,7 @@ services:
     depends_on:
       - db
 
-  db:
+  db_bav:
     image: mysql:8.0
     container_name: mysql_db
     restart: always
@@ -24,7 +24,7 @@ services:
       #- db_data:/var/lib/mysql
       - ../dbmigration/init_db:/docker-entrypoint-initdb.d:ro   # monte tout le dossier db
       # Docker exécutera tous les .sql dans ce dossier dans l'ordre alphabétique
-  phpmyadmin:
+  phpmyadmin_bav:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin
     restart: always
