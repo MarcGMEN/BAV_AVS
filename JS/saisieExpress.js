@@ -1,6 +1,7 @@
 focus = true;
 
 var baseNumFiche = 1;
+var ligneSelect=0;
 
 function initPage() {
     if (theId != "") {
@@ -136,7 +137,7 @@ function display_listVendeurName(val) {
  * @param  val 
  */
 function display_fichesExpress(val) {
-    //console.log(val);
+    console.log("display_fichesExpress ");
 
     for (var num = baseNumFiche; num <= (parseInt(classeur) + parseInt(baseNumFiche)); num++) {
         //console.log(num, baseNumFiche, (parseInt(maxFiche) + parseInt(baseNumFiche)));
@@ -160,8 +161,9 @@ function display_fichesExpress(val) {
 function afficheLigne(val) {
     // on dispose de ligne de 1 a maxFiche (50);
     // donc le 1 = numero fiche  -  base
-    // console.log(val);
+    console.log("afficheligne "+val['obj_numero']);
     var index = parseInt(val['obj_numero']) - baseNumFiche + 1;
+    
     if (getElement("numero_" + index)) {
         getElement("tr_" + index).style = "";
         getElement("numero_" + index).innerHTML = val['obj_numero'];
@@ -317,7 +319,7 @@ function display_ficheN(val) {
 
 function display_fiche(val) {
     getElement("but_action").disabled = false;
-
+   
     // on revient sur le numero de fiche en focus
     document.searchFormFiche.numeroFiche.value = "";
     //console.log("#tr_"+val['obj_numero']);
@@ -474,6 +476,14 @@ function display_fiche(val) {
         getElement("but_action").style.display = 'block';
         getElement("but_action").innerHTML = "Créer";
     }
+
+     var index = val['obj_numero'] - baseNumFiche + 1;
+    if (ligneSelect != 0) {
+        getElement("tr_" + ligneSelect).style = "";
+    }
+    ligneSelect=index;
+    getElement("tr_" + index).style = "background-color: #00b7cd";
+
 }
 
 /**
