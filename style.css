@@ -54,7 +54,8 @@ a:hover {
     border: 0.5px
 }
 
-.link,.link0 {
+.link,
+.link0 {
     cursor: pointer;
 }
 
@@ -144,7 +145,7 @@ input[type=file] {
 button:hover,
 input[type=submit]:hover,
 input[type=button]:hover {
-    background-color:lightyellow ;
+    background-color: lightyellow;
     color: #1161a2;
     /* font-weight: bold; */
     border-style: inset;
@@ -293,7 +294,7 @@ div.pied {
     margin-left: auto;
     bottom: 0;
     z-index: 100;
-    border-top:1px solid grey
+    border-top: 1px solid grey
 }
 
 div.entete {
@@ -311,11 +312,20 @@ div.menuTable {
     height: 30px;
 }
 
+div.col-menuTable {
+    padding: 1 0 1 0;
+    /* border: 1px solid red; */
+}
+
+div.col-menuTableEtat {
+    text-align: right;
+}
+
 .BH_CADRE {
     /*font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;*/
     font-family: Verdana, Arial, Helvetica, sans-serif;
     /*background-color: lightblue;*/
-    background-color:WHITE;
+    background-color: WHITE;
     width: 100%;
     /*height: 100%;*/
     /*text-align: center;*/
@@ -412,7 +422,7 @@ div.SSMENU {
     text-align: center;
 }
 
-#loupe, 
+#loupe,
 #inputSearch {
     font-size: 1.2em;
 }
@@ -433,11 +443,11 @@ div.SSMENU {
         display: block;
         top: 10;
         left: 10;
-    }   
-    .menuNavigation  {
+    }
+    .menuNavigation {
         display: none;
     }
-    .noDesk  {
+    .noDesk {
         display: block;
     }
     .menuNavigation.responsive {
@@ -497,6 +507,7 @@ table.PP {
 
 
 /* FENETRE_PRINCIPALE */
+
 
 /**********************/
 
@@ -625,7 +636,6 @@ table {
     font-family: Verdana, Arial, Helvetica, sans-serif;
     /*color: #1161a2;*/
     color: black;
-    
     font-weight: bold;
     text-align: right;
     font-size: 0.8em;
@@ -646,8 +656,8 @@ table {
 tr.tabl0 {
     border-bottom: 0.5px solid grey;
     padding: 2pt;
-    
 }
+
 td.tabl0 {
     font-size: 0.7em;
 }
@@ -702,12 +712,13 @@ div.fiche_0 {
     margin-top: 10pt;
     margin-bottom: 10pt;
 }
+
 div.fiche_1 {
     font-weight: bold;
 }
 
 div.fiche_desc {
-    flex:1;
+    flex: 1;
     border: 0.5pt grey solid;
     background-color: lightgray;
     padding: 2pt 2pt 2pt 2pt;
@@ -729,7 +740,7 @@ div.fiche_desc {
 }
 
 #countModifStock {
-    background-color: lightblue ;
+    background-color: lightblue;
 }
 
 tr.VENDU,
@@ -776,6 +787,7 @@ span.WARN {
     padding-bottom: 5pt;
 }
 
+
 /* .tabInput:hover {
     font-weight: bold;
 } */
@@ -809,7 +821,6 @@ span.WARN {
 .onMobileBlock {
     display: none;
 }
-
 
 .maskMobileBlock {
     display: inline-block;
@@ -893,7 +904,6 @@ img.logo {
     .onMobileBlock {
         display: inline-block;
     }
-    
     .tabl1,
     .tabl0,
     tr.tabl0 {
@@ -1037,6 +1047,6 @@ img.logo {
 }
 
 div.tree0:hover {
-    border-top:1px solid black;
-    border-bottom:1px solid black;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
 }
