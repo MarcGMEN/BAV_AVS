@@ -107,7 +107,7 @@ $maxFiche = $infAppli['NB_MODIF'];
 </table>
 <div style="overflow-y: scroll; height:55%" id="divscroll">
 	<form name=formTabSaisie onSubmit='return false'>
-		<table width='100%' id='tableFiches' border=1>
+		<table width='100%' id='tableFiches'>
 			<?php for ($index = 1; $index <= $maxFiche; $index++) { ?>
 				<tr class='tabl0' id="tr_<?= $index ?>">
 					<td width=11% id="action_<?= $index ?>"></td>

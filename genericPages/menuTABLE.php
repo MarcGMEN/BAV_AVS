@@ -29,14 +29,6 @@
 			</div>
 		</div>
 		<div class="col-md-2 col-sm-2 col-xs-12">
-			<div class="col-md-4 col-sm-4 col-xs-4" style="text-align:right">Total</div>
-			<div class="col-md-8 col-sm-8 col-xs-8">
-				<!-- fiche etat valide -->
-				<span id="e_TOTAL" style='font-weight: bold'>...</span>
-			</div>
-		</div>
-
-		<div class="col-md-2 col-sm-2 col-xs-12">
 			<div class="col-md-4 col-sm-4 col-xs-4" style="text-align:right">Vendu</div>
 			<div class="col-md-2 col-sm-2 col-xs-2">
 				<!-- fiche etat cofirme -->
@@ -54,5 +46,13 @@
 				<small><span id="statRendu">...</span></small>
 			</div>
 		</div>
+		<div class="col-md-2 col-sm-2 col-xs-12">
+			<div class="col-md-4 col-sm-4 col-xs-4" style="text-align:right">Total</div>
+			<div class="col-md-8 col-sm-8 col-xs-8">
+				<!-- fiche etat valide -->
+				<span id="e_TOTAL" style='font-weight: bold'>...</span>
+			</div>
+		</div>
+
 	</div>
 </div>

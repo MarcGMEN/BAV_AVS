@@ -705,7 +705,7 @@ function display_fin_delete(val) {
 
 
 function display_fin_create(val) {
-    console.log(val);
+    //console.log(val);
     if (val instanceof Object) {
         // if (document.formSaisieExpress.cli_id.value != '') {
         //     x_return_oneClient(document.formSaisieExpress.cli_id.value, display_infoClientVendeur);

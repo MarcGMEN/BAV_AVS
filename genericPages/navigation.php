@@ -88,6 +88,10 @@ if ($infAppli['ADMIN']) {
                     'libelle' => 'Paramètres',
                     'class' => 'maskMobileBlock',
                 ],
+                    'reglements.php' => [
+                    'libelle' => 'Réglements',
+                    'mode' => 'B',
+                ],
                 'creneau.php' => [
                     'libelle' => 'Créneaux'
                 ],

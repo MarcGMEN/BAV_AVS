@@ -52,14 +52,14 @@ $tabInfo = [
 				<? if (!startsWith($title, "VIDE")) {
 					echo $title;
 				} else {
-					echo "<div style='background-color: lightblue;'>&nbsp;</div>";
+					echo "<div style='background-color: #00b7cd;'>&nbsp;</div>";
 				}
 				?>
 			</td>
 
 			<? if (startsWith($title, "VIDE")) { ?>
 				<td colspan=5>
-					<div style="background-color: lightblue;font-weight: bold;">
+					<div style="background-color: #00b7cd;font-weight: bold;">
 						<?= $idText ?>
 					</div>
 				</td>

@@ -346,6 +346,7 @@ div.SSMENU {
     padding: 10px 10px 10px 1px;
     -moz-border-radius: 10px;
     border-radius: 10px;
+    text-align: left;
 }
 
 .url {
@@ -622,7 +623,9 @@ table {
 
 .titrow {
     font-family: Verdana, Arial, Helvetica, sans-serif;
-    color: #1161a2;
+    /*color: #1161a2;*/
+    color: black;
+    
     font-weight: bold;
     text-align: right;
     font-size: 0.8em;
@@ -634,7 +637,8 @@ table {
 .tabAction {
     font-family: Verdana, Arial, Helvetica, sans-serif;
     background-color: WHITE;
-    color: #1161a2;
+    /*color: #1161a2;*/
+    color: black;
     border: 0px;
     padding: 2pt 2pt 2pt 2pt;
 }
