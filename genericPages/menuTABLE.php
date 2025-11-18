@@ -24,7 +24,7 @@
 				<!-- fiche etat cofirme -->
 				<span id="e_STOCK" class='link' onclick='goTo("stock.php","obj_etat","STOCK",null)' style='font-weight: bold'>...</span>
 			</div>
-			<div class="col-md-6 col-sm-6 col-xs-6 col-menuTable">
+			<div class="col-md-3 col-sm-3 col-xs-3 col-menuTable" >
 				<div id=countModifStock title="Nb de coupons sortie à imprimer"></div>
 			</div>
 		</div>
