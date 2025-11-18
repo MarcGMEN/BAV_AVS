@@ -90,7 +90,7 @@ function searchFicheExpress(num) {
         baseNumFiche = parseInt((parseInt((parseInt(num) - 1) / parseInt(classeur))) * parseInt(classeur) + 1);
         // console.log("On est sur la base de " + baseNumFiche + "  via " + num + " pour max " + classeur);
         x_return_fiches_express(baseNumFiche, display_fichesExpress);
-        setTimeout('x_return_oneFicheByCode(' + num + ', display_ficheN)', 100);
+        setTimeout('x_return_oneFicheByCode(' + num + ', display_ficheN)', 250);
 
     }
 }
