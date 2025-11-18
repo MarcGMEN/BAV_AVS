@@ -5,16 +5,16 @@
 
 	function display_bav_actu(val) {
 		getElement('bav_actu').innerHTML = val;
-		x_makeCarroussel('carroussel', display_carroussel);
-		x_makeCarroussel('carroussel1', display_carroussel1);
+		x_makeCarrousselGrand('carroussel', display_carroussel);
+//		x_makeCarroussel('carroussel1', display_carroussel1);
 	}
 	
 	function unloadPage() {
 	}
 
 	function display_carroussel(val) {
-		if (getElement('carroussel')) {
-			getElement('carroussel').innerHTML = val;
+		if (getElement('carrousselA')) {
+			getElement('carrousselA').innerHTML = val;
 			showNextImage('carroussel');
 		}
 	}
@@ -59,4 +59,8 @@ $data = array(
 		</h3>
 	</form>
 <? } ?>
-	<div id="bav_actu"></div>
+	<div id="carrousselA" >
+	</div>
+	<div id="bav_actu" style='position: relative;z-index:1'>
+	</div>
+	

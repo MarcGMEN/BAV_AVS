@@ -24,7 +24,7 @@
 
 body.parent,
 body {
-    font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
     color: BLACK;
     margin: 0px;
     font-size: 9pt;
@@ -303,6 +303,12 @@ div.entete {
     margin-left: auto;
     top: 0;
     z-index: 100;
+    background-color: white;
+}
+
+div.menuTable {
+    font-size: 1em;
+    height: 30px;
 }
 
 .BH_CADRE {
@@ -402,6 +408,7 @@ div.SSMENU {
 
 .tdMenu {
     width: 90%;
+    text-align: center;
 }
 
 #loupe, 
@@ -495,7 +502,7 @@ table.PP {
 div.FENETRE_PRINCIPALE {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1em;
-    /* background-color: #EEE; */
+    /* background-color: #0bd; */
     vertical-align: top;
     width: 100%;
     z-index: 2;
