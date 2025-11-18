@@ -204,6 +204,7 @@ function afficheLigne(val) {
         if (val['obj_etat'] == "CONFIRME") {
             new_etat = "STOCK";
             new_libelle = "Stocker";
+            action += "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\"," + val['obj_prix_vente'] + "," + val['obj_numero'] + ")' />";
             var thePrix = val['obj_prix_depot'];
             var actionPrix = "<input type='number' name='obj_prix_vente_" + index + "' min=1 step='0.1' value='" + thePrix + "' />";
             getElement("prix_vente_" + index).innerHTML = actionPrix;
@@ -214,7 +215,7 @@ function afficheLigne(val) {
 
             getElement("prix_nego_" + index).innerHTML = actionPrixNego;
 
-            action += "&nbsp;<span title='Modifier'  onclick='modifData(" + val['obj_id'] + ", " + index + ")' class='link' style='visibility:hidden' ><i class='link fas fa-edit'></i>&nbsp;</span >";
+            //action += "&nbsp;<span title='Modifier'  onclick='modifData(" + val['obj_id'] + ", " + index + ")' class='link' style='visibility:hidden' ><i class='link fas fa-edit'></i>&nbsp;</span >";
 
         } else if (val['obj_etat'] == "STOCK") {
             new_etat = "RENDU";
@@ -632,7 +633,7 @@ function modifData(idobj, index) {
         tabObj['obj_id'] = idobj;
     }
     if (tabObj.obj_id) {
-        x_action_updatePrix(tabToString(tabObj), display_rien);
+        x_action_updatePrix(tabToString(tabObj), display_fin_create);
     }
 
     // var tabCli = {};
