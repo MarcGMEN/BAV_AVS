@@ -31,7 +31,7 @@ services:
     ports:
       - "8091:80"
     environment:
-      PMA_HOST: db
+      PMA_HOST: db_bav
       PMA_USER: root
       PMA_PASSWORD: root
 

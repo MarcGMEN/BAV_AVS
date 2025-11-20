@@ -456,7 +456,7 @@ function return_graphCount($by, $dataGraph = '')
 function return_histoCount($selectoin, $by, $width = 400, $height = 250, $sort = 0, $dataGraph = '', $minima = 0)
 {
     if ($dataGraph == 'client') {
-        $tabCount = return_statClient();
+       // $tabCount = return_statClient();
     } else if ($dataGraph == 'vente') {
         $tabCount = return_statByType($selectoin, "vente");
     } else {
@@ -506,9 +506,9 @@ function return_histoCount($selectoin, $by, $width = 400, $height = 250, $sort =
 
         // Spécification des couleurs des barres
         $aColors = array('white', 'black', 'green', 'yellow', 'brown', 'red', 'blue', 'lightgreen');
-        //$bplot->SetFillColor($aColors);
-        $bplot->SetFillGradient('AntiqueWhite2', 'AntiqueWhite4:0.8', GRAD_VERT);
-        $bplot->SetColor('yellow');
+        $bplot->SetFillColor($aColors);
+        // $bplot->SetFillGradient('AntiqueWhite2', 'AntiqueWhite4:0.8', GRAD_VERT);
+        // $bplot->SetColor('yellow');
 
         // Fixer l'aspect de la police
         $bplot->value->SetFont(FF_FONT2, FS_NORMAL, 10);

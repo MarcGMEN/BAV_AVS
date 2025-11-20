@@ -1,0 +1,17 @@
+INSERT INTO `bav_actu`(`act_titre`, `act_text`, `act_numero_bav`, `act_type`, `act_active`, `act_date`, `act_mail`) 
+VALUES
+('Quand déposer un vélo ?','Le dépôt se fait le vendredi de 17h à 20h et le samedi toute la journée. Un pré-dépôt en ligne est ouvert avant l’événement.',2025,'FAQ',1,'2025-11-01 12:12:12','avs.vtt@mgail.com'),
+('Que peut-on déposer ?','Vélos, VAE, roues, remorques, gros accessoires. Pas de vêtements, petits accessoires ou livres.',2025,'FAQ',1,'2025-11-01 12:12:12','avs.vtt@mgail.com'),
+('Y a-t-il une limite de vélos par vendeur ?','Aucune limite. Une procédure "gros vendeur" existe pour les dépôts de plus de 15 vélos.',2025,'FAQ',1,'2025-11-01 12:12:12','avs.vtt@mgail.com'),
+('Existe-t-il un listing des vélos en vente ?','Oui, un catalogue en ligne est disponible à partir du samedi matin.',2025,'FAQ',1,'2025-11-01 12:12:12','avs.vtt@mgail.com'),
+('Quels sont les moyens de paiement ?','Dépôt et commission : carte, chèque, liquide. Achat : chèque ou liquide uniquement.',2025,'FAQ',1,'2025-11-01 12:12:12','avs.vtt@mgail.com'),
+('Peut-on essayer les vélos ?','Oui, les essais se font uniquement dans la Soucoupe, dans une zone prévue à cet effet.',2025,'FAQ',1,'2025-11-01 12:12:12','avs.vtt@mgail.com'),
+('Comment savoir si mon vélo est vendu ?','Sur place, par téléphone ou en ligne via le numéro du vélo, mise à jour instantanée.',2025,'FAQ',1,'2025-11-01 12:12:12','avs.vtt@mgail.com'),
+('Peut-on modifier le prix du vélo ?','Oui, en venant sur place et en demandant au staff.',2025,'FAQ',1,'2025-11-01 12:12:12','avs.vtt@mgail.com'),
+('Quand récupérer un vélo non vendu ?','Le dimanche jusqu’à 18h. Une autre personne peut venir avec le coupon dépôt.',2025,'FAQ',1,'2025-11-01 12:12:12','avs.vtt@mgail.com'),
+('Y a-t-il de l’aide pour estimer ou choisir un vélo ?','Oui, desc bénévoles conseillent vendeurs et acheteurs.',2025,'FAQ',1,'2025-11-01 12:12:12','avs.vtt@mgail.com');
+
+
+update `bav_actu` 
+set act_active = 0
+WHERE `act_type` = 'FAQ' and act_mail !='avs.vtt@mgail.com' or act_mail is null
