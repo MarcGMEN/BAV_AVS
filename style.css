@@ -446,6 +446,7 @@ div.SSMENU {
     }
     .menuNavigation {
         display: none;
+        text-align: left;
     }
     .noDesk {
         display: block;

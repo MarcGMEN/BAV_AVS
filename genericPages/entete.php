@@ -2,23 +2,23 @@
 
 <div class="BH_CADRE" cellspacing="0" cellpadding="0">
 	<div class="row"  style='background-color:#0bd;height:30px;vertical-align: middle;'>
-		<div class="col-xs-1 col-sm-1 col-md-1">
+		<div class="col-xs-4 col-sm-1 col-md-1">
 			<a href="https://www.facebook.com/events/1924975591261118" target="_blank"><img src="Images/iconeFacebook.png" height=20px/></a>
 			&nbsp;&nbsp;
 			<a href="https://www.instagram.com/bourse.aux.1000.velos/"  target="_blank"><img src="Images/iconeInstagram.png" height=20px/></a> 
 		</div>
-		<div class="col-xs-9 col-sm-9 col-md-9 menuTable">
+		<div class="col-xs-8 col-sm-9 col-md-9 menuTable">
 			<?php if ($infAppli['ADMIN']) {
 				include './genericPages/menuTABLE.php';
 			}?>
 		</div>
-		<div class="col-xs-2 col-sm-2 col-md-2">
+		<div class="col-xs-2 col-sm-2 col-md-2 maskMobile">
 			#bourseaux1000velos&nbsp;#atlantiqueVeloSport
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-1 col-sm-1 col-md-1">
-				<div class="menuMobile " onclick="menuSel()">
+		<div class="col-xs-2 col-sm-1 col-md-1">
+				<div class="menuMobile "   onclick="menuSel()">
 					&boxh;&boxh;&boxh;&boxh;<br/>
 					<b>Menu</b><br/>
 					&boxh;&boxh;&boxh;&boxh;<br/>
@@ -37,7 +37,7 @@
 				</div>
 			
 		</div>
-		<div class="col-xs-10 col-sm-10 col-md-10">
+		<div class="col-xs-8 col-sm-10 col-md-10">
 			<div class="TITRE_FENETRE_PRINCIPALE">
 				<? $titreFen = retraitAccent($infAppli['titre']); 
 				// 20eme 
@@ -60,7 +60,7 @@
 			</table>
 			</div>
 		</div>
-		<div class="col-xs-1 col-sm-1 col-md-1">
+		<div class="col-xs-2 col-sm-1 col-md-1">
 			<!--<span style="float: left; display:none" id="theMenu">
 				<i class="fas fa-bars fa-3x" onclick="inverseDisplay('divMenu')"></i>
 				<div style="position:absolute; display:none" id='divMenu'>
