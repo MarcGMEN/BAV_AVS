@@ -43,39 +43,7 @@
 
 <fieldset class=fiche>
 	<legend class=titreFiche>Stat diverses</legend>
-	<table width="100%">
-		<tr>
-			<td class="tittab" width=33%>
-				<span>Type</span>
-				&nbsp;<select id="sel_obj_type" onchange="selectColonne()"></select>
-			</td>
-			<td class="tittab" width=33%>
-				<span>Public</span>
-				&nbsp;<select id="sel_obj_public" onchange="selectColonne()"></select>
-			</td>
-			<td class="tittab" width=33%>
-				<span>Pratique</span>
-				&nbsp;<select id="sel_obj_pratique" onchange="selectColonne()"></select>
-			</td>
-		</tr>
-	</table>
 	<?php
-	$tabCategLigneDepot = [
-		'prixMinidepot' => 'Prix mini depot',
-		'prixMaxidepot' => 'Prix maxi depot',
-		'prixMoyendepot' => 'Prix moyen depot',
-		'nbVeloVendeurdepot' => 'Nombre moyen de velo depose / vendeur',
-		'nbVeloMaxiVendeurdepot' => 'Nombre maxi de velo depose / vendeur',
-	];
-	$tabCategLigneVente = [
-		'prixMinivente' => 'Prix mini vente',
-		'prixMaxivente' => 'Prix maxi vente',
-		'prixMoyenvente' => 'Prix moyen vente',
-		'nbVeloVendeurvente' => 'Nombre moyen de velo vendu /vendeur ',
-		'nbVeloMaxiVendeurvente' => 'Nombre maxi de vélo vendu / vendeur',
-		'nbVeloAcheteur' => 'Nombre moyen de velo par acheteur',
-		'nbVeloMaxiAcheteur' => 'Nombre maxi de velo pour un acheteur'
-	];
 	$tabCategCol = [
 		'total',
 	];
@@ -98,37 +66,37 @@
 	<br />
 
 	<table width="100%">
-		<tr>
-			<td class="tittab" width=30%></td>
-			<td colspan=2 class="tittab" width=70%>
-				<span>Total </span>&nbsp;
-				<span id='count_depot'>()</span>&nbsp;
-				<span id='Tobj_type'>*</span>&nbsp;
-				<span id='Tobj_public'>*</span>&nbsp;
-				<span id='Tobj_pratique'>*</span>
+		<tr >
+			<th class="tittab" width='20%'></th>
+			<th class="tittab" width='40%'>Dépôt</th>
+			<th class="tittab" width='40%'>Vente</th>
+		</tr>
+		<tr class='tabl1'>
+			<td class="tittab">Prix maxi</td>
+			<td id='prixMaxidepot' style='text-align:center'>prixMaxidepot
+				<div class="link" id='plusprixMaxidepot' style='text-align:center'></div>
+			</td>
+			<td id='prixMaxivente' style='text-align:center'>prixMaxivente
+				<div class="link" id='plusprixMaxivente' style='text-align:center'></div>
 			</td>
 		</tr>
-		<?php
-		foreach ($tabCategLigneDepot as $keyL => $valL) {
-		?>
-			<tr class='tabl1'>
-				<td class="tittab"><?= $valL; ?></td>
-				<?php foreach ($tabCategCol as $valC) {
-				?>
-					<td width='30%' id='<?= $keyL; ?>' style='text-align:center'><?= $keyL; ?></td>
-					<td width='40%' class="link" id='plus<?= $keyL; ?>' style='text-align:center'></td>
-				<?php
-				} ?>
-			</tr>
-		<?php
-		} ?>
-	</table>
-	<hr />
-	<table width="100%">
+		<tr class='tabl1'>
+			<td class="tittab">Prix moyen</td>
+			<td id='prixMoyendepot' style='text-align:center'>prixMoyendepot
+				<div class="link" id='plusprixMoyendepot' style='text-align:center'></div>
+			</td>
+			<td id='prixMoyenvente' style='text-align:center'>prixMoyenvente
+				<div class="link" id='plusprixMoyenvente' style='text-align:center'></div>
+			</td>
+		</tr>
 		<tr class='tabl1'>
 			<td class="tittab">Nombre de vélos superieur à
-				<input type=range oninput="getElement('resultRangeDepot').innerHTML=this.value" onchange="x_return_countByTarifSup(tabToString(tabSel),this.value,'depot', display_countByTarifSupDepot);" min=0 max=3500 range=50 value=500 list="tickmarksDepot" />
-				<datalist id="tickmarksDepot">
+				<input type=range 
+					oninput="getElement('resultRange').innerHTML=this.value" 
+					onchange="x_return_countByTarifSup(tabToString(tabSel),this.value,'depot', display_countByTarifSupDepot);
+					x_return_countByTarifSup(tabToString(tabSel),this.value, 'vente', display_countByTarifSupVente);" 
+					min=0 max=3500 range=50 value=500 list="tickmarks" />
+				<datalist id="tickmarks">
 					<option value="0">
 					<option value="100">
 					<option value="200">
@@ -146,66 +114,19 @@
 					<option value="3000">
 					<option value="3500">
 				</datalist>
-				<div id="resultRangeDepot">500</div>
+				<div id="resultRange">500</div>
 			</td>
-			<td width='30%' id='count_rangeDepot' style='text-align:center'>--</td>
-			<td width='40%'><img id="tarifDepot" /></td>
+			<td id='count_rangeDepot' style='text-align:center'>--</td>
+			<td id='count_rangeVente' style='text-align:center'>--</td>
 		</tr>
-	</table>
-
-
-	<table width="100%">
 		<tr>
-			<td class="tittab" width=30%></td>
-			<td colspan=2 class="tittab" width=70%>
-				<span>Total </span>&nbsp;
-				<span id='count_vente'>()</span>&nbsp;
-				<span id='pourcent'>..</span>
-
-			</td>
+			<td>Répartition par prix</td>
+			<td ><img id="tarifDepot" /></td>
+			<td ><img id="tarifVente" /></td>
 		</tr>
-		<?php
-		foreach ($tabCategLigneVente as $keyL => $valL) {
-		?>
-			<tr class='tabl1'>
-				<td class="tittab"><?= $valL; ?></td>
-				<?php foreach ($tabCategCol as $valC) {
-				?>
-					<td width='30%' id='<?= $keyL; ?>' style='text-align:center'><?= $keyL; ?></td>
-					<td width='40%' class="link" id='plus<?= $keyL; ?>' style='text-align:center'></td>
-				<?php
-				} ?>
-			</tr>
-		<?php
-		} ?>
-	</table>
-	<hr />
-	<table width="100%">
-		<tr class='tabl1'>
-			<td class="tittab">Nombre de velo superieur a <input type=range oninput="getElement('resultRangeVente').innerHTML=this.value" onchange="x_return_countByTarifSup(tabToString(tabSel),this.value, 'vente', display_countByTarifSupVente);" min=0 max=3500 range=50 value=500 list="tickmarksVente" />
-				<datalist id="tickmarksVente">
-					<option value="0">
-					<option value="100">
-					<option value="200">
-					<option value="300">
-					<option value="400">
-					<option value="500">
-					<option value="600">
-					<option value="700">
-					<option value="800">
-					<option value="900">
-					<option value="1000">
-					<option value="1500">
-					<option value="2000">
-					<option value="2500">
-					<option value="3000">
-					<option value="3500">
-				</datalist>
-				<div id="resultRangeVente">500</div>
-			</td>
-			<td width='30%' id='count_rangeVente' style='text-align:center'>--</td>
-			<td width='40%'><img id="tarifVente" />
-			</td>
+		<tr>
+			<td>Répartition par type</td>
+			<td colspan=2><img id="typeVente" /></td>
 		</tr>
 	</table>
 </fieldset>

@@ -101,16 +101,17 @@ function return_statByType($selection, $type = 'depot')
         }
 
         // initialisation du tableau de comptage par categorie
-        $tabTmp = ['type', 'public', 'marque', 'pratique', 'couleur'];
+        //$tabTmp = ['type', 'public', 'marque', 'pratique', 'couleur'];
+        $tabTmp = ['type'];
         foreach ($tabTmp as $key) {
-            $tabCount["count_$key"] = [];
+            $tabCount["tab_$key"] = [];
         }
 
         // le prix min et maxi pour le premier
         $tabCount["prixMini$type"] = 1000000;
 
         // initialisation du tableau de repartition des tarifs
-        $tabCount['count_tarif'] = [];
+        $tabCount['tab_tarif'] = [];
 
         $tabCount['count_' . $type] = 0;
         $tabVendeur = [];
@@ -153,27 +154,27 @@ function return_statByType($selection, $type = 'depot')
                 $tarifOK = false;
                 foreach ($tabTarif as $valTarif) {
                     $keyTarif = $tarifOld . ' -> ' . ($valTarif - 1);
-                    if (!isset($tabCount['count_tarif'][$keyTarif])) {
-                        $tabCount['count_tarif'][$keyTarif] = 0;
+                    if (!isset($tabCount['tab_tarif'][$keyTarif])) {
+                        $tabCount['tab_tarif'][$keyTarif] = 0;
                     }
                     if ($thePrix < $valTarif) {
-                        ++$tabCount['count_tarif'][$keyTarif];
+                        ++$tabCount['tab_tarif'][$keyTarif];
                         $tarifOK = true;
                         break;
                     }
                     $tarifOld = $valTarif;
                 }
                 if (!$tarifOK) {
-                    ++$tabCount['count_tarif']['> ' . $valTarif];
+                    ++$tabCount['tab_tarif']['> ' . $valTarif];
                 }
 
                 // comptage par categorie
                 foreach ($tabTmp as $keyTmp) {
                     $keyObj = rtrim(trim($val['obj_' . $keyTmp]));
-                    if (!isset($tabCount["count_$keyTmp"][$keyObj])) {
-                        $tabCount["count_$keyTmp"][$keyObj] = 0;
+                    if (!isset($tabCount["tab_$keyTmp"][$keyObj])) {
+                        $tabCount["tab_$keyTmp"][$keyObj] = 0;
                     }
-                    ++$tabCount["count_$keyTmp"][$keyObj];
+                    ++$tabCount["tab_$keyTmp"][$keyObj];
                 }
 
                 // prix mini
@@ -402,9 +403,7 @@ function return_statRepartition()
  */
 function return_graphCount($by, $dataGraph = '')
 {
-    if ($dataGraph == 'client') {
-        $tabCount = return_statClient();
-    } else if ($dataGraph == 'vente') {
+   if ($dataGraph == 'vente') {
         $tabCount = return_statByType(null, "vente");
     } else {
         $tabCount = return_statByType(null, "depot");
@@ -455,29 +454,51 @@ function return_graphCount($by, $dataGraph = '')
  */
 function return_histoCount($selectoin, $by, $width = 400, $height = 250, $sort = 0, $dataGraph = '', $minima = 0)
 {
-    if ($dataGraph == 'client') {
-       // $tabCount = return_statClient();
-    } else if ($dataGraph == 'vente') {
-        $tabCount = return_statByType($selectoin, "vente");
+    $tabCount['depot'] = [];
+    $tabCount['vente'] = [];
+
+     if ($dataGraph == 'mixte') {
+        $tabCount['depot'] = return_statByType(null, "vente");
+        $tabCount['vente'] = return_statByType(null, "depot");
+    }
+    elseif ($dataGraph == 'vente') {
+        $tabCount['vente'] = return_statByType($selectoin, "vente");
     } else {
-        $tabCount = return_statByType($selectoin, "depot");
+        $tabCount['depot'] = return_statByType($selectoin, "depot");
     }
 
-    $tabUse = [];
-    foreach ($tabCount["count_$by"] as $key => $val) {
-        if ($val > $minima) {
-            $tabUse[$key] = $val;
+    $tabKey=[];
+    $tabUse['depot'] = [];
+    foreach ($tabCount['depot']["tab_$by"] as $key => $val) {
+        if ($val >= $minima) {
+            $tabUse['depot'][$key] = $val;
+        }
+        $tabKey[]=$key;
+    }
+    $tabUse['vente'] = [];
+    foreach ($tabCount['vente']["tab_$by"] as $key => $val) {
+        if ($val >= $minima) {
+            $tabUse['vente'][$key] = $val;
+        }
+        $tabKey[]=$key;
+    }
+    if ($dataGraph == 'mixte') {
+        foreach ($tabKey as $key ) {
+            if (!isset($tabUse['vente'][$key])) { $tabUse['vente'][$key]=0;}
+            if (!isset($tabUse['depot'][$key])) { $tabUse['depot'][$key]=0;}
         }
     }
 
     if ($sort == 1) {
-        arsort($tabUse);
+        arsort($tabUse['depot']);
+        arsort($tabUse['vente']);
     } elseif ($sort == 2) {
-        ksort($tabUse);
+        ksort($tabUse['vente']);
+        ksort($tabUse['depot']);
     }
     // Construction du conteneur
     // Spécification largeur et hauteur
-    $graph = new Graph($width, $height);
+    $graph = new Graph($width, $height,'auto');
 
     // Réprésentation linéaire
     // Echelle lineaire ('lin') en ordonnee et pas de valeur en abscisse ('text')
@@ -491,32 +512,75 @@ function return_histoCount($selectoin, $by, $width = 400, $height = 250, $sort =
     $graph->img->SetMargin(40, 30, 30, 80);
 
     // Création du graphique histogramme
-    $index = 0;
-    $tabData = [];
-    foreach (array_values($tabUse) as $val) {
-        $tabData[$index++] = $val;
+    if ($dataGraph == 'mixte' || $dataGraph == 'depot') {
+       $index = 0;
+        $tabData = [];
+        foreach (array_values($tabUse['depot']) as $val) {
+            $tabData['depot'][$index++] = $val;
+        }
+        if ($by =='tarif' ){
+            $tabData['depot'][$index] = '';
+        }
     }
-    $tabData[$index] = '';
-
+    if ($dataGraph == 'mixte' || $dataGraph == 'vente') {
+        $index=0;
+        foreach (array_values($tabUse['vente']) as $val) {
+            $tabData['vente'][$index++] = $val;
+        }
+        if ($by =='tarif' ){
+            $tabData['vente'][$index] = '';
+        }
+    }
+    
     if ($index > 0) {
-        //print_r($tabData);
-        $bplot = new BarPlot($tabData);
-        // Ajouter les barres au conteneur
-        $graph->Add($bplot);
+        if ($dataGraph == 'mixte') {
+            // Create the grouped bar plot
+            $b1plot = new BarPlot($tabData['depot']);
+            $b2plot = new BarPlot($tabData['vente']);
+            $gbplot = new GroupBarPlot(array($b1plot,$b2plot));
+            // ...and add it to the graPH
+            $graph->Add($gbplot);
 
-        // Spécification des couleurs des barres
-        $aColors = array('white', 'black', 'green', 'yellow', 'brown', 'red', 'blue', 'lightgreen');
-        $bplot->SetFillColor($aColors);
-        // $bplot->SetFillGradient('AntiqueWhite2', 'AntiqueWhite4:0.8', GRAD_VERT);
-        // $bplot->SetColor('yellow');
+            $b1plot->SetFillColor('#00b7cd');
+            $b1plot->SetColor('white');
+            // Fixer l'aspect de la police
+            $b1plot->value->SetFont(FF_FONT2, FS_NORMAL, 8);
+            // Modifier le rendu de chaque valeur
+            $b1plot->value->SetFormat('%d');
+            // Afficher les valeurs pour chaque barre
+            $b1plot->value->Show();
 
-        // Fixer l'aspect de la police
-        $bplot->value->SetFont(FF_FONT2, FS_NORMAL, 10);
-        // Modifier le rendu de chaque valeur
-        $bplot->value->SetFormat('%d');
-        // Afficher les valeurs pour chaque barre
-        $bplot->value->Show();
+            $b2plot->SetFillColor('lightgreen');
+            $b2plot->SetColor('white');
+            // Fixer l'aspect de la police
+            $b2plot->value->SetFont(FF_FONT2, FS_NORMAL, 8);
+            // Modifier le rendu de chaque valeur
+            $b2plot->value->SetFormat('%d');
+            // Afficher les valeurs pour chaque barre
+            $b2plot->value->Show();
 
+        }
+        else {
+            //print_r($tabData);
+            $bplot = new BarPlot($tabData[$dataGraph]);
+            // Ajouter les barres au conteneur
+            $graph->Add($bplot);
+             // Spécification des couleurs des barres
+            //$aColors = array('white', 'black', 'green', 'yellow', 'brown', 'red', 'blue', 'lightgreen','lightblue','salmon');
+            //$bplot->SetFillColor($aColors);
+
+            $bplot->SetFillColor('#00b7cd');
+            $bplot->SetColor('white');
+            // $bplot->SetFillGradient('AntiqueWhite2', 'AntiqueWhite4:0.8', GRAD_VERT);
+            // $bplot->SetColor('yellow');
+
+            // Fixer l'aspect de la police
+            $bplot->value->SetFont(FF_FONT2, FS_NORMAL, 10);
+            // Modifier le rendu de chaque valeur
+            $bplot->value->SetFormat('%d');
+            // Afficher les valeurs pour chaque barre
+            $bplot->value->Show();
+        }
         // Le titre
         $titre = "Repartition par $by";
         if ($minima > 0) {
@@ -531,7 +595,12 @@ function return_histoCount($selectoin, $by, $width = 400, $height = 250, $sort =
         $graph->yaxis->title->SetFont(FF_FONT1, FS_BOLD);
 
         // Légende pour l'axe horizontal
-        $graph->xaxis->SetTickLabels(array_keys($tabUse));
+        if ($dataGraph == 'mixte') {
+            $graph->xaxis->SetTickLabels(array_keys($tabUse['vente']));
+        }
+        else {
+            $graph->xaxis->SetTickLabels(array_keys($tabUse[$dataGraph]));
+        }
         $graph->xaxis->SetLabelAngle(45);
 
         // Provoquer l'affichage (renvoie directement l'image au navigateur)

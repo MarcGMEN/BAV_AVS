@@ -5,7 +5,7 @@ services:
       dockerfile: DockerFile_php
     container_name: php_app_bav
     volumes:
-      - ..:/var/www/html
+      - ..:/var/www/html/bourseAuxVelos
     ports:
       - "8090:80"
     depends_on:

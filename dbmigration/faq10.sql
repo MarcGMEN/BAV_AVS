@@ -2,7 +2,7 @@ INSERT INTO `bav_actu`(`act_titre`, `act_text`, `act_numero_bav`, `act_type`, `a
 VALUES
 ('Quand déposer un vélo ?','Le dépôt se fait le vendredi de 17h à 20h et le samedi toute la journée. Un pré-dépôt en ligne est ouvert avant l’événement.',2025,'FAQ',1,'2025-11-01 12:12:12','avs.vtt@mgail.com'),
 ('Que peut-on déposer ?','Vélos, VAE, roues, remorques, gros accessoires. Pas de vêtements, petits accessoires ou livres.',2025,'FAQ',1,'2025-11-01 12:12:12','avs.vtt@mgail.com'),
-('Y a-t-il une limite de vélos par vendeur ?','Aucune limite. Une procédure "gros vendeur" existe pour les dépôts de plus de 15 vélos.',2025,'FAQ',1,'2025-11-01 12:12:12','avs.vtt@mgail.com'),
+('Y a-t-il une limite de vélos par vendeur ?','Aucune limite. Une procédure "gros vendeur" existe pour les dépôts de plus de 15 vélos. Contacter nous par mail : bourse1000velos@avs44.com',2025,'FAQ',1,'2025-11-01 12:12:12','avs.vtt@mgail.com'),
 ('Existe-t-il un listing des vélos en vente ?','Oui, un catalogue en ligne est disponible à partir du samedi matin.',2025,'FAQ',1,'2025-11-01 12:12:12','avs.vtt@mgail.com'),
 ('Quels sont les moyens de paiement ?','Dépôt et commission : carte, chèque, liquide. Achat : chèque ou liquide uniquement.',2025,'FAQ',1,'2025-11-01 12:12:12','avs.vtt@mgail.com'),
 ('Peut-on essayer les vélos ?','Oui, les essais se font uniquement dans la Soucoupe, dans une zone prévue à cet effet.',2025,'FAQ',1,'2025-11-01 12:12:12','avs.vtt@mgail.com'),
@@ -14,4 +14,4 @@ VALUES
 
 update `bav_actu` 
 set act_active = 0
-WHERE `act_type` = 'FAQ' and act_mail !='avs.vtt@mgail.com' or act_mail is null
+WHERE `act_type` = 'FAQ' and (act_mail !='avs.vtt@mgail.com' or act_mail is null)

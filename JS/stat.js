@@ -9,26 +9,29 @@
 
 	function initPage() {
 		if (ADMIN) {
+			// chargement des codes postaux connue
 			x_return_all_lat_lon_cdp(display_latLonCdp);
 
+			// graph de suivi de la BAV
 			x_return_nbFichesByDay(anneeBav, display_statByAnneeRef);
-			// x_return_nbFichesByDayAvantBAV(anneeBav, display_statPreDepotByAnneeRef);
 
+			/** chargement des parametres pour le choix de la BAV de ref  */
 			x_return_allParametre(display_parametres);
+			/** chargement des parametres pour le choix de la BAV de comparaison  */
 			x_return_allParametre(display_parametres_statSuivi);
 
-			// recupereatio de la liste des selections
+			// recuperation de la liste des types
 			x_return_enum('bav_objet', 'obj_type', display_list_type);
 			// x_return_enum('bav_objet', 'obj_public', display_list_public);
 			// x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);
 
-			// retour de stat client
+			// retour de stat client pour les code postaux
 			x_return_statClient(mapQui, display_statClient);
 
 			// retour de stat de delais
 			// x_return_statDelais(display_formulaire);
 
-			// retour de stat de delais
+			// retour de stat de repartition par demi/journée.
 			x_return_statRepartition(display_formulaire);
 
 			// visu de la stat de depot
@@ -36,7 +39,7 @@
 
 			// affichage d'un histo des tarifs de depot
 			x_return_histoCount(tabToString(tabSel), 'tarif', 500, 250, 0, 'depot', display_countTarifDepot);
-
+			//x_return_histoCount(tabToString(tabSel), 'type', 500, 250, 2, 'depot', display_countTypeDepot);
 			// retour du nombre d'objet vendu supérieur a 500 
 			x_return_countByTarifSup(tabToString(tabSel), 500, "depot", display_countByTarifSupDepot);
 
@@ -45,6 +48,7 @@
 
 			// affichage d'un histo des tarifs de vente
 			x_return_histoCount(tabToString(tabSel), 'tarif', 500, 250, 0, 'vente', display_countTarifVente);
+			x_return_histoCount(tabToString(tabSel), 'type', 1000, 300, 2, 'mixte', display_countTypeVente);
 
 			// retour du nombre d'objet vendu supérieur a 500 
 			x_return_countByTarifSup(tabToString(tabSel), 500, "vente", display_countByTarifSupVente);
@@ -55,155 +59,20 @@
 		}
 	}
 
-	var tabCdpLatLon = [];
-
-	function display_latLonCdp(val) {
-		for (var cdp in val) {
-			tabCdpLatLon[cdp] = val[cdp];
-		}
-	}
-
-	function display_statPreDepotByAnneeRef(val) {
-		// console.log('display_statPreDepotByAnneeRef',val);
-		var colorEtat = [];
-		colorEtat['PRE_DEPOT_' + anneeBav] = 'ORANGE';
-		var monCanvas = getElement("canvasSuivi0");
-		var ctx = monCanvas.getContext("2d");
-		monCanvas.width = screen.width * 0.83;
-
-		ctx.beginPath();
-		ctx.font = "15px arial";
-		ctx.fillText(anneeBav, monCanvas.width / 2, 20);
-		ctx.stroke();
-		ctx.closePath();
-
-		var pasGrille = 0;
-		if (cumul) {
-			maxY = 500;
-			pasGrille = 100;
-		} else {
-			maxY = 100;
-			pasGrille = 25;
-		}
-
-		for (var i = 0; i <= maxY; i += pasGrille) {
-			ctx.beginPath();
-			ctx.lineWidth = "1";
-			ctx.strokeStyle = "GREY";
-			var Y2 = monCanvas.height - (i * monCanvas.height / maxY) - 10;
-			ctx.moveTo(0, Y2);
-			ctx.lineTo(monCanvas.width, Y2);
-			ctx.fillText(i, 5, Y2);
-			ctx.stroke();
-			ctx.closePath();
-		}
-		display_statPreDepotByAnnee(val, colorEtat, monCanvas, ctx)
-	}
-
-	function display_statPreDepotByAnnee(val, colorEtat, monCanvas, ctx) {
-
-		// console.log(val);
-
-		ctx.font = "15px arial";
-
-		var countEtat = [];
-		countEtat['PRE_DEPOT_' + anneeBav] = 0;
-
-		var countEtatOld = [];
-		countEtatOld['PRE_DEPOT_' + anneeBav] = 0;
-
-		var Xdebut = 0;
-
-		var keysSort = Object.keys(val).sort()
-		// console.log(keysSort);
-		var hauteurCanvas = monCanvas.height - 10;
-		var largeurCanvas = monCanvas.width;
-		if (sizeof(keysSort) > 0) {
-			var pasHour = largeurCanvas / sizeof(val);
-
-			for (var date in keysSort) {
-
-				var tabEtat = val[keysSort[date]];
-				var jour = keysSort[date];
-				// console.log(jour );
-
-				for (var etat in tabEtat) {
-					var value = tabEtat[etat];
-					// console.log("cpt "+etat);
-					if (cumul) {
-						countEtat[etat] += parseInt(value);
-					} else {
-						countEtat[etat] = parseInt(value);
-					}
-				}
-
-				// console.log(countEtat);
-				for (var etatLu in countEtat) {
-
-					ctx.beginPath();
-					ctx.lineWidth = "2";
-					ctx.strokeStyle = colorEtat[etatLu];
-					var Y = countEtatOld[etatLu] * hauteurCanvas / maxY;
-					ctx.moveTo(Xdebut, hauteurCanvas - Y);
-
-					// console.log(keysSort[date], etatLu, countEtatOld[etatLu], Xdebut, 200 - Y);
-					var Y2 = countEtat[etatLu] * hauteurCanvas / maxY;
-					ctx.lineTo(Xdebut + pasHour, hauteurCanvas - Y2);
-					// console.log("=>", countEtat[etatLu], Xdebut+pasHour,200-Y2)
-					ctx.stroke();
-					ctx.closePath();
-					countEtatOld[etatLu] = countEtat[etatLu];
-				}
-				ctx.beginPath();
-				ctx.lineWidth = "1";
-				ctx.strokeStyle = "grey"
-				ctx.font = "9px arial";
-				ctx.fillText(jour, Xdebut + pasHour / 2, monCanvas.height);
-				ctx.moveTo(Xdebut + pasHour / 2, hauteurCanvas);
-				ctx.lineTo(Xdebut + pasHour / 2, hauteurCanvas - 10);
-
-				ctx.stroke();
-				ctx.closePath();
-				Xdebut += pasHour;
-			}
-			if (cumul) {
-				for (var etatLu in countEtat) {
-					var Y2 = hauteurCanvas - (countEtat[etatLu] * hauteurCanvas / maxY) - 5;
-					if (etatLu.startsWith('RESTI')) {
-						Y2 += 10;
-					}
-					ctx.fillStyle = colorEtat[etatLu];
-					ctx.beginPath();
-					ctx.font = "12px arial";
-					// console.log(etatLu + " (" + countEtat[etatLu] + ")", Xdebut - 120, Y2);
-					ctx.fillText(etatLu + " (" + countEtat[etatLu] + ")", Xdebut - 150, Y2);
-					ctx.stroke();
-					ctx.closePath();
-				}
-			}
-		}
-	}
-
-
+	// valeurs de reference  de la BAV en cours
 	var valRef = [];
 
-	// function display_statByAnneeRef(val) {
-	// 	valRef = val;
-	// 	x_return_nbFichesByDay(anneeBavSuvi, display_statByAnneeBis);
-	// }
-	var maxY = 1500;
-
-	function display_statByAnneeBis(val) {
-		display_statByAnnee(val, colorEtat, monCanvas, ctx)
-	}
-
-	var valRef = [];
-
+	// après lecture de la bav en cours, on recherche les données de la BAV a comparere
 	function display_statByAnneeRef(val) {
 		valRef = val;
 		x_return_nbFichesByDay(anneeBavSuvi, display_statByAnnee);
 	}
 
+	/**
+	 * Affichage des val de la BAV  ( valRef) et la BAV de comparaison (val)
+	 * 
+	 * @param {} val 
+	 */
 	function display_statByAnnee(val) {
 		var colorEtat = [];
 		colorEtat['DEPOT_' + anneeBav] = 'DARKORANGE';
@@ -465,6 +334,10 @@
 		}
 	}
 
+	/**
+	 * choix des autres BAV pour comparaison
+	 * @param {} val 
+	 */
 	function display_parametres_statSuivi(val) {
 		// console.log(val);
 		var divCheckbox = getElement("annee_statSuvi");
@@ -487,11 +360,19 @@
 		addStatsuvi(lastBAV);
 	}
 
+	/**
+	 * remise a jour du graph de comparaison avec la nouvelle BAV de suivi
+	 * @param {*} value 
+	 */
 	function addStatsuvi(value) {
 		anneeBavSuvi = value;
 		x_return_nbFichesByDay(anneeBav, display_statByAnneeRef);
 	}
 
+	/**
+	 * Choix de la BAV de ref
+	 * @param {*} val 
+	 */
 	function display_parametres(val) {
 		var select = getElement("annee_stat");
 		select.options[select.options.length] = new Option("Choix", "*");
@@ -503,13 +384,18 @@
 		}
 	}
 
+	/* mise a jour de la BAV pour stat */
 	function changeNumeroBAV(val) {
 		SetCookie("par_numero_bav_stat", val);
 		goTo('stat.php');
 	}
 
+	/**
+	 * fonction par defaut de chargement de la page
+	 */
 	function unloadPage() {}
 
+	
 	function display_list_type(val) {
 		display_list(val, 'type');
 	}
@@ -531,6 +417,20 @@
 			}
 		}
 	}
+
+	//// gestion des code postaux
+	//// gestion des code postaux
+	//// gestion des code postaux
+
+	var tabCdpLatLon = [];
+	/* recuperation des lat-mon des codes postaux */
+	/*  lié a display_statClient */ 
+	function display_latLonCdp(val) {
+		for (var cdp in val) {
+			tabCdpLatLon[cdp] = val[cdp];
+		}
+	}
+
 
 	var tabCdpNb = [];
 	var nbClient = 0;
@@ -590,11 +490,14 @@
 					var info = tabTmp[2];
 					tabDistanceCDP[tabVal[i]['cdp']] = distanceHaversine(latSN, lonSN, lat, lon);
 
+					// Ajout du marker sur la carte
 					addMarker(lat, lon, tabVal[i]['cdp'], tabVal[i]['nb'], info);
 
 				} else {
 					// x_add_cdp(tabVal[i]['cdp'],lat, lon, display_vide);
+					// recherche des code postaux non connus
 					setTimeout('geoPosClient2("' + tabVal[i]['cdp'] + '")', TIME_PAUSE * indexSearch);
+					// Ajout du marker sur la carte avec un delai pour trouvé sus google
 					setTimeout('addMarkerdecal("' + tabVal[i]['cdp'] + '",' + indexSearch + ',' + tabVal[i]['nb'] + ')', TIME_PAUSE * indexSearch + 1000);
 					indexSearch++;
 				}
@@ -639,10 +542,15 @@
 
 		// recuperation du tableau des distances
 		getElement('tabCodePostal').innerHTML = repr;
+
+		//
 		console.log('traitement en ' + (TIME_PAUSE * indexSearch + 100) / 1000 + ' secondes');
 		setTimeout("finCreateCarte()", TIME_PAUSE * indexSearch + 100);
 	}
 
+	/**
+	 * Ajout des marker sur la carte
+	 */
 	function addMarkerdecal(cdp, index, nb) {
 		console.log("marker decale "+cdp,tabCdpLatLon[cdp]);
 		if (tabCdpLatLon[cdp]) {
@@ -651,9 +559,11 @@
 			var lon = tabTmp[1];
 			addMarker(lat, lon, cdp, nb, tabTmp[2]);
 		}
-
 	}
 
+	/**
+	 * ajout des données de distance en fin de carte
+	 */
 	function finCreateCarte() {
 		// alertModalInfo('Fin de creation de la carte');
 		// console.log("tabDistanceCDP", tabDistanceCDP);
@@ -697,61 +607,55 @@
 
 	}
 
+	/* affichage des graphs de depot par prix */
 	function display_countTarifDepot(val) {
-		getElement('tarifDepot').src = val + "?t=" + new Date().getMilliseconds();
+		getElement('tarifDepot').src = val;
 	}
 
+	/* affichage des graphs de vente par prix */
 	function display_countTarifVente(val) {
-		getElement('tarifVente').src = val + "?t=" + new Date().getMilliseconds();
+		getElement('tarifVente').src = val ;
 	}
 
-	function selectColonne() {
-		tabSel['obj_type'] = getElement("sel_obj_type").value;
-		tabSel['obj_public'] = getElement("sel_obj_public").value;
-		tabSel['obj_pratique'] = getElement("sel_obj_pratique").value;
-
-		var tabAff = [];
-		tabAff['Tobj_type'] = tabSel['obj_type'];
-		tabAff['Tobj_public'] = tabSel['obj_public'];
-		tabAff['Tobj_pratique'] = tabSel['obj_pratique']
-
-		display_formulaire(tabAff, null);
-
-		// visu de la stat de depot
-		x_return_statByType(tabToString(tabSel), "depot", display_statDepot);
-		x_return_histoCount(tabToString(tabSel), 'tarif', 500, 250, 0, 'depot', display_countTarifDepot);
-		x_return_countByTarifSup(tabToString(tabSel), 500, "depot", display_countByTarifSupDepot);
-		// visu de la stat de vente
-		x_return_statByType(tabToString(tabSel), "vente", display_statVente);
-		x_return_histoCount(tabToString(tabSel), 'tarif', 500, 250, 0, 'vente', display_countTarifVente);
-		x_return_countByTarifSup(tabToString(tabSel), 500, "vente", display_countByTarifSupVente);
+	function display_countTypeDepot(val) {
+		getElement('typeDepot').src = val;
 	}
 
+	function display_countTypeVente(val) {
+		getElement('typeVente').src = val;
+	}
+
+	/* affichage des données de dépot
+	 */
 	function display_statDepot(val) {
-		infoPlusObj("prixMinidepot", val);
+		// infoPlusObj("prixMinidepot", val);
 		infoPlusObj("prixMaxidepot", val);
 
-		infoPlusCli("nbVeloMaxiVendeurdepot", val);
+		// infoPlusCli("nbVeloMaxiVendeurdepot", val);
 
 		display_formulaire(val, null);
 	}
 
+	/* affichage des données de vente
+	 */
 	function display_statVente(val) {
-		infoPlusObj("prixMinivente", val);
+		// infoPlusObj("prixMinivente", val);
 		infoPlusObj("prixMaxivente", val);
 
-		infoPlusCli("nbVeloMaxiVendeurvente", val);
-		infoPlusCli("nbVeloMaxiAcheteur", val);
+		// infoPlusCli("nbVeloMaxiVendeurvente", val);
+		// infoPlusCli("nbVeloMaxiAcheteur", val);
 
 		display_formulaire(val, null);
-		val['pourcent'] = "0%";
-		if (getElement('count_depot').innerHTML != "()") {
-			val['pourcent'] = parseInt(parseInt(val['count_vente']) / parseInt(getElement('count_depot').innerHTML) * 100) + " %";
-		}
-		display_formulaire(val, null);
+
+		// val['pourcent'] = "0%";
+		// if (getElement('count_depot').innerHTML != "()") {
+		// 	val['pourcent'] = parseInt(parseInt(val['count_vente']) / parseInt(getElement('count_depot').innerHTML) * 100) + " %";
+		// }
+		// display_formulaire(val, null);
 
 	}
 
+	/** info plus de l'object */
 	function infoPlusObj(id, val) {
 		if (val["obj" + id]) {
 			var obj = val["obj" + id];
@@ -764,6 +668,7 @@
 		}
 	}
 
+	/* info plus client */
 	function infoPlusCli(id, val) {
 		if (val["cli" + id]) {
 			var obj = val["cli" + id];
@@ -776,10 +681,16 @@
 		}
 	}
 
+	/**
+	 * affichage du compteur de depot
+	 */
 	function display_countByTarifSupDepot(val) {
 		getElement('count_rangeDepot').innerHTML = val;
 	}
 
+	/**
+	 * affichage du compteur de vente 
+	 */
 	function display_countByTarifSupVente(val) {
 		getElement('count_rangeVente').innerHTML = val;
 	}

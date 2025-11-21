@@ -4,7 +4,7 @@
 require_once "config.ini";
 try {
 // $mysqli = mysqli_connect('db2463.1and1.fr','dbo326893785','randovtt' , 'db326893785');
-$mysqli = mysqli_connect('localhost','bav','AVS44b@v!' , 'BAV');
+$mysqli = mysqli_connect('db_bav','bav','AVS44b@v!' , 'bav');
 echo $_SERVER['SERVER_NAME'];
 // $mysqli = mysqli_connect('localhost','','' , 'bav');
 // print_r("mysqli =");
@@ -32,21 +32,21 @@ catch (Exception $e) {
     print_r($e);
 }
 
-print_r(get_lat_long("44600"));
+// print_r(get_lat_long("44600"));
 
-function get_lat_long($address){
-    $region="france";
-    $address = str_replace(" ", "+", $address);
-    $apiKEY="AIzaSyABMdW__fbyBDjd0aBBCY_im7rejFftkDQ";
-    $json = file_get_contents("https://maps.google.com/maps/api/geocode/json?address=$address&sensor=false&region=$region&key=$apiKEY");
-    $json = json_decode($json);
+// function get_lat_long($address){
+//     $region="france";
+//     $address = str_replace(" ", "+", $address);
+//     $apiKEY="AIzaSyABMdW__fbyBDjd0aBBCY_im7rejFftkDQ";
+//     $json = file_get_contents("https://maps.google.com/maps/api/geocode/json?address=$address&sensor=false&region=$region&key=$apiKEY");
+//     $json = json_decode($json);
 
-    print_r($json);
+//     print_r($json);
 
-    $lat = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lat'};
-    $long = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lng'};
-    return $lat.','.$long;
-}
+//     $lat = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lat'};
+//     $long = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lng'};
+//     return $lat.','.$long;
+// }
 
 ?>
 </pre>

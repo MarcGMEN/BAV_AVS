@@ -12,9 +12,10 @@ RUN apt-get update && apt-get install -y \
 # Installer Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-RUN mkdir -p /var/www/html/out/PDF 
-RUN mkdir -p /var/www/html/out/html
-RUN chown -R www-data:www-data /var/www/html/out 
+RUN mkdir -p /var/www/html/bourseAuxVelos
+RUN mkdir -p /var/www/html/bourseAuxVelos/out/PDF 
+RUN mkdir -p /var/www/html/bourseAuxVelos/out/html
+RUN chown -R www-data:www-data /var/www/html/bourseAuxVelos/out 
 
 # Activer mod_rewrite (utile pour frameworks)
 RUN a2enmod rewrite
