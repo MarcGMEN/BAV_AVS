@@ -72,16 +72,18 @@
 			<th class="tittab" width='40%'>Vente</th>
 		</tr>
 		<tr class='tabl1'>
-			<td class="tittab">Prix maxi</td>
-			<td id='prixMaxidepot' style='text-align:center'>prixMaxidepot
-				<div class="link" id='plusprixMaxidepot' style='text-align:center'></div>
+			<td class="titrow">Prix maxi</td>
+			<td style='text-align:center'>
+				<div id="prixMaxidepot" >prixMaxidepot</div>
+				<small><div class="link" id='plusprixMaxidepot' style='text-align:center'>qui</div></small>
 			</td>
-			<td id='prixMaxivente' style='text-align:center'>prixMaxivente
-				<div class="link" id='plusprixMaxivente' style='text-align:center'></div>
+			<td  style='text-align:center'>
+				<div id="prixMaxivente" >prixMaxivente</div>
+				<small><div class="link" id='plusprixMaxivente' style='text-align:center'>qui</div></small>
 			</td>
 		</tr>
 		<tr class='tabl1'>
-			<td class="tittab">Prix moyen</td>
+			<td class="titrow">Prix moyen</td>
 			<td id='prixMoyendepot' style='text-align:center'>prixMoyendepot
 				<div class="link" id='plusprixMoyendepot' style='text-align:center'></div>
 			</td>
@@ -90,7 +92,7 @@
 			</td>
 		</tr>
 		<tr class='tabl1'>
-			<td class="tittab">Nombre de vélos superieur à
+			<td class="titrow">Nombre de vélos superieur à
 				<input type=range 
 					oninput="getElement('resultRange').innerHTML=this.value" 
 					onchange="x_return_countByTarifSup(tabToString(tabSel),this.value,'depot', display_countByTarifSupDepot);
@@ -120,13 +122,13 @@
 			<td id='count_rangeVente' style='text-align:center'>--</td>
 		</tr>
 		<tr>
-			<td>Répartition par prix</td>
-			<td ><img id="tarifDepot" /></td>
-			<td ><img id="tarifVente" /></td>
+			<td class="titrow">Répartition par prix</td>
+			<td style='text-align: center'><img id="tarifDepot" /></td>
+			<td style='text-align: center' ><img id="tarifVente" /></td>
 		</tr>
 		<tr>
-			<td>Répartition par type</td>
-			<td colspan=2><img id="typeVente" /></td>
+			<td class="titrow">Répartition par type</td>
+			<td colspan=2 style='text-align: center'><img id="typeVente" /></td>
 		</tr>
 	</table>
 </fieldset>

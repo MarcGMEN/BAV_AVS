@@ -7,7 +7,7 @@
 			&nbsp;&nbsp;
 			<a href="https://www.instagram.com/bourse.aux.1000.velos/"  target="_blank"><img src="Images/iconeInstagram.png" height=20px/></a> 
 		</div>
-		<div class="col-xs-8 col-sm-9 col-md-9 menuTable">
+		<div class="col-xs-8 col-sm-9 col-md-9 maskMobile">
 			<?php if ($infAppli['ADMIN']) {
 				include './genericPages/menuTABLE.php';
 			}?>

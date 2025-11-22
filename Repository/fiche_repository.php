@@ -203,6 +203,9 @@ function getFiches($order, $sens, $tabSel, $client = true)
     $requete2 = "SELECT bav_objet.*";
     if ($client) {
         $requete2 .= ", ve.*, ve.cli_nom vendeur_nom, ac.cli_nom acheteur_nom ";
+        $requete2 .= ",CONCAT_WS(' ',ac.cli_adresse,ac.cli_adresse1) as ac_adresse ";
+        $requete2 .= ",CONCAT_WS(' ',ac.cli_code_postal,ac.cli_ville) as ac_cdp_ville ";
+        $requete2 .= ",ac.cli_emel as ac_emel ";
     }
     $requete2 .= " from bav_objet ";
     if ($client) {

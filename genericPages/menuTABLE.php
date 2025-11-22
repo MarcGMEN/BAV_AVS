@@ -1,4 +1,4 @@
-<div class="row" style="background-color: #0cd;font-size:1.1em">
+<div class="row" style="background-color: lightgreen;font-size:1.1em">
 	<div class="col-md-12  col-menuTable">
 		<div class="col-md-3 col-sm-3 col-xs-12  col-menuTable" >
 			<div class="col-md-3 col-sm-3 col-xs-3 col-menuTableEtat">Dépôt</div>
@@ -36,7 +36,7 @@
 			</div>
 			<div class="col-md-6 col-sm-6 col-xs-6 col-menuTable">
 				<div><span id="statVendu">...</span>
-				<small><span title="Payé" class="PAYE link" id="PAYE" onclick='goTo("stock.php","obj_etat","PAYE",null)'>
+				<small><span title="Payé" class="PAYE link" id="e_PAYE" onclick='goTo("stock.php","obj_etat","PAYE",null)'>Payé
 				</span></small></div>
 			</div>
 		</div>
@@ -48,7 +48,7 @@
 			</div>
 		</div>
 		<div class="col-md-1 col-sm-1 col-xs-12 col-menuTable">
-			<div class="col-md-6 col-sm-6 col-xs-6 col-menuTableEtat" >TTC</div>
+			<div class="col-md-6 col-sm-6 col-xs-6 col-menuTableEtat" >Total</div>
 			<div class="col-md-6 col-sm-6 col-xs-6 col-menuTable">
 				<!-- fiche etat valide -->
 				<span id="e_TOTAL" style='font-weight: bold'>...</span>

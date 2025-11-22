@@ -21,7 +21,7 @@
 			x_return_allParametre(display_parametres_statSuivi);
 
 			// recuperation de la liste des types
-			x_return_enum('bav_objet', 'obj_type', display_list_type);
+			// x_return_enum('bav_objet', 'obj_type', display_list_type);
 			// x_return_enum('bav_objet', 'obj_public', display_list_public);
 			// x_return_enum('bav_objet', 'obj_pratique', display_list_pratique);
 
@@ -666,6 +666,7 @@
 		} else {
 			val['plus' + id] = "";
 		}
+		
 	}
 
 	/* info plus client */

@@ -50,7 +50,7 @@ function pageSaisie() {
 
 
 /*
- * action lors du derchargement de la page
+ * action lors du chargement de la page
  */
 function unloadPage() {
 
@@ -458,6 +458,78 @@ function display_fiches_feuille(val) {
     newWindow.document.write(repr)
     newWindow.document.close()
 }
+
+function recapVenteClient(id) {
+    var tabSel = {
+        "obj_id_vendeur": id
+    };
+    x_return_fiches(tri, sens, tabToString(tabSel), 0, display_recap_vente);
+}
+
+function display_recap_vente(val) {
+    
+    var newWindow = window.open("", "Ventes du client", "width=800,height=400,scrollbars=1,resizable=1")
+
+    var nbFiche = 0;
+    // console.log(nbFiche);
+    var total = 0;
+    var repr = "<html><head>";
+    repr += "</head><body>";
+    repr += "<table width='100%' style='border:1px solid black;border-spacing: 0px;' >";
+    repr += "<thead>";
+    repr += "<tr><th colspan='4'><h3>RÉCAPITULATIF DE LA VENTE "+ val[0]["cli_nom"]+"</h3></th></tr>";
+    repr += "<tr style='background-color:grey;'>";
+    repr += "<th width=5% style='border: 1px solid black;'>N°</th>";
+    repr += "<th width=30% style='border: 1px solid black;'>Vélo</th>";
+    repr += "<th width=15% style='border: 1px solid black;'>Prix</th>";
+    repr += "<th width=50% style='border: 1px solid black;'>Acheteur</th>";
+    repr += "</tr>";
+    repr += "</thead>";
+    repr += "<tbody>";
+    for (index in val) {
+        if (!isNaN(index)) {
+            
+            if (val[index]['obj_prix_vente'] > 0 &&
+                (val[index]['obj_etat'] == 'VENDU' || val[index]['obj_etat'] == 'PAYE')) {
+                total += parseFloat(val[index]['obj_prix_vente']);
+                nbFiche++;
+
+                repr += "<tr>";
+                repr += "<td style='border: 1px solid black; padding:5px' align=center>";
+                repr += val[index]['obj_numero'];
+                repr += "</td>";
+                repr += "<td style='border: 1px solid black; padding:5px' align=center>";
+                repr += val[index]['obj_marque']+"  "+val[index]['obj_modele'];
+                repr += "</td>";
+                repr += "<td style='border: 1px solid black; padding:5px; text-align:center'>";
+                repr += val[index]['obj_prix_vente'] + " &euro;";
+                // var comFiche = parseFloat(val[index]['obj_prix_vente'] * val[index]['cli_taux_com'] / 100)
+                // if (comFiche > 100) comFiche = 100;
+                // if (parseInt(val[index]['cli_taux_com']) == 5 && comFiche > 80) comFiche = 80;
+                // repr += "("+comFiche + " &euro;)";
+                // total += parseFloat(val[index]['obj_prix_vente']);
+                // totalCom += comFiche;
+                repr += "</td>";
+                repr += "<td style='border: 1px solid black; padding:5px'  >";
+                repr += "@:"+val[index]['ac_emel']+"<br/>"+val[index]['acheteur_nom'];
+                repr += "<br/>"
+                repr += val[index]['ac_adresse'];
+                repr += "<br/>"
+                repr += val[index]['ac_cdp_ville'];
+                repr += "</td>";
+                repr += "<td width=1% style='background-color:BLACK'></td>";
+            }
+        }
+    }
+    repr += "</tr></tbody></table>";
+
+    repr += "<br/><h3>Total de vente de "+nbFiche+" vélo(s) pour un total de "+ total + " &euro; </h3>";
+    repr += "</body></html>";
+    newWindow.document.open()
+    newWindow.document.writeln(repr)
+    newWindow.document.close()
+}
+
 
 function factureClient(id) {
     var tabSel = {

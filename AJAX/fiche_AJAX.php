@@ -347,7 +347,7 @@ function action_deleteFiche($id)
 function action_makeA4Etiquettes($eti0, $eti1, $test = true, $nameEti = 'etiquette', $tri = 'Massicot')
 {
     extract($GLOBALS);
-    extract($data);
+    // extract($data);
 
     $etiquettes = "<html><body>";
     // TODO : recherche des fiches a imprimer en fonction de la table bav_etiquette.

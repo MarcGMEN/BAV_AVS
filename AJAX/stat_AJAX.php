@@ -569,7 +569,12 @@ function return_histoCount($selectoin, $by, $width = 400, $height = 250, $sort =
             //$aColors = array('white', 'black', 'green', 'yellow', 'brown', 'red', 'blue', 'lightgreen','lightblue','salmon');
             //$bplot->SetFillColor($aColors);
 
-            $bplot->SetFillColor('#00b7cd');
+            if ($dataGraph == 'depot') {
+                $bplot->SetFillColor('#00b7cd');
+            }
+            else {
+                $bplot->SetFillColor('lightgreen');
+            }
             $bplot->SetColor('white');
             // $bplot->SetFillGradient('AntiqueWhite2', 'AntiqueWhite4:0.8', GRAD_VERT);
             // $bplot->SetColor('yellow');
