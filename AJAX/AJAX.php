@@ -173,17 +173,22 @@ function action_menage($fic)
 
 function add_counter_action($page, $modePage, $type = "")
 {
-    extract($GLOBALS);
-    $cas['cas_page'] = $page;
-    $cas['cas_mode_page'] = $modePage;
-    $cas['cas_type'] = $type;
-    $cas['cas_numero_bav'] = $INFO_APPLI['numero_bav'];
-
-    $cas['cas_navigateur'] = getBrowser();
-    $cas['cas_os'] = getOSlight();
-    $cas['cas_admin'] = $INFO_APPLI['ADMIN'];
-    $cas['cas_ip'] = getIp();
-    insertCounterAction($cas);
+// print_r("add $page");
+    $tabPageSuivi= ['bav.php','news.php','avis.php','consult.php','stock_client.php','pre_depot.php','searchVente','open Link','pre_depot.php','clientV2.php','animations.php','faq.php','presse.php'];
+    if  (in_array(strtolower($page), $tabPageSuivi)) {
+        
+        extract($GLOBALS);
+        $cas['cas_page'] = $page;
+        $cas['cas_mode_page'] = $modePage;
+        $cas['cas_type'] = $type;
+        $cas['cas_numero_bav'] = $INFO_APPLI['numero_bav'];    
+        $cas['cas_navigateur'] = getBrowser();
+        $cas['cas_os'] = getOSlight();
+        $cas['cas_admin'] = $INFO_APPLI['ADMIN'];
+        $cas['cas_ip'] = getIp();
+        insertCounterAction($cas);
+        // print_r("insert $page");
+    }
 }
 
 function add_cdp($cdp, $lat, $lon, $plus)
