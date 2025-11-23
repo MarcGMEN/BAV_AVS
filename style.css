@@ -260,10 +260,8 @@ input.error {
     text-align: center;
 }
 
-
+/********************/
 /*  POUR LES IMAGES */
-
-
 /********************/
 
 .img {
@@ -357,6 +355,25 @@ div.SSMENU {
     -moz-border-radius: 10px;
     border-radius: 10px;
     text-align: left;
+}
+
+div.cptTitre {
+    align-items: center;
+    text-align: right;
+    font-size: 5em;
+}
+div.cptGRAND, div.cptGRAND_V {
+    align-items: center;   /* centre verticalement */
+    text-align: center;
+    font-size: 10em;
+}
+
+div.cptGRAND_V {
+    background-color: lightgreen;
+}
+
+.same-height {
+    display: flex;
 }
 
 .url {
@@ -745,8 +762,8 @@ div.fiche_desc {
 }
 
 tr.VENDU,
-span.VENDU {
-    background-color: GREEN;
+span.VENDU, div.vendu {
+    background-color: lightgreen;
     color: BLACK;
 }
 

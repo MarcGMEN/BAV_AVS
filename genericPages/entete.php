@@ -1,7 +1,7 @@
 <script src="JS/entete.js" type="text/javascript"></script>
 
 <div class="BH_CADRE" cellspacing="0" cellpadding="0">
-	<div class="row"  style='background-color:#0bd;height:30px;vertical-align: middle;'>
+	<div class="row"  style='background-color:#00b7cd;height:30px;vertical-align: middle;'>
 		<div class="col-xs-4 col-sm-1 col-md-1">
 			<a href="https://www.facebook.com/events/1924975591261118" target="_blank"><img src="Images/iconeFacebook.png" height=20px/></a>
 			&nbsp;&nbsp;

@@ -92,34 +92,49 @@
 			</td>
 		</tr>
 		<tr class='tabl1'>
-			<td class="titrow">Nombre de vélos superieur à
+			<td class="titrow">Prix méidan</td>
+			<td id='prixMediandepot' style='text-align:center'>prixMediandepot
+				<div class="link" id='plusprixMoyendepot' style='text-align:center'></div>
+			</td>
+			<td id='prixMedianvente' style='text-align:center'>prixMedianvente
+				<div class="link" id='plusprixMedianvente' style='text-align:center'></div>
+			</td>
+		</tr>
+		<tr class='tabl1'>
+			<td class="titrow">Nombre de vélos à
 				<input type=range 
 					oninput="getElement('resultRange').innerHTML=this.value" 
 					onchange="x_return_countByTarifSup(tabToString(tabSel),this.value,'depot', display_countByTarifSupDepot);
 					x_return_countByTarifSup(tabToString(tabSel),this.value, 'vente', display_countByTarifSupVente);" 
-					min=0 max=3500 range=50 value=500 list="tickmarks" />
+					min=0 max=3000 range=50 value=500 list="tickmarks" />
 				<datalist id="tickmarks">
 					<option value="0">
+					<option value="50">
 					<option value="100">
+					<option value="150">
 					<option value="200">
+					<option value="250">
 					<option value="300">
 					<option value="400">
 					<option value="500">
-					<option value="600">
-					<option value="700">
-					<option value="800">
-					<option value="900">
+					<option value="750">
 					<option value="1000">
 					<option value="1500">
 					<option value="2000">
 					<option value="2500">
-					<option value="3000">
-					<option value="3500">
 				</datalist>
-				<div id="resultRange">500</div>
+				<div> <span id="resultRange">500</span> &euro;</div>
 			</td>
-			<td id='count_rangeDepot' style='text-align:center'>--</td>
-			<td id='count_rangeVente' style='text-align:center'>--</td>
+			<td  style='text-align:center'>
+				<span id="count_rangeDepotMoins"></span>			
+				<span >-</span>			
+				<span id="count_rangeDepotPlus"></span>			
+			</td>
+			<td  style='text-align:center'>
+				<span id="count_rangeVenteMoins"></span>			
+				<span >-</span>			
+				<span id="count_rangeVentePlus"></span>			
+			</td>
 		</tr>
 		<tr>
 			<td class="titrow">Répartition par prix</td>

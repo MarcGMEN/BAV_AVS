@@ -74,7 +74,10 @@ function return_countByTarifSup($selection, $ref, $type = "depot")
         $etats = "'CONFIRME'";
     }   
     
-    return countBy(string2Tab($selection), "obj_prix_$type", ">=", $ref, $etats);
+    $tabRetour['plus']=countBy(string2Tab($selection), "obj_prix_$type", ">=", $ref, $etats);
+    $tabRetour['moins']=countBy(string2Tab($selection), "obj_prix_$type", "<", $ref, $etats);
+
+    return $tabRetour;
 }
 
 /**
@@ -117,6 +120,8 @@ function return_statByType($selection, $type = 'depot')
         $tabVendeur = [];
         $tabAcheteur = [];
 
+        
+
         // initi du total
         $total = 0;
         // le nombre
@@ -141,6 +146,11 @@ function return_statByType($selection, $type = 'depot')
             $etats = ['VENDU', 'PAYE'];
             $champPrix = "obj_prix_vente";
         }
+
+        // Extraire uniquement les prix
+        $tabPrix = array_column($tab, $champPrix);
+        
+        $tabCount["prixMedian$type"] = number_format(medianPrix($tabPrix), 2, ',', '.') . ' &euro;';
 
         // iteration de la selection des fiches
         foreach ($tab as $key => $val) {
@@ -458,8 +468,8 @@ function return_histoCount($selectoin, $by, $width = 400, $height = 250, $sort =
     $tabCount['vente'] = [];
 
      if ($dataGraph == 'mixte') {
-        $tabCount['depot'] = return_statByType(null, "vente");
-        $tabCount['vente'] = return_statByType(null, "depot");
+        $tabCount['depot'] = return_statByType(null, "depot");
+        $tabCount['vente'] = return_statByType(null, "vente");
     }
     elseif ($dataGraph == 'vente') {
         $tabCount['vente'] = return_statByType($selectoin, "vente");

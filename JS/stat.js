@@ -686,12 +686,14 @@
 	 * affichage du compteur de depot
 	 */
 	function display_countByTarifSupDepot(val) {
-		getElement('count_rangeDepot').innerHTML = val;
+		getElement('count_rangeDepotPlus').innerHTML = val['plus'];
+		getElement('count_rangeDepotMoins').innerHTML = val['moins'];
 	}
 
 	/**
 	 * affichage du compteur de vente 
 	 */
 	function display_countByTarifSupVente(val) {
-		getElement('count_rangeVente').innerHTML = val;
+		getElement('count_rangeVentePlus').innerHTML = val['plus'];
+		getElement('count_rangeVenteMoins').innerHTML = val['moins'];
 	}

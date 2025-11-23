@@ -520,3 +520,19 @@ function getImage($libelle, $limit=1)
 	}
 	return $tabImg;
 }
+
+function medianPrix(array $prix) {
+    // Trier les prix
+    sort($prix);
+
+    $count = count($prix);
+    $middle = floor($count / 2);
+
+    if ($count % 2) {
+        // Impair → valeur centrale
+        return $prix[$middle];
+    } else {
+        // Pair → moyenne des deux valeurs du centre
+        return ($prix[$middle - 1] + $prix[$middle]) / 2;
+    }
+}
