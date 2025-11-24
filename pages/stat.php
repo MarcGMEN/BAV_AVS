@@ -92,7 +92,7 @@
 			</td>
 		</tr>
 		<tr class='tabl1'>
-			<td class="titrow">Prix méidan</td>
+			<td class="titrow">Prix médian</td>
 			<td id='prixMediandepot' style='text-align:center'>prixMediandepot
 				<div class="link" id='plusprixMoyendepot' style='text-align:center'></div>
 			</td>

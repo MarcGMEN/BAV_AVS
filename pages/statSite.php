@@ -3,6 +3,8 @@
 	var sens = "asc";
 	var tabSel = {};
 	var anneeBav = '<?= $infAppli['numero_bav'] ?>';
+	var dateDeb;
+	var dateFin;
 
 	function initPage() {
 		if (ADMIN) {
@@ -20,18 +22,29 @@
 	}
 
 	function display_parametres(val) {
+		console.log(val);
 		var select = getElement("annee_stat");
 		select.options[select.options.length] = new Option("Choix", "*");
 		for (index in val) {
 			select.options[select.options.length] = new Option(val[index]['par_numero_bav'] + "-" + val[index]['par_titre'], val[index]['par_numero_bav']);
 			if (anneeBav == index) {
 				select.options[select.options.length - 1].selected = true;
+				dateDeb=new Date(val[index]['par_client_date_debut'] );
+				dateFin=new Date(val[index]['par_date_fin_bav'] );
+				dateFin.setDate(dateFin.getDate()+3);
+				dateDeb.setHours(0);
+				dateFin.setHours(0);
+				console.log(dateDeb,dateFin)
+				getElement("dateDeb").innerHTML=dateDeb.toLocaleDateString();
+				getElement("dateFin").innerHTML=dateFin.toLocaleDateString()
+				dateDeb.setMonth(dateDeb.getMonth()+1);
+				dateFin.setMonth(dateFin.getMonth()+1);
+
 			}
 		}
 	}
 
 	function display_actions(val) {
-		console.log(val);
 		var repr = "";
 		var tab = tree(val, "", 0);
 		tabDates.sort();
@@ -89,8 +102,8 @@
 					}
 
 					repr += "<div class='col-xs-2 col-sm-2 col-md-2' >Cpt => " + tab['nb'] +" (" +lastDateFR +")</div>";
-					repr += "<div class='col-xs-1 col-sm-1 col-md-1 link' onclick=\"initDate('" + idHtml + "');dessin('" + idHtml + "',0)\"><img src='Images/statBarre.png' height='20px'/>j</div>";
-					repr += "<div class='col-xs-1 col-sm-1 col-md-1 link' onclick=\"initDate('" + idHtml + "');dessin('" + idHtml + "',1)\"><img src='Images/statBarre.png' height='20px'/>j/h</div>";
+					repr += "<div class='col-xs-1 col-sm-1 col-md-1 link' onclick=\"dessin('" + idHtml + "',0)\"><img src='Images/statBarre.png' height='20px'/>j</div>";
+					repr += "<div class='col-xs-1 col-sm-1 col-md-1 link' onclick=\"dessin('" + idHtml + "',1)\"><img src='Images/statBarre.png' height='20px'/>j/h</div>";
 					repr += "</div>";
 					repr += "<div id='div_" + idHtml + "' style=\"display:none\">";
 					repr += tab['repr'];
@@ -142,9 +155,9 @@
 
 					repr += "<div style='display:none;border:0px blue solid' id='divcanvas" + idHtml + "'>";
 					repr += "<div class='row'>";
-					repr += "<div class='col-xs-2 col-sm-2 col-md-2' ><input type='date' id='debut" + idHtml + "' onchange=\"redessin('" + idHtml + "')\"/></div>";
-					repr += "<div class='col-xs-8 col-sm-8 col-md-8' ></div>";
-					repr += "<div class='col-xs-2 col-sm-2 col-md-2' ><input type='date' id='fin" + idHtml + "'  onchange=\"redessin('" + idHtml + "')\"/></div>";
+					// repr += "<div class='col-xs-2 col-sm-2 col-md-2' ><input type='date' id='debut" + idHtml + "' onchange=\"redessin('" + idHtml + "')\"/></div>";
+					// repr += "<div class='col-xs-8 col-sm-8 col-md-8' ></div>";
+					// repr += "<div class='col-xs-2 col-sm-2 col-md-2' ><input type='date' id='fin" + idHtml + "'  onchange=\"redessin('" + idHtml + "')\"/></div>";
 					repr += "</div>";
 					repr += "<div class='row'>";
 					repr += "<div class='col-xs-11 col-sm-11 col-md-11' >";
@@ -197,56 +210,6 @@
 	var hauteur = 300;
 	var hourG;
 
-	function initDate(id) {
-		// console.log("nb row " + nbRow);
-		//var nbRow = sizeof(tabDates[id]);
-		//console.log("initDate de"+id);
-		// console.log(tabDates[id]);
-		var start = null;
-		var fin = null;
-		var max = 0
-		for (var date in tabDates[id]) {
-			if (start == null) {
-				start = new Date(date);
-				// start.setMonth(start.getMonth() + 1);
-			}
-
-			var finNew = new Date(date);
-				// finNew.setMonth(finNew.getMonth() + 1);
-			if (finNew > fin) {
-				fin = finNew;
-			}
-
-		}
-		fin = new Date();
-		start.setDate(start.getDate() - 1);
-		fin.setDate(fin.getDate() + 1);
-
-		var ecartJour = Math.floor((fin - start) / (60 * 60 * 1000 * 24) + 1);
-
-		// console.log(start);
-		var valueStart = start.toISOString().split('T')[0];
-		// 
-		var ecartMax = 10;
-		//console.log("ecart jour", ecartJour);
-		if (ecartJour > ecartMax) {
-			// on debute 10 jours avant la fin
-			startTmp = new Date(fin);
-			startTmp.setDate(startTmp.getDate() - ecartMax);
-			valueStart = startTmp.toISOString().split('T')[0];
-		}
-
-		var debutHTML = getElement("debut" + id);
-		var finHTML = getElement("fin" + id);
-		debutHTML.value = valueStart;
-		debutHTML.min = start.toISOString().split('T')[0];
-		debutHTML.max = fin.toISOString().split('T')[0];
-
-		finHTML.value = fin.toISOString().split('T')[0];
-		finHTML.min = start.toISOString().split('T')[0];
-		finHTML.max = fin.toISOString().split('T')[0];
-	}
-
 	function likekeys(id) {
 		return id.match("^(" + idDessin + ")") && id != idDessin && id.match("(-s_)");
 	}
@@ -268,17 +231,7 @@
 		// console.log("nb row " + nbRow);
 		//var nbRow = sizeof(tabDates[id]);
 
-		var debutHTML = getElement("debut" + id);
-		var finHTML = getElement("fin" + id);
-
-		var start = new Date(debutHTML.value);
-		start.setMonth(start.getMonth()+1);
-		start.setHours(0);
-		var fin = new Date(finHTML.value);
-		fin.setMonth(fin.getMonth()+1);
-		fin.setHours(0);
-
-		// console.log(start);
+		// console.log(dateDeb);
 		//console.log(id);
 
 		var max = 0
@@ -322,34 +275,10 @@
 			tabData = tabDatesTimes[id]
 		}
 
-		var debut=start;
-		while (debut < fin) {
-			var keyDate = debut.getFullYear() + "-" + debut.getMonth() + "-" + debut.getDate();
-			if (hour) {
-				keyDate = keyDate + "-" + debut.getHours();
-			}
-			//for (var date in tabData) {
-			var nb = tabData[keyDate];
-			// console.log(date + " " + nb);
-			if (nb > max) {
-				max = nb;
-			}
-			//}
-			if (hour) {
-				var newDate = debut.setHours(debut.getHours() + 1);
-			} else {
-				var newDate = debut.setDate(debut.getDate() + 1);
-			}
-			debut = new Date(newDate);
-		}
-		// console.log("nb " + nb);
-		fin.setDate(fin.getDate() + 1);
-
-		var nbRow = Math.floor((fin - start) / (60 * 60 * 1000));
+		var nbRow = Math.floor((dateFin - dateDeb) / (60 * 60 * 1000));
 		if (hour) {
-
 		} else {
-			var nbRow = Math.floor((fin - start) / (24 * 60 * 60 * 1000));
+			var nbRow = Math.floor((dateFin - dateDeb) / (24 * 60 * 60 * 1000));
 		}
 		// console.log("nbRow " + nbRow);
 
@@ -373,8 +302,8 @@
 		if (nbRow * largeur + decal > longueur) {
 			alertModalInfo("Attention vous dépasse la capacité d'affichage 63 jours max");
 		}
-		if (fin < start) {
-			alertModalInfoTimeout("Attention date de début supérieure à la date de fin",1);
+		if (dateFin < dateDeb) {
+			alertModalInfoTimeout("Attention date de début supérieure à la date de dateFin",1);
 		}
 		// console.log("longueur " + longueur);
 		// console.log("largeur " + largeur);
@@ -385,19 +314,42 @@
 		var nbTot=0;
 		var nbTotOS=[];
 
-		while (start < fin) {
-			var keyDate = start.getFullYear() + "-" + start.getMonth() + "-" + start.getDate();
-			var keyDateTime = keyDate + "-" + start.getHours();
-			var laDateStr = start.getDate() + "/" + (start.getMonth() ) + "/" + start.getFullYear();
-			var laDateStr2 = start.getDate() + "/" + (start.getMonth() ) + "/" + start.getFullYear();
+
+		var debut=dateDeb;
+		while (debut < dateFin) {
+			var keyDate = debut.getFullYear() + "-" + debut.getMonth() + "-" + debut.getDate();
+			if (hour) {
+				keyDate = keyDate + "-" + debut.getHours();
+			}
+			//for (var date in tabData) {
+			var nb = tabData[keyDate];
+			// console.log(date + " " + nb);
+			if (nb > max) {
+				max = nb;
+			}
+			//}
+			if (hour) {
+				var newDate = debut.setHours(debut.getHours() + 1);
+			} else {
+				var newDate = debut.setDate(debut.getDate() + 1);
+			}
+			debut = new Date(newDate);
+		}
+
+		var dateLu=dateDeb;
+		while (dateLu < dateFin) {
+			var keyDate = dateLu.getFullYear() + "-" + dateLu.getMonth() + "-" + dateLu.getDate();
+			var keyDateTime = keyDate + "-" + dateLu.getHours();
+			var laDateStr = dateLu.getDate() + "/" + (dateLu.getMonth() ) + "/" + dateLu.getFullYear();
+			var laDateStr2 = dateLu.getDate() + "/" + (dateLu.getMonth() ) + "/" + dateLu.getFullYear();
 			if (hour) {
 				var laDate = keyDateTime;
-				laDateStr = start.getDate() + "/" + (start.getMonth() ) + "/" + start.getFullYear();
-				laDateStr2 = start.getDate() + "/" + (start.getMonth() ) + "/" + start.getFullYear() + " " + start.getHours();
+				laDateStr = dateLu.getDate() + "/" + (dateLu.getMonth() ) + "/" + dateLu.getFullYear();
+				laDateStr2 = dateLu.getDate() + "/" + (dateLu.getMonth() ) + "/" + dateLu.getFullYear() + " " + dateLu.getHours();
 			} else {
 				var laDate = keyDate;
 			}
-			// console.log(laDateStr);
+			// console.log(laDate);
 			var nb = 0;
 			// console.log(tabDates);
 
@@ -428,7 +380,7 @@
 				// max => 180
 				//  nb =  hc
 				hc = (hauteur - 30) * nb / max;
-				// console.log(hc,nb, max);
+				console.log(hc,nb, max);
 				/* Un rectangle de couleur unie */
 
 				ctx.lineWidth = "1";
@@ -436,7 +388,7 @@
 				ctx.fillStyle = colorOS[OS];
 				// console.log("ctx.fillRect("+decal+", "+(hauteur-hc-10)+", "+largeur+", "+hc+")");
 				ctx.fillRect(decal, hauteur - hc - 10 - hc_prec, largeur, hc)
-//				console.log(hauteur, decal, hauteur - hc - 10 - hc_prec, largeur, hc, OS, nb);
+				console.log(hauteur, decal, hauteur - hc - 10 - hc_prec, largeur, hc, OS, nb);
 
 				ctx.fillStyle = "BLACK";
 				if (nb > 0) {
@@ -505,7 +457,7 @@
 					ctx.beginPath();
 					ctx.moveTo(Xlettre, Ylettre);
 					ctx.font = "8px arial";
-					ctx.fillText(start.getHours(), Xlettre - 5, Ylettre - 40);
+					ctx.fillText(dateLu.getHours(), Xlettre - 5, Ylettre - 40);
 					ctx.lineTo(Xlettre, hauteur - 50);
 					ctx.closePath();
 					ctx.stroke();
@@ -513,15 +465,13 @@
 			}
 			cptRow++;
 
-
-
 			decal += largeur;
 			if (hour) {
-				var newDate = start.setHours(start.getHours() + 1);
+				var newDate = dateLu.setHours(dateLu.getHours() + 1);
 			} else {
-				var newDate = start.setDate(start.getDate() + 1);
+				var newDate = dateLu.setDate(dateLu.getDate() + 1);
 			}
-			start = new Date(newDate);
+			dateLu = new Date(newDate);
 			dayBefore = keyDate;
 		}
 
@@ -542,7 +492,7 @@
 			textTot=" "+OS.split("_")[1]+":"+parseInt(nbTotOS[OS]/nbTot*100)+"%";
 			ctx.fillText(textTot, Xlettre , Ylettre - hauteur/2+ i*20);
 			i++;
-}
+		}
 		
 		if (largeur < 5) {
 			ctx.beginPath();
@@ -586,17 +536,14 @@
 			ctx.fillText("0,00", 10, hL4 - 3);
 			ctx.stroke();
 			ctx.closePath();
-
 		}
-
 	}
-
 
 	function unloadPage() {}
 </script>
 <h3 class="titreFiche">Stat d'accès de la BAV <?= $infAppli['numero_bav'] ?></h3>
 <select id="annee_stat" onchange="changeNumeroBAV(this.value)"></select>
-
+<span id=dateDeb></span> au <span id=dateFin></span>
 <div id="statresult">
 </div>
 <canvas id="canvasShape" width="700" height="200">Votre navigateur est trop vieux</canvas>
