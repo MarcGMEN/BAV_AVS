@@ -178,16 +178,27 @@ function add_counter_action($page, $modePage, $type = "")
     if  (in_array(strtolower($page), $tabPageSuivi)) {
         
         extract($GLOBALS);
-        $cas['cas_page'] = $page;
-        $cas['cas_mode_page'] = $modePage;
-        $cas['cas_type'] = $type;
-        $cas['cas_numero_bav'] = $INFO_APPLI['numero_bav'];    
-        $cas['cas_navigateur'] = getBrowser();
-        $cas['cas_os'] = getOSlight();
-        $cas['cas_admin'] = $INFO_APPLI['ADMIN'];
-        $cas['cas_ip'] = getIp();
-        insertCounterAction($cas);
-        // print_r("insert $page");
+        date_default_timezone_set('Europe/Paris');
+        $today = time();
+        // Ajouter un jour (86400 secondes = 24 * 60 * 60)
+        $dateFin = $INFO_APPLI['date_j3'] +86400;
+        // print_r(date("d/m/Y",$INFO_APPLI['date_debut_client'])." <= ".date("d/m/Y",$today)." <= ".date("d/m/Y",$dateFin));
+        if ($today >= $INFO_APPLI['date_debut_client'] && $today <= $dateFin) {
+
+            $cas['cas_page'] = $page;
+            $cas['cas_mode_page'] = $modePage;
+            $cas['cas_type'] = $type;
+            $cas['cas_numero_bav'] = $INFO_APPLI['numero_bav'];    
+            $cas['cas_navigateur'] = getBrowser();
+            $cas['cas_os'] = getOSlight();
+            $cas['cas_admin'] = $INFO_APPLI['ADMIN'];
+            $cas['cas_ip'] = getIp();
+            insertCounterAction($cas);
+            // print_r("insert $page");
+        }
+        else {
+            // print_r("pas des la zone de stat.");
+        }
     }
 }
 

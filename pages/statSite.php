@@ -39,7 +39,6 @@
 				getElement("dateFin").innerHTML=dateFin.toLocaleDateString()
 				dateDeb.setMonth(dateDeb.getMonth()+1);
 				dateFin.setMonth(dateFin.getMonth()+1);
-
 			}
 		}
 	}

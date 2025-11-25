@@ -22,9 +22,10 @@ function return_infoAppli()
     $ipLu = $_SERVER['REMOTE_ADDR'];
 
     $par = return_parametreActif();
+    // print_r($par);
     date_default_timezone_set('Europe/Paris');
     $tabIpsAdmin = explode(",", $par['par_admin_id_mac']);
-    $today = mktime(date('H'),date('i'),date('s'),date('m'),date('d'),date('Y'));
+    // $today = mktime(date('H'),date('i'),date('s'),date('m'),date('d'),date('Y'));
     $today = time();
     $infos['CLIENT'] = 0;
     $infos['ADMIN'] = $_COOKIE['AADD'] == $GLOBALS['PASS_ADMIN'] ? 1 : 0;
@@ -66,11 +67,12 @@ function return_infoAppli()
 
     $infos['par_date_debut_depot_FR'] =  formateDateMYSQLtoFR($par['par_date_debut_depot'], true);
     $infos['par_date_debut_vente_FR'] =  formateDateMYSQLtoFR($par['par_date_debut_vente'], true);
-    $infos['par_date_fin_bav_FR'] =  formateDateMYSQLtoFR($par['H:I:s'], true);
+    $infos['par_date_fin_bav_FR'] =  formateDateMYSQLtoFR($par['par_date_fin_bav'], true);
     
     $infos['date_j1'] = strtotime($par['par_date_debut_depot']);
     $infos['date_j2'] = strtotime($par['par_date_debut_vente']);
     $infos['date_j3'] = strtotime($par['par_date_fin_bav']);
+    $infos['date_debut_client'] = strtotime($par['par_client_date_debut']);
 
     $infos['temps_depot'] = $par['par_temps_depot'];
 
