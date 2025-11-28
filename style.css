@@ -362,7 +362,7 @@ div.cptTitre {
     text-align: right;
     font-size: 5em;
 }
-div.cptGRAND, div.cptGRAND_V {
+div.cptGRAND {
     align-items: center;   /* centre verticalement */
     text-align: center;
     font-size: 10em;
@@ -506,6 +506,13 @@ div.cptGRAND_V {
     div.pied {
         width: 100%;
     }
+
+    div.cptTitre {
+        font-size: 3em;
+    }
+    div.cptGRAND {
+        font-size: 7em;
+}
 }
 
 

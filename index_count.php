@@ -119,24 +119,24 @@ sajax_handle_client_request();
 	</div>
 	<? if (!$infAppli['bav_en_cours']) {?>
 	<div class="row same-height">
-		<div class="col-xs-3 col-sm-3 col-md-3 cptTitre" >
+		<div class="col-xs-4 col-sm-3 col-md-3 cptTitre" >
 			Pré-dépôt
 		</div>
-		<div class="col-xs-9 col-sm-9 col-md-9 cptGRAND" id=CONFIRME></div>
+		<div class="col-xs-8 col-sm-9 col-md-9 cptGRAND" id=CONFIRME></div>
 	</div>
 	<? } ?>
 	<? if ($infAppli['bav_en_cours']) {?>
 	<div class="row same-height">
-		<div class="col-xs-3 col-sm-3 col-md-3 cptTitre" >
+		<div class="col-xs-4 col-sm-3 col-md-3 cptTitre" >
 			Stock
 		</div>
-		<div class="col-xs-9 col-sm-9 col-md-9 cptGRAND" id=TOTAL></div>
+		<div class="col-xs-8 col-sm-9 col-md-9 cptGRAND" id=TOTAL></div>
 	</div>
 	<div class="row same-height">
-		<div class="col-xs-3 col-sm-3 col-md-3 cptTitre VENDU" >
+		<div class="col-xs-4 col-sm-3 col-md-3 cptTitre VENDU" >
 			Vendu
 		</div>
-		<div class="col-xs-9 col-sm-9 col-md-9 cptGRAND VENDU" id=VENDU></div>
+		<div class="col-xs-8 col-sm-9 col-md-9 cptGRAND VENDU" id=VENDU></div>
 	</div>
 	<? }?>
 </body>
