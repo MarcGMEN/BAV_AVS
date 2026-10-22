@@ -478,11 +478,14 @@ function display_fiche(val) {
     }
 
      var index = val['obj_numero'] - baseNumFiche + 1;
-    if (ligneSelect != 0) {
+
+    if (getElement("tr_" + ligneSelect)) {
         getElement("tr_" + ligneSelect).style = "";
     }
     ligneSelect=index;
-    getElement("tr_" + index).style = "background-color: #00b7cd";
+    if (getElement("tr_" + index)) {
+        getElement("tr_" + index).style = "background-color: #00b7cd";
+    }
 
 }
 
@@ -524,6 +527,12 @@ function display_infoClientVendeurName(val) {
 
 function display_infoClientVendeur(val, base) {
     //console.log(val);
+
+    if (document.formSaisieExpress) {
+        document.formSaisieExpress.cli_code_postal.disabled = false;
+        document.formSaisieExpress.cli_telephone.disabled = false;
+    }
+
     if (val instanceof Object) {
         val['cli_nom_' + idRamdom] = val['cli_nom'];
         // si mel on force la liste des vendeur Name a vide
@@ -551,8 +560,10 @@ function display_infoClientVendeur(val, base) {
             val['cli_nom_' + idRamdom] = "";
             // val['cli_emel'] = "";
         }
-        val['cli_code_postal'] = "";
+        val['cli_code_postal'] = "44600";
         val['cli_telephone'] = "";
+
+       
 
         // nouveau client
 
@@ -813,7 +824,7 @@ function display_infoClientAcheteur(val, base) {
         if (base == 'nom') {
             //val['ach_emel'] = "";
         }
-        val['ach_code_postal'] = "";
+        val['ach_code_postal'] = "44600";
     }
     display_formulaire(val, document.modalForm);
 }

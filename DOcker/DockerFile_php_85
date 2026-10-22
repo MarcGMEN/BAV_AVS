@@ -1,0 +1,26 @@
+# Dockerfile_php
+FROM php:8.5-apache
+
+# Installer les extensions nécessaires
+RUN apt-get update && apt-get install -y \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libpng-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd mysqli pdo pdo_mysql
+
+# Installer Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+RUN mkdir -p /var/www/html/bourseAuxVelos
+RUN mkdir -p /var/www/html/bourseAuxVelos/out/PDF 
+RUN mkdir -p /var/www/html/bourseAuxVelos/out/html
+RUN chown -R www-data:www-data /var/www/html/bourseAuxVelos/out 
+
+# Activer mod_rewrite (utile pour frameworks)
+RUN a2enmod rewrite
+
+WORKDIR /var/www/html
+
+EXPOSE 80
+

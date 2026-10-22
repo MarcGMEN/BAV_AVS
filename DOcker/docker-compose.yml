@@ -1,13 +1,27 @@
 services:
-  php_bav:
+  php_bav_85:
     build:
       context: .
-      dockerfile: DockerFile_php
-    container_name: php_app_bav
+      dockerfile: DockerFile_php_85
+    container_name: php_app_bav_85  
+    image: php_app_bav_85:latest
     volumes:
       - ..:/var/www/html/bourseAuxVelos
     ports:
-      - "8090:80"
+      - "8095:80"
+    depends_on:
+      - db_bav
+
+  php_bav_82:
+    build:
+      context: .
+      dockerfile: DockerFile_php_82
+    container_name: php_app_bav_82
+    image: php_app_bav_82:latest
+    volumes:
+      - ..:/var/www/html/bourseAuxVelos
+    ports:
+      - "8092:80"
     depends_on:
       - db_bav
 

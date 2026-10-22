@@ -42,7 +42,6 @@ function map_field_type_to_bind_type($field_type)
         case MYSQLI_TYPE_NEWDATE:
             return 't';
 
-        case MYSQLI_TYPE_INTERVAL:
         case MYSQLI_TYPE_SET:
         case MYSQLI_TYPE_VAR_STRING:
         case MYSQLI_TYPE_STRING:

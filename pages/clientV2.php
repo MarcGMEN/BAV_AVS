@@ -146,10 +146,9 @@
 		<div class="col-sm-3 col-md-3 col-xs-6">
 			<!-- Pas d'accès avec la BAV en cours -->
 			<!-- fin CLIENT a 17h -->
-			<? if ($infAppli['CLIENT'] == 1 || $infAppli['ADMIN'] == 1 || $GET_modePage == "createTEST") { ?>
+			<? if ($infAppli['CLIENT'] == 1 || $GET_modePage == "createTEST") { ?>
 				<h3><input type=button value="Ajouter un dépôt ➕" onclick="addDepot(document.clientForm.cli_id_modif.value)" /></h3>
-			<? } ?>
-			<? if ($infAppli['CLIENT'] == 0 ){?>
+			<? } else { ?>
 				<h4>Pas d'ajout possible, session clotûrée.</h4>
 			<?}?>
 		</div>

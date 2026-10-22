@@ -1,4 +1,5 @@
-<? $idRamdom = rand(1000, 9999); ?>
+<? $idRamdom = rand(1000, 9999);
+$today = time(); ?>
 <script>
 	var idRamdom = "<?= $idRamdom ?>";
 </script>
@@ -7,6 +8,7 @@
 <h3 class="titreFiche">Pré-dépôt en ligne</h3>
 
 <? if ($infAppli['CLIENT'] || $GET_modePage=="createTEST") { ?>
+	<H3	>Pré-dépot ouvert jusqu'au <?= $infAppli['dateFinClient'] ?></H3>
 	<div class='alert alert-info' id="informations">
 		<p>Avant de venir déposer votre vélo les à La Soucoupe, nous vous conseillons de remplir la fiche dépôt.</p>
 		<div class="maskmobile">
@@ -19,7 +21,7 @@
 			<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cette fiche dépôt devra être <b>imprimée par vous</b> pour vous rendre à la Bourse, une par dépôt.</li>
 		</ul>
 		<p>- Soit en téléchargeant, puis en imprimant la fiche dépôt à remplir que vous trouverez ici
-			<A href="downloads/Fiche_BAV_2024.pdf" target="_blank"> <img class="link url" src="Images/pdf.png" height='30px' alt="téléchargement de la fiche" title="téléchargement de la fiche"></A>
+			<A href="downloads/Fiche_BAV_2026.pdf" target="_blank"> <img class="link url" src="Images/pdf.png" height='30px' alt="téléchargement de la fiche" title="téléchargement de la fiche"></A>
 			<small><i>Attention aux droits d'ouvertures des popUp, en fonction de votre navigateur.</i></small>
 		</p>
 		</div>
@@ -34,12 +36,19 @@
 		</h4>
 		</div>
 	</div>
-<? } else { ?>
-	<h3> Accès à votre compte </h3>
 <? } ?>
+
 <div class="row" id="connexions">
 	<div class="col-sm-12 col-md-12 col-xs-12 ">
-		<? if ($infAppli['CLIENT']  || $GET_modePage=="createTEST") { ?>
+		<? if ($today < $infAppli['date_debut_client'] ||  $today > $infAppli['date_j3_2sem'] ) { ?>
+			<div class="col-sm-12 col-md-12 col-xs-12 alert alert-warning" id='div_first_connexion'>
+				<h3>Le pré-dépôt est fermé pour le moment, il sera ouvert à partir du <?= date("d/m/Y",$infAppli['date_debut_client']) ?>.</h3>
+			</div>
+		<?} else { ?>
+		<div class="col-sm-12 col-md-12 col-xs-12 alert alert-info" id='div_first_connexion'>
+			<h3> Accès à votre compte jusqu'au  <?=date("d/m/Y",$infAppli['date_j3_2sem'])?></h3>
+		</div>
+		<? if ($infAppli['CLIENT'] || $GET_modePage=="createTEST") { ?>
 			<div class="col-sm-5 col-md-5 col-xs-12 alert alert-info" id='div_first_connexion'>
 				<div class="col-sm-12 col-md-12 col-xs-12 ">
 					<h4>Pré-enregistrement<h4>
@@ -60,11 +69,8 @@
 				==>
 			</div>
 		<? } ?>
-		<? if (!$infAppli['CLIENT'] ) { ?>
-			<!--<div class="col-sm-12 col-md-12 col-xs-12 alert alert-info" id='div_first_connexion'>
-			Pas d'ajout autorisé, car la session est clotûrée.
-			</div>-->
-		<?}?>
+		
+		<br/>
 		<div class="col-sm-6 col-md-6 col-xs-12 alert alert-info" id='div_connexion'>
 			<div class="col-sm-12 col-md-12 col-xs-12 ">
 				<h4>Connexion<h4>
@@ -85,8 +91,9 @@
 
 			</form>
 		</div>
+		<?}?>
 	</div>
-	</div>
+</div>
 
 <!-- ###################################################################################### -->
 <div class="row" id="input_first_connexion" style="display:none;">

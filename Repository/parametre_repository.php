@@ -31,8 +31,8 @@ function return_infoAppli()
     $infos['ADMIN'] = $_COOKIE['AADD'] == $GLOBALS['PASS_ADMIN'] ? 1 : 0;
     $infos['NB_MODIF'] = $par['par_nb_modif'];
     $dateFin=strtotime($par['par_client_date_fin']);
-    $dateFin17=mktime(18, 0, 0, date('m',$dateFin), date('d',$dateFin), date('Y',$dateFin));
-    // $dateFin17=mktime(23, 50, 0, date('m',$dateFin), date('d',$dateFin), date('Y',$dateFin));
+    // $dateFin17=mktime(23, 30, 0, date('m',$dateFin), date('d',$dateFin), date('Y',$dateFin));
+    $dateFin17=mktime(23, 50, 0, date('m',$dateFin), date('d',$dateFin), date('Y',$dateFin));
     
     if (strtotime($par['par_client_date_debut']) < $today && $today < $dateFin17) {
         $infos['CLIENT'] = 1;
@@ -72,6 +72,9 @@ function return_infoAppli()
     $infos['date_j1'] = strtotime($par['par_date_debut_depot']);
     $infos['date_j2'] = strtotime($par['par_date_debut_vente']);
     $infos['date_j3'] = strtotime($par['par_date_fin_bav']);
+
+    $infos['date_j3_2sem'] =mktime(0, 0, 0, date('m',$infos['date_j3']), date('d',$infos['date_j3'])+15, date('Y',$infos['date_j3']));
+
     $infos['date_debut_client'] = strtotime($par['par_client_date_debut']);
 
     $infos['temps_depot'] = $par['par_temps_depot'];
