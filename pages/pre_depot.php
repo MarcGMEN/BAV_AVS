@@ -6,8 +6,8 @@ $today = time(); ?>
 <script src="JS/pre_depot.js" type="text/javascript"></script>
 
 <h3 class="titreFiche">Pré-dépôt en ligne</h3>
-
-<? if ($infAppli['CLIENT'] || $GET_modePage=="createTEST") { ?>
+<?
+ if ($infAppli['CLIENT'] || $GET_modePage=="createTEST") { ?>
 	<H3	>Pré-dépot ouvert jusqu'au <?= $infAppli['dateFinClient'] ?></H3>
 	<div class='alert alert-info' id="informations">
 		<p>Avant de venir déposer votre vélo les à La Soucoupe, nous vous conseillons de remplir la fiche dépôt.</p>

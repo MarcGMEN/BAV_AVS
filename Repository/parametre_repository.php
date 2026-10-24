@@ -32,14 +32,14 @@ function return_infoAppli()
     $infos['NB_MODIF'] = $par['par_nb_modif'];
     $dateFin=strtotime($par['par_client_date_fin']);
     // $dateFin17=mktime(23, 30, 0, date('m',$dateFin), date('d',$dateFin), date('Y',$dateFin));
-    $dateFin17=mktime(23, 50, 0, date('m',$dateFin), date('d',$dateFin), date('Y',$dateFin));
+    // $dateFin17=mktime(23, 50, 0, date('m',$dateFin), date('d',$dateFin), date('Y',$dateFin));
     
-    if (strtotime($par['par_client_date_debut']) < $today && $today < $dateFin17) {
+    if (strtotime($par['par_client_date_debut']) < $today && $today < $dateFin) {
         $infos['CLIENT'] = 1;
     } else {
         $infos['message'] = "Session pas encore ouverte";
     }
-    $infos['dateFinClient'] = date("d/m/Y H:i:s",$dateFin17 );
+    $infos['dateFinClient'] = date("d/m/Y H:i:s",$dateFin );
     //$infos['dateFinClient'] = date("d/m/Y H:i:s",$dateFin17 );
     // $infos['dateFinClient'] = date("d/m/Y H:i:s",$today-$dateFin17 );
     
@@ -97,8 +97,8 @@ function return_parametreActif()
         $row = getParemetreActif();
         if ($row) {
             $row['par_client_date_debut_FR'] =  formateDateMYSQLtoFR($row['par_client_date_debut'], false);
-            $row['par_client_date_fin_FR'] =  formateDateMYSQLtoFR($row['par_client_date_fin'], false);
-
+            $row['par_client_date_fin_FR'] =  formateDateMYSQLtoFR($row['par_client_date_fin'], true);
+            
             $row['par_table_date_debut_FR'] =  formateDateMYSQLtoFR($row['par_table_date_debut'], false);
             $row['par_table_date_fin_FR'] =  formateDateMYSQLtoFR($row['par_table_date_fin'], false);
 

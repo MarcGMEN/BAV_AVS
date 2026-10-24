@@ -34,6 +34,8 @@ services:
       MYSQL_DATABASE: bav
       MYSQL_USER: bav
       MYSQL_PASSWORD: AVS44b@v!
+    ports:
+      - "3306:3306"
     volumes:
       #- db_data:/var/lib/mysql
       - ../dbmigration/init_db:/docker-entrypoint-initdb.d:ro   # monte tout le dossier db

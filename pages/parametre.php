@@ -93,7 +93,7 @@
 					<td class="tabInput" colspan=2>
 						<input type=date name="par_client_date_debut" size=15 maxlength="15" tabindex=<?= $tabindex++ ?> onkeyup="setStartSaisie(true);" required max="2030-12-31" />
 						&nbsp;au&nbsp;
-						<input type=date name="par_client_date_fin" tabindex=<?= $tabindex++ ?> onkeyup="setStartSaisie(true);" required max="2030-12-31" />
+						<input type="datetime-local" name="par_client_date_fin" tabindex=<?= $tabindex++ ?> onkeyup="setStartSaisie(true);" required max="2030-12-31" step="1800"/>
 						<small>Date d'ouverture des pré-dépôts et fermeture le <?= $infAppli['dateFinClient'] ?></small>
 					</td>
 				</tr>

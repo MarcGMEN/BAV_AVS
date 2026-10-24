@@ -65,6 +65,8 @@ function display_parametre(val) {
     // reset des champ du formulaire
     document.parametreForm.reset();
 
+    val['par_client_date_fin'] = val['par_client_date_fin'].replace(' ', 'T' );
+
     // affichage du formulaier
     display_formulaire(val, document.parametreForm);
 
@@ -142,10 +144,12 @@ function valider(laForm) {
     // console.log("modePage : "+modePage);
     // comparaison date
     var debClient = laForm.par_client_date_debut.value;
-    var finClient = laForm.par_client_date_fin.value;
+    var finClient = laForm.par_client_date_fin.value.replace('T', ' ');
+
+    console.log("debClient : "+debClient+"  finClient : "+finClient);
 
     if ((new Date(debClient).getTime() > new Date(finClient).getTime())) {
-        laForm.par_client_date_debut.setCustomValidity("Date de début doit être avant la date de fin");
+        laForm.par_client_date_debut.setCustomValidity("Date de début doit être avant la date de fin.");
         return false;
     }
 

@@ -67,7 +67,7 @@ function display_formulaire(val, laForm) {
                         if (laForm.elements[i].type == "checkbox") {
                             laForm.elements[i].checked = true;
                         }
-                        if (laForm.elements[i].type == "date") {
+                        if (laForm.elements[i].type == "date" || laForm.elements[i].type == "datetime-local") {
                             laForm.elements[i].value = val[i];
                         } else {
                             laForm.elements[i].value = miseEnFormeData(i, val[i]);
