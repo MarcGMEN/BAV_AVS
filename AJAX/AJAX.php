@@ -180,10 +180,11 @@ function add_counter_action($page, $modePage, $type = "")
         extract($GLOBALS);
         date_default_timezone_set('Europe/Paris');
         $today = time();
-        // Ajouter un jour (86400 secondes = 24 * 60 * 60)
-        $dateFin = $INFO_APPLI['date_j3'] +86400;
+        // ajouter 10 jours à la date de début du client pour avoir la date de fin de suivi
+        $dateFin = $INFO_APPLI['date_j3'] + ( 10 * 24 * 60 * 60);
+        $dateDebut = $INFO_APPLI['date_debut_client'] -  ( 10 * 24 * 60 * 60);
         // print_r(date("d/m/Y",$INFO_APPLI['date_debut_client'])." <= ".date("d/m/Y",$today)." <= ".date("d/m/Y",$dateFin));
-        if ($today >= $INFO_APPLI['date_debut_client'] && $today <= $dateFin) {
+        if ($today >= $dateDebut && $today <= $dateFin) {
 
             $cas['cas_page'] = $page;
             $cas['cas_mode_page'] = $modePage;

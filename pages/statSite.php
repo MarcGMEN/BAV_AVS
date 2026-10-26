@@ -30,8 +30,9 @@
 			if (anneeBav == index) {
 				select.options[select.options.length - 1].selected = true;
 				dateDeb=new Date(val[index]['par_client_date_debut'] );
+				dateDeb.setDate(dateDeb.getDate()-10);
 				dateFin=new Date(val[index]['par_date_fin_bav'] );
-				dateFin.setDate(dateFin.getDate()+3);
+				dateFin.setDate(dateFin.getDate()+10);
 				dateDeb.setHours(0);
 				dateFin.setHours(0);
 				console.log(dateDeb,dateFin)
