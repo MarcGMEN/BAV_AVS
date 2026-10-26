@@ -180,8 +180,9 @@ function add_counter_action($page, $modePage, $type = "")
         extract($GLOBALS);
         date_default_timezone_set('Europe/Paris');
         $today = time();
-        // Ajouter un jour (86400 secondes = 24 * 60 * 60)
-        $dateFin = $INFO_APPLI['date_j3'] +86400;
+        // ajout de 15 jours pour le suivi des stats
+        // Ajouter un jour (86400 secondes = 15* 24 * 60 * 60)
+        $dateFin = $INFO_APPLI['date_j3'] +(15* 24 * 60 * 60);
         // print_r(date("d/m/Y",$INFO_APPLI['date_debut_client'])." <= ".date("d/m/Y",$today)." <= ".date("d/m/Y",$dateFin));
         if ($today >= $INFO_APPLI['date_debut_client'] && $today <= $dateFin) {
 

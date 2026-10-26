@@ -31,7 +31,7 @@
 				select.options[select.options.length - 1].selected = true;
 				dateDeb=new Date(val[index]['par_client_date_debut'] );
 				dateFin=new Date(val[index]['par_date_fin_bav'] );
-				dateFin.setDate(dateFin.getDate()+3);
+				dateFin.setDate(dateFin.getDate()+15);
 				dateDeb.setHours(0);
 				dateFin.setHours(0);
 				console.log(dateDeb,dateFin)
