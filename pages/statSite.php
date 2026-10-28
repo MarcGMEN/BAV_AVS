@@ -68,7 +68,8 @@
 	var tabDatesTimes = [];
 
 	function tree(val, parent, niv) {
-	var repr = "";
+		
+		var repr = "";
 		var nb = 0;
 		var dates = [];
 		var affiche=1;
@@ -116,9 +117,10 @@
 				}
 
 				// console.log("on a "+sizeof(tab['dates'])+" date pour "+idHtml);
-				// console.log(tab['dates']);
+				//console.log(tab['dates']);
 				for (var j in tab['dates']) {
 					var dateLu = tab['dates'][j];
+
 
 					//tabDates.push(idHtml);
 					// if (debut == null || dates[j] < debut) {
@@ -184,18 +186,15 @@
 
 	function closeDesin(id) {
 		var divCanvas = getElement("divcanvas_" + id);
-		divCanvas.style.display = 'none';
+		if (divCanvas)
+			divCanvas.style.display = 'none';
 
 		var monCanvas = getElement("canvas_" + id);
-		var context = monCanvas.getContext("2d");
-		context.beginPath();
-		context.clearRect(0, 0, monCanvas.width, monCanvas.height);
-		context.closePath();
-
-		// si on efface le dessin des heures, on recharge le canvas des jours
-		if (hourG == 1) {
-			hourG=0;
-			dessin(id, 0);
+		if (monCanvas) {
+			var context = monCanvas.getContext("2d");
+			context.beginPath();
+			context.clearRect(0, 0, monCanvas.width, monCanvas.height);
+			context.closePath();
 		}
 	}
 	var longueur = window.innerWidth * 0.8;
@@ -204,18 +203,22 @@
 	var hourG;
 
 	function likekeys(id) {
+		// console.log("likekeys " + id + " idDessin " + idDessin);
 		return id.match("^(" + idDessin + ")") && id != idDessin && id.match("(-s_)");
 	}
 
 	var idDessin = "";
 	var tabXYDays = [];
 
-	function dessin(id,hour) {
+	function dessin(id,hour,dateRef=null) {
+		if (hour == 0)
+			tabXYDays=[];
+		// console.log("dessin " + id + " hour " + hour + " dateRef "+dateRef);
 		closeDesin(hour);
 		hourG = hour;
+		idDessin=id;
 		var divCanvas = getElement("divcanvas_" + hour);
 		divCanvas.style.display = 'block';
-		
 
 		var monCanvas = getElement("canvas_" + hour);
 		var ctx = monCanvas.getContext("2d");
@@ -231,14 +234,18 @@
 		// console.log(dateDeb);
 		//console.log(id);
 
+		var dateDebCanvas = new Date(dateDeb);
+		var dateFinCanvas = new Date(dateFin);
+
 		var max = 0
 
-		//console.log(tabDates);
+		// console.log(tabDatesTimes);
 		var tabDataOS = new Array();
 		while(tabDataOS.length > 0) {
 			tabDataOS.pop();
 		}
 		var idsOS = Object.keys(tabDates).filter(likekeys);
+		// console.log("idsOS",idsOS);
 		for (var idOS in idsOS) {
 			var tabId = idsOS[idOS].split('-');
 			nameOS = tabId[sizeof(tabId) - 1];
@@ -260,22 +267,33 @@
 				for (var date in tabTmp) {
 					if (!tabDataOS[nameOS][date]) {
 						tabDataOS[nameOS][date] = tabTmp[date];
-					} else {
 						tabDataOS[nameOS][date] += tabTmp[date];
 					}
 				}
 			}
 		}
+		// console.log("tabDataOS",tabDataOS);
 		
 		var tabData = tabDates[id];
 		if (hour) {
-			tabData = tabDatesTimes[id]
+			for (var dateHour in tabDatesTimes[id]) {
+				if (dateHour.startsWith(dateRef)) {
+					tabData[dateHour] = tabDatesTimes[id][dateHour];
+				}
+			}
+			//tabData = tabDatesTimes[id];
+			dateDebCanvas = new Date(dateRef);
+			dateDebCanvas.setMonth(dateDebCanvas.getMonth() + 1);
+			dateFinCanvas = new Date(dateRef);
+			dateFinCanvas.setDate(dateFinCanvas.getDate() + 1);
+			dateFinCanvas.setMonth(dateFinCanvas.getMonth() + 1);
 		}
+		
 
-		var nbRow = Math.floor((dateFin - dateDeb) / (60 * 60 * 1000));
+		var nbRow = Math.floor((dateFinCanvas - dateDebCanvas) / (60 * 60 * 1000));
 		if (hour) {
 		} else {
-			var nbRow = Math.floor((dateFin - dateDeb) / (24 * 60 * 60 * 1000));
+			var nbRow = Math.floor((dateFinCanvas - dateDebCanvas) / (24 * 60 * 60 * 1000));
 		}
 		// console.log("nbRow " + nbRow);
 
@@ -299,7 +317,7 @@
 		if (nbRow * largeur + decal > longueur) {
 			alertModalInfo("Attention vous dépasse la capacité d'affichage 63 jours max");
 		}
-		if (dateFin < dateDeb) {
+		if (dateFinCanvas < dateDebCanvas) {
 			alertModalInfoTimeout("Attention date de début supérieure à la date de dateFin",1);
 		}
 		// console.log("longueur " + longueur);
@@ -311,22 +329,20 @@
 		var nbTot=0;
 		var nbTotOS=[];
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 82b1825 (stat site)
-		var debut=new Date(dateDeb);
-		while (debut < dateFin) {
+		var debut=new Date(dateDebCanvas);
+		while (debut < dateFinCanvas) {
 			var keyDate = debut.getFullYear() + "-" + debut.getMonth() + "-" + debut.getDate();
 			if (hour) {
 				keyDate = keyDate + "-" + debut.getHours();
 			}
+			// console.log("keyDate",keyDate, debut);
 			//for (var date in tabData) {
 			var nb = tabData[keyDate];
-			// console.log(date + " " + nb);
 			if (nb > max) {
 				max = nb;
 			}
+			// console.log(debut, keyDate,nb,max);
+			
 			//}
 			if (hour) {
 				var newDate = debut.setHours(debut.getHours() + 1);
@@ -336,8 +352,8 @@
 			debut = new Date(newDate);
 		}
 
-		var dateLu=new Date(dateDeb);
-		while (dateLu < dateFin) {
+		var dateLu=new Date(dateDebCanvas);
+		while (dateLu < dateFinCanvas) {
 			var keyDate = dateLu.getFullYear() + "-" + dateLu.getMonth() + "-" + dateLu.getDate();
 			var keyDateTime = keyDate + "-" + dateLu.getHours();
 			var laDateStr = dateLu.getDate() + "/" + (dateLu.getMonth() );
@@ -363,10 +379,9 @@
 			}
 			nbTot+=nbDate;
 
-
 			for (var OS in tabDataOS) {
 
-				// console.log(OS+" "+laDate);
+				// console.log(OS+" "+laDate+" "+tabDataOS[OS][laDate]);
 				// console.log(tabDataOS[OS][laDate]);
 				nb = 0;
 				if (tabDataOS[OS][laDate]) {
@@ -399,7 +414,7 @@
 					if (largeur > 5) {
 						ctx.fillText(nb + " " + OS.split("_")[1] , Xlettre, Ylettre);
 					}
-//					console.log("ctx.fillText(" + nb + ", " + Xlettre + ", " + Ylettre + ")");
+					// console.log("ctx.fillText(" + nb + ", " + Xlettre + ", " + Ylettre + ")");
 				}
 				hc_prec = hc;
 				hc_tot += hc;
@@ -412,7 +427,7 @@
 				if (largeur > 5) {
 					ctx.fillText(nbDate, Xlettre, Ylettre);
 				}
-//				console.log("ctx.fillText(" + nbDate + ", " + Xlettre + ", " + Ylettre + ")");
+				// console.log("ctx.fillText(" + nbDate + ", " + Xlettre + ", " + Ylettre + ")");
 			}
 			Xlettre = decal;
 			Ylettre = hauteur - 10;
@@ -483,6 +498,7 @@
 			dayBefore = keyDate;
 
 		}
+		// console.log("tabXYDays",tabXYDays);
 
 		var textTot="Total: "+nbTot;
 		
@@ -548,6 +564,7 @@
 		}
 
 
+		if (hour == 0) {
 		// 4. Écouter les clics sur le canvas
 		monCanvas.addEventListener('click', function(event) {
 			// 1. Récupérer la position et la taille du canvas sur l'écran
@@ -594,11 +611,12 @@
         
         		// Vous pouvez maintenant appeler votre fonction ou afficher l'information
         		// ex: afficherDetails(clickedDate, clickedId);
-				dessin(clickedId, 1);
+				dessin(clickedId, 1, clickedDate);
     		} else {
 		        console.log("Aucune date cliquée.");
 	    	}
 		});
+}
 	}
 
 
@@ -612,11 +630,19 @@
 <div id="statresult">
 </div>
 <canvas id="canvasShape" width="700" height="200">Votre navigateur est trop vieux</canvas>
-<div style='display:none;border:0px blue solid; position: absilute' id='divcanvas_0'>
+<div style='display:none;border:0px blue solid; position: fixed;background-color:white' id='divcanvas_0'>
 	<div class='row'>
 		<div class='col-xs-11 col-sm-11 col-md-11' >
-			<canvas id='canvas_0' >Votre navigateur est trop vieux</canvas></div>
-			<div class='col-xs-1 col-sm-1 col-md-1' style='vertical-align:top' onclick="closeDesin(0)"> <img src='Images/erreur.png'/> </div>
+			<canvas id='canvas_0' >Votre navigateur est trop vieux</canvas>
 		</div>
+		<div class='col-xs-1 col-sm-1 col-md-1' style='vertical-align:top' onclick="closeDesin(0)"> <img class='link' src='Images/erreur.png'/> </div>
+	</div>
+</div>
+<div style='display:none;border:0px blue solid;position:fixed; background-color:white' id='divcanvas_1'>
+	<div class='row'>
+		<div class='col-xs-11 col-sm-11 col-md-11' >
+			<canvas id='canvas_1' >Votre navigateur est trop vieux</canvas>
+		</div>
+		<div class='col-xs-1 col-sm-1 col-md-1' style='vertical-align:top' onclick="closeDesin(1)"> <img class='link'  src='Images/erreur.png'/> </div>
 	</div>
 </div>
