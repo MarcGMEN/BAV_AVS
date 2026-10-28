@@ -190,20 +190,24 @@
 	}
 
 	function redessin(id) {
-		dessin(id, hourG)
+		dessin(id,0)
 	}
 
 	function closeDesin(id) {
 		var divCanvas = getElement("divcanvas" + id);
 		divCanvas.style.display = 'none';
-
+		
 		var monCanvas = getElement("canvas" + id);
 		var context = monCanvas.getContext("2d");
 		context.beginPath();
 		context.clearRect(0, 0, monCanvas.width, monCanvas.height);
 		context.closePath();
 
-
+		// si on efface le dessin des heures, on recharge le canvas des jours
+		if (hourG == 1) {
+			hourG=0;
+			dessin(id, 0);
+		}
 	}
 	var longueur = window.innerWidth * 0.8;
 	// var longueur = 150;
@@ -215,6 +219,7 @@
 	}
 
 	var idDessin = "";
+	var tabXYDays = [];
 
 	function dessin(id, hour) {
 		closeDesin(id);
@@ -314,8 +319,7 @@
 		var nbTot=0;
 		var nbTotOS=[];
 
-
-		var debut=dateDeb;
+		var debut=new Date(dateDeb);
 		while (debut < dateFin) {
 			var keyDate = debut.getFullYear() + "-" + debut.getMonth() + "-" + debut.getDate();
 			if (hour) {
@@ -336,16 +340,18 @@
 			debut = new Date(newDate);
 		}
 
-		var dateLu=dateDeb;
+		var dateLu=new Date(dateDeb);
 		while (dateLu < dateFin) {
 			var keyDate = dateLu.getFullYear() + "-" + dateLu.getMonth() + "-" + dateLu.getDate();
 			var keyDateTime = keyDate + "-" + dateLu.getHours();
-			var laDateStr = dateLu.getDate() + "/" + (dateLu.getMonth() ) + "/" + dateLu.getFullYear();
-			var laDateStr2 = dateLu.getDate() + "/" + (dateLu.getMonth() ) + "/" + dateLu.getFullYear();
+			//var laDateStr = dateLu.getDate() + "/" + (dateLu.getMonth() ) + "/" + dateLu.getFullYear();
+			//var laDateStr2 = dateLu.getDate() + "/" + (dateLu.getMonth() ) + "/" + dateLu.getFullYear();
+			var laDateStr = dateLu.getDate() + "/" + (dateLu.getMonth() ) ;
+			var laDateStr2 = dateLu.getDate() + "/" + (dateLu.getMonth() );
 			if (hour) {
 				var laDate = keyDateTime;
-				laDateStr = dateLu.getDate() + "/" + (dateLu.getMonth() ) + "/" + dateLu.getFullYear();
-				laDateStr2 = dateLu.getDate() + "/" + (dateLu.getMonth() ) + "/" + dateLu.getFullYear() + " " + dateLu.getHours();
+				laDateStr = dateLu.getDate() + "/" + (dateLu.getMonth() );
+				laDateStr2 = dateLu.getDate() + "/" + (dateLu.getMonth() ) + " " + dateLu.getHours();
 			} else {
 				var laDate = keyDate;
 			}
@@ -380,7 +386,7 @@
 				// max => 180
 				//  nb =  hc
 				hc = (hauteur - 30) * nb / max;
-				console.log(hc,nb, max);
+				// console.log(hc,nb, max);
 				/* Un rectangle de couleur unie */
 
 				ctx.lineWidth = "1";
@@ -388,7 +394,7 @@
 				ctx.fillStyle = colorOS[OS];
 				// console.log("ctx.fillRect("+decal+", "+(hauteur-hc-10)+", "+largeur+", "+hc+")");
 				ctx.fillRect(decal, hauteur - hc - 10 - hc_prec, largeur, hc)
-				console.log(hauteur, decal, hauteur - hc - 10 - hc_prec, largeur, hc, OS, nb);
+				// console.log(hauteur, decal, hauteur - hc - 10 - hc_prec, largeur, hc, OS, nb);
 
 				ctx.fillStyle = "BLACK";
 				if (nb > 0) {
@@ -465,6 +471,14 @@
 			}
 			cptRow++;
 
+			tabXYDays.push({
+				"X": decal,
+				"Y": hauteur,
+				"date": laDate,
+				"id": id
+			});
+
+
 			decal += largeur;
 			if (hour) {
 				var newDate = dateLu.setHours(dateLu.getHours() + 1);
@@ -473,6 +487,7 @@
 			}
 			dateLu = new Date(newDate);
 			dayBefore = keyDate;
+
 		}
 
 		var textTot="Total: "+nbTot;
@@ -537,7 +552,63 @@
 			ctx.stroke();
 			ctx.closePath();
 		}
+
+
+		// 4. Écouter les clics sur le canvas
+		monCanvas.addEventListener('click', function(event) {
+			// 1. Récupérer la position et la taille du canvas sur l'écran
+   			const rect = monCanvas.getBoundingClientRect();
+   			// 2. Calculer la position du clic par rapport au coin supérieur gauche du canvas (en pixels affichés)
+   			const clientX = event.clientX - rect.left;
+   			const clientY = event.clientY - rect.top;
+
+			// console.log("Clic détecté à l'écran :", event.clientX, event.clientY);
+			// console.log("Position relative au canvas :", clientX, clientY);
+   			// 3. Gérer l'échelle (au cas où le canvas est étiré par du CSS, ex: width: 100%)
+   			// Si votre canvas fait 800px de large en interne mais s'affiche à 400px sur l'écran :
+			// console.log("Taille du canvas :", divCanvas.width, divCanvas.height);
+			// console.log("Taille affichée du canvas :", rect.width, rect.height);
+   			// const scaleX = divCanvas.width / rect.width;
+   			// const scaleY = divCanvas.height / rect.height;
+   			const scaleX = 1;
+   			const scaleY = 1;
+
+			// console.log("Échelle du canvas :", scaleX, scaleY);
+   			// 4. Obtenir les coordonnées exactes DANS le repère du canvas
+   			const mouseX = clientX * scaleX;
+   			const mouseY = clientY * scaleY;
+
+	    	let clickedDate = null;
+    		let clickedId = null;
+
+    		// Parcourir toutes les zones enregistrées
+    		for (let i = 0; i < tabXYDays.length; i++) {
+	        	const area = tabXYDays[i];
+	    	    // Vérifier si le clic se trouve dans les limites de l'élément (X et Y)
+    	    	if (mouseX >= area.X && mouseX <= area.X + largeur && 
+    	        	mouseY < area.Y ) {	
+    		        clickedDate = area.date;
+        		    clickedId = area.id;
+            		break; // On a trouvé l'élément cliqué, on arrête la recherche
+		        }
+    		}
+
+		    // Résultat
+    		if (clickedDate) {
+        		console.log("Date cliquée :", clickedDate);
+	        	console.log("ID associé :", clickedId);
+        
+        		// Vous pouvez maintenant appeler votre fonction ou afficher l'information
+        		// ex: afficherDetails(clickedDate, clickedId);
+				dessin(clickedId, 1);
+    		} else {
+		        console.log("Aucune date cliquée.");
+	    	}
+		});
 	}
+
+
+	
 
 	function unloadPage() {}
 </script>
