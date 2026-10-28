@@ -22,7 +22,7 @@
 	}
 
 	function display_parametres(val) {
-		console.log(val);
+		// console.log(val);
 		var select = getElement("annee_stat");
 		select.options[select.options.length] = new Option("Choix", "*");
 		for (index in val) {
@@ -35,7 +35,7 @@
 				dateFin.setDate(dateFin.getDate()+10);
 				dateDeb.setHours(0);
 				dateFin.setHours(0);
-				console.log(dateDeb,dateFin)
+				// console.log(dateDeb,dateFin)
 				getElement("dateDeb").innerHTML=dateDeb.toLocaleDateString();
 				getElement("dateFin").innerHTML=dateFin.toLocaleDateString()
 				dateDeb.setMonth(dateDeb.getMonth()+1);
@@ -103,7 +103,7 @@
 
 					repr += "<div class='col-xs-2 col-sm-2 col-md-2' >Cpt => " + tab['nb'] +" (" +lastDateFR +")</div>";
 					repr += "<div class='col-xs-1 col-sm-1 col-md-1 link' onclick=\"dessin('" + idHtml + "',0)\"><img src='Images/statBarre.png' height='20px'/>j</div>";
-					repr += "<div class='col-xs-1 col-sm-1 col-md-1 link' onclick=\"dessin('" + idHtml + "',1)\"><img src='Images/statBarre.png' height='20px'/>j/h</div>";
+					// repr += "<div class='col-xs-1 col-sm-1 col-md-1 link' onclick=\"dessin('" + idHtml + "',1)\"><img src='Images/statBarre.png' height='20px'/>j/h</div>";
 					repr += "</div>";
 					repr += "<div id='div_" + idHtml + "' style=\"display:none\">";
 					repr += tab['repr'];
@@ -153,18 +153,7 @@
 				// console.log("on au total "+sizeof(dates)+" date ["+index+"]" );
 				if (!index.match("(s_)")) {
 
-					repr += "<div style='display:none;border:0px blue solid' id='divcanvas" + idHtml + "'>";
-					repr += "<div class='row'>";
-					// repr += "<div class='col-xs-2 col-sm-2 col-md-2' ><input type='date' id='debut" + idHtml + "' onchange=\"redessin('" + idHtml + "')\"/></div>";
-					// repr += "<div class='col-xs-8 col-sm-8 col-md-8' ></div>";
-					// repr += "<div class='col-xs-2 col-sm-2 col-md-2' ><input type='date' id='fin" + idHtml + "'  onchange=\"redessin('" + idHtml + "')\"/></div>";
-					repr += "</div>";
-					repr += "<div class='row'>";
-					repr += "<div class='col-xs-11 col-sm-11 col-md-11' >";
-					repr += "<canvas id='canvas" + idHtml + "' width='" + longueur + "' height='" + hauteur + "'>Votre navigateur est trop vieux</canvas></div>"
-					repr += "<div class='col-xs-1 col-sm-1 col-md-1' style='vertical-align:top' onclick=\"closeDesin('" + idHtml + "')\"> <img src='Images/erreur.png'/> </div>";
-					repr += "</div>";
-					repr += "</div>";
+					
 				}
 				nb += tab['nb'];
 
@@ -194,10 +183,10 @@
 	}
 
 	function closeDesin(id) {
-		var divCanvas = getElement("divcanvas" + id);
+		var divCanvas = getElement("divcanvas_" + id);
 		divCanvas.style.display = 'none';
-		
-		var monCanvas = getElement("canvas" + id);
+
+		var monCanvas = getElement("canvas_" + id);
 		var context = monCanvas.getContext("2d");
 		context.beginPath();
 		context.clearRect(0, 0, monCanvas.width, monCanvas.height);
@@ -221,17 +210,20 @@
 	var idDessin = "";
 	var tabXYDays = [];
 
-	function dessin(id, hour) {
-		closeDesin(id);
+	function dessin(id,hour) {
+		closeDesin(hour);
 		hourG = hour;
-		idDessin = id;
-		var divCanvas = getElement("divcanvas" + id);
+		var divCanvas = getElement("divcanvas_" + hour);
 		divCanvas.style.display = 'block';
 		
 
-		var monCanvas = getElement("canvas" + id);
+		var monCanvas = getElement("canvas_" + hour);
 		var ctx = monCanvas.getContext("2d");
 		ctx.font = "15px arial";
+		monCanvas.width = longueur;
+
+		monCanvas.height = hauteur;
+
 
 		// console.log("nb row " + nbRow);
 		//var nbRow = sizeof(tabDates[id]);
@@ -319,6 +311,10 @@
 		var nbTot=0;
 		var nbTotOS=[];
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 82b1825 (stat site)
 		var debut=new Date(dateDeb);
 		while (debut < dateFin) {
 			var keyDate = debut.getFullYear() + "-" + debut.getMonth() + "-" + debut.getDate();
@@ -344,14 +340,12 @@
 		while (dateLu < dateFin) {
 			var keyDate = dateLu.getFullYear() + "-" + dateLu.getMonth() + "-" + dateLu.getDate();
 			var keyDateTime = keyDate + "-" + dateLu.getHours();
-			//var laDateStr = dateLu.getDate() + "/" + (dateLu.getMonth() ) + "/" + dateLu.getFullYear();
-			//var laDateStr2 = dateLu.getDate() + "/" + (dateLu.getMonth() ) + "/" + dateLu.getFullYear();
-			var laDateStr = dateLu.getDate() + "/" + (dateLu.getMonth() ) ;
+			var laDateStr = dateLu.getDate() + "/" + (dateLu.getMonth() );
 			var laDateStr2 = dateLu.getDate() + "/" + (dateLu.getMonth() );
 			if (hour) {
 				var laDate = keyDateTime;
 				laDateStr = dateLu.getDate() + "/" + (dateLu.getMonth() );
-				laDateStr2 = dateLu.getDate() + "/" + (dateLu.getMonth() ) + " " + dateLu.getHours();
+				laDateStr2 = dateLu.getDate() + "/" + (dateLu.getMonth() )+ " " + dateLu.getHours();
 			} else {
 				var laDate = keyDate;
 			}
@@ -431,7 +425,7 @@
 				// console.log("t2=",cptRow / multi);
 				if (largeur * multi > 30 || ((cptRow / multi) % 3 == 0)) {
 					if (largeur < 100 && !hour) {
-						ctx.font = "8px arial";
+						ctx.font = "15px arial";
 						ctx.fillText(laDateStr2, Xlettre, Ylettre + 10);
 					} else {
 						ctx.font = "15px arial";
@@ -618,3 +612,11 @@
 <div id="statresult">
 </div>
 <canvas id="canvasShape" width="700" height="200">Votre navigateur est trop vieux</canvas>
+<div style='display:none;border:0px blue solid; position: absilute' id='divcanvas_0'>
+	<div class='row'>
+		<div class='col-xs-11 col-sm-11 col-md-11' >
+			<canvas id='canvas_0' >Votre navigateur est trop vieux</canvas></div>
+			<div class='col-xs-1 col-sm-1 col-md-1' style='vertical-align:top' onclick="closeDesin(0)"> <img src='Images/erreur.png'/> </div>
+		</div>
+	</div>
+</div>
