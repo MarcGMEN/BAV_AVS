@@ -219,6 +219,9 @@
 		idDessin=id;
 		var divCanvas = getElement("divcanvas_" + hour);
 		divCanvas.style.display = 'block';
+		var titreCanvas = getElement("titre_canvas_" + hour);
+		titreCanvas.innerHTML = "Statistique d'accès pour " + id + " " + (hour == 1 ? "du "+dateRef : "" ) ;
+
 
 		var monCanvas = getElement("canvas_" + hour);
 		var ctx = monCanvas.getContext("2d");
@@ -330,7 +333,7 @@
 		var nbTotOS=[];
 
 		var debut=new Date(dateDebCanvas);
-		while (debut < dateFinCanvas) {
+		while (debut <= dateFinCanvas) {
 			var keyDate = debut.getFullYear() + "-" + debut.getMonth() + "-" + debut.getDate();
 			if (hour) {
 				keyDate = keyDate + "-" + debut.getHours();
@@ -439,11 +442,11 @@
 				// console.log("t2",(cptRow / multi) % 3);
 				// console.log("t2=",cptRow / multi);
 				if (largeur * multi > 30 || ((cptRow / multi) % 3 == 0)) {
+					ctx.font = "12px arial";
+						
 					if (largeur < 100 && !hour) {
-						ctx.font = "15px arial";
 						ctx.fillText(laDateStr2, Xlettre, Ylettre + 10);
 					} else {
-						ctx.font = "15px arial";
 						ctx.fillText(laDateStr, Xlettre, Ylettre + 10);
 					}
 					ctx.beginPath();
@@ -627,22 +630,23 @@
 <h3 class="titreFiche">Stat d'accès de la BAV <?= $infAppli['numero_bav'] ?></h3>
 <select id="annee_stat" onchange="changeNumeroBAV(this.value)"></select>
 <span id=dateDeb></span> au <span id=dateFin></span>
-<div id="statresult">
-</div>
-<canvas id="canvasShape" width="700" height="200">Votre navigateur est trop vieux</canvas>
-<div style='display:none;border:0px blue solid; position: fixed;background-color:white' id='divcanvas_0'>
+<div style='display:none;border:0px blue solid; position: absolute;background-color:white;Z-index:100' id='divcanvas_0'>
 	<div class='row'>
+		<div class='col-xs-12 col-sm-12 col-md-12' id='titre_canvas_0' style='text-align:center;'></div>
 		<div class='col-xs-11 col-sm-11 col-md-11' >
 			<canvas id='canvas_0' >Votre navigateur est trop vieux</canvas>
 		</div>
 		<div class='col-xs-1 col-sm-1 col-md-1' style='vertical-align:top' onclick="closeDesin(0)"> <img class='link' src='Images/erreur.png'/> </div>
 	</div>
 </div>
-<div style='display:none;border:0px blue solid;position:fixed; background-color:white' id='divcanvas_1'>
+<div style='display:none;border:0px blue solid; position: absolute;background-color:white;Z-index:100' id='divcanvas_1'>
 	<div class='row'>
+		<div class='col-xs-12 col-sm-12 col-md-12' id='titre_canvas_1' style='text-align:center;'></div>
 		<div class='col-xs-11 col-sm-11 col-md-11' >
 			<canvas id='canvas_1' >Votre navigateur est trop vieux</canvas>
 		</div>
 		<div class='col-xs-1 col-sm-1 col-md-1' style='vertical-align:top' onclick="closeDesin(1)"> <img class='link'  src='Images/erreur.png'/> </div>
 	</div>
+</div>
+<div id="statresult">
 </div>

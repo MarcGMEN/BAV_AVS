@@ -104,7 +104,7 @@ if ($infAppli['ADMIN']) {
                 ],
                 'pre_depot.php' => [
                     'libelle' => 'Pré-déposer pour TEST',
-                    'mode' => 'create',
+                    'mode' => 'createTEST',
                 ],
                 'downloads.php' => [
                     'libelle' => 'Downloads',

@@ -40,7 +40,7 @@ $today = time(); ?>
 
 <div class="row" id="connexions">
 	<div class="col-sm-12 col-md-12 col-xs-12 ">
-		<? if ($today < $infAppli['date_debut_client'] ||  $today > $infAppli['date_j3_2sem'] ) { ?>
+		<? if (($today < $infAppli['date_debut_client'] ||  $today > $infAppli['date_j3_2sem'] ) && $GET_modePage != "createTEST") { ?>
 			<div class="col-sm-12 col-md-12 col-xs-12 alert alert-warning" id='div_first_connexion'>
 				<h3>Le pré-dépôt est fermé pour le moment, il sera ouvert à partir du <?= date("d/m/Y",$infAppli['date_debut_client']) ?>.</h3>
 			</div>
