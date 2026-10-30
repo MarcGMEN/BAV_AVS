@@ -39,7 +39,7 @@ function getByTree($numBav)
                 $row['cas_os']="tel";
             }
             else {
-                $row['cas_os']="ordi";
+                $row['cas_os']="pc";
             }
             if ($row['cas_mode_page'] != "") {
                 if ($row['cas_type'] != "") {

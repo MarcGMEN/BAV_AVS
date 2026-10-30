@@ -354,7 +354,7 @@
 			var nb = 0;
 			// console.log(tabDates);
 
-			var colorOS = {'s_tel': "lightblue", 's_ordi':"lightgreen"};
+			var colorOS = {'s_tel': "lightblue", 's_pc':"lightgreen"};
 			
 			var hc_prec = 0;
 			var hc_tot = 0;

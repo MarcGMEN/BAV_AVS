@@ -231,7 +231,7 @@
 		monCanvas.height = hauteur;
 
 
-		// console.log("nb row " + nbRow);
+		
 		//var nbRow = sizeof(tabDates[id]);
 
 		// console.log(dateDeb);
@@ -286,19 +286,20 @@
 			}
 			//tabData = tabDatesTimes[id];
 			dateDebCanvas = new Date(dateRef);
+			dateDebCanvas.setHours(0,0,0,0);
 			dateDebCanvas.setMonth(dateDebCanvas.getMonth() + 1);
 			dateFinCanvas = new Date(dateRef);
+			dateDebCanvas.setHours(0,0,0,0);
 			dateFinCanvas.setDate(dateFinCanvas.getDate() + 1);
 			dateFinCanvas.setMonth(dateFinCanvas.getMonth() + 1);
 		}
 		
 
 		var nbRow = Math.floor((dateFinCanvas - dateDebCanvas) / (60 * 60 * 1000));
-		if (hour) {
-		} else {
+		if (!hour) {
 			var nbRow = Math.floor((dateFinCanvas - dateDebCanvas) / (24 * 60 * 60 * 1000));
 		}
-		// console.log("nbRow " + nbRow);
+		console.log("nbRow " + nbRow);
 
 		/* le contour*/
 		// ctx.lineWidth = "2";
@@ -332,8 +333,10 @@
 		var nbTot=0;
 		var nbTotOS=[];
 
+		// console.log("dateDebCanvas",dateDebCanvas);
 		var debut=new Date(dateDebCanvas);
 		while (debut <= dateFinCanvas) {
+			// console.log("debut",debut);
 			var keyDate = debut.getFullYear() + "-" + debut.getMonth() + "-" + debut.getDate();
 			if (hour) {
 				keyDate = keyDate + "-" + debut.getHours();
@@ -372,7 +375,7 @@
 			var nb = 0;
 			// console.log(tabDates);
 
-			var colorOS = {'s_tel': "lightblue", 's_ordi':"lightgreen"};
+			var colorOS = {'s_tel': "lightblue", 's_pc':"lightgreen"};
 			
 			var hc_prec = 0;
 			var hc_tot = 0;
@@ -405,7 +408,9 @@
 				// ctx.fillStyle = "lightblue";
 				ctx.fillStyle = colorOS[OS];
 				// console.log("ctx.fillRect("+decal+", "+(hauteur-hc-10)+", "+largeur+", "+hc+")");
-				ctx.fillRect(decal, hauteur - hc - 10 - hc_prec, largeur, hc)
+				ctx.fillRect(decal+1, hauteur - hc - 10 - hc_prec, largeur-2, hc-1)
+				// ctx.roundRect(decal+1, hauteur - hc - 10 - hc_prec, largeur-2, hc-1,10);
+				// drawRoundedRect(ctx,decal+1, hauteur - hc - 10 - hc_prec, largeur-2, hc-1,10);
 				// console.log(hauteur, decal, hauteur - hc - 10 - hc_prec, largeur, hc, OS, nb);
 
 				ctx.fillStyle = "BLACK";
@@ -415,10 +420,12 @@
 					var Xlettre = decal + largeur/15;
 					var Ylettre = hauteur - hc / 2 - hc_prec -10;
 					if (largeur > 5) {
-						ctx.fillText(nb + " " + OS.split("_")[1] , Xlettre, Ylettre);
+						// ctx.fillText(nb + " " + OS.split("_")[1] , Xlettre + largeur/2 -12, Ylettre);
+						ctx.fillText(nb , Xlettre + largeur/2-5, Ylettre);
 					}
 					// console.log("ctx.fillText(" + nb + ", " + Xlettre + ", " + Ylettre + ")");
 				}
+				ctx.fillStyle = "BLACK";
 				hc_prec = hc;
 				hc_tot += hc;
 			}
@@ -438,22 +445,24 @@
 			if (hour) {
 				multi = 24;
 			}
+			ctx.font = "bold 10px arial";
+			ctx.fillStyle = "DARKBLUE";
+					
 			if (keyDate != dayBefore) {
 				// console.log("t2",(cptRow / multi) % 3);
 				// console.log("t2=",cptRow / multi);
 				if (largeur * multi > 30 || ((cptRow / multi) % 3 == 0)) {
-					ctx.font = "12px arial";
 						
 					if (largeur < 100 && !hour) {
-						ctx.fillText(laDateStr2, Xlettre, Ylettre + 10);
+						ctx.fillText(laDateStr2, Xlettre+2, Ylettre + 10);
 					} else {
-						ctx.fillText(laDateStr, Xlettre, Ylettre + 10);
+						ctx.fillText(laDateStr, Xlettre+2, Ylettre + 10);
 					}
 					ctx.beginPath();
 					ctx.setLineDash([]);
 					// console.log(Xlettre, Ylettre);
 					ctx.moveTo(Xlettre, Ylettre + 10);
-					ctx.lineTo(Xlettre, 10);
+					ctx.lineTo(Xlettre, hauteur -50);
 					ctx.closePath();
 					ctx.stroke();
 				}
@@ -474,20 +483,21 @@
 				if (cptHour++ % mod == 0) {
 					ctx.beginPath();
 					ctx.moveTo(Xlettre, Ylettre);
-					ctx.font = "8px arial";
-					ctx.fillText(dateLu.getHours(), Xlettre - 5, Ylettre - 40);
+					ctx.fillText(dateLu.getHours(), Xlettre+ largeur / 2, Ylettre );
 					ctx.lineTo(Xlettre, hauteur - 50);
 					ctx.closePath();
 					ctx.stroke();
 				}
 			}
+			ctx.fillStyle = "BLACK";
 			cptRow++;
 
 			tabXYDays.push({
 				"X": decal,
 				"Y": hauteur,
 				"date": laDate,
-				"id": id
+				"id": id,
+				"nb": nbDate
 			});
 
 
@@ -514,14 +524,19 @@
 		ctx.stroke();
 
 		ctx.font = "15px arial";
+		
 		ctx.fillText(textTot, Xlettre +10 , Ylettre - hauteur/2);
 		var i=1;
 		for (var OS in nbTotOS) {
+			ctx.fillStyle = colorOS[OS];
+			var posY = Ylettre - hauteur/2+ i*20;
+			ctx.fillRect(Xlettre , posY-15, 100,20 )
+			ctx.fillStyle = "BLACK";
 			textTot=" "+OS.split("_")[1]+":"+parseInt(nbTotOS[OS]/nbTot*100)+"%";
-			ctx.fillText(textTot, Xlettre , Ylettre - hauteur/2+ i*20);
+			ctx.fillText(textTot, Xlettre ,posY);
 			i++;
 		}
-		
+		ctx.fillStyle = "";
 		if (largeur < 5) {
 			ctx.beginPath();
 			ctx.font = "12px arial";
@@ -569,6 +584,58 @@
 
 		if (hour == 0) {
 		// 4. Écouter les clics sur le canvas
+		monCanvas.addEventListener('mousemove', function(event) {
+			// 1. Récupérer la position et la taille du canvas sur l'écran
+   			const rect = monCanvas.getBoundingClientRect();
+   			// 2. Calculer la position du clic par rapport au coin supérieur gauche du canvas (en pixels affichés)
+   			const clientX = event.clientX - rect.left;
+   			const clientY = event.clientY - rect.top;
+
+			// console.log("Clic détecté à l'écran :", event.clientX, event.clientY);
+			// console.log("Position relative au canvas :", clientX, clientY);
+   			// 3. Gérer l'échelle (au cas où le canvas est étiré par du CSS, ex: width: 100%)
+   			// Si votre canvas fait 800px de large en interne mais s'affiche à 400px sur l'écran :
+			// console.log("Taille du canvas :", divCanvas.width, divCanvas.height);
+			// console.log("Taille affichée du canvas :", rect.width, rect.height);
+   			// const scaleX = divCanvas.width / rect.width;
+   			// const scaleY = divCanvas.height / rect.height;
+   			const scaleX = 1;
+   			const scaleY = 1;
+
+			// console.log("Échelle du canvas :", scaleX, scaleY);
+   			// 4. Obtenir les coordonnées exactes DANS le repère du canvas
+   			const mouseX = clientX * scaleX;
+   			const mouseY = clientY * scaleY;
+
+	    	let clickedDate = null;
+    		let clickedId = null;
+
+    		// Parcourir toutes les zones enregistrées
+    		for (let i = 0; i < tabXYDays.length; i++) {
+	        	const area = tabXYDays[i];
+	    	    // Vérifier si le clic se trouve dans les limites de l'élément (X et Y)
+    	    	if (mouseX >= area.X && mouseX <= area.X + largeur && 
+    	        	mouseY < area.Y ) {	
+    		        clickedDate = area.date;
+        		    clickedId = area.id;
+					clickedNb = area.nb;
+            		break; // On a trouvé l'élément cliqué, on arrête la recherche
+		        }
+    		}
+
+		    // Résultat
+    		if (clickedDate && clickedNb > 0) {
+				document.body.style.cursor = 'pointer';
+				// console.log("Date cliquée :", clickedDate);
+	        	// console.log("ID associé :", clickedId);
+		
+				// Vous pouvez maintenant appeler votre fonction ou afficher l'information
+				// ex: afficherDetails(clickedDate, clickedId);
+			}	
+			else {
+				document.body.style.cursor = 'default';
+			}
+		});
 		monCanvas.addEventListener('click', function(event) {
 			// 1. Récupérer la position et la taille du canvas sur l'écran
    			const rect = monCanvas.getBoundingClientRect();
@@ -615,15 +682,13 @@
         		// Vous pouvez maintenant appeler votre fonction ou afficher l'information
         		// ex: afficherDetails(clickedDate, clickedId);
 				dessin(clickedId, 1, clickedDate);
+				document.body.style.cursor = 'default';
     		} else {
 		        console.log("Aucune date cliquée.");
 	    	}
 		});
 }
 	}
-
-
-	
 
 	function unloadPage() {}
 </script>
