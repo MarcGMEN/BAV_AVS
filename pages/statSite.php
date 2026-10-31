@@ -35,11 +35,12 @@
 				dateFin.setDate(dateFin.getDate()+10);
 				dateDeb.setHours(0);
 				dateFin.setHours(0);
-				// console.log(dateDeb,dateFin)
+				
 				getElement("dateDeb").innerHTML=dateDeb.toLocaleDateString();
 				getElement("dateFin").innerHTML=dateFin.toLocaleDateString()
-				dateDeb.setMonth(dateDeb.getMonth()+1);
-				dateFin.setMonth(dateFin.getMonth()+1);
+				// dateDeb.setMonth(dateDeb.getMonth());
+				// dateFin.setMonth(dateFin.getMonth());
+				console.log(dateDeb,dateFin)
 			}
 		}
 	}
@@ -229,12 +230,10 @@
 		monCanvas.width = longueur;
 
 		monCanvas.height = hauteur;
-
-
 		
 		//var nbRow = sizeof(tabDates[id]);
 
-		// console.log(dateDeb);
+		console.log(dateDeb);
 		//console.log(id);
 
 		var dateDebCanvas = new Date(dateDeb);
@@ -287,11 +286,11 @@
 			//tabData = tabDatesTimes[id];
 			dateDebCanvas = new Date(dateRef);
 			dateDebCanvas.setHours(0,0,0,0);
-			dateDebCanvas.setMonth(dateDebCanvas.getMonth() + 1);
+			
 			dateFinCanvas = new Date(dateRef);
-			dateDebCanvas.setHours(0,0,0,0);
+			dateFinCanvas.setHours(0,0,0,0);
 			dateFinCanvas.setDate(dateFinCanvas.getDate() + 1);
-			dateFinCanvas.setMonth(dateFinCanvas.getMonth() + 1);
+			
 		}
 		
 
@@ -321,7 +320,7 @@
 		if (nbRow * largeur + decal > longueur) {
 			alertModalInfo("Attention vous dépasse la capacité d'affichage 63 jours max");
 		}
-		if (dateFinCanvas < dateDebCanvas) {
+		if (dateFinCanvas <= dateDebCanvas) {
 			alertModalInfoTimeout("Attention date de début supérieure à la date de dateFin",1);
 		}
 		// console.log("longueur " + longueur);
@@ -335,9 +334,9 @@
 
 		// console.log("dateDebCanvas",dateDebCanvas);
 		var debut=new Date(dateDebCanvas);
-		while (debut <= dateFinCanvas) {
-			// console.log("debut",debut);
-			var keyDate = debut.getFullYear() + "-" + debut.getMonth() + "-" + debut.getDate();
+		while (debut < dateFinCanvas) {
+			console.log("debut",debut,dateFinCanvas);
+			var keyDate = debut.getFullYear() + "-" + (debut.getMonth()+1) + "-" + debut.getDate();
 			if (hour) {
 				keyDate = keyDate + "-" + debut.getHours();
 			}
@@ -360,14 +359,14 @@
 
 		var dateLu=new Date(dateDebCanvas);
 		while (dateLu < dateFinCanvas) {
-			var keyDate = dateLu.getFullYear() + "-" + dateLu.getMonth() + "-" + dateLu.getDate();
+			var keyDate = dateLu.getFullYear() + "-" + (dateLu.getMonth()+1) + "-" + dateLu.getDate();
 			var keyDateTime = keyDate + "-" + dateLu.getHours();
-			var laDateStr = dateLu.getDate() + "/" + (dateLu.getMonth() );
-			var laDateStr2 = dateLu.getDate() + "/" + (dateLu.getMonth() );
+			var laDateStr = dateLu.getDate() + "/" + ((dateLu.getMonth()+1) );
+			var laDateStr2 = dateLu.getDate() + "/" + ((dateLu.getMonth()+1) );
 			if (hour) {
 				var laDate = keyDateTime;
-				laDateStr = dateLu.getDate() + "/" + (dateLu.getMonth() );
-				laDateStr2 = dateLu.getDate() + "/" + (dateLu.getMonth() )+ " " + dateLu.getHours();
+				laDateStr = dateLu.getDate() + "/" + ((dateLu.getMonth()+1) );
+				laDateStr2 = dateLu.getDate() + "/" + ((dateLu.getMonth()+1))+ " " + dateLu.getHours();
 			} else {
 				var laDate = keyDate;
 			}
@@ -451,7 +450,7 @@
 			if (keyDate != dayBefore) {
 				// console.log("t2",(cptRow / multi) % 3);
 				// console.log("t2=",cptRow / multi);
-				if (largeur * multi > 30 || ((cptRow / multi) % 3 == 0)) {
+				if ((largeur * multi > 30 || ((cptRow / multi) % 3 == 0)) && !hour) {
 						
 					if (largeur < 100 && !hour) {
 						ctx.fillText(laDateStr2, Xlettre+2, Ylettre + 10);
@@ -483,7 +482,7 @@
 				if (cptHour++ % mod == 0) {
 					ctx.beginPath();
 					ctx.moveTo(Xlettre, Ylettre);
-					ctx.fillText(dateLu.getHours(), Xlettre+ largeur / 2, Ylettre );
+					ctx.fillText(dateLu.getHours(), Xlettre+ largeur / 2, Ylettre +10 );
 					ctx.lineTo(Xlettre, hauteur - 50);
 					ctx.closePath();
 					ctx.stroke();
@@ -507,7 +506,9 @@
 			} else {
 				var newDate = dateLu.setDate(dateLu.getDate() + 1);
 			}
+			// console.log("newDate",dateLu.getFullYear() + "-" + dateLu.getMonth() + "-" + dateLu.getDate());
 			dateLu = new Date(newDate);
+			// console.log("dateLu",dateLu);
 			dayBefore = keyDate;
 
 		}

@@ -3,7 +3,7 @@
 <div class="BH_CADRE" cellspacing="0" cellpadding="0">
 	<div class="row"  style='background-color:#00b7cd;height:30px;vertical-align: middle;'>
 		<div class="col-xs-4 col-sm-1 col-md-1">
-			<a href="https://www.facebook.com/events/1924975591261118" target="_blank"><img src="Images/iconeFacebook.png" height=20px/></a>
+			<a href="https://www.facebook.com/events/1396122035462284" target="_blank"><img src="Images/iconeFacebook.png" height=20px/></a>
 			&nbsp;&nbsp;
 			<a href="https://www.instagram.com/bourse.aux.1000.velos/"  target="_blank"><img src="Images/iconeInstagram.png" height=20px/></a> 
 		</div>

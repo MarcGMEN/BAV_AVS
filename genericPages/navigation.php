@@ -178,7 +178,7 @@ $tabNav = array_merge($tabNavAll, $tabNavAdm);
                     <span class="link <?= $val['class']; ?> navigation <?= $className; ?>" id="lib_ss<?= $key; ?>" onclick="inverseDisplay('ss<?= $key; ?>')">
                         <?= $val['libelle']; ?>
                         <img src="Images/arrow.gif" />
-                        <div id="ss<?= $key; ?>" class="SSMENU" style="display:none; position:absolute">
+                        <div id="ss<?= $key; ?>" class="SSMENU" style="display:none; position:absolute; Z-index:200">
 
                             <?php foreach ($val['sousMenu'] as $keyS => $valS) {
                                 if ($GET_page == $keyS) {
@@ -190,7 +190,10 @@ $tabNav = array_merge($tabNavAll, $tabNavAdm);
                                 } else {
                                     $classNameS = '';
                                 } ?>
-                                <div class="col-sm-12 col-md-12 col-xs-12 link <?= $valS['class']; ?> ssnavigation <?= $classNameS; ?> " onclick="goTo('<?= $keyS; ?>', '<?= $valS['mode']; ?>', null, null)">- <?= $valS['libelle']; ?></div>
+                                <div class="col-sm-12 col-md-12 col-xs-12 link <?= $valS['class']; ?> ssnavigation <?= $classNameS; ?> " 
+                                    style="Z-index:200" 
+                                    onclick="goTo('<?= $keyS; ?>', '<?= $valS['mode']; ?>', null, null)">- <?= $valS['libelle']; ?>
+                                </div>
                             <?php
                             } ?>
 
