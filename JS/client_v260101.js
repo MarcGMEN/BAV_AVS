@@ -200,7 +200,12 @@ function fermerCRUD(LaForm) {
     if (startSaisie) {
         alertModalConfirm("<br/><br/><center>Vous avez des modifications en cours<center>", "Close")
     } else {
-        confirmModal("Close");
+        var to = document.formNavigation.from.value != "" ? document.formNavigation.from.value : 'clients.php';
+        var id=null;
+        var modePage=null;
+        var message=null;
+        console.log("fermerCRUD to=" + to + " modePage=" + modePage + " id=" + id);
+        goTo(to,modePage,id, message);
     }
 }
 

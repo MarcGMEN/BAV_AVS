@@ -17,7 +17,7 @@
 		}
 	</style>
 
-<script src="JS/client.js" type="text/javascript"></script>
+<script src="JS/client_v260101.js" type="text/javascript"></script>
 
 <!-- <div id=lesFiches style="visibility: hidden;" />-->
 <fieldset class=client>
@@ -133,7 +133,7 @@
 					 <input type=submit name="buttonValideFiche" tabindex=<?= $tabindex++ ?> disabled value="Enregistrer" />
 				</div>
 				<div class="col-sm-2 col-md-2 col-xs-4 btnAction">
-					<input type=button value="Annuler" onclick="fermerCRUD()" tabindex=<?= $tabindex++ ?> />
+					<input type=button value="Fermer" onclick="fermerCRUD()" tabindex=<?= $tabindex++ ?> />
 				</div>
 				<div class="col-sm-2 col-md-2 col-xs-4 btnAction" id="tdBtnSup">
 					<input type=button value="Supprimer" name="buttonSupprimeFiche" onclick="supprimerClient(this.form.cli_id.value)" tabindex=<?= $tabindex++ ?> />

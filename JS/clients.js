@@ -106,7 +106,7 @@ function display_clients(val) {
                 totalAbsent++;
             }
 
-            repr += "<tr class='tabl0 link " + classPlus + "' onclick='goTo(\"client.php\",\"select\"," + val[index]['cli_id'] + ")'>";
+            repr += "<tr class='tabl0 link " + classPlus + "' onclick='goTo(\"client.php\",\"select\"," + val[index]['cli_id'] + ",null,\"clients.php\")'>";
             repr += "<td width=33% >";
             chaine = val[index]['cli_nom'];
             if (selection.cli_nom != "*") {

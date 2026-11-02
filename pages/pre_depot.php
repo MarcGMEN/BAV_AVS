@@ -1,9 +1,15 @@
 <? $idRamdom = rand(1000, 9999);
 $today = time(); ?>
+
+<?php 
+$jsFile = 'JS/pre_depot.js';
+// filemtime() renvoie le timestamp de la dernière modification du fichier
+$version = file_exists($_SERVER['DOCUMENT_ROOT'] . $jsFile) ? filemtime($_SERVER['DOCUMENT_ROOT'] . $jsFile) : time();
+?>
 <script>
 	var idRamdom = "<?= $idRamdom ?>";
 </script>
-<script src="JS/pre_depot.js" type="text/javascript"></script>
+<script src="JS/pre_depot.js?v=<?=$version?>" type="text/javascript"></script>
 
 <h3 class="titreFiche">Pré-dépôt en ligne</h3>
 <?

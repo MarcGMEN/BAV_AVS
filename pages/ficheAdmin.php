@@ -284,7 +284,7 @@
 		<div class="col-sm-6 col-xs-12">
 			<fieldset class=fiche>
 				<legend class="titreFiche link" id='legendVendeur' <? if ($GET_modePage != "create") { ?>
-						onclick='goTo("client.php","consult",document.ficheForm.cli_id.value,"")'
+						onclick='goTo("client.php","consult",document.ficheForm.cli_id.value,"","ficheAdmin.php")'
 						title="Accès au vendeur" <? } ?>>
 					Le vendeur
 					<? if ($infAppli['ADMIN']) { ?>
@@ -329,7 +329,7 @@
 			<!-- ACHETEUR -->
 			<fieldset class=fiche style='display:none' id="fieldSetAcheteur">
 				<legend class="titreFiche link"
-					onclick='goTo("client.php","consult",document.ficheForm.ach_id.value,"")'>
+					onclick='goTo("client.php","consult",document.ficheForm.ach_id.value,"","ficheAdmin.php")' title="Accès à l'acheteur">
 					L'acheteur
 					<span style="font-size: 0.7em" id="ach_id">...</span>
 				</legend>

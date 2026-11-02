@@ -661,7 +661,7 @@
 			var obj = val["obj" + id];
 			val['plus' + id] = "(" + obj['obj_numero'] + ") " + obj['obj_type'] + "-" + obj['obj_public'] + " - " + obj['obj_marque'] + " [" + obj['vendeur_nom'] + "]"
 			getElement('plus' + id).onclick = function() {
-				goTo("ficheAdmin.php", "modif", obj['obj_id']);
+				goTo("ficheAdmin.php", "modif", obj['obj_id'],null,"stat.php");
 			};
 		} else {
 			val['plus' + id] = "";
@@ -675,7 +675,7 @@
 			var obj = val["cli" + id];
 			val['plus' + id] = "(" + obj['cli_id'] + ") " + obj['cli_nom'];
 			getElement('plus' + id).onclick = function() {
-				goTo("client.php", "modif", obj['cli_id']);
+				goTo("client.php", "modif", obj['cli_id'],null,"stat.php");
 			};
 		} else {
 			val['plus' + id] = "";

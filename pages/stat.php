@@ -1,5 +1,9 @@
 
-
+<?php 
+$jsFile = 'JS/stat.js';
+// filemtime() renvoie le timestamp de la dernière modification du fichier
+$version = file_exists($_SERVER['DOCUMENT_ROOT'] . $jsFile) ? filemtime($_SERVER['DOCUMENT_ROOT'] . $jsFile) : time();
+?>
 <script>
 	// var idRamdom = "<?= $idRamdom ?>";
 	// var theId = '<?= $_GET['id'] ?>';
@@ -9,8 +13,9 @@
 	var date2 = '<?= $infAppli['date_j2'] ?>';
 	var date3 = '<?= $infAppli['date_j3'] ?>';
 	var anneeBavActive = '<?= $infAppli['numero_bav_active'] ?>';
+	
 </script>
-<script src="JS/stat.js" type="text/javascript"></script>
+<script src="JS/stat.js?v=<?=$version ?>" type="text/javascript"></script>
 
 <style type="text/css">
 	#map {
