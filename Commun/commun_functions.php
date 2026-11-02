@@ -353,6 +353,13 @@ function makeCorps($dataLC, $fileHTML)
 	return  $messageMail;
 }
 
+function getFileOutHtml($fileHTML)
+{
+	print_r(dirname(__FILE__) . "/../out/html/".basename($fileHTML));
+	return file_get_contents(dirname(__FILE__) . "/../out/html/".basename($fileHTML));
+}
+
+
 function makeQrCode($adresse, $keyFile, $level = 2)
 {
 

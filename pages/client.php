@@ -2,6 +2,11 @@
 <? if ($infAppli['ADMIN']) {
 	$GET_modePage = "modif";
 } ?>
+<?php 
+$jsFile = 'JS/client.js';
+// filemtime() renvoie le timestamp de la dernière modification du fichier
+$version = file_exists($_SERVER['DOCUMENT_ROOT'] . $jsFile) ? filemtime($_SERVER['DOCUMENT_ROOT'] . $jsFile) : time();
+?>
 <script>
 	var idClient = '<?= $GET_id ?>';
 	// pour rendre le champ nom du client unique
@@ -17,7 +22,7 @@
 		}
 	</style>
 
-<script src="JS/client_v260101.js" type="text/javascript"></script>
+<script src="JS/client.js?v=<?=$version?>" type="text/javascript"></script>
 
 <!-- <div id=lesFiches style="visibility: hidden;" />-->
 <fieldset class=client>

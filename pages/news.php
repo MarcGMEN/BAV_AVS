@@ -28,6 +28,10 @@
 	
 
 	function searchVente(numero) {
+		if (numero == "") {
+			alertModalWarn("Veuillez saisir un numéro de fiche");
+			return false;
+		}
 		x_add_counter_action("searchVente", ADMIN ? 'ADMIN' : 'VISITEUR', numero, display_rien);
 		x_return_oneFicheByCode(numero, display_getFicheVente);
 		document.bavFormFiche.inputSearchBAV.value = "";
@@ -54,8 +58,10 @@ $data = array(
 <? if ($infAppli['bav_en_cours'] || $infAppli['ADMIN'] ||  (isset($_COOKIE['CAFFARD_BAV']))) { ?>
 	<form name="bavFormFiche" action="#" onsubmit='return searchVente(document.bavFormFiche.inputSearchBAV.value)'>
 		<h3>Votre vélo est il vendu ? 
-			<input type="text" name="numeroFiche" size="8" maxlength="50" title="Saisisez le numéro de fiche" placeholder="N° fiche" id="inputSearchBAV" onsubmit='searchVente(this.value)' style='background-color:LIGHTGREEN;font-weight: bold;width:200px' autofocus />
-			<i class="fas fa-search link loupe" onclick="searchVente(document.bavFormFiche.inputSearchBAV.value)"></i>
+			<input type="text" name="numeroFiche" size="8" maxlength="50" title="Saisisez le numéro de fiche" placeholder="N° fiche" id="inputSearchBAV" onsubmit='searchVente(this.value)' style='background-color:LIGHTGREEN;font-weight: bold;width:150px' autofocus />
+			<!-- <i class="fas fa-search link loupe" onclick="searchVente(document.bavFormFiche.inputSearchBAV.value)" alt="Rercherche"></i> -->
+			<span onclick="searchVente(document.bavFormFiche.inputSearchBAV.value)" alt="Rercherche" class=link>🔎</span>
+			<!-- <input type="button" value="Rechercher" onclick="searchVente(document.bavFormFiche.inputSearchBAV.value)" alt="Rercherche"/> -->
 		</h3>
 	</form>
 <? } ?>

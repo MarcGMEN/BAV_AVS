@@ -1,13 +1,17 @@
 <?php $idRamdom = rand(1000, 9999);
 $maxFiche = $infAppli['NB_MODIF'];
 ?>
-
+<?php 
+$jsFile = 'JS/pre_depot.js';
+// filemtime() renvoie le timestamp de la dernière modification du fichier
+$version = file_exists($_SERVER['DOCUMENT_ROOT'] . $jsFile) ? filemtime($_SERVER['DOCUMENT_ROOT'] . $jsFile) : time();
+?>
 <script>
 	var idRamdom = "<?= $idRamdom ?>";
 	var theId = '<?= $_GET['id'] ?>';
 	var maxFiche = "<?= $maxFiche ?>";
 </script>
-<script src="JS/saisieExpress.js" type="text/javascript"></script>
+<script src="JS/saisieExpress.js?v=<?=$version?>" type="text/javascript"></script>
 
 <form action="#" name="searchFormFiche" onsubmit='searchFicheExpress(this.numeroFiche.value); return false'>
 	<input type="text" name="numeroFiche" size="6" maxlength="4" title="Saisisez le numéro de fiche" placeholder="N° fiche" id="inputSearch" style='background-color:LIGHTGREEN;font-weight: bold;width:10%' tabindex=1 onblur="searchFicheExpress(document.searchFormFiche.numeroFiche.value)" />

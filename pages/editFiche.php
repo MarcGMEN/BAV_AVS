@@ -1,10 +1,16 @@
+
+<?php 
+$jsFile = 'JS/editFiche.js';
+// filemtime() renvoie le timestamp de la dernière modification du fichier
+$version = file_exists($_SERVER['DOCUMENT_ROOT'] . $jsFile) ? filemtime($_SERVER['DOCUMENT_ROOT'] . $jsFile) : time();
+?>
 <script>
 	var nb_eti_page = '<?= $infAppli['nb_eti_page'] ?>';
 	var nb_coupon_page = '<?= $infAppli['nb_coupon_page'] ?>';
 	var base_info = '<?= $infAppli['base_info'] ?>';
 </script>
 
-<script src="JS/editFiche.js"></script>
+<script src="JS/editFiche.js?v=<?=$version?>"></script>
 <?
 $tabInfo = [
 	'VIDE0' => "Les papiers",
@@ -12,6 +18,7 @@ $tabInfo = [
 	'Etiquette' => "etiquette",
 	// 'Etiquette des accessoires' => "coupon_accessoire",
 	'Coupon de dépôt' => "coupon_vendeur",
+	'Coupon de dépôt mobile' => "coupon_depot_mobile",
 	'Coupon de sortie' => "coupon_acheteur",
 	'Coupon Tombola' => "coupon_tombola",
 	'VIDE6' => "Listing",
@@ -140,9 +147,9 @@ $tabInfo = [
 					<form style="color:black">
 						<table width=100% border=0>
 							<tr>
-								<td rowspan=3 width=10%>&nbsp;</td>
+								<td rowspan=4 width=10%>&nbsp;</td>
 								<td colspan=2></td>
-								<td rowspan=3 width=20%>Feuille A4 blanche</td>
+								<td rowspan=4 width=20%>Feuille A4 blanche</td>
 							</tr>
 							<tr class="tabAction">
 								<td width=50%>
@@ -172,6 +179,23 @@ $tabInfo = [
 								<td>
 									<input type=button value='Imprimer'
 										onclick='imprimeFiche()' />
+								</td>
+							</tr>
+							<tr class="tabAction">
+								<td>
+									- Modifs <span id="nbFicheAImprimer"></span> (
+									<?= $infAppli['nb_Fiche_page'] ?>/page) : <span
+										id="nb_fiche_Fiche"></span>
+									[C: <b><span id="nb_fiche_new_Fiche"></span></b>;
+									M:<b><span id="nb_fiche_modif_Fiche"></span></b>]
+								</td>
+								<td>
+									<input type=button name='printFiches'
+										value='Imprimer' disabled
+										id="btnImprimeFichesPage"
+										onclick='imprimeFiches()'>
+									<input type='checkbox' id="forceFiches" title="Forcer l'édition"
+										onchange="this.checked?this.form.printFiches.disabled=false:this.form.printFiches.disabled=true">
 								</td>
 							</tr>
 						</table>
@@ -381,6 +405,21 @@ $tabInfo = [
 								</td>
 								<td width=20%>Feuille A4 blanche</td>
 
+							</tr>
+						</table>
+					</form>
+				<? } ?>
+				<? if ($idText == "coupon_depot_mobile") { ?>
+					<form style="color:black">
+						<table width=100% border=1>
+							<tr class="tabAction">
+								<td width=10%>
+								</td>
+								<td width=50%>
+								</td>
+								<td width=15%>
+								</td>
+								<td width=20%></td>
 							</tr>
 						</table>
 					</form>

@@ -1,4 +1,9 @@
 <? $idRamdom = rand(1000, 9999); ?>
+<?php 
+$jsFile = 'JS/clientV2.js';
+// filemtime() renvoie le timestamp de la dernière modification du fichier
+$version = file_exists($_SERVER['DOCUMENT_ROOT'] . $jsFile) ? filemtime($_SERVER['DOCUMENT_ROOT'] . $jsFile) : time();
+?>
 <script>
 	var idClient = '<?= $GET_id ?>';
 	// pour rendre le champ nom du client unique
@@ -9,7 +14,7 @@
 	var base_info = '<?= $infAppli['base_info'] ?>';
 </script>
 
-<script src="JS/clientV2.js" type="text/javascript"></script>
+<script src="JS/clientV2.js?v=<?=$version ?>" type="text/javascript"></script>
 
 <h3 class="titreFiche">Votre compte</h3>
 <!-- <div id=lesFiches style="visibility: hidden;" />-->
@@ -20,13 +25,13 @@
 			<input type=hidden name=cli_id />
 			<input type=hidden name=cli_id_modif />
 			<div class="row">
-				<div class="col-sm-6 col-md-6 col-xs-6">
+				<div class="col-sm-6 col-md-6 col-xs-12">
 					<span class="titrow col-md-3 col-sm-3 col-xs-6">Emel</span>
 					<span class="tabInput col-md-9 col-sm-12 col-xs-12">
 						<span id='cli_emel'></span>
 					</span>
 				</div>
-				<div class="col-sm-6 col-md-6 col-xs-6">
+				<div class="col-sm-6 col-md-6 col-xs-12">
 					<span class="titrow  col-md-3 col-sm-3 col-xs-6">Nom/prénom <span title="Obligatoire">*</span></span>
 					<span class="tabInput col-md-9 col-sm-9 col-xs-12">
 						<? if ($GET_modePage != 'modif') { ?>
@@ -36,7 +41,7 @@
 						<? } ?>
 					</span>
 				</div>
-				<div class="col-sm-6 col-md-6 col-xs-6">
+				<div class="col-sm-6 col-md-6 col-xs-12">
 					<span class="titrow  col-md-3 col-sm-3 col-xs-6">Adresse</span>
 					<span class="tabInput col-md-9 col-sm-9 col-xs-12">
 						<? if ($GET_modePage != 'modif') { ?>
@@ -58,7 +63,7 @@
 				<div id="map">&nbsp;
 				</div>
 			</div>-->
-				<div class="col-sm-6 col-md-6 col-xs-6">
+				<div class="col-sm-6 col-md-6 col-xs-12">
 					<span class="titrow  col-md-3 col-sm-3 col-xs-6">Téléphone</span>
 					<span class="tabInput col-md-9 col-sm-9 col-xs-12">
 						<? if ($GET_modePage != 'modif') { ?>
@@ -133,9 +138,7 @@
 		<td class="tittab" width=12%>
 			<span id='tri_etat' onclick="triColonne('obj_etat')" class="sortable">Etat&nbsp;&nbsp;&nbsp;</span>
 		</td>
-		<td class="tittab" >
-			Actions</span>
-		</td>
+		<td class="tittab" >Actions</span></td>
 	</tr>
 </table>
 <div class="row">

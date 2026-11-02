@@ -206,9 +206,9 @@ function afficheLigne(val) {
         if (val['obj_etat'] == "CONFIRME") {
             new_etat = "STOCK";
             new_libelle = "Stocker";
-            action += "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\"," + val['obj_prix_vente'] + "," + val['obj_numero'] + ")' />";
+            action += "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\",this.form.obj_prix_vente_" + index + ".value," + val['obj_numero'] + ")' />";
             var thePrix = val['obj_prix_depot'];
-            var actionPrix = "<input type='number' name='obj_prix_vente_" + index + "' min=1 step='0.1' value='" + thePrix + "' />";
+            var actionPrix = "<input type='number' name='obj_prix_vente_" + index + "' min=1 step='0.1' value='" + thePrix + "'/>";
             getElement("prix_vente_" + index).innerHTML = actionPrix;
 
             var thePrixN = val['obj_prix_nego'];

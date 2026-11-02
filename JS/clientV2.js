@@ -280,11 +280,12 @@ function display_fiches(val, idElement) {
                 repr += "<td style='text-align:center' >";
                 if (val[index]['obj_etat'] == 'CONFIRME' && idElement == "fiches") {
                     if (CLIENT) {
-                        repr += "<span title='Modifier'  onclick='modifierFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link' style='font-size:1.5em'><i class='link fas fa-edit'></i>&nbsp;</span > ";
+                        repr += "<span title='Modifier'  onclick='modifierFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link' style='font-size:1.5em'>&nbsp;✎&nbsp;</span > ";
                     }
                     repr += "<span title='Supprimer' onclick='supprimerFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link' style='font-size:1.5em'>&nbsp;❌&nbsp;</span>";
                     // repr += "<span title='Imprimer' onclick='imprimeFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")' class='link' style='font-size:1.5em'>&nbsp;📇</span>";
-                    repr += "<span title='Imprimer'><a href='../out/PDF/fiche_depot_" + val[index]['obj_numero'] + ".pdf' class='link' target='blank' style='font-size:1.5em'>&nbsp;📇</span>";
+                    repr += "<span title='Imprimer'><a href='../out/PDF/fiche_depot_" + val[index]['obj_numero'] + ".pdf' class='link' target='blank' style='font-size:1.5em'>&nbsp;📇&nbsp;</a></span>";
+                    repr += "<span title='Coupon dépôt' class='link' onclick='afficheCoupon(\""+val[index]['obj_numero']+"\",\"coupon_depot_mobile\")' >&nbsp;<img src='Images/coupon.png' height=30px/></span>";
                     aimprimer = 1;
                 }
                 repr += "</td>";
@@ -354,6 +355,13 @@ function imprimeFiche(id, numero) {
 
 }
 
+function afficheCoupon(eti0, nameCoupon) {
+    x_action_makeA4Coupons(eti0, eti0, 0, nameCoupon,'',0, display_fileHTML);
+}
+
+function display_fileHTML(val) {
+    alertModalInfo(val);
+}
 /**
  * tri des colonnes */
 

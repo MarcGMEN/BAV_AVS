@@ -570,7 +570,7 @@ function action_makeA4Etiquettes($eti0, $eti1, $test = true, $nameEti = 'etiquet
  * creation des etiquetes sur une feuille A4
  * parametre : le numero de depart, la mise a jour de l'impression, le nombre de page
  */
-function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_vendeur", $tri = "Massicot")
+function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_vendeur", $tri = "Massicot", $toFile=true)
 {
     extract($GLOBALS);
 
@@ -819,9 +819,15 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
 
 
     $etiquettes .= "</body></html>";
+
+    if ($toFile) {
     file_put_contents($fileHTML, utf8_decode($etiquettes));
 
     return $CFG_URL . "/out/html/" . $nameCoupon . "_" . $eti0 . "_" . $eti1 . ".html";
+    }
+    else {
+        return $etiquettes;
+    }
     // $filePDF = html2pdf("", $fileHTML, "coupon_vendeur_" . $eti0 . "_" . $eti1, "L");
     // unlink($fileHTML);
 
