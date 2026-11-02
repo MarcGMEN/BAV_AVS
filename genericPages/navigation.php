@@ -152,6 +152,10 @@ if (isset($_COOKIE['CAFFARD_BAV']) &&  !$infAppli['ADMIN']) {
         'stock-client.php' => [
             'libelle' => 'Les vélos'
         ]
+     'pre_depot.php' => [
+            'libelle' => '<span class="PRE-DEPOT" >Pré-dépôt</span>',
+            'mode' => '',
+       ],
     ];
 }
 
