@@ -384,7 +384,7 @@
 		</div>
 
 		<div class="col-sm-3 col-md-3 col-xs-6 btnAction">
-			<input type=button value="Annuler" onclick="fermerCRUD()"
+			<input type=button value="Fermer" onclick="fermerCRUD()"
 				tabindex=<?= $tabindex++ ?>>
 		</div>
 	</div>

@@ -21,6 +21,7 @@ if ($_SERVER['SERVER_NAME'] == "avs44.com" || $_SERVER['SERVER_NAME'] == "bourse
 }
 else if ($_SERVER['SERVER_NAME'] == "localhost") {
 	$mysqli = mysqli_connect('db_bav','bav','AVS44b@v!' , 'bav');
+	// $mysqli = mysqli_connect('localhost','bav','AVS44b@v!' , 'bav');
 	// $mysqli = mysqli_connect('db2463.1and1.fr','dbo326893785','randovtt' , 'db326893785');
 }
 else {

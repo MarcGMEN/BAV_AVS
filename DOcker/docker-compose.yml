@@ -11,6 +11,8 @@ services:
       - "8095:80"
     depends_on:
       - db_bav
+    networks:
+      - bav_net
 
   php_bav_82:
     build:
@@ -24,6 +26,8 @@ services:
       - "8092:80"
     depends_on:
       - db_bav
+    networks:
+      - bav_net
 
   db_bav:
     image: mysql:8.0
@@ -35,21 +39,29 @@ services:
       MYSQL_USER: bav
       MYSQL_PASSWORD: AVS44b@v!
     ports:
-      - "3306:3306"
+      - "3305:3306"
     volumes:
       #- db_data:/var/lib/mysql
       - ../dbmigration/init_db:/docker-entrypoint-initdb.d:ro   # monte tout le dossier db
       # Docker exécutera tous les .sql dans ce dossier dans l'ordre alphabétique
+    networks:
+      - bav_net
+
   phpmyadmin_bav:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin_bav
     restart: always
     ports:
-      - "8091:80"
+      - "8099:80"
     environment:
       PMA_HOST: db_bav
       PMA_USER: root
       PMA_PASSWORD: root
+    networks:
+      - bav_net
 
+networks:
+  bav_net:
+    driver: bridge
 volumes:
   db_data:

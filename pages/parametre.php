@@ -61,7 +61,7 @@
 						<input type=number name="par_prix_depot_1" tabindex=<?= $tabindex++ ?> placeholder="00.0" onkeyup="setStartSaisie(true);" required min=1 max=10 size=2 value="3.00" />&#8364;
 						&nbsp;&nbsp;Bénévoles
 						<input type=number name="par_prix_depot_2" tabindex=<?= $tabindex++ ?> placeholder="00.0" onkeyup="setStartSaisie(true);" min=0 max=10 size=2 value="1.00" />&#8364;
-						&nbsp;&nbsp;Pre-dépôt
+						&nbsp;&nbsp;Gros clients (+10 vélos)
 						<input type=number name="par_prix_depot_3" tabindex=<?= $tabindex++ ?> placeholder="00.0" onkeyup="setStartSaisie(true);" min=0 max=10 size=2 value="0.00" />&#8364;
 					</td>
 				</tr>

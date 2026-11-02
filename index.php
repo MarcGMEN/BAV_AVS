@@ -88,9 +88,9 @@ sajax_handle_client_request();
 	<script type="text/javascript" src="JS/sajax/json_parse.js"></script>
 	<script type="text/javascript" src="JS/sajax/sajax.js"></script>  -->
 	<!-- MODE DEV -->
-	<? sajax_show_javascript(); ?> 
+	<? //sajax_show_javascript(); ?> 
 	<!-- MODE PROD -->
-	<? //sajax_show_javascript("JS/sajax.js");?> 
+	<? sajax_show_javascript("JS/sajax.js");?> 
 
 	<script type="text/javascript">
 		var startSaisie = false;
@@ -108,7 +108,7 @@ sajax_handle_client_request();
 		var modePage = '<?= $GET_modePage ?>';
 		var id = '<?= $GET_id ?>';
 		var type = '<?= $GET_type ?>';
-
+		
 		function initIndex() {
 			if (id != "" && (modePage == 'restF' || modePage == 'restC' || modePage == 'restV')) {
 				searchSuiteRest(id, modePage, type);
@@ -127,9 +127,12 @@ sajax_handle_client_request();
 <body class="parent" LANG="fr-FR" onload="initIndex();initEntete();initPage()" onunload="unloadPage()">
 	<form name="formNavigation" method="get">
 		<input type="hidden" name="page" value="">
+		<!-- <input type="text" name="page" value="" style='z-index:1000;position:absolute'  placeholder='page'/> -->
 		<input type="hidden" name="modePage" value="">
 		<input type="hidden" name="id" value="">
 		<input type="hidden" name="message" value="">
+		<input type="hidden" name="from" value="<?=$GET_from?>" />
+		
 	</form>
 
 	<div cellspacing="0" cellpadding="0" class="PAGE">
@@ -140,7 +143,6 @@ sajax_handle_client_request();
 		</div>
 		<div class="FENETRE_PRINCIPALE">
 			<main>
-			
 				<div class="TEXTE_FEN">
 					<br/>
 					<!--<MODE:<?= $GET_modePage ?>; ID:<?= $GET_id ?>;</span>
@@ -174,7 +176,7 @@ sajax_handle_client_request();
 </body>
 <?if (isset($GET_message) && trim($GET_message) != '') {?>
 	<script>
-		console.log("message <?= $GET_message ?>");
+		// console.log("message <?= $GET_message ?>");
 		alertModalInfo('<?= $GET_message ?>');
 	</script>
 <? } ?>

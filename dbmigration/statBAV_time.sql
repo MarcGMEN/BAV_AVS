@@ -30,10 +30,10 @@ from bav_objet bo left outer join bav_client bc on bc.cli_id= bo.obj_id_vendeur 
 -- pre depot
 select DATE_FORMAT(bo.obj_date_depot, "%Y%m%d") laDate, count(*) "pre-depot"
 from bav_objet bo 
-where bo.obj_numero_bav ='2025'
+where bo.obj_numero_bav ='2026'
 and bo.obj_date_depot is not null
 group by 1
-order by bo.obj_date_depot asc
+order by 1 asc
 
 
 -- comptage par type de vélo

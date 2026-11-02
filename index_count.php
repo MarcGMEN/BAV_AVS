@@ -78,7 +78,7 @@ sajax_handle_client_request();
 		}
 
 		function display_counter(val) {
-			console.log(val);
+			// console.log(val);
 			 var totalVente = 0
 	        totalFiche = 0;
     	    if (val['STOCK']) {

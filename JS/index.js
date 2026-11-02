@@ -54,21 +54,23 @@ function loadReglement(where, code) {
     x_action_makePDFFromHtml(tabToString(data2PDF), "reglement" + code + ".html", display_openPDF);
 }
 
-function goToPOST(page = 'bav.php', modePage = '', id = null, message = '') {
+function goToPOST(page = 'bav.php', modePage = '', id = null, message = '', from='') {
     document.formNavigation.page.value = page
     document.formNavigation.modePage.value = modePage;
     document.formNavigation.id.value = id;
     document.formNavigation.message.value = message;
     document.formNavigation.method = 'POST';
+    document.formNavigation.from = from;
     document.formNavigation.submit();
 }
 
-function goTo(page = 'bav.php', modePage = '', id = null, message = '') {
+function goTo(page = 'bav.php', modePage = '', id = null, message = '', from='') {
     document.formNavigation.page.value = page
     document.formNavigation.modePage.value = modePage;
     document.formNavigation.id.value = id;
     document.formNavigation.message.value = message;
     //document.formNavigation.method = 'POST';
+    document.formNavigation.from.value = from;
     document.formNavigation.submit();
 }
 var Gtype = '';

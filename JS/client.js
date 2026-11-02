@@ -200,7 +200,7 @@ function fermerCRUD(LaForm) {
     if (startSaisie) {
         alertModalConfirm("<br/><br/><center>Vous avez des modifications en cours<center>", "Close")
     } else {
-        confirmModalClose();
+        confirmModal("Close");
     }
 }
 
@@ -277,7 +277,7 @@ function display_fiches(val, idElement) {
             if (val[index]['obj_numero'] < 5000 || (val[index]['obj_numero'] >= 5000 && ADMIN)) {
                 repr += "<tr class='tabl0 link' ";
                 repr += " title='accès à la fiche " + val[index]['obj_numero'] + "' ";
-                repr += " onclick='goTo(\"ficheAdmin.php\",\"modif\"," + val[index]['obj_id'] + ",null)'>";
+                repr += " onclick='goTo(\"ficheAdmin.php\",\"modif\"," + val[index]['obj_id'] + ",null,\"client.php\")'>";
                 repr += "<td width=7% align=center>";
                 repr += val[index]['obj_numero'];
                 repr += "</td>";

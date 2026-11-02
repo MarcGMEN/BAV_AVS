@@ -169,7 +169,7 @@ function afficheLigne(val) {
         getElement("numero_" + index).innerHTML = val['obj_numero'];
         getElement("type_" + index).innerHTML = val['obj_type'];
 
-        getElement("vendeur_" + index).innerHTML = "<span class='link' onclick='goTo(\"client.php\",\"consult\"," + val['cli_id'] + ")'>" + val['vendeur_nom'] + "</span>";
+        getElement("vendeur_" + index).innerHTML = "<span class='link' onclick='goTo(\"client.php\",\"consult\"," + val['cli_id'] + ",\"\",\"saisieExpress.php\")'>" + val['vendeur_nom'] + "</span>";
         // if (val['cli_emel']) {
         //     getElement("vendeur_" + index).innerHTML += " [" + val['cli_emel'] + "]";
         // }
@@ -178,7 +178,7 @@ function afficheLigne(val) {
         }
         getElement("etat_" + index).innerHTML = val['obj_etat'];
 
-        getElement("zoom_" + index).innerHTML = "<i class='link fas fa-search' onclick='goTo(\"ficheAdmin.php\",\"modif\"," + val['obj_id'] + ")'></i>";
+        getElement("zoom_" + index).innerHTML = "<i class='link fas fa-search' onclick='goTo(\"ficheAdmin.php\",\"modif\"," + val['obj_id'] + ",\"\",\"saisieExpress.php\")'></i>";
         getElement("numero_" + index).className += " link";
 
         getElement("tr_" + index).className = "tabl0 " + val['obj_etat'];

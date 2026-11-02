@@ -342,10 +342,25 @@ function submitForm() {
 }
 
 /**click sur btn cofirm de modalFiche */
-function confirmModal(plus) {
+function confirmModal(plus, message = "") {
     if (plus == "Close") {
         closeModal();
-        goTo();
+        // console.log("close modal", document.formNavigation.from.value);
+        var to = document.formNavigation.from.value != "" ? document.formNavigation.from.value : 'bav.php';
+        var id=null;
+        var modePage=null;
+        if (to == 'stock.php') {
+            
+        }
+        else if (to == 'saisieExpress.php') {
+            id = document.ficheForm.obj_numero.value;
+        }
+        else if (to == 'client.php') {
+            id = document.ficheForm.cli_id.value;
+            modePage='select';
+        }
+        goTo(to,modePage,id, message);
+
     } else if (plus == "Supp") {
         var tabObj = recup_formulaire(document.ficheForm, 'obj');
         x_action_deleteFiche(tabObj['obj_id'], display_fin_supp);
@@ -367,7 +382,8 @@ function confirmeFiche() {
 }
 
 function display_fin_supp(val) {
-    goTo();
+    // console.log("display_fin_supp", document.ficheForm);
+    confirmModal("Close",'Ficher '+document.ficheForm.obj_numero.value+' supprimée');
 }
 
 // validation de la fiche en creation

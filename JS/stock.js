@@ -95,7 +95,7 @@ function display_fiches(val) {
                 }
 
                 repr += "<tr class='tabl0 " + val[index]['obj_etat'] + " link' style='" + stylePlus + "' >";
-                repr += "<td width=6% style='text-align:center' onclick='goTo(\"ficheAdmin.php\",\"modif\"," + val[index]['obj_id'] + ")'>";
+                repr += "<td width=6% style='text-align:center' onclick='goTo(\"ficheAdmin.php\",\"modif\"," + val[index]['obj_id'] + ",\"\",\"stock.php\")'>";
                 repr += "<div style='font-size:0.5em'>";
                 if (val[index]['obj_modif_data'] > 0) {
                     //repr += "<img src='Images/etiq" + val[index]['obj_modif_data'] + ".png' style='height:20px' />";
@@ -266,7 +266,7 @@ function isEdit() {
     }
     x_return_fiches(tri, sens, tabToString(tabSel), 0, display_fiches);
 }
-s
+
 function selectColonne(col, mask) {
     // tabSel['obj_type'] = getElement("sel_obj_type").value;
     tabSel['obj_marque'] = getElement("sel_obj_marque").value;
