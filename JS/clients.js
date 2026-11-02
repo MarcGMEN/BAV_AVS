@@ -23,7 +23,7 @@ function display_count(val) {
 }
 
 function findClients(all) {
-    console.log(tri+" "+sens);
+    // console.log(tri+" "+sens);
     allG = all;
     getElement('total').innerHTML = "...";
     getElement('totalAcheteur').innerHTML = "...";
