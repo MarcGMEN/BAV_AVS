@@ -885,6 +885,7 @@ function action_makeLibreFiche($eti, $nameFdp)
             // MISE EN FORME DE LA FICHE
             // regroupement de la description
             $fiche['obj_description'] = concatDescription($fiche['obj_description']);
+            $data['creneau']="";
 
             if (
                 $fiche['obj_prix_vente'] > 0 && ($fiche['obj_etat'] == 'VENDU' || $fiche['obj_etat'] == 'PAYE')
@@ -997,6 +998,14 @@ function action_makeA4Fiches($eti0, $eti1,$piece="")
                 // refaire les descriptions, pas de retour chariots et limite.
                 $client = getOneClient($fiche['obj_id_vendeur']);
 
+                $creneau = get_creneau($client['cli_id_cre']);
+                if ($creneau != null) {
+                    $data['creneau'] = "Prévu le " . formateDateMYSQLtoFR($creneau['cre_debut'], true);
+                }
+                else {
+                    $data['creneau'] = "";
+                }
+                
                 // MISE EN FORME DE LA FICHE
                 // MISE EN FORME DE LA FICHE
                 // regroupement de la description
@@ -1130,8 +1139,8 @@ function action_makeData($id, $test = false)
     //     'numero_bav' => $numBAV
     // );
 
-    error_log("action_makeData");
-    error_log($id);
+    // error_log("action_makeData");
+    // error_log($id);
     // pas de data, on fait un objet vide
     if ($id) {
         $fiche = getOneFiche($id);
@@ -1161,6 +1170,13 @@ function action_makeData($id, $test = false)
 
         if ($fiche['obj_prix_achat'] == 0) {
             $fiche['obj_prix_achat'] = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+        }
+        $creneau = get_creneau($client['cli_id_cre']);
+        if ($creneau != null) {
+            $data['creneau'] = "prévu le " . formateDateMYSQLtoFR($creneau['cre_debut'], true);
+        }
+        else {
+            $data['creneau'] = "";
         }
     } elseif ($test) {
         $client['cli_prix_depot'] = $par['par_prix_depot_1'];
@@ -1230,6 +1246,9 @@ function action_makeData($id, $test = false)
         // $fiche['QRCODE'] = "<img src='https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=$adresse&choe=UTF-8' title='Fiche " . $fiche['obj_numero'] . "' />";
         $fiche['QRCODE'] = "<img  src='$CFG_URL/$qrcodeFic' title='Fiche " . $fiche['obj_numero'] . "' height='90px'/>";
         $data['adresse'] = "";
+
+        $data['creneau'] = "Dépôt prévu le ___________________";
+        
     } else {
         $data['titre'] = "--" . $data['titre'] . "--";
         $client['cli_prix_depot'] = $par['par_prix_depot_1'];
@@ -1271,6 +1290,7 @@ function action_makeData($id, $test = false)
         $client['cli_com'] = "";
 
         $data['lien_confirm'] = $CFG_URL . "/Actions/rest.php?a=C&id=" . $fiche['obj_id_modif'];
+        $data['creneau'] = "";
     }
 
     // MISE EN FORME DE LA FICHE

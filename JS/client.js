@@ -143,7 +143,10 @@ function searchByMel(value) {
 function display_creneau(val) {
     console.log(val);
     if (val['cre_id']) {
-        var repr = "Lié au créneau de dépôt du " + formatDate(val['cre_debut'], true);
+        var dateLu = new Date(val['cre_debut']);
+        var repr = "Lié au créneau de dépôt du " + getJourDate(dateLu) + " " + dateLu.getDate() + " " + getMoisDate(dateLu) + " " + dateLu.getFullYear();
+        repr+= " à " + dateLu.getHours() + "h" + (dateLu.getMinutes() < 10 ? "0" + dateLu.getMinutes() : dateLu.getMinutes());
+        //var repr = "Lié au créneau de dépôt du " + formatDate(val['cre_debut'], true);
         repr += "<span title='Supprimer' onclick='supprimerCrenau(" + val['cre_id'] + ")' class='link' >❌</span>";
         getElement("theCreneau").innerHTML = repr;
     } else {
