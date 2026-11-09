@@ -103,6 +103,7 @@ legend {
 /**********/
 
 input[type=date]:hover,
+input[type=datetime-local]:hover,
 input[type=email]:hover,
 input[type=number]:hover,
 input[type=text]:hover,
@@ -152,6 +153,7 @@ input[type=button]:hover {
 }
 
 input[type=date],
+input[type=datetime-local],
 input[type=email],
 input[type=number],
 input[type=text],

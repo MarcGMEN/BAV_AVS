@@ -1,6 +1,7 @@
 <script src="JS/parametre.js" type="text/javascript"></script>
 <style>
 	input[type=date],
+	input[type=datetime-local],
 	input[type=email],
 	input[type=number],
 	input[type=text],
@@ -28,70 +29,72 @@
 			<table width=100% cellpadding=2 cellspacing=2 style="border:1px solid black">
 				<tr>
 					<td class="titrow">Actif </td>
-					<td class="tabInput" colspan=2>
+					<td class="tabInput" colspan=4>
 						<input type=checkbox name="par_actif" tabindex=<?= $tabindex++ ?> onchange="setStartSaisie(true);" />
 					</td>
 				</tr>
 				<tr>
 					<td class="titrow" width=15%>Numero BAV <span title="Obligatoire">*<span></td>
-					<td class="tabInput" width=35% colspan=2>
+					<td class="tabInput" width=35% colspan=4>
 						<input type=text name="par_numero_bav" id="par_numero_bav" size=10 maxlength=10 tabindex="<?= $tabindex++ ?>" placeholder="numéro BAV (année)" onkeyup="setStartSaisie(true);" required />
 					</td>
 				</tr>
 				<tr>
 					<td class="titrow">Titre <span title="Obligatoire">*<span></td>
-					<td class="tabInput" colspan=2>
+					<td class="tabInput" colspan=4>
 						<input type='text' name="par_titre" size=70 maxlength="100" tabindex=<?= $tabindex++ ?> placeholder="titre BAV" onkeyup="setStartSaisie(true);" required style="width:80%" />
 					</td>
 				</tr>
 				<tr>
 					<td class="titrow">Taux <span title="Obligatoire">*<span></td>
-					<td class="tabInput" colspan=2>Client direct
+					<td class="tabInput" >Client direct
 						<input type=number name="par_taux_1" style="width:20%'" tabindex=<?= $tabindex++ ?> placeholder="Taux 1" onkeyup="setStartSaisie(true);" required min=1 max=100 value="10" />%
 						<span id="PAR_TAUX_1" class="error"></span>
-						&nbsp;&nbsp;Bénévoles
+					</td><td class="tabInput" >Bénévoles
 						<input type=number name="par_taux_2" style="width:20%'" tabindex=<?= $tabindex++ ?> placeholder="Taux 2" onkeyup="setStartSaisie(true);" min=0 max=100 value="5" />%
-						&nbsp;&nbsp;Pre-dépôt
+					</td><td class="tabInput" >Pre-dépôt
 						<input type=number name="par_taux_3" style="width:20%'" tabindex=<?= $tabindex++ ?> placeholder="Taux 3" onkeyup="setStartSaisie(true);" min=0 max=100 value="0" />%
 					</td>
 				</tr>
 				<tr>
 					<td class="titrow">Depot <span title="Obligatoire">*<span></td>
-					<td class="tabInput" colspan=2>Client direct
+					<td class="tabInput">Client direct
 						<input type=number name="par_prix_depot_1" tabindex=<?= $tabindex++ ?> placeholder="00.0" onkeyup="setStartSaisie(true);" required min=1 max=10 size=2 value="3.00" />&#8364;
-						&nbsp;&nbsp;Bénévoles
+					</td><td class="tabInput" >Bénévoles
 						<input type=number name="par_prix_depot_2" tabindex=<?= $tabindex++ ?> placeholder="00.0" onkeyup="setStartSaisie(true);" min=0 max=10 size=2 value="1.00" />&#8364;
-						&nbsp;&nbsp;Gros clients (+10 vélos)
+					</td><td class="tabInput" >Gros clients (+10 vélos)
 						<input type=number name="par_prix_depot_3" tabindex=<?= $tabindex++ ?> placeholder="00.0" onkeyup="setStartSaisie(true);" min=0 max=10 size=2 value="0.00" />&#8364;
 					</td>
 				</tr>
 				<tr>
 					<td class="titrow">Nb fiches par classeur <span title="Obligatoire">*<span></td>
-					<td class="tabInput" colspan=2>
+					<td class="tabInput" colspan=4>
 						<input type=number name="par_nb_modif" tabindex=<?= $tabindex++ ?> placeholder="entre 1 et 100" onkeyup="setStartSaisie(true);" required min=1 max=100 size=2 />
 					</td>
 				</tr>
 				<tr>
 					<td class="titrow">Dates BAV <span title="Obligatoire">*<span></td>
-					<td class="tabInput">
-						<input type=date name="par_date_debut_depot" tabindex=<?= $tabindex++ ?> onkeyup="setStartSaisie(true);" required max="2030-12-31" />
+					<td class="tabInput" colspan=2>
+						<input type=date name="par_date_debut_depot" style='width:27%' tabindex=<?= $tabindex++ ?> onkeyup="setStartSaisie(true);" required max="2030-12-31" 
+							 />
 						<span class="titrow">Début dépot</span>
 						<br />
-						<input type=date name="par_date_debut_vente" tabindex=<?= $tabindex++ ?> onkeyup="setStartSaisie(true); " required max="2030-12-31" />
+						<input type=date name="par_date_debut_vente"  style='width:27%' tabindex=<?= $tabindex++ ?> onkeyup="setStartSaisie(true); " required max="2030-12-31" />
 						<span class="titrow">Début vente</span>
 						<br />
-						<input type=date name="par_date_fin_bav" tabindex=<?= $tabindex++ ?> onkeyup="setStartSaisie(true);" required max="2030-12-31" />
+						<input type=date name="par_date_fin_bav"  style='width:27%' tabindex=<?= $tabindex++ ?> onkeyup="setStartSaisie(true);" required max="2030-12-31" />
 						<span class="titrow">Fin BAV</span>
 					</td>
 					<td class="tabInput">
-					<span class="titrow">Avant bav :</span> <?= $infAppli['avant_bav'] ?><br />
-					<span class="titrow">Bav en cours :</span> <?= $infAppli['bav_en_cours'] ?><br />
+						<span class="titrow">Avant bav :</span> <?= $infAppli['avant_bav'] ?><br />
+						<span class="titrow">Bav en cours :</span> <?= $infAppli['bav_en_cours'] ?><br />
 					</td>
 				</tr>
 				<tr>
 					<td class="titrow">Date Client <span title="Obligatoire">*<span></td>
-					<td class="tabInput" colspan=2>
-						<input type=date name="par_client_date_debut" size=15 maxlength="15" tabindex=<?= $tabindex++ ?> onkeyup="setStartSaisie(true);" required max="2030-12-31" />
+					<td class="tabInput" colspan=4>
+						<input type=date name="par_client_date_debut" tabindex=<?= $tabindex++ ?> 
+							onkeyup="setStartSaisie(true);" required max="2030-12-31" />
 						&nbsp;au&nbsp;
 						<input type="datetime-local" name="par_client_date_fin" tabindex=<?= $tabindex++ ?> onkeyup="setStartSaisie(true);" required max="2030-12-31" step="1800"/>
 						<small>Date d'ouverture des pré-dépôts et fermeture le <?= $infAppli['dateFinClient'] ?></small>
@@ -106,20 +109,20 @@
 				</tr> -->
 				<tr>
 					<td class="titrow">Temps par dépôts (minutes)</td>
-					<td class="tabInput" colspan=2>
+					<td class="tabInput" colspan=4>
 						<input type=number name="par_temps_depot" value="4" onkeyup="setStartSaisie(true);"  />
 					</td>
 				</tr>
 				<tr>
 					<td class="titrow">Vue du parc</td>
-					<td class="tabInput" colspan=2>
+					<td class="tabInput" colspan=4>
 						<input type=number name="par_vue_parc" tabindex=<?= $tabindex++ ?> placeholder="entre 0 et 1" onkeyup="setStartSaisie(true);" min=0 max=1 size=1 value=0 />
 					</td>
 				</tr>
 
 				<tr>
 					<td class="titrow">Nb etiquette par page A4 </td>
-					<td class="tabInput" colspan=2>
+					<td class="tabInput" colspan=4>
 						<input type=number name="par_nb_eti_page" tabindex=<?= $tabindex++ ?> placeholder="entre 1 et 20" onkeyup="setStartSaisie(true);" min=1 max=20 size=2 value="5" />
 					</td>
 				</tr>
@@ -128,20 +131,22 @@
 					<td class="tabInput" >
 						<input type=number name="par_nb_coupon_page" tabindex=<?= $tabindex++ ?> placeholder="entre 1 et 20" onkeyup="setStartSaisie(true);" min=1 max=20 size=2 value="5" />
 					</td>
-					<td class="tabInput" >
+					<td class="tabInput" colspan=2>
 						<div style="margin-top: 5px; font-family: monospace;">
-						Couleur coupon Dépot : <span id="code_couleur_value_D">#ffc0cb</span>
+						Couleur coupon Dépot&nbsp;&nbsp;: 
 							<input type=color name="par_couleur_couponD" tabindex=<?= $tabindex++ ?> onchange="setStartSaisie(true);updateColorCode(this,'D');" value="pink" />
+							<span id="code_couleur_value_D">#ffc0cb</span>
 						</div>
 						<div style="margin-top: 5px; font-family: monospace;">
-							Couleur coupon Sortie : <span id="code_couleur_value_S">#ffc0cb</span>
+							Couleur coupon Sortie&nbsp;: 
 							<input type=color name="par_couleur_couponS" tabindex=<?= $tabindex++ ?> onchange="setStartSaisie(true);updateColorCode(this,'S');" value="lightgreen" />
+							<span id="code_couleur_value_S">#ffc0cb</span>
 						</div>
 					</td>
 				</tr>
 				<tr>
 					<td class="titrow">Numéro de base pour les fiches infos</td>
-					<td class="tabInput" colspan=2>
+					<td class="tabInput" colspan=4>
 						<input type=number name="par_numero_base_info" tabindex=<?= $tabindex++ ?> placeholder="entre 1 et 2000" onkeyup="setStartSaisie(true);" min=1 max=2000 size=4 required>
 					</td>
 				</tr>
