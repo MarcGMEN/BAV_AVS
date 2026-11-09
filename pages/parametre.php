@@ -125,8 +125,18 @@
 				</tr>
 				<tr>
 					<td class="titrow">Nb coupon par page A4 </td>
-					<td class="tabInput" colspan=2>
+					<td class="tabInput" >
 						<input type=number name="par_nb_coupon_page" tabindex=<?= $tabindex++ ?> placeholder="entre 1 et 20" onkeyup="setStartSaisie(true);" min=1 max=20 size=2 value="5" />
+					</td>
+					<td class="tabInput" >
+						<div style="margin-top: 5px; font-family: monospace;">
+						Couleur coupon Dépot : <span id="code_couleur_value_D">#ffc0cb</span>
+							<input type=color name="par_couleur_couponD" tabindex=<?= $tabindex++ ?> onchange="setStartSaisie(true);updateColorCode(this,'D');" value="pink" />
+						</div>
+						<div style="margin-top: 5px; font-family: monospace;">
+							Couleur coupon Sortie : <span id="code_couleur_value_S">#ffc0cb</span>
+							<input type=color name="par_couleur_couponS" tabindex=<?= $tabindex++ ?> onchange="setStartSaisie(true);updateColorCode(this,'S');" value="lightgreen" />
+						</div>
 					</td>
 				</tr>
 				<tr>

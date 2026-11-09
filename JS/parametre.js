@@ -191,3 +191,23 @@ function supprimer() {
         alert("Suppression impossible d'une BAV Active.")
     }
 }
+
+function updateColorCode(inputElement, type) {
+    // Récupère la valeur de l'input (ex: "#ffc0cb")
+    const colorValue = inputElement.value;
+    
+    // Met à jour le texte dans le span
+    document.getElementById('code_couleur_value_'+type).textContent = colorValue;
+}
+
+// Optionnel : Pour afficher la valeur correcte dès le chargement de la page
+window.addEventListener('DOMContentLoaded', () => {
+    const inputD = document.getElementById('par_couleur_couponD');
+    if (inputD) {
+        updateColorCode(input,'D');
+    }
+    const inputS = document.getElementById('par_couleur_couponS');
+    if (inputS) {
+        updateColorCode(input,'S');
+    }
+});

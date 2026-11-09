@@ -588,10 +588,10 @@ function action_makeA4Coupons($eti0, $eti1, $test = true, $nameCoupon = "coupon_
     // );
     $style="";  
     if ($nameCoupon == "coupon_vendeur") {
-        $style = " style='background-color:ORANGE' ";
+        $style = " style='background-color:".$INFO_APPLI['par_couleur_couponD']."' ";
     }
     if ($nameCoupon == "coupon_acheteur") {
-        $style = " style='background-color:LIGHTBLUE' ";
+        $style = " style='background-color:".$INFO_APPLI['par_couleur_couponS']."' ";
     }
 
     $etiquettes = "<html><head><link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'              integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous'></head><body $style>";

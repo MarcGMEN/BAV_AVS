@@ -215,8 +215,8 @@ $tabInfo = [
 											checked></i>
 								</td>
 								<td colspan=2></td>
-								<td rowspan=5 width=20% style='background-color:ORANGE'>
-									Feuille A4 orange<br />
+								<td rowspan=5 width=20% style='background-color:<?= $infAppli['par_couleur_couponD'] ?>'>
+									Feuille A4 <br />
 									70%</td>
 							</tr>
 							<tr class="tabAction">
@@ -336,8 +336,8 @@ $tabInfo = [
 										<input type='checkbox' name="triCouponA" value='Massicot'
 											checked></i></td>
 								<td colspan=2></td>
-								<td rowspan=5 width=20% style='background-color:LIGHTBLUE'>
-									Feuille A4 bleu</td>
+								<td rowspan=5 width=20% style='background-color:<?= $infAppli['par_couleur_couponS'] ?>'>
+									Feuille A4 </td>
 							</tr>
 							<tr class="tabAction">
 								<td width=50%>- De <input type=text

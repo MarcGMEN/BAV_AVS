@@ -68,6 +68,9 @@ function return_infoAppli()
     $infos['par_date_debut_depot_FR'] =  formateDateMYSQLtoFR($par['par_date_debut_depot'], true);
     $infos['par_date_debut_vente_FR'] =  formateDateMYSQLtoFR($par['par_date_debut_vente'], true);
     $infos['par_date_fin_bav_FR'] =  formateDateMYSQLtoFR($par['par_date_fin_bav'], true);
+
+    $infos['par_couleur_couponS'] =  $par['par_couleur_couponS'];
+    $infos['par_couleur_couponD'] =  $par['par_couleur_couponD'];
     
     $infos['date_j1'] = strtotime($par['par_date_debut_depot']);
     $infos['date_j2'] = strtotime($par['par_date_debut_vente']);
