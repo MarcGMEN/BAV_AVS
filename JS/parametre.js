@@ -89,6 +89,11 @@ function display_parametre(val) {
     // on bloque la saisie du numero de BAV
     document.parametreForm.par_numero_bav.disabled = true;
 
+    document.getElementById('code_couleur_value_S').textContent = val['par_couleur_couponS'];
+    document.getElementById('code_couleur_value_D').textContent = val['par_couleur_couponD'];
+    document.getElementById('par_couleur_couponD').textContent = val['par_couleur_couponD'];
+    document.getElementById('par_couleur_couponS').textContent = val['par_couleur_couponS'];
+
     // on ecrit le mode de la page dans le titre
     // getElement('modeParametre').innerHTML = modePage;
 }
@@ -199,15 +204,3 @@ function updateColorCode(inputElement, type) {
     // Met à jour le texte dans le span
     document.getElementById('code_couleur_value_'+type).textContent = colorValue;
 }
-
-// Optionnel : Pour afficher la valeur correcte dès le chargement de la page
-window.addEventListener('DOMContentLoaded', () => {
-    const inputD = document.getElementById('par_couleur_couponD');
-    if (inputD) {
-        updateColorCode(input,'D');
-    }
-    const inputS = document.getElementById('par_couleur_couponS');
-    if (inputS) {
-        updateColorCode(input,'S');
-    }
-});

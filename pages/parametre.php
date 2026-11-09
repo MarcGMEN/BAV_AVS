@@ -134,12 +134,12 @@
 					<td class="tabInput" colspan=2>
 						<div style="margin-top: 5px; font-family: monospace;">
 						Couleur coupon Dépot&nbsp;&nbsp;: 
-							<input type=color name="par_couleur_couponD" tabindex=<?= $tabindex++ ?> onchange="setStartSaisie(true);updateColorCode(this,'D');" value="pink" />
+							<input type=color name="par_couleur_couponD" tabindex=<?= $tabindex++ ?> onchange="setStartSaisie(true);updateColorCode(this,'D');"  />
 							<span id="code_couleur_value_D">#ffc0cb</span>
 						</div>
 						<div style="margin-top: 5px; font-family: monospace;">
 							Couleur coupon Sortie&nbsp;: 
-							<input type=color name="par_couleur_couponS" tabindex=<?= $tabindex++ ?> onchange="setStartSaisie(true);updateColorCode(this,'S');" value="lightgreen" />
+							<input type=color name="par_couleur_couponS" tabindex=<?= $tabindex++ ?> onchange="setStartSaisie(true);updateColorCode(this,'S');"  />
 							<span id="code_couleur_value_S">#ffc0cb</span>
 						</div>
 					</td>
