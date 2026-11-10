@@ -391,7 +391,7 @@ $tabInfo = [
 				<? } ?>
 				<? if ($idText == "coupon_tombola") { ?>
 					<form style="color:black">
-						<table width=100% border=1>
+						<table width=100% >
 							<tr class="tabAction">
 								<td width=10%>
 									&nbsp;
@@ -411,7 +411,7 @@ $tabInfo = [
 				<? } ?>
 				<? if ($idText == "coupon_depot_mobile") { ?>
 					<form style="color:black">
-						<table width=100% border=1>
+						<table width=100% >
 							<tr class="tabAction">
 								<td width=10%>
 								</td>
@@ -426,7 +426,7 @@ $tabInfo = [
 				<? } ?>
 				<? if ($idText == "facture") { ?>
 					<form style="color:black">
-						<table width=100% border=1>
+						<table width=100%>
 							<tr class="tabAction">
 								<td width=10%></td>
 								<td width=50%> Numero <input type=number style='width:30%'
@@ -443,7 +443,7 @@ $tabInfo = [
 				<? } ?>
 				<? if ($idText == "pre-check") { ?>
 					<form style="color:black">
-						<table width=100% border=1>
+						<table width=100%>
 							<tr class="tabAction">
 								<td width=10%></td>
 								<td width=50%> Classeur(s) (<span id='nbClasseurPret'></span>)
