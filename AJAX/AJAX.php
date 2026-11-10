@@ -173,10 +173,11 @@ function action_menage($fic)
 
 function add_counter_action($page, $modePage, $type = "")
 {
-// print_r("add $page");
-    $tabPageSuivi= ['bav.php','news.php','avis.php','consult.php','stock_client.php','pre_depot.php','searchVente','open Link','pre_depot.php','clientV2.php','animations.php','faq.php','presse.php'];
+    // print_r("add $page");
+    $tabPageSuivi= ['bav.php','news.php','avis.php','consult.php','stock-client.php','pre_depot.php','searchvente','open link','pre_depot.php','clientv2.php','animations.php','faq.php','presse.php'];
     if  (in_array(strtolower($page), $tabPageSuivi)) {
         
+        // print_r("ok pour compter $page");
         extract($GLOBALS);
         date_default_timezone_set('Europe/Paris');
         $today = time();
@@ -187,7 +188,7 @@ function add_counter_action($page, $modePage, $type = "")
         if ($today >= $dateDebut && $today <= $dateFin) {
 
             $cas['cas_page'] = $page;
-            $cas['cas_mode_page'] = $modePage;
+            $cas['cas_mode_page'] = utf8_encode($modePage);
             $cas['cas_type'] = $type;
             $cas['cas_numero_bav'] = $INFO_APPLI['numero_bav'];    
             $cas['cas_navigateur'] = getBrowser();

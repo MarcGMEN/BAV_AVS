@@ -164,7 +164,9 @@ CREATE TABLE `bav_parametre` (
   `par_nb_eti_page` int(11) NOT NULL,
   `par_numero_base_info` int(11) NOT NULL,
   `par_nb_coupon_page` int(11) DEFAULT NULL,
-  `par_temps_depot` int(11) NOT NULL DEFAULT '4'
+  `par_temps_depot` int(11) NOT NULL DEFAULT '4',
+  `par_couleur_couponD` varchar(7) NOT NULL DEFAULT '#f78888',
+  `par_couleur_couponS` varchar(7) NOT NULL DEFAULT '#66f0a2'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

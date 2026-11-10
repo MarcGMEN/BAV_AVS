@@ -27,7 +27,7 @@ $version = file_exists($_SERVER['DOCUMENT_ROOT'] . $jsFile) ? filemtime($_SERVER
 			<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cette fiche dépôt devra être <b>imprimée par vous</b> pour vous rendre à la Bourse, une par dépôt.</li>
 		</ul>
 		<p>- Soit en téléchargeant, puis en imprimant la fiche dépôt à remplir que vous trouverez ici
-			<A href="downloads/Fiche_BAV_2026.pdf" target="_blank"> <img class="link url" src="Images/pdf.png" height='30px' alt="téléchargement de la fiche" title="téléchargement de la fiche"></A>
+			<A class="link url" href="#" onclick="openPDF('downloads/Fiche_BAV_2026.pdf')" > <img class="link url" src="Images/pdf.png" height='30px' alt="téléchargement de la fiche" title="téléchargement de la fiche"></A>
 			<small><i>Attention aux droits d'ouvertures des popUp, en fonction de votre navigateur.</i></small>
 		</p>
 		</div>

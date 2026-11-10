@@ -12,6 +12,7 @@
 <form action="#" name="formCreneau">
 	Début du créneau :&nbsp;<input
 		type="datetime-local"
+		style='width:10%'
 		id="debut"
 		name="debut"
 		value="<?= date("Y-m-d", $infAppli['date_j1']) ?> 17:00"
@@ -22,6 +23,7 @@
 		type="datetime-local"
 		id="fin"
 		name="fin"
+		style='width:10%'
 		value="<?= date("Y-m-d", $infAppli['date_j1']) ?> 17:30"
 		min="<?= date("Y-m-d", $infAppli['date_j1']) ?> 16:00"
 		max="<?= date("Y-m-d", $infAppli['date_j2']) ?> 19:00" />
