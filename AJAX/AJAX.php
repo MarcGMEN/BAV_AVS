@@ -377,6 +377,27 @@ function delete_avis($id) {
     return deleteAvis($id);
 }
 
+function return_consignes() {
+    return json_decode(file_get_contents("../html/consignes.json"));
+}
+
+function update_consigne($id, $text) {
+    $consignes = return_consignes();
+    $trouve=false;
+    foreach ($consignes as $key => $value) {
+        if ($value->id == $id) {
+            $consignes[$key]->text = utf8_encode($text);
+            $trouve=true;
+        }
+    }
+    if (!$trouve) {
+        $consignes[] = (object) ['id' => $id, 'text' => $text];
+    }
+    file_put_contents("../html/consignes.json", json_encode($consignes));
+    return $consignes;
+}
+
+
 
 sajax_init("");
 // definition des fonction ajax possible

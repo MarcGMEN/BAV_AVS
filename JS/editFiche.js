@@ -8,6 +8,7 @@ function initPage() {
         // x_return_fichesModif('accessoire', display_modifEtiquetteAccessoire);
 
         x_return_num_max_fiches(display_num_max_fichesEF);
+        getConsignes();
     } else {
         goTo();
     }
@@ -478,3 +479,25 @@ function display_fichePC(val) {
 function lectureTaleFichesNego() {
     return fichesNego.size;
 }
+
+
+function getConsignes() {
+    x_return_consignes(display_consignes);
+}
+
+function saveConsigne(id) {
+    x_update_consigne(id, getElement(id).value, display_consignes);
+    inverseDisplay(id+"Texte");
+    inverseDisplay(id+"Saisie");
+}
+
+function display_consignes(val) {
+    console.log(val);
+    for (i in val) {
+        getElement(val[i]['id']).value = val[i]['text'];
+        getElement(val[i]['id']+"Texte").innerHTML = val[i]['text'];
+    }
+}
+
+
+

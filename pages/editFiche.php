@@ -101,7 +101,16 @@ $tabInfo = [
 											checked></i>
 								</td>
 								<td colspan=2></td>
-								<td rowspan=5 width=20%><small>Feuille A4 autocollante<br/>Si Prédécoupé, alors mettre les marges :  droite et gauche de 3.00cm, haute 2.35cm, zoom à 102%</small></td>
+								<td rowspan=5 width=20%>
+									<div id='<?=$idText?>Texte' onclick='inverseDisplay("<?=$idText?>Texte");inverseDisplay("<?=$idText?>Saisie");' style='display:block;'>
+										<small>Pas de consigne d'impression</small>
+									</div>
+									<div id='<?=$idText?>Saisie'  style='display:none;'>
+										<textarea id='<?=$idText?>' placeholder="Consigne d'impression" style='width:100%;height:90%' size=50 rows=5></textarea>
+
+										<img src="Images/ok.png" class='link' width='20pt' onclick='saveConsigne("<?=$idText?>");'>
+									</div>
+								</td>
 							</tr>
 							<tr class="tabAction">
 								<td width=50%>
@@ -149,7 +158,16 @@ $tabInfo = [
 							<tr>
 								<td rowspan=4 width=10%>&nbsp;</td>
 								<td colspan=2></td>
-								<td rowspan=4 width=20%>Feuille A4 blanche</td>
+								<td rowspan=4 width=20%>
+									<div id='<?=$idText?>Texte' onclick='inverseDisplay("<?=$idText?>Texte");inverseDisplay("<?=$idText?>Saisie");' style='display:block;'>
+										<small>Pas de consigne d'impression</small>
+									</div>
+									<div id='<?=$idText?>Saisie'  style='display:none;'>
+										<textarea id='<?=$idText?>' placeholder="Consigne d'impression" style='width:100%;height:90%' size=50 rows=5></textarea>
+
+										<img src="Images/ok.png" class='link' width='20pt' onclick='saveConsigne("<?=$idText?>");'>
+									</div>
+								</td>
 							</tr>
 							<tr class="tabAction">
 								<td width=50%>
@@ -216,8 +234,15 @@ $tabInfo = [
 								</td>
 								<td colspan=2></td>
 								<td rowspan=5 width=20% style='background-color:<?= $infAppli['par_couleur_couponD'] ?>'>
-									Feuille A4 <br />
-									70%</td>
+									<div id='<?=$idText?>Texte' onclick='inverseDisplay("<?=$idText?>Texte");inverseDisplay("<?=$idText?>Saisie");' style='display:block;'>
+										<small>Pas de consigne d'impression</small>
+									</div>
+									<div id='<?=$idText?>Saisie'  style='display:none;'>
+										<textarea id='<?=$idText?>' placeholder="Consigne d'impression" style='width:100%;height:90%' size=50 rows=5></textarea>
+
+										<img src="Images/ok.png" class='link' width='20pt' onclick='saveConsigne("<?=$idText?>");'>
+									</div>
+								</td>
 							</tr>
 							<tr class="tabAction">
 								<td width=50%>- De <input type=text
@@ -281,7 +306,15 @@ $tabInfo = [
 										</td>
 								<td colspan=2></td>
 								<td rowspan=5 width=20%>
-									Feuille A4 autocollante</td>
+									<div id='<?=$idText?>Texte' onclick='inverseDisplay("<?=$idText?>Texte");inverseDisplay("<?=$idText?>Saisie");' style='display:block;'>
+										<small>Pas de consigne d'impression</small>
+									</div>
+									<div id='<?=$idText?>Saisie'  style='display:none;'>
+										<textarea id='<?=$idText?>' placeholder="Consigne d'impression" style='width:100%;height:90%' size=50 rows=5></textarea>
+
+										<img src="Images/ok.png" class='link' width='20pt' onclick='saveConsigne("<?=$idText?>");'>
+									</div>
+								</td>
 							</tr>
 							<tr class="tabAction">
 								<td width=50%>- De <input type=text
@@ -337,7 +370,15 @@ $tabInfo = [
 											checked></i></td>
 								<td colspan=2></td>
 								<td rowspan=5 width=20% style='background-color:<?= $infAppli['par_couleur_couponS'] ?>'>
-									Feuille A4 </td>
+									<div id='<?=$idText?>Texte' onclick='inverseDisplay("<?=$idText?>Texte");inverseDisplay("<?=$idText?>Saisie");' style='display:block;'>
+										<small>Pas de consigne d'impression</small>
+									</div>
+									<div id='<?=$idText?>Saisie'  style='display:none;'>
+										<textarea id='<?=$idText?>' placeholder="Consigne d'impression" style='width:100%;height:90%' size=50 rows=5></textarea>
+
+										<img src="Images/ok.png" class='link' width='20pt' onclick='saveConsigne("<?=$idText?>");'>
+									</div>
+								</td>
 							</tr>
 							<tr class="tabAction">
 								<td width=50%>- De <input type=text
@@ -403,7 +444,16 @@ $tabInfo = [
 									<input type=button value='Imprimer'
 										onclick='imprimeCoupons(-1,-1,0,"coupon_tombola")'>
 								</td>
-								<td width=20%>Feuille A4 blanche</td>
+								<td width=20%>
+									<div id='<?=$idText?>Texte' onclick='inverseDisplay("<?=$idText?>Texte");inverseDisplay("<?=$idText?>Saisie");' style='display:block;'>
+										<small>Pas de consigne d'impression</small>
+									</div>
+									<div id='<?=$idText?>Saisie'  style='display:none;'>
+										<textarea id='<?=$idText?>' placeholder="Consigne d'impression" style='width:100%;height:90%' size=50 rows=5></textarea>
+
+										<img src="Images/ok.png" class='link' width='20pt' onclick='saveConsigne("<?=$idText?>");'>
+									</div>
+								</td>
 
 							</tr>
 						</table>
@@ -435,7 +485,16 @@ $tabInfo = [
 									<input type=button value='Imprimer'
 										onclick='imprimeLibreFiche(this.form.nfac.value,"facture")'>
 								</td>
-								<td width=20%>Feuille A4 blanche</td>
+								<td width=20%>
+									<div id='<?=$idText?>Texte' onclick='inverseDisplay("<?=$idText?>Texte");inverseDisplay("<?=$idText?>Saisie");' style='display:block;'>
+										<small>Pas de consigne d'impression</small>
+									</div>
+									<div id='<?=$idText?>Saisie'  style='display:none;'>
+										<textarea id='<?=$idText?>' placeholder="Consigne d'impression" style='width:100%;height:90%' size=50 rows=5></textarea>
+
+										<img src="Images/ok.png" class='link' width='20pt' onclick='saveConsigne("<?=$idText?>");'>
+									</div>
+								</td>
 
 							</tr>
 						</table>
@@ -453,7 +512,16 @@ $tabInfo = [
 									<input type=button value='Imprimer'
 										onclick='imprimePreCheck(this.form.classeurs.options)'>
 								</td>
-								<td width=20%>Feuille A4 blanche</td>
+								<td width=20%>
+									<div id='<?=$idText?>Texte' onclick='inverseDisplay("<?=$idText?>Texte");inverseDisplay("<?=$idText?>Saisie");' style='display:block;'>
+										<small>Pas de consigne d'impression</small>
+									</div>
+									<div id='<?=$idText?>Saisie'  style='display:none;'>
+										<textarea id='<?=$idText?>' placeholder="Consigne d'impression" style='width:100%;height:90%' size=50 rows=5></textarea>
+
+										<img src="Images/ok.png" class='link' width='20pt' onclick='saveConsigne("<?=$idText?>");'>
+									</div>
+								</td>
 							</tr>
 						</table>
 					</form>
