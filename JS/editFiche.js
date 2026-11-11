@@ -491,14 +491,21 @@ function saveConsigne(id) {
     inverseDisplay(id+"Saisie");
 }
 
+function closeConsigne(id) {
+    getElement(id).value = getElement(id+"Hidden").value;
+    inverseDisplay(id+"Texte");
+    inverseDisplay(id+"Saisie");
+}
+
 function display_consignes(val) {
-    console.log(val);
     for (i in val) {
         getElement(val[i]['id']).value = val[i]['text'];
         if (val[i]['text'] == "") {
             getElement(val[i]['id']+"Texte").innerHTML = "<small>Pas de consigne d'impression</small>";
+            getElement(val[i]['id']+"Hidden").value = "";
         } else {
             getElement(val[i]['id']+"Texte").innerHTML = val[i]['text'];
+            getElement(val[i]['id']+"Hidden").value = val[i]['text'];
         }
     }
 }

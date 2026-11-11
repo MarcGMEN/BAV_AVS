@@ -107,8 +107,9 @@ $tabInfo = [
 									</div>
 									<div id='<?=$idText?>Saisie'  style='display:none;'>
 										<textarea id='<?=$idText?>' placeholder="Consigne d'impression" style='width:100%;height:90%' size=50 rows=5></textarea>
-
 										<img src="Images/ok.png" class='link' width='20pt' onclick='saveConsigne("<?=$idText?>");'>
+										<input type=hidden id='<?=$idText?>Hidden' />
+										<img src="Images/b_drop.png" class='link' width='20pt' onclick='closeConsigne("<?=$idText?>");'>
 									</div>
 								</td>
 							</tr>
@@ -164,8 +165,9 @@ $tabInfo = [
 									</div>
 									<div id='<?=$idText?>Saisie'  style='display:none;'>
 										<textarea id='<?=$idText?>' placeholder="Consigne d'impression" style='width:100%;height:90%' size=50 rows=5></textarea>
-
 										<img src="Images/ok.png" class='link' width='20pt' onclick='saveConsigne("<?=$idText?>");'>
+										<input type=hidden id='<?=$idText?>Hidden' />
+										<img src="Images/b_drop.png" class='link' width='20pt' onclick='closeConsigne("<?=$idText?>");'>
 									</div>
 								</td>
 							</tr>
@@ -239,8 +241,9 @@ $tabInfo = [
 									</div>
 									<div id='<?=$idText?>Saisie'  style='display:none;'>
 										<textarea id='<?=$idText?>' placeholder="Consigne d'impression" style='width:100%;height:90%' size=50 rows=5></textarea>
-
 										<img src="Images/ok.png" class='link' width='20pt' onclick='saveConsigne("<?=$idText?>");'>
+										<input type=hidden id='<?=$idText?>Hidden' />
+										<img src="Images/b_drop.png" class='link' width='20pt' onclick='closeConsigne("<?=$idText?>");'>
 									</div>
 								</td>
 							</tr>
@@ -311,8 +314,9 @@ $tabInfo = [
 									</div>
 									<div id='<?=$idText?>Saisie'  style='display:none;'>
 										<textarea id='<?=$idText?>' placeholder="Consigne d'impression" style='width:100%;height:90%' size=50 rows=5></textarea>
-
 										<img src="Images/ok.png" class='link' width='20pt' onclick='saveConsigne("<?=$idText?>");'>
+										<input type=hidden id='<?=$idText?>Hidden' />
+										<img src="Images/b_drop.png" class='link' width='20pt' onclick='closeConsigne("<?=$idText?>");'>
 									</div>
 								</td>
 							</tr>
@@ -375,8 +379,9 @@ $tabInfo = [
 									</div>
 									<div id='<?=$idText?>Saisie'  style='display:none;'>
 										<textarea id='<?=$idText?>' placeholder="Consigne d'impression" style='width:100%;height:90%' size=50 rows=5></textarea>
-
 										<img src="Images/ok.png" class='link' width='20pt' onclick='saveConsigne("<?=$idText?>");'>
+										<input type=hidden id='<?=$idText?>Hidden' />
+										<img src="Images/b_drop.png" class='link' width='20pt' onclick='closeConsigne("<?=$idText?>");'>
 									</div>
 								</td>
 							</tr>
@@ -450,8 +455,9 @@ $tabInfo = [
 									</div>
 									<div id='<?=$idText?>Saisie'  style='display:none;'>
 										<textarea id='<?=$idText?>' placeholder="Consigne d'impression" style='width:100%;height:90%' size=50 rows=5></textarea>
-
 										<img src="Images/ok.png" class='link' width='20pt' onclick='saveConsigne("<?=$idText?>");'>
+										<input type=hidden id='<?=$idText?>Hidden' />
+										<img src="Images/b_drop.png" class='link' width='20pt' onclick='closeConsigne("<?=$idText?>");'>
 									</div>
 								</td>
 
@@ -491,8 +497,9 @@ $tabInfo = [
 									</div>
 									<div id='<?=$idText?>Saisie'  style='display:none;'>
 										<textarea id='<?=$idText?>' placeholder="Consigne d'impression" style='width:100%;height:90%' size=50 rows=5></textarea>
-
 										<img src="Images/ok.png" class='link' width='20pt' onclick='saveConsigne("<?=$idText?>");'>
+										<input type=hidden id='<?=$idText?>Hidden' />
+										<img src="Images/b_drop.png" class='link' width='20pt' onclick='closeConsigne("<?=$idText?>");'>
 									</div>
 								</td>
 
@@ -518,8 +525,9 @@ $tabInfo = [
 									</div>
 									<div id='<?=$idText?>Saisie'  style='display:none;'>
 										<textarea id='<?=$idText?>' placeholder="Consigne d'impression" style='width:100%;height:90%' size=50 rows=5></textarea>
-
 										<img src="Images/ok.png" class='link' width='20pt' onclick='saveConsigne("<?=$idText?>");'>
+										<input type=hidden id='<?=$idText?>Hidden' />
+										<img src="Images/b_drop.png" class='link' width='20pt' onclick='closeConsigne("<?=$idText?>");'>
 									</div>
 								</td>
 							</tr>
@@ -535,7 +543,11 @@ $tabInfo = [
 		<h2 class=fiche>
 			<div class="row">
 
-				<div class="col-sm-6" id="html_file_title"></div>
+				<div class="col-sm-4" id="html_file_title"></div>
+				<div class="col-sm-2" style="text-align: right"><i
+						class="fas fa-table link"
+						onclick="alertModalInfo('<iframe src=\'html/datas_coupons.html\' style=\'width:100%;height:90%\'></iframe>')"></i></div>
+
 				<!-- <div class="col-sm-2"><i class="far fa-eye link" onclick='alertModalInfo(CKEDITOR.instances.editor_html_file.getData());' )></i></div> -->
 				<!-- <div class="col-sm-1"><i class="fas fa-save link" onclick="saveEditor(idText,CKEDITOR.instances.editor_html_file.getData())"></i></div> -->
 				<div class="col-sm-2"><i class="far fa-eye link"

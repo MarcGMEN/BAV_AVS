@@ -30,7 +30,7 @@ $version = file_exists($_SERVER['DOCUMENT_ROOT'] . $jsFile) ? filemtime($_SERVER
 ?>
 
 <h3 class="titreFiche">Stat de la BAV <?= $infAppli['numero_bav'] ?></h3>
-<select id="annee_stat" onchange="changeNumeroBAV(this.value)"></select>
+<select id="annee_stat" onchange="changeNumeroBAV(this.value)" style='width:30%' ></select>
 
 <!-- <canvas id="canvasSuivi0" height="200">Votre navigateur est trop vieux</canvas> -->
 <div>
