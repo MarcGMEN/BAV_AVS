@@ -14,8 +14,8 @@ $version = file_exists($_SERVER['DOCUMENT_ROOT'] . $jsFile) ? filemtime($_SERVER
 	var base_info = '<?= $infAppli['base_info'] ?>';
 </script>
 
-<!-- <script src="JS/clientV2.js?v=<?=$version ?>" type="text/javascript"></script> -->
-<script src="JS/clientV2.js" type="text/javascript"></script>
+<script src="<?=$jsFile?>?v=<?=$version ?>" type="text/javascript"></script>
+<!-- <script src="JS/clientV2.js" type="text/javascript"></script> -->
 
 <h3 class="titreFiche">Votre compte</h3>
 <!-- <div id=lesFiches style="visibility: hidden;" />-->

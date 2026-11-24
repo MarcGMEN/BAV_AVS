@@ -996,7 +996,7 @@ img.logo {
     /* Hidden by default */
     position: fixed;
     /* Stay in place */
-    z-index: 1;
+    z-index: 100;
     /* Sit on top */
     padding-top: 30px;
     /* Location of the box */

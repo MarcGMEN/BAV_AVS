@@ -1,20 +1,16 @@
 // Crée la requête media query
 const mediaQuery = window.matchMedia('(max-width: 768px)');
-console.log(mediaQuery);
 var typeECran="XL";
 // 1. Vérifier l'état actuel au chargement
 if (mediaQuery.matches) {
   typeECran="XS";
 }
-console.log("Mode init "+typeECran ); 
 mediaQuery.addEventListener('change', (e) => {
   if (e.matches) {
     typeECran="XS";
   } else {
     typeECran="XL";
   }
-  console.log("Mode Event "+typeECran );
-
 });
 
 function setStartSaisie(cStartSaisie) {

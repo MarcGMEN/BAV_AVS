@@ -116,7 +116,6 @@ function alertModalConfirm(message, plus = '', titre = "Confirmation") {
             confirmModal(plus);
             closeModal();
         }
-        confirmModal(plus);
         return false;
     };
 
@@ -131,7 +130,7 @@ function searchStyle() {
 
 function closeModal(plus='') {
     // Get the modal
-    console.log("close Modal"+plus)
+    // console.log("close Modal"+plus)
     var modal = getElement('myModal'+plus);
     modal.style.display = "none";
 }

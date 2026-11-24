@@ -32,24 +32,28 @@ function compoFiche(val, gSearch = "", google = true, caffard = true, vendeur=tr
     if (val[index]['obj_modele'] && google) {
         repr += "&nbsp<A href='https://www.google.fr/search?tbm=isch&q=" + val['obj_marque_orig'] + " " + val['obj_modele_orig'] + "' target='_blank' ><img src='https://www.we-do-it-better.fr/wp-content/uploads/2019/04/googlesearch.png' height='20px'/></A></span>";
     }
+    var vendu=false;
     if (vendeur) {
-        repr +="&nbsp;&nbsp;&nbsp;<span class='tittab'>"
+        repr +="&nbsp;&nbsp;&nbsp;<span class='tittab "+val[index]['obj_etat']+"' >";
         switch (val[index]['obj_etat']) {
             case "CONFIRME":
-                repr += "A déposer";
+                repr += "&nbsp;A déposer&nbsp;";
                 break;
             case "STOCK":
-                repr += "Non vendu";
+                repr += "&nbsp;Non vendu&nbsp;";
                 break;
             case "VENDU":
-                repr += "Vendu";
+                repr += "&nbsp;Vendu&nbsp;";
+                vendu=true;
                 break;
             case "RENDU":
-                repr += "Restitué";
+                repr += "&nbsp;Restitué&nbsp;";
                 break;
             case "PAYE":
-                repr += "Vendu et argent remis";
+                repr += "&nbsp;Vendu et argent remis&nbsp;";
+                vendu=true;
                 break;
+        
         }
         repr += "</span>";
         
@@ -71,15 +75,15 @@ function compoFiche(val, gSearch = "", google = true, caffard = true, vendeur=tr
     if (ADMIN) {
         repr += val[index]['obj_prix_depot'] + " &euro;";
         if (val[index]['obj_prix_nego'] != "0.00") {
-            repr += " -> " + val[index]['obj_prix_nego'] + " &euro;";
+            repr += " -> " + val[index]['obj_prix_nego'] + "&euro;";
         }
-        if (val[index]['obj_prix_vente']) {
-            repr += "<br/><small>vendu "+val[index]['obj_prix_depot'] + " &euro;</small>";
+        if (vendu) {
+                repr += "<br/><small>vendu "+val[index]['obj_prix_vente'] + " &euro;</small>";
         }
     } else if (GetCookie('CAFFARD_BAV') || vendeur ) {
         repr += val[index]['obj_prix_depot'] + " &euro;";
-        if (val[index]['obj_prix_vente'] && val[index]['obj_prix_depot'] != val[index]['obj_prix_vente']) {
-            repr += "vendu "+val[index]['obj_prix_depot'] + " &euro;";
+        if (vendu) {
+            repr += "<br/><small>vendu "+val[index]['obj_prix_vente'] + " &euro;</small>";
         }
     }
     repr += "</div>";

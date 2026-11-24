@@ -204,17 +204,25 @@ function afficheLigne(val) {
         var new_etat = "";
         getElement("action_" + index).className = "";
         var thePrix = val['obj_prix_depot'];
+        if (parseInt(thePrix) == 0) {
+            maxNego = 10000;
+        }
+        else {
+            maxNego = parseInt(thePrix) - 1;
+        }
 
         if (val['obj_etat'] == "CONFIRME") {
             new_etat = "STOCK";
             new_libelle = "Stocker";
             action += "<input type='button' value='" + new_libelle + "' onclick='changeEtatLigne(" + val['obj_id'] + ",\"" + val['obj_etat'] + "\",\"" + new_etat + "\",this.form.obj_prix_vente_" + index + ".value," + val['obj_numero'] + ")' />";
-            
-            var actionPrix = "<input type='number' name='obj_prix_vente_" + index + "' min=1 step='0.1' value='" + thePrix + "'/>";
+
+            var actionPrix = "<input type='number' name='obj_prix_vente_" + index + "' min=1 step='0.1' value='" + thePrix + "' onchange='obj_prix_nego_" + index + ".max=this.value' />";
             getElement("prix_vente_" + index).innerHTML = actionPrix;
 
             var thePrixN = val['obj_prix_nego'];
-            var actionPrixNego = "<input type='number' name='obj_prix_nego_" + index + "' min=0 max="+(parseInt(thePrix)-1)+" step='0.1' value='" + thePrixN + "' style='width:70%' ' onfocus='focusNego(this," + val['obj_id'] + ")' onblur='blurNego(this," + val['obj_id'] + "," + index + ")'/>";
+
+
+            var actionPrixNego = "<input type='number' name='obj_prix_nego_" + index + "' min=0 max=" + maxNego + " step='0.1' value='" + thePrixN + "' style='width:70%' ' onfocus='focusNego(this," + val['obj_id'] + ")' onblur='blurNego(this," + val['obj_id'] + "," + index + ")'/>";
             actionPrixNego += "&nbsp;&nbsp;<span title='Modifier'  onclick='modifNego(" + val['obj_id'] + ", " + index + ")' class='link' style='visibility:hidden' id='btNego_" + val['obj_id'] + "' ><i class='link fas fa-edit'></i>&nbsp;</span >";
 
             getElement("prix_nego_" + index).innerHTML = actionPrixNego;
@@ -231,7 +239,7 @@ function afficheLigne(val) {
 
 
             var thePrixN = val['obj_prix_nego'];
-            var actionPrixNego = "<input type='number' name='obj_prix_nego_" + index + "' min=0 max="+(parseInt(thePrix)-1)+" step='0.1' value='" + thePrixN + "' style='width:70%' ' onfocus='focusNego(this," + val['obj_id'] + ")' onblur='blurNego(this," + val['obj_id'] + "," + index + ")'/>";
+            var actionPrixNego = "<input type='number' name='obj_prix_nego_" + index + "' min=0 max=" + maxNego + " step='0.1' value='" + thePrixN + "' style='width:70%' ' onfocus='focusNego(this," + val['obj_id'] + ")' onblur='blurNego(this," + val['obj_id'] + "," + index + ")'/>";
             actionPrixNego += "&nbsp;&nbsp;<span title='Modifier'  onclick='modifNego(" + val['obj_id'] + ", " + index + ")' class='link' style='visibility:hidden' id='btNego_" + val['obj_id'] + "' ><i class='link fas fa-edit'></i>&nbsp;</span >";
 
             getElement("prix_nego_" + index).innerHTML = actionPrixNego;
@@ -667,7 +675,7 @@ function modifNego(idobj, index) {
     }
 
     if (tabObj.obj_id) {
-        var verif=verifierInput(document.getElementsByName("obj_prix_nego_" + index)[0]);
+        var verif = verifierInput(document.getElementsByName("obj_prix_nego_" + index)[0]);
         if (verif != true) {
             alertModalWarn(verif);
         }

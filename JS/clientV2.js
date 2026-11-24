@@ -234,7 +234,7 @@ function display_fiches(val, idElement) {
         if (!isNaN(index)) {
             if (val[index]['obj_numero'] < 5000) {
                 repr += "<div  class='col-md-3 col-sm-3 col-xs-12' >";
-                repr += "<div onclick='modifierFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")'>";
+                repr += "<div class=link0 onclick='modifierFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")'>";
                 repr +=compoFiche(val,"",false,false,idElement == "fiches" ?  true  : false);
                 /*repr += "<div class='col-sm-5 col-md-5 col-xs-12 tabl0'>";
                 repr += "<div class='col-sm-6 col-md-6 col-xs-6 tit-cen'>";
@@ -293,6 +293,9 @@ function display_fiches(val, idElement) {
                     repr += "<span title='Imprimer'><a href='../out/PDF/fiche_depot_" + val[index]['obj_numero'] + ".pdf' class='linkASCII' target='blank' >&nbsp;📇&nbsp;</a></span>";
                     // repr += "<span title='Coupon dépôt' class='linkASCII' onclick='afficheCoupon(\""+val[index]['obj_numero']+"\",\"coupon_depot_mobile\")' >&nbsp;<img src='Images/coupon.png' height=20px/></span>";
                     aimprimer = 1;
+                }
+                else {
+                    repr += "<span class='linkASCII'>&nbsp;</span>";    
                 }
                 repr += "</div>";
                 repr += "<div class='col-sm-12 col-md-12 col-xs-12'><hr/></div>";
@@ -469,6 +472,9 @@ function display_messageConfirm(mess) {
 
 /**click sur btn cofirm de modalFiche */
 function confirmModal(plus) {
+
+    // revoir les droits CLIENT
+
     if (plus == "Fiche") {
         var tabObj = recup_formulaire(document.modalForm, 'obj');
         // tabObj['obj_marque'] = document.modalForm.elements.namedItem('obj_marque_' + idRamdom).value;
@@ -481,8 +487,8 @@ function confirmModal(plus) {
             alertModalInfo("Vous déposez un vélo de plus de 3000, sachez que nous n'avons jamais vendu de vélo superieur à ce prix.","Plus")
         }
 
-        if (parseInt(tabData['obj_prix_nego']) >= parseInt(tabData['obj_prix_depot'])) {
-            alertModalWarn("Le prix de négociation est supérieur au prix du dépot.")
+        if (parseInt(tabData['obj_prix_nego']) > parseInt(tabData['obj_prix_depot'])) {
+            alertModalWarn("Le prix de négociation ["+parseInt(tabData['obj_prix_nego'])+" est supérieur au prix du dépot ["+parseInt(tabData['obj_prix_depot'])+"].","Plus")
         }
         else {
             x_action_createFiche(tabToString(tabData), display_fin_create);
@@ -500,8 +506,8 @@ function confirmModal(plus) {
             alertModalInfo("Vous déposez un vélo de plus de 3000, sachez que nous n'avons jamais vendu de vélo superieur à ce prix.","Plus")
         }
 
-        if (parseInt(tabData['obj_prix_nego']) >= parseInt(tabData['obj_prix_depot'])) {
-            alertModalWarn("Le prix de négociation est supérieur au prix du dépot.","Plus")
+        if (parseInt(tabData['obj_prix_nego']) > parseInt(tabData['obj_prix_depot'])) {
+            alertModalWarn("Le prix de négociation ["+parseInt(tabData['obj_prix_nego'])+" est supérieur au prix du dépot ["+parseInt(tabData['obj_prix_depot'])+"].","Plus")
         }
         else {
             x_action_updateFiche(tabToString(tabData), display_fin_create);
@@ -513,6 +519,7 @@ function confirmModal(plus) {
 }
 
 function display_fin_create(val) {
+    console.log("display_fin_create",val);
     if (val == 1 || val instanceof Object) {
         if (val instanceof Object) {
             if (val['modif_fiche'] == 1) {
