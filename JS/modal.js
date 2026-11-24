@@ -11,18 +11,18 @@ function alertModalWarnTimeout(message, timeSec) {
  * modal d'un warn avec fermeture par la croix
  * @param {} message 
  */
-function alertModalWarn(message) {
+function alertModalWarn(message, plus="") {
 
-    getElement('myModal').style.display = "block";
+    getElement('myModal'+plus).style.display = "block";
 
-    getElement('id_bh_modal').className = "BH_MODAL_ERR";
-    getElement('modalTitre').innerHTML = "Erreur";
-    getElement("modalClose").innerHTML = "<i class='fa fa-times-circle size-3 close' onclick='closeModal()'></i>";
+    getElement('id_bh_modal'+plus).className = "BH_MODAL_ERR";
+    getElement('modalTitre'+plus).innerHTML = "Erreur";
+    getElement("modalClose"+plus).innerHTML = "<i class='fa fa-times-circle size-3 close' onclick='closeModal(\""+plus+"\")'></i>";
 
-    getElement("modalText").innerHTML = message;
+    getElement("modalText"+plus).innerHTML = message;
 
-    $repr = "<input type=button value=Fermer onclick='closeModal()'>";
-    getElement("modalAction").innerHTML = $repr;
+    $repr = "<input type=button value=Fermer onclick='closeModal(\""+plus+"\")'>";
+    getElement("modalAction"+plus).innerHTML = $repr;
 }
 
 /**
@@ -39,18 +39,18 @@ function alertModalInfoTimeout(message, timeSec) {
  * modal d'une info avec fermeture par la croix
  * @param {*} message 
  */
-function alertModalInfo(message) {
+function alertModalInfo(message, plus="") {
 
-    getElement('myModal').style.display = "block";
+    getElement('myModal'+plus).style.display = "block";
 
-    getElement('id_bh_modal').className = "BH_MODAL";
-    getElement('modalTitre').innerHTML = "Information";
-    getElement("modalClose").innerHTML = "<i class='fa fa-times-circle size-3 link' onclick='closeModal()'></i>";
+    getElement('id_bh_modal'+plus).className = "BH_MODAL";
+    getElement('modalTitre'+plus).innerHTML = "Information";
+    getElement("modalClose"+plus).innerHTML = "<i class='fa fa-times-circle size-3 link' onclick='closeModal(\""+plus+"\")'></i>";
 
-    getElement("modalText").innerHTML = message;
+    getElement("modalText"+plus).innerHTML = message;
 
-    $repr = "<input type=button value=Fermer onclick='closeModal()'>";
-    getElement("modalAction").innerHTML = $repr;
+    $repr = "<input type=button value=Fermer onclick='closeModal(\""+plus+"\")'>";
+    getElement("modalAction"+plus).innerHTML = $repr;
 }
 
 /**
@@ -108,9 +108,15 @@ function alertModalConfirm(message, plus = '', titre = "Confirmation") {
     }
 
     document.modalForm.onsubmit = function() {
-        searchStyle();
+        if (plus == "Fiche" || plus == "Modif") {
+            confirmModal(plus);
+        }
+        else {
+            searchStyle();
+            confirmModal(plus);
+            closeModal();
+        }
         confirmModal(plus);
-        closeModal();
         return false;
     };
 
@@ -123,9 +129,10 @@ function searchStyle() {
     getElement('modalAction').innerHTML = "<img src='Images/spinner_white_tiny.gif' />";
 }
 
-function closeModal() {
+function closeModal(plus='') {
     // Get the modal
-    var modal = getElement('myModal');
+    console.log("close Modal"+plus)
+    var modal = getElement('myModal'+plus);
     modal.style.display = "none";
 }
 

@@ -270,7 +270,7 @@ function isEdit() {
 function selectColonne(col, mask) {
     // tabSel['obj_type'] = getElement("sel_obj_type").value;
     tabSel['obj_marque'] = getElement("sel_obj_marque").value;
-    tabSel['obj_etat'] = getElement("sel_obj_etat").value;
+    tabSel['obj_etat'] = "'"+getElement("sel_obj_etat").value+"'";
 
     x_return_fiches(col, sens, tabToString(tabSel), 0, display_fiches);
 }

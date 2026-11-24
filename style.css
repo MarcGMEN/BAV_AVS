@@ -58,6 +58,11 @@ a:hover {
 .link0 {
     cursor: pointer;
 }
+.linkASCII {
+    font-size:1.2em   ;
+    cursor: pointer;
+}
+
 
 .link:hover {
     font-weight: bold;
@@ -68,15 +73,16 @@ a:hover {
 img.link:hover {
     border: 1px solid #fff200;
 }
+    
 
 fieldset {
     margin-left: 3px;
     margin-right: 3px;
     margin-top: 8px;
     margin-bottom: 2px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: #D99652;
+    /* border-style: solid; */
+    /* border-width: 1px; */
+    /* border-color: #D99652; */
     /*-moz-border-radius: 4px;
 	border-radius: 4px;*/
 }
@@ -455,6 +461,9 @@ div.cptGRAND_V {
 }
 
 @media screen and (max-width: 768px) {
+    .linkASCII {
+        font-size:1.5em   
+    }
     .alert {
         font-size: 1em;
     }
@@ -810,8 +819,7 @@ span.WARN {
     font-size: 1em;
     font-family: Verdana, Arial, Helvetica, sans-serif;
     /*border-bottom: 1px solid blue;*/
-    padding-top: 5pt;
-    padding-bottom: 5pt;
+    padding: 5;
 }
 
 
@@ -898,13 +906,15 @@ img.logo {
         width: 100%;
     }
     .tittab {
-        font-size: 0.6em;
+        font-size: 0.7em;
+        padding: 2;
     }
     /* .TITRE_FENETRE_PRINCIPALE {
         font-size: 1.2em;
     } */
     .titrow {
-        font-size: 0.6em;
+        font-size: 0.7em;
+        padding: 2;
     }
     h2 {
         font-size: 1.3em !important;
@@ -944,6 +954,7 @@ img.logo {
     div.fiche_0 {
         height: unset;
     }
+
 }
 
 
@@ -1032,13 +1043,13 @@ img.logo {
     cursor: pointer;
 }
 
-#modalText {
+#modalText, #modalTextPlus {
     font-family: Verdana, Arial, Helvetica, sans-serif;
     height: auto;
     padding: 10px 20px 5px 20px;
 }
 
-#modalAction {
+#modalAction, #modalActionPlus {
     height: auto;
     vertical-align: bottom;
     background-color: lightsteelblue;

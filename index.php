@@ -48,9 +48,6 @@ sajax_handle_client_request();
 	<META NAME="Author" LANG="fr" CONTENT="romael">
 	<link REL="SHORTCUT ICON" HREF="Images/BAV_2020.png">
 
-	<LINK HREF='style.css' REL='stylesheet' TYPE='text/css'>
-
-
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin="" />
 	<link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.css" />
@@ -59,6 +56,10 @@ sajax_handle_client_request();
 
 	<link rel="stylesheet" href="editor.css" />
 	<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	
+	<!-- on gagne -->
+	<LINK HREF='style.css' REL='stylesheet' TYPE='text/css'>
 
 
 	<!--  GOOGLE MAP -->
@@ -69,11 +70,11 @@ sajax_handle_client_request();
 	<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
 	
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<script src="JS/modal.js" type="text/javascript"></script>
 	<script src="JS/cookies.js" type="text/javascript"></script>
 	<script src="JS/fenetre.js" type="text/javascript"></script>
 	<script src="JS/commun.js" type="text/javascript"></script>
+	<script src="JS/composants.js" type="text/javascript"></script>
 	<script src="JS/index.js" type="text/javascript"></script>
 
 	<script src="ckeditor/ckeditor.js"></script>
@@ -163,6 +164,22 @@ sajax_handle_client_request();
 							<div id="modalText"></div>
 							<br />
 							<div id="modalAction"></div>
+						</form>
+					</div>
+				</div>
+				<div id="myModalPlus" class="modal">
+					<!-- Modal content -->
+					<div class="modal-content" id="id-modal-contentPlus">
+						<form name="modalFormPlus" method="POST" onsubmit="return submitFormModal()" action="">
+							<table width="100%" class="BH_MODAL" id="id_bh_modalPlus">
+								<tr>
+									<td width="95%" id='modalTitrePlus'></td>
+									<td width="5%" id="modalClosePlus"></td>
+								</tr>
+							</table>
+							<div id="modalTextPlus"></div>
+							<br />
+							<div id="modalActionPlus"></div>
 						</form>
 					</div>
 				</div>

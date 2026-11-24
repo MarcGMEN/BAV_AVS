@@ -200,64 +200,70 @@ function getOneFicheByCode($id)
  */
 function getFiches($order, $sens, $tabSel, $client = true)
 {
-    $requete2 = "SELECT bav_objet.*";
-    if ($client) {
-        $requete2 .= ", ve.*, ve.cli_nom vendeur_nom, ac.cli_nom acheteur_nom ";
-        $requete2 .= ",CONCAT_WS(' ',ac.cli_adresse,ac.cli_adresse1) as ac_adresse ";
-        $requete2 .= ",CONCAT_WS(' ',ac.cli_code_postal,ac.cli_ville) as ac_cdp_ville ";
-        $requete2 .= ",ac.cli_emel as ac_emel ";
-    }
-    $requete2 .= " from bav_objet ";
-    if ($client) {
-        $requete2 .= "  left outer join bav_client as ve on obj_id_vendeur = ve.cli_id ";
-        $requete2 .= "  left outer join bav_client as ac on obj_id_acheteur = ac.cli_id ";
-    }
-    //$requete2 .= "  left outer join bav_modif_prix as mop on mop_id_obj = obj_id and mop_date_validation is null ";
-    $requete2 .= " where obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "'";
-    foreach ($tabSel as $key => $val) {
-        if ($key == "obj_search") {
-            $tabVal = explode(" ", $val);
-            foreach ($tabVal as $value) {
-                if (trim($value) != "") {
-                    $requete2 .= " and (obj_modele like '%" . addslashes($value) . "%' ";
-                    $requete2 .= " or obj_numero like '" . addslashes($value) . "%' ";
-                    $requete2 .= " or obj_description like '%" . addslashes($value) . "%' ";
-                    $requete2 .= " or obj_type like '%" . addslashes($value) . "%' ";
-                    $requete2 .= " or obj_public like '%" . addslashes($value) . "%' ";
-                    $requete2 .= " or obj_marque like '%" . addslashes($value) . "%' ";
-                    $requete2 .= " or obj_couleur like '%" . addslashes($value) . "%' ";
-                    // $requete2 .= " or obj_prix_depot like '" . addslashes($value) . "%' ";
-                    // $requete2 .= " or obj_prix_vente like '" . addslashes($value) . "%' ";
-                    $requete2 .= " or obj_taille like '%" . addslashes($value) . "%') ";
+    try {
+        $requete2 = "SELECT bav_objet.*";
+        if ($client) {
+            $requete2 .= ", ve.*, ve.cli_nom vendeur_nom, ac.cli_nom acheteur_nom ";
+            $requete2 .= ",CONCAT_WS(' ',ac.cli_adresse,ac.cli_adresse1) as ac_adresse ";
+            $requete2 .= ",CONCAT_WS(' ',ac.cli_code_postal,ac.cli_ville) as ac_cdp_ville ";
+            $requete2 .= ",ac.cli_emel as ac_emel ";
+        }
+        $requete2 .= " from bav_objet ";
+        if ($client) {
+            $requete2 .= "  left outer join bav_client as ve on obj_id_vendeur = ve.cli_id ";
+            $requete2 .= "  left outer join bav_client as ac on obj_id_acheteur = ac.cli_id ";
+        }
+        //$requete2 .= "  left outer join bav_modif_prix as mop on mop_id_obj = obj_id and mop_date_validation is null ";
+        $requete2 .= " where obj_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "'";
+        foreach ($tabSel as $key => $val) {
+            if ($key == "obj_search") {
+                $tabVal = explode(" ", $val);
+                foreach ($tabVal as $value) {
+                    if (trim($value) != "") {
+                        $requete2 .= " and (obj_modele like '%" . addslashes($value) . "%' ";
+                        $requete2 .= " or obj_numero like '" . addslashes($value) . "%' ";
+                        $requete2 .= " or obj_description like '%" . addslashes($value) . "%' ";
+                        $requete2 .= " or obj_type like '%" . addslashes($value) . "%' ";
+                        $requete2 .= " or obj_public like '%" . addslashes($value) . "%' ";
+                        $requete2 .= " or obj_marque like '%" . addslashes($value) . "%' ";
+                        $requete2 .= " or obj_couleur like '%" . addslashes($value) . "%' ";
+                        // $requete2 .= " or obj_prix_depot like '" . addslashes($value) . "%' ";
+                        // $requete2 .= " or obj_prix_vente like '" . addslashes($value) . "%' ";
+                        $requete2 .= " or obj_taille like '%" . addslashes($value) . "%') ";
+                    }
                 }
+            } elseif ($key == "obj_deb_prix") {
+                $requete2 .= " and obj_prix_depot >= " . $val . " ";
+            } elseif ($key == "obj_fin_prix") {
+                $requete2 .= " and obj_prix_depot < " . $val . " ";
+            } elseif ($key == "obj_etat") {
+                $requete2 .= " and obj_etat IN ( " . $val . " )";
+            } elseif ($key && $val != "*") {
+                $requete2 .= " and $key = '" . addslashes($val) . "' ";
             }
-        } elseif ($key == "obj_deb_prix") {
-            $requete2 .= " and obj_prix_depot >= " . $val . " ";
-        } elseif ($key == "obj_fin_prix") {
-            $requete2 .= " and obj_prix_depot < " . $val . " ";
-        } elseif ($key && $val != "*") {
-            $requete2 .= " and $key = '" . addslashes($val) . "' ";
         }
-    }
-    if ($order != null) {
-        if ($order == "obj_prix_vente") {
-            $requete2 .= " order by $order $sens, obj_prix_depot $sens";
-        } else {
-            $requete2 .= " order by $order $sens";
+        if ($order != null) {
+            if ($order == "obj_prix_vente") {
+                $requete2 .= " order by $order $sens, obj_prix_depot $sens";
+            } else {
+                $requete2 .= " order by $order $sens";
+            }
         }
-    }
-    // error_log("[getFiches] $requete2");
+        // error_log("[getFiches] $requete2");
 
-    $result = $GLOBALS['mysqli']->query($requete2);
-    if ($result) {
-        $tab = array();
-        $index = 0;
-        while ($row = $result->fetch_assoc()) {
-            $tab[$index++] = $row;
+        $result = $GLOBALS['mysqli']->query($requete2);
+        if ($result) {
+            $tab = array();
+            $index = 0;
+            while ($row = $result->fetch_assoc()) {
+                $tab[$index++] = $row;
+            }
+            $result->close();
+        } else {
+            throw new Exception("getFiches' [$requete2] " . $GLOBALS['mysqli']->error);
         }
-        $result->close();
-    } else {
-        throw new Exception("getFiches' [$requete2] " . $GLOBALS['mysqli']->error);
+    } catch (Exception $e) {
+       throw new Exception("getFiches' [$requete2] " . $GLOBALS['mysqli']->error);
     }
     return $tab;
 }

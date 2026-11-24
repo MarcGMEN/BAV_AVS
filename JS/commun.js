@@ -162,7 +162,7 @@ function getJourDate(date) {
         case 4: return "Jeudi";;
         case 5: return "Vendredi";;
         case 6: return "Samedi";;
-        
+
     }
 }
 
@@ -180,7 +180,7 @@ function getMoisDate(date) {
         case 9: return "Octobre";;
         case 10: return "Novembre";;
         case 11: return "Décembre";;
-        
+
     }
 }
 function formatDate(date, affHeure = true) {
@@ -207,7 +207,7 @@ function formatDate(date, affHeure = true) {
                 nd = new Date(annee, mois - 1, jour);
                 tst = (annee > 1800 && annee < 2200 && annee == nd.getFullYear() &&
                     mois == (nd.getMonth() + 1) && jour == nd.getDate());
-            } catch (e) {}
+            } catch (e) { }
             if (tst) {
                 if (affHeure) {
                     return (jour + "/" + mois + "/" + annee + " " + heure);
@@ -296,7 +296,7 @@ function basename(path, suffix) {
     // * returns 1: 'home'
 
     var b = path.replace(/^.*[\/\\]/g, '');
-    if (typeof(suffix) == 'string' && b.substr(b.length - suffix.length) == suffix) {
+    if (typeof (suffix) == 'string' && b.substr(b.length - suffix.length) == suffix) {
         b = b.substr(0, b.length - suffix.length);
     }
     return b;
@@ -475,8 +475,8 @@ function AnneeBissex(nA) {
     if (nA % 100 == 0)
         return true;
     else
-    if (nA % 400 == 0)
-        return true;
+        if (nA % 400 == 0)
+            return true;
 
     return false;
 }
@@ -606,12 +606,12 @@ const isValidUrl = urlString => {
         return false;
     }
 }
-let currentsindex=[]; 
-function showNextImage(idCarrousel,first) {
+let currentsindex = [];
+function showNextImage(idCarrousel, first) {
     // console.log(idCarrousel);
 
-    
-    const images = document.querySelectorAll("."+idCarrousel+'-images  img');
+
+    const images = document.querySelectorAll("." + idCarrousel + '-images  img');
     const totalImages = images.length;
     if (!currentsindex[idCarrousel]) {
         currentsindex[idCarrousel] = 0;
@@ -626,8 +626,32 @@ function showNextImage(idCarrousel,first) {
 
 function updateCarousel(idCarrousel) {
     const offset = -currentsindex[idCarrousel] * 100;  // Assumes all images have equal width
-    const carouselImages = document.querySelector("."+idCarrousel+'-images'     );
+    const carouselImages = document.querySelector("." + idCarrousel + '-images');
     carouselImages.style.transform = `translateX(${offset}%)`;
 
-    setTimeout("showNextImage('"+idCarrousel+"',0)", 4000);
+    setTimeout("showNextImage('" + idCarrousel + "',0)", 4000);
+}
+
+function verifierInput(input) {
+
+    if (input != null) {
+
+        // 1. Vérification globale (renvoie true ou false)
+        if (input.checkValidity()) {
+            return true;
+        } else {
+            // 2. Connaître la raison exacte via l'objet ValidityState
+            if (input.validity.valueMissing) {
+                return "Erreur : Le champ est obligatoire.";
+            } else if (input.validity.rangeUnderflow) {
+                return "Erreur : La valeur est inférieure au minimum autorisé de "+Number(input.min);
+            } else if (input.validity.rangeOverflow) {
+                return "Erreur : La valeur dépasse le maximum autorisé de "+Number(input.max);
+            } else if (input.validity.stepMismatch) {
+                return "Erreur : La valeur ne respecte pas le pas (step).";
+            } else if (input.validity.badInput) {
+                return "Erreur : Ce n'est pas un nombre valide (ex: 'e' ou '--').";
+            }
+        }
+    }
 }

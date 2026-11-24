@@ -1640,7 +1640,7 @@ function return_fiches($tri, $sens, $selection, $detail = 1, $client = true)
         }
         return $tab;
     } catch (Exception $e) {
-        return "ERREUR " . $e->getMessage();
+        return "[return_fiches] ERREUR " . $e->getMessage();
     }
 }
 

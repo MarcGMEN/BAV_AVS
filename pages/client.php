@@ -144,13 +144,13 @@ $version = file_exists($_SERVER['DOCUMENT_ROOT'] . $jsFile) ? filemtime($_SERVER
 					<input type=button value="Supprimer" name="buttonSupprimeFiche" onclick="supprimerClient(this.form.cli_id.value)" tabindex=<?= $tabindex++ ?> />
 				</div>
 				<? if ($infAppli['ADMIN']) { ?>
-					<div class="col-sm-2 col-md-2 col-xs-4 btnAction" id="tdBtnFeuille">
+					<div class="col-sm-2 col-md-2 col-xs-4 btnAction maskMobile" id="tdBtnFeuille">
 						<input type=button value="Commissions" name="buttonFeuilleFiche" onclick="fichesClient(this.form.cli_id.value)" tabindex=<?= $tabindex++ ?> />
 					</div>
-					<div class="col-sm-2 col-md-2 col-xs-4 btnAction" id="tdBtnFacture">
+					<div class="col-sm-2 col-md-2 col-xs-4 btnAction maskMobile" id="tdBtnFacture">
 						<input type=button value="Facture" name="buttonFactureFiche" onclick="factureClient(this.form.cli_id.value)" tabindex=<?= $tabindex++ ?> />
 					</div>
-					<div class="col-sm-2 col-md-2 col-xs-4 btnAction" id="tdBtnRecap">
+					<div class="col-sm-2 col-md-2 col-xs-4 btnAction maskMobile" id="tdBtnRecap">
 						<input type=button value="Récap vente" name="buttonFeuilleFiche" onclick="recapVenteClient(this.form.cli_id.value)" tabindex=<?= $tabindex++ ?> />
 					</div>
 				<?}?>

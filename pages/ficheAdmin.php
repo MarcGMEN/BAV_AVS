@@ -16,15 +16,15 @@
 		<h4>
 			<div class="row tittab" id='trTitreFiche'
 				style='display: none;vertical-align: middle;'>
-				<div class="col-sm-8 col-md-8 col-xs-8"
+				<div class="col-sm-8 col-md-8 col-xs-12"
 					style="border:1px solid blue">
-					<div class="col-sm-4 col-md-4 col-xs-4">
+					<div class="col-sm-4 col-md-4 col-xs-12">
 						<input type="hidden" name="obj_numero" />
 						No&nbsp;:&nbsp;<span style="font-size: 1.5em"
 							id='obj_numero'></span>
 						<!--<span  id="obj_id_modif" style="color:black; font-size: 0.5em; text-align: left;"></span>-->
 					</div>
-					<div class="col-sm-8 col-md-8 col-xs-8">
+					<div class="col-sm-8 col-md-8 col-xs-8 maskMobile">
 						<span style="font-size:0.6em; text-align: left;">
 							Etiquette
 							<span><select name=obj_modif_data style="width:80px"
@@ -56,13 +56,15 @@
 						</span>
 					</div>
 				</div>
-				<div class="col-sm-4 col-md-4 col-xs-4 tabl1">
+				<div class="col-sm-4 col-md-4 col-xs-12 tabl1">
 					<span class="alert-info" id="obj_etat_libelle"></span>
+					<span class='maskMobile'>
 					<input type=button
 						onclick="goTo('saisieExpress.php', '',document.ficheForm.obj_numero.value,null);"
 						id=BtnSaisieExpress value="Gestion Fiche"
 						style='display: none' />
-				</div>
+					</span>
+				</span>
 			</div>
 		</h4>
 		<div class="row">

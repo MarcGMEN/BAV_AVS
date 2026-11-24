@@ -14,105 +14,126 @@ $version = file_exists($_SERVER['DOCUMENT_ROOT'] . $jsFile) ? filemtime($_SERVER
 	var base_info = '<?= $infAppli['base_info'] ?>';
 </script>
 
-<script src="JS/clientV2.js?v=<?=$version ?>" type="text/javascript"></script>
+<!-- <script src="JS/clientV2.js?v=<?=$version ?>" type="text/javascript"></script> -->
+<script src="JS/clientV2.js" type="text/javascript"></script>
 
 <h3 class="titreFiche">Votre compte</h3>
 <!-- <div id=lesFiches style="visibility: hidden;" />-->
-<div class="alert alert-info">
-	<fieldset class=client>
-		<legend class=titreFiche>Vos Coordonnées</legend>
-		<form name="clientForm" method="POST" action="#" onsubmit="return submitFormClient(this)">
-			<input type=hidden name=cli_id />
-			<input type=hidden name=cli_id_modif />
-			<div class="row">
-				<div class="col-sm-6 col-md-6 col-xs-12">
-					<span class="titrow col-md-3 col-sm-3 col-xs-6">Emel</span>
-					<span class="tabInput col-md-9 col-sm-12 col-xs-12">
-						<span id='cli_emel'></span>
-					</span>
-				</div>
-				<div class="col-sm-6 col-md-6 col-xs-12">
-					<span class="titrow  col-md-3 col-sm-3 col-xs-6">Nom/prénom <span title="Obligatoire">*</span></span>
-					<span class="tabInput col-md-9 col-sm-9 col-xs-12">
-						<? if ($GET_modePage != 'modif') { ?>
-							<span id='cli_nom'></span>
+<div class="row" >
+	<div class="col-sm-6 col-md-6 col-xs-12">
+			
+		<div class="alert alert-info">
+			<fieldset class=client>
+				<form name="clientForm" method="POST" action="#" onsubmit="return submitFormClient(this)">
+					<input type=hidden name=cli_id />
+					<input type=hidden name=cli_id_modif />
+					<legend class=titreFiche>Vos Coordonnées 
+						<? if ($GET_modePage == 'modif') { ?>
+								<span class="link" style='font-size:1.2em' title='Valider' 
+									onclick="document.clientForm.requestSubmit()" >&nbsp;✓&nbsp;
+								</span>
+								<!-- <input type='submit' name="buttonValideFiche" value="✓" tabindex=<?= $tabindex++ ?> disabled>  -->
+								<!-- <input type=button value="Annuler" onclick='goToPOST("clientV2.php","",this.form.cli_id_modif.value,"")' tabindex=<?= $tabindex++ ?>> -->
+								<span class="link" style='font-size:1.2em' title='Annuler' 
+									onclick='goToPOST("clientV2.php","",document.clientForm.cli_id_modif.value,"")' >
+									&nbsp;❌&nbsp;
+								</span>
 						<? } else { ?>
-							<input type=text name='cli_nom' tabindex=<?= $tabindex++ ?> size="50" maxlength="100" required onkeyup="setStartSaisie(true);" />
-						<? } ?>
-					</span>
-				</div>
-				<div class="col-sm-6 col-md-6 col-xs-12">
-					<span class="titrow  col-md-3 col-sm-3 col-xs-6">Adresse</span>
-					<span class="tabInput col-md-9 col-sm-9 col-xs-12">
-						<? if ($GET_modePage != 'modif') { ?>
-							<div id='cli_adresse'></div>
-							<div id='cli_adresse1'></div>
-							<div id='cli_code_postal'></div>
-							<div id='cli_ville'></div>
-						<? } else { ?>
-							<input type=text name="cli_adresse" size=50 maxlength='100' tabindex=<?= $tabindex++ ?> placeholder="Adresse" onkeyup="setStartSaisie(true);" vertical-align: middle;/>
-							<br />
-							<input type=text name="cli_adresse1" size=50 maxlength='100' tabindex=<?= $tabindex++ ?> placeholder="Complement adresse" onkeyup="setStartSaisie(true);" />
-							<br />
-							<input type=text name="cli_code_postal" size="5" maxlength="5" pattern="[0-9]{5}" tabindex=<?= $tabindex++ ?> title="Code postal sur 5 chiffres" placeholder="Code postal (5 chiffres)" onkeyup="setStartSaisie(true);" />
-							<input type=text name="cli_ville" size=40 maxlength='100' tabindex=<?= $tabindex++ ?> placeholder="Ville" onkeyup="setStartSaisie(true)" />
-						<? } ?>
-					</span>
-				</div>
-				<!--<div class="col-sm-6 col-md-6 col-xs-6">
-				<div id="map">&nbsp;
-				</div>
-			</div>-->
-				<div class="col-sm-6 col-md-6 col-xs-12">
-					<span class="titrow  col-md-3 col-sm-3 col-xs-6">Téléphone</span>
-					<span class="tabInput col-md-9 col-sm-9 col-xs-12">
-						<? if ($GET_modePage != 'modif') { ?>
-							<div id='cli_telephone'></div>
-							<div id='cli_telephone_bis'></div>
-						<? } else { ?>
-							<input type=text name='cli_telephone' size="15" maxlength="15" tabindex=<?= $tabindex++ ?> placeholder="Pour vous joindre durant la bourse" onkeyup="setStartSaisie(true);" title="Pour vous joindre durant la bourse" />
-							<input type=text name='cli_telephone_bis' size="15" maxlength="15" tabindex=<?= $tabindex++ ?> placeholder="autre numéro" onkeyup="setStartSaisie(true);" title="autre numéro" />
-						<? } ?>
-					</span>
-				</div>
+						<? if ($infAppli['CLIENT'] == 1 ) {?>
+							<span class="link" style='font-size:1.2em' title='Modifier vos coordonnées' 
+								onclick='goToPOST("clientV2.php","modif",document.clientForm.cli_id_modif.value,"")'>&nbsp;✎&nbsp;</span>
+						<? }  ?>
+						<? }  ?>
+					</legend>
+					<div class="row" style='padding:0 0 0 0' >
+						<div class="col-sm-6 col-md-6 col-xs-6" style='padding:0 0 0 0' >
+							<div class="tittab col-md-3 col-sm-3 col-xs-12">Emel</div>
+							<div class="tabInput col-md-9 col-sm-12 col-xs-12" id='cli_emel'></div>
+						</div>
+						<div class="col-sm-6 col-md-6 col-xs-6" style='padding:0 0 0 0'>
+							<span class="tittab  col-md-4 col-sm-4 col-xs-12">Nom/prénom <span title="Obligatoire">*</span></span>
+							<span class="tabInput col-md-8 col-sm-8 col-xs-12">
+								<? if ($GET_modePage != 'modif') { ?>
+									<span id='cli_nom'></span>
+								<? } else { ?>
+									<input type=text name='cli_nom' tabindex=<?= $tabindex++ ?> size="50" maxlength="100" required onkeyup="setStartSaisie(true);" />
+								<? } ?>
+							</span>
+						</div>
+						<div class="col-sm-6 col-md-6 col-xs-7" style='padding:0 0 0 0' >
+							<span class="tittab  col-md-3 col-sm-3 col-xs-12">Adresse</span>
+							<span class="tabInput col-md-9 col-sm-9 col-xs-12">
+								<? if ($GET_modePage != 'modif') { ?>
+									<div id='cli_adresse'></div>
+									<div id='cli_adresse1'></div>
+									<div id='cli_code_postal'></div>
+									<div id='cli_ville'></div>
+								<? } else { ?>
+									<input type=text name="cli_adresse" size=50 maxlength='100' tabindex=<?= $tabindex++ ?> placeholder="Adresse" onkeyup="setStartSaisie(true);" vertical-align: middle;/>
+									<br />
+									<input type=text name="cli_adresse1" size=50 maxlength='100' tabindex=<?= $tabindex++ ?> placeholder="Complement adresse" onkeyup="setStartSaisie(true);" />
+									<br />
+									<input type=text name="cli_code_postal" size="5" maxlength="5" pattern="[0-9]{5}" tabindex=<?= $tabindex++ ?> title="Code postal sur 5 chiffres" placeholder="Code postal (5 chiffres)" onkeyup="setStartSaisie(true);" />
+									<input type=text name="cli_ville" size=40 maxlength='100' tabindex=<?= $tabindex++ ?> placeholder="Ville" onkeyup="setStartSaisie(true)" />
+								<? } ?>
+							</span>
+						</div>
+						<!--<div class="col-sm-6 col-md-6 col-xs-6">
+						<div id="map">&nbsp;
+						</div>
+					</div>-->
+						<div class="col-sm-6 col-md-6 col-xs-5" style='padding:0 0 0 0'>
+							<span class="tittab  col-md-3 col-sm-3 col-xs-12">Téléphone</span>
+							<span class="tabInput col-md-9 col-sm-9 col-xs-12">
+								<? if ($GET_modePage != 'modif') { ?>
+									<div id='cli_telephone'></div>
+									<div id='cli_telephone_bis'></div>
+								<? } else { ?>
+									<input type=text name='cli_telephone' size="15" maxlength="15" tabindex=<?= $tabindex++ ?> placeholder="Pour vous joindre durant la bourse" onkeyup="setStartSaisie(true);" title="Pour vous joindre durant la bourse" />
+									<input type=text name='cli_telephone_bis' size="15" maxlength="15" tabindex=<?= $tabindex++ ?> placeholder="autre numéro" onkeyup="setStartSaisie(true);" title="autre numéro" />
+								<? } ?>
+							</span>
+						</div>
 
-			</div>
-			<br />
-			<? if ($GET_modePage == 'modif') { ?>
-				<div class="row fiche">
-					<div class="col-sm-6 col-md-6 col-xs-6 btnAction" id="tdBtnAction">
-						<input type='submit' name="buttonValideFiche" value="Enregistrer" tabindex=<?= $tabindex++ ?> disabled>
-						</button>
 					</div>
-					<div class="col-sm-6 col-md-6 col-xs-3 btnAction">
-						<input type=button value="Annuler" onclick='goToPOST("clientV2.php","",this.form.cli_id_modif.value,"")' tabindex=<?= $tabindex++ ?>>
-					</div>
-				</div>
-			<? } else { ?>
-				<div class="row fiche">
-					<? if ($infAppli['CLIENT'] == 1 ) {?>
-					<div class="col-sm-12 col-md-12 col-xs-12 btnAction" id="tdBtnAction">
-						<button name="buttonValideFiche" tabindex=<?= $tabindex++ ?> onclick='goToPOST("clientV2.php","modif",this.form.cli_id_modif.value,"")'>Modifier</button>
-					</div>
-					<? }  ?>
-				</div>
-			<? } ?>
-		</form>
-	</fieldset>
-</div>
-
-<div class="row">
-	<div class="col-sm-6 col-md-6 col-xs-12 alert alert-info maskMobile" id='aideImpression' style="display:none;"> 
-		<h5><b><span style='font-size: 1.5em'>⚠</span> N'oubliez pas d'imprimer votre fiche de dépôt avant de venir en cliquant sur l'icone :📇</b></h5>
-		<h6>(Attention au droit d'ouverture des popup ou nouvel onglet avec votre navigateur)
-		<br/><b>Merci de privilégier les navigateurs Chrome ou Firefox pour l'impression des fiches.</b></h6>
+					<br />
+					<!-- <? if ($GET_modePage == 'modif') { ?>
+						<div class="row fiche">
+							<div class="col-sm-6 col-md-6 col-xs-6 btnAction" id="tdBtnAction">
+								<input type='submit' name="buttonValideFiche" value="Enregistrer" tabindex=<?= $tabindex++ ?> disabled>
+								</button>
+							</div>
+							<div class="col-sm-6 col-md-6 col-xs-3 btnAction">
+								<input type=button value="Annuler" onclick='goToPOST("clientV2.php","",this.form.cli_id_modif.value,"")' tabindex=<?= $tabindex++ ?>>
+							</div>
+						</div>
+					<? } else { ?> -->
+						<!-- <div class="row fiche">
+							<? if ($infAppli['CLIENT'] == 1 ) {?>
+							<div class="col-sm-12 col-md-12 col-xs-12 btnAction" id="tdBtnAction">
+								<button name="buttonValideFiche" tabindex=<?= $tabindex++ ?> onclick='goToPOST("clientV2.php","modif",this.form.cli_id_modif.value,"")'>Modifier</button>
+							</div>
+							<? }  ?>
+						</div> -->
+					<!-- <? } ?> -->
+				</form>
+			</fieldset>
+		</div>
 	</div>
-	<div class="col-sm-6 col-md-6 col-xs-12 alert alert-info"  > 
+	<div class="col-sm-6 col-md-6 col-xs-12"> 
+		<div class="col-sm-12 col-md-12 col-xs-12 alert alert-info maskMobile" id='aideImpression' style="display:none;"> 
+			<h5><b><span style='font-size: 1.5em'>⚠</span> N'oubliez pas d'imprimer votre fiche de dépôt avant de venir en cliquant sur l'icone :📇
+			<br/>- Pensez a renseigner votre CNI, dater et signer la fiche.</br></h5>
+			<h6>(Attention au droit d'ouverture des popup ou nouvel onglet avec votre navigateur)
+			<br/><b>Merci de privilégier les navigateurs Chrome ou Firefox pour l'impression des fiches.</b></h6>
+		</div>
+		<div class="col-sm-12 col-md-12 col-xs-12 alert alert-info"  > 
 			<H6>Choissisez un créneau pour venir déposer votre ou vos vélos : </h6>
 			<div id=creneaux></div>
 		</div>
+	</div>
 </div>
-<table width="100%" >
+<!--<table width="100%" >
 	<tr>
 		<td class="tittab" width=7%>
 			<span id='tri_numero' onclick="triColonne('obj_numero')" class="sortable">No&nbsp;&nbsp;&nbsp;</span>
@@ -140,27 +161,29 @@ $version = file_exists($_SERVER['DOCUMENT_ROOT'] . $jsFile) ? filemtime($_SERVER
 		</td>
 		<td class="tittab" >Actions</span></td>
 	</tr>
-</table>
-<div class="row">
+</table>-->
+<div class="row alert alert-info">
 	
-		<div class="col-sm-3 col-md-3 col-xs-6">
-			<h3>Vos dépôts</h3>
-		</div>
-		<div class="col-sm-3 col-md-3 col-xs-6">
-			<!-- Pas d'accès avec la BAV en cours -->
-			<!-- fin CLIENT a 17h -->
-			<? if ($infAppli['CLIENT'] == 1 || $GET_modePage == "createTEST") { ?>
-				<h3><input type=button value="Ajouter un dépôt ➕" onclick="addDepot(document.clientForm.cli_id_modif.value)" /></h3>
-			<? } else { ?>
-				<h4>Pas d'ajout possible, session clotûrée.</h4>
-			<?}?>
-		</div>
+	<div class="col-sm-3 col-md-3 col-xs-6">
+		<h3>Vos vélos</h3>
+	</div>
+	<div class="col-sm-3 col-md-3 col-xs-6">
+		<!-- Pas d'accès avec la BAV en cours -->
+		<!-- fin CLIENT a 17h -->
+		<? if ($infAppli['CLIENT'] == 1 || $GET_modePage == "createTEST") { ?>
+			<h4><input type=button value="Ajouter un vélo ➕" onclick="addDepot(document.clientForm.cli_id_modif.value)" /></h4>
+		<? } else { ?>
+			<h4>Pas d'ajout possible, session clotûrée.</h4>
+		<?}?>
+	</div>
 		
-
+	<div class="col-sm-12 col-md-12 col-xs-12">
+		<div id=fiches></div>
+	</div>
 </div>
-<div id=fiches></div>
+
 <!-- uniquement dans les dates de la bav -->
-<div class="row">
+<div class="row  alert alert-info">
 	<div class="col-sm-12 col-md-12 col-xs-12">
 		<div class="col-sm-4 col-md-4 col-xs-4">
 			<h3>Vos achats</h3>

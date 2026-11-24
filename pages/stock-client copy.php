@@ -4,10 +4,10 @@
 	var sens = "asc";
 	var tabSel = {};
 	if (CLIENT) {
-		tabSel['obj_etat'] = 'CONFIRME';
+		tabSel['obj_etat'] = "'CONFIRME'";
 	}
 	else {
-		tabSel['obj_etat'] = 'STOCK';
+		tabSel['obj_etat'] = "'STOCK'";
 	}
 
 	// tabSel['obj_etat'] = 'RENDU';

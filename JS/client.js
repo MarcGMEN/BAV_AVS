@@ -283,7 +283,10 @@ function display_fiches(val, idElement) {
     for (index in val) {
         if (!isNaN(index)) {
             if (val[index]['obj_numero'] < 5000 || (val[index]['obj_numero'] >= 5000 && ADMIN)) {
-                repr += "<tr class='tabl0 link' ";
+                repr += "<div class='col-md-3 col-sm-3 col-xs-12' >";
+				repr+=compoFiche(val,"",true, true, false);
+				repr += "</div>";
+                /*repr += "<tr class='tabl0 link' ";
                 repr += " title='accès à la fiche " + val[index]['obj_numero'] + "' ";
                 repr += " onclick='goTo(\"ficheAdmin.php\",\"modif\"," + val[index]['obj_id'] + ",null,\"client.php\")'>";
                 repr += "<td width=7% align=center>";
@@ -334,7 +337,7 @@ function display_fiches(val, idElement) {
 
                 }
                 repr += "</td>";
-                repr += "</tr>";
+                repr += "</tr>";*/
 
 
             }

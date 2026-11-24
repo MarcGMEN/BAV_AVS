@@ -70,7 +70,7 @@ function display_modifVendeurE(val) {
 var totalFiche = 0;
 
 function display_counter(val) {
-    console.log(val);
+    // console.log(val);
     if (val instanceof Object) {
         for (key in val) {
             if (getElement("e_"+key)) {
