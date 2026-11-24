@@ -118,6 +118,9 @@ sajax_handle_client_request();
 				};
 				history.pushState(stateObj, "", "index.php");
 			} else if (<?= $infAppli['ADMIN'] ? 1 : 0 ?> == 0) {
+				if (!$type && GetCookie('CAFFARD_BAV') ) {
+					$type='CAFFARD';
+				}
 				x_add_counter_action("<?= $GET_page ?>", modePage, type, display_rien);
 			}
 		}
