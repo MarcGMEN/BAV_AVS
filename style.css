@@ -415,9 +415,11 @@ div.cptGRAND_V {
     border-left: 0px;
     border-color: #AAA;
     border-style: solid;
-    font-size: 1em;
+    font-size: 0.9em;
     padding: 5px;
-    border-radius: 10% / 30%;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 5% / 10%;
 }
 
 .ssnavigation {
@@ -439,6 +441,7 @@ div.cptGRAND_V {
 
 .menuNavigation {
     display: block;
+    text-align: right;
 }
 
 .sousMenu {
@@ -592,7 +595,7 @@ div.FENETRE_PRINCIPALE {
     font-family: D3Euronism, Verdana, Arial, Helvetica, sans-serif;
     font-size: 1.8em;
     font-weight: BOLD;
-    text-align: center;
+    text-align: left;
     letter-spacing: 1px;
     white-space: normal;
 }
