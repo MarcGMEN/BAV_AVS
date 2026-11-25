@@ -7,7 +7,6 @@ $version = file_exists($_SERVER['DOCUMENT_ROOT'] . $jsFile) ? filemtime($_SERVER
 <script>
 	var nb_eti_page = '<?= $infAppli['nb_eti_page'] ?>';
 	var nb_coupon_page = '<?= $infAppli['nb_coupon_page'] ?>';
-	var base_info = '<?= $infAppli['base_info'] ?>';
 </script>
 
 <script src="JS/editFiche.js?v=<?=$version?>"></script>
@@ -176,14 +175,6 @@ $tabInfo = [
 									- De <input type=text
 										name=eti0 placeholder="NN-NN ou NN,NN,NN"
 										style='width:30%' size=5>
-									<!-- <input  type=number
-										min='<?= $infAppli['base_info'] ?>' name=eti0
-										value='<?= $infAppli['base_info'] ?>'
-										style='width:30%' size=5>
-									a <input type=number name=eti1 size=5
-										style='width:30%'
-										min='<?= $infAppli['base_info'] ?>'> -->
-
 									<input type=text placeholder="Numéro de la pièce d'identité"
 										name=pieceid style='width:40%' size=20>
 								</td>
@@ -260,14 +251,6 @@ $tabInfo = [
 								</td>
 
 							</tr>
-							<!-- <tr class="tabAction">
-								<td>
-									- Numérotés 1 -> <?= $infAppli['base_info'] - 1 ?>
-								</td>
-								<td>
-									<input type=button value='Imprimer' onclick='imprimeCoupons(1,<?= $infAppli["base_info"] - 1 ?>,0,"coupon_vendeur")'>
-								</td>
-							</tr> -->
 							<tr class="tabAction">
 								<td>
 									- 1 page de vierge
@@ -389,9 +372,6 @@ $tabInfo = [
 								<td width=50%>- De <input type=text
 										name=eti0 placeholder="NN-NN ou NN,NN,NN"
 										style='width:30%' size=5>
-									<!-- à <input type=number name=eti1 size=5
-										style='width:30%'
-										min='<?= $infAppli['base_info'] ?>'> -->
 								</td>
 								<td width=15%>
 									<input type=button value='Imprimer'
@@ -399,14 +379,6 @@ $tabInfo = [
 								</td>
 
 							</tr>
-							<!-- <tr class="tabAction">
-								<td>
-									- Numérotés 1 -> <?= $infAppli['base_info'] - 1 ?>
-								</td>
-								<td>
-									<input type=button value='Imprimer' onclick='imprimeCoupons(1,<?= $infAppli["base_info"] - 1 ?>,0,"coupon_acheteur")'>
-								</td>
-							</tr> -->
 							<tr class="tabAction">
 								<td>
 									- 1 page de vierge

@@ -1616,10 +1616,8 @@ function return_fiches($tri, $sens, $selection, $detail = 1, $client = true)
 {
     try {
         $tab = getFiches($tri, $sens, string2Tab($selection), $client);
-
         foreach ($tab as $key => $val) {
             if ($detail == 1) {
-
                 if ($val['obj_etat'] == "CONFIRME") {
                     $tab['total_vente_' . $val['obj_etat']] += $val['obj_prix_depot'];
                 } else {

@@ -40,6 +40,7 @@ function return_infoAppli()
         $infos['message'] = "Session pas encore ouverte";
     }
     $infos['dateFinClient'] = date("d/m/Y H:i:s",$dateFin );
+    $infos['dateFinClientNum'] = $dateFin;
     //$infos['dateFinClient'] = date("d/m/Y H:i:s",$dateFin17 );
     // $infos['dateFinClient'] = date("d/m/Y H:i:s",$today-$dateFin17 );
     

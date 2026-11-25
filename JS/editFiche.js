@@ -340,25 +340,25 @@ function finFiches() {
         repr += "<h3 style='background-color:grey; text-align:center'>Check classeur " + firstKey + " -> " + ((NB_MODIF) + parseInt(firstKey) - 1) + "</h3>";
         repr += "<table style='border:2px black solid; width:100%'>";
         repr += "<tr style='background-color:lightgrey;'><th width=5%>Numéro</th>";
-        if (firstKey >= base_info) {
+        if (firstKey >= BASE_INFO) {
             repr += "<th width=8%> Prix</th > ";
         }
         repr += "<th width=8%> Prix négo</th > ";
-        // if (firstKey >= base_info) {
+        // if (firstKey >= BASE_INFO) {
         repr += "<th width=4%> Table</th > <th width=4%> Info</th > ";
-        if (firstKey >= base_info) {
+        if (firstKey >= BASE_INFO) {
             repr += "<th width=8%> Creneau</th > ";
             repr += "<th width=12%> Client</th > ";
         }
         // }
         repr += "<th width=5%>Numéro</th>";
-        if (firstKey >= base_info) {
+        if (firstKey >= BASE_INFO) {
             repr += "<th width=8%> Prix</th > ";
         }
         repr += "<th width=8%> Prix négo</th >";
-        // if (firstKey >= base_info) {
+        // if (firstKey >= BASE_INFO) {
         repr += "<th width=4%> Table</th > <th width=4%> Info</th > ";
-        if (firstKey >= base_info) {
+        if (firstKey >= BASE_INFO) {
             repr += "<th width=8%> Creneau</th > ";
             repr += "<th width=12%> Client</th > ";
         }
@@ -388,13 +388,13 @@ function finFiches() {
             repr += "<td style='background-color:grey; text-align:center;font-size:12pt;color:WHITE'>";
             repr += i
             repr += "</td><td style='"+styleL+"'>";
-            if (firstKey >= base_info) {
+            if (firstKey >= BASE_INFO) {
                 var prix = map1.get(i)[0];
                 repr += prix == undefined ? "" : prix == "0.00" ? "" : prix + " &euro;";
                 repr += "</td><td  style='"+styleL+"'>";
             }
             repr += map1.get(i)[1] == undefined ? "" : map1.get(i)[1] == "0.00" ? "" : map1.get(i)[1] + " &euro;";
-            // if (firstKey >= base_info) {
+            // if (firstKey >= BASE_INFO) {
             var etat = map1.get(i)[2];
             repr += "</td><td style='"+styleL+"'>";
             repr += etat == undefined ? "" : etat != "CONFIRME" ? "V" : "";
@@ -402,7 +402,7 @@ function finFiches() {
             repr += etat == undefined ? "" : etat != "CONFIRME" ? etat : "";
             // }
             repr += "</td>";
-            if (firstKey >= base_info) {
+            if (firstKey >= BASE_INFO) {
                 repr += "<td style='"+styleL+";font-size:7pt'>";
                 repr += map1.get(i)[3] == undefined ? "" : map1.get(i)[3] == "" ? "" : map1.get(i)[3];
                 repr += "</td>";
@@ -426,13 +426,13 @@ function finFiches() {
             var styleR="background-color:"+colorClassR+";text-align:left;border-bottom:1px black solid;border-right:1px grey solid"
             repr += j;
             repr += "</td><td style='"+styleR+"'>";
-            if (firstKey >= base_info) {
+            if (firstKey >= BASE_INFO) {
                 prix = map1.get(j)[0]
                 repr += prix == undefined ? "" : prix == "0.00" ? "" : prix + " &euro;";
                 repr += "</td><td style='"+styleR+"'>";
             }
             repr += map1.get(j)[1] == undefined ? "" : map1.get(j)[1] == "0.00" ? "" : map1.get(j)[1] + " &euro;";
-            // if (firstKey >= base_info) {
+            // if (firstKey >= BASE_INFO) {
             etat = map1.get(j)[2]
             repr += "</td><td style='"+styleR+"'>";
             repr += etat == undefined ? "" : etat != "CONFIRME" ? "V" : "";
@@ -440,7 +440,7 @@ function finFiches() {
             repr += etat == undefined ? "" : etat != "CONFIRME" ? etat : "";
             // }
             repr += "</td>";
-            if (firstKey >= base_info) {
+            if (firstKey >= BASE_INFO) {
                 repr += "<td style='"+styleR+";font-size:7pt'>";
                 repr += map1.get(j)[3] == undefined ? "" : map1.get(j)[3] == "" ? "" : map1.get(j)[3];
                 repr += "</td>";

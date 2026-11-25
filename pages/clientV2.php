@@ -3,15 +3,18 @@
 $jsFile = 'JS/clientV2.js';
 // filemtime() renvoie le timestamp de la dernière modification du fichier
 $version = file_exists($_SERVER['DOCUMENT_ROOT'] . $jsFile) ? filemtime($_SERVER['DOCUMENT_ROOT'] . $jsFile) : time();
+
 ?>
 <script>
 	var idClient = '<?= $GET_id ?>';
 	// pour rendre le champ nom du client unique
 
 	var idRamdom = "<?= $idRamdom ?>";
-	var modePage = '<?= $GET_modePage ?>';
+	// var modePage = '<?= $GET_modePage ?>';
 	var anneeBav = '<?= $infAppli['numero_bav'] ?>';
-	var base_info = '<?= $infAppli['base_info'] ?>';
+	// var base_info = '<?= $infAppli['base_info'] ?>';
+
+	
 </script>
 
 <script src="<?=$jsFile?>?v=<?=$version ?>" type="text/javascript"></script>
@@ -45,14 +48,11 @@ $version = file_exists($_SERVER['DOCUMENT_ROOT'] . $jsFile) ? filemtime($_SERVER
 						<? }  ?>
 						<? }  ?>
 					</legend>
-					<div class="row" style='padding:0 0 0 0' >
-						<div class="col-sm-6 col-md-6 col-xs-6" style='padding:0 0 0 0' >
-							<div class="tittab col-md-3 col-sm-3 col-xs-12">Emel</div>
-							<div class="tabInput col-md-9 col-sm-12 col-xs-12" id='cli_emel'></div>
-						</div>
-						<div class="col-sm-6 col-md-6 col-xs-6" style='padding:0 0 0 0'>
-							<span class="tittab  col-md-4 col-sm-4 col-xs-12">Nom/prénom <span title="Obligatoire">*</span></span>
-							<span class="tabInput col-md-8 col-sm-8 col-xs-12">
+					<div class="row">
+						
+						<div class="col-sm-6 col-md-6 col-xs-6" style='padding:2'>
+							<span class="tittab col-md-3 col-sm-3 col-xs-12" >Nom/prénom <span title="Obligatoire">*</span></span>
+							<span class="tabInput col-md-9 col-sm-9 col-xs-12">
 								<? if ($GET_modePage != 'modif') { ?>
 									<span id='cli_nom'></span>
 								<? } else { ?>
@@ -60,8 +60,12 @@ $version = file_exists($_SERVER['DOCUMENT_ROOT'] . $jsFile) ? filemtime($_SERVER
 								<? } ?>
 							</span>
 						</div>
-						<div class="col-sm-6 col-md-6 col-xs-7" style='padding:0 0 0 0' >
-							<span class="tittab  col-md-3 col-sm-3 col-xs-12">Adresse</span>
+						<div class="col-sm-6 col-md-6 col-xs-6" style='padding:3' >
+							<div class="tittab col-md-3 col-sm-3 col-xs-12">@</div>
+							<div class="tabInput col-md-9 col-sm-12 col-xs-12" id='cli_emel'></div>
+						</div>
+						<div class="col-sm-6 col-md-6 col-xs-7" style='padding:2' >
+							<span class="tittab col-md-3 col-sm-3 col-xs-12" style='height:60px;font-size:1.0em'>🖃</span>
 							<span class="tabInput col-md-9 col-sm-9 col-xs-12">
 								<? if ($GET_modePage != 'modif') { ?>
 									<div id='cli_adresse'></div>
@@ -82,8 +86,8 @@ $version = file_exists($_SERVER['DOCUMENT_ROOT'] . $jsFile) ? filemtime($_SERVER
 						<div id="map">&nbsp;
 						</div>
 					</div>-->
-						<div class="col-sm-6 col-md-6 col-xs-5" style='padding:0 0 0 0'>
-							<span class="tittab  col-md-3 col-sm-3 col-xs-12">Téléphone</span>
+						<div class="col-sm-6 col-md-6 col-xs-5" style='padding:2'>
+							<span class="tittab  col-md-3 col-sm-3 col-xs-12" style='font-size:1.0em'>✆</span>
 							<span class="tabInput col-md-9 col-sm-9 col-xs-12">
 								<? if ($GET_modePage != 'modif') { ?>
 									<div id='cli_telephone'></div>
@@ -184,13 +188,13 @@ $version = file_exists($_SERVER['DOCUMENT_ROOT'] . $jsFile) ? filemtime($_SERVER
 
 <!-- uniquement dans les dates de la bav -->
 <div class="row  alert alert-info">
+	<div class="col-sm-3 col-md-3 col-xs-3">
+		<h3>Vos achats</h3>
+	</div>
+	<div class="col-sm-9 col-md-9 col-xs-9">
+		&nbsp;
+	</div>
 	<div class="col-sm-12 col-md-12 col-xs-12">
-		<div class="col-sm-4 col-md-4 col-xs-4">
-			<h3>Vos achats</h3>
-		</div>
-		<div class="col-sm-8 col-md-8 col-xs-8">
-			&nbsp;
-		</div>
+		<div id=fichesA></div>
 	</div>
 </div>
-<div id=fichesA></div>

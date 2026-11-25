@@ -140,7 +140,7 @@ function display_listVendeurName(val) {
     var list = getElement("listVendeurName");
     list.innerHTML = "";
     for (index in val) {
-        list.appendChild(new Option(val[index]['cli_emel'] + " - " + val[index]['cli_code_postal'], val[index]['cli_nom']));
+        list.appendChild(new Option(val[index]['cli_telephone']+" - "+val[index]['cli_emel'] + " - " + val[index]['cli_code_postal'], val[index]['cli_nom']));
     }
 }
 

@@ -1,6 +1,9 @@
 /*
  * action lors du chargement de la page
  */
+
+CLIENT = valideTempsPreDepot(dateDebutClient, dateFinClient) ? "1" : "0";
+
 function initPage() {
     // if (!CLIENT && !ADMIN && !BAV_ENCOURS && modePage != 'createTEST') {
     //     alertModalInfo("Page non accessible. "+BAV_ENCOURS+"-"+CLIENT+"-"+modePage);
@@ -22,7 +25,7 @@ function initPage() {
 /*
  * action lors du derchargement de la page
  */
-function unloadPage() {}
+function unloadPage() { }
 
 function display_allcreneaux(val) {
     if (val instanceof Object) {
@@ -126,7 +129,7 @@ function display_client(val) {
     }
 }
 
-function unloadPage() {}
+function unloadPage() { }
 
 // que faire en cas de changement de saisie
 function pageSaisie() {
@@ -172,7 +175,7 @@ function display_infoClientVendeur(val) {
     if (val && val['cli_id'] != document.clientForm.cli_id.value) {
         alertModalWarn("Mel deja connu pour :" + val['cli_nom']);
         x_return_oneClient(document.clientForm.cli_id.value, display_client);
-    } else {}
+    } else { }
 }
 
 /**
@@ -185,7 +188,7 @@ function display_infoClientVendeurName(val) {
     if (val['cli_id'] && val['cli_id'] != document.clientForm.cli_id.value) {
         alertModalWarn("Nom deja connu [" + val['cli_id_modif'] + "].");
         x_return_oneClient(document.clientForm.cli_id.value, display_client);
-    } else {}
+    } else { }
 }
 
 // ***********************************************************
@@ -228,14 +231,14 @@ function display_fiches(val, idElement) {
     var total = 0;
     var aimprimer = 0;
     // var repr = "<table width='100%' spacing=0>";
-    var repr="";
+    var repr = "";
     repr += "<div class='row' >";
     for (index in val) {
         if (!isNaN(index)) {
             if (val[index]['obj_numero'] < 5000) {
                 repr += "<div  class='col-md-3 col-sm-3 col-xs-12' >";
                 repr += "<div class=link0 onclick='modifierFiche(" + val[index]['obj_id'] + "," + val[index]['obj_numero'] + ")'>";
-                repr +=compoFiche(val,"",false,false,idElement == "fiches" ?  true  : false);
+                repr += compoFiche(val, "", false, false, idElement == "fiches" ? true : false);
                 /*repr += "<div class='col-sm-5 col-md-5 col-xs-12 tabl0'>";
                 repr += "<div class='col-sm-6 col-md-6 col-xs-6 tit-cen'>";
                 repr += val[index]['obj_numero'];
@@ -295,17 +298,17 @@ function display_fiches(val, idElement) {
                     aimprimer = 1;
                 }
                 else {
-                    repr += "<span class='linkASCII'>&nbsp;</span>";    
+                    repr += "<span class='linkASCII'>&nbsp;</span>";
                 }
                 repr += "</div>";
                 repr += "<div class='col-sm-12 col-md-12 col-xs-12'><hr/></div>";
                 repr += "</div>";
-                
+
                 total = total + 1;
 
-                if (numeroCreneau == 0 && parseInt(val[index]['obj_numero']) >= parseInt(base_info) && idElement == "fiches") {
+                if (numeroCreneau == 0 && parseInt(val[index]['obj_numero']) >= parseInt(BASE_INFO) && idElement == "fiches") {
                     numeroCreneau = val[index]['obj_numero'];
-                    // console.log("maj snumeroCreneau "+base_info+":"+numeroCreneau);
+                    // console.log("maj snumeroCreneau "+BASE_INFO+":"+numeroCreneau);
                 }
             }
         }
@@ -368,7 +371,7 @@ function imprimeFiche(id, numero) {
 }
 
 function afficheCoupon(eti0, nameCoupon) {
-    x_action_makeA4Coupons(eti0, eti0, 0, nameCoupon,'',0, display_fileHTML);
+    x_action_makeA4Coupons(eti0, eti0, 0, nameCoupon, '', 0, display_fileHTML);
 }
 
 function display_fileHTML(val) {
@@ -413,12 +416,21 @@ function triColonne(col) {
  * @param  cli_id_mod 
  */
 function addDepot(cli_id_mod) {
-    var tabData = {
-        "cli_id_modif": cli_id_mod,
-        'obj_numero': ""
-    };
-    x_get_publiHtml(tabToString(tabData), 'modal_create_fiche.html', display_messageConfirm);
-    x_add_counter_action("clientV2.php", "add_fiche", "", display_rien);
+
+    if (valideTempsPreDepot(dateDebutClient, dateFinClient)) {
+
+        var tabData = {
+            "cli_id_modif": cli_id_mod,
+            'obj_numero': ""
+        };
+        x_get_publiHtml(tabToString(tabData), 'modal_create_fiche.html', display_messageConfirm);
+        x_add_counter_action("clientV2.php", "add_fiche", "", display_rien);
+    }
+    else {
+        new Date().toLocaleString
+        alertModalInfo("Pré-dépôt cloturé : " + dateFinClient.toLocaleString());
+        setTimeout("location.reload()", 1000);
+    }
 
 }
 
@@ -441,11 +453,18 @@ function display_messageConfirmSupp(mess) {
 }
 
 function modifierFiche(id, numero) {
-    var tabObj = []
-    tabObj['obj_id'] = id;
-    tabObj['obj_numero'] = numero;
-    x_get_publiHtml(tabToString(Object.assign({}, tabObj)), 'modal_create_fiche.html', display_messageConfirmModif);
-    setTimeout('x_return_oneFiche(' + id + ', modalModifFiche)', 200);
+    if (valideTempsPreDepot(dateDebutClient, dateFinClient)) {
+        var tabObj = []
+        tabObj['obj_id'] = id;
+        tabObj['obj_numero'] = numero;
+        x_get_publiHtml(tabToString(Object.assign({}, tabObj)), 'modal_create_fiche.html', display_messageConfirmModif);
+        setTimeout('x_return_oneFiche(' + id + ', modalModifFiche)', 200);
+    }
+    else {
+        new Date().toLocaleString
+        alertModalInfo("Pré-dépôt cloturé : " + dateFinClient.toLocaleString());
+        setTimeout("location.reload()", 1000);
+    }
 
 
 }
@@ -484,11 +503,11 @@ function confirmModal(plus) {
         var tabData = Object.assign({}, tabObj, tabCli);
 
         if (parseInt(tabData['obj_prix_depot']) > 3000) {
-            alertModalInfo("Vous déposez un vélo de plus de 3000, sachez que nous n'avons jamais vendu de vélo superieur à ce prix.","Plus")
+            alertModalInfo("Vous déposez un vélo de plus de 3000, sachez que nous n'avons jamais vendu de vélo superieur à ce prix.", "Plus")
         }
 
         if (parseInt(tabData['obj_prix_nego']) > parseInt(tabData['obj_prix_depot'])) {
-            alertModalWarn("Le prix de négociation ["+parseInt(tabData['obj_prix_nego'])+" est supérieur au prix du dépot ["+parseInt(tabData['obj_prix_depot'])+"].","Plus")
+            alertModalWarn("Le prix de négociation [" + parseInt(tabData['obj_prix_nego']) + " est supérieur au prix du dépot [" + parseInt(tabData['obj_prix_depot']) + "].", "Plus")
         }
         else {
             x_action_createFiche(tabToString(tabData), display_fin_create);
@@ -502,12 +521,12 @@ function confirmModal(plus) {
     } else if (plus == "Modif") {
         var tabObj = recup_formulaire(document.modalForm, 'obj');
         var tabData = Object.assign({}, tabObj);
-         if (parseInt(tabData['obj_prix_depot']) > 3000) {
-            alertModalInfo("Vous déposez un vélo de plus de 3000, sachez que nous n'avons jamais vendu de vélo superieur à ce prix.","Plus")
+        if (parseInt(tabData['obj_prix_depot']) > 3000) {
+            alertModalInfo("Vous déposez un vélo de plus de 3000, sachez que nous n'avons jamais vendu de vélo superieur à ce prix.", "Plus")
         }
 
         if (parseInt(tabData['obj_prix_nego']) > parseInt(tabData['obj_prix_depot'])) {
-            alertModalWarn("Le prix de négociation ["+parseInt(tabData['obj_prix_nego'])+" est supérieur au prix du dépot ["+parseInt(tabData['obj_prix_depot'])+"].","Plus")
+            alertModalWarn("Le prix de négociation [" + parseInt(tabData['obj_prix_nego']) + " est supérieur au prix du dépot [" + parseInt(tabData['obj_prix_depot']) + "].", "Plus")
         }
         else {
             x_action_updateFiche(tabToString(tabData), display_fin_create);
@@ -519,7 +538,7 @@ function confirmModal(plus) {
 }
 
 function display_fin_create(val) {
-    console.log("display_fin_create",val);
+    console.log("display_fin_create", val);
     if (val == 1 || val instanceof Object) {
         if (val instanceof Object) {
             if (val['modif_fiche'] == 1) {

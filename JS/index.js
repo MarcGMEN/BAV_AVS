@@ -145,5 +145,15 @@ function display_getClient(val) {
     } else {
         alertModalWarnTimeout("Client inconnu", 2);
     }
+}
+
+function valideTempsPreDepot(dateDebut, dateFin) {
+
+    var today = new Date();
+    // console.log(dateDebut+" < "+today+" < "+dateFin);
+    if (dateDebut.getTime() <= today.getTime()  && today.getTime()  <= dateFin.getTime() ) {
+        return true;
+    }
+    return false;
 
 }

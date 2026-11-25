@@ -98,17 +98,24 @@ sajax_handle_client_request();
 		var ADMIN = <?= $infAppli['ADMIN'] ? 1 : 0 ?>;
 		var CLIENT = <?= $infAppli['CLIENT'] ? 1 : 0 ?>;
 		var BAV_ENCOURS = <?= $infAppli['bav_en_cours'] ? 1 : 0 ?>;
-		var dateFinClient = '<?= $infAppli['dateFinClient'] ?>';
-
+		var dateFinClient = new Date(<?= $infAppli['dateFinClientNum'] ?>*1000);
+		// console.log(dateFinClient);
+		var dateDebutClient = new Date(<?= $infAppli['date_debut_client'] ?>*1000);
+		// console.log(dateDebutClient);
+		
 		// date d'ouverture du depot
 		var DATE_J1 = <?= $infAppli['date_j1'] ?>;
+		// console.log(DATE_J1);
 		var DATE_J2 = <?= $infAppli['date_j2'] ?>;
+		// console.log(DATE_J2);
 
 		var NB_MODIF = <?= $infAppli['NB_MODIF'] ?>;
 		var BASE_INFO = <?= $infAppli['base_info'] ?>;
 		var modePage = '<?= $GET_modePage ?>';
 		var id = '<?= $GET_id ?>';
 		var type = '<?= $GET_type ?>';
+
+		console.log(valideTempsPreDepot(dateDebutClient, dateFinClient));
 		
 		function initIndex() {
 			if (id != "" && (modePage == 'restF' || modePage == 'restC' || modePage == 'restV')) {

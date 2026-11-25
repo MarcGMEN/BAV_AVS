@@ -226,14 +226,12 @@ function display_fiches_depot(val) {
 
     var total = display_fiches(val, 'fiches');
 
-
-
     if (sens == "asc") {
         classSort = "sortUp";
     } else {
         classSort = "sortDown";
     }
-    getElement(tri).className = classSort;
+    // getElement(tri).className = classSort;
 
     if (total == 0) {
         getElement('tdBtnSup').style.display = "block";
@@ -275,7 +273,7 @@ function display_fiches_achat(val) {
 
 function display_fiches(val, idElement) {
 
-    // console.log(val);
+    console.log(val);
 
     var numeroCreneau = 0;
     var total = 0;

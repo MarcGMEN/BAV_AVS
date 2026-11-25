@@ -22,7 +22,8 @@ $version = file_exists($_SERVER['DOCUMENT_ROOT'] . $jsFile) ? filemtime($_SERVER
 		}
 	</style>
 
-<script src="JS/client.js?v=<?=$version?>" type="text/javascript"></script>
+<!-- <script src="JS/client.js?v=<?=$version?>" type="text/javascript"></script> -->
+<script src="JS/client.js" type="text/javascript"></script>
 
 <!-- <div id=lesFiches style="visibility: hidden;" />-->
 <fieldset class=client>
@@ -134,32 +135,36 @@ $version = file_exists($_SERVER['DOCUMENT_ROOT'] . $jsFile) ? filemtime($_SERVER
 		<br />
 		<? if ($GET_modePage == 'modif') { ?>
 			<div class="row fiche">
-				<div class="col-sm-2 col-md-2 col-xs-4 btnAction" id="tdBtnAction">
-					 <input type=submit name="buttonValideFiche" tabindex=<?= $tabindex++ ?> disabled value="Enregistrer" />
+				<div class="col-sm-6 col-md-6 col-xs-12 tabAction">
+					<div class="col-sm-4 col-md-4 col-xs-4 btnAction" id="tdBtnAction">
+						 <input type=submit name="buttonValideFiche" tabindex=<?= $tabindex++ ?> disabled value="Enregistrer" />
+					</div>
+					<div class="col-sm-4 col-md-4 col-xs-4 btnAction">
+						<input type=button value="Fermer" onclick="fermerCRUD()" tabindex=<?= $tabindex++ ?> />
+					</div>
+					<div class="col-sm-4 col-md-4 col-xs-4 btnAction" id="tdBtnSup">
+						<input type=button value="Supprimer" name="buttonSupprimeFiche" onclick="supprimerClient(this.form.cli_id.value)" tabindex=<?= $tabindex++ ?> />
+					</div>
 				</div>
-				<div class="col-sm-2 col-md-2 col-xs-4 btnAction">
-					<input type=button value="Fermer" onclick="fermerCRUD()" tabindex=<?= $tabindex++ ?> />
-				</div>
-				<div class="col-sm-2 col-md-2 col-xs-4 btnAction" id="tdBtnSup">
-					<input type=button value="Supprimer" name="buttonSupprimeFiche" onclick="supprimerClient(this.form.cli_id.value)" tabindex=<?= $tabindex++ ?> />
-				</div>
+				<div class="col-sm-6 col-md-6 col-xs-12">
 				<? if ($infAppli['ADMIN']) { ?>
-					<div class="col-sm-2 col-md-2 col-xs-4 btnAction maskMobile" id="tdBtnFeuille">
+					<div class="col-sm-6 col-md-6 col-xs-4 btnAction maskMobile" id="tdBtnFeuille">
 						<input type=button value="Commissions" name="buttonFeuilleFiche" onclick="fichesClient(this.form.cli_id.value)" tabindex=<?= $tabindex++ ?> />
 					</div>
-					<div class="col-sm-2 col-md-2 col-xs-4 btnAction maskMobile" id="tdBtnFacture">
+					<div class="col-sm-3 col-md-3 col-xs-4 btnAction maskMobile" id="tdBtnFacture">
 						<input type=button value="Facture" name="buttonFactureFiche" onclick="factureClient(this.form.cli_id.value)" tabindex=<?= $tabindex++ ?> />
 					</div>
-					<div class="col-sm-2 col-md-2 col-xs-4 btnAction maskMobile" id="tdBtnRecap">
+					<div class="col-sm-3 col-md-3 col-xs-4 btnAction maskMobile" id="tdBtnRecap">
 						<input type=button value="Récap vente" name="buttonFeuilleFiche" onclick="recapVenteClient(this.form.cli_id.value)" tabindex=<?= $tabindex++ ?> />
 					</div>
 				<?}?>
+				</div>
 			</div>
 		<? } ?>
 	</form>
 </fieldset>
 <? if ($infAppli['ADMIN']) { ?>
-	<select id="annee_stat" onchange="changeNumeroBAV(this.value)"></select>
+	<!-- <select id="annee_stat" onchange="changeNumeroBAV(this.value)"></select> -->
 	<table width="100%" class="alert alert-info">
 		<tr>
 			<td width=12%>
@@ -198,7 +203,7 @@ $version = file_exists($_SERVER['DOCUMENT_ROOT'] . $jsFile) ? filemtime($_SERVER
 	</table>
 	<div class='titreFiche' id='theCreneau'></div>
 <? } ?>
-<table width="100%">
+<!--<table width="100%">
 	<tr>
 	<td class="tittab" width=7%>
 			<span id='obj_numero' onclick="triColonne('obj_numero')" class="sortable">No&nbsp;&nbsp;&nbsp;</span>
@@ -230,7 +235,7 @@ $version = file_exists($_SERVER['DOCUMENT_ROOT'] . $jsFile) ? filemtime($_SERVER
 			<span id='obj_etat' onclick="triColonne('obj_etat')" class="sortable">Etat&nbsp;&nbsp;&nbsp;</span>
 		</td>
 	</tr>
-</table>
+</table>-->
 <h3>Ventes</h3>
 <div id=fiches></div>
 <hr />
