@@ -115,7 +115,7 @@ sajax_handle_client_request();
 		var id = '<?= $GET_id ?>';
 		var type = '<?= $GET_type ?>';
 
-		console.log(valideTempsPreDepot(dateDebutClient, dateFinClient));
+		// console.log(valideTempsPreDepot(dateDebutClient, dateFinClient));
 		
 		function initIndex() {
 			if (id != "" && (modePage == 'restF' || modePage == 'restC' || modePage == 'restV')) {

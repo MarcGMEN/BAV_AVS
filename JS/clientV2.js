@@ -2,7 +2,7 @@
  * action lors du chargement de la page
  */
 
-CLIENT = valideTempsPreDepot(dateDebutClient, dateFinClient) ? "1" : "0";
+// CLIENT = valideTempsPreDepot(dateDebutClient, dateFinClient) ? "1" : "0";
 
 function initPage() {
     // if (!CLIENT && !ADMIN && !BAV_ENCOURS && modePage != 'createTEST') {

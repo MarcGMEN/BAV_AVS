@@ -15,6 +15,7 @@ require_once "../Repository/actu_repository.php";
 require_once "../Repository/counter_access_repository.php";
 require_once "../Repository/avis_repository.php";
 require_once "../Repository/creneau_repository.php";
+require_once "../Repository/accessoire_repository.php";
 require_once "../Commun/Sajax.php";
 require_once "../Commun/mail.php";
 require_once "../Commun/html2pdf.php";

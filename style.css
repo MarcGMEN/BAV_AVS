@@ -249,6 +249,7 @@ form {
     font-weight: bold;
 }
 
+input.error,
 input.error {
     background: RED;
     color: WHITE;
