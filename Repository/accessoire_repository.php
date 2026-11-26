@@ -5,7 +5,20 @@
  */
 function getAllAccessoire()
 {
-    return getAll("bav_accessoire", "acc_id");
+    $tabVal = [];
+    $requete2 = "SELECT * from bav_accessoire ";
+    $requete2 .= " where  acc_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "'";
+    // print_r($requete2);
+    $result = $GLOBALS['mysqli']->query($requete2);
+    if ($result) {
+        while ($row = $result->fetch_assoc()) {
+            $tabVal[] = $row;
+        }
+        $result->close();
+    } else {
+        throw new Exception("getFiches' [$requete2] " . $GLOBALS['mysqli']->error);
+    }
+    return $tabVal;
 }
 
 /**

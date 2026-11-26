@@ -75,3 +75,8 @@ function action_deleteAccessoire($id)
 {
     return deleteAccessoire($id);
 }
+
+
+function  return_allAccessoire() {
+    return getAllAccessoire();
+}
