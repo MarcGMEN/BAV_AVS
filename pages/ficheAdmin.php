@@ -112,8 +112,8 @@
 						style="text-transform:uppercase"
 						placeholder="Marque du vélo"
 						onkeyup="setStartSaisie(true);"
-						onblur="x_return_list_modeles(this.value,display_list_modeles)"
 						required />
+						<!-- onblur="x_return_list_modeles(this.value,display_list_modeles)" -->
 					<datalist id="listMarques"></datalist>
 					<!--					<br/><span style='font-size:7pt'>Saisie libre</span>-->
 				</span>

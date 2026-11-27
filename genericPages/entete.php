@@ -52,7 +52,14 @@
 					</th>
 					<td class="tdSearch" id="tdSearch" style="display:none">
 						<form class="maskMobile" name="enteteFormFiche" action="#" onsubmit='return searchFiche(document.enteteFormFiche.inputSearch.value)'>
-							<input type="text" name="numeroFiche" size="8" maxlength="20" title="Saisisez le numéro de fiche" placeholder="N° fiche" id="inputSearch" onsubmit='search(this.value)' style='background-color:LIGHTGREEN;font-weight: bold' />
+							<input type="text" 
+								name="numeroFiche" 
+								size="8" maxlength="20" 
+								title="Saisisez le numéro de fiche" 
+								placeholder="N°" 
+								id="inputSearch" 
+								onsubmit='search(this.value)' 
+								style='background-color:LIGHTGREEN;font-weight: bold' />
 							<i id="loupe" class="fas fa-search link loupe" onclick="searchFiche(document.enteteFormFiche.inputSearch.value)"></i>
 						</form>
 					</td>

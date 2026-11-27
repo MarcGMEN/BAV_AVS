@@ -1373,6 +1373,13 @@ function action_changeEtatFiche($obj)
             // action RENDU et PAYE
             // on valide la date de fin
             $fiche['obj_date_retour'] = date('y-m-d H:i:s');
+            $acc= getOneAccessoireByNumero($fiche['obj_numero']);
+        
+            if ($acc && $acc['acc_etat'] == 'Déposé') {
+                $acc['acc_etat'] = 'A Restituer';
+                $acc=updateAccessoire($acc);
+            }
+
         } elseif ($fiche['obj_etat'] == 'DERENDRE') {
             // on remet en STOCK
             // annulation date de retour RENDU
@@ -1437,13 +1444,21 @@ function action_vendFiche($dataL)
 
         // la date de vente
         $fiche['obj_date_vente'] = date('y-m-d H:i:s');
-
+ 
         // mise a jour de la fiche
         updateFiche($fiche);
 
         // on recherche la fiche
         $theFiche = getOneFiche($fiche['obj_id']);
 
+        $acc= getOneAccessoireByNumero($theFiche['obj_numero']);
+        
+        if ($acc && $acc['acc_etat'] == 'Déposé') {
+            $acc['acc_etat'] = 'A Restituer';
+            $acc=updateAccessoire($acc);
+        }
+
+        
         // on recherche le vendeur
         $cliVend = return_oneClient($theFiche['obj_id_vendeur']);
 

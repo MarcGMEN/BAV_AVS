@@ -199,7 +199,7 @@ $tabNav = array_merge($tabNavAll, $tabNavAdm);
                                 } ?>
                                 <div class="col-sm-12 col-md-12 col-xs-12 link <?= $valS['class']; ?> ssnavigation <?= $classNameS; ?> " 
                                     style="Z-index:200" 
-                                    onclick="goTo('<?= $keyS; ?>', '<?= $valS['mode']; ?>', null, null)">- <?= $valS['libelle']; ?>
+                                    onclick="goTo('<?= $keyS; ?>', '<?= $valS['mode']; ?>', null, null,'',event)">- <?= $valS['libelle']; ?>
                                 </div>
                             <?php
                             } ?>
@@ -208,7 +208,7 @@ $tabNav = array_merge($tabNavAll, $tabNavAdm);
                     </span>
                 <?php
                 } else { ?>
-                    <span class="link <?= $val['class']; ?> navigation <?= $className; ?> " onclick="goTo('<?= $key; ?>', '<?= $val['mode']; ?>', null, null)">
+                    <span class="link <?= $val['class']; ?> navigation <?= $className; ?> " onclick="goTo('<?= $key; ?>', '<?= $val['mode']; ?>', null, null,'',event)">
                         <?= $val['libelle'];
                         if ($notif) {
                             echo "<img src='Images/notif.png' width=15pt title='Nouveau post' alt='new post'>";

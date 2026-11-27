@@ -220,8 +220,9 @@ function update($table, $obj, $cleId)
         }
     }
     $req .= " where $cleId = '" . $obj[$cleId] . "'";
-    //error_log($req);
+    
     if (!$GLOBALS['mysqli']->query($req)) {
+        print_r($req);
         throw new Exception("--Pb d'update' [$req]   ===> " . $GLOBALS['mysqli']->error);
     }
     return $obj;

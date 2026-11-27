@@ -35,48 +35,71 @@ function return_oneAccessoireByNumero($num)
     return $row;
 }
 
-
-/**
- * creation d'une fiche, complete
- * on doit retrouve le client et la fiche
- * en mode ADMIN :  creation directe et mise en STOCK
- * en mode CLIENT : creation en INIT avec un numero dans le 5000 et envoi d'un mail pour confirmer la creation
- */
 function action_createAccessoire($dataAccessoire)
 {
+
     extract($GLOBALS);
-    $ADMIN = $INFO_APPLI['ADMIN'];
-
-    $retour = [];
     try {
-        $tabObj = tabToObject(string2Tab($dataAccessoire), "obj");
-        $tabCli = tabToObject(string2Tab($dataAccessoire), "cli");
 
-        $tabObj['obj_id'] = insertAccessoire($tabObj);
+        $tab = string2Tab($dataAccessoire);
 
-        $tabObj['modif_fiche'] = 1;
+        $row = getOneAccessoireByNumero($tab['acc_numero']);
 
-        return $tabObj;
-       
+        if ($row) {
+            if ($row['acc_etat'] != 'Déposé') {
+                $row['acc_etat'] ='Déposé';
+            }
+            else {
+                $row['acc_commentaire'] = $tab['acc_commentaire'];
+            }
+            $tabObj = tabToObject($row, "acc");
+            $tabObj = updateAccessoire($tabObj);
+            return $tabObj;
+        } else {
+            $tab['acc_numero_bav'] = $INFO_APPLI['numero_bav'];
+            // $tab['acc_commentaire'] = $tab['acc_commentaire'];
+
+            $tabObj = tabToObject($tab, "acc");
+            $tabObj = insertAccessoire($tabObj);
+            return $tabObj;
+        }
     } catch (Exception $e) {
         return "ERREUR " . $e->getMessage();
     }
-    return $retour;
 }
 
-function action_chgtEtatAccessoire($num, $etat) {
 
+
+function action_chgtEtatAccessoire($num, $etat)
+{
+
+    $row = getOneAccessoireByNumero($num);
+    $row['acc_etat'] = utf8_encode($etat);
+    // print_r($row);
+    try {
+        $tabObj = tabToObject($row, "acc");
+        $tabObj = updateAccessoire($tabObj);
+        return $tabObj;
+
+    } catch (Exception $e) {
+        return "ERREUR " . $e->getMessage();
+    }
 }
 
 /**
  * supresion d'une fiche
  */
-function action_deleteAccessoire($id)
+function action_deleteAccessoire($num)
 {
-    return deleteAccessoire($id);
+    $row = getOneAccessoireByNumero($num);
+    if ($row) {
+        return deleteAccessoire($row['acc_id']);
+    }
+    return null;
 }
 
 
-function  return_allAccessoire() {
-    return getAllAccessoire();
+function return_allAccessoires()
+{
+    return getAllAccessoires();
 }

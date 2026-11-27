@@ -79,7 +79,13 @@ function goToPOST(page = 'bav.php', modePage = '', id = null, message = '', from
     document.formNavigation.submit();
 }
 
-function goTo(page = 'bav.php', modePage = '', id = null, message = '', from='') {
+function goTo(page = 'bav.php', modePage = '', id = null, message = '', from='', event) {
+    
+    const previousTarget = document.formNavigation.target;
+    const openInNewTab = event && (event.ctrlKey || event.metaKey);
+
+    document.formNavigation.target = openInNewTab ? '_blank' : '_self';
+
     document.formNavigation.page.value = page
     document.formNavigation.modePage.value = modePage;
     document.formNavigation.id.value = id;
@@ -87,6 +93,9 @@ function goTo(page = 'bav.php', modePage = '', id = null, message = '', from='')
     //document.formNavigation.method = 'POST';
     document.formNavigation.from.value = from;
     document.formNavigation.submit();
+    
+    // Restaure la cible initiale pour ne pas impacter les soumissions suivantes
+    document.formNavigation.target = previousTarget;
 }
 var Gtype = '';
 

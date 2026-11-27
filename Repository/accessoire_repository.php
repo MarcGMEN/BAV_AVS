@@ -3,11 +3,13 @@
 /**
  * retourne les marques dans la liste des object
  */
-function getAllAccessoire()
+function getAllAccessoires()
 {
     $tabVal = [];
     $requete2 = "SELECT * from bav_accessoire ";
+    $requete2 .= " left outer join bav_objet on obj_numero = acc_numero and acc_numero_bav = obj_numero_bav ";
     $requete2 .= " where  acc_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "'";
+    $requete2 .= " order by acc_numero ";
     // print_r($requete2);
     $result = $GLOBALS['mysqli']->query($requete2);
     if ($result) {
@@ -39,6 +41,7 @@ function getOneAccessoireByNumero($num)
         $requete2 = "SELECT * from bav_accessoire ";
         $requete2 .= " where acc_numero = '" . $num . "'";
         $requete2 .= " and  acc_numero_bav = '" . $GLOBALS['INFO_APPLI']['numero_bav'] . "'";
+        
         // print_r($requete2);
         $result = $GLOBALS['mysqli']->query($requete2);
         if ($result) {

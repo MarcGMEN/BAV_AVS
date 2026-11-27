@@ -65,10 +65,16 @@ a:hover {
 
 
 .link:hover {
+    background-color: lightgray;
+    /* filter: brightness(0.85);
     font-weight: bold;
     font-style: italic;
-    border: 1px solid darkblue;
+    border: 1px solid darkblue;  */
 }
+.link0:hover {
+    filter: brightness(0.85);
+}
+
 
 img.link:hover {
     border: 1px solid #fff200;
@@ -250,7 +256,7 @@ form {
 }
 
 input.error,
-input.error {
+button.error {
     background: RED;
     color: WHITE;
 }
@@ -726,14 +732,12 @@ td.tabl1 {
     font-weight: bold;
 }
 
-tr.CONFIRME,
-span.CONFIRME {
+.CONFIRME {
     background-color: lightcoral;
     color: BLACK;
 }
 
-tr.STOCK,
-span.STOCK {
+.STOCK {
     background-color: ORANGE;
     color: BLACK;
 }
@@ -781,26 +785,22 @@ div.fiche_desc {
     background-color: lightblue;
 }
 
-tr.VENDU,
-span.VENDU, div.vendu {
+.VENDU, .vendu {
     background-color: lightgreen;
     color: BLACK;
 }
 
-tr.PAYE,
-span.PAYE {
+.PAYE {
     background-color: DARKGREEN;
     color: WHITE;
 }
 
-tr.RENDU,
-span.RENDU {
+.RENDU {
     background-color: darkorange;
     color: WHITE;
 }
 
-tr.ACHAT,
-span.ACHAT {
+.ACHAT {
     background-color: #00a4dd;
     color: darkgreen;
 }
