@@ -5,6 +5,7 @@
 
 <h2>Gestion des accessoires.</h2>
  
+<? if ($GET_modePage == "gestion") {?>
 <form action="#" name="searchFormAccessoire" onSubmit="return false;" >
 	<div class="row">
 		<div class="col-sm-2 col-xs-12 ">
@@ -54,6 +55,7 @@
 		</div>
 	</div>
 </form>
+<? } ?>
 <div class="tabAction" >
 	<div class="row">
 		<div class="col-sm-6 col-xs-12 ">

@@ -6,7 +6,7 @@ var etatVue =[];
 function initPage() {
 	if (ADMIN || GetCookie('CAFFARD_BAV')) {
 		initForm();
-		getElement('numFicAcc').focus();
+		getElement('numFicAcc') ? getElement('numFicAcc').focus() : null;
 		x_return_allAccessoires(display_accessoires);
 
 		reloadPage();
@@ -77,18 +77,21 @@ function display_finCreate(val) {
 
 function initForm() {
 	// getElement('acc_etat_prec').style.display = 'none';
-	getElement('acc_etat_next').style.display = 'none';
-	getElement('acc_etat').style.display = 'none';
-	getElement('acc_commentaire').disabled = true;
-	getElement('acc_modif').style.display = 'none';
-	getElement('acc_reset').style.display = 'none';
+	getElement('acc_etat_next') ? getElement('acc_etat_next').style.display = 'none' : null;
+	getElement('acc_etat') ? getElement('acc_etat').style.display = 'none' : null;
+	getElement('acc_commentaire') ? getElement('acc_commentaire').disabled = true : null;
+	getElement('acc_modif') ? getElement('acc_modif').style.display = 'none' :null;
+	getElement('acc_reset') ? getElement('acc_reset').style.display = 'none' : null;
 	var val = []
 	val['acc_etat_prec'] = "";
 	val['acc_etat_next'] = "";
 	val['acc_etat'] = "";
 	val['acc_commentaire'] = "";
 	val['numFicAcc'] = "";
-	display_formulaire(val, searchFormAccessoire);
+	if (document.searchFormAccessoire) {
+		display_formulaire(val, searchFormAccessoire);
+	}
+	console.log("fin initForm");
 }
 
 function display_accessoire(val) {
@@ -190,7 +193,7 @@ function display_accessoires(val) {
 				classEtat = tabClass[indexEtat];
 				repr += "<div class='col-xs-6 col-sm-4 col-md-4' > "
 				repr += "  <div class='fiche link0 " + classEtat + "' ";
-				if (indexEtat != tabEtat.length - 1) {
+				if (indexEtat != tabEtat.length - 1 && modePage == "gestion") {
 					repr += "    onclick='cghtEtat(\"" + tabAction[indexEtat + 1] + "\"," + val[i]['acc_numero'] + ") ' ";
 				}
 				repr += "   title='Basculer vers " + tabEtat[indexEtat + 1] + "'>";
@@ -199,14 +202,14 @@ function display_accessoires(val) {
 				repr += "     <div class=titrow>Vélo : " + val[i]['obj_marque'] + "</div>";
 				repr += "  </div>";
 				// repr += tabEtat[indexEtat];
-				if (indexEtat > 0) {
+				if (indexEtat > 0 && modePage == "gestion") {
 					var classEtatPrec = tabClass[indexEtat - 1];
 
 					repr += "<div class='tittab link0 " + classEtatPrec + "' ";
 					repr += " onclick='cghtEtat(\"" + tabAction[indexEtat - 1] + "\"," + val[i]['acc_numero'] + ")' >";
 					repr += " Retour vers : " + tabEtat[indexEtat - 1] + "</div>";
 				}
-				else if (indexEtat != tabEtat.length - 1) {
+				else if (indexEtat != tabEtat.length - 1 && modePage == "gestion") {
 					repr += "<div class='tittab link0 error' ";
 					repr += " onclick='deleteAccessoire(" + val[i]['acc_numero'] + ")' >Supprimer</div>";
 				}

@@ -94,9 +94,11 @@ if ($infAppli['ADMIN']) {
                 ],
                 'creneau.php' => [
                     'libelle' => 'Créneaux'
+                    
                 ],
                  'accessoires.php' => [
-                    'libelle' => 'Accessoires'
+                    'libelle' => 'Accessoires',
+                    'mode' => 'gestion',
                 ],
                 'stat.php' => [
                     'libelle' => 'Stats',
